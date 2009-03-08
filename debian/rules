@@ -7,3 +7,4 @@ DEBIAN_PACKAGE_VERSION := $(shell dpkg-parsechangelog | grep '^Version:' | sed '
 DEB_CMAKE_CUSTOM_FLAGS += -DDEBIAN_PACKAGE_VERSION="$(DEBIAN_PACKAGE_VERSION)"
 
 include debian/debhelper/kde4.mk
+-include /usr/share/topgit/tg2quilt.mk
