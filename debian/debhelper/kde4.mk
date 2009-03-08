@@ -41,7 +41,7 @@ _PERLLIB := $(PERLLIB)
 _PATH := $(PATH)
 export PERLLIB := $(CURDIR)/debian:$(_PERLLIB)
 export PATH := $(CURDIR)/debian/debhelper:$(_PATH)
-DH = dh --with kde4
+DH = dh
 
 # Default targets
 DEB_ALL_DEFAULT_TARGETS := build install binary binary-arch binary-indep clean
