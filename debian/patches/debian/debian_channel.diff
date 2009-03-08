@@ -1,0 +1,39 @@
+From: Modestas Vainius <modestas@vainius.eu>
+Subject: [PATCH] debian/debian_channel
+
+Connect to Debian IRC server and join both #debian and
+#debian-kde channels by default.
+
+Signed-off-by: Modestas Vainius <modestas@vainius.eu>
+
+---
+ src/config/preferences.cpp |   10 ++++++----
+ 1 files changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/src/config/preferences.cpp b/src/config/preferences.cpp
+index 7080185..0769563 100644
+--- a/src/config/preferences.cpp
++++ b/src/config/preferences.cpp
+@@ -69,14 +69,16 @@ Preferences::Preferences()
+     mIdentity->setNicknameList(nickList);
+ 
+     Konversation::ServerGroupSettingsPtr serverGroup(new Konversation::ServerGroupSettings);
+-    serverGroup->setName("Freenode");
++    serverGroup->setName("Debian IRC");
+     Konversation::ServerSettings server;
+-    server.setHost("irc.freenode.org");
+-    server.setPort(8001);
++    server.setHost("irc.debian.org");
++    server.setPort(7000);
+     serverGroup->addServer(server);
+     serverGroup->setIdentityId(mIdentity->id());
+     Konversation::ChannelSettings channel;
+-    channel.setName("#konversation");
++    channel.setName("#debian");
++    serverGroup->addChannel(channel);
++    channel.setName("#debian-kde");
+     serverGroup->addChannel(channel);
+     serverGroup->setExpanded(false);
+     mServerGroupList.append(serverGroup);
+-- 
+tg: (3671cf2..) debian/debian_channel (depends on: upstream)
