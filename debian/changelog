@@ -11,6 +11,8 @@ konversation (1.1.75+svn936507-0r1) UNRELEASED; urgency=low
     - switch section to net;
     - provide irc virtual package.
   * Build depend on kdepimlibs5-dev.
+  * Build depend on libx11-dev and x11proto-core-dev, Away Manager needs X
+    these headers.
   * Bump compat devel to v7. 
   * Strip of debian/tmp in *.install files. Update konversation.install.
   * Drop man file.
@@ -29,8 +31,9 @@ konversation (1.1.75+svn936507-0r1) UNRELEASED; urgency=low
     - 98_buildprep.diff - remove, no more autohell, using cmake now.
     - kubuntu_01_kdepot.diff - remove.
    * Add topgit support to debian/rules.
+  * 
 
- -- Modestas Vainius <modestas@vainius.eu>  Sun, 08 Mar 2009 11:16:05 +0200
+ -- Modestas Vainius <modestas@vainius.eu>  Sun, 08 Mar 2009 11:23:32 +0200
 
 konversation (1.1-1) unstable; urgency=low
 
