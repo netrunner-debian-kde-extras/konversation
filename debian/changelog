@@ -15,8 +15,20 @@ konversation (1.1.75+svn936507-0r1) UNRELEASED; urgency=low
   * Drop man file.
   * Add TODO.Debian.
   * Install scripts README via konversation.install.
+  * Review debian/patches:
+    - 01_libtool_update.diff - remove, not needed anymore (no libtool);
+    - 02_am_maintainer_mode.diff - remove, not needed anymore (no automake);
+    - 03_pedantic-errors.diff - remove, not needed anymore (no automake);
+    - 04_disable_no_undefined.diff - remove, not needed anymore (no automake);
+    - 10_debian_channel.diff - adapt, renamed to debian/debian_channel.diff;
+    - 11_dbug_autoreplace.diff - adapt, rename to debian/dbug_autoreplace.diff;
+    - 17_add_extra_version_string.diff - remove, merged with the one below;
+    - 18_debian_package_version_to_about.diff - adapt, rename to
+      debian/aboutdata_add_debian_version.diff;
+    - 98_buildprep.diff - remove, no more autohell, using cmake now.
+    - kubuntu_01_kdepot.diff - remove.
 
- -- Modestas Vainius <modestas@vainius.eu>  Sun, 08 Mar 2009 10:23:29 +0200
+ -- Modestas Vainius <modestas@vainius.eu>  Sun, 08 Mar 2009 10:26:23 +0200
 
 konversation (1.1-1) unstable; urgency=low
 
