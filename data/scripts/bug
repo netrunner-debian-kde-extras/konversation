@@ -1,0 +1,17 @@
+#!/bin/sh
+
+SERVER=$1
+TARGET=$2
+BUG=$3
+
+if [ ! $TARGET ]
+then
+  qdbus org.kde.konversation /irc error "Can't write into status view."
+else
+  if [ -z $BUG ]
+  then
+    qdbus org.kde.konversation /irc error "You forgot the bug number!"
+  else
+    kfmclient openURL http://bugs.kde.org/show_bug.cgi?id=$3
+  fi
+fi
