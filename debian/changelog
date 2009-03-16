@@ -1,18 +1,20 @@
-konversation (1.1.75+svn936507-0r1) UNRELEASED; urgency=low
+konversation (1.1.75+svn940140-1) experimental; urgency=low
 
   * New upstream development snapshot (for KDE 4):
-    - Last Changed Author: buschinski
-    - Last Changed Rev: 936507
-    - Last Changed Date: 2009-03-07 21:53:22 +0200
+    - Last Changed Author: pino
+    - Last Changed Rev: 940140
+    - Last Changed Date: 2009-03-16 19:19:02 +0200
   * Steal packaging from amarok. Build depend on debhelper 7.0.50.
   * Adjust debian/control:
     - switch to KDE 4 build depends, clean them up;
     - switch packaging Vcs to git;
     - switch section to net;
+    - switch konversation-dbg section to debug;
     - provide irc virtual package.
+  * Bump Standards-Version to 3.8.1, no changes needed.
   * Build depend on kdepimlibs5-dev.
-  * Build depend on libx11-dev and x11proto-core-dev, Away Manager needs X
-    these headers.
+  * Build depend on libx11-dev and x11proto-core-dev, Away Manager needs
+    these X headers.
   * Bump compat devel to v7. 
   * Strip of debian/tmp in *.install files. Update konversation.install.
   * Drop man file.
@@ -32,8 +34,9 @@ konversation (1.1.75+svn936507-0r1) UNRELEASED; urgency=low
     - kubuntu_01_kdepot.diff - remove.
   * Add topgit support to debian/rules.
   * Update debian/copyright.
+  * Remove ruby from recommends and libsoap-lite-perl from suggests. 
 
- -- Modestas Vainius <modestas@vainius.eu>  Sun, 08 Mar 2009 12:12:09 +0200
+ -- Modestas Vainius <modestas@vainius.eu>  Mon, 16 Mar 2009 20:08:41 +0200
 
 konversation (1.1-1) unstable; urgency=low
 

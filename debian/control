@@ -6,7 +6,7 @@ Uploaders: Modestas Vainius <modestas@vainius.eu>
 Build-Depends: debhelper (>= 7.0.50), cmake (>= 2.6.2), pkg-kde-tools (>= 0.4), quilt (>= 0.46-4.1),
  libqt4-dev (>= 4.4.3), kdelibs5-dev (>= 4:4.2.0), kdepimlibs5-dev (>= 4:4.2.0),
  libx11-dev, x11proto-core-dev
-Standards-Version: 3.8.0
+Standards-Version: 3.8.1
 DM-Upload-Allowed: yes
 Homepage: http://konversation.kde.org/
 Vcs-Git: git://git.debian.org/git/pkg-kde/kde-extras/konversation.git
@@ -16,8 +16,7 @@ Package: konversation
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Provides: irc
-Recommends: python, ruby
-Suggests: libsoap-lite-perl
+Recommends: python
 Description: user friendly Internet Relay Chat (IRC) client for KDE
  Konversation is a client for the Internet Relay Chat (IRC) protocol.
  It is easy to use and well-suited for novice IRC users, but novice
@@ -37,7 +36,7 @@ Description: user friendly Internet Relay Chat (IRC) client for KDE
        * DCC file transfer with resume support
 
 Package: konversation-dbg
-Section: devel
+Section: debug
 Architecture: any
 Priority: extra
 Depends: konversation (= ${binary:Version})
