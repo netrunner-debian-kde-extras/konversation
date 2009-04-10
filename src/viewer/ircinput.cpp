@@ -263,6 +263,20 @@ void IRCInput::keyPressEvent(QKeyEvent* e)
     KTextEdit::keyPressEvent(e);
 }
 
+void IRCInput::wheelEvent(QWheelEvent* e)
+{
+    if (e->delta() > 0)
+    {
+        emit history(true);
+    }
+    else if (e->delta() < 0)
+    {
+        emit history(false);
+    }
+
+    KTextEdit::wheelEvent(e);
+}
+
 void IRCInput::addHistory(const QString& line)
 {
     // Only add line if it's not the same as the last was

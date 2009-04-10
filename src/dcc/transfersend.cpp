@@ -27,8 +27,11 @@
 #include <netinet/in.h>
 #include <sys/socket.h>
 #ifndef Q_CC_MSVC
-#include <net/if.h>
-#include <sys/ioctl.h>
+#   include <net/if.h>
+#   include <sys/ioctl.h>
+#   ifdef HAVE_STROPTS_H
+#       include <stropts.h>
+#   endif
 #endif
 #include <arpa/inet.h>
 
@@ -95,8 +98,8 @@ void DccTransferSend::cleanUp()
 // just for convenience
 void DccTransferSend::failed( const QString& errorMessage )
 {
-    setStatus( Failed, errorMessage );
     cleanUp();
+    setStatus( Failed, errorMessage );
     emit done( this );
 }
 
@@ -226,8 +229,8 @@ void DccTransferSend::abort()                     // public slot
 {
     kDebug();
 
-    setStatus( Aborted );
     cleanUp();
+    setStatus( Aborted );
     emit done( this );
 }
 
@@ -290,6 +293,8 @@ void DccTransferSend::start()                     // public slot
 
         kDebug() << "Passive DCC key(token): " << m_reverseToken;
 
+        startConnectionTimer( Preferences::self()->dccSendTimeout() );
+
         server->dccPassiveSendRequest( m_partnerNick, transferFileName(m_fileName), DccCommon::textIpToNumericalIp( m_ownIp ), m_fileSize, m_reverseToken );
     }
 
@@ -300,6 +305,8 @@ void DccTransferSend::connectToReceiver( const QString& partnerHost, uint partne
 {
     kDebug();
     // Reverse DCC
+
+    startConnectionTimer( Preferences::self()->dccSendTimeout() );
 
     m_partnerIp = partnerHost;
     m_partnerPort = partnerPort;
@@ -343,6 +350,7 @@ void DccTransferSend::acceptClient()                     // slot
         failed( i18n( "Could not accept the connection. (Socket Error)" ) );
         return;
     }
+    connect( m_sendSocket, SIGNAL( error ( QAbstractSocket::SocketError ) ), this, SLOT( slotGotSocketError(int) ));
 
     // we don't need ServerSocket anymore
     m_serverSocket->close();
@@ -352,6 +360,8 @@ void DccTransferSend::acceptClient()                     // slot
 
 void DccTransferSend::startSending()
 {
+    stopConnectionTimer();
+
     if ( m_fastSend )
         connect( m_sendSocket, SIGNAL( bytesWritten( qint64 ) ), this, SLOT( writeData() ) );
     connect( m_sendSocket, SIGNAL( readyRead() ),  this, SLOT( getAck() ) );
@@ -366,9 +376,9 @@ void DccTransferSend::startSending()
         m_file.seek( m_transferringPosition );
         m_transferStartPosition = m_transferringPosition;
 
-        setStatus( Transferring );
         writeData();
         startTransferLogger();                      // initialize CPS counter, ETA counter, etc...
+        setStatus( Transferring );
     }
     else
         failed( getQFileErrorString( m_file.error() ) );
@@ -381,8 +391,22 @@ void DccTransferSend::writeData()                 // slot
     int actual = m_file.read( m_buffer, m_bufferSize );
     if ( actual > 0 )
     {
-        m_sendSocket->write( m_buffer, actual );
-        m_transferringPosition += actual;
+        qint64 byteWritten = m_sendSocket->write( m_buffer, actual );
+        if (byteWritten == -1)
+        {
+            failed ( m_sendSocket->errorString() );
+            return;
+        }
+        //this "can" happen when resources are temporary unavailable
+        //NOTE: this is not fatal
+        if (byteWritten < actual)
+        {
+            kWarning() << "byteWritten < actual : " << byteWritten << " < " << actual;
+            kWarning() << "try to correct it with byteWritten += " << m_sendSocket->bytesToWrite();
+            byteWritten += m_sendSocket->bytesToWrite();
+        }
+        m_transferringPosition += byteWritten;
+        //m_transferringPosition += actual;
         if ( (KIO::fileoffset_t)m_fileSize <= m_transferringPosition )
         {
             Q_ASSERT( (KIO::fileoffset_t)m_fileSize == m_transferringPosition );
@@ -407,8 +431,8 @@ void DccTransferSend::getAck()                    // slot
         {
             kDebug() << "Received final ACK.";
             finishTransferLogger();
-            setStatus( Done );
             cleanUp();
+            setStatus( Done );
             emit done( this );
             break;                                // for safe
         }
@@ -417,6 +441,7 @@ void DccTransferSend::getAck()                    // slot
 
 void DccTransferSend::slotGotSocketError( int errorCode )
 {
+    stopConnectionTimer();
     kDebug() << "code =  " << errorCode << " string = " << m_serverSocket->errorString();
     failed( i18n( "Socket error: %1", m_serverSocket->errorString() ) );
 }
@@ -424,7 +449,7 @@ void DccTransferSend::slotGotSocketError( int errorCode )
 void DccTransferSend::startConnectionTimer( int sec )
 {
     kDebug();
-    stopConnectionTimer();
+    //start also restarts, no need for us to double check it
     m_connectionTimer->start(sec*1000);
 }
 
