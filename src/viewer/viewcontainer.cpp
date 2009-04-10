@@ -1321,6 +1321,13 @@ void ViewContainer::addView(ChatWindow* view, const QString& label, bool weiniti
     }
 
     m_tabWidget->insertTab(placement, view, iconSet, label);
+    // HACK Seems like automatic resize isn't all that automatic currently.
+    // Work around it by unsetting it and setting it again.
+    if (Preferences::self()->useMaxSizedTabs())
+    {
+        m_tabWidget->setAutomaticResizeTabs(false);
+        m_tabWidget->setAutomaticResizeTabs(true);
+    }
     m_vbox->show();//m_tabWidget->show();
 
     if (m_viewTree)
@@ -2395,7 +2402,7 @@ void ViewContainer::openNicksOnlinePanel()
         m_nicksOnlinePanel=new NicksOnline(m_window);
         addView(m_nicksOnlinePanel, i18n("Watched Nicks Online"));
         connect(m_nicksOnlinePanel, SIGNAL(editClicked()), m_window, SLOT(openNotify()));
-        connect(m_nicksOnlinePanel, SIGNAL(doubleClicked(const QString&,const QString&)), m_window, SLOT(notifyAction(const QString&,const QString&)));
+        connect(m_nicksOnlinePanel, SIGNAL(doubleClicked(int,const QString&)), m_window, SLOT(notifyAction(int,const QString&)));
         connect(m_nicksOnlinePanel, SIGNAL(showView(ChatWindow*)), this, SLOT(showView(ChatWindow*)));
         connect(m_window, SIGNAL(nicksNowOnline(Server*)), m_nicksOnlinePanel, SLOT(updateServerOnlineList(Server*)));
         (dynamic_cast<KToggleAction*>(actionCollection()->action("open_nicksonline_window")))->setChecked(true);

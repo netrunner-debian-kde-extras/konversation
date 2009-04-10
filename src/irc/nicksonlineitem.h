@@ -50,9 +50,21 @@ class NicksOnlineItem : public K3ListViewItem
         * @return                  One of the enum NickListViewColumn
         */
         int type() const;
+        
+        /// Set the connection ID this item is associated with to @p id.
+        void setConnectionId(int id) { m_connectionId = id; }
+        /// Returns the connection ID this item is associated with.
+        int connectionId() const { return m_connectionId; }
+
+        /// Set the nick's offline state as @p state
+        void setOffline (bool state) { m_offline = state; }
+        /// Returns true if the nick is currently offline.
+        bool isOffline () const { return m_offline; }
 
     protected:
         int m_type;
+        int m_connectionId;
+        bool m_offline;
 };
 
 #endif
