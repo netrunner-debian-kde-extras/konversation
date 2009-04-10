@@ -12,19 +12,19 @@ Signed-off-by: Modestas Vainius <modestas@vainius.eu>
  2 files changed, 14 insertions(+), 1 deletions(-)
 
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index 6bb0793..987c55e 100644
+index e242545..0500f69 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
 @@ -194,6 +194,11 @@ set(blowfish_SRCS
  set (completed_SRCS ${core_SRCS}  ${irc_SRCS} ${viewer_SRCS} ${prefs_SRCS} ${dcc_SRCS} ${linkaddressbook_SRCS} ${blowfish_SRCS})
- set (konvi_SRCS ${completed_SRCS})
+ set (konversation_SRCS ${completed_SRCS})
  
 +if (DEBIAN_PACKAGE_VERSION)
 +    MESSAGE(STATUS "Building Debian package version ${DEBIAN_PACKAGE_VERSION} ...")
 +    set_source_files_properties(main.cpp PROPERTIES COMPILE_FLAGS -DDEBIAN_PACKAGE_VERSION=${DEBIAN_PACKAGE_VERSION})
 +endif (DEBIAN_PACKAGE_VERSION)
 +
- kde4_add_ui_files(konvi_SRCS
+ kde4_add_ui_files(konversation_SRCS
      identitydialog.ui
      queuetunerbase.ui
 diff --git a/src/main.cpp b/src/main.cpp
@@ -56,4 +56,4 @@ index b04e03e..27c4c8a 100644
          KAboutData::License_GPL,
          ki18n("(C) 2002-2009 by the Konversation team"),
 -- 
-tg: (15963f5..) debian/aboutdata_add_debian_version (depends on: upstream)
+tg: (2f526af..) debian/aboutdata_add_debian_version (depends on: upstream)
