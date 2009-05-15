@@ -12,10 +12,10 @@ Signed-off-by: Modestas Vainius <modestas@vainius.eu>
  2 files changed, 14 insertions(+), 1 deletions(-)
 
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index e242545..0500f69 100644
+index 0dbbff6..fdab468 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
-@@ -194,6 +194,11 @@ set(blowfish_SRCS
+@@ -195,6 +195,11 @@ set(blowfish_SRCS
  set (completed_SRCS ${core_SRCS}  ${irc_SRCS} ${viewer_SRCS} ${prefs_SRCS} ${dcc_SRCS} ${linkaddressbook_SRCS} ${blowfish_SRCS})
  set (konversation_SRCS ${completed_SRCS})
  
@@ -28,7 +28,7 @@ index e242545..0500f69 100644
      identitydialog.ui
      queuetunerbase.ui
 diff --git a/src/main.cpp b/src/main.cpp
-index b04e03e..27c4c8a 100644
+index c81a181..331bc71 100644
 --- a/src/main.cpp
 +++ b/src/main.cpp
 @@ -25,6 +25,14 @@
@@ -56,4 +56,4 @@ index b04e03e..27c4c8a 100644
          KAboutData::License_GPL,
          ki18n("(C) 2002-2009 by the Konversation team"),
 -- 
-tg: (62bc25a..) debian/aboutdata_add_debian_version (depends on: upstream)
+tg: (ee0e699..) debian/aboutdata_add_debian_version (depends on: upstream)

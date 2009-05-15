@@ -11,16 +11,16 @@ Signed-off-by: Modestas Vainius <modestas@vainius.eu>
  1 files changed, 1 insertions(+), 0 deletions(-)
 
 diff --git a/src/config/preferences.cpp b/src/config/preferences.cpp
-index 7080185..9402986 100644
+index fe4a4a2..4bd833d 100644
 --- a/src/config/preferences.cpp
 +++ b/src/config/preferences.cpp
-@@ -127,6 +127,7 @@ void Preferences::clearQuickButtonList()
- const QStringList Preferences::defaultAutoreplaceList()
- {
-     return QStringList() << "1,o,\\[\\[([^\\s]+)\\]\\],http://en.wikipedia.org/wiki/Special:Search?go=Go&search=%1"
-+                         << "1,o,([Dd][Bb][Uu][Gg]:)(\\w+),http://bugs.debian.org/%2"
-                          << "1,o,(BUG:|bug:)([0-9]+),http://bugs.kde.org/show_bug.cgi?id=%2";
+@@ -129,6 +129,7 @@ const QList<QStringList> Preferences::defaultAutoreplaceList()
+     QList<QStringList> defaultList;
+     defaultList.append(QStringList() << "1" << "o" << "\\[\\[([^\\s]+)\\]\\]" << "http://en.wikipedia.org/wiki/Special:Search?go=Go&search=%1");
+     defaultList.append(QStringList() << "1" << "o" << "(BUG:|bug:)([0-9]+)" << "http://bugs.kde.org/show_bug.cgi?id=%2");
++    defaultList.append(QStringList() << "1" << "o" << "([Dd][Bb][Uu][Gg]:)(\\w+)" << "http://bugs.debian.org/%2");
+     return defaultList;
  }
  
 -- 
-tg: (62bc25a..) debian/dbug_autoreplace (depends on: upstream)
+tg: (ee0e699..) debian/dbug_autoreplace (depends on: upstream)

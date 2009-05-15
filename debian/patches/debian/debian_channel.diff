@@ -11,7 +11,7 @@ Signed-off-by: Modestas Vainius <modestas@vainius.eu>
  1 files changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/src/config/preferences.cpp b/src/config/preferences.cpp
-index 7080185..0769563 100644
+index fe4a4a2..cd71ee1 100644
 --- a/src/config/preferences.cpp
 +++ b/src/config/preferences.cpp
 @@ -69,14 +69,16 @@ Preferences::Preferences()
@@ -21,7 +21,7 @@ index 7080185..0769563 100644
 -    serverGroup->setName("Freenode");
 +    serverGroup->setName("Debian IRC");
      Konversation::ServerSettings server;
--    server.setHost("irc.freenode.org");
+-    server.setHost("chat.freenode.net");
 -    server.setPort(8001);
 +    server.setHost("irc.debian.org");
 +    server.setPort(7000);
@@ -36,4 +36,4 @@ index 7080185..0769563 100644
      serverGroup->setExpanded(false);
      mServerGroupList.append(serverGroup);
 -- 
-tg: (62bc25a..) debian/debian_channel (depends on: upstream)
+tg: (ee0e699..) debian/debian_channel (depends on: upstream)
