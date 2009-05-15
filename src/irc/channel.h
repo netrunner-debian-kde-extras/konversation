@@ -29,13 +29,13 @@ class Q3ListViewItem;
 class QStringList;
 class QSplitter;
 class Q3Grid;
-class QComboBox;
 class QDropEvent;
 class QToolButton;
 
 class KLineEdit;
 class KVBox;
 class KHBox;
+class KComboBox;
 
 class NickListView;
 class QuickButton;
@@ -119,6 +119,8 @@ class Channel : public ChatWindow
 
 //Nicklist
     public:
+        void flushPendingNicks();
+
         ChannelNickPtr getOwnChannelNick();
         ChannelNickPtr getChannelNick(const QString &ircnick);
 
@@ -323,7 +325,7 @@ class Channel : public ChatWindow
         KHBox* commandLineBox;
         KVBox* nickListButtons;
         Q3Grid* buttonsGrid;
-        QComboBox* nicknameCombobox;
+        KComboBox* nicknameCombobox;
         QString oldNick; ///< GUI
         QLabel* awayLabel;
         QLabel* blowfishLabel;

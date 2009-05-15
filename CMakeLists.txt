@@ -12,9 +12,14 @@ include(KDE4Defaults)
 include(MacroLibrary)
 include(CheckIncludeFile)
 
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DQT_STRICT_ITERATORS)
+add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 
-include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${KDE4_INCLUDES} ${KDE4_INCLUDE_DIR} ${QT_INCLUDES})
+string(TOLOWER ${CMAKE_BUILD_TYPE} CMAKE_BUILD_TYPE_TOLOWER)
+if(CMAKE_BUILD_TYPE_TOLOWER MATCHES debugfull)
+add_definitions (-DQT_STRICT_ITERATORS)
+endif()
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${KDE4_INCLUDES} ${KDE4_INCLUDE_DIR} ${QT_INCLUDES})
 
 #looks like the original test is from Kopete, their port doesn't use Xext so neither shall ours
 if (Q_WS_X11)
@@ -32,6 +37,5 @@ configure_file(config-konversation.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-ko
 
 add_subdirectory(src)
 add_subdirectory(data)
-macro_optional_add_subdirectory(doc)
 
 macro_display_feature_log()

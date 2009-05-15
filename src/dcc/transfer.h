@@ -107,9 +107,12 @@ class DccTransfer : public QObject
         virtual void abort() {};
 
     protected:
+        virtual void cleanUp();
+        void failed(const QString& errorMessage = QString() );
+
         /**
          * setStatus behavior changed:
-         * Now make sure to run functions that change transfer informations before setStatus.
+         * Now make sure to run functions that change transfer information before setStatus.
          * For example cleanUp();
          *
          * If you call setStatus(..) and change the "Started at:"-time afterwards,

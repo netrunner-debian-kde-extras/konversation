@@ -45,6 +45,8 @@
 #include <KGlobalSettings>
 #include <KVBox>
 #include <KXMLGUIFactory>
+#include <KRun>
+#include <KUrl>
 
 
 #include <KActionCollection>
@@ -1320,7 +1322,7 @@ void ViewContainer::addView(ChatWindow* view, const QString& label, bool weiniti
             break;
     }
 
-    m_tabWidget->insertTab(placement, view, iconSet, label);
+    m_tabWidget->insertTab(placement, view, iconSet, QString(label).replace('&', "&&"));
     // HACK Seems like automatic resize isn't all that automatic currently.
     // Work around it by unsetting it and setting it again.
     if (Preferences::self()->useMaxSizedTabs())
@@ -1553,7 +1555,7 @@ void ViewContainer::cleanupAfterClose(ChatWindow* view)
             m_saveSplitterSizesLock = true;
             m_vbox->hide();
             emit resetStatusBar();
-            emit setWindowCaption(QString::null);
+            emit setWindowCaption(QString());
         }
     }
 
@@ -1967,9 +1969,16 @@ void ViewContainer::openLogFile(const QString& caption, const QString& file)
 {
     if (!file.isEmpty())
     {
-        LogfileReader* logReader = new LogfileReader(m_tabWidget, file);
-        addView(logReader, i18n("Logfile of %1",caption));
-        logReader->setServer(0);
+        if(Preferences::self()->useExternalLogViewer())
+        {
+            new KRun(KUrl(file), m_window, 0, false, false, "");
+        }
+        else
+        {
+            LogfileReader* logReader = new LogfileReader(m_tabWidget, file);
+            addView(logReader, i18n("Logfile of %1",caption));
+            logReader->setServer(0);
+        }
     }
 }
 

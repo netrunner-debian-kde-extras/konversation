@@ -110,7 +110,6 @@ IRCView::IRCView(QWidget* parent, Server* newServer) : KTextBrowser(parent)
     connect( this, SIGNAL( highlighted ( const QString &) ), this, SLOT( highlightedSlot( const QString &) ) );
     setOpenLinks(false);
     setUndoRedoEnabled(0);
-    //setLinkUnderline(false);
     document()->setDefaultStyleSheet("a.nick:link {text-decoration: none}");
     setWordWrapMode(QTextOption::WrapAtWordBoundaryOrAnywhere);
     //setNotifyClick(true); // TODO FIXME import the rest of the link handling
@@ -271,7 +270,7 @@ void IRCView::append(const QString& nick, const QString& message)
     QString nickLine = createNickLine(nick);
 
     QString line;
-    line = "<p><font color=\"" + channelColor + "\">%1" + nickLine + " %3</font></p>\n";
+    line = "<p><font color=\"" + channelColor + "\">%1" + nickLine + " %3</font></p>";
     line = line.arg(timeStamp(), nick, filter(message, channelColor, nick, true));
 
     emit textToLog(QString("<%1>\t%2").arg(nick).arg(message));
@@ -286,11 +285,21 @@ void IRCView::appendRaw(const QString& message, bool suppressTimestamps, bool se
 
     QString line;
     if (suppressTimestamps)
-        line = QString("<p><font color=\"" + channelColor.name() + "\">" + message + "</font></p>\n");
+        line = QString("<p><font color=\"" + channelColor.name() + "\">" + message + "</font></p>");
     else
-        line = QString("<p>" + timeStamp() + " <font color=\"" + channelColor.name() + "\">" + message + "</font></p>\n");
+        line = QString("<p>" + timeStamp() + " <font color=\"" + channelColor.name() + "\">" + message + "</font></p>");
 
     doAppend(line, self);
+}
+
+void IRCView::appendLog(const QString & message)
+{
+    QColor channelColor = Preferences::self()->color(Preferences::ChannelMessage);
+    m_tabNotification = Konversation::tnfNone;
+
+    QString line("<p><font color=\"" + channelColor.name() + "\">" + message + "</font></p>");
+
+    doRawAppend(line);
 }
 
 void IRCView::appendQuery(const QString& nick, const QString& message, bool inChannel)
@@ -302,7 +311,7 @@ void IRCView::appendQuery(const QString& nick, const QString& message, bool inCh
     QString nickLine = createNickLine(nick, true, inChannel);
 
     QString line;
-    line = "<p><font color=\"" + queryColor + "\">%1 " + nickLine + " %3</font></p>\n";
+    line = "<p><font color=\"" + queryColor + "\">%1 " + nickLine + " %3</font></p>";
     line = line.arg(timeStamp(), nick, filter(message, queryColor, nick, true));
 
     emit textToLog(QString("<%1>\t%2").arg(nick).arg(message));
@@ -329,7 +338,7 @@ void IRCView::appendAction(const QString& nick, const QString& message)
     QString nickLine = createNickLine(nick, false);
 
     QString line;
-    line = "<p><font color=\"" + actionColor + "\">%1 * " + nickLine + " %3</font></p>\n";
+    line = "<p><font color=\"" + actionColor + "\">%1 * " + nickLine + " %3</font></p>";
     line = line.arg(timeStamp(), nick, filter(message, actionColor, nick, true));
 
     emit textToLog(QString("\t * %1 %2").arg(nick).arg(message));
@@ -351,7 +360,7 @@ void IRCView::appendServerMessage(const QString& type, const QString& message, b
     }
 
     QString line;
-    line = "<p><font color=\"" + serverColor + "\"" + fixed + ">%1 <b>[</b>%2<b>]</b> %3</font></p>\n";
+    line = "<p><font color=\"" + serverColor + "\"" + fixed + ">%1 <b>[</b>%2<b>]</b> %3</font></p>";
     if(type != i18n("Notify"))
         line = line.arg(timeStamp(), type, filter(message, serverColor, 0 , true, parseURL));
     else
@@ -384,7 +393,7 @@ void IRCView::appendCommandMessage(const QString& type,const QString& message, b
     prefix=Qt::escape(prefix);
 
     QString line;
-    line = "<p><font color=\"" + commandColor + "\">%1 %2 %3</font></p>\n";
+    line = "<p><font color=\"" + commandColor + "\">%1 %2 %3</font></p>";
 
     line = line.arg(timeStamp(), prefix, filter(message, commandColor, 0, true, parseURL, self));
 
@@ -404,18 +413,18 @@ void IRCView::appendBacklogMessage(const QString& firstColumn,const QString& raw
     time = nick.section(' ', 0, 4);
     nick = nick.section(' ', 5);
 
-    if(!nick.isEmpty() && !nick.startsWith("<") && !nick.startsWith("*"))
+    if(!nick.isEmpty() && !nick.startsWith('<') && !nick.startsWith('*'))
     {
         nick = '|' + nick + '|';
     }
 
     // Nicks are in "<nick>" format so replace the "<>"
-    nick.replace("<","&lt;");
-    nick.replace(">","&gt;");
+    nick.replace('<',"&lt;");
+    nick.replace('>',"&gt;");
 
     QString line;
 
-    line = "<p><font color=\"" + backlogColor + "\">%1 %2 %3</font></p>\n";
+    line = "<p><font color=\"" + backlogColor + "\">%1 %2 %3</font></p>";
     line = line.arg(time, nick, filter(message, backlogColor, NULL, false, false));
 
     doAppend(line);
@@ -423,23 +432,19 @@ void IRCView::appendBacklogMessage(const QString& firstColumn,const QString& raw
 
 void IRCView::doAppend(const QString& newLine, bool self)
 {
-    QString line(newLine);
-
     if (!self && m_chatWin)
         m_chatWin->activateTabNotification(m_tabNotification);
 
     int scrollMax = Preferences::self()->scrollbackMax();
-    if (scrollMax != 0) {
+    if (scrollMax != 0)
+    {
         //don't remove lines if the user has scrolled up to read old lines
         bool atBottom = (verticalScrollBar()->value() == verticalScrollBar()->maximum());
         document()->setMaximumBlockCount(atBottom ? scrollMax : document()->maximumBlockCount() + 1);
         //setMaximumBlockCount(atBottom ? scrollMax : maximumBlockCount() + 1);
     }
 
-    line.remove('\n'); // TODO why have newlines? we get <p>, so the \n are unnecessary...
-
-    line.remove("<p>");//remove <p> for qtextbrowser
-    KTextBrowser::append(line);
+    doRawAppend(newLine);
 
     //appendHtml(line);
 
@@ -461,6 +466,16 @@ void IRCView::doAppend(const QString& newLine, bool self)
 
     if (!m_lastStatusText.isEmpty())
         emit clearStatusBarTempText();
+}
+
+void IRCView::doRawAppend(const QString& newLine)
+{
+    QString line(newLine);
+
+    line.remove('\n'); // TODO why have newlines? we get <p>, so the \n are unnecessary...
+    line.remove("<p>");//remove <p> for qtextbrowser
+
+    KTextBrowser::append(line);
 }
 
 QString IRCView::timeStamp()
@@ -562,9 +577,9 @@ bool doHighlight, bool parseURL, bool self)
 
     // TODO: Use QStyleSheet::escape() here
     // Replace all < with &lt;
-    filteredLine.replace("<","\x0blt;");
+    filteredLine.replace('<',"\x0blt;");
     // Replace all > with &gt;
-    filteredLine.replace(">", "\x0bgt;");
+    filteredLine.replace('>', "\x0bgt;");
 
     if(filteredLine.contains('\x07'))
     {
@@ -587,7 +602,7 @@ bool doHighlight, bool parseURL, bool self)
     {
         if(!allowColors)
         {
-            colorString = QString();
+            colorString.clear();
         }
         else
         {
@@ -619,7 +634,7 @@ bool doHighlight, bool parseURL, bool self)
         filteredLine+="</font>";
 
     // Replace all text decorations
-    // TODO: \017 should reset all textt decorations to plain text
+    // TODO: \017 should reset all text decorations to plain text
     replaceDecoration(filteredLine,'\x02','b');
     replaceDecoration(filteredLine,'\x09','i');
     replaceDecoration(filteredLine,'\x13','s');
@@ -721,7 +736,7 @@ bool doHighlight, bool parseURL, bool self)
                 {
                   m_autoTextToSend.replace(QString("%%1").arg(capture),captures[capture]);
                 }
-                m_autoTextToSend.replace(QRegExp("%[0-9]"),QString());
+                m_autoTextToSend.remove(QRegExp("%[0-9]"));
             }
         }
 
@@ -753,7 +768,7 @@ const QString& IRCView::getContextNick() const
 
 void IRCView::clearContextNick()
 {
-    m_currentNick = QString();
+    m_currentNick.clear();
 }
 
 KMenu* IRCView::getPopup() const
@@ -877,24 +892,28 @@ void IRCView::anchorClicked(const QUrl& url)
 // FIXME do we still care about newtab? looks like konqi has lots of config now..
 void IRCView::openLink(const QString& url, bool)
 {
-    if (!url.isEmpty() && !url.startsWith("#"))
+    QString link(url);
+    // HACK Replace " " with %20 for channelnames, NOTE there can't be 2 channelnames in one link
+    link = link.replace (" ", "%20");
+
+    if (!link.isEmpty() && !link.startsWith('#'))
     {
-        if (url.startsWith("irc://"))
+        if (link.startsWith("irc://"))
         {
             KonversationApplication* konvApp = KonversationApplication::instance();
-            konvApp->getConnectionManager()->connectTo(Konversation::SilentlyReuseConnection, url);
+            konvApp->getConnectionManager()->connectTo(Konversation::SilentlyReuseConnection, link);
         }
-        else if (!Preferences::self()->useCustomBrowser() || url.startsWith("mailto:"))
+        else if (!Preferences::self()->useCustomBrowser() || link.startsWith("mailto:"))
         {
-            if (url.startsWith("mailto:"))
-                KToolInvocation::invokeMailer(KUrl(url));
+            if (link.startsWith("mailto:"))
+                KToolInvocation::invokeMailer(KUrl(link));
             else
-                KToolInvocation::invokeBrowser(url);
+                KToolInvocation::invokeBrowser(link);
         }
         else
         {
             QString cmd = Preferences::self()->webBrowserCmd();
-            cmd.replace("%u", url);
+            cmd.replace("%u", link);
             KProcess *proc = new KProcess;
             QStringList cmdAndArgs = KShell::splitArgs(cmd);
             *proc << cmdAndArgs;
@@ -907,17 +926,17 @@ void IRCView::openLink(const QString& url, bool)
         }
     }
     //FIXME: Don't do channel links in DCC Chats to begin with since they don't have a server.
-    else if (url.startsWith("##") && m_server && m_server->isConnected())
+    else if (link.startsWith("##") && m_server && m_server->isConnected())
     {
-        QString channel(url);
+        QString channel(link);
         channel.replace("##", "#");
         m_server->sendJoinCommand(channel);
     }
     //FIXME: Don't do user links in DCC Chats to begin with since they don't have a server.
-    else if (url.startsWith("#") && m_server && m_server->isConnected())
+    else if (link.startsWith('#') && m_server && m_server->isConnected())
     {
-        QString recipient(url);
-        recipient.remove("#");
+        QString recipient(link);
+        recipient.remove('#');
         NickInfoPtr nickInfo = m_server->obtainNickInfo(recipient);
         m_server->addQuery(nickInfo, true /*we initiated*/);
     }
@@ -940,8 +959,9 @@ void IRCView::saveLinkAs()
 void IRCView::highlightedSlot(const QString& _link)
 {
     QString link = _link;
-    // HACK Replace % with \x03 in the url to keep Qt from doing stupid things
-    link = link.replace ('\x03', "%");
+    // HACK Replace " " with %20 for channelnames, NOTE there can't be 2 channelnames in one link
+    link = link.replace (" ", "%20");
+
     //Hack to handle the fact that we get a decoded url
     //FIXME someone who knows what it looks like when we get a decoded url can reenable this if necessary...
     //link = KUrl(link).url();
@@ -958,14 +978,14 @@ void IRCView::highlightedSlot(const QString& _link)
         if (!m_lastStatusText.isEmpty())
         {
             emit clearStatusBarTempText();
-            m_lastStatusText = QString();
+            m_lastStatusText.clear();
         }
     } else
     {
         m_lastStatusText = link;
     }
 
-    if(!link.startsWith("#"))
+    if(!link.startsWith('#'))
     {
         m_isOnNick = false;
         m_isOnChannel = false;
@@ -993,7 +1013,7 @@ void IRCView::highlightedSlot(const QString& _link)
             m_urlToCopy = link;
         }
     }
-    else if (link.startsWith("#") && !link.startsWith("##"))
+    else if (link.startsWith('#') && !link.startsWith("##"))
     {
         m_currentNick = link.mid(1);
         //FIXME how are menu titles done now? /me is too tired

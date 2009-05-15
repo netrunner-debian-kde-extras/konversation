@@ -113,14 +113,6 @@ void DccTransferRecv::cleanUp()
     }
 }
 
-// just for convenience
-void DccTransferRecv::failed( const QString& errorMessage )
-{
-    cleanUp();
-    setStatus( Failed, errorMessage );
-    emit done( this );
-}
-
 void DccTransferRecv::setPartnerIp( const QString& ip )
 {
     if ( getStatus() == Configuring )
@@ -402,9 +394,9 @@ void DccTransferRecv::slotLocalCanResume( KIO::Job* job, KIO::filesize_t size )
         }
         else
         {
-            askAndPrepareLocalKio( i18n( "<b>A partial file exists.</b><br>"
-                "%1<br>"
-                "Size of the partial file: %2 bytes<br>",
+            askAndPrepareLocalKio( i18n( "<b>A partial file exists.</b><br/>"
+                "%1<br/>"
+                "Size of the partial file: %2 bytes<br/>",
                 m_fileURL.prettyUrl(),
                 KGlobal::locale()->formatNumber( size, 0 ) ),
                 DccResumeDialog::RA_Resume | DccResumeDialog::RA_Overwrite | DccResumeDialog::RA_Rename | DccResumeDialog::RA_Cancel,
@@ -610,7 +602,9 @@ void DccTransferRecv::startReceiving()
 
     connect( m_recvSocket, SIGNAL( readyRead() ),                        this, SLOT( readData() )              );
     //connect( m_recvSocket, SIGNAL( readyWrite() ),                       this, SLOT( sendAck() )               );
-    connect( m_recvSocket, SIGNAL( disconnected() ),                           this, SLOT( slotSocketClosed() )      );
+
+    //Not needed, error is also emitted when this happens + covers more cases
+    //connect( m_recvSocket, SIGNAL( disconnected() ),                           this, SLOT( slotSocketClosed() )      );
 
     m_transferStartPosition = m_transferringPosition;
 
@@ -625,8 +619,11 @@ void DccTransferRecv::startReceiving()
                                                   // slot
 void DccTransferRecv::connectionFailed( QAbstractSocket::SocketError errorCode )
 {
+    finishTransferLogger();
     kDebug() << "Code = " << errorCode << ", string = " << m_recvSocket->errorString();
-    failed( i18n( "Connection failure: %1", m_recvSocket->errorString() ) );
+    failed( m_recvSocket->errorString() );
+    setStatus( Failed );
+    emit done( this );
 }
 
 void DccTransferRecv::readData()                  // slot
@@ -703,12 +700,14 @@ void DccTransferRecv::connectionTimeout()         // slot
     failed( i18n( "Timed out" ) );
 }
 
+/*
 void DccTransferRecv::slotSocketClosed()
 {
     finishTransferLogger();
     if ( getStatus() == Transferring )
         failed( i18n( "Remote user disconnected" ) );
 }
+*/
 
 // WriteCacheHandler
 

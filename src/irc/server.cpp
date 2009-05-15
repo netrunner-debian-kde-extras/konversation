@@ -279,9 +279,9 @@ void Server::connectSignals()
 
     KonversationApplication* konvApp = static_cast<KonversationApplication*>(kapp);
     connect(getOutputFilter(), SIGNAL(connectTo(Konversation::ConnectionFlag, const QString&,
-                uint, const QString&, const QString&, const QString&, bool)),
+                const QString&, const QString&, const QString&, const QString&, bool)),
             konvApp->getConnectionManager(), SLOT(connectTo(Konversation::ConnectionFlag,
-                const QString&, uint, const QString&, const QString&, const QString&, bool)));
+                const QString&, const QString&, const QString&, const QString&, const QString&, bool)));
     connect(konvApp->getDccTransferManager(), SIGNAL(newTransferQueued(DccTransfer*)),
             this, SLOT(slotNewDccTransferItemQueued(DccTransfer*)));
 
@@ -379,7 +379,7 @@ void Server::connectToIRCServer()
         updateConnectionState(Konversation::SSConnecting);
 
         m_autoIdentifyLock = false;
-        m_ownIpByUserhost = QString();
+        m_ownIpByUserhost.clear();
 
         resetQueues();
 
@@ -614,11 +614,11 @@ void Server::sslError( const QList<QSslError>&  errors)
     QString reason;
     for(int i = 0; i < errors.size(); ++i)
     {
-        reason += errors.at(i).errorString() + " ";
+        reason += errors.at(i).errorString() + ' ';
     }
 
     //this message should be changed since sslError is called even after calling ignoreSslErrors()
-    QString error = i18n("Could not connect to %1:%2 using SSL encryption.Maybe the server does not support SSL, or perhaps you have the wrong port? %3",
+    QString error = i18n("Could not connect to %1:%2 using SSL encryption. Maybe the server does not support SSL, or perhaps you have the wrong port? %3",
         getConnectionSettings().server().host(),
         QString::number(getConnectionSettings().server().port()),
         reason);
@@ -822,7 +822,7 @@ void Server::autoCommandsAndChannels()
         if (!getNickname().isEmpty())
             connectCommands.replace("%nick", getNickname());
 
-        QStringList connectCommandsList = connectCommands.split(";", QString::SkipEmptyParts);
+        QStringList connectCommandsList = connectCommands.split(';', QString::SkipEmptyParts);
         QStringList::iterator iter;
 
         for (iter = connectCommandsList.begin(); iter != connectCommandsList.end(); ++iter)
@@ -899,7 +899,7 @@ void Server::processIncomingData()
         if (m_rawLog)
         {
             QString toRaw = front;
-            m_rawLog->appendRaw("&gt;&gt; " + toRaw.replace("&","&amp;").replace("<","&lt;").replace(">","&gt;").replace(QRegExp("\\s"), "&nbsp;"));
+            m_rawLog->appendRaw("&gt;&gt; " + toRaw.replace('&',"&amp;").replace('<',"&lt;").replace('>',"&gt;").replace(QRegExp("\\s"), "&nbsp;"));
         }
         m_inputFilter.parseLine(front);
         m_processingIncoming = false;
@@ -922,7 +922,13 @@ void Server::incoming()
     while (m_socket->canReadLine())
     {
         QByteArray line(m_socket->readLine());
-        line.chop(1);//remove \n blowfish doesnt like it
+        //remove \n blowfish doesn't like it
+        int i = line.size()-1;
+        while (line[i]=='\n' || line[i]=='\r') // since euIRC gets away with sending just \r, bet someone sends \n\r?
+        {
+            i--;
+        }
+        line.truncate(i+1);
         bufferLines.append(line);
     }
 
@@ -1091,7 +1097,7 @@ int Server::_send_internal(QString outputLine)
     // ex.: JIS7, eucJP, SJIS
     //int outlen=-1;
 
-    //leaving this done twice for now, i'm uncertain of the implications of not encoding other commands
+    //leaving this done twice for now, I'm uncertain of the implications of not encoding other commands
     QByteArray encoded = codec->fromUnicode(outputLine);
 
     QString blowfishKey;
@@ -1135,7 +1141,7 @@ int Server::_send_internal(QString outputLine)
     qint64 sout = m_socket->write(encoded, encoded.length());
 
     if (m_rawLog)
-        m_rawLog->appendRaw("&lt;&lt; " + outputLine.replace("&","&amp;").replace("<","&lt;").replace(">","&gt;"));
+        m_rawLog->appendRaw("&lt;&lt; " + outputLine.replace('&',"&amp;").replace('<',"&lt;").replace('>',"&gt;"));
 
     return sout;
 }
@@ -1514,7 +1520,7 @@ void Server::requestWho(const QString& channel)
 
 void Server::requestUserhost(const QString& nicks)
 {
-    const QStringList nicksList = nicks.split(" ", QString::SkipEmptyParts);
+    const QStringList nicksList = nicks.split(' ', QString::SkipEmptyParts);
     for(QStringList::ConstIterator it=nicksList.constBegin() ; it!=nicksList.constEnd() ; ++it)
         m_inputFilter.setAutomaticRequest("USERHOST", *it, true);
     queue("USERHOST "+nicks, LowPriority);
@@ -1707,7 +1713,7 @@ QString Server::cleanDccFileName(const QString& filename) const
 
     //we want a clean filename to get rid of the mass """filename"""
     //NOTE: if a filename starts really with a ", it is escaped -> \" (2 chars)
-    //      but most clients doesnt support that and just replace it with a _
+    //      but most clients doen't support that and just replace it with a _
     while (cleanFileName.startsWith('\"') && cleanFileName.endsWith('\"'))
     {
         cleanFileName = cleanFileName.mid(1, cleanFileName.length() - 2);
@@ -2222,7 +2228,7 @@ ChannelNickPtr Server::addNickToJoinedChannelsList(const QString& channelName, c
     bool doChannelJoinedSignal = false;
     bool doWatchedNickChangedSignal = false;
     bool doChannelMembersChangedSignal = false;
-    QString lcNickname = nickname.toLower();
+    QString lcNickname(nickname.toLower());
     // Create NickInfo if not already created.
     NickInfoPtr nickInfo = getNickInfo(nickname);
     if (!nickInfo)
@@ -2305,7 +2311,7 @@ ChannelNickPtr Server::addNickToUnjoinedChannelsList(const QString& channelName,
     bool doChannelUnjoinedSignal = false;
     bool doWatchedNickChangedSignal = false;
     bool doChannelMembersChangedSignal = false;
-    QString lcNickname = nickname.toLower();
+    QString lcNickname(nickname.toLower());
     // Create NickInfo if not already created.
     NickInfoPtr nickInfo = getNickInfo(nickname);
     if (!nickInfo)
@@ -2364,7 +2370,7 @@ NickInfoPtr Server::setWatchedNickOnline(const QString& nickname)
     NickInfoPtr nickInfo = getNickInfo(nickname);
     if (!nickInfo)
     {
-        QString lcNickname = nickname.toLower();
+        QString lcNickname(nickname.toLower());
         nickInfo = new NickInfo(nickname, this);
         m_allNicks.insert(lcNickname, nickInfo);
     }
@@ -2399,7 +2405,7 @@ void Server::setWatchedNickOffline(const QString& nickname, const NickInfoPtr ni
 
 bool Server::setNickOffline(const QString& nickname)
 {
-    QString lcNickname = nickname.toLower();
+    QString lcNickname(nickname.toLower());
     NickInfoPtr nickInfo = getNickInfo(lcNickname);
 
     bool wasOnline = nickInfo ? nickInfo->getPrintedOnline() : false;
@@ -2438,7 +2444,7 @@ bool Server::setNickOffline(const QString& nickname)
  */
 bool Server::deleteNickIfUnlisted(const QString &nickname)
 {
-    QString lcNickname = nickname.toLower();
+    QString lcNickname(nickname.toLower());
     // Don't delete our own nickinfo.
     if (lcNickname == loweredNickname()) return false;
 
@@ -2477,6 +2483,10 @@ void Server::removeChannelNick(const QString& channelName, const QString& nickna
             // Note: Channel should not be empty because user's own nick should still be
             // in it, so do not need to delete empty channel here.
         }
+        else
+        {
+            kDebug() << "Error: Tried to remove nickname=" << nickname << " from joined channel=" << channelName;
+        }
     }
     else
     {
@@ -2491,6 +2501,10 @@ void Server::removeChannelNick(const QString& channelName, const QString& nickna
                 // If channel is now empty, delete it.
                 // Caution: Any iterators across unjoinedChannels will be come invalid here.
                 if (channel->isEmpty()) m_unjoinedChannels.remove(lcChannelName);
+            }
+            else
+            {
+                kDebug() << "Error: Tried to remove nickname=" << nickname << " from unjoined channel=" << channelName;
             }
         }
     }
@@ -2590,10 +2604,10 @@ void Server::renameNickInfo(NickInfoPtr nickInfo, const QString& newname)
     if (nickInfo)
     {
         // Get existing lowercase nickname and rename nickname in the NickInfo object.
-        QString lcNickname = nickInfo->loweredNickname();
+        QString lcNickname(nickInfo->loweredNickname());
         nickInfo->setNickname(newname);
         nickInfo->setIdentified(false);
-        QString lcNewname = newname.toLower();
+        QString lcNewname(newname.toLower());
         // Rename the key in m_allNicks list.
         m_allNicks.remove(lcNickname);
         m_allNicks.insert(lcNewname, nickInfo);
@@ -2620,13 +2634,13 @@ void Server::renameNickInfo(NickInfoPtr nickInfo, const QString& newname)
     }
     else
     {
-        kDebug() << "server::renameNickInfo() was called for newname='" << newname << "' but nickInfo is null";
+        kDebug() << "was called for newname='" << newname << "' but nickInfo is null";
     }
 }
 
 Channel* Server::nickJoinsChannel(const QString &channelName, const QString &nickname, const QString &hostmask)
 {
-    Channel* outChannel=getChannelByName(channelName);
+    Channel* outChannel = getChannelByName(channelName);
     if(outChannel)
     {
         // Update NickInfo.
@@ -2645,7 +2659,7 @@ Channel* Server::nickJoinsChannel(const QString &channelName, const QString &nic
 void Server::addHostmaskToNick(const QString& sourceNick, const QString& sourceHostmask)
 {
     // Update NickInfo.
-    NickInfoPtr nickInfo=getNickInfo(sourceNick);
+    NickInfoPtr nickInfo = getNickInfo(sourceNick);
     if (nickInfo)
     {
         if ((nickInfo->getHostmask() != sourceHostmask) && !sourceHostmask.isEmpty())
@@ -2657,11 +2671,15 @@ void Server::addHostmaskToNick(const QString& sourceNick, const QString& sourceH
 
 Channel* Server::removeNickFromChannel(const QString &channelName, const QString &nickname, const QString &reason, bool quit)
 {
-    Channel* outChannel=getChannelByName(channelName);
+    Channel* outChannel = getChannelByName(channelName);
     if(outChannel)
     {
+        outChannel->flushPendingNicks();
         ChannelNickPtr channelNick = getChannelNick(channelName, nickname);
-        if(channelNick) outChannel->removeNick(channelNick,reason,quit);
+        if(channelNick)
+        {
+            outChannel->removeNick(channelNick,reason,quit);
+        }
     }
 
     // Remove the nick from the channel.
@@ -2680,9 +2698,10 @@ Channel* Server::removeNickFromChannel(const QString &channelName, const QString
 
 void Server::nickWasKickedFromChannel(const QString &channelName, const QString &nickname, const QString &kicker, const QString &reason)
 {
-    Channel* outChannel=getChannelByName(channelName);
+    Channel* outChannel = getChannelByName(channelName);
     if(outChannel)
     {
+        outChannel->flushPendingNicks();
         ChannelNickPtr channelNick = getChannelNick(channelName, nickname);
 
         if(channelNick)
@@ -2698,6 +2717,7 @@ void Server::removeNickFromServer(const QString &nickname,const QString &reason)
 {
     foreach (Channel* channel, m_channelList)
     {
+        channel->flushPendingNicks();
         // Check if nick is in this channel or not.
         if(channel->getNickByName(nickname))
             removeNickFromChannel(channel->getName(),nickname,reason,true);
@@ -2743,6 +2763,8 @@ void Server::renameNick(const QString &nickname, const QString &newNick)
         // Rename the nick in every channel they are in
         foreach (Channel* channel, m_channelList)
         {
+            channel->flushPendingNicks();
+
             // All we do is notify that the nick has been renamed.. we haven't actually renamed it yet
             // Note that NickPanel has already updated, so pass new nick to getNickByName.
             if (channel->getNickByName(newNick)) channel->nickRenamed(nickname, *nickInfo);
@@ -3044,7 +3066,7 @@ void Server::updateAutoJoin(Konversation::ChannelSettings channel)
     {
         setAutoJoin(true);
 
-        setAutoJoinCommands(QStringList("JOIN " + channel.name() + " " + channel.password()));
+        setAutoJoinCommands(QStringList("JOIN " + channel.name() + ' ' + channel.password()));
 
         return;
     }
@@ -3089,7 +3111,7 @@ void Server::updateAutoJoin(Konversation::ChannelSettings channel)
             {
                 if (passwords.last() == ".") passwords.pop_back();
 
-                joinCommands << "JOIN " + channels.join(",") + " " + passwords.join(",");
+                joinCommands << "JOIN " + channels.join(",") + ' ' + passwords.join(",");
 
                 channels.clear();
                 passwords.clear();
@@ -3106,7 +3128,7 @@ void Server::updateAutoJoin(Konversation::ChannelSettings channel)
 
         if (passwords.last() == ".") passwords.pop_back();
 
-        joinCommands << "JOIN " + channels.join(",") + " " + passwords.join(",");
+        joinCommands << "JOIN " + channels.join(",") + ' ' + passwords.join(",");
 
         setAutoJoinCommands(joinCommands);
     }
@@ -3257,7 +3279,7 @@ void Server::setAway(bool away)
     }
     else
     {
-        m_awayReason = QString();
+        m_awayReason.clear();
 
         emit awayState(false);
 

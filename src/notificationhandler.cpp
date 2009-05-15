@@ -200,6 +200,28 @@ namespace Konversation
         KNotification::event(QString::fromLatin1("dcc_incoming"), i18n("%1 wants to send a file to you",fromNick), QPixmap(), m_mainWindow);
     }
 
+    void NotificationHandler::dccError(ChatWindow* chatWin, const QString& error)
+    {
+        if (!chatWin || !chatWin->notificationsEnabled())
+            return;
+
+        if (Preferences::self()->disableNotifyWhileAway() && chatWin->getServer() && chatWin->getServer()->isAway())
+            return;
+
+        KNotification::event(QString::fromLatin1("dcc_error"), i18n("An Error has occurred in a DCC transfer: %1",error), QPixmap(), m_mainWindow);
+    }
+
+    void NotificationHandler::dccTransferDone(ChatWindow* chatWin, const QString& file)
+    {
+        if (!chatWin || !chatWin->notificationsEnabled())
+            return;
+
+        if (Preferences::self()->disableNotifyWhileAway() && chatWin->getServer() && chatWin->getServer()->isAway())
+            return;
+
+        KNotification::event(QString::fromLatin1("dcctransfer_done"), i18n("%1 File Transfer is complete",file), QPixmap(), m_mainWindow);
+    }
+
     void NotificationHandler::mode(ChatWindow* chatWin, const QString& /*nick*/)
     {
         if (!chatWin || !chatWin->notificationsEnabled())
@@ -292,6 +314,15 @@ namespace Konversation
             return;
 
         startTrayNotification(chatWin);
+        
+        QString cleanedMessage = Qt::escape(Konversation::removeIrcMarkup(message));
+        QString cutup = addLineBreaks(cleanedMessage);
+        
+        if(fromNick.isEmpty())
+            KNotification::event(QString::fromLatin1("highlight"), QString("<qt>(%1) *** %2</qt>").arg(chatWin->getName()).arg(cutup), QPixmap(), m_mainWindow);
+        else
+            KNotification::event(QString::fromLatin1("highlight"), QString("<qt>(%1) &lt;%2&gt; %3</qt>").arg(chatWin->getName()).arg(fromNick).arg(cutup), QPixmap(), m_mainWindow);
+        
         if(Preferences::self()->oSDShowOwnNick() &&
             (!m_mainWindow->isActiveWindow() || (chatWin != m_mainWindow->getViewContainer()->getFrontView())))
         {

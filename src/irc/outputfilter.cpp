@@ -294,7 +294,7 @@ namespace Konversation
             QStringList outputList=splitForEncoding(inputLine, m_server->getPreLength("PRIVMSG", destination));
             if (outputList.count() > 1)
             {
-                result.output=QString();
+                result.output.clear();
                 result.outputList=outputList;
                 for ( QStringList::ConstIterator it = outputList.constBegin(); it != outputList.constEnd(); ++it )
                 {
@@ -381,7 +381,7 @@ namespace Konversation
             channelName=destination;
         }
         else if (!isAChannel(channelName))
-            channelName = "#" + channelName.trimmed();
+            channelName = '#' + channelName.trimmed();
 
         Channel* channel = m_server->getChannelByName(channelName);
 
@@ -648,8 +648,8 @@ namespace Konversation
     OutputFilterResult OutputFilter::parseMsg(const QString &myNick, const QString &parameter, bool isQuery)
     {
         OutputFilterResult result;
-        QString recipient = parameter.section(" ", 0, 0, QString::SectionSkipEmpty);
-        QString message = parameter.section(" ", 1);
+        QString recipient = parameter.section(' ', 0, 0, QString::SectionSkipEmpty);
+        QString message = parameter.section(' ', 1);
         QString output;
 
         if (recipient.isEmpty())
@@ -958,7 +958,7 @@ namespace Konversation
         return result;
     }
 
-    // Appect Passive Send Request, there aktive doesnt need that
+    // Accept Passive Send Request, there active doesn't need that
     OutputFilterResult OutputFilter::acceptPassiveSendRequest(const QString& recipient,const QString &fileName,const QString &address,uint port,unsigned long size,const QString &token)
     {
         OutputFilterResult result;
@@ -1540,17 +1540,16 @@ namespace Konversation
         {
             QStringList splitted = parameter.split(' ');
             QString host = splitted[0];
-            QString port = "6667";
             QString password;
 
             if (splitted.count() == 3)
-                emit connectTo(Konversation::CreateNewConnection, splitted[0], splitted[1].toUInt(), splitted[2]);
+                emit connectTo(Konversation::CreateNewConnection, splitted[0], splitted[1], splitted[2]);
             else if (splitted.count() == 2)
             {
                 if (splitted[0].contains(QRegExp(":[0-9]+$")))
                     emit connectTo(Konversation::CreateNewConnection, splitted[0], 0, splitted[1]);
                 else
-                    emit connectTo(Konversation::CreateNewConnection, splitted[0], splitted[1].toUInt());
+                    emit connectTo(Konversation::CreateNewConnection, splitted[0], splitted[1]);
             }
             else
                 emit connectTo(Konversation::CreateNewConnection, splitted[0]);
