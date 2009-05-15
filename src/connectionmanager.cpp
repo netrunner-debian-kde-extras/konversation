@@ -34,7 +34,7 @@ ConnectionManager::~ConnectionManager()
 }
 
 void ConnectionManager::connectTo(Konversation::ConnectionFlag flag, const QString& target,
-    uint port, const QString& password, const QString& nick, const QString& channel,
+    const QString& port, const QString& password, const QString& nick, const QString& channel,
     bool useSSL)
 {
     ConnectionSettings settings;
@@ -47,7 +47,7 @@ void ConnectionManager::connectTo(Konversation::ConnectionFlag flag, const QStri
 
         Konversation::ServerSettings server = settings.server();
 
-        server.setPort(port);
+        if (!port.isEmpty()) server.setPort(port.toInt());
 
         if (!password.isEmpty()) server.setPassword(password);
 
@@ -323,7 +323,7 @@ void ConnectionManager::decodeAddress(const QString& address, ConnectionSettings
     // Example: Non-RFC 2732 notation: 2001:0DB8:0000:0000:0000:0000:1428:57ab:6666
     if (address.contains(':')==8)
     {
-        host = address.section(':',0,-2).remove("[").remove("]");
+        host = address.section(':',0,-2).remove('[').remove(']');
         port = address.section(':',-1);
     }
     // Full-length IPv6 address without port or not-full-length IPv6 address with port
@@ -335,15 +335,15 @@ void ConnectionManager::decodeAddress(const QString& address, ConnectionSettings
         // Last segment does not end with ], but the next to last does;
         // Assume not-full-length IPv6 address with port
         // Example: [2001:0DB8::1428:57ab]:6666
-        if (address.section(':',0,-2).endsWith("]") && !address.section(':',-1).endsWith("]"))
+        if (address.section(':',0,-2).endsWith(']') && !address.section(':',-1).endsWith(']'))
         {
-            host = address.section(':',0,-2).remove("[").remove("]");
+            host = address.section(':',0,-2).remove('[').remove(']');
             port = address.section(':',-1);
         }
         else
         {
             QString addressCopy = address;
-            host = addressCopy.remove("[").remove("]");
+            host = addressCopy.remove('[').remove(']');
         }
     }
     // IPv4 address or ordinary hostname with port
@@ -501,13 +501,13 @@ bool ConnectionManager::validateIdentity(IdentityPtr identity, bool interactive)
     QString errors;
 
     if (identity->getIdent().isEmpty())
-        errors+=i18n("Please fill in your <b>Ident</b>.<br>");
+        errors+=i18n("Please fill in your <b>Ident</b>.<br/>");
 
     if (identity->getRealName().isEmpty())
-        errors+=i18n("Please fill in your <b>Real name</b>.<br>");
+        errors+=i18n("Please fill in your <b>Real name</b>.<br/>");
 
     if (identity->getNickname(0).isEmpty())
-        errors+=i18n("Please provide at least one <b>Nickname</b>.<br>");
+        errors+=i18n("Please provide at least one <b>Nickname</b>.<br/>");
 
     if (!errors.isEmpty())
     {
@@ -515,7 +515,7 @@ bool ConnectionManager::validateIdentity(IdentityPtr identity, bool interactive)
         {
             int result = KMessageBox::warningContinueCancel(
                     mainWindow,
-                    i18n("<qt>Your identity \"%1\" is not set up correctly:<br>%2</qt>", identity->getName(), errors),
+                    i18n("<qt>Your identity \"%1\" is not set up correctly:<br/>%2</qt>", identity->getName(), errors),
                     i18n("Identity Settings"),
                     KGuiItem(i18n("Edit Identity...")),
                     KStandardGuiItem::cancel());

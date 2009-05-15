@@ -219,15 +219,15 @@ void DccChat::readData()
 
         QStringList lines = line.split('\n', QString::SkipEmptyParts);
 
-        for( QStringList::iterator itLine = lines.begin() ; itLine != lines.end() ; itLine++ )
+        for( QStringList::iterator itLine = lines.begin() ; itLine != lines.end() ; ++itLine )
         {
             if( (*itLine).startsWith( "\x01" ) )
             {
                 // cut out the CTCP command
                 QString ctcp = (*itLine).mid( 1, (*itLine).indexOf( 1, 1 ) - 1 );
 
-                QString ctcpCommand = ctcp.section( " ", 0, 0 );
-                QString ctcpArgument = ctcp.section( " ", 1 );
+                QString ctcpCommand = ctcp.section( ' ', 0, 0 );
+                QString ctcpArgument = ctcp.section( ' ', 1 );
 
                 if( ctcpCommand.toLower() == "action" )
                     appendAction( m_partnerNick, ctcpArgument );
@@ -272,7 +272,7 @@ void DccChat::sendDccChatText(const QString& sendLine)
         // init stream props
         stream.setCodec(Konversation::IRCCharsets::self()->codecForName(m_encoding.isEmpty() ? Konversation::IRCCharsets::self()->encodingForLocale() : m_encoding));
 
-        for( QStringList::iterator itLine = lines.begin() ; itLine != lines.end() ; itLine++ )
+        for( QStringList::iterator itLine = lines.begin() ; itLine != lines.end() ; ++itLine )
         {
             QString line( *itLine );
 
@@ -285,8 +285,8 @@ void DccChat::sendDccChatText(const QString& sendLine)
             QString cmd=line.section(' ', 0,0).toLower();
             if (cmd == cc+"me")
             {
-                appendAction( m_ownNick, line.section( " ", 1 ) );
-                line=QString("\x01%1 %2\x01").arg("ACTION").arg(line.section(" ",1));
+                appendAction( m_ownNick, line.section( ' ', 1 ) );
+                line=QString("\x01%1 %2\x01").arg("ACTION").arg(line.section(' ',1));
             }
             else if (cmd == cc+"close")
             {

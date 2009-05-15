@@ -81,7 +81,7 @@ void DccTransferSend::cleanUp()
     finishTransferLogger();
     if ( !m_tmpFile.isEmpty() )
         KIO::NetAccess::removeTempFile( m_tmpFile );
-    m_tmpFile = QString();
+    m_tmpFile.clear();
     m_file.close();
     if ( m_sendSocket )
     {
@@ -93,14 +93,6 @@ void DccTransferSend::cleanUp()
         m_serverSocket->close();
         m_serverSocket = 0;                       // the instance will be deleted automatically by its parent
     }
-}
-
-// just for convenience
-void DccTransferSend::failed( const QString& errorMessage )
-{
-    cleanUp();
-    setStatus( Failed, errorMessage );
-    emit done( this );
 }
 
 void DccTransferSend::setFileURL( const KUrl& url )

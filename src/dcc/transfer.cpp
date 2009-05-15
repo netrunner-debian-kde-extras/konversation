@@ -12,6 +12,9 @@
 */
 
 #include "transfer.h" ////// header renamed
+#include "application.h" ////// header renamed
+#include "connectionmanager.h"
+#include "notificationhandler.h"
 #include "preferences.h"
 
 #include <qfileinfo.h>
@@ -137,6 +140,25 @@ void DccTransfer::logTransfer()
     updateTransferMeters();
 }
 
+void DccTransfer::cleanUp()
+{
+}
+
+// just for convenience
+void DccTransfer::failed( const QString& errorMessage )
+{
+    cleanUp();
+    KonversationApplication* konv_app = KonversationApplication::instance();
+    Server* server = konv_app->getConnectionManager()->getServerByConnectionId( m_connectionId );
+    if (server)
+    {
+        kDebug() << "notification:" << errorMessage;
+        konv_app->notificationHandler()->dccError(server->getStatusView(), errorMessage);
+    }
+    setStatus( Failed, errorMessage );
+    emit done( this );
+}
+
 void DccTransfer::setStatus( DccStatus status, const QString& statusDetail )
 {
     bool changed = ( status != m_status );
@@ -146,6 +168,17 @@ void DccTransfer::setStatus( DccStatus status, const QString& statusDetail )
     if ( changed )
     {
         emit statusChanged( this, m_status, oldStatus );
+    }
+
+    if (m_status == Done)
+    {
+        KonversationApplication* konv_app = KonversationApplication::instance();
+        Server* server = konv_app->getConnectionManager()->getServerByConnectionId( m_connectionId );
+        if (server)
+        {
+            kDebug() << "notification:" << m_fileName;
+            konv_app->notificationHandler()->dccTransferDone(server->getStatusView(), m_fileName);
+        }
     }
 }
 

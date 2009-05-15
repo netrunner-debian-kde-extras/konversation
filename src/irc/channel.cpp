@@ -42,7 +42,6 @@
 #include <qsplitter.h>
 #include <qcheckbox.h>
 #include <qtimer.h>
-#include <qcombobox.h>
 #include <qtextcodec.h>
 #include <qtoolbutton.h>
 #include <qlayout.h>
@@ -61,6 +60,7 @@
 #include <KColorScheme>
 #include <kvbox.h>
 #include <khbox.h>
+#include <kcombobox.h>
 
 bool nickTimestampLessThan(const Nick* nick1, const Nick* nick2)
 {
@@ -239,9 +239,11 @@ Channel::Channel(QWidget* parent, QString _name) : ChatWindow(parent)
     commandLineBox = new KHBox(this);
     commandLineBox->setSpacing(spacing());
 
-    nicknameCombobox = new QComboBox(commandLineBox);
+    nicknameCombobox = new KComboBox(commandLineBox);
     nicknameCombobox->setEditable(true);
-    nicknameCombobox->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+    nicknameCombobox->setSizeAdjustPolicy(KComboBox::AdjustToContents);
+    KLineEdit* nicknameComboboxLineEdit = qobject_cast<KLineEdit*>(nicknameCombobox->lineEdit());
+    if (nicknameComboboxLineEdit) nicknameComboboxLineEdit->setClearButtonShown(false);
     nicknameCombobox->setWhatsThis(i18n("<qt><p>This shows your current nick, and any alternatives you have set up.  If you select or type in a different nickname, then a request will be sent to the IRC server to change your nick.  If the server allows it, the new nickname will be selected.  If you type in a new nickname, you need to press 'Enter' at the end.</p><p>You can add change the alternative nicknames from the <em>Identities</em> option in the <em>File</em> menu.</p></qt>"));
 
     awayLabel = new QLabel(i18n("(away)"), commandLineBox);
@@ -1371,8 +1373,21 @@ void Channel::removeNick(ChannelNickPtr channelNick, const QString &reason, bool
         }
         else
         {
-            kWarning() << "Channel::removeNick(): Nickname " << channelNick->getNickname() << " not found!"<< endl;
+            kWarning() << "Nickname " << channelNick->getNickname() << " not found!"<< endl;
         }
+    }
+}
+
+void Channel::flushPendingNicks()
+{
+    if (m_processingTimer)
+    {
+        m_processingTimer->stop();
+    }
+
+    while (!m_pendingChannelNickLists.isEmpty())
+    {
+        processPendingNicks();
     }
 }
 
@@ -1454,7 +1469,7 @@ void Channel::kickNick(ChannelNickPtr channelNick, const QString &kicker, const 
 
         if(nick == 0)
         {
-            kWarning() << "Channel::kickNick(): Nickname " << channelNick->getNickname() << " not found!"<< endl;
+            kWarning() << "Nickname " << channelNick->getNickname() << " not found!"<< endl;
         }
         else
         {
@@ -1466,7 +1481,7 @@ void Channel::kickNick(ChannelNickPtr channelNick, const QString &kicker, const 
 
 Nick* Channel::getNickByName(const QString &lookname)
 {
-    QString lcLookname = lookname.toLower();
+    QString lcLookname(lookname.toLower());
 
     foreach (Nick* nick, nicknameList)
     {
@@ -2118,9 +2133,9 @@ void Channel::updateQuickButtons(const QStringList &newButtonList)
         quickButton->setDefinition(buttonText);
 
         // Add tool tips
-        QString toolTip=buttonText.replace("&","&amp;").
-            replace("<","&lt;").
-            replace(">","&gt;");
+        QString toolTip=buttonText.replace('&',"&amp;").
+            replace('<',"&lt;").
+            replace('>',"&gt;");
 
         quickButton->setToolTip(toolTip);
 
@@ -2367,7 +2382,7 @@ void Channel::addPendingNickList(const QStringList& pendingChannelNickList)
         connect(m_processingTimer, SIGNAL(timeout()), this, SLOT(processPendingNicks()));
     }
 
-    m_pendingChannelNickLists.append(pendingChannelNickList);
+    m_pendingChannelNickLists << pendingChannelNickList;
 
     if (!m_processingTimer->isActive())
         m_processingTimer->start(0);
@@ -2578,7 +2593,7 @@ void Channel::setActive(bool active)
         purgeNicks();
         getTextView()->setNickAndChannelContextMenusEnabled(false);
         nicknameCombobox->setEnabled(false);
-        topicLine->setText(QString::null);
+        topicLine->clear();
         clearModeList();
         clearBanList();
     }
@@ -2626,24 +2641,16 @@ void Channel::processPendingNicks()
                         (halfop ?  2 : 0) +
                         (voice  ?  1 : 0);
 
-    // Check if nick is already in the nicklist
-    if (!getNickByName(nickname))
-    {
-        ChannelNickPtr nick = m_server->addNickToJoinedChannelsList(getName(), nickname);
-        Q_ASSERT(nick);
-        nick->setMode(mode);
+    ChannelNickPtr nick = m_server->addNickToJoinedChannelsList(getName(), nickname);
+    Q_ASSERT(nick);
+    nick->setMode(mode);
 
-        fastAddNickname(nick);
+    fastAddNickname(nick);
 
-        if (nick->isAdmin() || nick->isOwner() || nick->isOp() || nick->isHalfOp())
-            m_opsToAdd++;
+    if (nick->isAdmin() || nick->isOwner() || nick->isOp() || nick->isHalfOp())
+        m_opsToAdd++;
 
-        m_currentIndex++;
-    }
-    else
-    {
-        m_pendingChannelNickLists.first().pop_front();
-    }
+    m_currentIndex++;
 
     if (m_pendingChannelNickLists.first().count() <= m_currentIndex)
     {

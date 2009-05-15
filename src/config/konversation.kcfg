@@ -612,7 +612,7 @@
   </group>
   <group name="DCC Settings">
     <entry key="BufferSize" type="Int" name="DccBufferSize">
-      <default>8192</default>
+      <default>16384</default>
       <label></label>
       <whatsthis></whatsthis>
     </entry>
@@ -669,7 +669,7 @@
     <entry key="SpaceToUnderscore" type="Bool" name="DccSpaceToUnderscore">
       <default>true</default>
       <label></label>
-      <whatis></whatis>
+      <whatsthis></whatsthis>
     </entry>
     <entry key="AutoGet" type="Bool" name="DccAutoGet">
       <default>false</default>
@@ -809,9 +809,16 @@
       <whatsthis></whatsthis>
     </entry>
   </group>
+  <group name="External Log Viewer">
+    <entry key="UseExternalLogViewer" type="Bool">
+	<default>false</default>
+	<label></label>
+	<whatsthis></whatsthis>
+    </entry>
+  </group>
   <group name="Themes">
     <entry key="IconTheme" type="String">
-      <default>oxygen</default>
+      <default>default</default>
       <label></label>
       <whatsthis></whatsthis>
     </entry>

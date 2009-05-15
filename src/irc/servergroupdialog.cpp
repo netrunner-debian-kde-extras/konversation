@@ -23,8 +23,6 @@
 
 #include <qlayout.h>
 #include <qlabel.h>
-#include <qlineedit.h>
-#include <qcombobox.h>
 #include <qpushbutton.h>
 #include <qtoolbutton.h>
 #include <qcheckbox.h>
@@ -34,6 +32,7 @@
 #include <kmessagebox.h>
 #include <kcombobox.h>
 #include <kpushbutton.h>
+#include <klineedit.h>
 
 
 namespace Konversation

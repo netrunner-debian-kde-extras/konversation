@@ -71,7 +71,7 @@ Preferences::Preferences()
     Konversation::ServerGroupSettingsPtr serverGroup(new Konversation::ServerGroupSettings);
     serverGroup->setName("Freenode");
     Konversation::ServerSettings server;
-    server.setHost("irc.freenode.org");
+    server.setHost("chat.freenode.net");
     server.setPort(8001);
     serverGroup->addServer(server);
     serverGroup->setIdentityId(mIdentity->id());
@@ -124,18 +124,20 @@ void Preferences::clearQuickButtonList()
 
 // --------------------------- AutoReplace ---------------------------
 
-const QStringList Preferences::defaultAutoreplaceList()
+const QList<QStringList> Preferences::defaultAutoreplaceList()
 {
-    return QStringList() << "1,o,\\[\\[([^\\s]+)\\]\\],http://en.wikipedia.org/wiki/Special:Search?go=Go&search=%1"
-                         << "1,o,(BUG:|bug:)([0-9]+),http://bugs.kde.org/show_bug.cgi?id=%2";
+    QList<QStringList> defaultList;
+    defaultList.append(QStringList() << "1" << "o" << "\\[\\[([^\\s]+)\\]\\]" << "http://en.wikipedia.org/wiki/Special:Search?go=Go&search=%1");
+    defaultList.append(QStringList() << "1" << "o" << "(BUG:|bug:)([0-9]+)" << "http://bugs.kde.org/show_bug.cgi?id=%2");
+    return defaultList;
 }
 
-const QStringList Preferences::autoreplaceList()
+const QList<QStringList> Preferences::autoreplaceList()
 {
   return self()->mAutoreplaceList;
 }
 
-void Preferences::setAutoreplaceList(const QStringList newList)
+void Preferences::setAutoreplaceList(const QList<QStringList> newList)
 {
   self()->mAutoreplaceList=newList;
 }
