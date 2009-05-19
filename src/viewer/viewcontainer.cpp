@@ -1803,7 +1803,7 @@ void ViewContainer::findText()
 
 void ViewContainer::findNextText()
 {
-    if (m_searchView) m_searchView->getTextView()->searchAgain();
+    if (m_searchView) m_searchView->getTextView()->searchNext();
 }
 
 void ViewContainer::findPrevText()
@@ -1877,9 +1877,13 @@ void ViewContainer::insertChar(const QChar& chr)
 void ViewContainer::insertIRCColor()
 {
     // TODO FIXME
-    IRCColorChooser dlg(m_window);
+    QPointer<IRCColorChooser> dlg = new IRCColorChooser(m_window);
 
-    if (dlg.exec() == KDialog::Accepted) m_frontView->appendInputText(dlg.color(), true/*fromCursor*/);
+    if (dlg->exec() == KDialog::Accepted)
+    {
+        m_frontView->appendInputText(dlg->color(), true/*fromCursor*/);
+    }
+    delete dlg;
 }
 
 void ViewContainer::clearViewLines()
@@ -2179,10 +2183,13 @@ void ViewContainer::showJoinChannelDialog()
     if (!server)
         return;
 
-    Konversation::JoinChannelDialog dlg(server, m_window);
+    QPointer<Konversation::JoinChannelDialog> dlg = new Konversation::JoinChannelDialog(server, m_window);
 
-    if (dlg.exec() == QDialog::Accepted)
-        server->sendJoinCommand(dlg.channel(), dlg.password());
+    if (dlg->exec() == QDialog::Accepted)
+    {
+        server->sendJoinCommand(dlg->channel(), dlg->password());
+    }
+    delete dlg;
 }
 
 void ViewContainer::connectionStateChanged(Server* server, Konversation::ConnectionState state)
@@ -2395,9 +2402,9 @@ void ViewContainer::openChannelList(const QString& filter, bool getList)
     {
         KMessageBox::information(m_window,
             i18n(
-            "The channel list can only be opened from a "
-            "query, channel or status window to find out, "
-            "which server this list belongs to."
+            "To know which server to display the channel list "
+            "for, the list can only be opened from a "
+            "query, channel or status window."
             ),
             i18n("Channel List"),
             "ChannelListNoServerSelected");
