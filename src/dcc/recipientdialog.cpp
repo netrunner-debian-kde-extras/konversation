@@ -26,7 +26,7 @@
 
 QString DccRecipientDialog::selectedNickname;     // static
 
-DccRecipientDialog::DccRecipientDialog(QWidget* parent, QAbstractListModel* model, const QSize &size) :
+DccRecipientDialog::DccRecipientDialog(QWidget* parent, QAbstractListModel* model) :
   KDialog(parent)
 {
     // Create the top level widget
@@ -59,14 +59,16 @@ DccRecipientDialog::DccRecipientDialog(QWidget* parent, QAbstractListModel* mode
     setButtonGuiItem(KDialog::Ok, KGuiItem(i18n("&OK"), "dialog-ok", i18n("Select nickname and close the window")));
     setButtonGuiItem(KDialog::Cancel, KGuiItem(i18n("&Cancel"), "dialog-cancel", i18n("Close the window without changes")));
 
-    setInitialSize(size);
-    show();
+    restoreDialogSize(KConfigGroup(KGlobal::config(), "DCCRecipientDialog"));
+
     connect( this, SIGNAL( okClicked() ), this, SLOT( slotOk() ) );
     connect( this, SIGNAL( cancelClicked() ), this, SLOT( slotCancel() ) );
 }
 
 DccRecipientDialog::~DccRecipientDialog()
 {
+    KConfigGroup config(KGlobal::config(), "DCCRecipientDialog");
+    saveDialogSize(config);
 }
 
 QString DccRecipientDialog::getSelectedNickname()
@@ -101,11 +103,12 @@ void DccRecipientDialog::slotOk()
 
 QString DccRecipientDialog::getNickname(QWidget* parent, QAbstractListModel* model)
 {
-    QSize size;                                   // TODO: get it from Preferences
-    DccRecipientDialog dlg(parent, model, size);
-    dlg.exec();
+    QPointer<DccRecipientDialog> dlg = new DccRecipientDialog(parent, model);
+    dlg->exec();
+    const QString selectedNick = dlg->getSelectedNickname();
 
-    return dlg.getSelectedNickname();
+    delete dlg;
+    return selectedNick;
 }
 
 #include "recipientdialog.moc"

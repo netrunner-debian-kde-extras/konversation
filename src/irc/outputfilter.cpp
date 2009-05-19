@@ -184,22 +184,9 @@ namespace Konversation
                     inputLine = testNickServ;
             }
         }
-
-        if(!Preferences::self()->disableExpansion())
-        {
-            // replace placeholders
-            inputLine.replace("%%","%\x01");      // make sure to protect double %%
-            inputLine.replace("%B","\x02");       // replace %B with bold char
-            inputLine.replace("%C","\x03");       // replace %C with color char
-            inputLine.replace("%G","\x07");       // replace %G with ASCII BEL 0x07
-            inputLine.replace("%I","\x09");       // replace %I with italics char
-            inputLine.replace("%O","\x0f");       // replace %O with reset to default char
-            inputLine.replace("%S","\x13");       // replace %S with strikethru char
-            //  inputLine.replace(QRegExp("%?"),"\x15");
-            inputLine.replace("%R","\x16");       // replace %R with reverse char
-            inputLine.replace("%U","\x1f");       // replace %U with underline char
-            inputLine.replace("%\x01","%");       // restore double %% as single %
-        }
+        
+        //perform variable expansion according to prefs
+        inputLine = Konversation::doVarExpansion(inputLine); 
 
         QString line=inputLine.toLower();
 
@@ -1047,7 +1034,7 @@ namespace Konversation
             }
             else
             {
-                result = error(i18n("Script name may not contain \"../\"!"));
+                result = error(i18n("Script name may not contain \"../\"."));
             }
         }
 
@@ -1135,7 +1122,7 @@ namespace Konversation
                 nick,
                 password,
                 &keep,
-                i18n("Enter user name and password for IRC operator privileges:"),
+                i18n("Enter username and password for IRC operator privileges:"),
                 false,
                 i18n("IRC Operator Password")
                 );
@@ -1410,16 +1397,10 @@ namespace Konversation
                 m_server->appendMessageToFrontmost(i18n("Ignore"),i18n("Removed %1 from your ignore list.", succeeded.join(", ")));
             }
 
-            // One failed unignore
-            if (failed.count()==1)
+            // Any failed unignores
+            if (failed.count()>=1)
             {
-                m_server->appendMessageToFrontmost(i18n("Error"),i18n("No such ignore: %1", failed.join(", ")));
-            }
-
-            // Multiple failed unignores
-            if (failed.count()>1)
-            {
-                m_server->appendMessageToFrontmost(i18n("Error"),i18n("No such ignores: %1", failed.join(", ")));
+                m_server->appendMessageToFrontmost(i18n("Error"),i18np("No such ignore: %2", "No such ignores: %2", failed.count(), failed.join(", ")));
             }
         }
 

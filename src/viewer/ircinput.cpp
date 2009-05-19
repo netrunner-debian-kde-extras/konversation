@@ -14,9 +14,9 @@
 
 #include "ircinput.h"
 #include "application.h"
-#include "multilineedit.h"
 #include "chatwindow.h"
 #include "ircview.h"
+#include "pasteeditor.h"
 
 #include <qclipboard.h>
 #include <qregexp.h>
@@ -28,6 +28,7 @@
 #include <kmessagebox.h>
 #include <klocale.h>
 #include <kcompletionbox.h>
+#include <KStandardShortcut>
 
 #define MAXHISTORY 100
 #define RICHTEXT 0
@@ -35,6 +36,7 @@
 
 IRCInput::IRCInput(QWidget* parent) : KTextEdit(parent)
 {
+    enableFindReplace(false);
     setAcceptRichText(false);
     //I am not terribly interested in finding out where this value comes from
     //nor in compensating for it if my guess is incorrect. so, cache it.
@@ -263,6 +265,30 @@ void IRCInput::keyPressEvent(QKeyEvent* e)
     KTextEdit::keyPressEvent(e);
 }
 
+bool IRCInput::event(QEvent* e)
+{
+    if (e->type() == QEvent::ShortcutOverride)
+    {
+        // Make sure KTextEdit doesn't eat the find shortcuts
+        QKeyEvent* event = static_cast<QKeyEvent*>(e);
+        const int key = event->key() | event->modifiers();
+
+        if(KStandardShortcut::find().contains(key))
+        {
+            event->ignore();
+            return false;
+        }
+        else if(KStandardShortcut::findNext().contains(key))
+        {
+            event->ignore();
+            return false;
+        }
+    }
+
+    return KTextEdit::event(e);
+}
+
+
 void IRCInput::wheelEvent(QWheelEvent* e)
 {
     if (e->delta() > 0)
@@ -362,12 +388,6 @@ void IRCInput::insertFromMimeData(const QMimeData * source)
         while(pasteText.contains(reBottomSpace))
             pasteText.remove(reBottomSpace);
 
-        // Escape % when var expansion is enabled
-        if (!Preferences::self()->disableExpansion())
-        {
-            pasteText.replace ('%', "%%");
-        }
-
         // does the text contain at least one newline character?
         if(pasteText.contains('\n'))
         {
@@ -427,11 +447,16 @@ bool IRCInput::checkPaste(QString& text)
 
     if(text.length()>256 || lines)
     {
+        QString bytesString = i18np("1 byte", "%1 bytes", text.length());
+        QString linesString = i18np("1 line", "%1 lines", lines+1);
+
         doPaste=KMessageBox::warningYesNoCancel
             (this,
-            i18n("<qt>You are attempting to paste a large portion of text (%1 bytes or %2 lines) into "
+            i18nc(
+            "%1 is, for instance, '200 bytes'.  %2 is, for instance, '7 lines'.  Both are localised (see the two previous messages).",
+            "<qt>You are attempting to paste a large portion of text (%1 or %2) into "
             "the chat. This can cause connection resets or flood kills. "
-            "Do you really want to continue?</qt>", text.length(), lines+1),
+            "Do you really want to continue?</qt>", bytesString, linesString),
             i18n("Large Paste Warning"),
             KGuiItem(i18n("Paste")),
             KGuiItem(i18n("&Edit...")),
@@ -442,7 +467,7 @@ bool IRCInput::checkPaste(QString& text)
 
     if (doPaste==KMessageBox::No)
     {
-        QString ret(MultilineEdit::edit(this,text));
+        QString ret(PasteEditor::edit(this,text));
         if (ret.isEmpty())
             return false;
         text=ret;

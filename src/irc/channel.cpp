@@ -485,6 +485,7 @@ void Channel::popupCommand(int id)
     QString args;
     QString question;
     bool raw=false;
+    QString mode;
     QStringList nickList = getSelectedNickList();
 
     switch(id)
@@ -545,27 +546,33 @@ void Channel::popupCommand(int id)
             break;
         }
         case Konversation::GiveOp:
-            pattern="MODE %c +o %u";
+            pattern="MODE %c +%m %l";
+            mode='o';
             raw=true;
             break;
         case Konversation::TakeOp:
-            pattern="MODE %c -o %u";
+            pattern="MODE %c -%m %l";
+            mode='o';
             raw=true;
             break;
         case Konversation::GiveHalfOp:
-            pattern="MODE %c +h %u";
+            pattern="MODE %c +%m %l";
+            mode='h';
             raw=true;
             break;
         case Konversation::TakeHalfOp:
-            pattern="MODE %c -h %u";
+            pattern="MODE %c -%m %l";
+            mode='h';
             raw=true;
             break;
         case Konversation::GiveVoice:
-            pattern="MODE %c +v %u";
+            pattern="MODE %c +%m %l";
+            mode='v';
             raw=true;
             break;
         case Konversation::TakeVoice:
-            pattern="MODE %c -v %u";
+            pattern="MODE %c -%m %l";
+            mode='v';
             raw=true;
             break;
         case Konversation::Version:
@@ -698,17 +705,31 @@ void Channel::popupCommand(int id)
 
         if (pattern.contains("%l"))
         {
-            QStringList list;
+            QStringList list, partialList;
+            int modesCount = m_server->getModesCount();
 
             for (QStringList::Iterator it=nickList.begin(); it!=nickList.end(); ++it)
                 list.append((*it));
 
-            command = pattern.replace("%l", list.join(" "));
+            for (int index = 0; index<list.count(); index+=modesCount)
+            {
+                command = pattern;
+                partialList = list.mid(index, modesCount);
+                command = command.replace("%l", partialList.join(" "));
+#if QT_VERSION >= 0x040500
+                const QString repeatedMode = mode.repeated(partialList.count());
+#else
+                QString repeatedMode;
+                for (int rr = 0; rr < partialList.count(); ++rr)
+                    repeatedMode += mode;
+#endif
+                command = command.replace("%m", repeatedMode);
+                if (raw)
+                    m_server->queue(command);
+                else
+                    sendChannelText(command);                
+            }
 
-            if (raw)
-                m_server->queue(command);
-            else
-                sendChannelText(command);
         }
         else
         {
@@ -1171,10 +1192,13 @@ void Channel::modeButtonClicked(int id, bool on)
     {
         if (args.isEmpty())
         {
-            KPasswordDialog dlg(this);
-            dlg.setPrompt(i18n("Channel Password"));
-            if (dlg.exec() && !dlg.password().isEmpty())
-                args = dlg.password();
+            QPointer<KPasswordDialog> dlg = new KPasswordDialog(this);
+            dlg->setPrompt(i18n("Channel Password"));
+            if (dlg->exec() && !dlg->password().isEmpty())
+            {
+                args = dlg->password();
+            }
+            delete dlg;
         }
 
     }
@@ -1797,7 +1821,7 @@ void Channel::updateMode(const QString& sourceNick, char mode, bool plus, const 
                 if(fromMe)
                 {
                     if(toMe) message=i18n("You give yourself permission to talk.");
-                    else     message=i18n("You give %1  permission to talk.", parameter);
+                    else     message=i18n("You give %1 permission to talk.", parameter);
                 }
                 else
                 {
@@ -1943,8 +1967,8 @@ void Channel::updateMode(const QString& sourceNick, char mode, bool plus, const 
         case 'l':
             if(plus)
             {
-                if(fromMe) message=i18n("You set the channel limit to %1 nicks.", parameter);
-                else message=i18n("%1 sets the channel limit to %2 nicks.", sourceNick, parameter);
+                if(fromMe) message=i18np("You set the channel limit to 1 nick.", "You set the channel limit to %1 nicks.", parameter);
+                else message=i18np("%2 sets the channel limit to 1 nick.", "%2 sets the channel limit to %1 nicks.", parameter, sourceNick);
             }
             else
             {

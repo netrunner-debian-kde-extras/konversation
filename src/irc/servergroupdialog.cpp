@@ -51,10 +51,8 @@ namespace Konversation
         m_mainWidget = new Ui::ServerGroupDialogUI();
         m_mainWidget->setupUi(mainWidget());
 
-        m_mainWidget->m_nameEdit->setWhatsThis(i18n("Enter the name of the Network here. You may create as many entries in the Server List screen with the same Network as you like."));
         m_mainWidget->m_networkLabel->setBuddy(m_mainWidget->m_nameEdit);
 
-        m_mainWidget->m_identityCBox->setWhatsThis(i18n("Choose an existing Identity or click the Edit button to add a new Identity or edit an existing one. The Identity will identify you and determine your nickname when you connect to the network."));
         m_mainWidget->m_identityLabel->setBuddy(m_mainWidget->m_identityCBox);
         connect(m_mainWidget->m_editIdentityButton, SIGNAL(clicked()), this, SLOT(editIdentity()));
 
@@ -63,14 +61,9 @@ namespace Konversation
         for (IdentityList::ConstIterator it = identities.constBegin(); it != identities.constEnd(); ++it)
             m_mainWidget->m_identityCBox->addItem((*it)->getName());
 
-        m_mainWidget->m_commandEdit->setWhatsThis(i18n("<qt>Optional. This command will be sent to the server after connecting. Example: <b>/msg NickServ IDENTIFY <i>konvirocks</i></b>. This example is for the freenode network, which requires users to register their nickname with a password and login when connecting. <i>konvirocks</i> is the password for the nickname given in Identity. You may enter more than one command by separating them with semicolons.</qt>"));
         m_mainWidget->m_commandsLabel->setBuddy(m_mainWidget->m_commandEdit);
 
-        m_mainWidget->m_autoConnectCBox->setWhatsThis(i18n("Check here if you want Konversation to automatically connect to this network whenever you open Konversation."));
-
-        m_mainWidget->m_serverLBox->setWhatsThis(i18n("This is a list of IRC Servers in the network. When connecting to the network, Konversation will attempt to connect to the top server first. If this fails, it will attempt the second server. If this fails, it will attempt the third, and so on. At least one server must be specified. Click a server to highlight it."));
         m_mainWidget->m_removeServerButton->setIcon(KIcon("list-remove"));
-        m_mainWidget->m_removeServerButton->setText(i18n("Delete"));
         m_mainWidget->m_upServerBtn->setIcon(KIcon("arrow-up"));
         m_mainWidget->m_downServerBtn->setIcon(KIcon("arrow-down"));
 
@@ -81,9 +74,7 @@ namespace Konversation
         connect(m_mainWidget->m_upServerBtn, SIGNAL(clicked()), this, SLOT(moveServerUp()));
         connect(m_mainWidget->m_downServerBtn, SIGNAL(clicked()), this, SLOT(moveServerDown()));
 
-        m_mainWidget->m_channelLBox->setWhatsThis(i18n("Optional. This is a list of the channels that will be automatically joined once Konversation has connected to a server. You may leave this blank if you wish to not automatically join any channels."));
         m_mainWidget->m_removeChannelButton->setIcon(KIcon("list-remove"));
-        m_mainWidget->m_removeChannelButton->setText(i18n("Delete"));
         m_mainWidget->m_upChannelBtn->setIcon(KIcon("arrow-up"));
         m_mainWidget->m_downChannelBtn->setIcon(KIcon("arrow-down"));
 
@@ -98,8 +89,6 @@ namespace Konversation
         setButtonGuiItem(Cancel, KGuiItem(i18n("&Cancel"), "dialog-cancel", i18n("Discards all changes made")));
 
         m_mainWidget->m_nameEdit->setFocus();
-
-        connect(this, SIGNAL(okClicked()), this, SLOT(slotOk()));
     }
 
     ServerGroupDialog::~ServerGroupDialog()
@@ -178,15 +167,16 @@ namespace Konversation
 
     void ServerGroupDialog::addServer()
     {
-        ServerDialog dlg(i18n("Add Server"), this);
+        QPointer<ServerDialog> dlg = new ServerDialog(i18n("Add Server"), this);
 
-        if(dlg.exec() == KDialog::Accepted)
+        if(dlg->exec() == KDialog::Accepted)
         {
-            ServerSettings server = dlg.serverSettings();
+            ServerSettings server = dlg->serverSettings();
             m_mainWidget->m_serverLBox->addItem(server.host());
             m_serverList.append(server);
             updateServerArrows();
         }
+        delete dlg;
     }
 
     void ServerGroupDialog::editServer()
@@ -195,15 +185,16 @@ namespace Konversation
 
         if(current < m_serverList.count())
         {
-            ServerDialog dlg(i18n("Edit Server"), this);
-            dlg.setServerSettings(m_serverList[current]);
+            QPointer <ServerDialog> dlg = new ServerDialog(i18n("Edit Server"), this);
+            dlg->setServerSettings(m_serverList[current]);
 
-            if(dlg.exec() == KDialog::Accepted)
+            if(dlg->exec() == KDialog::Accepted)
             {
-                ServerSettings server = dlg.serverSettings();
+                ServerSettings server = dlg->serverSettings();
                 m_mainWidget->m_serverLBox->item(current)->setText(server.host());
                 m_serverList[current] = server;
             }
+            delete dlg;
         }
     }
 
@@ -288,15 +279,16 @@ namespace Konversation
 
     void ServerGroupDialog::addChannel()
     {
-        ChannelDialog dlg(i18n("Add Channel"), this);
+        QPointer<ChannelDialog> dlg = new ChannelDialog(i18n("Add Channel"), this);
 
-        if(dlg.exec() == KDialog::Accepted)
+        if(dlg->exec() == KDialog::Accepted)
         {
-            ChannelSettings channel = dlg.channelSettings();
+            ChannelSettings channel = dlg->channelSettings();
             m_mainWidget->m_channelLBox->addItem(channel.name());
             m_channelList.append(channel);
             updateChannelArrows();
         }
+        delete dlg;
     }
 
     void ServerGroupDialog::editChannel()
@@ -305,15 +297,16 @@ namespace Konversation
 
         if(current < m_channelList.count())
         {
-            ChannelDialog dlg(i18n("Edit Channel"), this);
-            dlg.setChannelSettings(m_channelList[current]);
+            QPointer<ChannelDialog> dlg = new ChannelDialog(i18n("Edit Channel"), this);
+            dlg->setChannelSettings(m_channelList[current]);
 
-            if(dlg.exec() == KDialog::Accepted)
+            if(dlg->exec() == KDialog::Accepted)
             {
-                ChannelSettings channel = dlg.channelSettings();
+                ChannelSettings channel = dlg->channelSettings();
                 m_mainWidget->m_channelLBox->item(current)->setText(channel.name());
                 m_channelList[current] = channel;
             }
+            delete dlg;
         }
     }
 
@@ -374,10 +367,10 @@ namespace Konversation
 
     void ServerGroupDialog::editIdentity()
     {
-        IdentityDialog dlg(this);
-        dlg.setCurrentIdentity(m_mainWidget->m_identityCBox->currentIndex());
+        QPointer<IdentityDialog> dlg = new IdentityDialog(this);
+        dlg->setCurrentIdentity(m_mainWidget->m_identityCBox->currentIndex());
 
-        if(dlg.exec() == KDialog::Accepted)
+        if(dlg->exec() == KDialog::Accepted)
         {
             IdentityList identities = Preferences::identityList();
             m_mainWidget->m_identityCBox->clear();
@@ -387,19 +380,24 @@ namespace Konversation
                 m_mainWidget->m_identityCBox->addItem((*it)->getName());
             }
 
-            const int i = m_mainWidget->m_identityCBox->findText(dlg.currentIdentity()->getName());
+            const int i = m_mainWidget->m_identityCBox->findText(dlg->currentIdentity()->getName());
             if (i != -1)
+            {
                 m_mainWidget->m_identityCBox->setCurrentIndex(i);
+            }
             else
-                m_mainWidget->m_identityCBox->setItemText(m_mainWidget->m_identityCBox->currentIndex(), dlg.currentIdentity()->getName());
+            {
+                m_mainWidget->m_identityCBox->setItemText(m_mainWidget->m_identityCBox->currentIndex(), dlg->currentIdentity()->getName());
+            }
 
             m_identitiesNeedsUpdate = true; // and what's this for?
             ViewContainer* vc = KonversationApplication::instance()->getMainWindow()->getViewContainer();
             vc->updateViewEncoding(vc->getFrontView());
         }
+        delete dlg;
     }
 
-    void ServerGroupDialog::slotOk()
+    void ServerGroupDialog::accept()
     {
         if (m_mainWidget->m_nameEdit->text().isEmpty())
         {
@@ -411,7 +409,7 @@ namespace Konversation
         }
         else
         {
-            accept();
+            KDialog::accept();
         }
     }
 
