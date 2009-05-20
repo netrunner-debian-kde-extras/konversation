@@ -15,3 +15,10 @@ include /usr/share/quilt/quilt.make
 -include /usr/share/topgit/tg2quilt.mk
 .PHONY: /usr/share/topgit/tg2quilt.mk
 endif
+
+override_dh_install:
+	dh_install
+	# Install scripts README (and rename)
+	if [ -d debian/konversation ]; then \
+	    cp -a data/scripts/README debian/konversation/usr/share/doc/konversation/README.scripts; \
+	fi
