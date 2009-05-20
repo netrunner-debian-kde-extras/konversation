@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-05-18 11:24+0200\n"
+"POT-Creation-Date: 2009-05-19 11:35+0200\n"
 "PO-Revision-Date: 2006-12-31 17:24+0100\n"
 "Last-Translator: محمد سعد  Mohamed SAAD <metehyi@free.fr>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
@@ -1070,27 +1070,27 @@ msgstr "متصل منذ:"
 msgid "Join Channel on %1"
 msgstr "الإنضمام إلى قناة في %1"
 
-#: src/irc/serverlistdialog.cpp:106 src/quickconnectdialog.cpp:87
+#: src/irc/serverlistdialog.cpp:102 src/quickconnectdialog.cpp:87
 msgid "C&onnect"
 msgstr "إتّ&صال"
 
-#: src/irc/serverlistdialog.cpp:106 src/quickconnectdialog.cpp:87
+#: src/irc/serverlistdialog.cpp:102 src/quickconnectdialog.cpp:87
 msgid "Connect to the server"
 msgstr "إتصل بالخادم"
 
-#: src/irc/serverlistdialog.cpp:106
+#: src/irc/serverlistdialog.cpp:102
 msgid "Click here to connect to the selected IRC network and channel."
 msgstr "أنقر هنا للاتصال بشبكة الـ IRC والقناة المنتقتين"
 
-#: src/irc/serverlistdialog.cpp:180
+#: src/irc/serverlistdialog.cpp:176
 msgid "New Network"
 msgstr "الشبكة الجديدة"
 
-#: src/irc/serverlistdialog.cpp:201
+#: src/irc/serverlistdialog.cpp:197
 msgid "Edit Network"
 msgstr "حرّر الشبكة"
 
-#: src/irc/serverlistdialog.cpp:259
+#: src/irc/serverlistdialog.cpp:255
 #, kde-format
 msgid ""
 "You cannot delete %1.\n"
@@ -1101,7 +1101,7 @@ msgstr ""
 "\n"
 "تتطلب الشبكة %2 خادماً واحداً على الأقل."
 
-#: src/irc/serverlistdialog.cpp:264
+#: src/irc/serverlistdialog.cpp:260
 #, fuzzy, kde-format
 #| msgid ""
 #| "You cannot delete the selected servers.\n"
@@ -1140,11 +1140,11 @@ msgstr[5] ""
 "\n"
 "تتطلب الشبكة %1 خادماً واحداً على الأقل."
 
-#: src/irc/serverlistdialog.cpp:281
+#: src/irc/serverlistdialog.cpp:277
 msgid "Do you really want to delete the selected entries?"
 msgstr "هل تريد حقا محو الخانات المنتقاة  ؟"
 
-#: src/irc/serverlistdialog.cpp:283
+#: src/irc/serverlistdialog.cpp:279
 #, kde-format
 msgid "Do you really want to delete %1?"
 msgstr "هل تريد حقا أن تحذف %1 ؟"
@@ -1295,7 +1295,7 @@ msgid "Usage: %1RAW [OPEN | CLOSE]"
 msgstr "الاستعمال: %1RAW [OPEN | CLOSE]"
 
 #: src/irc/outputfilter.cpp:1098 src/irc/server.cpp:2402
-#: src/irc/server.cpp:2420 src/viewer/ircview.cpp:364
+#: src/irc/server.cpp:2420 src/viewer/ircview.cpp:363
 msgid "Notify"
 msgstr "إنذار"
 
@@ -1794,7 +1794,7 @@ msgid "You are not on %1."
 msgstr "لست على %1."
 
 #: src/irc/inputfilter.cpp:1193 src/irc/inputfilter.cpp:1202
-#: src/irc/inputfilter.cpp:1211 src/viewer/ircview.cpp:358
+#: src/irc/inputfilter.cpp:1211 src/viewer/ircview.cpp:357
 msgid "MOTD"
 msgstr "كلمة الترحيب اليومية"
 
@@ -2380,7 +2380,7 @@ msgid "Invitation"
 msgstr "الدعوة"
 
 #: src/irc/server.cpp:3015 src/irc/channel.cpp:1310 src/irc/channel.cpp:1327
-#: src/viewer/ircview.cpp:383
+#: src/viewer/ircview.cpp:382
 msgid "Join"
 msgstr "انضمام"
 
@@ -2795,7 +2795,7 @@ msgstr "التكلم مع نفسك"
 
 #: src/irc/query.cpp:678 src/irc/query.cpp:685 src/irc/channel.cpp:1350
 #: src/irc/channel.cpp:1352 src/irc/channel.cpp:1371 src/irc/channel.cpp:1373
-#: src/viewer/ircview.cpp:388
+#: src/viewer/ircview.cpp:387
 msgid "Quit"
 msgstr ""
 
@@ -2926,7 +2926,7 @@ msgid "You have left this server (%1)."
 msgstr "غادرت هذا الخادم (%1)."
 
 #: src/irc/channel.cpp:1357 src/irc/channel.cpp:1359 src/irc/channel.cpp:1379
-#: src/irc/channel.cpp:1381 src/viewer/ircview.cpp:388
+#: src/irc/channel.cpp:1381 src/viewer/ircview.cpp:387
 msgid "Part"
 msgstr "مغادرة"
 
@@ -4385,10 +4385,10 @@ msgid "An Error has occurred in a DCC transfer: %1"
 msgstr ""
 
 #: src/notificationhandler.cpp:222
-#, fuzzy, kde-format
-msgctxt "%1 File Transfer is complete"
-msgid "%1 - filename"
-msgstr "الملف:"
+#, kde-format
+msgctxt "%1 - filename"
+msgid "%1 File Transfer is complete"
+msgstr ""
 
 #: src/notificationhandler.cpp:248
 #, kde-format
@@ -4998,17 +4998,17 @@ msgstr "&إختر كل البنود"
 msgid "Find Text..."
 msgstr "بحث عن نص..."
 
-#: src/viewer/ircview.cpp:947
+#: src/viewer/ircview.cpp:946
 #, fuzzy
 msgid "Save link as"
 msgstr "&إحفظ اللائحة..."
 
-#: src/viewer/ircview.cpp:1018
+#: src/viewer/ircview.cpp:1017
 #, kde-format
 msgid "Open a query with %1"
 msgstr "فتح حوار خاص ب‍ %1"
 
-#: src/viewer/ircview.cpp:1035 src/viewer/topiclabel.cpp:283
+#: src/viewer/ircview.cpp:1034 src/viewer/topiclabel.cpp:283
 #, kde-format
 msgid "Join the channel %1"
 msgstr "انضمام إلى القناة %1"
@@ -5039,7 +5039,7 @@ msgstr ""
 "الأوامر،  راجع كتيب \"محادثتك\".<p>أقصى طول للرسالة هو 512 محرف، ولا يمكن أن "
 "تحتوي أكثر من سطر. </qt>"
 
-#: src/viewer/ircinput.cpp:456
+#: src/viewer/ircinput.cpp:450
 #, fuzzy, kde-format
 #| msgid " bytes"
 msgid "1 byte"
@@ -5051,7 +5051,7 @@ msgstr[3] " بايت"
 msgstr[4] " بايت"
 msgstr[5] " بايت"
 
-#: src/viewer/ircinput.cpp:457
+#: src/viewer/ircinput.cpp:451
 #, fuzzy, kde-format
 #| msgid " lines"
 msgid "1 line"
@@ -5063,7 +5063,7 @@ msgstr[3] " أسطر"
 msgstr[4] " أسطر"
 msgstr[5] " أسطر"
 
-#: src/viewer/ircinput.cpp:463
+#: src/viewer/ircinput.cpp:457
 #, fuzzy, kde-format
 #| msgid ""
 #| "<qt>You are attempting to paste a large portion of text (%1 bytes or %2 "
@@ -5081,11 +5081,11 @@ msgstr ""
 "هذا يمكن ان يسبب إنقطاع و إعادة إتصال أو طوفان قاتل.هل تريد فعلاً المتابعة ؟ "
 "</qt>"
 
-#: src/viewer/ircinput.cpp:466
+#: src/viewer/ircinput.cpp:460
 msgid "Large Paste Warning"
 msgstr "تحذير من إلصاق ضخم"
 
-#: src/viewer/ircinput.cpp:467
+#: src/viewer/ircinput.cpp:461
 #, fuzzy
 #| msgid "Part"
 msgid "Paste"
@@ -5095,7 +5095,7 @@ msgstr "مغادرة"
 #. i18n: ectx: property (text), widget (KPushButton, m_editIdentityButton)
 #. i18n: file: src/irc/serverlistdialogui.ui:162
 #. i18n: ectx: property (text), widget (QPushButton, m_editButton)
-#: src/viewer/ircinput.cpp:468 rc.cpp:65 rc.cpp:200
+#: src/viewer/ircinput.cpp:462 rc.cpp:65 rc.cpp:200
 msgid "&Edit..."
 msgstr "&حرّر..."
 
@@ -8429,6 +8429,11 @@ msgstr ""
 #: rc.cpp:1781
 msgid "&Window"
 msgstr "ال&نافذة"
+
+#, fuzzy
+#~ msgctxt "%1 File Transfer is complete"
+#~ msgid "%1 - filename"
+#~ msgstr "الملف:"
 
 #~ msgid "No such ignores: %1"
 #~ msgstr "لا تجاهلات: %1"

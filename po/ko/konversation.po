@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation \n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-05-18 11:24+0200\n"
+"POT-Creation-Date: 2009-05-19 11:35+0200\n"
 "PO-Revision-Date: 2006-07-12 18:21+0900\n"
 "Last-Translator: Cho Sung Jae <jachin@netian.com>\n"
 "Language-Team: 한국어\n"
@@ -1098,27 +1098,27 @@ msgstr "다음 시각 이후로 온라인:"
 msgid "Join Channel on %1"
 msgstr "%1에 채널 입장"
 
-#: src/irc/serverlistdialog.cpp:106 src/quickconnectdialog.cpp:87
+#: src/irc/serverlistdialog.cpp:102 src/quickconnectdialog.cpp:87
 msgid "C&onnect"
 msgstr "접속(&O)"
 
-#: src/irc/serverlistdialog.cpp:106 src/quickconnectdialog.cpp:87
+#: src/irc/serverlistdialog.cpp:102 src/quickconnectdialog.cpp:87
 msgid "Connect to the server"
 msgstr "서버에 연결"
 
-#: src/irc/serverlistdialog.cpp:106
+#: src/irc/serverlistdialog.cpp:102
 msgid "Click here to connect to the selected IRC network and channel."
 msgstr "선택된 IRC 네트워크와 채널에 대해 연결하기 위해 이곳을 클릭하십시오."
 
-#: src/irc/serverlistdialog.cpp:180
+#: src/irc/serverlistdialog.cpp:176
 msgid "New Network"
 msgstr "새 네트워크"
 
-#: src/irc/serverlistdialog.cpp:201
+#: src/irc/serverlistdialog.cpp:197
 msgid "Edit Network"
 msgstr "네트워크 편집"
 
-#: src/irc/serverlistdialog.cpp:259
+#: src/irc/serverlistdialog.cpp:255
 #, kde-format
 msgid ""
 "You cannot delete %1.\n"
@@ -1129,7 +1129,7 @@ msgstr ""
 "\n"
 "네트워크 %2는 적어도 하나의 서버를 필요로 합니다."
 
-#: src/irc/serverlistdialog.cpp:264
+#: src/irc/serverlistdialog.cpp:260
 #, fuzzy, kde-format
 #| msgid ""
 #| "You cannot delete the selected servers.\n"
@@ -1148,11 +1148,11 @@ msgstr[0] ""
 "\n"
 "네트워크 %1은 적어도 한 서버를 필요로 합니다."
 
-#: src/irc/serverlistdialog.cpp:281
+#: src/irc/serverlistdialog.cpp:277
 msgid "Do you really want to delete the selected entries?"
 msgstr "선택된 항목을 삭제하길 원하십니까?"
 
-#: src/irc/serverlistdialog.cpp:283
+#: src/irc/serverlistdialog.cpp:279
 #, kde-format
 msgid "Do you really want to delete %1?"
 msgstr "%1을 삭제하길 원하십니까?"
@@ -1305,7 +1305,7 @@ msgid "Usage: %1RAW [OPEN | CLOSE]"
 msgstr "사용예: %1RAW [OPEN | CLOSE]"
 
 #: src/irc/outputfilter.cpp:1098 src/irc/server.cpp:2402
-#: src/irc/server.cpp:2420 src/viewer/ircview.cpp:364
+#: src/irc/server.cpp:2420 src/viewer/ircview.cpp:363
 msgid "Notify"
 msgstr "알림"
 
@@ -1789,7 +1789,7 @@ msgid "You are not on %1."
 msgstr "%1에 있지 않습니다."
 
 #: src/irc/inputfilter.cpp:1193 src/irc/inputfilter.cpp:1202
-#: src/irc/inputfilter.cpp:1211 src/viewer/ircview.cpp:358
+#: src/irc/inputfilter.cpp:1211 src/viewer/ircview.cpp:357
 msgid "MOTD"
 msgstr "오늘의 공지"
 
@@ -2342,7 +2342,7 @@ msgid "Invitation"
 msgstr "초대"
 
 #: src/irc/server.cpp:3015 src/irc/channel.cpp:1310 src/irc/channel.cpp:1327
-#: src/viewer/ircview.cpp:383
+#: src/viewer/ircview.cpp:382
 msgid "Join"
 msgstr "입장"
 
@@ -2773,7 +2773,7 @@ msgstr "여러분 스스로 말하기"
 
 #: src/irc/query.cpp:678 src/irc/query.cpp:685 src/irc/channel.cpp:1350
 #: src/irc/channel.cpp:1352 src/irc/channel.cpp:1371 src/irc/channel.cpp:1373
-#: src/viewer/ircview.cpp:388
+#: src/viewer/ircview.cpp:387
 msgid "Quit"
 msgstr ""
 
@@ -2943,7 +2943,7 @@ msgid "You have left this server (%1)."
 msgstr "여러분은 이 서버를 떠났습니다. (%1)"
 
 #: src/irc/channel.cpp:1357 src/irc/channel.cpp:1359 src/irc/channel.cpp:1379
-#: src/irc/channel.cpp:1381 src/viewer/ircview.cpp:388
+#: src/irc/channel.cpp:1381 src/viewer/ircview.cpp:387
 msgid "Part"
 msgstr "퇴장"
 
@@ -4376,10 +4376,10 @@ msgid "An Error has occurred in a DCC transfer: %1"
 msgstr ""
 
 #: src/notificationhandler.cpp:222
-#, fuzzy, kde-format
-msgctxt "%1 File Transfer is complete"
-msgid "%1 - filename"
-msgstr "파일:"
+#, kde-format
+msgctxt "%1 - filename"
+msgid "%1 File Transfer is complete"
+msgstr ""
 
 #: src/notificationhandler.cpp:248
 #, kde-format
@@ -5005,17 +5005,17 @@ msgstr "모든 항목 선택(&S)"
 msgid "Find Text..."
 msgstr "텍스트 찾기..."
 
-#: src/viewer/ircview.cpp:947
+#: src/viewer/ircview.cpp:946
 #, fuzzy
 msgid "Save link as"
 msgstr "목록 저장(&S)..."
 
-#: src/viewer/ircview.cpp:1018
+#: src/viewer/ircview.cpp:1017
 #, kde-format
 msgid "Open a query with %1"
 msgstr "%1(으)로 쿼리 열기"
 
-#: src/viewer/ircview.cpp:1035 src/viewer/topiclabel.cpp:283
+#: src/viewer/ircview.cpp:1034 src/viewer/topiclabel.cpp:283
 #, kde-format
 msgid "Join the channel %1"
 msgstr "%1 채널 입장"
@@ -5046,21 +5046,21 @@ msgstr ""
 "table><p>더 많은 명령어는 Konversation 핸드북을 보십시오.<p>메시지는 512 문"
 "자 길이가 최대이며 다중행을 포함할 수 없습니다.</qt>"
 
-#: src/viewer/ircinput.cpp:456
+#: src/viewer/ircinput.cpp:450
 #, fuzzy, kde-format
 #| msgid " bytes"
 msgid "1 byte"
 msgid_plural "%1 bytes"
 msgstr[0] "바이트"
 
-#: src/viewer/ircinput.cpp:457
+#: src/viewer/ircinput.cpp:451
 #, fuzzy, kde-format
 #| msgid " lines"
 msgid "1 line"
 msgid_plural "%1 lines"
 msgstr[0] " 온라인"
 
-#: src/viewer/ircinput.cpp:463
+#: src/viewer/ircinput.cpp:457
 #, fuzzy, kde-format
 #| msgid ""
 #| "<qt>You are attempting to paste a large portion of text (%1 bytes or %2 "
@@ -5078,11 +5078,11 @@ msgstr ""
 "다. 그러면, 접속이 끊기거나, 다른 사용자에게서 킬을 당할 수 있습니다. 진짜로 "
 "하시겠습니까?</qt>"
 
-#: src/viewer/ircinput.cpp:466
+#: src/viewer/ircinput.cpp:460
 msgid "Large Paste Warning"
 msgstr "큰 내용 붙여넣기 경고"
 
-#: src/viewer/ircinput.cpp:467
+#: src/viewer/ircinput.cpp:461
 #, fuzzy
 #| msgid "Part"
 msgid "Paste"
@@ -5092,7 +5092,7 @@ msgstr "퇴장"
 #. i18n: ectx: property (text), widget (KPushButton, m_editIdentityButton)
 #. i18n: file: src/irc/serverlistdialogui.ui:162
 #. i18n: ectx: property (text), widget (QPushButton, m_editButton)
-#: src/viewer/ircinput.cpp:468 rc.cpp:65 rc.cpp:200
+#: src/viewer/ircinput.cpp:462 rc.cpp:65 rc.cpp:200
 msgid "&Edit..."
 msgstr "편집(&E)..."
 
@@ -8526,6 +8526,11 @@ msgstr ""
 #: rc.cpp:1781
 msgid "&Window"
 msgstr "창(&W)"
+
+#, fuzzy
+#~ msgctxt "%1 File Transfer is complete"
+#~ msgid "%1 - filename"
+#~ msgstr "파일:"
 
 #~ msgid "No such ignores: %1"
 #~ msgstr "무시 대항이 없습니다. %1"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-05-18 11:24+0200\n"
+"POT-Creation-Date: 2009-05-19 11:35+0200\n"
 "PO-Revision-Date: 2007-10-15 14:36+0300\n"
 "Last-Translator: Spiros Georgaras <sng@hellug.gr>\n"
 "Language-Team: Greek <i18ngr@lists.hellug.gr>\n"
@@ -1109,27 +1109,27 @@ msgstr "Σε σύνδεση από:"
 msgid "Join Channel on %1"
 msgstr "Συμμετοχή σε κανάλι στο %1"
 
-#: src/irc/serverlistdialog.cpp:106 src/quickconnectdialog.cpp:87
+#: src/irc/serverlistdialog.cpp:102 src/quickconnectdialog.cpp:87
 msgid "C&onnect"
 msgstr "Σύν&δεση"
 
-#: src/irc/serverlistdialog.cpp:106 src/quickconnectdialog.cpp:87
+#: src/irc/serverlistdialog.cpp:102 src/quickconnectdialog.cpp:87
 msgid "Connect to the server"
 msgstr "Σύνδεση με τον εξυπηρετητή"
 
-#: src/irc/serverlistdialog.cpp:106
+#: src/irc/serverlistdialog.cpp:102
 msgid "Click here to connect to the selected IRC network and channel."
 msgstr "Κλικ εδώ για σύνδεση με το επιλεγμένο δίκτυο ή κανάλι IRC."
 
-#: src/irc/serverlistdialog.cpp:180
+#: src/irc/serverlistdialog.cpp:176
 msgid "New Network"
 msgstr "Νέο δίκτυο"
 
-#: src/irc/serverlistdialog.cpp:201
+#: src/irc/serverlistdialog.cpp:197
 msgid "Edit Network"
 msgstr "Επεξεργασία δικτύου"
 
-#: src/irc/serverlistdialog.cpp:259
+#: src/irc/serverlistdialog.cpp:255
 #, kde-format
 msgid ""
 "You cannot delete %1.\n"
@@ -1140,7 +1140,7 @@ msgstr ""
 "\n"
 "Το δίκτυο %2 απαιτείται να έχει τουλάχιστον έναν εξυπηρετητή."
 
-#: src/irc/serverlistdialog.cpp:264
+#: src/irc/serverlistdialog.cpp:260
 #, fuzzy, kde-format
 #| msgid ""
 #| "You cannot delete the selected servers.\n"
@@ -1163,11 +1163,11 @@ msgstr[1] ""
 "\n"
 "Το δίκτυο %1 απαιτείται να έχει τουλάχιστον έναν εξυπηρετητή."
 
-#: src/irc/serverlistdialog.cpp:281
+#: src/irc/serverlistdialog.cpp:277
 msgid "Do you really want to delete the selected entries?"
 msgstr "Επιθυμείτε πραγματικά τη διαγραφή των επιλεγμένων καταχωρήσεων;"
 
-#: src/irc/serverlistdialog.cpp:283
+#: src/irc/serverlistdialog.cpp:279
 #, kde-format
 msgid "Do you really want to delete %1?"
 msgstr "Επιθυμείτε πραγματικά τη διαγραφή του %1;"
@@ -1320,7 +1320,7 @@ msgid "Usage: %1RAW [OPEN | CLOSE]"
 msgstr "Χρήση: %1RAW [OPEN | CLOSE]"
 
 #: src/irc/outputfilter.cpp:1098 src/irc/server.cpp:2402
-#: src/irc/server.cpp:2420 src/viewer/ircview.cpp:364
+#: src/irc/server.cpp:2420 src/viewer/ircview.cpp:363
 msgid "Notify"
 msgstr "Ειδοποίηση"
 
@@ -1812,7 +1812,7 @@ msgid "You are not on %1."
 msgstr "Δεν είστε στο %1."
 
 #: src/irc/inputfilter.cpp:1193 src/irc/inputfilter.cpp:1202
-#: src/irc/inputfilter.cpp:1211 src/viewer/ircview.cpp:358
+#: src/irc/inputfilter.cpp:1211 src/viewer/ircview.cpp:357
 msgid "MOTD"
 msgstr "Μήνυμα της ημέρας"
 
@@ -2372,7 +2372,7 @@ msgid "Invitation"
 msgstr "Πρόσκληση"
 
 #: src/irc/server.cpp:3015 src/irc/channel.cpp:1310 src/irc/channel.cpp:1327
-#: src/viewer/ircview.cpp:383
+#: src/viewer/ircview.cpp:382
 msgid "Join"
 msgstr "Συμμετοχή"
 
@@ -2812,7 +2812,7 @@ msgstr "Συνομιλία με τον εαυτό σας"
 
 #: src/irc/query.cpp:678 src/irc/query.cpp:685 src/irc/channel.cpp:1350
 #: src/irc/channel.cpp:1352 src/irc/channel.cpp:1371 src/irc/channel.cpp:1373
-#: src/viewer/ircview.cpp:388
+#: src/viewer/ircview.cpp:387
 msgid "Quit"
 msgstr ""
 
@@ -2982,7 +2982,7 @@ msgid "You have left this server (%1)."
 msgstr "Αποχωρίσατε από αυτόν εξυπηρετητή (%1)."
 
 #: src/irc/channel.cpp:1357 src/irc/channel.cpp:1359 src/irc/channel.cpp:1379
-#: src/irc/channel.cpp:1381 src/viewer/ircview.cpp:388
+#: src/irc/channel.cpp:1381 src/viewer/ircview.cpp:387
 msgid "Part"
 msgstr "Αποχώρηση"
 
@@ -4427,11 +4427,10 @@ msgid "An Error has occurred in a DCC transfer: %1"
 msgstr ""
 
 #: src/notificationhandler.cpp:222
-#, fuzzy, kde-format
-#| msgid "Filename:"
-msgctxt "%1 File Transfer is complete"
-msgid "%1 - filename"
-msgstr "Όνομα αρχείου:"
+#, kde-format
+msgctxt "%1 - filename"
+msgid "%1 File Transfer is complete"
+msgstr ""
 
 #: src/notificationhandler.cpp:248
 #, kde-format
@@ -5088,18 +5087,18 @@ msgstr "&Επιλογή όλων των αντικειμένων"
 msgid "Find Text..."
 msgstr "Αναζήτηση κειμένου..."
 
-#: src/viewer/ircview.cpp:947
+#: src/viewer/ircview.cpp:946
 #, fuzzy
 #| msgid "Save Link As"
 msgid "Save link as"
 msgstr "Αποθήκευση δεσμού ως"
 
-#: src/viewer/ircview.cpp:1018
+#: src/viewer/ircview.cpp:1017
 #, kde-format
 msgid "Open a query with %1"
 msgstr "Άνοιγμα ερωτήματος με το %1"
 
-#: src/viewer/ircview.cpp:1035 src/viewer/topiclabel.cpp:283
+#: src/viewer/ircview.cpp:1034 src/viewer/topiclabel.cpp:283
 #, kde-format
 msgid "Join the channel %1"
 msgstr "Συμμετοχή στο κανάλι %1"
@@ -5149,7 +5148,7 @@ msgstr ""
 "δείτε το εγχειρίδιο του Konversation.<p>Ένα δεν μπορεί να περιέχει πολλαπλές "
 "γραμμές.</qt>"
 
-#: src/viewer/ircinput.cpp:456
+#: src/viewer/ircinput.cpp:450
 #, fuzzy, kde-format
 #| msgid " bytes"
 msgid "1 byte"
@@ -5157,7 +5156,7 @@ msgid_plural "%1 bytes"
 msgstr[0] " bytes"
 msgstr[1] " bytes"
 
-#: src/viewer/ircinput.cpp:457
+#: src/viewer/ircinput.cpp:451
 #, fuzzy, kde-format
 #| msgid " lines"
 msgid "1 line"
@@ -5165,7 +5164,7 @@ msgid_plural "%1 lines"
 msgstr[0] " γραμμές"
 msgstr[1] " γραμμές"
 
-#: src/viewer/ircinput.cpp:463
+#: src/viewer/ircinput.cpp:457
 #, fuzzy, kde-format
 #| msgid ""
 #| "<qt>You are attempting to paste a large portion of text (%1 bytes or %2 "
@@ -5184,11 +5183,11 @@ msgstr ""
 "εκδιώξεις λόγο πλημμυρίσματος καναλιού. Επιθυμείτε πραγματικά να συνεχίσετε;"
 "</qt>"
 
-#: src/viewer/ircinput.cpp:466
+#: src/viewer/ircinput.cpp:460
 msgid "Large Paste Warning"
 msgstr "Προειδοποίηση μεγάλης επικόλλησης"
 
-#: src/viewer/ircinput.cpp:467
+#: src/viewer/ircinput.cpp:461
 #, fuzzy
 #| msgid "Part"
 msgid "Paste"
@@ -5198,7 +5197,7 @@ msgstr "Αποχώρηση"
 #. i18n: ectx: property (text), widget (KPushButton, m_editIdentityButton)
 #. i18n: file: src/irc/serverlistdialogui.ui:162
 #. i18n: ectx: property (text), widget (QPushButton, m_editButton)
-#: src/viewer/ircinput.cpp:468 rc.cpp:65 rc.cpp:200
+#: src/viewer/ircinput.cpp:462 rc.cpp:65 rc.cpp:200
 msgid "&Edit..."
 msgstr "&Επεξεργασία..."
 
@@ -8647,6 +8646,12 @@ msgstr ""
 #: rc.cpp:1781
 msgid "&Window"
 msgstr "&Παράθυρο"
+
+#, fuzzy
+#~| msgid "Filename:"
+#~ msgctxt "%1 File Transfer is complete"
+#~ msgid "%1 - filename"
+#~ msgstr "Όνομα αρχείου:"
 
 #~ msgid "No such ignores: %1"
 #~ msgstr "Οι χρήστες δεν υπάρχουν στη λίστα αγνόησης : %1"

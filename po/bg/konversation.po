@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-05-18 11:24+0200\n"
+"POT-Creation-Date: 2009-05-19 11:35+0200\n"
 "PO-Revision-Date: 2007-09-20 20:36+0000\n"
 "Last-Translator: Zlatko Popov <zlatkopopov@fsa-bg.org>\n"
 "Language-Team: Bulgarian <dict@linux.zonebg.com>\n"
@@ -1097,27 +1097,27 @@ msgstr "Включен от:"
 msgid "Join Channel on %1"
 msgstr "Влизане в канал при %1"
 
-#: src/irc/serverlistdialog.cpp:106 src/quickconnectdialog.cpp:87
+#: src/irc/serverlistdialog.cpp:102 src/quickconnectdialog.cpp:87
 msgid "C&onnect"
 msgstr "&Свързване"
 
-#: src/irc/serverlistdialog.cpp:106 src/quickconnectdialog.cpp:87
+#: src/irc/serverlistdialog.cpp:102 src/quickconnectdialog.cpp:87
 msgid "Connect to the server"
 msgstr "Свързване към сървъра"
 
-#: src/irc/serverlistdialog.cpp:106
+#: src/irc/serverlistdialog.cpp:102
 msgid "Click here to connect to the selected IRC network and channel."
 msgstr "Натиснете тук, за да се свържете с маркираните сървър и канал."
 
-#: src/irc/serverlistdialog.cpp:180
+#: src/irc/serverlistdialog.cpp:176
 msgid "New Network"
 msgstr "Нова мрежа"
 
-#: src/irc/serverlistdialog.cpp:201
+#: src/irc/serverlistdialog.cpp:197
 msgid "Edit Network"
 msgstr "Редактиране на мрежа"
 
-#: src/irc/serverlistdialog.cpp:259
+#: src/irc/serverlistdialog.cpp:255
 #, kde-format
 msgid ""
 "You cannot delete %1.\n"
@@ -1128,7 +1128,7 @@ msgstr ""
 "\n"
 "Мрежата %2 трябва да има поне един сървър."
 
-#: src/irc/serverlistdialog.cpp:264
+#: src/irc/serverlistdialog.cpp:260
 #, fuzzy, kde-format
 #| msgid ""
 #| "You cannot delete the selected servers.\n"
@@ -1151,11 +1151,11 @@ msgstr[1] ""
 "\n"
 "Мрежата %1 трябва да има поне един сървър."
 
-#: src/irc/serverlistdialog.cpp:281
+#: src/irc/serverlistdialog.cpp:277
 msgid "Do you really want to delete the selected entries?"
 msgstr "Сигурни ли сте, че искате да изтриете маркираните записи?"
 
-#: src/irc/serverlistdialog.cpp:283
+#: src/irc/serverlistdialog.cpp:279
 #, kde-format
 msgid "Do you really want to delete %1?"
 msgstr "Наистина ли искате да премахнете %1?"
@@ -1310,7 +1310,7 @@ msgid "Usage: %1RAW [OPEN | CLOSE]"
 msgstr "Употреба: %1RAW [OPEN | CLOSE]"
 
 #: src/irc/outputfilter.cpp:1098 src/irc/server.cpp:2402
-#: src/irc/server.cpp:2420 src/viewer/ircview.cpp:364
+#: src/irc/server.cpp:2420 src/viewer/ircview.cpp:363
 msgid "Notify"
 msgstr "Уведомяване"
 
@@ -1801,7 +1801,7 @@ msgid "You are not on %1."
 msgstr "Не сте в %1."
 
 #: src/irc/inputfilter.cpp:1193 src/irc/inputfilter.cpp:1202
-#: src/irc/inputfilter.cpp:1211 src/viewer/ircview.cpp:358
+#: src/irc/inputfilter.cpp:1211 src/viewer/ircview.cpp:357
 msgid "MOTD"
 msgstr "MOTD"
 
@@ -2355,7 +2355,7 @@ msgid "Invitation"
 msgstr "Покана"
 
 #: src/irc/server.cpp:3015 src/irc/channel.cpp:1310 src/irc/channel.cpp:1327
-#: src/viewer/ircview.cpp:383
+#: src/viewer/ircview.cpp:382
 msgid "Join"
 msgstr "Присъединяване"
 
@@ -2787,7 +2787,7 @@ msgstr "Говорене на себе си"
 
 #: src/irc/query.cpp:678 src/irc/query.cpp:685 src/irc/channel.cpp:1350
 #: src/irc/channel.cpp:1352 src/irc/channel.cpp:1371 src/irc/channel.cpp:1373
-#: src/viewer/ircview.cpp:388
+#: src/viewer/ircview.cpp:387
 msgid "Quit"
 msgstr ""
 
@@ -2955,7 +2955,7 @@ msgid "You have left this server (%1)."
 msgstr "Напуснахте този сървър (%1)."
 
 #: src/irc/channel.cpp:1357 src/irc/channel.cpp:1359 src/irc/channel.cpp:1379
-#: src/irc/channel.cpp:1381 src/viewer/ircview.cpp:388
+#: src/irc/channel.cpp:1381 src/viewer/ircview.cpp:387
 msgid "Part"
 msgstr "Напускане"
 
@@ -4395,11 +4395,10 @@ msgid "An Error has occurred in a DCC transfer: %1"
 msgstr ""
 
 #: src/notificationhandler.cpp:222
-#, fuzzy, kde-format
-#| msgid "Filename:"
-msgctxt "%1 File Transfer is complete"
-msgid "%1 - filename"
-msgstr "Файл:"
+#, kde-format
+msgctxt "%1 - filename"
+msgid "%1 File Transfer is complete"
+msgstr ""
 
 #: src/notificationhandler.cpp:248
 #, kde-format
@@ -5047,18 +5046,18 @@ msgstr "&Маркиране на всички"
 msgid "Find Text..."
 msgstr "Търсене на текст..."
 
-#: src/viewer/ircview.cpp:947
+#: src/viewer/ircview.cpp:946
 #, fuzzy
 #| msgid "Save Link As"
 msgid "Save link as"
 msgstr "Запис на връзката като"
 
-#: src/viewer/ircview.cpp:1018
+#: src/viewer/ircview.cpp:1017
 #, kde-format
 msgid "Open a query with %1"
 msgstr "Отваряне на личен разговор с %1"
 
-#: src/viewer/ircview.cpp:1035 src/viewer/topiclabel.cpp:283
+#: src/viewer/ircview.cpp:1034 src/viewer/topiclabel.cpp:283
 #, kde-format
 msgid "Join the channel %1"
 msgstr "Влизане в канал %1"
@@ -5104,7 +5103,7 @@ msgstr ""
 "Konversation<p>Едно съобщение може да бъде не по-дълго от 512 символа и не "
 "може да съдържа множество редове.</qt>"
 
-#: src/viewer/ircinput.cpp:456
+#: src/viewer/ircinput.cpp:450
 #, fuzzy, kde-format
 #| msgid " bytes"
 msgid "1 byte"
@@ -5112,7 +5111,7 @@ msgid_plural "%1 bytes"
 msgstr[0] " байта"
 msgstr[1] " байта"
 
-#: src/viewer/ircinput.cpp:457
+#: src/viewer/ircinput.cpp:451
 #, fuzzy, kde-format
 #| msgid " lines"
 msgid "1 line"
@@ -5120,7 +5119,7 @@ msgid_plural "%1 lines"
 msgstr[0] " реда"
 msgstr[1] " реда"
 
-#: src/viewer/ircinput.cpp:463
+#: src/viewer/ircinput.cpp:457
 #, fuzzy, kde-format
 #| msgid ""
 #| "<qt>You are attempting to paste a large portion of text (%1 bytes or %2 "
@@ -5138,11 +5137,11 @@ msgstr ""
 "разговора. Това може да причини прекъсване на връзката или изхвърляне заради "
 "препълване. Искате ли да продължите?</qt>"
 
-#: src/viewer/ircinput.cpp:466
+#: src/viewer/ircinput.cpp:460
 msgid "Large Paste Warning"
 msgstr "Предупреждение при поставяне на голям обем"
 
-#: src/viewer/ircinput.cpp:467
+#: src/viewer/ircinput.cpp:461
 #, fuzzy
 #| msgid "Part"
 msgid "Paste"
@@ -5152,7 +5151,7 @@ msgstr "Напускане"
 #. i18n: ectx: property (text), widget (KPushButton, m_editIdentityButton)
 #. i18n: file: src/irc/serverlistdialogui.ui:162
 #. i18n: ectx: property (text), widget (QPushButton, m_editButton)
-#: src/viewer/ircinput.cpp:468 rc.cpp:65 rc.cpp:200
+#: src/viewer/ircinput.cpp:462 rc.cpp:65 rc.cpp:200
 msgid "&Edit..."
 msgstr "&Редактиране..."
 
@@ -8575,6 +8574,12 @@ msgstr ""
 #: rc.cpp:1781
 msgid "&Window"
 msgstr "&Прозорец"
+
+#, fuzzy
+#~| msgid "Filename:"
+#~ msgctxt "%1 File Transfer is complete"
+#~ msgid "%1 - filename"
+#~ msgstr "Файл:"
 
 #~ msgid "No such ignores: %1"
 #~ msgstr "Няма такива игнорирани: %1"
