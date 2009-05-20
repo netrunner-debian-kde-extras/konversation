@@ -9,6 +9,9 @@ DH = dh --with quilt
 
 include debian/debhelper/kde.mk
 
+ifneq (,$(shell which tg))
+TG_BRANCHES := $(filter-out debian/aboutdata_add_debian_version,$(shell tg summary -t))
 include /usr/share/quilt/quilt.make
 -include /usr/share/topgit/tg2quilt.mk
 .PHONY: /usr/share/topgit/tg2quilt.mk
+endif
