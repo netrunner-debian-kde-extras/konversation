@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-05-17 11:19+0200\n"
+"POT-Creation-Date: 2009-05-19 11:35+0200\n"
 "PO-Revision-Date: 2008-09-09 14:14+0200\n"
 "Last-Translator: Enrique Matias Sanchez <cronopios@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -107,10 +107,10 @@ msgstr "No se ha podido abrir un 'socket'"
 #: src/dcc/chat.cpp:329 src/dcc/chat.cpp:334 src/irc/inputfilter.cpp:371
 #: src/irc/inputfilter.cpp:386 src/irc/inputfilter.cpp:401
 #: src/irc/inputfilter.cpp:417 src/irc/inputfilter.cpp:425
-#: src/irc/server.cpp:1788 src/irc/server.cpp:1814 src/irc/server.cpp:1826
-#: src/irc/server.cpp:1927 src/irc/server.cpp:1978 src/irc/server.cpp:2015
-#: src/irc/server.cpp:2018 src/irc/server.cpp:2029 src/irc/server.cpp:2032
-#: src/irc/server.cpp:2046 src/irc/server.cpp:2053 src/settingsdialog.cpp:149
+#: src/irc/server.cpp:1796 src/irc/server.cpp:1822 src/irc/server.cpp:1834
+#: src/irc/server.cpp:1935 src/irc/server.cpp:1986 src/irc/server.cpp:2023
+#: src/irc/server.cpp:2026 src/irc/server.cpp:2037 src/irc/server.cpp:2040
+#: src/irc/server.cpp:2054 src/irc/server.cpp:2061 src/settingsdialog.cpp:149
 #: src/viewer/ignorelistviewitem.cpp:47 rc.cpp:410
 msgid "DCC"
 msgstr "DCC"
@@ -165,8 +165,8 @@ msgstr "Se ha establecido una conexión de conversación DCC con %1."
 #: src/irc/inputfilter.cpp:1184 src/irc/inputfilter.cpp:1353
 #: src/irc/inputfilter.cpp:1917 src/irc/inputfilter.cpp:1938
 #: src/irc/inputfilter.cpp:1946 src/irc/inputfilter.cpp:1954
-#: src/irc/server.cpp:617 src/irc/server.cpp:1891 src/irc/server.cpp:1937
-#: src/irc/server.cpp:2001 src/connectionmanager.cpp:226
+#: src/irc/server.cpp:617 src/irc/server.cpp:1899 src/irc/server.cpp:1945
+#: src/irc/server.cpp:2009 src/connectionmanager.cpp:226
 #: src/linkaddressbook/addressbook.cpp:116
 msgid "Error"
 msgstr ""
@@ -904,7 +904,7 @@ msgid "Kick / Ban"
 msgstr "Expulsar / prohibir"
 
 #: src/irc/nicklistview.cpp:120 src/irc/outputfilter.cpp:1325
-#: src/irc/outputfilter.cpp:1397 src/irc/server.cpp:3008 src/irc/query.cpp:94
+#: src/irc/outputfilter.cpp:1397 src/irc/server.cpp:3016 src/irc/query.cpp:94
 #: src/irc/query.cpp:394 src/irc/query.cpp:395 src/irc/channel.cpp:651
 #: src/irc/channel.cpp:652 src/preferences/warnings_preferences.cpp:120
 #: src/settingsdialog.cpp:137
@@ -1108,27 +1108,27 @@ msgstr "Conectado desde:"
 msgid "Join Channel on %1"
 msgstr "Unirse al canal en %1"
 
-#: src/irc/serverlistdialog.cpp:106 src/quickconnectdialog.cpp:87
+#: src/irc/serverlistdialog.cpp:102 src/quickconnectdialog.cpp:87
 msgid "C&onnect"
 msgstr "C&onectar"
 
-#: src/irc/serverlistdialog.cpp:106 src/quickconnectdialog.cpp:87
+#: src/irc/serverlistdialog.cpp:102 src/quickconnectdialog.cpp:87
 msgid "Connect to the server"
 msgstr "Conectarse al servidor"
 
-#: src/irc/serverlistdialog.cpp:106
+#: src/irc/serverlistdialog.cpp:102
 msgid "Click here to connect to the selected IRC network and channel."
 msgstr "Pulse aquí para conectarse a la red y canal de IRC seleccionados."
 
-#: src/irc/serverlistdialog.cpp:180
+#: src/irc/serverlistdialog.cpp:176
 msgid "New Network"
 msgstr "Nueva red"
 
-#: src/irc/serverlistdialog.cpp:201
+#: src/irc/serverlistdialog.cpp:197
 msgid "Edit Network"
 msgstr "Editar la red"
 
-#: src/irc/serverlistdialog.cpp:259
+#: src/irc/serverlistdialog.cpp:255
 #, kde-format
 msgid ""
 "You cannot delete %1.\n"
@@ -1139,7 +1139,7 @@ msgstr ""
 "\n"
 "La red %2 necesita tener al menos un servidor."
 
-#: src/irc/serverlistdialog.cpp:264
+#: src/irc/serverlistdialog.cpp:260
 #, fuzzy, kde-format
 #| msgid ""
 #| "You cannot delete the selected servers.\n"
@@ -1162,11 +1162,11 @@ msgstr[1] ""
 "\n"
 "La red %1 necesita tener al menos un servidor."
 
-#: src/irc/serverlistdialog.cpp:276
+#: src/irc/serverlistdialog.cpp:277
 msgid "Do you really want to delete the selected entries?"
 msgstr "¿Seguro que desea borrar los elementos seleccionados?"
 
-#: src/irc/serverlistdialog.cpp:278
+#: src/irc/serverlistdialog.cpp:279
 #, kde-format
 msgid "Do you really want to delete %1?"
 msgstr "¿Seguro que desea borrar %1?"
@@ -1321,8 +1321,8 @@ msgstr "El nombre del script no puede contener «../»."
 msgid "Usage: %1RAW [OPEN | CLOSE]"
 msgstr "Sintaxis: %1RAW [OPEN | CLOSE]"
 
-#: src/irc/outputfilter.cpp:1098 src/irc/server.cpp:2394
-#: src/irc/server.cpp:2412 src/viewer/ircview.cpp:364
+#: src/irc/outputfilter.cpp:1098 src/irc/server.cpp:2402
+#: src/irc/server.cpp:2420 src/viewer/ircview.cpp:363
 msgid "Notify"
 msgstr "Notificar"
 
@@ -1821,7 +1821,7 @@ msgid "You are not on %1."
 msgstr "Usted no está en %1."
 
 #: src/irc/inputfilter.cpp:1193 src/irc/inputfilter.cpp:1202
-#: src/irc/inputfilter.cpp:1211 src/viewer/ircview.cpp:358
+#: src/irc/inputfilter.cpp:1211 src/viewer/ircview.cpp:357
 msgid "MOTD"
 msgstr "MOTD"
 
@@ -1854,8 +1854,8 @@ msgstr "Usuarios actualmente en %1: %2."
 
 #. i18n: file: src/identitydialog.ui:262
 #. i18n: ectx: attribute (title), widget (QWidget, awayWidget)
-#: src/irc/inputfilter.cpp:1285 src/irc/server.cpp:3281
-#: src/irc/server.cpp:3306 src/irc/server.cpp:3315 src/irc/nicksonline.cpp:270
+#: src/irc/inputfilter.cpp:1285 src/irc/server.cpp:3289
+#: src/irc/server.cpp:3314 src/irc/server.cpp:3323 src/irc/nicksonline.cpp:270
 #: src/linkaddressbook/addressbook.cpp:112 rc.cpp:1267
 msgid "Away"
 msgstr "Ausente"
@@ -2253,38 +2253,38 @@ msgstr ""
 msgid "Nickname error"
 msgstr "Error del apodo"
 
-#: src/irc/server.cpp:1287 src/irc/server.cpp:3017 src/irc/server.cpp:3022
+#: src/irc/server.cpp:1295 src/irc/server.cpp:3025 src/irc/server.cpp:3030
 #: src/application.cpp:270
 msgid "D-Bus"
 msgstr ""
 
-#: src/irc/server.cpp:1648
+#: src/irc/server.cpp:1656
 #, kde-format
 msgid "Select File(s) to Send to %1"
 msgstr "Seleccione el archivo (o archivos) a enviar a %1"
 
-#: src/irc/server.cpp:1792 src/irc/server.cpp:1818 src/irc/server.cpp:1830
-#: src/irc/server.cpp:1933 src/irc/server.cpp:1984 src/irc/server.cpp:2056
+#: src/irc/server.cpp:1800 src/irc/server.cpp:1826 src/irc/server.cpp:1838
+#: src/irc/server.cpp:1941 src/irc/server.cpp:1992 src/irc/server.cpp:2064
 msgid "unknown size"
 msgstr "tamaño desconocido"
 
-#: src/irc/server.cpp:1789
+#: src/irc/server.cpp:1797
 #, kde-format
 msgid "%1 offers to send you \"%2\" (%3)..."
 msgstr "%1 le ofrece enviarle «%2» (%3)..."
 
-#: src/irc/server.cpp:1815
+#: src/irc/server.cpp:1823
 #, kde-format
 msgid "Asking %1 to accept upload of \"%2\" (%3)..."
 msgstr "Pidiéndole a %1 que acepte el envío de «%2» (%3)..."
 
-#: src/irc/server.cpp:1827
+#: src/irc/server.cpp:1835
 #, fuzzy, kde-format
 #| msgid "Asking %1 to accept upload of \"%2\" (%3)..."
 msgid "Asking %1 to accept passive upload of \"%2\" (%3)..."
 msgstr "Pidiéndole a %1 que acepte el envío de «%2» (%3)..."
 
-#: src/irc/server.cpp:1893
+#: src/irc/server.cpp:1901
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname"
 msgid ""
@@ -2293,7 +2293,7 @@ msgstr ""
 "Se ha recibido un mensaje no válido de aceptación de envío DCC pasivo de «%1» "
 "de %2."
 
-#: src/irc/server.cpp:1929
+#: src/irc/server.cpp:1937
 #, kde-format
 msgctxt ""
 "%1 = file name, %2 = nickname of sender, %3 = percentage of file size, %4 = "
@@ -2301,7 +2301,7 @@ msgctxt ""
 msgid "Resuming download of \"%1\" from %2 starting at %3% of %4..."
 msgstr "Reanudando la descarga de «%1» de %2 empezando en el %3% de %4..."
 
-#: src/irc/server.cpp:1939
+#: src/irc/server.cpp:1947
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname"
 msgid "Received invalid resume acceptance message for \"%1\" from %2."
@@ -2309,7 +2309,7 @@ msgstr ""
 "Se ha recibido un mensaje no válido de aceptación de reanudación de «%1» de %"
 "2."
 
-#: src/irc/server.cpp:1980
+#: src/irc/server.cpp:1988
 #, kde-format
 msgctxt ""
 "%1 = file name, %2 = nickname of recipient, %3 = percentage of file size, %4 "
@@ -2317,98 +2317,98 @@ msgctxt ""
 msgid "Resuming upload of \"%1\" to %2 starting at %3% of %4..."
 msgstr "Reanudando el envío de «%1» a %2 empezando en el %3% de %4..."
 
-#: src/irc/server.cpp:2003
+#: src/irc/server.cpp:2011
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname"
 msgid "Received invalid resume request for \"%1\" from %2."
 msgstr "Se ha recibido una petición de reanudación no válida de «%1» de %2."
 
-#: src/irc/server.cpp:2016
+#: src/irc/server.cpp:2024
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of sender"
 msgid "Download of \"%1\" from %2 finished."
 msgstr "La descarga de «%1» de %2 ha finalizado."
 
-#: src/irc/server.cpp:2019
+#: src/irc/server.cpp:2027
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of sender"
 msgid "Download of \"%1\" from %2 failed. Reason: %3."
 msgstr "La descarga de «%1» de %2 ha fallado. Razón: %3."
 
-#: src/irc/server.cpp:2030
+#: src/irc/server.cpp:2038
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of recipient"
 msgid "Upload of \"%1\" to %2 finished."
 msgstr "El envío de «%1» a %2 ha finalizado."
 
-#: src/irc/server.cpp:2033
+#: src/irc/server.cpp:2041
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of recipient"
 msgid "Upload of \"%1\" to %2 failed. Reason: %3."
 msgstr "El envío de «%1»a %2 ha fallado. Razón: %3."
 
-#: src/irc/server.cpp:2047
+#: src/irc/server.cpp:2055
 #, kde-format
 msgctxt "%1 = file name, %2 nickname of recipient"
 msgid "Sending \"%1\" to %2..."
 msgstr "Enviando «%1» a %2..."
 
-#: src/irc/server.cpp:2054
+#: src/irc/server.cpp:2062
 #, kde-format
 msgctxt "%1 = file name, %2 = file size, %3 = nickname of sender"
 msgid "Downloading \"%1\" (%2) from %3..."
 msgstr "Descargando «%1» (%2) de %3..."
 
-#: src/irc/server.cpp:2395 src/notificationhandler.cpp:261
+#: src/irc/server.cpp:2403 src/notificationhandler.cpp:261
 #, kde-format
 msgid "%1 is online (%2)."
 msgstr "%1 está conectado (%2)."
 
-#: src/irc/server.cpp:2412 src/notificationhandler.cpp:275
+#: src/irc/server.cpp:2420 src/notificationhandler.cpp:275
 #, kde-format
 msgid "%1 went offline (%2)."
 msgstr "%1 se ha desconectado (%2)."
 
-#: src/irc/server.cpp:3004
+#: src/irc/server.cpp:3012
 #, kde-format
 msgid ""
 "You were invited by %1 to join channel %2. Do you accept the invitation?"
 msgstr "%1 le ha invitado a unirse al canal %2. ¿Acepta la invitación?"
 
-#: src/irc/server.cpp:3006
+#: src/irc/server.cpp:3014
 msgid "Invitation"
 msgstr "Invitación"
 
-#: src/irc/server.cpp:3007 src/irc/channel.cpp:1310 src/irc/channel.cpp:1327
-#: src/viewer/ircview.cpp:383
+#: src/irc/server.cpp:3015 src/irc/channel.cpp:1310 src/irc/channel.cpp:1327
+#: src/viewer/ircview.cpp:382
 msgid "Join"
 msgstr "Unirse"
 
-#: src/irc/server.cpp:3017
+#: src/irc/server.cpp:3025
 #, kde-format
 msgid "Error: Could not find script \"%1\"."
 msgstr "Error: No se ha encontrado el script «%1»."
 
-#: src/irc/server.cpp:3022
+#: src/irc/server.cpp:3030
 #, kde-format
 msgid "Error: Could not execute script \"%1\". Check file permissions."
 msgstr ""
 "Error: no se ha podido ejecutar el script «%1». Compruebe los permisos del "
 "archivo."
 
-#: src/irc/server.cpp:3251
+#: src/irc/server.cpp:3259
 msgid "Gone away for now"
 msgstr "Ausente por ahora"
 
-#: src/irc/server.cpp:3281
+#: src/irc/server.cpp:3289
 msgid "You are now marked as being away."
 msgstr "Usted está ahora marcado como ausente."
 
-#: src/irc/server.cpp:3306
+#: src/irc/server.cpp:3314
 msgid "You are no longer marked as being away."
 msgstr "Usted ya no está marcado como ausente."
 
-#: src/irc/server.cpp:3315
+#: src/irc/server.cpp:3323
 msgid "You are not marked as being away."
 msgstr "Usted no está marcado como ausente."
 
@@ -2811,7 +2811,7 @@ msgstr "Hablando con usted mismo"
 
 #: src/irc/query.cpp:678 src/irc/query.cpp:685 src/irc/channel.cpp:1350
 #: src/irc/channel.cpp:1352 src/irc/channel.cpp:1371 src/irc/channel.cpp:1373
-#: src/viewer/ircview.cpp:388
+#: src/viewer/ircview.cpp:387
 msgid "Quit"
 msgstr ""
 
@@ -2980,7 +2980,7 @@ msgid "You have left this server (%1)."
 msgstr "Ha dejado este servidor (%1)."
 
 #: src/irc/channel.cpp:1357 src/irc/channel.cpp:1359 src/irc/channel.cpp:1379
-#: src/irc/channel.cpp:1381 src/viewer/ircview.cpp:388
+#: src/irc/channel.cpp:1381 src/viewer/ircview.cpp:387
 msgid "Part"
 msgstr "Abandonar"
 
@@ -4419,6 +4419,7 @@ msgstr ""
 
 #: src/notificationhandler.cpp:222
 #, kde-format
+msgctxt "%1 - filename"
 msgid "%1 File Transfer is complete"
 msgstr ""
 
@@ -5070,18 +5071,18 @@ msgstr "&Seleccionar todos los elementos"
 msgid "Find Text..."
 msgstr "Buscar texto..."
 
-#: src/viewer/ircview.cpp:948
+#: src/viewer/ircview.cpp:946
 #, fuzzy
 #| msgid "Save Link As"
 msgid "Save link as"
 msgstr "Guardar el enlace como"
 
-#: src/viewer/ircview.cpp:1019
+#: src/viewer/ircview.cpp:1017
 #, kde-format
 msgid "Open a query with %1"
 msgstr "Abrir una consulta con %1"
 
-#: src/viewer/ircview.cpp:1036 src/viewer/topiclabel.cpp:283
+#: src/viewer/ircview.cpp:1034 src/viewer/topiclabel.cpp:283
 #, kde-format
 msgid "Join the channel %1"
 msgstr "Unirse al canal %1"
@@ -5129,7 +5130,7 @@ msgstr ""
 "table><p>Para más órdenes, consulte el Manual de Konversation.<p>Un mensaje "
 "no puede contener varias líneas.</qt>"
 
-#: src/viewer/ircinput.cpp:456
+#: src/viewer/ircinput.cpp:450
 #, fuzzy, kde-format
 #| msgid " bytes"
 msgid "1 byte"
@@ -5137,7 +5138,7 @@ msgid_plural "%1 bytes"
 msgstr[0] " bytes"
 msgstr[1] " bytes"
 
-#: src/viewer/ircinput.cpp:457
+#: src/viewer/ircinput.cpp:451
 #, fuzzy, kde-format
 #| msgid " lines"
 msgid "1 line"
@@ -5145,7 +5146,7 @@ msgid_plural "%1 lines"
 msgstr[0] " líneas"
 msgstr[1] " líneas"
 
-#: src/viewer/ircinput.cpp:463
+#: src/viewer/ircinput.cpp:457
 #, fuzzy, kde-format
 #| msgid ""
 #| "<qt>You are attempting to paste a large portion of text (%1 bytes or %2 "
@@ -5163,11 +5164,11 @@ msgstr ""
 "la conversación. Esto puede provocar que la conexión se rompa o una "
 "expulsión por enviar demasiados datos. ¿Seguro que quiere continuar?</qt>"
 
-#: src/viewer/ircinput.cpp:466
+#: src/viewer/ircinput.cpp:460
 msgid "Large Paste Warning"
 msgstr "Aviso de pegado grande"
 
-#: src/viewer/ircinput.cpp:467
+#: src/viewer/ircinput.cpp:461
 #, fuzzy
 #| msgid "Part"
 msgid "Paste"
@@ -5177,7 +5178,7 @@ msgstr "Abandonar"
 #. i18n: ectx: property (text), widget (KPushButton, m_editIdentityButton)
 #. i18n: file: src/irc/serverlistdialogui.ui:162
 #. i18n: ectx: property (text), widget (QPushButton, m_editButton)
-#: src/viewer/ircinput.cpp:468 rc.cpp:65 rc.cpp:200
+#: src/viewer/ircinput.cpp:462 rc.cpp:65 rc.cpp:200
 msgid "&Edit..."
 msgstr "&Editar..."
 
@@ -5239,7 +5240,7 @@ msgstr "Ninguna"
 msgid "Edit Multiline Paste"
 msgstr "Editar pegado multilínea"
 
-#: src/viewer/chatwindow.cpp:352
+#: src/viewer/chatwindow.cpp:357
 #, kde-format
 msgid ""
 "\n"

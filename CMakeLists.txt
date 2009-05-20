@@ -37,6 +37,9 @@ configure_file(config-konversation.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-ko
 
 add_subdirectory(src)
 add_subdirectory(data)
-add_subdirectory(po)
 
 macro_display_feature_log()
+find_package(Msgfmt REQUIRED)
+find_package(Gettext REQUIRED)
+add_subdirectory( po )
+add_subdirectory( doc )

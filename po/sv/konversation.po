@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-05-18 11:24+0200\n"
-"PO-Revision-Date: 2009-05-18 19:09+0200\n"
+"POT-Creation-Date: 2009-05-19 11:35+0200\n"
+"PO-Revision-Date: 2009-05-19 18:22+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@comhem.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -999,27 +999,27 @@ msgstr "Uppkopplad sedan:"
 msgid "Join Channel on %1"
 msgstr "Gå med i kanal på %1"
 
-#: src/irc/serverlistdialog.cpp:106 src/quickconnectdialog.cpp:87
+#: src/irc/serverlistdialog.cpp:102 src/quickconnectdialog.cpp:87
 msgid "C&onnect"
 msgstr "Ans&lut"
 
-#: src/irc/serverlistdialog.cpp:106 src/quickconnectdialog.cpp:87
+#: src/irc/serverlistdialog.cpp:102 src/quickconnectdialog.cpp:87
 msgid "Connect to the server"
 msgstr "Anslut till servern"
 
-#: src/irc/serverlistdialog.cpp:106
+#: src/irc/serverlistdialog.cpp:102
 msgid "Click here to connect to the selected IRC network and channel."
 msgstr "Klicka här för att ansluta till markerat IRC-nätverk och kanal."
 
-#: src/irc/serverlistdialog.cpp:180
+#: src/irc/serverlistdialog.cpp:176
 msgid "New Network"
 msgstr "Nytt nätverk"
 
-#: src/irc/serverlistdialog.cpp:201
+#: src/irc/serverlistdialog.cpp:197
 msgid "Edit Network"
 msgstr "Redigera nätverk"
 
-#: src/irc/serverlistdialog.cpp:259
+#: src/irc/serverlistdialog.cpp:255
 #, kde-format
 msgid ""
 "You cannot delete %1.\n"
@@ -1030,7 +1030,7 @@ msgstr ""
 "\n"
 "Nätverket %2 måste ha åtminstone en server."
 
-#: src/irc/serverlistdialog.cpp:264
+#: src/irc/serverlistdialog.cpp:260
 #, kde-format
 msgid ""
 "You cannot delete the selected server.\n"
@@ -1049,11 +1049,11 @@ msgstr[1] ""
 "\n"
 "Nätverket %2 måste åtminstone ha en server."
 
-#: src/irc/serverlistdialog.cpp:281
+#: src/irc/serverlistdialog.cpp:277
 msgid "Do you really want to delete the selected entries?"
 msgstr "Vill du verkligen ta bort de markerade posterna?"
 
-#: src/irc/serverlistdialog.cpp:283
+#: src/irc/serverlistdialog.cpp:279
 #, kde-format
 msgid "Do you really want to delete %1?"
 msgstr "Vill du verkligen ta bort %1?"
@@ -1204,7 +1204,7 @@ msgid "Usage: %1RAW [OPEN | CLOSE]"
 msgstr "Användning: %1RAW [OPEN | CLOSE]"
 
 #: src/irc/outputfilter.cpp:1098 src/irc/server.cpp:2402
-#: src/irc/server.cpp:2420 src/viewer/ircview.cpp:364
+#: src/irc/server.cpp:2420 src/viewer/ircview.cpp:363
 msgid "Notify"
 msgstr "Underrättelse"
 
@@ -1695,7 +1695,7 @@ msgid "You are not on %1."
 msgstr "Du är nu inte på %1."
 
 #: src/irc/inputfilter.cpp:1193 src/irc/inputfilter.cpp:1202
-#: src/irc/inputfilter.cpp:1211 src/viewer/ircview.cpp:358
+#: src/irc/inputfilter.cpp:1211 src/viewer/ircview.cpp:357
 msgid "MOTD"
 msgstr "Dagens-meddelande"
 
@@ -2229,7 +2229,7 @@ msgid "Invitation"
 msgstr "Inbjudning"
 
 #: src/irc/server.cpp:3015 src/irc/channel.cpp:1310 src/irc/channel.cpp:1327
-#: src/viewer/ircview.cpp:383
+#: src/viewer/ircview.cpp:382
 msgid "Join"
 msgstr "Gå med"
 
@@ -2645,7 +2645,7 @@ msgstr "Talar för dig själv"
 
 #: src/irc/query.cpp:678 src/irc/query.cpp:685 src/irc/channel.cpp:1350
 #: src/irc/channel.cpp:1352 src/irc/channel.cpp:1371 src/irc/channel.cpp:1373
-#: src/viewer/ircview.cpp:388
+#: src/viewer/ircview.cpp:387
 msgid "Quit"
 msgstr "Avsluta"
 
@@ -2792,7 +2792,7 @@ msgid "You have left this server (%1)."
 msgstr "Du har lämnat den här servern (%1)."
 
 #: src/irc/channel.cpp:1357 src/irc/channel.cpp:1359 src/irc/channel.cpp:1379
-#: src/irc/channel.cpp:1381 src/viewer/ircview.cpp:388
+#: src/irc/channel.cpp:1381 src/viewer/ircview.cpp:387
 msgid "Part"
 msgstr "Lämna"
 
@@ -4204,10 +4204,9 @@ msgstr "Ett fel uppstod under en direktöverföring: %1"
 
 #: src/notificationhandler.cpp:222
 #, kde-format
-#| msgid "Filename:"
-msgctxt "%1 File Transfer is complete"
-msgid "%1 - filename"
-msgstr "%1 - filnamn"
+msgctxt "%1 - filename"
+msgid "%1 File Transfer is complete"
+msgstr "%1 filöverföring är färdig"
 
 #: src/notificationhandler.cpp:248
 #, kde-format
@@ -4752,16 +4751,16 @@ msgstr "Markera alla"
 msgid "Find Text..."
 msgstr "Sök text..."
 
-#: src/viewer/ircview.cpp:947
+#: src/viewer/ircview.cpp:946
 msgid "Save link as"
 msgstr "Spara länk som"
 
-#: src/viewer/ircview.cpp:1018
+#: src/viewer/ircview.cpp:1017
 #, kde-format
 msgid "Open a query with %1"
 msgstr "Öppna frågekanal med %1"
 
-#: src/viewer/ircview.cpp:1035 src/viewer/topiclabel.cpp:283
+#: src/viewer/ircview.cpp:1034 src/viewer/topiclabel.cpp:283
 #, kde-format
 msgid "Join the channel %1"
 msgstr "Gå med i kanal %1"
@@ -4795,21 +4794,21 @@ msgstr ""
 "Konversations handbok för fler kommandon.</p><p>Ett meddelande kan inte "
 "innehålla flera rader.</p></qt>"
 
-#: src/viewer/ircinput.cpp:456
+#: src/viewer/ircinput.cpp:450
 #, kde-format
 msgid "1 byte"
 msgid_plural "%1 bytes"
 msgstr[0] "1 byte"
 msgstr[1] "%1 byte"
 
-#: src/viewer/ircinput.cpp:457
+#: src/viewer/ircinput.cpp:451
 #, kde-format
 msgid "1 line"
 msgid_plural "%1 lines"
 msgstr[0] "1 rad"
 msgstr[1] "%1 rader"
 
-#: src/viewer/ircinput.cpp:463
+#: src/viewer/ircinput.cpp:457
 #, kde-format
 msgctxt ""
 "%1 is, for instance, '200 bytes'.  %2 is, for instance, '7 lines'.  Both are "
@@ -4823,11 +4822,11 @@ msgstr ""
 "kan orsaka återställning av anslutningen eller flöden med försök att "
 "avbryta. Vill du verkligen fortsätta?</qt>"
 
-#: src/viewer/ircinput.cpp:466
+#: src/viewer/ircinput.cpp:460
 msgid "Large Paste Warning"
 msgstr "Varning för stor inklistring"
 
-#: src/viewer/ircinput.cpp:467
+#: src/viewer/ircinput.cpp:461
 msgid "Paste"
 msgstr "Klistra in"
 
@@ -4835,7 +4834,7 @@ msgstr "Klistra in"
 #. i18n: ectx: property (text), widget (KPushButton, m_editIdentityButton)
 #. i18n: file: src/irc/serverlistdialogui.ui:162
 #. i18n: ectx: property (text), widget (QPushButton, m_editButton)
-#: src/viewer/ircinput.cpp:468 rc.cpp:65 rc.cpp:200
+#: src/viewer/ircinput.cpp:462 rc.cpp:65 rc.cpp:200
 msgid "&Edit..."
 msgstr "&Redigera..."
 

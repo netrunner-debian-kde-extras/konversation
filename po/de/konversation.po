@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-05-18 11:24+0200\n"
+"POT-Creation-Date: 2009-05-19 11:35+0200\n"
 "PO-Revision-Date: 2009-05-18 17:59+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzerf@gmail.com>\n"
 "Language-Team: de <kde-i18n-de@kde.org>\n"
@@ -239,7 +239,6 @@ msgid "No filename was given"
 msgstr "Kein Dateiname angegeben"
 
 #: src/dcc/transfersend.cpp:214
-#| msgid "Unabled to send 0 byte file"
 msgid "Unable to send a 0 byte file."
 msgstr "Eine 0 Byte große Datei kann nicht gesendet werden."
 
@@ -250,12 +249,10 @@ msgstr ""
 "zugestellt werden."
 
 #: src/dcc/transfersend.cpp:293
-#| msgid "Waiting remote user's acceptance"
 msgid "Awaiting remote user's acceptance"
 msgstr "Es wird gewartet, bis der Empfänger annimmt."
 
 #: src/dcc/transfersend.cpp:342 src/dcc/transferrecv.cpp:585
-#| msgid "Could not accept the connection. (Socket Error)"
 msgid "Could not accept the connection (socket error.)"
 msgstr "Die Verbindung kann nicht angenommen werden. (Socketfehler)"
 
@@ -415,10 +412,8 @@ msgid "<b>The file is used by another transfer.</b><br>%1<br>"
 msgstr ""
 "<b>Die Datei wird bereits in einem anderen Transfer verwendet.</b><br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:398, kde-format
-#| msgid ""
-#| "<b>A partial file exists.</b><br/>%1<br/>Size of the partial file: %2 "
-#| "bytes<br/>"
+#: src/dcc/transferrecv.cpp:398
+#, kde-format
 msgid ""
 "<b>A partial file exists:</b><br/>%2<br/>Size of the partial file: 1 byte."
 "<br/>"
@@ -470,7 +465,6 @@ msgid "Unexpected response from remote host"
 msgstr "Unerwartete Antwort vom Empfänger"
 
 #: src/dcc/transferrecv.cpp:667
-#| msgid "Transferring error"
 msgid "Transfer error"
 msgstr "Übertragungsfehler"
 
@@ -656,12 +650,6 @@ msgstr ""
 "fest, dass nur Operatoren das Thema ändern können.</p></qt>"
 
 #: src/irc/channeloptionsdialog.cpp:549
-#| msgid ""
-#| "<qt><p>These control the <em>mode</em> of the channel.  Only an operator "
-#| "can change these.</p><p><b>N</b>o messages from outside means that users "
-#| "that are not in the channel cannot send messages that everybody in the "
-#| "channel can see.  Almost all channels have this set to prevent nuisance "
-#| "messages.</p></qt>"
 msgid ""
 "<qt><p>These control the <em>mode</em> of the channel.  Only an operator can "
 "change these.</p><p><b>N</b>o messages from outside means users who are not "
@@ -899,8 +887,8 @@ msgid ""
 "page.</qt>"
 msgstr ""
 "<qt>Dieser Person eine Datei senden. Wenn Sie beim senden von Dateien "
-"Probleme haben, lesen Sie das Handbuch zu Konversation und die "
-"DCC-Einstellungen.</qt>"
+"Probleme haben, lesen Sie das Handbuch zu Konversation und die DCC-"
+"Einstellungen.</qt>"
 
 #: src/irc/nicklistview.cpp:135 src/irc/nicksonline.cpp:927
 #: src/linkaddressbook/addressbook_base.cpp:504
@@ -908,7 +896,6 @@ msgid "&Send Email..."
 msgstr "&E-Mail senden ..."
 
 #: src/irc/nicklistview.cpp:141
-#| msgid "Addressbook Associations"
 msgid "Address Book Associations"
 msgstr "Adressbuchzuordnungen"
 
@@ -1027,29 +1014,29 @@ msgstr "Online seit:"
 msgid "Join Channel on %1"
 msgstr "Kanal auf %1 betreten"
 
-#: src/irc/serverlistdialog.cpp:106 src/quickconnectdialog.cpp:87
+#: src/irc/serverlistdialog.cpp:102 src/quickconnectdialog.cpp:87
 msgid "C&onnect"
 msgstr "&Verbinden"
 
-#: src/irc/serverlistdialog.cpp:106 src/quickconnectdialog.cpp:87
+#: src/irc/serverlistdialog.cpp:102 src/quickconnectdialog.cpp:87
 msgid "Connect to the server"
 msgstr "Mit dem Server verbinden"
 
-#: src/irc/serverlistdialog.cpp:106
+#: src/irc/serverlistdialog.cpp:102
 msgid "Click here to connect to the selected IRC network and channel."
 msgstr ""
 "Klicken Sie hier, um die Verbindung mit dem ausgewählten IRC-Netzwerk und "
 "Kanal aufzubauen."
 
-#: src/irc/serverlistdialog.cpp:180
+#: src/irc/serverlistdialog.cpp:176
 msgid "New Network"
 msgstr "Neues Netzwerk"
 
-#: src/irc/serverlistdialog.cpp:201
+#: src/irc/serverlistdialog.cpp:197
 msgid "Edit Network"
 msgstr "Netzwerk bearbeiten"
 
-#: src/irc/serverlistdialog.cpp:259
+#: src/irc/serverlistdialog.cpp:255
 #, kde-format
 msgid ""
 "You cannot delete %1.\n"
@@ -1060,11 +1047,8 @@ msgstr ""
 "\n"
 "Das Netzwerk %2 muss mindestens einen Server haben."
 
-#: src/irc/serverlistdialog.cpp:264, kde-format
-#| msgid ""
-#| "You cannot delete the selected servers.\n"
-#| "\n"
-#| "The network %1 needs to have at least one server."
+#: src/irc/serverlistdialog.cpp:260
+#, kde-format
 msgid ""
 "You cannot delete the selected server.\n"
 "\n"
@@ -1082,11 +1066,11 @@ msgstr[1] ""
 "\n"
 "Das Netzwerk %2 muss mindestens einen Server haben."
 
-#: src/irc/serverlistdialog.cpp:281
+#: src/irc/serverlistdialog.cpp:277
 msgid "Do you really want to delete the selected entries?"
 msgstr "Sollen die ausgewählten Einträge wirklich gelöscht werden?"
 
-#: src/irc/serverlistdialog.cpp:283
+#: src/irc/serverlistdialog.cpp:279
 #, kde-format
 msgid "Do you really want to delete %1?"
 msgstr "Soll \"%1\" wirklich gelöscht werden?"
@@ -1227,7 +1211,6 @@ msgid "Usage: %1EXEC <script> [parameter list]"
 msgstr "Aufruf: %1EXEC <Skript> [Parameterliste]"
 
 #: src/irc/outputfilter.cpp:1037
-#| msgid "Script name may not contain \"../\"!"
 msgid "Script name may not contain \"../\"."
 msgstr "Skriptnamen dürfen kein \"../\" enthalten."
 
@@ -1237,7 +1220,7 @@ msgid "Usage: %1RAW [OPEN | CLOSE]"
 msgstr "Aufruf: %1RAW [OPEN | CLOSE]"
 
 #: src/irc/outputfilter.cpp:1098 src/irc/server.cpp:2402
-#: src/irc/server.cpp:2420 src/viewer/ircview.cpp:364
+#: src/irc/server.cpp:2420 src/viewer/ircview.cpp:363
 msgid "Notify"
 msgstr "Notify"
 
@@ -1251,7 +1234,6 @@ msgid "Current notify list: %1"
 msgstr "Notify-Liste: %1"
 
 #: src/irc/outputfilter.cpp:1125
-#| msgid "Enter user name and password for IRC operator privileges:"
 msgid "Enter username and password for IRC operator privileges:"
 msgstr "Geben Sie Benutzernamen und Passwort für IRC-Operator-Status ein:"
 
@@ -1319,7 +1301,6 @@ msgstr "%1 von der Ignorieren-Liste entfernt."
 
 #: src/irc/outputfilter.cpp:1403
 #, kde-format
-#| msgid "No such ignore: %1"
 msgid "No such ignore: %2"
 msgid_plural "No such ignores: %2"
 msgstr[0] "Kein Ignore vorhanden: %2"
@@ -1731,7 +1712,7 @@ msgid "You are not on %1."
 msgstr "Sie sind nicht in %1."
 
 #: src/irc/inputfilter.cpp:1193 src/irc/inputfilter.cpp:1202
-#: src/irc/inputfilter.cpp:1211 src/viewer/ircview.cpp:358
+#: src/irc/inputfilter.cpp:1211 src/viewer/ircview.cpp:357
 msgid "MOTD"
 msgstr "MOTD"
 
@@ -1924,8 +1905,6 @@ msgstr "%1 ist seit %2 und %3 untätig."
 
 #: src/irc/inputfilter.cpp:1681
 #, kde-format
-#| msgid "%1 has been idle for 1 second."
-#| msgid_plural "%1 has been idle for %2 seconds."
 msgid "%2 has been idle for 1 second."
 msgid_plural "%2 has been idle for %1 seconds."
 msgstr[0] "%2 ist seit einer Sekunde untätig."
@@ -2022,19 +2001,16 @@ msgstr "%1: Dieser Befehl erfordert mehr Parameter."
 
 #: src/irc/inputfilter.cpp:2002
 #, kde-format
-#| msgid "You have set personal modes: "
 msgid "You have set personal modes: %1"
 msgstr "Sie haben persönliche Modi gesetzt: %1"
 
 #: src/irc/inputfilter.cpp:2006
 #, kde-format
-#| msgid "has changed your personal modes:"
 msgid "%1 has changed your personal modes: %2"
 msgstr "%1 hat Ihre persönlichen Modi verändert: %2"
 
 #: src/irc/inputfilter.cpp:2020
 #, kde-format
-#| msgid " sets mode: "
 msgid "%1 sets mode: %2"
 msgstr "%1 setzt Modus: %2"
 
@@ -2070,12 +2046,6 @@ msgid "S&ecure connection (SSL)"
 msgstr "V&erschlüsselte Verbindung (SSL)"
 
 #: src/irc/serverdialog.cpp:58
-#| msgid ""
-#| "Check if you want to use Secure Socket Layer (SSL) protocol to "
-#| "communicate with the server. This protects the privacy of your "
-#| "communications between your computer and the IRC server. The server must "
-#| "support SSL protocol for this to work. In most cases, if the server does "
-#| "not support SSL, the connection will fail."
 msgid ""
 "Check if you want to use the Secure Socket Layer (SSL) protocol to "
 "communicate with the server. This protects the privacy of your "
@@ -2285,7 +2255,7 @@ msgid "Invitation"
 msgstr "Einladung"
 
 #: src/irc/server.cpp:3015 src/irc/channel.cpp:1310 src/irc/channel.cpp:1327
-#: src/viewer/ircview.cpp:383
+#: src/viewer/ircview.cpp:382
 msgid "Join"
 msgstr "Betreten"
 
@@ -2641,13 +2611,6 @@ msgid "You need to add at least one server to the network."
 msgstr "Sie müssen dem Netzwerk mindestens einen Server hinzufügen."
 
 #: src/irc/query.cpp:72
-#| msgid ""
-#| "<qt><p>Some details of the person you are talking to in this query is "
-#| "shown in this bar.  The full name and hostmask is shown, along with any "
-#| "image or logo this person has associated with them in the KDE Addressbook."
-#| "</p><p>See the <i>Konversation Handbook</i> for information on "
-#| "associating a nick with a contact in the Addressbook, and for an "
-#| "explanation of what the hostmask is.</p></qt>"
 msgid ""
 "<qt><p>Some details of the person you are talking to in this query is shown "
 "in this bar.  The full name and hostmask is shown, along with any image or "
@@ -2718,7 +2681,7 @@ msgstr "Selbstgespräch"
 
 #: src/irc/query.cpp:678 src/irc/query.cpp:685 src/irc/channel.cpp:1350
 #: src/irc/channel.cpp:1352 src/irc/channel.cpp:1371 src/irc/channel.cpp:1373
-#: src/viewer/ircview.cpp:388
+#: src/viewer/ircview.cpp:387
 msgid "Quit"
 msgstr "Beenden"
 
@@ -2867,7 +2830,7 @@ msgid "You have left this server (%1)."
 msgstr "Sie haben diesen Server verlassen (%1)."
 
 #: src/irc/channel.cpp:1357 src/irc/channel.cpp:1359 src/irc/channel.cpp:1379
-#: src/irc/channel.cpp:1381 src/viewer/ircview.cpp:388
+#: src/irc/channel.cpp:1381 src/viewer/ircview.cpp:387
 msgid "Part"
 msgstr "Verlassen"
 
@@ -3132,7 +3095,6 @@ msgstr "Sie geben sich die Erlaubnis zu reden."
 
 #: src/irc/channel.cpp:1824
 #, kde-format
-#| msgid "You give %1  permission to talk."
 msgid "You give %1 permission to talk."
 msgstr "Sie geben %1 die Erlaubnis zu reden."
 
@@ -3312,7 +3274,6 @@ msgstr "%1 löscht den Kanalschlüssel."
 
 #: src/irc/channel.cpp:1970
 #, kde-format
-#| msgid "You set the channel limit to %1 nicks."
 msgid "You set the channel limit to 1 nick."
 msgid_plural "You set the channel limit to %1 nicks."
 msgstr[0] "Sie haben das Benutzerlimit auf 1 gesetzt."
@@ -3320,7 +3281,6 @@ msgstr[1] "Sie haben das Benutzerlimit auf %1 gesetzt."
 
 #: src/irc/channel.cpp:1971
 #, kde-format
-#| msgid "%1 sets the channel limit to %2 nicks."
 msgid "%2 sets the channel limit to 1 nick."
 msgid_plural "%2 sets the channel limit to %1 nicks."
 msgstr[0] "%2 hat das Benutzerlimit auf 1 gesetzt."
@@ -3512,7 +3472,6 @@ msgstr "SSL ben&utzen"
 
 #: src/connectionmanager.cpp:206
 #, kde-format
-#| msgid "Trying to connect to %1 in %2 seconds."
 msgid "Trying to connect to %2 in 1 second."
 msgid_plural "Trying to connect to %2 in %1 seconds."
 msgstr[0] "Versuche in 1 Sekunden eine Verbindung zu %2 aufzubauen."
@@ -3520,7 +3479,6 @@ msgstr[1] "Versuche in %1 Sekunden eine Verbindung zu %2 aufzubauen."
 
 #: src/connectionmanager.cpp:215
 #, kde-format
-#| msgid "Trying to reconnect to %1 in %2 seconds."
 msgid "Trying to reconnect to %2 in 1 second."
 msgid_plural "Trying to reconnect to %2 in %1 seconds."
 msgstr[0] "Versuche in 1 Sekunden erneut eine Verbindung zu %2 aufzubauen."
@@ -4158,7 +4116,6 @@ msgstr "Das Design lässt sich nicht installieren."
 
 #: src/preferences/theme_preferences.cpp:251
 #, kde-format
-#| msgid "Do you want to remove %1 ?"
 msgid "Do you want to remove %1?"
 msgstr "Soll %1 entfernt werden?"
 
@@ -4236,6 +4193,7 @@ msgstr "Protokollierung"
 #. i18n: file: src/preferences/tabnotifications_preferences.ui:236
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsHighlights)
 #: src/settingsdialog.cpp:159 rc.cpp:816
+#, fuzzy
 msgid "Highlight"
 msgstr "Highlight"
 
@@ -4299,10 +4257,10 @@ msgstr "Während einer DCC-Übertragung ist ein Fehler aufgetreten: %1"
 
 #: src/notificationhandler.cpp:222
 #, fuzzy, kde-format
-#| msgid "Filename:"
-msgctxt "%1 File Transfer is complete"
-msgid "%1 - filename"
-msgstr "Dateiname:"
+#| msgid "%1 File Transfer is complete"
+msgctxt "%1 - filename"
+msgid "%1 File Transfer is complete"
+msgstr "%1 - Dateiübertragung abgeschlossen"
 
 #: src/notificationhandler.cpp:248
 #, kde-format
@@ -4426,8 +4384,6 @@ msgstr "Keine Antwort vom Server %1 seit mehr als %2 und %3."
 
 #: src/statusbar.cpp:204
 #, kde-format
-#| msgid "No answer from server %1 for more than 1 second."
-#| msgid_plural "No answer from server %1 for more than %2 seconds."
 msgid "No answer from server %2 for more than 1 second."
 msgid_plural "No answer from server %2 for more than %1 seconds."
 msgstr[0] "Keine Antwort vom Server %2 seit mehr als 1 Sekunde."
@@ -4510,9 +4466,6 @@ msgstr ""
 "Kontakt einzurichten. Dies wird von Konversation nicht unterstützt."
 
 #: src/linkaddressbook/addressbook_base.cpp:394
-#| msgid ""
-#| "Could not run your addressbook program (kaddressbook).  This is most "
-#| "likely because it is not installed.  Please install the 'kdepim' packages."
 msgid ""
 "Could not run the address book program (kaddressbook) - this is most likely "
 "because it is not installed.  Please install the 'kdepim' packages."
@@ -4543,25 +4496,17 @@ msgstr ""
 "zu installieren."
 
 #: src/linkaddressbook/addressbook_base.cpp:460
-#| msgid ""
-#| "None of the contacts that you have selected were associated with an "
-#| "addressbook contacts. "
 msgid ""
 "None of the selected contacts are associated with address book entries. "
 msgstr ""
 "Keiner der ausgewählten Kontakte wurde einem Adressbuch-Eintrag zugeordnet."
 
 #: src/linkaddressbook/addressbook_base.cpp:462
-#| msgid ""
-#| "The contact that you have selected is not associated with an addressbook "
-#| "contact. "
 msgid "The selected contact is not associated with an address book entry. "
 msgstr "Dem ausgewählte Kontakt ist kein Adressbuch-Eintrag zugeordnet."
 
-#: src/linkaddressbook/addressbook_base.cpp:467, kde-format
-#| msgid ""
-#| "Some of the contacts (%1) that you have selected are not associated with "
-#| "addressbook contacts. "
+#: src/linkaddressbook/addressbook_base.cpp:467
+#, kde-format
 msgid ""
 "Some of the contacts (%1) that you have selected are not associated with "
 "address book entries. "
@@ -4569,10 +4514,8 @@ msgstr ""
 "Einigen der ausgewählten Kontakte (%1) sind keine Adressbuch-Einträge "
 "zugeordnet."
 
-#: src/linkaddressbook/addressbook_base.cpp:469, kde-format
-#| msgid ""
-#| "One of the contacts (%1) that you have selected is not associated with an "
-#| "addressbook contact. "
+#: src/linkaddressbook/addressbook_base.cpp:469
+#, kde-format
 msgid ""
 "One of the contacts (%1) that you have selected is not associated with an "
 "address book entry. "
@@ -4580,9 +4523,6 @@ msgstr ""
 "Einem der ausgewählten Kontakte (%1) ist kein Adressbuch-Eintrag zugeordnet."
 
 #: src/linkaddressbook/addressbook_base.cpp:471
-#| msgid ""
-#| "You can right click on a contact, and choose to edit the Addressbook "
-#| "Associations to link them to a contact in your addressbook."
 msgid ""
 "You can right click on a contact and choose to edit the Address Book "
 "Associations to link them to a contact in your address book."
@@ -4591,24 +4531,16 @@ msgstr ""
 "bearbeiten, um einem Kontakt einen Eintrag im Adressbuch zuzuordnen."
 
 #: src/linkaddressbook/addressbook_base.cpp:478
-#| msgid ""
-#| "The contact that you have selected does not have an email address "
-#| "associated with them. "
 msgid ""
 "None of the selected contacts have an email address associated with them. "
 msgstr "Keinem der ausgewählten Kontakte ist eine E-Mail-Adresse zugeordnet."
 
 #: src/linkaddressbook/addressbook_base.cpp:480
-#| msgid ""
-#| "The contact that you have selected does not have an email address "
-#| "associated with them. "
 msgid "The selected contact does not have an associated email address. "
 msgstr "Dem ausgewählten Kontakt ist keine E-Mail-Adresse zugeordnet."
 
-#: src/linkaddressbook/addressbook_base.cpp:485, kde-format
-#| msgid ""
-#| "Some of the contacts (%1) that you have selected do not have an email "
-#| "address associated with them. "
+#: src/linkaddressbook/addressbook_base.cpp:485
+#, kde-format
 msgid ""
 "Some of the contacts (%1) that you have selected do not have email addresses "
 "associated with them. "
@@ -4624,9 +4556,6 @@ msgstr ""
 "Einem der ausgewählten Kontakte (%1) ist keine E-Mail-Adresse zugeordnet."
 
 #: src/linkaddressbook/addressbook_base.cpp:489
-#| msgid ""
-#| "You can right click on a contact, and choose to edit the addressbook "
-#| "contact, adding an email for them."
 msgid ""
 "You can right click on a contact and edit the corresponding address book "
 "entry to add an email address for them."
@@ -4634,11 +4563,8 @@ msgstr ""
 "Mit einem Rechtsklick auf einen Kontakt können Sie den zugehörigen "
 "Adressbuch-Eintrag bearbeiten, um eine E-Mail-Adresse hinzuzufügen."
 
-#: src/linkaddressbook/addressbook_base.cpp:493, kde-format
-#| msgid ""
-#| "Some of the contacts (%1) that you have selected are not associated with "
-#| "addressbook contacts, and some of the contacts (%2) do not have an email "
-#| "address associated with them.  "
+#: src/linkaddressbook/addressbook_base.cpp:493
+#, kde-format
 msgid ""
 "Some of the contacts (%1) that you have selected are not associated with "
 "address book entries, and some of the contacts (%2) do not have email "
@@ -4649,10 +4575,6 @@ msgstr ""
 "zugeordnet."
 
 #: src/linkaddressbook/addressbook_base.cpp:494
-#| msgid ""
-#| "You can right click on a contact, and choose to edit the Addressbook "
-#| "Associations to link them to a contact in your addressbook, and choose to "
-#| "edit the addressbook contact, adding an email for them."
 msgid ""
 "For the former contacts, this can be resolved by right clicking on a contact "
 "and choosing to edit the Address Book Associations, thereby linking them to "
@@ -4660,30 +4582,24 @@ msgid ""
 "corresponding address book contact you can specify an email address for them."
 msgstr ""
 "Für diese Kontakte beheben Sie das Problem, indem Sie auf einen Kontakt "
-"rechtsklicken und die Adressbuch-Zuordnung "
-"bearbeiten. Sie können so dem Kontakt einen Eintrag in Ihrem Adressbuch "
-"zuzuordnen."
+"rechtsklicken und die Adressbuch-Zuordnung bearbeiten. Sie können so dem "
+"Kontakt einen Eintrag in Ihrem Adressbuch zuzuordnen."
 
 #: src/linkaddressbook/addressbook_base.cpp:503
-#| msgid ""
-#| "\n"
-#| "Do you want to send an email anyway to the nicks that do have an email "
-#| "address?"
 msgid ""
 "\n"
 "Do you want to send an email anyway to the nicks that do have email "
 "addresses?"
 msgstr ""
 "\n"
-"Soll trotzdem eine E-Mail an die Benutzer gesendet werden, für die "
-"E-Mail-Adressen vorliegen?"
+"Soll trotzdem eine E-Mail an die Benutzer gesendet werden, für die E-Mail-"
+"Adressen vorliegen?"
 
 #: src/linkaddressbook/addressbook_base.cpp:504
 msgid "Send Email"
 msgstr "E-Mail verschicken"
 
 #: src/linkaddressbook/linkaddressbookui.cpp:51
-#| msgid "Link IRC Nick to Addressbook Contact"
 msgid "Link IRC Nick to Address Book Contact"
 msgstr "IRC-Benutzer einem Adressbuch-Eintrag zuordnen"
 
@@ -4901,16 +4817,16 @@ msgstr "Alles auswählen"
 msgid "Find Text..."
 msgstr "Text suchen ..."
 
-#: src/viewer/ircview.cpp:947
+#: src/viewer/ircview.cpp:946
 msgid "Save link as"
 msgstr "Verknüpfung speichern unter"
 
-#: src/viewer/ircview.cpp:1018
+#: src/viewer/ircview.cpp:1017
 #, kde-format
 msgid "Open a query with %1"
 msgstr "Query mit %1 öffnen"
 
-#: src/viewer/ircview.cpp:1035 src/viewer/topiclabel.cpp:283
+#: src/viewer/ircview.cpp:1034 src/viewer/topiclabel.cpp:283
 #, kde-format
 msgid "Join the channel %1"
 msgstr "Kanal %1 betreten"
@@ -4944,25 +4860,22 @@ msgstr ""
 "Handbuch zu Konversation finden Sie weitere Befehle.</p><p>Eine Nachricht "
 "kann nicht aus mehreren Zeilen bestehen.</p></qt>"
 
-#: src/viewer/ircinput.cpp:456, kde-format
-#| msgid " bytes"
+#: src/viewer/ircinput.cpp:450
+#, kde-format
 msgid "1 byte"
 msgid_plural "%1 bytes"
 msgstr[0] "1 Byte"
 msgstr[1] "%1 Bytes"
 
-#: src/viewer/ircinput.cpp:457, kde-format
-#| msgid " lines"
+#: src/viewer/ircinput.cpp:451
+#, kde-format
 msgid "1 line"
 msgid_plural "%1 lines"
 msgstr[0] "1 Zeile"
 msgstr[1] "%1 Zeilen"
 
-#: src/viewer/ircinput.cpp:463, kde-format
-#| msgid ""
-#| "<qt>You are attempting to paste a large portion of text (%1 bytes or %2 "
-#| "lines) into the chat. This can cause connection resets or flood kills. Do "
-#| "you really want to continue?</qt>"
+#: src/viewer/ircinput.cpp:457
+#, kde-format
 msgctxt ""
 "%1 is, for instance, '200 bytes'.  %2 is, for instance, '7 lines'.  Both are "
 "localised (see the two previous messages)."
@@ -4971,15 +4884,15 @@ msgid ""
 "chat. This can cause connection resets or flood kills. Do you really want to "
 "continue?</qt>"
 msgstr ""
-"<qt>Sie versuchen, eine größere Menge Text in den Chat einzufügen (%1 bzw. "
-"%2). Dies kann zu Verbindungsabbrüchen oder Flood-Kills führen. "
-"Möchten Sie wirklich fortfahren?</qt>"
+"<qt>Sie versuchen, eine größere Menge Text in den Chat einzufügen (%1 bzw. %"
+"2). Dies kann zu Verbindungsabbrüchen oder Flood-Kills führen. Möchten Sie "
+"wirklich fortfahren?</qt>"
 
-#: src/viewer/ircinput.cpp:466
+#: src/viewer/ircinput.cpp:460
 msgid "Large Paste Warning"
 msgstr "Warnung: Der Inhalt der Zwischenablage ist sehr umfangreich!"
 
-#: src/viewer/ircinput.cpp:467
+#: src/viewer/ircinput.cpp:461
 msgid "Paste"
 msgstr "Einfügen"
 
@@ -4987,7 +4900,7 @@ msgstr "Einfügen"
 #. i18n: ectx: property (text), widget (KPushButton, m_editIdentityButton)
 #. i18n: file: src/irc/serverlistdialogui.ui:162
 #. i18n: ectx: property (text), widget (QPushButton, m_editButton)
-#: src/viewer/ircinput.cpp:468 rc.cpp:65 rc.cpp:200
+#: src/viewer/ircinput.cpp:462 rc.cpp:65 rc.cpp:200
 msgid "&Edit..."
 msgstr "&Bearbeiten ..."
 
@@ -5152,9 +5065,6 @@ msgid "Channel List Warning"
 msgstr "Kanalliste: Warnung"
 
 #: src/viewer/viewcontainer.cpp:2405
-#| msgid ""
-#| "The channel list can only be opened from a query, channel or status "
-#| "window to find out, which server this list belongs to."
 msgid ""
 "To know which server to display the channel list for, the list can only be "
 "opened from a query, channel or status window."
@@ -7857,9 +7767,6 @@ msgstr "Ser&vice:"
 #. i18n: file: src/identitydialog.ui:234
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, m_botEdit)
 #: rc.cpp:1261
-#| msgid ""
-#| "Service name can be <b><i>nickserv</i></b> or a network dependant name "
-#| "like  <b><i>nickserv@services.dal.net</i></b>"
 msgid ""
 "Service name can be <b><i>nickserv</i></b> or a network-dependent name such "
 "as <b><i>nickserv@services.dal.net</i></b>"
@@ -8083,7 +7990,6 @@ msgstr "Diese Nachricht wird angezeigt, wenn Sie einen Server verlassen."
 #. i18n: file: src/identitydialog.ui:526
 #. i18n: ectx: property (text), widget (KLineEdit, m_partEdit)
 #: rc.cpp:1340 rc.cpp:1349
-#| msgid "Konversation terminated!"
 msgid "Konversation terminated."
 msgstr "Konversation wurde beendet."
 
@@ -8126,7 +8032,6 @@ msgstr "Konversation wurde beendet."
 #. i18n: file: src/config/konversation.kcfg:21
 #. i18n: ectx: label, entry, group (Appearance)
 #: rc.cpp:1363
-#| msgid "Limit the size of the tab labels to fit all on screen"
 msgid "Limit the size of the tab labels to fit them all on screen"
 msgstr ""
 "Länge der Unterfensterbezeichnungen begrenzen, damit alle in das Fenster "
@@ -8159,7 +8064,6 @@ msgstr ""
 #. i18n: file: src/config/konversation.kcfg:275
 #. i18n: ectx: label, entry, group (General Options)
 #: rc.cpp:1453
-#| msgid "Start with hidden mainwindow"
 msgid "Start with hidden main window"
 msgstr "Mit ausgeblendetem Hauptfenster starten"
 
@@ -8245,7 +8149,6 @@ msgstr "Einfügen-Editor"
 #. i18n: file: src/viewer/pasteeditor.ui:20
 #. i18n: ectx: property (text), widget (KPushButton, m_removeNewlinesButton)
 #: rc.cpp:1721
-#| msgid "Remove Newlines"
 msgid "&Remove Newlines"
 msgstr "&Zeilenumbrüche entfernen"
 
@@ -8361,11 +8264,14 @@ msgstr ""
 msgid "&Window"
 msgstr "&Fenster"
 
+#, fuzzy
+#~| msgid "Filename:"
+#~ msgctxt "%1 File Transfer is complete"
+#~ msgid "%1 - filename"
+#~ msgstr "Dateiname:"
+
 #~ msgid "No such ignores: %1"
 #~ msgstr "Keine Ignores vorhanden: %1"
-
-#~ msgid "%1 File Transfer is complete"
-#~ msgstr "%1 - Dateiübertragung abgeschlossen"
 
 #~ msgid ""
 #~ "None of the contacts that you have selected have an email address "

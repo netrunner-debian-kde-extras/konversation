@@ -1,4 +1,27 @@
-Changes since 1.1:
+Changes from 1.1 to 1.2-alpha1:
+We're happy to bring you this first public release of the KDE 4 version of
+Konversation.
+
+Despite the "alpha" moniker we've settled on for this one, mostly due to
+not yet being feature-complete (see below), this port has already been
+used productively by a fair number of people for some time and should be
+stable enough for general usage. In fact, certain features, notably DCC
+file transfers and auto-replace, are expected to be more robust than in
+Konversation 1.1.
+
+While this version largely achieves feature parity with Konversation 1.1
+(and adds several new features on top), notable exceptions are the lack
+of support for marker lines as well as nick and channel context menus in
+the chat view. These are pending the merge of a rewritten chat view and
+will make a return before the final Konversation 1.2 release. Other known
+issues in this version include a lack of KDE 4 HIG compliance in the con-
+figuration dialog and various minor interface polish problems; these will
+be addressed as well.
+
+Enjoy, and don't forget to report any bugs you encounter!
+
+
+* Ported to KDE 4 (KDE 4.1 or higher is required).
 * Enabled the (experimental, hackish) Amarok 2 support in the 'media' script.
 * Fixed a bug that could cause channel notifications to be lost across recon-
   nects.
@@ -29,10 +52,8 @@ Changes since 1.1:
 * Improved performance of non-regex mode auto-replace rules.
 * Added option to open log files with the system text editor instead of the
   built-in log viewer.
-* Added button to intelligently replace line breaks with spaces to the multi-
-  line paste editor.
 * Made the Oxygen nicklist icon theme the default nicklist icon theme.
-* Removed the bundled 'wheather' script (it relied on a KDE 3 service no lon-
+* Removed the bundled 'weather' script (it relied on a KDE 3 service no lon-
   ger present in KDE 4; a replacement will need to adopt a new approach).
 * Fix sending and receiving of files with names containing spaces
 * DCC Protocol adjustment to proper handle passive DCC resume/accept requests.
@@ -63,6 +84,9 @@ Changes since 1.1:
   fallback is an RFC1459-compliant value of 3.
 * Added support for formatting variable expansion in the replacement part of
   auto-replace rules.
+* Rewrote multi-line paste editor, improving handling and appearance.
+* Added button to intelligently replace line breaks with spaces to the multi-
+  line paste editor.
 
 
 Changes from 1.0.1 to 1.1:
