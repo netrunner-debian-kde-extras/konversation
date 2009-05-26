@@ -33,6 +33,7 @@
 #include "irccolorchooser.h"
 #include "joinchanneldialog.h"
 #include "servergroupsettings.h"
+#include "ircviewbox.h"
 
 #include <QList>
 #include <QSplitter>
@@ -52,6 +53,7 @@
 #include <KActionCollection>
 #include <KToggleAction>
 #include <KSelectAction>
+#include <KXMLGUIClient>
 
 ViewContainer::ViewContainer(KonversationMainWindow* window):
         m_window(window)
@@ -150,6 +152,7 @@ void ViewContainer::setupTabWidget()
     m_popupViewIndex = -1;
 
     m_vbox = new KVBox(m_viewTreeSplitter);
+    m_viewTreeSplitter->setStretchFactor(m_viewTreeSplitter->indexOf(m_vbox), 1);
     m_vbox->setObjectName("main_window_right_side");
     m_tabWidget = new KTabWidget(m_vbox);
     m_tabWidget->setObjectName("main_window_tab_widget");
@@ -162,10 +165,9 @@ void ViewContainer::setupTabWidget()
     m_vbox->hide();    //m_tabWidget->hide();
 
     QToolButton* closeBtn = new QToolButton(m_tabWidget);
-    closeBtn->setIcon(KIcon("tab-close"));
-    closeBtn->resize(22, 22);
-    closeBtn->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    m_tabWidget->setCornerWidget(closeBtn);
+    closeBtn->setIcon(SmallIcon("tab-close"));
+    closeBtn->adjustSize();
+    m_tabWidget->setCornerWidget(closeBtn, Qt::BottomRightCorner);
     connect(closeBtn, SIGNAL(clicked()), this, SLOT(closeCurrentView()));
 
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT (switchView(int)));
@@ -381,7 +383,8 @@ void ViewContainer::updateTabWidgetAppearance()
 {
     if (!m_tabWidget) return;
 
-    m_tabWidget->setTabBarHidden((Preferences::self()->tabPlacement()==Preferences::Left));
+    bool noTabBar = (Preferences::self()->tabPlacement()==Preferences::Left);
+    m_tabWidget->setTabBarHidden(noTabBar);
 
     if (Preferences::self()->customTabFont())
         m_tabWidget->setFont(Preferences::self()->tabFont());
@@ -396,6 +399,7 @@ void ViewContainer::updateTabWidgetAppearance()
     else
         m_tabWidget->cornerWidget()->hide();
 
+    //FIXME: Change to QTabBar::setTabsClosable() once we depend on Qt 4.5+
     m_tabWidget->setCloseButtonEnabled(Preferences::self()->closeButtons());
 
     m_tabWidget->setAutomaticResizeTabs(Preferences::self()->useMaxSizedTabs());
@@ -536,7 +540,7 @@ void ViewContainer::updateViewActions(int index)
             action = actionCollection()->action("edit_find_next");
             if (action) action->setEnabled(view->searchView());
 
-            action = actionCollection()->action("edit_find_last");
+            action = actionCollection()->action("edit_find_prev");
             if (action) action->setEnabled(view->searchView());
 
             KToggleAction* channelListAction = static_cast<KToggleAction*>(actionCollection()->action("open_channel_list"));
@@ -641,7 +645,7 @@ void ViewContainer::updateViewActions(int index)
         action = actionCollection()->action("edit_find_next");
         if (action) action->setEnabled(false);
 
-        action = actionCollection()->action("edit_find_last");
+        action = actionCollection()->action("edit_find_prev");
         if (action) action->setEnabled(false);
 
         action = actionCollection()->action("open_channel_list");
@@ -1657,7 +1661,6 @@ void ViewContainer::showViewContextMenu(QWidget* tab, const QPoint& pos)
     KToggleAction* autoJoinAction = qobject_cast<KToggleAction*>(actionCollection()->action("tab_autojoin"));
     QAction* rejoinAction = actionCollection()->action("rejoin_channel");
 
-    QList<QAction *> serverActions;
     if (view)
     {
         ChatWindow::WindowType viewType = view->getType();
@@ -1666,8 +1669,8 @@ void ViewContainer::showViewContextMenu(QWidget* tab, const QPoint& pos)
 
         if (viewType == ChatWindow::Channel)
         {
-            // TODO FIXME this used to be added at index 1, which we can't do anymore
-            menu->addAction(autoJoinAction);
+            QAction* action = actionCollection()->action("tab_encoding");
+            menu->insertAction(action, autoJoinAction);
 
             Channel *channel = static_cast<Channel*>(view);
             if (channel->rejoinable() && rejoinAction)
@@ -1679,6 +1682,8 @@ void ViewContainer::showViewContextMenu(QWidget* tab, const QPoint& pos)
 
         if (viewType == ChatWindow::Status)
         {
+            QList<QAction *> serverActions;
+
             QAction* action = actionCollection()->action("disconnect_server");
             if (action) serverActions.append(action);
             action = actionCollection()->action("reconnect_server");
@@ -1689,7 +1694,7 @@ void ViewContainer::showViewContextMenu(QWidget* tab, const QPoint& pos)
             action = new QAction(this);
             action->setSeparator(true);
             if (action) serverActions.append(action);
-            m_window->addActions(serverActions);
+            m_window->plugActionList("server_actions", serverActions);
             m_contextServer = view->getServer();
         }
         else
@@ -1706,11 +1711,7 @@ void ViewContainer::showViewContextMenu(QWidget* tab, const QPoint& pos)
 
     menu->removeAction(autoJoinAction);
     menu->removeAction(rejoinAction);
-
-    // TODO FIXME does this work?
-    QAction* action;
-    foreach(action, serverActions)
-        m_window->removeAction(action);
+    m_window->unplugActionList("server_actions");
 
     emit contextMenuClosed();
 
@@ -1797,18 +1798,24 @@ void ViewContainer::findText()
     }
     else
     {
-        m_searchView->getTextView()->search();
+        m_searchView->getTextView()->findText();
     }
 }
 
 void ViewContainer::findNextText()
 {
-    if (m_searchView) m_searchView->getTextView()->searchNext();
+    if (m_searchView)
+    {
+        m_searchView->getTextView()->findNextText();
+    }
 }
 
 void ViewContainer::findPrevText()
 {
-    if (m_searchView) m_searchView->getTextView()->searchNext(true);
+    if (m_searchView)
+    {
+        m_searchView->getTextView()->findPreviousText();
+    }
 }
 
 void ViewContainer::appendToFrontmost(const QString& type,const QString& message,ChatWindow* serverView, bool parseURL)

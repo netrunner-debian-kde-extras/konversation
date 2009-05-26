@@ -315,6 +315,8 @@ void Server::connectSignals()
         this, SLOT(resumeDccGetTransfer(const QString&, const QStringList&)));
     connect(&m_inputFilter, SIGNAL(resumeDccSendTransfer(const QString&, const QStringList&)),
         this, SLOT(resumeDccSendTransfer(const QString&, const QStringList&)));
+    connect(&m_inputFilter, SIGNAL(rejectDccSendTransfer(const QString&, const QStringList&)),
+        this, SLOT(rejectDccSendTransfer(const QString&, const QStringList&)));
     connect(&m_inputFilter, SIGNAL(userhost(const QString&,const QString&,bool,bool)),
         this, SLOT(userhost(const QString&,const QString&,bool,bool)) );
     connect(&m_inputFilter, SIGNAL(topicAuthor(const QString&,const QString&,QDateTime)),
@@ -739,6 +741,7 @@ void Server::quitServer()
 
     flushQueues();
 
+    // Close the socket to allow a dead connection to be reconnected before the socket timeout.
     m_socket->close();
 
     getStatusView()->appendServerMessage(i18n("Info"), i18n("Disconnected from %1.", getConnectionSettings().server().host()));
@@ -936,12 +939,14 @@ void Server::incoming()
         QByteArray line(m_socket->readLine());
         //remove \n blowfish doesn't like it
         int i = line.size()-1;
-        while (line[i]=='\n' || line[i]=='\r') // since euIRC gets away with sending just \r, bet someone sends \n\r?
+        while (i >= 0 && (line[i]=='\n' || line[i]=='\r')) // since euIRC gets away with sending just \r, bet someone sends \n\r?
         {
             i--;
         }
         line.truncate(i+1);
-        bufferLines.append(line);
+
+        if (line.size() > 0)
+            bufferLines.append(line);
     }
 
     while(!bufferLines.isEmpty())
@@ -1143,7 +1148,7 @@ int Server::_send_internal(QString outputLine)
                 {
                     //if its a privmsg and a ctcp but not an action, don't encrypt
                     //not interpreting `payload` in case encoding bollixed it
-                    if (outputLineSplit.at(2).startsWith(":\x01") && outputLineSplit.at(2) != ":\x01""ACTION")
+                    if (outputLineSplit.at(2).startsWith(QLatin1String(":\x01")) && outputLineSplit.at(2) != ":\x01""ACTION")
                         doit = false;
                 }
                 if (doit)
@@ -1710,9 +1715,10 @@ QString Server::recoverDccFileName(const QStringList & dccArguments, int offset)
     {
         kDebug() << "recover filename";
         const int argumentOffsetSize = dccArguments.size() - offset;
-        for (int i = 0; i < argumentOffsetSize; ++i) //-1 index, -1 token, -1 port, -1 ip
+        for (int i = 0; i < argumentOffsetSize; ++i)
         {
             fileName += dccArguments.at(i);
+            //if not last element, append a space
             if (i < (argumentOffsetSize - 1))
             {
                 fileName += ' ';
@@ -1733,7 +1739,7 @@ QString Server::cleanDccFileName(const QString& filename) const
 
     //we want a clean filename to get rid of the mass """filename"""
     //NOTE: if a filename starts really with a ", it is escaped -> \" (2 chars)
-    //      but most clients doen't support that and just replace it with a _
+    //      but most clients don't support that and just replace it with a _
     while (cleanFileName.startsWith('\"') && cleanFileName.endsWith('\"'))
     {
         cleanFileName = cleanFileName.mid(1, cleanFileName.length() - 2);
@@ -1758,10 +1764,10 @@ void Server::addDccGet(const QString &sourceNick, const QStringList &dccArgument
     QString token = "";
     const int argumentSize = dccArguments.count();
 
-    if (dccArguments.at(argumentSize - 3) == "0") //port==0, for passive send, filesize cant be 0
+    if (dccArguments.at(argumentSize - 3) == "0") //port==0, for passive send, filesize can't be 0
     {
         //filename ip port(0) filesize token
-        fileName = recoverDccFileName(dccArguments, 4);
+        fileName = recoverDccFileName(dccArguments, 4); //ip port filesize token
         ip = DccCommon::numericalIpToTextIp( dccArguments.at(argumentSize - 4) ); //-1 index, -1 token, -1 port, -1 filesize
         port = 0;
         fileSize = dccArguments.at(argumentSize - 2).toULong(); //-1 index, -1 token
@@ -1772,7 +1778,7 @@ void Server::addDccGet(const QString &sourceNick, const QStringList &dccArgument
     } else {
         //filename ip port filesize
         ip = DccCommon::numericalIpToTextIp( dccArguments.at(argumentSize - 3) ); //-1 index, -1 filesize
-        fileName = recoverDccFileName(dccArguments, 3);
+        fileName = recoverDccFileName(dccArguments, 3); //ip port filesize
         fileSize = dccArguments.at(argumentSize - 1).toULong(); //-1 index
         port = dccArguments.at(argumentSize - 2).toUInt(); //-1 index, -1 filesize
     }
@@ -1879,7 +1885,7 @@ void Server::startReverseDccSendTransfer(const QString& sourceNick,const QString
     QString token = dccArguments.at(argumentSize - 1);
     unsigned long fileSize = dccArguments.at(argumentSize - 2).toULong();
 
-    QString fileName = recoverDccFileName(dccArguments, 4);
+    QString fileName = recoverDccFileName(dccArguments, 4); //ip port filesize token
 
     kDebug() << "ip: " << partnerIP;
     kDebug() << "port: " << port;
@@ -1916,13 +1922,13 @@ void Server::resumeDccGetTransfer(const QString &sourceNick, const QStringList &
     const int argumentSize = dccArguments.count();
     if (dccArguments.at(argumentSize - 3) == "0") //-1 index, -1 token, -1 pos
     {
-        fileName = recoverDccFileName(dccArguments, 3);
+        fileName = recoverDccFileName(dccArguments, 3); //port position token
         ownPort = 0;
         position = dccArguments.at(argumentSize - 2).toULong(); //-1 index, -1 token
     }
     else
     {
-        fileName = recoverDccFileName(dccArguments, 2);
+        fileName = recoverDccFileName(dccArguments, 2); //port position
         ownPort = dccArguments.at(argumentSize - 1).toUInt(); //-1 index, -1 pos
         position = dccArguments.at(argumentSize - 1).toULong(); //-1 index
     }
@@ -1969,14 +1975,14 @@ void Server::resumeDccSendTransfer(const QString &sourceNick, const QStringList 
         ownPort = 0;
         token = dccArguments.at( argumentSize - 1); // -1 index
         position = dccArguments.at( argumentSize - 2).toULong(); // -1 index, -1 token
-        fileName = recoverDccFileName(dccArguments, 3);
+        fileName = recoverDccFileName(dccArguments, 3); //port filepos token
     }
     else
     {
         //filename port filepos
         ownPort = dccArguments.at( argumentSize - 2).toUInt(); //-1 index, -1 filesize
         position = dccArguments.at( argumentSize - 1).toULong(); // -1 index
-        fileName = recoverDccFileName(dccArguments, 2);
+        fileName = recoverDccFileName(dccArguments, 2); //port filepos
     }
 
     DccTransferSend* dccTransfer = dtm->resumeUpload( connectionId(), sourceNick, fileName, ownPort, position );
@@ -2009,6 +2015,25 @@ void Server::resumeDccSendTransfer(const QString &sourceNick, const QStringList 
         appendMessageToFrontmost( i18n( "Error" ),
                                   i18nc( "%1 = file name, %2 = nickname",
                                         "Received invalid resume request for \"%1\" from %2.",
+                                        fileName,
+                                        sourceNick ) );
+    }
+}
+
+void Server::rejectDccSendTransfer(const QString &sourceNick, const QStringList &dccArguments)
+{
+    DccTransferManager* dtm = KonversationApplication::instance()->getDccTransferManager();
+
+    //filename
+    QString fileName = recoverDccFileName(dccArguments,0);
+
+    DccTransferSend* dccTransfer = dtm->rejectSend( connectionId(), sourceNick, fileName );
+
+    if ( !dccTransfer )
+    {
+        appendMessageToFrontmost( i18n( "Error" ),
+                                  i18nc( "%1 = file name, %2 = nickname",
+                                        "Received invalid reject request for \"%1\" from %2.",
                                         fileName,
                                         sourceNick ) );
     }

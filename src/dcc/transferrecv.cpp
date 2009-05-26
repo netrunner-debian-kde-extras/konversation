@@ -176,6 +176,11 @@ bool DccTransferRecv::queue()
         return false;
     }
 
+    if ( m_ownIp.isEmpty() )
+    {
+        m_ownIp = DccCommon::getOwnIp( KonversationApplication::instance()->getConnectionManager()->getServerByConnectionId( m_connectionId ) );
+    }
+
     if (!KAuthorized::authorizeKAction("allow_downloading"))
     {
         //note we have this after the initialisations so that item looks okay
@@ -594,7 +599,7 @@ void DccTransferRecv::slotServerSocketReadyAccept()
     startReceiving();
 }
 
-void DccTransferRecv::slotServerSocketGotError( int /* errorCode*/ )
+void DccTransferRecv::slotServerSocketGotError( QAbstractSocket::SocketError /* errorCode*/ )
 {
     failed( i18n( "Socket error: %1", m_serverSocket->errorString() ) );
 }
