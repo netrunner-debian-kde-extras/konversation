@@ -38,8 +38,7 @@ class DccTransferSend : public DccTransfer
         void setFileURL( const KUrl& url );
         // OPTIONAL
         void setFileName( const QString& fileName );
-        // REQUIED
-        // FIXME: this setting should be an optional one or be removed: make DccTransferSend itself read the configuration
+        // OPTIONAL
         void setOwnIp( const QString& ownIp );
         // OPTIONAL
         void setFileSize( KIO::filesize_t fileSize );
@@ -47,6 +46,9 @@ class DccTransferSend : public DccTransfer
         void setReverse( bool reverse );
 
         bool setResume( unsigned long position );
+
+        // send got rejected
+        void reject();
 
     public slots:
         virtual bool queue();
@@ -62,7 +64,7 @@ class DccTransferSend : public DccTransfer
         void startSending();
         void writeData();
         void getAck();
-        void slotGotSocketError( int errorCode );
+        void slotGotSocketError( QAbstractSocket::SocketError errorCode );
         void slotConnectionTimeout();
         void slotConnectionFailed( QAbstractSocket::SocketError errorCode );
         void slotSendSocketClosed();

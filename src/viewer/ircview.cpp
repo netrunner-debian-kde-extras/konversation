@@ -60,6 +60,7 @@
 #include <KActionCollection>
 #include <KToolInvocation>
 #include <kio/copyjob.h>
+#include <KToggleAction>
 
 class QPixmap;
 class QDropEvent;
@@ -126,7 +127,7 @@ IRCView::IRCView(QWidget* parent, Server* newServer) : KTextBrowser(parent)
 
     m_popup = new KMenu(this);
     m_popup->setObjectName("ircview_context_menu");
-    m_copyUrlClipBoard =m_popup->addAction(KIcon("edit-copy"), i18n("Copy URL to Clipboard"), this, SLOT( copyUrl() )) ;
+    m_copyUrlClipBoard =m_popup->addAction(KIcon("edit-copy"), i18n("Copy Link Address"), this, SLOT( copyUrl() )) ;
     m_copyUrlClipBoard->setVisible( false );
 
 
@@ -142,7 +143,7 @@ IRCView::IRCView(QWidget* parent, Server* newServer) : KTextBrowser(parent)
     connect( this, SIGNAL(copyAvailable(bool)),act,SLOT( setEnabled( bool ) ) );
     act->setEnabled( false );
     m_popup->addAction(i18n("Select All"),this, SLOT(selectAll()) );
-    m_popup->addAction(KIcon("edit-find"),i18n("Find Text..."),this, SLOT( search() ) );
+    m_popup->addAction(KIcon("edit-find"),i18n("Find Text..."),this, SLOT( findText() ) );
 
     setServer(newServer);
 
@@ -185,16 +186,26 @@ void IRCView::setChatWin(ChatWindow* chatWin)
     m_chatWin = chatWin;
 
     if(m_chatWin->getType()==ChatWindow::Channel)
-        setupNickPopupMenu();
+        setupNickPopupMenu(false);
     else
-        setupQueryPopupMenu();
+        setupNickPopupMenu(true);
 
     setupChannelPopupMenu();
 }
 
-void IRCView::search()
+void IRCView::findText()
 {
     emit doSearch();
+}
+
+void IRCView::findNextText()
+{
+    emit doSearchNext();
+}
+
+void IRCView::findPreviousText()
+{
+    emit doSearchPrevious();
 }
 
 bool IRCView::search(const QString& pattern, bool caseSensitive, bool wholeWords, bool forward, bool fromCursor)
@@ -219,11 +230,9 @@ bool IRCView::searchNext(bool reversed)
 {
     bool fwd = (reversed ? !m_forward : m_forward);
     if (fwd) {
-        moveCursor(QTextCursor::EndOfWord);
         m_searchFlags &= ~QTextDocument::FindBackward;
     }
     else {
-        moveCursor(QTextCursor::StartOfWord);
         m_searchFlags |= QTextDocument::FindBackward;
     }
     return find(m_pattern, m_searchFlags);
@@ -266,7 +275,7 @@ void IRCView::append(const QString& nick, const QString& message)
 
     m_tabNotification = Konversation::tnfNormal;
 
-    QString nickLine = createNickLine(nick);
+    QString nickLine = createNickLine(nick, channelColor);
 
     QString line;
     line = "<font color=\"" + channelColor + "\">%1" + nickLine + " %3</font>";
@@ -307,7 +316,7 @@ void IRCView::appendQuery(const QString& nick, const QString& message, bool inCh
 
     m_tabNotification = Konversation::tnfPrivate;
 
-    QString nickLine = createNickLine(nick, true, inChannel);
+    QString nickLine = createNickLine(nick, queryColor, true, inChannel);
 
     QString line;
     line = "<font color=\"" + queryColor + "\">%1 " + nickLine + " %3</font>";
@@ -334,7 +343,7 @@ void IRCView::appendAction(const QString& nick, const QString& message)
 {
     QString actionColor=Preferences::self()->color(Preferences::ActionMessage).name();
 
-    QString nickLine = createNickLine(nick, false);
+    QString nickLine = createNickLine(nick, actionColor, false);
 
     QString line;
     line = "<font color=\"" + actionColor + "\">%1 * " + nickLine + " %3</font>";
@@ -473,7 +482,27 @@ void IRCView::doRawAppend(const QString& newLine)
 
     line.remove('\n');
 
+    // HACK Work around for the problem that the if the last character is selected when
+    // a new line is appended the selection will grow to include the new line.
+    // We store the length of the selection and redo the selection after the line was appended.
+    int selectionLength = 0;
+    QTextCursor cursor = textCursor();
+    bool checkSelection = false;
+
+    if(cursor.hasSelection() && cursor.atEnd())
+    {
+        selectionLength = cursor.selectionEnd() - cursor.selectionStart();
+        checkSelection = true;
+    }
+
     KTextBrowser::append(line);
+
+    if (checkSelection && selectionLength < (cursor.selectionEnd() - cursor.selectionStart()))
+    {
+        cursor.setPosition(cursor.selectionStart());
+        cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, selectionLength);
+        setTextCursor(cursor);
+    }
 }
 
 QString IRCView::timeStamp()
@@ -504,7 +533,7 @@ QString IRCView::timeStamp()
     return QString();
 }
 
-QString IRCView::createNickLine(const QString& nick, bool encapsulateNick, bool privMsg)
+QString IRCView::createNickLine(const QString& nick, const QString& defaultColor, bool encapsulateNick, bool privMsg)
 {
     QString nickLine = "%2";
     QString nickColor;
@@ -529,7 +558,7 @@ QString IRCView::createNickLine(const QString& nick, bool encapsulateNick, bool 
         }
     }
     else
-        nickColor = Preferences::self()->color(Preferences::ChannelMessage).name();
+        nickColor = defaultColor;
 
     nickLine = "<font color=\"" + nickColor + "\">"+nickLine+"</font>";
 
@@ -780,11 +809,134 @@ void IRCView::setNickAndChannelContextMenusEnabled(bool enable)
     if (m_channelPopup) m_channelPopup->setEnabled(enable);
 }
 
-void IRCView::setupNickPopupMenu() { m_nickPopup = 0; }
+void IRCView::setupNickPopupMenu(bool isQuery)
+{
+    m_nickPopup = new KMenu(this);
+    m_nickPopup->setObjectName("nicklist_context_menu");
+    m_nickPopup->setTitle(m_currentNick);
 
-void IRCView::setupQueryPopupMenu() { m_nickPopup = 0; }
+    QAction* action = m_nickPopup->addAction(i18n("&Whois"), this, SLOT(handleContextActions()));
+    action->setData(Konversation::Whois);
+    action = m_nickPopup->addAction(i18n("&Version"), this, SLOT(handleContextActions()));
+    action->setData(Konversation::Version);
+    action = m_nickPopup->addAction(i18n("&Ping"), this, SLOT(handleContextActions()));
+    action->setData(Konversation::Ping);
 
-void IRCView::setupChannelPopupMenu() { m_nickPopup = 0; }
+    m_nickPopup->addSeparator();
+
+    if(!isQuery)
+    {
+        QMenu* modes = m_nickPopup->addMenu(i18n("Modes"));
+        action = modes->addAction(i18n("Give Op"), this, SLOT(handleContextActions()));
+        action->setData(Konversation::GiveOp);
+#if KDE_IS_VERSION(4, 2, 85)
+        action->setIcon(KIcon("irc-operator"));
+#endif
+        action = modes->addAction(i18n("Take Op"), this, SLOT(handleContextActions()));
+        action->setData(Konversation::TakeOp);
+#if KDE_IS_VERSION(4, 2, 85)
+        action->setIcon(KIcon("irc-remove-operator"));
+#endif
+        action = modes->addAction(i18n("Give Voice"), this, SLOT(handleContextActions()));
+        action->setData(Konversation::GiveVoice);
+#if KDE_IS_VERSION(4, 2, 85)
+        action->setIcon(KIcon("irc-voice"));
+#endif
+        action = modes->addAction(i18n("Take Voice"), this, SLOT(handleContextActions()));
+        action->setData(Konversation::TakeVoice);
+#if KDE_IS_VERSION(4, 2, 85)
+        action->setIcon(KIcon("irc-unvoice"));
+#endif
+
+        QMenu* kickban = m_nickPopup->addMenu(i18n("Kick / Ban"));
+        action = kickban->addAction(i18n("Kick"), this, SLOT(handleContextActions()));
+        action->setData(Konversation::Kick);
+        action = kickban->addAction(i18n("Kickban"), this, SLOT(handleContextActions()));
+        action->setData(Konversation::KickBan);
+        action = kickban->addAction(i18n("Ban Nickname"), this, SLOT(handleContextActions()));
+        action->setData(Konversation::BanNick);
+        kickban->addSeparator();
+        action = kickban->addAction(i18n("Ban *!*@*.host"), this, SLOT(handleContextActions()));
+        action->setData(Konversation::BanHost);
+        action = kickban->addAction(i18n("Ban *!*@domain"), this, SLOT(handleContextActions()));
+        action->setData(Konversation::BanDomain);
+        action = kickban->addAction(i18n("Ban *!user@*.host"), this, SLOT(handleContextActions()));
+        action->setData(Konversation::BanUserHost);
+        action = kickban->addAction(i18n("Ban *!user@domain"), this, SLOT(handleContextActions()));
+        action->setData(Konversation::BanUserDomain);
+        kickban->addSeparator();
+        action = kickban->addAction(i18n("Kickban *!*@*.host"), this, SLOT(handleContextActions()));
+        action->setData(Konversation::KickBanHost);
+        action = kickban->addAction(i18n("Kickban *!*@domain"), this, SLOT(handleContextActions()));
+        action->setData(Konversation::KickBanDomain);
+        action = kickban->addAction(i18n("Kickban *!user@*.host"), this, SLOT(handleContextActions()));
+        action->setData(Konversation::KickBanUserHost);
+        action = kickban->addAction(i18n("Kickban *!user@domain"), this, SLOT(handleContextActions()));
+        action->setData(Konversation::KickBanUserDomain);
+    }
+
+    m_ignoreAction = new KToggleAction(i18n("Ignore"), this);
+    m_ignoreAction->setCheckedState(KGuiItem(i18n("Unignore")));
+    m_ignoreAction->setData(Konversation::IgnoreNick);
+    m_nickPopup->addAction(m_ignoreAction);
+    connect(m_ignoreAction, SIGNAL(triggered()), this, SLOT(handleContextActions()));
+
+    m_nickPopup->addSeparator();
+
+    action = m_nickPopup->addAction(i18n("Open Query"), this, SLOT(handleContextActions()));
+    action->setData(Konversation::OpenQuery);
+
+    KConfigGroup config = KGlobal::config()->group("KDE Action Restrictions");
+
+    if(config.readEntry<bool>("allow_downloading", true))
+    {
+        action = m_nickPopup->addAction(SmallIcon("arrow-right-double"),i18n("Send &File..."), this, SLOT(handleContextActions()));
+        action->setData(Konversation::DccSend);
+    }
+
+    m_nickPopup->addSeparator();
+
+    m_addNotifyAction = m_nickPopup->addAction(i18n("Add to Watched Nicks"), this, SLOT(handleContextActions()));
+    m_addNotifyAction->setData(Konversation::AddNotify);
+}
+
+void IRCView::updateNickMenuEntries(const QString& nickname)
+{
+    if (Preferences::isIgnored(nickname))
+    {
+        m_ignoreAction->setChecked(true);
+        m_ignoreAction->setData(Konversation::UnignoreNick);
+    }
+    else
+    {
+        m_ignoreAction->setChecked(false);
+        m_ignoreAction->setData(Konversation::IgnoreNick);
+    }
+
+    if (!m_server || !m_server->getServerGroup() || !m_server->isConnected() || !Preferences::hasNotifyList(m_server->getServerGroup()->id())
+        || Preferences::isNotify(m_server->getServerGroup()->id(), nickname))
+    {
+        m_addNotifyAction->setEnabled(false);
+    }
+    else
+    {
+        m_addNotifyAction->setEnabled(true);
+    }
+}
+
+void IRCView::setupChannelPopupMenu()
+{
+    m_channelPopup = new KMenu(this);
+    m_channelPopup->setObjectName("channel_context_menu");
+    m_channelPopup->setTitle(m_currentChannel);
+
+    QAction* action = m_channelPopup->addAction(i18n("&Join"), this, SLOT(handleContextActions()));
+    action->setData(Konversation::Join);
+    action = m_channelPopup->addAction(i18n("Get &user list"), this, SLOT(handleContextActions()));
+    action->setData(Konversation::Names);
+    action = m_channelPopup->addAction(i18n("Get &topic"), this, SLOT(handleContextActions()));
+    action->setData(Konversation::Topic);
+}
 
 
 // Mouse tracking
@@ -896,14 +1048,14 @@ void IRCView::openLink(const QString& url, bool)
 
     if (!link.isEmpty() && !link.startsWith('#'))
     {
-        if (link.startsWith("irc://"))
+        if (link.startsWith(QLatin1String("irc://")))
         {
             KonversationApplication* konvApp = KonversationApplication::instance();
             konvApp->getConnectionManager()->connectTo(Konversation::SilentlyReuseConnection, link);
         }
-        else if (!Preferences::self()->useCustomBrowser() || link.startsWith("mailto:"))
+        else if (!Preferences::self()->useCustomBrowser() || link.startsWith(QLatin1String("mailto:")))
         {
-            if (link.startsWith("mailto:"))
+            if (link.startsWith(QLatin1String("mailto:")))
                 KToolInvocation::invokeMailer(KUrl(link));
             else
                 KToolInvocation::invokeBrowser(link);
@@ -921,7 +1073,7 @@ void IRCView::openLink(const QString& url, bool)
         }
     }
     //FIXME: Don't do channel links in DCC Chats to begin with since they don't have a server.
-    else if (link.startsWith("##") && m_server && m_server->isConnected())
+    else if (link.startsWith(QLatin1String("##")) && m_server && m_server->isConnected())
     {
         QString channel(link);
         channel.replace("##", "#");
@@ -1008,11 +1160,15 @@ void IRCView::highlightedSlot(const QString& _link)
             m_urlToCopy = link;
         }
     }
-    else if (link.startsWith('#') && !link.startsWith("##"))
+    else if (link.startsWith('#') && !link.startsWith(QLatin1String("##")))
     {
         m_currentNick = link.mid(1);
-        //FIXME how are menu titles done now? /me is too tired
-        //m_nickPopup->changeTitle(m_nickPopupId,m_currentNick);
+
+        if(m_nickPopup)
+        {
+            m_nickPopup->setTitle(m_currentNick);
+        }
+
         m_isOnNick = true;
         emit setStatusBarTempText(i18n("Open a query with %1", m_currentNick));
     }
@@ -1021,15 +1177,19 @@ void IRCView::highlightedSlot(const QString& _link)
         // link.startsWith("##")
         m_currentChannel = link.mid(1);
 
-        QString prettyId = m_currentChannel;
-
-        if (prettyId.length()>15)
+        if(m_channelPopup)
         {
-            prettyId.truncate(15);
-            prettyId.append("...");
+            QString prettyId = m_currentChannel;
+
+            if (prettyId.length()>15)
+            {
+                prettyId.truncate(15);
+                prettyId.append("...");
+            }
+
+            m_channelPopup->setTitle(prettyId);
         }
 
-        //m_channelPopup->changeTitle(m_channelPopupId,prettyId);
         m_isOnChannel = true;
         emit setStatusBarTempText(i18n("Join the channel %1", m_currentChannel));
     }
@@ -1059,7 +1219,31 @@ void IRCView::slotBookmark()
 
 void IRCView::contextMenuEvent(QContextMenuEvent* ev)
 {
-    m_popup->exec(ev->globalPos());
+    if (m_nickPopup && m_server && m_isOnNick && m_nickPopup->isEnabled())
+    {
+        updateNickMenuEntries(getContextNick());
+
+        if(m_nickPopup->exec(ev->globalPos()) == 0)
+            clearContextNick();
+
+        m_isOnNick = false;
+    }
+    else if(m_channelPopup && m_server && m_isOnChannel && m_channelPopup->isEnabled())
+    {
+        m_channelPopup->exec(ev->globalPos());
+        m_isOnChannel = false;
+    }
+    else
+    {
+        m_popup->exec(ev->globalPos());
+    }
+}
+
+void IRCView::handleContextActions()
+{
+    QAction* action = qobject_cast<QAction*>(sender());
+
+    emit popupCommand(action->data().toInt());
 }
 
 // **WARNING** the selectionChange signal comes BEFORE the selection has actually been changed, hook cursorPositionChanged too

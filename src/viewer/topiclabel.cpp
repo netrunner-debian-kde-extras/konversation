@@ -35,6 +35,9 @@
 #include <kbookmarkmanager.h>
 #include <kbookmarkdialog.h>
 #include <klocale.h>
+#include <KUrl>
+#include <kio/copyjob.h>
+#include <KFileDialog>
 
 
 namespace Konversation
@@ -88,7 +91,7 @@ namespace Konversation
     {
         if (!link.isEmpty())
         {
-            if (link.startsWith("irc://"))
+            if (link.startsWith(QLatin1String("irc://")))
             {
                 KonversationApplication* konvApp = static_cast<KonversationApplication*>(kapp);
                 konvApp->getConnectionManager()->connectTo(Konversation::SilentlyReuseConnection, link);
@@ -100,7 +103,7 @@ namespace Konversation
                 m_server->sendJoinCommand(channel);
             }
             // Always use KDE default mailer.
-            else if (!Preferences::self()->useCustomBrowser() || link.toLower().startsWith("mailto:"))
+            else if (!Preferences::self()->useCustomBrowser() || link.toLower().startsWith(QLatin1String("mailto:")))
             {
                 new KRun(KUrl(link), this);
             }
@@ -148,8 +151,9 @@ namespace Konversation
         {
             if (m_copyUrlMenu)
             {
-                menu->addAction(KIcon("edit-copy"), i18n("Copy URL to Clipboard"), this, SLOT (copyUrl()));
+                menu->addAction(KIcon("edit-copy"), i18n("Copy Link Address"), this, SLOT (copyUrl()));
                 menu->addAction(KIcon("bookmark-new"), i18n("Add to Bookmarks"), this, SLOT (bookmarkUrl()));
+                menu->addAction(KIcon("document-save"), i18n("Save Link As..."), this, SLOT(saveLinkAs()));
                 actionsAdded = true;
             }
         }
@@ -276,7 +280,7 @@ namespace Konversation
                 m_urlToCopy = link;
             }
         }
-        else if (link.startsWith("##"))
+        else if (link.startsWith(QLatin1String("##")))
         {
             m_currentChannel = link.mid(1);
             m_isOnChannel = true;
@@ -327,6 +331,20 @@ namespace Konversation
             return;
 
         m_server->requestTopic(m_currentChannel);
+    }
+
+    void TopicLabel::saveLinkAs()
+    {
+        if(m_urlToCopy.isEmpty())
+            return;
+
+        KUrl srcUrl (m_urlToCopy);
+        KUrl saveUrl = KFileDialog::getSaveUrl(srcUrl.fileName(KUrl::ObeyTrailingSlash), QString(), this, i18n("Save link as"));
+
+        if (saveUrl.isEmpty() || !saveUrl.isValid())
+            return;
+
+        KIO::copy(srcUrl, saveUrl);
     }
 }
 

@@ -133,7 +133,9 @@ bool DccTransferSend::queue()
         return false;
 
     if ( m_ownIp.isEmpty() )
+    {
         m_ownIp = DccCommon::getOwnIp( KonversationApplication::instance()->getConnectionManager()->getServerByConnectionId( m_connectionId ) );
+    }
 
     if ( !KAuthorized::authorizeKAction( "allow_downloading" ) )
     {
@@ -215,6 +217,13 @@ bool DccTransferSend::queue()
     }
 
     return DccTransfer::queue();
+}
+
+void DccTransferSend::reject()
+{
+    kDebug();
+
+    failed( i18n( "DCC SEND request was rejected" ) );
 }
 
 void DccTransferSend::abort()                     // public slot
@@ -342,7 +351,7 @@ void DccTransferSend::acceptClient()                     // slot
         failed( i18n( "Could not accept the connection (socket error.)" ) );
         return;
     }
-    connect( m_sendSocket, SIGNAL( error ( QAbstractSocket::SocketError ) ), this, SLOT( slotGotSocketError(int) ));
+    connect( m_sendSocket, SIGNAL( error ( QAbstractSocket::SocketError ) ), this, SLOT( slotGotSocketError( QAbstractSocket::SocketError ) ));
 
     // we don't need ServerSocket anymore
     m_serverSocket->close();
@@ -431,7 +440,7 @@ void DccTransferSend::getAck()                    // slot
     }
 }
 
-void DccTransferSend::slotGotSocketError( int errorCode )
+void DccTransferSend::slotGotSocketError( QAbstractSocket::SocketError errorCode )
 {
     stopConnectionTimer();
     kDebug() << "code =  " << errorCode << " string = " << m_serverSocket->errorString();

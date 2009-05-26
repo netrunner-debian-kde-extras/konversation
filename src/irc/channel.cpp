@@ -138,12 +138,13 @@ Channel::Channel(QWidget* parent, QString _name) : ChatWindow(parent)
     m_vertSplitter->setStretchFactor(m_vertSplitter->indexOf(topicWidget), 0);
 
     QGridLayout* topicLayout = new QGridLayout(topicWidget);
-    topicLayout->setMargin (0);
-    topicLayout->setSpacing (0);
+    topicLayout->setMargin(0);
+    topicLayout->setSpacing(0);
 
     m_topicButton = new QToolButton(topicWidget);
     m_topicButton->setIcon(KIcon("document-edit"));
     m_topicButton->setToolTip(i18n("Edit Channel Settings"));
+    m_topicButton->setAutoRaise(true);
     connect(m_topicButton, SIGNAL(clicked()), this, SLOT(showOptionsDialog()));
 
     topicLine = new Konversation::TopicLabel(topicWidget);
@@ -200,10 +201,12 @@ Channel::Channel(QWidget* parent, QString _name) : ChatWindow(parent)
 
     // (this) The main Box, holding the channel view/topic and the input line
     m_horizSplitter = new QSplitter(m_vertSplitter);
+    m_vertSplitter->setStretchFactor(m_vertSplitter->indexOf(m_horizSplitter), 1);
     m_horizSplitter->setOpaqueResize( KGlobalSettings::opaqueResize() );
 
     // Server will be set later in setServer()
     IRCViewBox* ircViewBox = new IRCViewBox(m_horizSplitter, NULL);
+    m_horizSplitter->setStretchFactor(m_horizSplitter->indexOf(ircViewBox), 1);
     setTextView(ircViewBox->ircView());
     connect(textView,SIGNAL(popupCommand(int)),this,SLOT(popupChannelCommand(int)));
 
@@ -1609,7 +1612,7 @@ void Channel::setTopicAuthor(const QString& newAuthor, QDateTime time)
     if (time.isNull() || !time.isValid())
         time=QDateTime::currentDateTime();
 
-    if(topicAuthorUnknown)
+    if(topicAuthorUnknown && !m_topicHistory.isEmpty())
     {
         m_topicHistory[0] =  QString("%1").arg(time.toTime_t()) + ' ' + newAuthor + ' ' + m_topicHistory[0].section(' ', 2);
         topicAuthorUnknown = false;
@@ -2874,7 +2877,7 @@ QString NickList::completeNick(const QString& pattern, bool& complete, QStringLi
 			       bool skipNonAlfaNum, bool caseSensitive)
 {
     found.clear();
-    QString prefix = "^";
+    QString prefix('^');
     QString newNick;
     QString prefixCharacter = Preferences::self()->prefixCharacter();
     NickList foundNicks;

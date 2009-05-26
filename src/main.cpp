@@ -22,6 +22,7 @@
 #include "version.h"
 #include "commit.h"
 
+
 /*
   Don't use i18n() here, use ki18n() instead!
   i18n() will only work as soon as a kapplication object was made.

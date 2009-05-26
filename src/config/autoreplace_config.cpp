@@ -10,8 +10,8 @@
   Copyright (C) 2006 Eike Hein <hein@kde.org>
 */
 
-#include "autoreplace_preferences.h"
-#include "config/preferences.h"
+#include "autoreplace_config.h"
+#include "preferences.h"
 
 #include <qlabel.h>
 #include <qpushbutton.h>
@@ -186,13 +186,11 @@ QList<QStringList> Autoreplace_Config::currentAutoreplaceList()
   QTreeWidgetItem* item=patternListView->topLevelItem(0);
   // create empty list
   QList<QStringList> newList;
-
+  QChar regex;
   // go through all items and save them into the configuration
   while(item)
   {
-    QString regex="0";
-    if (static_cast<QTreeWidgetItem*>(item)->checkState(0) == Qt::Checked) regex='1';
-
+    regex = (item->checkState(0) == Qt::Checked) ? '1' : '0';
     // remember entry in internal list (col 4 is hidden for input/output)
     newList.append(QStringList() << regex << item->text(4) << item->text(2) << item->text(3));
     // get next item in the listview
@@ -402,4 +400,4 @@ void Autoreplace_Config::showRegExpEditor()
     }
 }
 
-#include "autoreplace_preferences.moc"
+#include "autoreplace_config.moc"

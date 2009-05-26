@@ -1,3 +1,70 @@
+Changes from 1.2-alpha1 to 1.2-alpha2:
+After just under a week's worth of adding back some missing functiona-
+lity, polishing the interface and, of course, of fixing bugs, we've de-
+cided to bring you Konversation 1.2-alpha2. While there were no major
+defects discovered in alpha1, this one should yield an overall more re-
+fined user experience, and brings us another good step closer to our
+first stable release for KDE 4.
+
+
+* Fixed nicknames in action messages using the message text color when
+  nick coloring is disabled rather than the correct action text color
+  as the rest of the message.
+* Added back the context menus for nicknames and channel links in the
+  chat view.
+* Fixed the topic/info area in channels, queries and DCC chats, the nick-
+  name list in channels and the listview variant of the tab bar not keep-
+  ing their sizes when the window is resized.
+* Added missing actions ("Reconnect", "Disconnect", "Join channel ...")
+  back to the context menu for server status tabs.
+* Improved the placement of the "Join on connect" channel tab context
+  menu item (back under "Enable Notifications" as in v1.1).
+* Added the use of some of the new irc-* icons found in recent updates
+  to the Oxygen icon theme.
+* Fixed crash when joining a channel after having been blocked from get-
+  ting the topic for the channel.
+* Made the initial size of the "Edit Network" dialog more reasonable.
+* Improved vertical size of and text alignment inside the input line.
+* Added back support for drag and drop reordering of views to the list-
+  view version of the tab bar.
+* Added back support for "surfing" in the listview version of the tab
+  bar by pressing and holding the left mouse button on a view and moving
+  the mouse up and down in the list view.
+* Fixed mouse handling for close buttons in the listview version of the
+  tab bar.
+* Added back support for showing tooltips for truncated view items in
+  the listview version of the tab bar.
+* Fixed crash when receiving lines terminated by LFCRLF from buggy IRC
+  servers (such as the shroudBNC IRC proxy when it relays a private mes-
+  sage received while no user was connected to it).
+* Worked around a Qt bug that has a text selection in the chat view that
+  includes the last character in the view grow to include the new text
+  when new text is appended to the view.
+* Sound notifications for highlights now reuse a single Phonon MediaObject
+  by enqueuing notification sounds rather than instanciate a new one for
+  every notification, improving resource efficiency and hopefully taking
+  care of some high CPU usage reports that seemed to be linked to Konver-
+  sation's Phonon usage.
+* Fixed the enabling/disabling of the "Find Previous" action.
+* Fixed several bugs in the Server List dialog (sort indicator disappear-
+  ing while dragging items, stray pixel in the top-left corner of the list-
+  view, hover decoration while dragging not always showing).
+* Improved handling in the Identity editor dialog: When Konversation com-
+  plains about one or more required fields not being filled in, the dialog
+  will now put focus on the field when it opens.
+* Fixed the 'Self' IP field of the DCC transfer details panel not showing
+  a value when on the receiving end of a DCC file transfer.
+* Handle DCC REJECTs. A DCC SEND is now automatically aborted when the
+  partner rejects it.
+* Fixed a bug causing the ordering of views to be partially reversed when
+  switching from the listview version of the tab bar to the regular tab bar.
+* Improved consistency of the context menu for links between the topic area
+  and the chat view.
+* Fixed repeated searches for the same search pattern (i.e. "Find Next")
+  sometimes not working reliably with the chat view search bar.
+* Minor code cleanups and performance improvements.
+
+
 Changes from 1.1 to 1.2-alpha1:
 We're happy to bring you this first public release of the KDE 4 version of
 Konversation.
