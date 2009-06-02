@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation \n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-05-25 11:46+0200\n"
+"POT-Creation-Date: 2009-05-31 11:52+0200\n"
 "PO-Revision-Date: 2006-07-12 18:21+0900\n"
 "Last-Translator: Cho Sung Jae <jachin@netian.com>\n"
 "Language-Team: 한국어\n"
@@ -102,7 +102,7 @@ msgstr "비어있는 포트가 없습니다."
 msgid "Could not open a socket"
 msgstr "소켓을 열 수 없습니다."
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:97
+#. i18n: file: src/config/ignore_configui.ui:97
 #. i18n: ectx: property (text), widget (QCheckBox, chkDCC)
 #: src/dcc/chat.cpp:142 src/dcc/chat.cpp:152 src/dcc/chat.cpp:165
 #: src/dcc/chat.cpp:183 src/dcc/chat.cpp:188 src/dcc/chat.cpp:193
@@ -110,10 +110,11 @@ msgstr "소켓을 열 수 없습니다."
 #: src/irc/inputfilter.cpp:386 src/irc/inputfilter.cpp:401
 #: src/irc/inputfilter.cpp:417 src/irc/inputfilter.cpp:425
 #: src/irc/server.cpp:1802 src/irc/server.cpp:1828 src/irc/server.cpp:1840
-#: src/irc/server.cpp:1941 src/irc/server.cpp:1992 src/irc/server.cpp:2048
-#: src/irc/server.cpp:2051 src/irc/server.cpp:2062 src/irc/server.cpp:2065
-#: src/irc/server.cpp:2079 src/irc/server.cpp:2086 src/settingsdialog.cpp:149
-#: src/viewer/ignorelistviewitem.cpp:47 rc.cpp:410
+#: src/irc/server.cpp:1941 src/irc/server.cpp:1992 src/irc/server.cpp:2049
+#: src/irc/server.cpp:2054 src/irc/server.cpp:2066 src/irc/server.cpp:2069
+#: src/irc/server.cpp:2083 src/irc/server.cpp:2090
+#: src/config/settingsdialog.cpp:149 src/viewer/ignorelistviewitem.cpp:47
+#: rc.cpp:765
 msgid "DCC"
 msgstr "DCC"
 
@@ -179,14 +180,14 @@ msgstr ""
 msgid "Connection broken, error (%1) %2."
 msgstr "연결 깨짐, 에러 코드 %1."
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:83
+#. i18n: file: src/config/ignore_configui.ui:83
 #. i18n: ectx: property (text), widget (QCheckBox, chkCTCP)
 #: src/dcc/chat.cpp:237 src/irc/outputfilter.cpp:757
 #: src/irc/inputfilter.cpp:272 src/irc/inputfilter.cpp:279
 #: src/irc/inputfilter.cpp:295 src/irc/inputfilter.cpp:302
 #: src/irc/inputfilter.cpp:434 src/irc/inputfilter.cpp:442
 #: src/irc/inputfilter.cpp:462 src/irc/inputfilter.cpp:513
-#: src/irc/inputfilter.cpp:541 src/viewer/ignorelistviewitem.cpp:46 rc.cpp:404
+#: src/irc/inputfilter.cpp:541 src/viewer/ignorelistviewitem.cpp:46 rc.cpp:759
 msgid "CTCP"
 msgstr "CTCP"
 
@@ -260,18 +261,18 @@ msgstr ""
 msgid "Awaiting remote user's acceptance"
 msgstr "사용자의 승인을 기다리는 중"
 
-#: src/dcc/transfersend.cpp:351 src/dcc/transferrecv.cpp:590
+#: src/dcc/transfersend.cpp:351 src/dcc/transferrecv.cpp:587
 #, fuzzy
 #| msgid "Could not accept the connection. (Socket Error)"
 msgid "Could not accept the connection (socket error.)"
 msgstr "연결을 수용할 수 없습니다.(소켓 에러)"
 
-#: src/dcc/transfersend.cpp:447 src/dcc/transferrecv.cpp:604
+#: src/dcc/transfersend.cpp:447 src/dcc/transferrecv.cpp:601
 #, kde-format
 msgid "Socket error: %1"
 msgstr "소캣 에러: %1"
 
-#: src/dcc/transfersend.cpp:469 src/dcc/transferrecv.cpp:709
+#: src/dcc/transfersend.cpp:469 src/dcc/transferrecv.cpp:704
 msgid "Timed out"
 msgstr "시간 초과"
 
@@ -346,7 +347,7 @@ msgstr "이 파일에 대한 자세한 정보를 찾을 수 없습니다."
 msgid "Send"
 msgstr "전송"
 
-#: src/dcc/transferpanelitem.cpp:266 src/dcc/transferrecv.cpp:84
+#: src/dcc/transferpanelitem.cpp:266 src/dcc/transferrecv.cpp:81
 msgid "Receive"
 msgstr "수신"
 
@@ -391,34 +392,34 @@ msgstr "중단됨"
 msgid "%1/sec"
 msgstr "%1/sec"
 
-#: src/dcc/transferrecv.cpp:188
+#: src/dcc/transferrecv.cpp:185
 msgid "The admin has restricted the right to receive files"
 msgstr "관리자가 파일을 받을 권한을 제한했습니다."
 
-#: src/dcc/transferrecv.cpp:195
+#: src/dcc/transferrecv.cpp:192
 #, kde-format
 msgid "Invalid sender address (%1)"
 msgstr ""
 
-#: src/dcc/transferrecv.cpp:202
+#: src/dcc/transferrecv.cpp:199
 msgid "Unsupported negotiation (filesize=0)"
 msgstr "지원하지 않는 내용 (파일크기=0)"
 
-#: src/dcc/transferrecv.cpp:301
+#: src/dcc/transferrecv.cpp:298
 #, kde-format
 msgid "<b>Cannot create the folder.</b><br>Folder: %1<br>"
 msgstr "<b>폴더를 생성할 수 없습니다.</b><br>폴더: %1<br>"
 
-#: src/dcc/transferrecv.cpp:321
+#: src/dcc/transferrecv.cpp:318
 msgid "Could not create a KIO instance"
 msgstr "KIO 인스턴스를 생성할 수 없습니다"
 
-#: src/dcc/transferrecv.cpp:390
+#: src/dcc/transferrecv.cpp:387
 #, fuzzy, kde-format
 msgid "<b>The file is used by another transfer.</b><br>%1<br>"
 msgstr "<b>파일이 이미 존재합니다.</b><br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:403
+#: src/dcc/transferrecv.cpp:400
 #, fuzzy, kde-format
 #| msgid ""
 #| "<b>A partial file exists.</b><br>%1<br>Size of the partial file: %2 "
@@ -432,52 +433,52 @@ msgid_plural ""
 msgstr[0] ""
 "<b>부분 파일이 존재합니다.</b><br>%1<br>부분 파일의 크기: %2 bytes<br>"
 
-#: src/dcc/transferrecv.cpp:434
+#: src/dcc/transferrecv.cpp:431
 #, kde-format
 msgid "<b>The file already exists.</b><br>%1<br>"
 msgstr "<b>파일이 이미 존재합니다.</b><br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:441
+#: src/dcc/transferrecv.cpp:438
 #, kde-format
 msgid "<b>Could not open the file.<br>Error: %1</b><br>%2<br>"
 msgstr "<b>파일을 열 수 없습니다.<br>오류: %1</b><br>%2<br>"
 
-#: src/dcc/transferrecv.cpp:482
+#: src/dcc/transferrecv.cpp:479
 msgid ""
 "Could not send Reverse DCC SEND acknowledgement to the partner via the IRC "
 "server."
 msgstr ""
 
-#: src/dcc/transferrecv.cpp:489
+#: src/dcc/transferrecv.cpp:486
 #, fuzzy
 msgid "Waiting for connection"
 msgstr "연결에 대한 패스워드"
 
-#: src/dcc/transferrecv.cpp:503
+#: src/dcc/transferrecv.cpp:500
 msgid "Waiting for remote host's acceptance"
 msgstr "원격 호스트의 승인을 기다리는 중입니다."
 
-#: src/dcc/transferrecv.cpp:513
+#: src/dcc/transferrecv.cpp:510
 msgid ""
 "Could not send DCC RECV resume request to the partner via the IRC server."
 msgstr ""
 
-#: src/dcc/transferrecv.cpp:535
+#: src/dcc/transferrecv.cpp:532
 msgid "Unexpected response from remote host"
 msgstr "원격 호스트로부터 예상하지 못한 응답입니다."
 
-#: src/dcc/transferrecv.cpp:672
+#: src/dcc/transferrecv.cpp:667
 #, fuzzy
 #| msgid "Transferring error"
 msgid "Transfer error"
 msgstr "전송 오류 "
 
-#: src/dcc/transferrecv.cpp:688
+#: src/dcc/transferrecv.cpp:683
 #, kde-format
 msgid "KIO error: %1"
 msgstr "KIO 오류: %1"
 
-#: src/dcc/transferpanel.cpp:46 src/viewer/viewcontainer.cpp:2055
+#: src/dcc/transferpanel.cpp:46 src/viewer/viewcontainer.cpp:2065
 msgid "DCC Status"
 msgstr "DCC 상태"
 
@@ -636,12 +637,12 @@ msgstr "이름바꾸기(&E)"
 msgid "Channel Settings for %1"
 msgstr "%1에 대한 채널 옵션들"
 
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:98
+#. i18n: file: src/config/nicklistbehavior_configui.ui:98
 #. i18n: ectx: property (text), widget (QTreeWidget, sortOrder)
 #: src/irc/channeloptionsdialog.cpp:47 src/irc/inputfilter.cpp:935
 #: src/irc/inputfilter.cpp:939 src/irc/inputfilter.cpp:2032
 #: src/irc/inputfilter.cpp:2081 src/irc/channelnick.cpp:221
-#: src/irc/channel.cpp:2048 rc.cpp:461
+#: src/irc/channel.cpp:2048 rc.cpp:1400
 msgid "Mode"
 msgstr "모드"
 
@@ -900,16 +901,16 @@ msgid "Kick / Ban"
 msgstr "킥 / 밴"
 
 #: src/irc/nicklistview.cpp:132 src/irc/outputfilter.cpp:1325
-#: src/irc/outputfilter.cpp:1397 src/irc/server.cpp:3041 src/irc/query.cpp:96
+#: src/irc/outputfilter.cpp:1397 src/irc/server.cpp:3045 src/irc/query.cpp:96
 #: src/irc/query.cpp:396 src/irc/query.cpp:397 src/irc/channel.cpp:654
-#: src/irc/channel.cpp:655 src/preferences/warnings_preferences.cpp:120
-#: src/settingsdialog.cpp:137 src/viewer/ircview.cpp:878
+#: src/irc/channel.cpp:655 src/config/settingsdialog.cpp:137
+#: src/config/warnings_config.cpp:120 src/viewer/ircview.cpp:878
 msgid "Ignore"
 msgstr "무시"
 
 #: src/irc/nicklistview.cpp:133 src/irc/query.cpp:97 src/irc/query.cpp:422
 #: src/irc/query.cpp:423 src/irc/channel.cpp:679 src/irc/channel.cpp:680
-#: src/preferences/warnings_preferences.cpp:121 src/viewer/ircview.cpp:879
+#: src/config/warnings_config.cpp:121 src/viewer/ircview.cpp:879
 #, fuzzy
 msgid "Unignore"
 msgstr "무시"
@@ -1232,12 +1233,12 @@ msgstr ""
 msgid "Usage: %1NOTICE <recipient> <message>"
 msgstr "사용예: %1NOTICE <받을사람> <메시지>"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:104
+#. i18n: file: src/config/ignore_configui.ui:104
 #. i18n: ectx: property (text), widget (QCheckBox, chkNotice)
 #: src/irc/outputfilter.cpp:608 src/irc/outputfilter.cpp:1563
 #: src/irc/inputfilter.cpp:487 src/irc/inputfilter.cpp:566
 #: src/irc/inputfilter.cpp:731 src/irc/inputfilter.cpp:1257
-#: src/viewer/ignorelistviewitem.cpp:45 rc.cpp:413
+#: src/viewer/ignorelistviewitem.cpp:45 rc.cpp:768
 msgid "Notice"
 msgstr "공지"
 
@@ -1310,8 +1311,8 @@ msgstr "스크립트 이름은 \"../\"를 포함할 수 없습니다!"
 msgid "Usage: %1RAW [OPEN | CLOSE]"
 msgstr "사용예: %1RAW [OPEN | CLOSE]"
 
-#: src/irc/outputfilter.cpp:1098 src/irc/server.cpp:2427
-#: src/irc/server.cpp:2445 src/viewer/ircview.cpp:372
+#: src/irc/outputfilter.cpp:1098 src/irc/server.cpp:2431
+#: src/irc/server.cpp:2449 src/viewer/ircview.cpp:372
 msgid "Notify"
 msgstr "알림"
 
@@ -1828,9 +1829,9 @@ msgstr "%1 서버 현재 사용자: %2명"
 
 #. i18n: file: src/identitydialog.ui:262
 #. i18n: ectx: attribute (title), widget (QWidget, awayWidget)
-#: src/irc/inputfilter.cpp:1307 src/irc/server.cpp:3314
-#: src/irc/server.cpp:3339 src/irc/server.cpp:3348 src/irc/nicksonline.cpp:270
-#: src/linkaddressbook/addressbook.cpp:112 rc.cpp:1267
+#: src/irc/inputfilter.cpp:1307 src/irc/server.cpp:3318
+#: src/irc/server.cpp:3343 src/irc/server.cpp:3352 src/irc/nicksonline.cpp:270
+#: src/linkaddressbook/addressbook.cpp:112 rc.cpp:385
 msgid "Away"
 msgstr "자리 비움"
 
@@ -2055,11 +2056,11 @@ msgstr "%1은 %3에서 %2에게 정해졌습니다."
 msgid "End of Ban List."
 msgstr "밴 목록 끝."
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:90
+#. i18n: file: src/config/ignore_configui.ui:90
 #. i18n: ectx: property (text), widget (QCheckBox, chkChannel)
 #: src/irc/inputfilter.cpp:1914 src/irc/inputfilter.cpp:1918
 #: src/irc/channellistpanel.cpp:102 src/viewer/ignorelistviewitem.cpp:43
-#: rc.cpp:407
+#: rc.cpp:762
 msgid "Channel"
 msgstr "채널"
 
@@ -2220,8 +2221,8 @@ msgstr ""
 msgid "Nickname error"
 msgstr "닉네임"
 
-#: src/irc/server.cpp:1300 src/irc/server.cpp:3050 src/irc/server.cpp:3055
-#: src/application.cpp:270
+#: src/irc/server.cpp:1300 src/irc/server.cpp:3054 src/irc/server.cpp:3059
+#: src/application.cpp:282
 msgid "D-Bus"
 msgstr ""
 
@@ -2231,7 +2232,7 @@ msgid "Select File(s) to Send to %1"
 msgstr "%1에 전송하기 위한 파일 선택하기"
 
 #: src/irc/server.cpp:1806 src/irc/server.cpp:1832 src/irc/server.cpp:1844
-#: src/irc/server.cpp:1947 src/irc/server.cpp:1998 src/irc/server.cpp:2089
+#: src/irc/server.cpp:1947 src/irc/server.cpp:1998 src/irc/server.cpp:2093
 msgid "unknown size"
 msgstr "알 수 없는 크기"
 
@@ -2299,95 +2300,95 @@ msgstr ""
 "%3(으)로부터 (위치 %2) 파일 \"%1\"에 대한 유효하지 않은 재개 요청을 받았습니"
 "다."
 
-#: src/irc/server.cpp:2049
+#: src/irc/server.cpp:2050
 #, fuzzy, kde-format
 msgctxt "%1 = file name, %2 = nickname of sender"
 msgid "Download of \"%1\" from %2 finished."
 msgstr "\"%1\" 파일의 DCC 전송이 끝났습니다."
 
-#: src/irc/server.cpp:2052
+#: src/irc/server.cpp:2055
 #, fuzzy, kde-format
 msgctxt "%1 = file name, %2 = nickname of sender"
 msgid "Download of \"%1\" from %2 failed. Reason: %3."
 msgstr "\"%1\" 파일의 DCC 전송이 실패했습니다. 이유: %2"
 
-#: src/irc/server.cpp:2063
+#: src/irc/server.cpp:2067
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of recipient"
 msgid "Upload of \"%1\" to %2 finished."
 msgstr ""
 
-#: src/irc/server.cpp:2066
+#: src/irc/server.cpp:2070
 #, fuzzy, kde-format
 msgctxt "%1 = file name, %2 = nickname of recipient"
 msgid "Upload of \"%1\" to %2 failed. Reason: %3."
 msgstr "\"%1\" 파일의 DCC 업로드가 실패했습니다. 이유: %2"
 
-#: src/irc/server.cpp:2080
+#: src/irc/server.cpp:2084
 #, fuzzy, kde-format
 msgctxt "%1 = file name, %2 nickname of recipient"
 msgid "Sending \"%1\" to %2..."
 msgstr "알림메시지 %1(을)를 \"%2\"에게 보내는 중"
 
-#: src/irc/server.cpp:2087
+#: src/irc/server.cpp:2091
 #, kde-format
 msgctxt "%1 = file name, %2 = file size, %3 = nickname of sender"
 msgid "Downloading \"%1\" (%2) from %3..."
 msgstr ""
 
-#: src/irc/server.cpp:2428 src/notificationhandler.cpp:261
+#: src/irc/server.cpp:2432 src/notificationhandler.cpp:261
 #, kde-format
 msgid "%1 is online (%2)."
 msgstr "%1은 온라인 상태입니다. (%2)."
 
-#: src/irc/server.cpp:2445 src/notificationhandler.cpp:275
+#: src/irc/server.cpp:2449 src/notificationhandler.cpp:275
 #, kde-format
 msgid "%1 went offline (%2)."
 msgstr "%1 이 접속을 끊었습니다. (%2)"
 
-#: src/irc/server.cpp:3037
+#: src/irc/server.cpp:3041
 #, kde-format
 msgid ""
 "You were invited by %1 to join channel %2. Do you accept the invitation?"
 msgstr "%1에 의해 채널 %2에 초대되었습니다. 초대를 수락하시겠습니까?"
 
-#: src/irc/server.cpp:3039
+#: src/irc/server.cpp:3043
 msgid "Invitation"
 msgstr "초대"
 
-#: src/irc/server.cpp:3040 src/irc/channel.cpp:1313 src/irc/channel.cpp:1330
+#: src/irc/server.cpp:3044 src/irc/channel.cpp:1313 src/irc/channel.cpp:1330
 #: src/viewer/ircview.cpp:391
 msgid "Join"
 msgstr "입장"
 
-#: src/irc/server.cpp:3050
+#: src/irc/server.cpp:3054
 #, kde-format
 msgid "Error: Could not find script \"%1\"."
 msgstr "에러: \"%1\" 스크립트를 찾을 수 없습니다."
 
-#: src/irc/server.cpp:3055
+#: src/irc/server.cpp:3059
 #, kde-format
 msgid "Error: Could not execute script \"%1\". Check file permissions."
 msgstr "에러: \"%1\" 스크립트를 실행할 수 없습니다. 파일 권한을 확인하세요."
 
-#: src/irc/server.cpp:3284
+#: src/irc/server.cpp:3288
 #, fuzzy
 msgid "Gone away for now"
 msgstr "지금 바로 떠나기"
 
-#: src/irc/server.cpp:3314
+#: src/irc/server.cpp:3318
 msgid "You are now marked as being away."
 msgstr "당신은 이제 자리비움으로 표시되었습니다."
 
-#: src/irc/server.cpp:3339
+#: src/irc/server.cpp:3343
 msgid "You are no longer marked as being away."
 msgstr "당신은 더이상 자리비움으로 표시되지 않습니다."
 
-#: src/irc/server.cpp:3348
+#: src/irc/server.cpp:3352
 msgid "You are not marked as being away."
 msgstr "당신은 자리비움으로 표시되지 않았습니다."
 
-#: src/irc/nicksonline.cpp:49 src/viewer/viewcontainer.cpp:2426
+#: src/irc/nicksonline.cpp:49 src/viewer/viewcontainer.cpp:2436
 msgid "Watched Nicks Online"
 msgstr "온라인 상태 닉네임 관찰됨"
 
@@ -2519,8 +2520,8 @@ msgstr "연결 선택(&C)..."
 msgid "&Join Channel"
 msgstr "채널 입장(&J)"
 
-#: src/irc/channellistpanel.cpp:46 src/viewer/viewcontainer.cpp:2363
-#: src/viewer/viewcontainer.cpp:2416
+#: src/irc/channellistpanel.cpp:46 src/viewer/viewcontainer.cpp:2373
+#: src/viewer/viewcontainer.cpp:2426
 msgid "Channel List"
 msgstr "채널 목록"
 
@@ -2767,7 +2768,7 @@ msgstr "열린채로 두기"
 msgid "Do you want to stop ignoring %1?"
 msgstr "%1을 무시하길 원하십니까?"
 
-#: src/irc/query.cpp:608 src/irc/channel.cpp:2713 src/statuspanel.cpp:360
+#: src/irc/query.cpp:608 src/irc/channel.cpp:2721 src/statuspanel.cpp:360
 #, kde-format
 msgid "Identity Default ( %1 )"
 msgstr "인증 기본 ( %1 )"
@@ -4089,268 +4090,268 @@ msgstr "연결에 대한 패스워드"
 msgid "Use SSL for connection"
 msgstr "연결에 대한 SSL 사용"
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:48
+#. i18n: file: src/config/quickbuttons_configui.ui:48
 #. i18n: ectx: property (text), widget (QPushButton, newButton)
-#: src/preferences/alias_preferences.cpp:171
-#: src/preferences/autoreplace_preferences.cpp:334
-#: src/preferences/quickbuttons_preferences.cpp:211
-#: src/preferences/watchednicknames_preferences.cpp:295
-#: src/preferences/highlight_preferences.cpp:251 rc.cpp:347
+#: src/config/watchednicknames_config.cpp:295
+#: src/config/quickbuttons_config.cpp:211 src/config/alias_config.cpp:171
+#: src/config/autoreplace_config.cpp:334 src/config/highlight_config.cpp:251
+#: rc.cpp:485
 msgid "New"
 msgstr "추가"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:242
+#. i18n: file: src/config/highlight_configui.ui:242
 #. i18n: ectx: property (toolTip), widget (KPushButton, patternButton)
-#: src/preferences/autoreplace_preferences.cpp:53
-#: src/preferences/highlight_preferences.cpp:170 rc.cpp:879
+#: src/config/autoreplace_config.cpp:53 src/config/highlight_config.cpp:170
+#: rc.cpp:945
 msgid "Click to run Regular Expression Editor (KRegExpEditor)"
 msgstr "정규표현식 편집기를 실행하기 위해 클릭 (KRegExpEditor)"
 
-#: src/preferences/autoreplace_preferences.cpp:58
-#: src/preferences/highlight_preferences.cpp:175
+#: src/config/autoreplace_config.cpp:58 src/config/highlight_config.cpp:175
 #, fuzzy
 msgid "The Regular Expression Editor (KRegExpEditor) is not installed"
 msgstr "정규표현식 편집기를 실행하기 위해 클릭 (KRegExpEditor)"
 
-#: src/preferences/autoreplace_preferences.cpp:61
+#: src/config/autoreplace_config.cpp:61
 msgid "Outgoing"
 msgstr ""
 
-#: src/preferences/autoreplace_preferences.cpp:62
+#: src/config/autoreplace_config.cpp:62
 #, fuzzy
 msgid "Incoming"
 msgstr "인코딩(&E):"
 
-#: src/preferences/autoreplace_preferences.cpp:63
+#: src/config/autoreplace_config.cpp:63
 msgid "Both"
 msgstr ""
 
-#: src/preferences/nicklistbehavior_preferences.cpp:57
+#: src/config/nicklistbehavior_config.cpp:57
 msgid "Normal Users"
 msgstr "일반 사용자"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:58
+#: src/config/nicklistbehavior_config.cpp:58
 msgid "Voice (+v)"
 msgstr "발언권자 (+v)"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:59
+#: src/config/nicklistbehavior_config.cpp:59
 msgid "Halfops (+h)"
 msgstr "부운영자 (+h)"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:60
+#: src/config/nicklistbehavior_config.cpp:60
 msgid "Operators (+o)"
 msgstr "채널운영자 (+o)"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:61
+#: src/config/nicklistbehavior_config.cpp:61
 msgid "Channel Admins (+p)"
 msgstr "채널 관리자 (+p)"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:62
+#: src/config/nicklistbehavior_config.cpp:62
 msgid "Channel Owners (+q)"
 msgstr "채널 소유자 (+q)"
 
-#: src/preferences/dcc_preferences.cpp:50
-msgid "Network Interface"
-msgstr "네트워크 인터페이스"
-
-#: src/preferences/dcc_preferences.cpp:51
-msgid "Reply From IRC Server"
-msgstr "IRC 서버로부터의 응답"
-
-#: src/preferences/dcc_preferences.cpp:52
-msgid "Specify Manually"
-msgstr "수동으로 지정하기"
-
-#: src/preferences/highlight_preferences.cpp:47
-msgid "Select Sound File"
-msgstr "사운드파일 선택"
-
-#: src/preferences/warnings_preferences.cpp:106
-msgid "Automatically join channel on invite"
-msgstr "자동적으로 초대된 채널에 입장"
-
-#: src/preferences/warnings_preferences.cpp:107
-msgid "Notice that saving logfiles will save whole file"
-msgstr "로그파일을 저장하는 것이 전체 파일을 저장하는 것을 알림"
-
-#: src/preferences/warnings_preferences.cpp:108
-#, fuzzy
-msgid "Ask before deleting logfile contents"
-msgstr "로그파일 내용을 삭제하기 전에 물어보기"
-
-#: src/preferences/warnings_preferences.cpp:109
-#, fuzzy
-msgid "Ask about closing queries after ignoring the nickname"
-msgstr "닉네임을 무시한 후 쿼리를 닫는 것에 대해 물어보기"
-
-#: src/preferences/warnings_preferences.cpp:110
-#, fuzzy
-msgid "Ask before switching a connection to a network to a different server"
-msgstr "<qt>네트워크에 있는 서버에 접속할 때 관찰하기 위한 닉네임입니다.</qt>"
-
-#: src/preferences/warnings_preferences.cpp:111
-#, fuzzy
-msgid "Ask before creating another connection to the same network or server"
-msgstr "<qt>네트워크에 있는 서버에 접속할 때 관찰하기 위한 닉네임입니다.</qt>"
-
-#: src/preferences/warnings_preferences.cpp:112
-msgid "Close server tab"
-msgstr "서버탭 닫기"
-
-#: src/preferences/warnings_preferences.cpp:113
-msgid "Close channel tab"
-msgstr "채널 탭 닫기"
-
-#: src/preferences/warnings_preferences.cpp:114
-msgid "Close query tab"
-msgstr "쿼리 탭 닫기"
-
-#: src/preferences/warnings_preferences.cpp:115
-msgid "The channel list can only be opened from server-aware tabs"
-msgstr "채널 리스트는 서버측 탭으로부터만 열릴 수 있습니다."
-
-#: src/preferences/warnings_preferences.cpp:116
-msgid "Warning on hiding the main window menu"
-msgstr "주요 창 메뉴를 숨기는 것을 경고"
-
-#: src/preferences/warnings_preferences.cpp:117
-msgid "Warning on high traffic with channel list"
-msgstr "채널 목록으로 높은 트래픽을 경고"
-
-#: src/preferences/warnings_preferences.cpp:118
-msgid "Warning on pasting large portions of text"
-msgstr "문장의 큰 부분을 지나가는 것을 경고"
-
-#: src/preferences/warnings_preferences.cpp:119
-#, fuzzy
-msgid "Warning on quitting Konversation"
-msgstr "온라인 상태 사람들 - 콘버세이션"
-
-#: src/preferences/warnings_preferences.cpp:122
-msgid "Warn before quitting with active DCC file transfers"
-msgstr ""
-
-#: src/preferences/theme_preferences.cpp:174
+#: src/config/theme_config.cpp:174
 msgid "*.tar.gz *.tar.bz2 *.tar *.zip|Konversation Themes"
 msgstr "*.tar.gz *.tar.bz2 *.tar *.zip|Konversation 테마"
 
-#: src/preferences/theme_preferences.cpp:176
+#: src/config/theme_config.cpp:176
 msgid "Select Theme Package"
 msgstr "테마 패키지 선택"
 
-#: src/preferences/theme_preferences.cpp:189
+#: src/config/theme_config.cpp:189
 msgid "Failed to Download Theme"
 msgstr "테마 다운로드가 실패"
 
-#: src/preferences/theme_preferences.cpp:204
-#: src/preferences/theme_preferences.cpp:225
+#: src/config/theme_config.cpp:204 src/config/theme_config.cpp:225
 msgid "Theme archive is invalid."
 msgstr "테마 아카이브가 유효하지 않습니다."
 
-#: src/preferences/theme_preferences.cpp:205
-#: src/preferences/theme_preferences.cpp:226
+#: src/config/theme_config.cpp:205 src/config/theme_config.cpp:226
 msgid "Cannot Install Theme"
 msgstr "테마를 설치할 수 없음"
 
-#: src/preferences/theme_preferences.cpp:251
+#: src/config/theme_config.cpp:251
 #, fuzzy, kde-format
 #| msgid "Do you want to remove %1 ?"
 msgid "Do you want to remove %1?"
 msgstr "%1(을)를 제거하길 원하십니까?"
 
-#: src/preferences/theme_preferences.cpp:252
+#: src/config/theme_config.cpp:252
 msgid "Remove Theme"
 msgstr "테마 제거"
 
-#: src/settingsdialog.cpp:50
+#: src/config/settingsdialog.cpp:50
 #, fuzzy
 msgid "Interface"
 msgstr "인터페이스(&I):"
 
-#: src/settingsdialog.cpp:54
+#: src/config/settingsdialog.cpp:54
 msgid "Behavior"
 msgstr "동작"
 
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:45
+#. i18n: file: src/config/tabnotifications_config.ui:45
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox5)
-#: src/settingsdialog.cpp:58 rc.cpp:792
+#: src/config/settingsdialog.cpp:58 rc.cpp:1649
 msgid "Notifications"
 msgstr "공지"
 
-#: src/settingsdialog.cpp:69 src/settingsdialog.cpp:115
+#: src/config/settingsdialog.cpp:69 src/config/settingsdialog.cpp:115
 msgid "Chat Window"
 msgstr "채팅 창"
 
-#: src/settingsdialog.cpp:73
+#: src/config/settingsdialog.cpp:73
 msgid "Nicklist Themes"
 msgstr ""
 
-#: src/settingsdialog.cpp:81
+#: src/config/settingsdialog.cpp:81
 msgid "Colors"
 msgstr "색상"
 
-#: src/settingsdialog.cpp:87
+#: src/config/settingsdialog.cpp:87
 #, fuzzy
 msgid "Fonts"
 msgstr "커서부터"
 
-#: src/settingsdialog.cpp:91
+#: src/config/settingsdialog.cpp:91
 msgid "Quick Buttons"
 msgstr "빠른 버튼"
 
-#: src/settingsdialog.cpp:97 src/settingsdialog.cpp:155
+#: src/config/settingsdialog.cpp:97 src/config/settingsdialog.cpp:155
 #: src/viewer/viewtree.cpp:40
 #, fuzzy
 msgid "Tabs"
 msgstr "탭"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:19
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
 #. i18n: file: src/identitydialog.ui:179
 #. i18n: ectx: attribute (title), widget (QWidget, generalWidget)
-#: src/settingsdialog.cpp:103 rc.cpp:900 rc.cpp:1238
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:19
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
+#: src/config/settingsdialog.cpp:103 rc.cpp:356 rc.cpp:1311
 msgid "General"
 msgstr "일반 설정"
 
-#: src/settingsdialog.cpp:109
+#: src/config/settingsdialog.cpp:109
 msgid "Connection"
 msgstr "연결"
 
-#: src/settingsdialog.cpp:119
+#: src/config/settingsdialog.cpp:119
 msgid "Nickname List"
 msgstr "닉네임 목록"
 
-#: src/settingsdialog.cpp:125
+#: src/config/settingsdialog.cpp:125
 msgid "Command Aliases"
 msgstr "명령 연결"
 
-#: src/settingsdialog.cpp:131
+#: src/config/settingsdialog.cpp:131
 msgid "Auto Replace"
 msgstr "자동 대체"
 
-#: src/settingsdialog.cpp:146
+#: src/config/settingsdialog.cpp:146
 msgid "Logging"
 msgstr "로그인 중"
 
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:236
+#. i18n: file: src/config/tabnotifications_config.ui:236
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsHighlights)
-#: src/settingsdialog.cpp:159 rc.cpp:816
+#: src/config/settingsdialog.cpp:159 rc.cpp:1673
 msgid "Highlight"
 msgstr "강조"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:149
+#. i18n: file: src/config/watchednicknames_configui.ui:149
 #. i18n: ectx: property (title), widget (QGroupBox, listGroupBox)
-#: src/settingsdialog.cpp:166 rc.cpp:597
+#: src/config/settingsdialog.cpp:166 rc.cpp:633
 msgid "Watched Nicknames"
 msgstr "관찰된 닉네임"
 
-#: src/settingsdialog.cpp:172
+#: src/config/settingsdialog.cpp:172
 msgid "On Screen Display"
 msgstr "스크린에 표시"
 
-#: src/settingsdialog.cpp:178
+#: src/config/settingsdialog.cpp:178
 msgid "Warning Dialogs"
 msgstr "경고 대화상자"
+
+#: src/config/warnings_config.cpp:106
+msgid "Automatically join channel on invite"
+msgstr "자동적으로 초대된 채널에 입장"
+
+#: src/config/warnings_config.cpp:107
+msgid "Notice that saving logfiles will save whole file"
+msgstr "로그파일을 저장하는 것이 전체 파일을 저장하는 것을 알림"
+
+#: src/config/warnings_config.cpp:108
+#, fuzzy
+msgid "Ask before deleting logfile contents"
+msgstr "로그파일 내용을 삭제하기 전에 물어보기"
+
+#: src/config/warnings_config.cpp:109
+#, fuzzy
+msgid "Ask about closing queries after ignoring the nickname"
+msgstr "닉네임을 무시한 후 쿼리를 닫는 것에 대해 물어보기"
+
+#: src/config/warnings_config.cpp:110
+#, fuzzy
+msgid "Ask before switching a connection to a network to a different server"
+msgstr "<qt>네트워크에 있는 서버에 접속할 때 관찰하기 위한 닉네임입니다.</qt>"
+
+#: src/config/warnings_config.cpp:111
+#, fuzzy
+msgid "Ask before creating another connection to the same network or server"
+msgstr "<qt>네트워크에 있는 서버에 접속할 때 관찰하기 위한 닉네임입니다.</qt>"
+
+#: src/config/warnings_config.cpp:112
+msgid "Close server tab"
+msgstr "서버탭 닫기"
+
+#: src/config/warnings_config.cpp:113
+msgid "Close channel tab"
+msgstr "채널 탭 닫기"
+
+#: src/config/warnings_config.cpp:114
+msgid "Close query tab"
+msgstr "쿼리 탭 닫기"
+
+#: src/config/warnings_config.cpp:115
+msgid "The channel list can only be opened from server-aware tabs"
+msgstr "채널 리스트는 서버측 탭으로부터만 열릴 수 있습니다."
+
+#: src/config/warnings_config.cpp:116
+msgid "Warning on hiding the main window menu"
+msgstr "주요 창 메뉴를 숨기는 것을 경고"
+
+#: src/config/warnings_config.cpp:117
+msgid "Warning on high traffic with channel list"
+msgstr "채널 목록으로 높은 트래픽을 경고"
+
+#: src/config/warnings_config.cpp:118
+msgid "Warning on pasting large portions of text"
+msgstr "문장의 큰 부분을 지나가는 것을 경고"
+
+#: src/config/warnings_config.cpp:119
+#, fuzzy
+msgid "Warning on quitting Konversation"
+msgstr "온라인 상태 사람들 - 콘버세이션"
+
+#: src/config/warnings_config.cpp:122
+msgid "Warn before quitting with active DCC file transfers"
+msgstr ""
+
+#: src/config/configdialog.cpp:76
+msgid "Configure"
+msgstr ""
+
+#: src/config/dcc_config.cpp:50
+msgid "Network Interface"
+msgstr "네트워크 인터페이스"
+
+#: src/config/dcc_config.cpp:51
+msgid "Reply From IRC Server"
+msgstr "IRC 서버로부터의 응답"
+
+#: src/config/dcc_config.cpp:52
+msgid "Specify Manually"
+msgstr "수동으로 지정하기"
+
+#: src/config/highlight_config.cpp:47
+msgid "Select Sound File"
+msgstr "사운드파일 선택"
 
 #: src/config/preferences.cpp:58
 msgid "Default Identity"
@@ -4447,10 +4448,6 @@ msgstr ""
 msgid "Reset Values"
 msgstr ""
 
-#: src/configdialog.cpp:76
-msgid "Configure"
-msgstr ""
-
 #: src/statusbar.cpp:34 src/statusbar.cpp:78 src/statusbar.cpp:146
 msgid "Ready."
 msgstr "준비됨."
@@ -4534,8 +4531,8 @@ msgid_plural "No answer from server %2 for more than %1 seconds."
 msgstr[0] "1초 이상 서버 %2로부터 응답이 없습니다."
 msgstr[1] "%1 초 이상 서버 %2로부터 응답이 없습니다."
 
-#: src/konsolepanel.cpp:26 src/viewer/viewcontainer.cpp:1999
-#: src/viewer/viewcontainer.cpp:2000
+#: src/konsolepanel.cpp:26 src/viewer/viewcontainer.cpp:2009
+#: src/viewer/viewcontainer.cpp:2010
 msgid "Konsole"
 msgstr "KDE콘솔"
 
@@ -4838,7 +4835,7 @@ msgstr "새 주소록 항목"
 msgid "Name the new entry:"
 msgstr "새로운 항목 이름:"
 
-#: src/urlcatcher.cpp:35 src/viewer/viewcontainer.cpp:2011
+#: src/urlcatcher.cpp:35 src/viewer/viewcontainer.cpp:2021
 msgid "URL Catcher"
 msgstr "URL 수집기"
 
@@ -4910,9 +4907,9 @@ msgstr "전체 목록을 삭제하기 위해 클릭하십시오."
 msgid "Save URL List"
 msgstr "URL 목록 저장"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:111
+#. i18n: file: src/config/ignore_configui.ui:111
 #. i18n: ectx: property (text), widget (QCheckBox, chkQuery)
-#: src/viewer/ignorelistviewitem.cpp:44 rc.cpp:416
+#: src/viewer/ignorelistviewitem.cpp:44 rc.cpp:771
 msgid "Query"
 msgstr "쿼리"
 
@@ -5023,7 +5020,7 @@ msgstr "URL 복사(&C)"
 msgid "Select All"
 msgstr "모든 항목 선택(&S)"
 
-#: src/viewer/ircview.cpp:146 src/viewer/viewcontainer.cpp:535
+#: src/viewer/ircview.cpp:146 src/viewer/viewcontainer.cpp:545
 msgid "Find Text..."
 msgstr "텍스트 찾기..."
 
@@ -5193,84 +5190,84 @@ msgstr ""
 "*** %1\n"
 "\n"
 
-#: src/viewer/rawlog.cpp:28 src/viewer/viewcontainer.cpp:2148
+#: src/viewer/rawlog.cpp:28 src/viewer/viewcontainer.cpp:2158
 msgid "Raw Log"
 msgstr "순수 로그"
 
-#: src/viewer/viewcontainer.cpp:204 src/mainwindow.cpp:287
+#: src/viewer/viewcontainer.cpp:204 src/mainwindow.cpp:286
 #, fuzzy
 msgid "Move Tab Up"
 msgstr "탭 왼쪽으로 이동"
 
-#: src/viewer/viewcontainer.cpp:212 src/mainwindow.cpp:298
+#: src/viewer/viewcontainer.cpp:212 src/mainwindow.cpp:297
 #, fuzzy
 msgid "Move Tab Down"
 msgstr "탭 왼쪽으로 이동"
 
-#: src/viewer/viewcontainer.cpp:305 src/mainwindow.cpp:318
-#: src/mainwindow.cpp:330
+#: src/viewer/viewcontainer.cpp:305 src/mainwindow.cpp:317
+#: src/mainwindow.cpp:329
 msgid "Move Tab Left"
 msgstr "탭 왼쪽으로 이동"
 
-#: src/viewer/viewcontainer.cpp:313 src/mainwindow.cpp:309
-#: src/mainwindow.cpp:339
+#: src/viewer/viewcontainer.cpp:313 src/mainwindow.cpp:308
+#: src/mainwindow.cpp:338
 msgid "Move Tab Right"
 msgstr "탭 오른쪽으로 이동"
 
-#: src/viewer/viewcontainer.cpp:537
+#: src/viewer/viewcontainer.cpp:547
 msgid "Search for text in the current tab"
 msgstr "현재 탭에서 문장 찾기"
 
-#: src/viewer/viewcontainer.cpp:555
+#: src/viewer/viewcontainer.cpp:565
 #, fuzzy, kde-format
 msgid "Channel &List for %1"
 msgstr "%1에 대한 채널 목록"
 
-#: src/viewer/viewcontainer.cpp:561 src/mainwindow.cpp:207
+#: src/viewer/viewcontainer.cpp:571 src/mainwindow.cpp:206
 #, fuzzy
 msgid "Channel &List"
 msgstr "채널 목록"
 
-#: src/viewer/viewcontainer.cpp:570 src/mainwindow.cpp:190
-#: src/mainwindow.cpp:736
+#: src/viewer/viewcontainer.cpp:580 src/mainwindow.cpp:189
+#: src/mainwindow.cpp:733
 msgid "&Open Logfile"
 msgstr "로그 파일 열기(&O)"
 
-#: src/viewer/viewcontainer.cpp:575
+#: src/viewer/viewcontainer.cpp:585
 #, kde-format
 msgid "&Open Logfile for %1"
 msgstr "%1에 대한 로그파일 열기(&O)"
 
-#: src/viewer/viewcontainer.cpp:586
+#: src/viewer/viewcontainer.cpp:596
 #, fuzzy, kde-format
 msgid "&Channel Settings for %1..."
 msgstr "%1에 대한 채널 옵션들"
 
-#: src/viewer/viewcontainer.cpp:591 src/mainwindow.cpp:199
+#: src/viewer/viewcontainer.cpp:601 src/mainwindow.cpp:198
 #, fuzzy
 msgid "&Channel Settings..."
 msgstr "다른 설정(&T)"
 
-#: src/viewer/viewcontainer.cpp:1631
+#: src/viewer/viewcontainer.cpp:1641
 #, kde-format
 msgctxt "Default encoding"
 msgid "Default ( %1 )"
 msgstr "기본 ( %1 )"
 
-#: src/viewer/viewcontainer.cpp:1796
+#: src/viewer/viewcontainer.cpp:1806
 msgid "You can only search in text fields."
 msgstr "텍스트 영역에서만 찾을 수 있습니다."
 
-#: src/viewer/viewcontainer.cpp:1797
+#: src/viewer/viewcontainer.cpp:1807
 msgid "Find Text Information"
 msgstr "텍스트 정보 찾기"
 
-#: src/viewer/viewcontainer.cpp:1990
+#: src/viewer/viewcontainer.cpp:2000
 #, kde-format
 msgid "Logfile of %1"
 msgstr "%1의 로그파일"
 
-#: src/viewer/viewcontainer.cpp:2389
+#: src/viewer/viewcontainer.cpp:2399
 msgid ""
 "Using this function may result in a lot of network traffic. If your "
 "connection is not fast enough, it is possible that your client will be "
@@ -5280,11 +5277,11 @@ msgstr ""
 "이 충분히 빠르지 않다면 여러분의 클라이언트가 서버에 의해 끊기게 될지도 모릅"
 "니다."
 
-#: src/viewer/viewcontainer.cpp:2393
+#: src/viewer/viewcontainer.cpp:2403
 msgid "Channel List Warning"
 msgstr "채널 목록 경고"
 
-#: src/viewer/viewcontainer.cpp:2412
+#: src/viewer/viewcontainer.cpp:2422
 #, fuzzy
 #| msgid ""
 #| "The channel list can only be opened from a query, channel or status "
@@ -5300,7 +5297,7 @@ msgstr ""
 msgid "Konversation - IRC Client"
 msgstr "Konversation - IRC 클라이언트"
 
-#: src/viewer/osd.cpp:342
+#: src/viewer/osd.cpp:337
 msgid "OSD Preview - drag to reposition"
 msgstr "OSD 미리보기 - 위치를 바꿀 곳으로 드래그"
 
@@ -5349,219 +5346,219 @@ msgstr "서버로부터 접속을 끊었습니다."
 msgid "Disconnect"
 msgstr "접속끊기"
 
-#: src/mainwindow.cpp:132
+#: src/mainwindow.cpp:131
 msgid "&Server List..."
 msgstr "서버 목록(&S)..."
 
-#: src/mainwindow.cpp:135
+#: src/mainwindow.cpp:134
 msgid "Manage networks and servers"
 msgstr "네트워크들과 서버들 관리"
 
-#: src/mainwindow.cpp:140
+#: src/mainwindow.cpp:139
 msgid "Quick &Connect..."
 msgstr "빠른 접속(&C)..."
 
-#: src/mainwindow.cpp:143
+#: src/mainwindow.cpp:142
 msgid "Type in the address of a new IRC server to connect to"
 msgstr "연결하기 위한 새로운 IRC 서버의 주소를 입력하기"
 
-#: src/mainwindow.cpp:148
+#: src/mainwindow.cpp:147
 msgid "&Reconnect"
 msgstr "재접속(&R)"
 
-#: src/mainwindow.cpp:151
+#: src/mainwindow.cpp:150
 #, fuzzy
 msgid "Reconnect to the current server."
 msgstr "서버에 연결"
 
-#: src/mainwindow.cpp:157
+#: src/mainwindow.cpp:156
 #, fuzzy
 msgid "&Disconnect"
 msgstr "접속끊기"
 
-#: src/mainwindow.cpp:160
+#: src/mainwindow.cpp:159
 #, fuzzy
 msgid "Disconnect from the current server."
 msgstr "서버로부터 연결이 끊어졌습니다."
 
-#: src/mainwindow.cpp:165
+#: src/mainwindow.cpp:164
 msgid "&Identities..."
 msgstr "인증들(&I)..."
 
-#: src/mainwindow.cpp:168
+#: src/mainwindow.cpp:167
 msgid "Manage your nick, away and other identity settings"
 msgstr "여러분의 닉네임, 자리비움, 다른 인증 설정들을 관리하십시오."
 
-#: src/mainwindow.cpp:173
+#: src/mainwindow.cpp:172
 msgid "&Watched Nicks Online"
 msgstr "관찰된 온라인 상태 닉네임(&W)"
 
-#: src/mainwindow.cpp:181
+#: src/mainwindow.cpp:180
 msgid "&DCC Status"
 msgstr "DCC 상태(&D)"
 
-#: src/mainwindow.cpp:194
+#: src/mainwindow.cpp:193
 msgid "Open the known history for this channel in a new tab"
 msgstr "새로운 탭에 이 체널에 대한 알려진 히스토리 열기"
 
-#: src/mainwindow.cpp:202
+#: src/mainwindow.cpp:201
 msgid "Open the channel settings dialog for this tab"
 msgstr ""
 
-#: src/mainwindow.cpp:211
+#: src/mainwindow.cpp:210
 msgid "Show a list of all the known channels on this server"
 msgstr "이 서버에서 알려진 모든 체널의 목록 보이기"
 
-#: src/mainwindow.cpp:216
+#: src/mainwindow.cpp:215
 msgid "&URL Catcher"
 msgstr "URL 수집기(&U)"
 
-#: src/mainwindow.cpp:219
+#: src/mainwindow.cpp:218
 msgid "List all URLs that have been mentioned recently in a new tab"
 msgstr "새 탭에서 최근에 언급된 모든 URL들을 나열합니다."
 
-#: src/mainwindow.cpp:226
+#: src/mainwindow.cpp:225
 msgid "New &Konsole"
 msgstr "새 콘솔(&K)"
 
-#: src/mainwindow.cpp:228
+#: src/mainwindow.cpp:227
 msgid "Open a terminal in a new tab"
 msgstr "새 탭에 터미널 열기"
 
-#: src/mainwindow.cpp:254
+#: src/mainwindow.cpp:253
 msgid "&Next Tab"
 msgstr "다음 탭(&N)"
 
-#: src/mainwindow.cpp:262
+#: src/mainwindow.cpp:261
 msgid "&Previous Tab"
 msgstr "이전 탭(&P)"
 
-#: src/mainwindow.cpp:270
+#: src/mainwindow.cpp:269
 msgid "Close &Tab"
 msgstr "탭 닫음(&T)"
 
-#: src/mainwindow.cpp:278
+#: src/mainwindow.cpp:277
 #, fuzzy
 msgid "Next Active Tab"
 msgstr "다음 탭(&N)"
 
-#: src/mainwindow.cpp:353
+#: src/mainwindow.cpp:352
 #, fuzzy
 msgid "Rejoin Channel"
 msgstr "채널 입장(&J)"
 
-#: src/mainwindow.cpp:359 src/mainwindow.cpp:742
+#: src/mainwindow.cpp:358 src/mainwindow.cpp:739
 msgid "Enable Notifications"
 msgstr "알림 사용하기"
 
-#: src/mainwindow.cpp:365
+#: src/mainwindow.cpp:364
 #, fuzzy
 msgid "Join on Connect"
 msgstr "자동 접속"
 
-#: src/mainwindow.cpp:370
+#: src/mainwindow.cpp:369
 #, fuzzy
 #| msgid "Default ( %1 )"
 msgid "Default"
 msgstr "기본 ( %1 )"
 
-#: src/mainwindow.cpp:375
+#: src/mainwindow.cpp:374
 msgid "Set Encoding"
 msgstr "인코딩 설정"
 
-#: src/mainwindow.cpp:387
+#: src/mainwindow.cpp:386
 #, kde-format
 msgid "Go to Tab %1"
 msgstr "%1 탭으로 이동"
 
-#: src/mainwindow.cpp:396
+#: src/mainwindow.cpp:395
 #, fuzzy
 msgid "Clear &Marker Lines"
 msgstr "목록 비우기(&L)"
 
-#: src/mainwindow.cpp:399
+#: src/mainwindow.cpp:398
 #, fuzzy
 msgid "Clear marker lines in the current tab"
 msgstr "현재 탭의 내용들 비우기"
 
-#: src/mainwindow.cpp:404
+#: src/mainwindow.cpp:403
 msgid "&Clear Window"
 msgstr "창 비우기(&C)"
 
-#: src/mainwindow.cpp:407
+#: src/mainwindow.cpp:406
 msgid "Clear the contents of the current tab"
 msgstr "현재 탭의 내용들 비우기"
 
-#: src/mainwindow.cpp:412
+#: src/mainwindow.cpp:411
 msgid "Clear &All Windows"
 msgstr "모든 창 비우기(&A)"
 
-#: src/mainwindow.cpp:415
+#: src/mainwindow.cpp:414
 msgid "Clear the contents of all open tabs"
 msgstr "모든 열린 탭들의 내용을 비우기"
 
-#: src/mainwindow.cpp:420
+#: src/mainwindow.cpp:419
 msgid "Global Away"
 msgstr ""
 
-#: src/mainwindow.cpp:428
+#: src/mainwindow.cpp:427
 msgid "&Join Channel..."
 msgstr "채널 입장(&J)..."
 
-#: src/mainwindow.cpp:448 src/mainwindow.cpp:744
+#: src/mainwindow.cpp:447 src/mainwindow.cpp:741
 msgid "&IRC Color..."
 msgstr "IRC 색상(&I)..."
 
-#: src/mainwindow.cpp:452
+#: src/mainwindow.cpp:451
 msgid "Set the color of your current IRC message"
 msgstr "여러분의 현재 IRC 메시지의 색상을 설정"
 
-#: src/mainwindow.cpp:457 src/mainwindow.cpp:746
+#: src/mainwindow.cpp:456 src/mainwindow.cpp:743
 #, fuzzy
 msgid "&Marker Line"
 msgstr "기억 행(&R)"
 
-#: src/mainwindow.cpp:460
+#: src/mainwindow.cpp:459
 msgid "Insert a horizontal line into the current tab that only you can see"
 msgstr "여러분만 볼 수 있는 수평행을 삽입합니다."
 
-#: src/mainwindow.cpp:465 src/mainwindow.cpp:745
+#: src/mainwindow.cpp:464 src/mainwindow.cpp:742
 msgid "Special &Character..."
 msgstr "특수 문자(&C)..."
 
-#: src/mainwindow.cpp:469
+#: src/mainwindow.cpp:468
 msgid "Insert any character into your current IRC message"
 msgstr "여러분의 현재 IRC 메시지에 어떤 문자를 삽입"
 
-#: src/mainwindow.cpp:474
+#: src/mainwindow.cpp:473
 msgid "Close &All Open Queries"
 msgstr "모든 열린 쿼리들을 닫음(&A)"
 
-#: src/mainwindow.cpp:483
+#: src/mainwindow.cpp:482
 msgid "Hide Nicklist"
 msgstr "닉네임목록 숨기기"
 
-#: src/mainwindow.cpp:500
+#: src/mainwindow.cpp:499
 #, fuzzy
 #| msgid "Add to Bookmarks"
 msgid "Bookmarks"
 msgstr "즐겨찾기에 추가"
 
-#: src/mainwindow.cpp:551
+#: src/mainwindow.cpp:550
 msgid ""
 "<qt>You have active DCC file transfers. Are you sure you want to quit "
 "<b>Konversation</b>?</qt>"
 msgstr ""
 
-#: src/mainwindow.cpp:552 src/mainwindow.cpp:562
+#: src/mainwindow.cpp:551 src/mainwindow.cpp:561
 msgid "Confirm Quit"
 msgstr ""
 
-#: src/mainwindow.cpp:561
+#: src/mainwindow.cpp:560
 msgid "<qt>Are you sure you want to quit <b>Konversation</b>?</qt>"
 msgstr ""
 
-#: src/mainwindow.cpp:594
+#: src/mainwindow.cpp:593
 msgid ""
 "<p>Closing the main window will keep Konversation running in the system "
 "tray. Use <b>Quit</b> from the <b>Konversation</b> menu to quit the "
@@ -5571,11 +5568,11 @@ msgstr ""
 "니다. 응용프로그램을 종료하기 위해서는 <b>Konversation</b> 메뉴에서 <b>종료</"
 "b>를 사용하십시오."
 
-#: src/mainwindow.cpp:596
+#: src/mainwindow.cpp:595
 msgid "Docking in System Tray"
 msgstr "시스템 트레이에 넣기"
 
-#: src/mainwindow.cpp:693
+#: src/mainwindow.cpp:690
 #, fuzzy, kde-format
 msgid ""
 "<qt>This will hide the menu bar completely. You can show it again by typing %"
@@ -5584,40 +5581,40 @@ msgstr ""
 "<qt>메뉴 막대를 완전히 숨깁니다. %1을 치면 다시 막대를 보이게 할 수 있습니다."
 "</qt>"
 
-#: src/mainwindow.cpp:728
+#: src/mainwindow.cpp:725
 #, fuzzy
 msgid "Toggle Notifications"
 msgstr "알림 사용하기"
 
-#: src/mainwindow.cpp:729
+#: src/mainwindow.cpp:726
 #, fuzzy
 msgid "Toggle Away Globally"
 msgstr "전체 자리비움 설정(&A)"
 
-#: src/mainwindow.cpp:730
+#: src/mainwindow.cpp:727
 #, fuzzy
 msgid "Insert &IRC Color..."
 msgstr "IRC 색상(&I)..."
 
-#: src/mainwindow.cpp:731
+#: src/mainwindow.cpp:728
 #, fuzzy
 msgid "Insert Special &Character..."
 msgstr "특수 문자(&C)..."
 
-#: src/mainwindow.cpp:732
+#: src/mainwindow.cpp:729
 #, fuzzy
 msgid "Insert &Marker Line"
 msgstr "기억 행(&R)"
 
-#: src/mainwindow.cpp:734
+#: src/mainwindow.cpp:731
 msgid "&Channel List"
 msgstr "채널 목록(&C)"
 
-#: src/mainwindow.cpp:743
+#: src/mainwindow.cpp:740
 msgid "Set &Away Globally"
 msgstr "전체 자리비움 설정(&A)"
 
-#: src/mainwindow.cpp:755
+#: src/mainwindow.cpp:752
 msgid "Server List"
 msgstr "서버 목록"
 
@@ -5910,7 +5907,7 @@ msgstr "주제(&C)"
 #. i18n: ectx: property (text), widget (QTreeWidget, topicHistoryList)
 #. i18n: file: src/identitydialog.ui:211
 #. i18n: ectx: property (title), widget (KEditListBox, m_nicknameLBox)
-#: rc.cpp:116 rc.cpp:1252
+#: rc.cpp:116 rc.cpp:370
 msgid "Nickname"
 msgstr "닉네임"
 
@@ -6262,49 +6259,397 @@ msgstr ""
 msgid "Bytes (Encoded):"
 msgstr ""
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:33
-#. i18n: ectx: property (text), widget (QTreeWidget, buttonListView)
+#. i18n: file: src/identitydialog.ui:25
+#. i18n: ectx: property (text), widget (QLabel, label)
 #: rc.cpp:341
-msgid "Button Name"
-msgstr "버튼 이름"
+msgid "&Identity:"
+msgstr "사용자(&I):"
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:38
-#. i18n: ectx: property (text), widget (QTreeWidget, buttonListView)
+#. i18n: file: src/identitydialog.ui:65
+#. i18n: ectx: property (toolTip), widget (KPushButton, newBtn)
 #: rc.cpp:344
-msgid "Button Action"
-msgstr "버튼 작동"
+#, fuzzy
+#| msgid "Add..."
+msgid "Add"
+msgstr "추가..."
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:55
-#. i18n: ectx: property (text), widget (QPushButton, removeButton)
+#. i18n: file: src/identitydialog.ui:96
+#. i18n: ectx: property (toolTip), widget (KPushButton, copyBtn)
+#: rc.cpp:347
+msgid "Duplicate"
+msgstr "복사"
+
+#. i18n: file: src/identitydialog.ui:127
+#. i18n: ectx: property (toolTip), widget (KPushButton, m_editBtn)
+#: rc.cpp:350
+msgid "Rename"
+msgstr "이름바꿈"
+
 #. i18n: file: src/identitydialog.ui:158
 #. i18n: ectx: property (toolTip), widget (KPushButton, m_delBtn)
-#: rc.cpp:350 rc.cpp:1235
+#. i18n: file: src/config/quickbuttons_configui.ui:55
+#. i18n: ectx: property (text), widget (QPushButton, removeButton)
+#: rc.cpp:353 rc.cpp:488
 #, fuzzy
 msgid "Remove"
 msgstr "제거됨"
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:85
+#. i18n: file: src/identitydialog.ui:187
+#. i18n: ectx: property (text), widget (QLabel, realNameLabel)
+#: rc.cpp:359
+msgid "&Real name:"
+msgstr "실명(&R):"
+
+#. i18n: file: src/identitydialog.ui:197
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_realNameEdit)
+#: rc.cpp:362
+msgid ""
+"Enter your real name here. IRC is not intended to keep you hidden from your "
+"friends or enemies. Keep this in mind if you are tempted to behave "
+"maliciously. A fake \"real name\" can be a good way to mask your gender from "
+"all the nerds out there, but the PC you use can always be traced so you will "
+"never be truly anonymous."
+msgstr ""
+"여기에 여러분의 실제 이름을 입력하십시오. IRC는 여러분의 친구들이나 적으로부"
+"터 여러분을 숨기도록 유도하지 않습니다. 불법적인 행위를 시도하려 한다면 이 점"
+"을 마음에 새겨두십시오. 가짜 \"실명\"은 우매한 사람들에게 여러분들로부터 여러"
+"분의 성별을 감추는 데에는 좋은 방법입니다만, 여러분이 사용하는 PC는 추적될 "
+"수 있으며 언제까지나 익명이 될 수는 없습니다."
+
+#. i18n: file: src/identitydialog.ui:208
+#. i18n: ectx: property (whatsThis), widget (KEditListBox, m_nicknameLBox)
+#: rc.cpp:365
+msgid ""
+"This is your list of nicknames. A nickname is the name that other users will "
+"know you by. You may use any name you desire. The first character must be a "
+"letter.\n"
+"\n"
+"Since nicknames must be unique across an entire IRC network, your desired "
+"name may be rejected by the server because someone else is already using "
+"that nickname. Enter alternate nicknames for yourself. If your first choice "
+"is rejected by the server, Konversation will try the alternate nicknames."
+msgstr ""
+"이것은 여러분의 닉네임 목록입니다. 닉네임은 다른 사용자들이 여러분을 알 수 있"
+"는 수단입니다. 여러분이 원하는 이름을 사용하십시오. 닉네임 처음에는 꼭 문자"
+"로 시작해야 합니다.\n"
+"\n"
+"닉네임이 전체 IRC 네트워크를 통틀어 유일해야만 합니다. 여러분이 필요로 하는 "
+"이름이 서버로부터 거절될 수 있는데 이미 누군가 닉네임을 사용하고 있기 때문입"
+"니다. 여러분들에 대한 대체할 수 있는 닉네임을 입력하십시오. 만약 여러분의 첫"
+"번째 닉네임이 서버로부터 거절된다면 Konversation은 대체 닉네임으로 시도할 것"
+"입니다."
+
+#. i18n: file: src/identitydialog.ui:218
+#. i18n: ectx: property (title), widget (QGroupBox, autoIdentifyGroup)
+#: rc.cpp:373
+msgid "Auto Identify"
+msgstr "자동 인증"
+
+#. i18n: file: src/identitydialog.ui:224
+#. i18n: ectx: property (text), widget (QLabel, botLabel)
+#: rc.cpp:376
+msgid "Ser&vice:"
+msgstr "서비스(&V):"
+
+#. i18n: file: src/identitydialog.ui:234
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_botEdit)
+#: rc.cpp:379
+#, fuzzy
+#| msgid ""
+#| "Service name can be <b><i>nickserv</i></b> or a network dependant name "
+#| "like  <b><i>nickserv@services.dal.net</i></b>"
+msgid ""
+"Service name can be <b><i>nickserv</i></b> or a network-dependent name such "
+"as <b><i>nickserv@services.dal.net</i></b>"
+msgstr ""
+"서비스 이름은 <b><i>nickserv</i></b>나 <b><i>nickserv@services.dal.net</i></"
+"b>와 같은 네트워크 관련 이름이 될 수 있습니다."
+
+#. i18n: file: src/identitydialog.ui:241
+#. i18n: ectx: property (text), widget (QLabel, passwordLabel)
+#: rc.cpp:382
+msgid "Pa&ssword:"
+msgstr "패스워드(&S):"
+
+#. i18n: file: src/identitydialog.ui:270
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_insertRememberLineOnAwayChBox)
+#: rc.cpp:388
+msgid ""
+"If you check this box, whenever you perform an <b>/away</b> command, a "
+"horizontal line will appear in the channel, marking the point where you went "
+"away. Other IRC users do not see this horizontal line."
+msgstr ""
+"이 상자를 선택하면, 여러분이 <b>/away</b> 명령을 실행할 때마다 여러분이 자리"
+"비움 한 시점을 표시하는 선이 채널에 보일 것입니다. 다른 IRC 사용자들은 이 수"
+"평 선이 보이지 않습니다."
+
+#. i18n: file: src/identitydialog.ui:273
+#. i18n: ectx: property (text), widget (QCheckBox, m_insertRememberLineOnAwayChBox)
+#: rc.cpp:391
+msgid "Mark the last position in chat windows when going away"
+msgstr ""
+
+#. i18n: file: src/identitydialog.ui:280
+#. i18n: ectx: property (text), widget (QLabel, awayNicknameLabel)
+#: rc.cpp:394
+msgid "Away nickname:"
+msgstr "자리비움 닉네임:"
+
+#. i18n: file: src/identitydialog.ui:287
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_awayNickEdit)
+#: rc.cpp:397
+msgid ""
+"Enter a nickname that indicates you are away. Whenever you perform an <b>/"
+"away msg</b> command in any channel joined with this Identity, Konversation "
+"will automatically change your nickname to the Away nickname. Other users "
+"will be able to tell you are away from your computer. Whenever you perform "
+"an <b>/away</b> command in any channel in which you are away, Konversation "
+"will automatically change your nickname back to the original. If you do not "
+"wish to automatically change your nickname when going away, leave blank."
+msgstr ""
+"여러분이 자리비움임을 나타내는 닉네임을 입력하십시오. 여러분이 이 인증으로 입"
+"장한 어떤 체널에서 <b>/away msg</b> 명령을 사용할 때마다 Konversation이 여러"
+"분의 닉네임을 자리비움 닉네임으로 자동적으로 바꿀 것입니다. 다른 사용자들은 "
+"여러분의 컴퓨터에서 여러분이 떠났다고 말할 수 있습니다. 여러분이 자리를 비운 "
+"체널에서 <b>/away</b> 명령을 실행할 때마다 Konversation은 자동적으로 여러분"
+"의 닉네임을 본래대로 변경할 것입니다.만약 자동적으로 자리비움 닉네임으로 변경"
+"하지 않으려면 이 부분을 비워두십시오."
+
+#. i18n: file: src/identitydialog.ui:302
+#. i18n: ectx: property (whatsThis), widget (QGroupBox, automaticAwayGroup)
+#: rc.cpp:400
+msgid ""
+"If you check this box, Konversation will automatically set all connections "
+"using this Identity away when the screensaver starts or after a period of "
+"user inactivity configured below."
+msgstr ""
+
+#. i18n: file: src/identitydialog.ui:305
+#. i18n: ectx: property (title), widget (QGroupBox, automaticAwayGroup)
+#: rc.cpp:403
+msgid "Automatic Away"
+msgstr ""
+
+#. i18n: file: src/identitydialog.ui:323
+#. i18n: ectx: property (text), widget (QLabel, setAwayAfterLabel)
+#: rc.cpp:406
+msgid "Set away after"
+msgstr ""
+
+#. i18n: file: src/identitydialog.ui:346
+#. i18n: ectx: property (text), widget (QLabel, timeOfUserInactivityLabel)
+#: rc.cpp:409
+#, fuzzy
+msgid "of user inactivity"
+msgstr "쿼리 활성화 시(&Q)"
+
+#. i18n: file: src/identitydialog.ui:353
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_automaticUnawayChBox)
+#: rc.cpp:412
+msgid ""
+"If you check this box, Konversation will automatically cancel away for all "
+"connections using this Identity when the screensaver stops or new user "
+"activity is detected."
+msgstr ""
+
+#. i18n: file: src/identitydialog.ui:356
+#. i18n: ectx: property (text), widget (QCheckBox, m_automaticUnawayChBox)
+#: rc.cpp:415
+#, fuzzy
+msgid "Automatically return on activity"
+msgstr "자동으로 다운로드 재개하기(&T)"
+
+#. i18n: file: src/identitydialog.ui:372
+#. i18n: ectx: property (whatsThis), widget (QGroupBox, awayMessageGroup)
+#: rc.cpp:419
+#, no-c-format
+msgid ""
+"If you check this box, Konversation will automatically send the Away message "
+"to all channels joined with this Identity. <b>%s</b> is replaced with "
+"<b>msg</b>. Whenever you perform an <b>/away</b> command, the Return message "
+"will be displayed in all channels joined with this Identity."
+msgstr ""
+"이 상자를 선택하면 Konversation은 자동적으로 여러분이 입장한 체널에 자리비움 "
+"메시지를 전달할 것입니다. <b>%s</b>는 <b>msg</b>를 대체할 것입니다. 여러분이 "
+"<b>/away</b> 명령을 수행할 때마다, 되돌아옴 메시지들이 이 인증으로 입장한 모"
+"든 체널에서 보일 것입니다."
+
+#. i18n: file: src/identitydialog.ui:375
+#. i18n: ectx: property (title), widget (QGroupBox, awayMessageGroup)
+#: rc.cpp:422
+#, fuzzy
+msgid "Away Messages"
+msgstr "자리비움 메시지:"
+
+#. i18n: file: src/identitydialog.ui:387
+#. i18n: ectx: property (text), widget (QLabel, awayLabel)
+#: rc.cpp:425
+msgid "Away &message:"
+msgstr "자리비움 메시지(&M):"
+
+#. i18n: file: src/identitydialog.ui:400
+#. i18n: ectx: property (text), widget (QLabel, unAwayLabel)
+#: rc.cpp:428
+msgid "Re&turn message:"
+msgstr "되돌아옴 메시지(&T):"
+
+#. i18n: file: src/identitydialog.ui:430
+#. i18n: ectx: attribute (title), widget (QWidget, advancedWidget)
+#: rc.cpp:431
+msgid "Advanced"
+msgstr "고급"
+
+#. i18n: file: src/identitydialog.ui:436
+#. i18n: ectx: property (text), widget (QLabel, sCommandLabel)
+#: rc.cpp:434
+msgid "&Pre-shell command:"
+msgstr "먼저 실행될 쉘 명령(&P):"
+
+#. i18n: file: src/identitydialog.ui:446
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_sCommandEdit)
+#: rc.cpp:437
+msgid ""
+"Here you can enter a command to be executed before connection to server "
+"starts<br>If you have multiple servers in this identity this command will be "
+"executed for each server"
+msgstr ""
+"여기에 서버에 대한 연결을 시작하기 전에 수행해야 할 명령어들을 입력할 수 있습"
+"니다.<br>만약 여러분이 이 인증에서 여러 서버들을 가지고 있다면 이 명령은 각 "
+"서버에 대해 따로 수행될 것입니다."
+
+#. i18n: file: src/identitydialog.ui:459
+#. i18n: ectx: property (text), widget (QLabel, codecLabel)
+#: rc.cpp:440
+msgid "&Encoding:"
+msgstr "인코딩(&E):"
+
+#. i18n: file: src/identitydialog.ui:469
+#. i18n: ectx: property (whatsThis), widget (KComboBox, m_codecCBox)
+#: rc.cpp:443
+msgid ""
+"This setting affects how characters you type are encoded for sending to the "
+"server. It also affects how messages are displayed. When you first open "
+"Konversation, it automatically retrieves this setting from the operating "
+"system. If you seem to be having trouble seeing other user's messages "
+"correctly, try changing this setting."
+msgstr ""
+"이 설정은 여러분이 전달할 문자들을 어떤 방식의 인코딩을 전달할 지 결정합니"
+"다. 이것은 또한 메시지가 어떻게 보일지도 결정합니다. 여러분이 먼저 "
+"Konversation을 실행했을 때, 이것은 자동적으로 여러분의 OS 설정을 검색합니다. "
+"만약 사용자의 메시지가 올바르게 보이지 않는다면, 이 설정을 변경해보십시오."
+
+#. i18n: file: src/identitydialog.ui:476
+#. i18n: ectx: property (text), widget (QLabel, loginLabel)
+#: rc.cpp:446
+msgid "I&dent:"
+msgstr "인증(&D):"
+
+#. i18n: file: src/identitydialog.ui:486
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_loginEdit)
+#: rc.cpp:449
+msgid ""
+"When you connect, many servers query your computer for an IDENT response. If "
+"you computer is not running an IDENT server, this response is sent by "
+"Konversation. No spaces are allowed."
+msgstr ""
+"여러분이 접속할 때, 많은 서버들이 여러분의 컴퓨터에 IDENT에 대한 응답으로 쿼"
+"리를 보냅니다. 만약 여럽누의 컴퓨터가 IDENT 서러를 운영하지 않는다면 이 응답"
+"은 Konversation에 의해 전달될 것입니다. 공백은 허용되지 않습니다."
+
+#. i18n: file: src/identitydialog.ui:493
+#. i18n: ectx: property (text), widget (QLabel, quitLabel)
+#: rc.cpp:452
+#, fuzzy
+msgid "&Quit reason:"
+msgstr "나가는 이유(&P):"
+
+#. i18n: file: src/identitydialog.ui:503
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_quitEdit)
+#: rc.cpp:455
+#, fuzzy
+msgid "Whenever you leave a server, this message is shown to others."
+msgstr "체널을 떠날 때, 이 메시지가 체널에 전달됩니다."
+
+#. i18n: file: src/identitydialog.ui:506
+#. i18n: ectx: property (text), widget (KLineEdit, m_quitEdit)
+#. i18n: file: src/identitydialog.ui:526
+#. i18n: ectx: property (text), widget (KLineEdit, m_partEdit)
+#: rc.cpp:458 rc.cpp:467
+#, fuzzy
+#| msgid "Konversation"
+msgid "Konversation terminated."
+msgstr "Konversation"
+
+#. i18n: file: src/identitydialog.ui:513
+#. i18n: ectx: property (text), widget (QLabel, partLabel)
+#: rc.cpp:461
+msgid "&Part reason:"
+msgstr "나가는 이유(&P):"
+
+#. i18n: file: src/identitydialog.ui:523
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_partEdit)
+#: rc.cpp:464
+msgid "Whenever you leave a channel, this message is sent to the channel."
+msgstr "체널을 떠날 때, 이 메시지가 체널에 전달됩니다."
+
+#. i18n: file: src/identitydialog.ui:533
+#. i18n: ectx: property (text), widget (QLabel, kickLabel)
+#: rc.cpp:470
+msgid "&Kick reason:"
+msgstr "킥 이유(&K):"
+
+#. i18n: file: src/identitydialog.ui:543
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_kickEdit)
+#: rc.cpp:473
+msgid ""
+"Whenever you are kicked from a channel (usually by an IRC operator), this "
+"message is sent to the channel."
+msgstr ""
+"여러분이 체널로부터 (보통 IRC 관리자에 의해) 킥되었을 때, 이 메시지가 체널에 "
+"전달됩니다."
+
+#. i18n: file: src/identitydialog.ui:546
+#. i18n: ectx: property (text), widget (KLineEdit, m_kickEdit)
+#: rc.cpp:476
+#, fuzzy
+#| msgid "Konversation"
+msgid "User terminated."
+msgstr "Konversation"
+
+#. i18n: file: src/config/quickbuttons_configui.ui:33
+#. i18n: ectx: property (text), widget (QTreeWidget, buttonListView)
+#: rc.cpp:479
+msgid "Button Name"
+msgstr "버튼 이름"
+
+#. i18n: file: src/config/quickbuttons_configui.ui:38
+#. i18n: ectx: property (text), widget (QTreeWidget, buttonListView)
+#: rc.cpp:482
+msgid "Button Action"
+msgstr "버튼 작동"
+
+#. i18n: file: src/config/quickbuttons_configui.ui:85
 #. i18n: ectx: property (text), widget (QLabel, nameLabel)
-#: rc.cpp:353
+#: rc.cpp:491
 msgid "Button name:"
 msgstr "버튼 이름"
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:111
+#. i18n: file: src/config/quickbuttons_configui.ui:111
 #. i18n: ectx: property (text), widget (QLabel, actionLabel)
-#: rc.cpp:356
+#: rc.cpp:494
 #, fuzzy
 msgid "Button action:"
 msgstr "버튼 작동:"
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:136
+#. i18n: file: src/config/quickbuttons_configui.ui:136
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
-#: rc.cpp:359
+#: rc.cpp:497
 msgid "Available Placeholders"
 msgstr ""
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:153
+#. i18n: file: src/config/quickbuttons_configui.ui:153
 #. i18n: ectx: property (text), widget (QLabel, placeholderHelpLabel)
-#: rc.cpp:363
+#: rc.cpp:501
 #, fuzzy, no-c-format
 msgid ""
 "%o: Current nickname\n"
@@ -6322,338 +6667,164 @@ msgstr ""
 "%s<단어>%: %u의 별명을 구분하기 위해 사용된 단어\n"
 "%n: 입력창에 넣는 대신 바로 서버로 보냄"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:25
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoReconnect)
-#: rc.cpp:371
-msgid "Enable Automatic Reconnect"
-msgstr "자동 재연결 사용하기"
+#. i18n: file: src/config/osd_configui.ui:35
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOSD)
+#: rc.cpp:509
+msgid "&Enable On Screen Display"
+msgstr "스크린 표시 사용하기(&E)"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:34
-#. i18n: ectx: property (text), widget (QLabel, reconnectDelayLabel)
-#: rc.cpp:374
-#, fuzzy
-msgid "Reconnect delay:"
-msgstr "재연결 초과시간:"
+#. i18n: file: src/config/osd_configui.ui:45
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
+#: rc.cpp:512
+msgid "On &Screen Display"
+msgstr "스크린 표시할 때(&S)"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:63
+#. i18n: file: src/config/osd_configui.ui:54
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDDrawShadow)
+#: rc.cpp:515
+msgid "&Draw shadows"
+msgstr "그림자 그리기(&D)"
+
+#. i18n: file: src/config/osd_configui.ui:67
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:377
-msgid "Reconnection attempts:"
-msgstr "재연결 시도:"
+#: rc.cpp:518
+msgid "OSD font:"
+msgstr "OSD 글꼴:"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:85
-#. i18n: ectx: property (suffix), widget (KIntNumInput, kcfg_ReconnectDelay)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:131
-#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_NotifyDelay)
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:271
-#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_AutoWhoContinuousInterval)
-#: rc.cpp:380 rc.cpp:594 rc.cpp:968
-msgid " seconds"
-msgstr "초"
+#. i18n: file: src/config/osd_configui.ui:135
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
+#: rc.cpp:521
+msgid "Show &OSD Message"
+msgstr "OSD 메시지 보이기(&O)"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:98
-#. i18n: ectx: property (specialValueText), widget (KIntNumInput, kcfg_ReconnectCount)
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:104
-#. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_ScrollbackMax)
-#: rc.cpp:383 rc.cpp:938
-msgid "Unlimited"
-msgstr "제한 없음"
+#. i18n: file: src/config/osd_configui.ui:141
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowOwnNick)
+#: rc.cpp:524
+msgid "&If own nick appears in channel message"
+msgstr "만약 채널 메시지에서 닉네임이 나타나면(&I)"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:140
-#. i18n: ectx: property (title), widget (QGroupBox, debugGBox)
-#: rc.cpp:386
-msgid "Debug"
-msgstr "디버그"
+#. i18n: file: src/config/osd_configui.ui:148
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowChannel)
+#: rc.cpp:527
+msgid "On an&y channel message"
+msgstr "어떤 채널 메시지에도(&Y)"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:146
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_RawLog)
-#: rc.cpp:389
-msgid "Show raw &log window when connecting"
-msgstr "시작하면서 raw 로그 창을 보임(&L)"
+#. i18n: file: src/config/osd_configui.ui:155
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowQuery)
+#: rc.cpp:530
+msgid "On &query activity"
+msgstr "쿼리 활성화 시(&Q)"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:45
-#. i18n: ectx: property (text), widget (QTreeWidget, ignoreListView)
-#: rc.cpp:392
-msgid "Pattern"
-msgstr "패턴"
+#. i18n: file: src/config/osd_configui.ui:162
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowChannelEvent)
+#: rc.cpp:533
+msgid "On &Join/Part events"
+msgstr "입장/퇴장 이벤트 시(&J)"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:50
-#. i18n: ectx: property (text), widget (QTreeWidget, ignoreListView)
-#: rc.cpp:395
-msgid "Type"
-msgstr "형식"
+#. i18n: file: src/config/osd_configui.ui:175
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_OSDUseCustomColors)
+#: rc.cpp:536
+msgid "Enable Custom Colors"
+msgstr "사용잦 지정 색상 사용하기"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:58
+#. i18n: file: src/config/osd_configui.ui:187
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:398
-msgid "Pattern:"
-msgstr "패턴:"
+#: rc.cpp:539
+msgid "Te&xt color:"
+msgstr "텍스트 색상(&X):"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:77
-#. i18n: ectx: property (title), widget (QGroupBox, grpMessageTypes)
-#: rc.cpp:401
-msgid "Message Types"
-msgstr "메시지 형식"
+#. i18n: file: src/config/osd_configui.ui:200
+#. i18n: ectx: property (text), widget (QLabel, textLabel3)
+#. i18n: file: src/viewer/irccolorchooserui.ui:122
+#. i18n: ectx: property (text), widget (QLabel, m_bgColorLbl)
+#: rc.cpp:542 rc.cpp:1775
+msgid "&Background color:"
+msgstr "배경 색상(&B):"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:123
-#. i18n: ectx: property (text), widget (KPushButton, newButton)
-#. i18n: file: src/preferences/alias_preferencesui.ui:51
+#. i18n: file: src/config/osd_configui.ui:249
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
+#: rc.cpp:545
+msgid "O&ther Settings"
+msgstr "다른 설정(&T)"
+
+#. i18n: file: src/config/osd_configui.ui:255
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#: rc.cpp:548
+msgid "&Duration:"
+msgstr "지속기간(&D):"
+
+#. i18n: file: src/config/osd_configui.ui:268
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
+#: rc.cpp:551
+msgid "S&creen:"
+msgstr "스크린(&C):"
+
+#. i18n: file: src/config/osd_configui.ui:281
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_OSDDuration)
+#: rc.cpp:554
+msgid " ms"
+msgstr " ms"
+
+#. i18n: file: src/config/alias_configui.ui:36
+#. i18n: ectx: property (text), widget (QTreeWidget, aliasListView)
+#: rc.cpp:557
+msgid "Alias"
+msgstr "연결"
+
+#. i18n: file: src/config/alias_configui.ui:41
+#. i18n: ectx: property (text), widget (QTreeWidget, aliasListView)
+#: rc.cpp:560
+msgid "Replacement"
+msgstr "대체"
+
+#. i18n: file: src/config/alias_configui.ui:51
 #. i18n: ectx: property (text), widget (QPushButton, newButton)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:251
+#. i18n: file: src/config/watchednicknames_configui.ui:251
 #. i18n: ectx: property (text), widget (KPushButton, newButton)
-#. i18n: file: src/preferences/highlight_preferencesui.ui:162
+#. i18n: file: src/config/ignore_configui.ui:123
 #. i18n: ectx: property (text), widget (KPushButton, newButton)
-#: rc.cpp:419 rc.cpp:434 rc.cpp:630 rc.cpp:870
+#. i18n: file: src/config/highlight_configui.ui:162
+#. i18n: ectx: property (text), widget (KPushButton, newButton)
+#: rc.cpp:563 rc.cpp:666 rc.cpp:774 rc.cpp:936
 msgid "&New"
 msgstr "새로 생성(&N)"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:130
-#. i18n: ectx: property (text), widget (KPushButton, removeButton)
-#. i18n: file: src/preferences/alias_preferencesui.ui:58
+#. i18n: file: src/config/alias_configui.ui:58
 #. i18n: ectx: property (text), widget (QPushButton, removeButton)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:270
+#. i18n: file: src/config/watchednicknames_configui.ui:270
 #. i18n: ectx: property (text), widget (KPushButton, removeButton)
-#. i18n: file: src/preferences/highlight_preferencesui.ui:175
+#. i18n: file: src/config/ignore_configui.ui:130
 #. i18n: ectx: property (text), widget (KPushButton, removeButton)
-#: rc.cpp:422 rc.cpp:437 rc.cpp:636 rc.cpp:873
+#. i18n: file: src/config/highlight_configui.ui:175
+#. i18n: ectx: property (text), widget (KPushButton, removeButton)
+#: rc.cpp:566 rc.cpp:672 rc.cpp:777 rc.cpp:939
 #, fuzzy
 msgid "&Remove"
 msgstr "제거됨"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:137
-#. i18n: ectx: property (text), widget (KPushButton, removeAllButton)
-#: rc.cpp:425
-msgid "Remove &All"
-msgstr "모두 제거(&A)"
-
-#. i18n: file: src/preferences/alias_preferencesui.ui:36
-#. i18n: ectx: property (text), widget (QTreeWidget, aliasListView)
-#: rc.cpp:428
-msgid "Alias"
-msgstr "연결"
-
-#. i18n: file: src/preferences/alias_preferencesui.ui:41
-#. i18n: ectx: property (text), widget (QTreeWidget, aliasListView)
-#: rc.cpp:431
-msgid "Replacement"
-msgstr "대체"
-
-#. i18n: file: src/preferences/alias_preferencesui.ui:88
+#. i18n: file: src/config/alias_configui.ui:88
 #. i18n: ectx: property (text), widget (QLabel, aliasLabel)
-#: rc.cpp:440
+#: rc.cpp:569
 #, fuzzy
 msgid "Alias:"
 msgstr "연결"
 
-#. i18n: file: src/preferences/alias_preferencesui.ui:108
+#. i18n: file: src/config/alias_configui.ui:108
 #. i18n: ectx: property (text), widget (QLabel, replacementLabel)
-#: rc.cpp:443
+#: rc.cpp:572
 #, fuzzy
 msgid "Replacement:"
 msgstr "대체"
 
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:26
-#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:446
-msgid "&Command to be executed on double click:"
-msgstr "더블클릭으로 실행될 명령(&C):"
+#. i18n: file: src/config/warnings_configui.ui:29
+#. i18n: ectx: property (text), widget (QTreeWidget, dialogListView)
+#: rc.cpp:575
+msgid "Warning Dialogs to Show"
+msgstr "보이기 위한 대화상자 경고"
 
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:39
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortCaseInsensitive)
-#: rc.cpp:449
-msgid "Sort case &insensitive"
-msgstr "대소문자 구분하여 정렬"
-
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:46
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortByActivity)
-#: rc.cpp:452
-#, fuzzy
-msgid "Sort by &activity"
-msgstr "쿼리 활성화 시(&Q)"
-
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:59
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortByStatus)
-#: rc.cpp:455
-msgid "Sort b&y user status"
-msgstr "사용자 상태로 정렬(&Y)"
-
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:72
-#. i18n: ectx: property (text), widget (QLabel, orderHintLabel)
-#: rc.cpp:458
-msgid "(Reorder nick sorting order by drag and drop)"
-msgstr "(드래그 앤 드랍으로 닉네임 정렬 순서 재 정렬)"
-
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:103
-#. i18n: ectx: property (text), widget (QTreeWidget, sortOrder)
-#: rc.cpp:464
-msgid "Explanation"
-msgstr "설명"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, Theme_ConfigUI)
-#: rc.cpp:467
-msgid "Theme_Config"
-msgstr "테마 설정"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:28
-#. i18n: ectx: property (text), widget (QPushButton, installButton)
-#: rc.cpp:470
-msgid "I&nstall Theme..."
-msgstr "테마 설치(&N)..."
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:38
-#. i18n: ectx: property (text), widget (QPushButton, removeButton)
-#: rc.cpp:473
-msgid "&Remove Theme"
-msgstr "테마 제거(&R)"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:78
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel1)
-#: rc.cpp:476
-msgid "Icon for normal users"
-msgstr "일반 사용자에 대한 아이콘"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:97
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel2)
-#: rc.cpp:479
-msgid "Icon for away users"
-msgstr "자리비운 사용자에 대한 아이콘"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:113
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel3)
-#: rc.cpp:482
-msgid "Icon for users with voice"
-msgstr "발언권을 갖고 있는 사용자에 대한 아이콘"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:129
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel4)
-#: rc.cpp:485
-#, fuzzy
-msgid "Icon for users with half-operator privileges"
-msgstr "부운영권자 권한을 갖고 있는 사용자에 대한 아이콘"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:145
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel5)
-#: rc.cpp:488
-#, fuzzy
-msgid "Icon for users with operator privileges"
-msgstr "운영자 권한을 갖고 있는 사용자에 대한 아이콘"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:161
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel6)
-#: rc.cpp:491
-msgid "Icon for users with admin privileges"
-msgstr "관리자 권한을 갖고 있는 사용자에 대한 아이콘"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:177
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel7)
-#: rc.cpp:494
-msgid "Icon for users with owner privileges"
-msgstr "소유자 권한을 갖고 있는 사용자에 대한 아이콘"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:202
-#. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:497
-msgid "Preview:"
-msgstr "미리보기:"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:17
-#. i18n: ectx: property (windowTitle), widget (QWidget, Tabs_PreferencesUI)
-#: rc.cpp:500
-msgid "TabBar_Config"
-msgstr "탭막대 설정"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:26
-#. i18n: ectx: property (title), widget (QGroupBox, lookGBox)
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:19
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
-#: rc.cpp:503 rc.cpp:783
-msgid "Look"
-msgstr "찾기"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:34
-#. i18n: ectx: property (text), widget (QLabel, placementLabel)
-#: rc.cpp:506
-#, fuzzy
-msgid "Placement:"
-msgstr "대체:"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:45
-#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
-#: rc.cpp:509
-#, fuzzy
-#| msgid "Topic"
-msgid "Top"
-msgstr "주제"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:50
-#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
-#: rc.cpp:512
-msgid "Bottom"
-msgstr ""
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:55
-#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
-#: rc.cpp:515
-msgid "Left"
-msgstr ""
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:81
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CloseButtons)
-#: rc.cpp:518
-#, fuzzy
-msgid "Show &close button on tabs"
-msgstr "각 탭에 닫기 버튼 보임(&U)"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:88
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTabBarCloseButton)
-#: rc.cpp:521
-#, fuzzy
-msgid "Show a close button on the &right side of the tab bar"
-msgstr "탭 막대의 오른쪽에 닫기 버튼 보이기(&D)"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:95
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseMaxSizedTabs)
-#: rc.cpp:524
-#, fuzzy
-msgid "Limit the &size of the tab labels to fit all on screen"
-msgstr "스크린의 크기에 맞춰 탭 레이블의 크기 제한하기"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:105
-#. i18n: ectx: property (title), widget (QGroupBox, focusGBox)
-#: rc.cpp:527
-#, fuzzy
-msgid "Focus"
-msgstr "커서부터"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:111
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_BringToFront)
-#: rc.cpp:530
-msgid "&Focus new tabs"
-msgstr ""
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:118
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_FocusNewQueries)
-#: rc.cpp:533
-msgid "Focus new &queries"
-msgstr ""
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:128
-#. i18n: ectx: property (title), widget (QGroupBox, mouseGBox)
-#: rc.cpp:536
-#, fuzzy
-msgid "Mouse"
-msgstr "모드"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:134
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_MiddleClickClose)
-#: rc.cpp:539
-msgid "&Middle-click on a tab to close it"
-msgstr ""
-
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:24
+#. i18n: file: src/config/watchednicknames_configui.ui:24
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_UseNotify)
-#: rc.cpp:542
+#: rc.cpp:578
 msgid ""
 "<qt>\n"
 "<p>\n"
@@ -6672,16 +6843,16 @@ msgstr ""
 "수 있습니다.</p>\n"
 "</qt>"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:27
+#. i18n: file: src/config/watchednicknames_configui.ui:27
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseNotify)
-#: rc.cpp:549
+#: rc.cpp:585
 #, fuzzy
 msgid "Enable nic&kname watcher"
 msgstr "닉네임 감시기 사용하기(&E)"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:37
+#. i18n: file: src/config/watchednicknames_configui.ui:37
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_OpenWatchedNicksAtStartup)
-#: rc.cpp:552
+#: rc.cpp:588
 msgid ""
 "<qt>When checked, the <b>Nicks Online</b> window will be automatically "
 "opened when starting Konversation.</qt>"
@@ -6689,16 +6860,16 @@ msgstr ""
 "<qt>이것이 체크되면, Konversation이 시작될 때 <b>온라인 상태 닉네임</b> 창이 "
 "자동적으로 열릴 것입니다.</qt>"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:40
+#. i18n: file: src/config/watchednicknames_configui.ui:40
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_OpenWatchedNicksAtStartup)
-#: rc.cpp:555
+#: rc.cpp:591
 #, fuzzy
 msgid "Show watched nicks online tab on &application startup"
 msgstr "응용프로그램 시작시에 온라인 탭에 관찰중인 닉네임 보이기(&S)"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:66
+#. i18n: file: src/config/watchednicknames_configui.ui:66
 #. i18n: ectx: property (whatsThis), widget (QLabel, notifyActionLabel)
-#: rc.cpp:559
+#: rc.cpp:595
 #, no-c-format
 msgid ""
 "<qt>\n"
@@ -6722,15 +6893,15 @@ msgstr ""
 "</ul>\n"
 "</qt>"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:69
+#. i18n: file: src/config/watchednicknames_configui.ui:69
 #. i18n: ectx: property (text), widget (QLabel, notifyActionLabel)
-#: rc.cpp:570
+#: rc.cpp:606
 msgid "Command e&xecuted when nickname is double clicked:"
 msgstr "닉네임을 더블클릭했을 때 실행될 명령(&X):"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:99
+#. i18n: file: src/config/watchednicknames_configui.ui:99
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, kcfg_NotifyDoubleClickAction)
-#: rc.cpp:574
+#: rc.cpp:610
 #, no-c-format
 msgid ""
 "<qt>\n"
@@ -6755,28 +6926,38 @@ msgstr ""
 "</ul>\n"
 "</qt>"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:109
+#. i18n: file: src/config/watchednicknames_configui.ui:109
 #. i18n: ectx: property (whatsThis), widget (QLabel, notifyDelayLabel)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:128
+#. i18n: file: src/config/watchednicknames_configui.ui:128
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_NotifyDelay)
-#: rc.cpp:585 rc.cpp:591
+#: rc.cpp:621 rc.cpp:627
 msgid ""
 "Konversation will check the status of the nicknames listed below at this "
 "interval."
 msgstr "Konversation은 이 기간동안 나열할 닉네임의 상태를 체크할 것입니다."
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:112
+#. i18n: file: src/config/watchednicknames_configui.ui:112
 #. i18n: ectx: property (text), widget (QLabel, notifyDelayLabel)
-#: rc.cpp:588
+#: rc.cpp:624
 #, fuzzy
 msgid "&Update interval:"
 msgstr "업데이트 주기:"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:158
+#. i18n: file: src/config/watchednicknames_configui.ui:131
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_NotifyDelay)
+#. i18n: file: src/config/connectionbehavior_config.ui:85
+#. i18n: ectx: property (suffix), widget (KIntNumInput, kcfg_ReconnectDelay)
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:271
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_AutoWhoContinuousInterval)
+#: rc.cpp:630 rc.cpp:975 rc.cpp:1379
+msgid " seconds"
+msgstr "초"
+
+#. i18n: file: src/config/watchednicknames_configui.ui:158
 #. i18n: ectx: property (whatsThis), widget (QLabel, networkLabel)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:174
+#. i18n: file: src/config/watchednicknames_configui.ui:174
 #. i18n: ectx: property (whatsThis), widget (QComboBox, networkDropdown)
-#: rc.cpp:600 rc.cpp:606
+#: rc.cpp:636 rc.cpp:642
 msgid ""
 "The irc server network (such as 'freenode') that the selected user to watch "
 "is on."
@@ -6784,29 +6965,29 @@ msgstr ""
 "관찰하기 위해 사용자가 선택한 ('freenode'와 같은) irc 서버 네트워크는 연결상"
 "태입니다."
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:161
+#. i18n: file: src/config/watchednicknames_configui.ui:161
 #. i18n: ectx: property (text), widget (QLabel, networkLabel)
-#: rc.cpp:603
+#: rc.cpp:639
 msgid "Network:"
 msgstr "네트워크:"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:184
+#. i18n: file: src/config/watchednicknames_configui.ui:184
 #. i18n: ectx: property (whatsThis), widget (QLabel, nicknameLabel)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:200
+#. i18n: file: src/config/watchednicknames_configui.ui:200
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, nicknameInput)
-#: rc.cpp:609 rc.cpp:615
+#: rc.cpp:645 rc.cpp:651
 msgid "The nick (username) of the selected person to watch"
 msgstr "관찰하기 위해 선택된 사람의 닉네임 (사용자이름)"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:187
+#. i18n: file: src/config/watchednicknames_configui.ui:187
 #. i18n: ectx: property (text), widget (QLabel, nicknameLabel)
-#: rc.cpp:612
+#: rc.cpp:648
 msgid "Nickname:"
 msgstr "닉네임:"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:219
+#. i18n: file: src/config/watchednicknames_configui.ui:219
 #. i18n: ectx: property (whatsThis), widget (QTreeWidget, notifyListView)
-#: rc.cpp:618
+#: rc.cpp:654
 #, fuzzy
 msgid ""
 "<qt>\n"
@@ -6825,154 +7006,320 @@ msgstr ""
 "수 있습니다.</p>\n"
 "</qt>"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:229
+#. i18n: file: src/config/watchednicknames_configui.ui:229
 #. i18n: ectx: property (text), widget (QTreeWidget, notifyListView)
-#: rc.cpp:624
+#: rc.cpp:660
 msgid "Watched Networks/Nicknames"
 msgstr "관찰된 네트워크/닉네임"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:248
+#. i18n: file: src/config/watchednicknames_configui.ui:248
 #. i18n: ectx: property (whatsThis), widget (KPushButton, newButton)
-#: rc.cpp:627
+#: rc.cpp:663
 msgid "Click to add a nickname to the list."
 msgstr "목록에 닉네임을 추가하기 위해 클릭"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:267
+#. i18n: file: src/config/watchednicknames_configui.ui:267
 #. i18n: ectx: property (whatsThis), widget (KPushButton, removeButton)
-#: rc.cpp:633
+#: rc.cpp:669
 msgid "Click to remove the selected nickname from the list."
 msgstr "목록에서 선택된 닉네임을 제거하기 위해 클릭."
 
-#. i18n: file: src/preferences/log_preferences.ui:23
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_Log)
-#: rc.cpp:639
-msgid "&Enable Logging"
-msgstr "로그인 사용하기(&E)"
+#. i18n: file: src/config/tabs_configui.ui:17
+#. i18n: ectx: property (windowTitle), widget (QWidget, Tabs_PreferencesUI)
+#: rc.cpp:675
+msgid "TabBar_Config"
+msgstr "탭막대 설정"
 
-#. i18n: file: src/preferences/log_preferences.ui:32
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_LowerLog)
-#: rc.cpp:642
-msgid "Enable &lower case logfile names"
-msgstr "소문자 로그파일 이름 사용하기(%L)"
+#. i18n: file: src/config/tabs_configui.ui:26
+#. i18n: ectx: property (title), widget (QGroupBox, lookGBox)
+#. i18n: file: src/config/tabnotifications_config.ui:19
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
+#: rc.cpp:678 rc.cpp:1640
+msgid "Look"
+msgstr "찾기"
 
-#. i18n: file: src/preferences/log_preferences.ui:39
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AddHostnameToLog)
-#: rc.cpp:645
-msgid "&Append hostname to logfile names"
-msgstr "로그파일 이름에 호스트이름 추가(&A)"
+#. i18n: file: src/config/tabs_configui.ui:34
+#. i18n: ectx: property (text), widget (QLabel, placementLabel)
+#: rc.cpp:681
+#, fuzzy
+msgid "Placement:"
+msgstr "대체:"
 
-#. i18n: file: src/preferences/log_preferences.ui:46
-#. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:648
-msgid "Logfile &path:"
-msgstr "로그파일 경로(&P):"
+#. i18n: file: src/config/tabs_configui.ui:45
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
+#: rc.cpp:684
+#, fuzzy
+#| msgid "Topic"
+msgid "Top"
+msgstr "주제"
 
-#. i18n: file: src/preferences/log_preferences.ui:69
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseExternalLogViewer)
-#: rc.cpp:651
-msgid "Use system text editor to open logs"
+#. i18n: file: src/config/tabs_configui.ui:50
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
+#: rc.cpp:687
+msgid "Bottom"
 msgstr ""
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:25
+#. i18n: file: src/config/tabs_configui.ui:55
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
+#: rc.cpp:690
+msgid "Left"
+msgstr ""
+
+#. i18n: file: src/config/tabs_configui.ui:81
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CloseButtons)
+#: rc.cpp:693
+#, fuzzy
+msgid "Show &close button on tabs"
+msgstr "각 탭에 닫기 버튼 보임(&U)"
+
+#. i18n: file: src/config/tabs_configui.ui:88
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTabBarCloseButton)
+#: rc.cpp:696
+#, fuzzy
+msgid "Show a close button on the &right side of the tab bar"
+msgstr "탭 막대의 오른쪽에 닫기 버튼 보이기(&D)"
+
+#. i18n: file: src/config/tabs_configui.ui:95
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseMaxSizedTabs)
+#: rc.cpp:699
+#, fuzzy
+msgid "Limit the &size of the tab labels to fit all on screen"
+msgstr "스크린의 크기에 맞춰 탭 레이블의 크기 제한하기"
+
+#. i18n: file: src/config/tabs_configui.ui:105
+#. i18n: ectx: property (title), widget (QGroupBox, focusGBox)
+#: rc.cpp:702
+#, fuzzy
+msgid "Focus"
+msgstr "커서부터"
+
+#. i18n: file: src/config/tabs_configui.ui:111
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_BringToFront)
+#: rc.cpp:705
+msgid "&Focus new tabs"
+msgstr ""
+
+#. i18n: file: src/config/tabs_configui.ui:118
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_FocusNewQueries)
+#: rc.cpp:708
+msgid "Focus new &queries"
+msgstr ""
+
+#. i18n: file: src/config/tabs_configui.ui:128
+#. i18n: ectx: property (title), widget (QGroupBox, mouseGBox)
+#: rc.cpp:711
+#, fuzzy
+msgid "Mouse"
+msgstr "모드"
+
+#. i18n: file: src/config/tabs_configui.ui:134
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_MiddleClickClose)
+#: rc.cpp:714
+msgid "&Middle-click on a tab to close it"
+msgstr ""
+
+#. i18n: file: src/config/autoreplace_configui.ui:43
+#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
+#. i18n: file: src/config/highlight_configui.ui:131
+#. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
+#: rc.cpp:717 rc.cpp:924
+msgid "RegEx"
+msgstr ""
+
+#. i18n: file: src/config/autoreplace_configui.ui:48
+#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
+#: rc.cpp:720
+#, fuzzy
+msgid "Replace In"
+msgstr "대체"
+
+#. i18n: file: src/config/autoreplace_configui.ui:53
+#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
+#: rc.cpp:723
+#, fuzzy
+msgid "Find"
+msgstr "찾기(&F)"
+
+#. i18n: file: src/config/autoreplace_configui.ui:58
+#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
+#: rc.cpp:726
+#, fuzzy
+msgid "Replace With"
+msgstr "대체"
+
+#. i18n: file: src/config/autoreplace_configui.ui:68
+#. i18n: ectx: property (text), widget (QPushButton, newButton)
+#: rc.cpp:729
+#, fuzzy
+msgid "Ne&w"
+msgstr "추가"
+
+#. i18n: file: src/config/autoreplace_configui.ui:75
+#. i18n: ectx: property (text), widget (QPushButton, removeButton)
+#: rc.cpp:732
+#, fuzzy
+msgid "R&emove"
+msgstr "제거됨"
+
+#. i18n: file: src/config/autoreplace_configui.ui:111
+#. i18n: ectx: property (text), widget (QLabel, directionLabel)
+#: rc.cpp:735
+#, fuzzy
+msgid "Replace in:"
+msgstr "대체:"
+
+#. i18n: file: src/config/autoreplace_configui.ui:143
+#. i18n: ectx: property (text), widget (QLabel, patternLabel)
+#: rc.cpp:738
+#, fuzzy
+msgid "Find:"
+msgstr "찾기(&F)"
+
+#. i18n: file: src/config/autoreplace_configui.ui:177
+#. i18n: ectx: property (text), widget (QPushButton, regExpEditorButton)
+#. i18n: file: src/config/highlight_configui.ui:245
+#. i18n: ectx: property (text), widget (KPushButton, patternButton)
+#: rc.cpp:741 rc.cpp:948
+msgid "..."
+msgstr "..."
+
+#. i18n: file: src/config/autoreplace_configui.ui:198
+#. i18n: ectx: property (text), widget (QLabel, replacementLabel)
+#: rc.cpp:744
+#, fuzzy
+msgid "Replace with:"
+msgstr "대체:"
+
+#. i18n: file: src/config/ignore_configui.ui:45
+#. i18n: ectx: property (text), widget (QTreeWidget, ignoreListView)
+#: rc.cpp:747
+msgid "Pattern"
+msgstr "패턴"
+
+#. i18n: file: src/config/ignore_configui.ui:50
+#. i18n: ectx: property (text), widget (QTreeWidget, ignoreListView)
+#: rc.cpp:750
+msgid "Type"
+msgstr "형식"
+
+#. i18n: file: src/config/ignore_configui.ui:58
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: rc.cpp:753
+msgid "Pattern:"
+msgstr "패턴:"
+
+#. i18n: file: src/config/ignore_configui.ui:77
+#. i18n: ectx: property (title), widget (QGroupBox, grpMessageTypes)
+#: rc.cpp:756
+msgid "Message Types"
+msgstr "메시지 형식"
+
+#. i18n: file: src/config/ignore_configui.ui:137
+#. i18n: ectx: property (text), widget (KPushButton, removeAllButton)
+#: rc.cpp:780
+msgid "Remove &All"
+msgstr "모두 제거(&A)"
+
+#. i18n: file: src/config/generalbehavior_config.ui:25
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowTrayIcon)
-#: rc.cpp:654
+#: rc.cpp:783
 msgid "Enable System Tray"
 msgstr "시스템 트레이 사용하기"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:37
+#. i18n: file: src/config/generalbehavior_config.ui:37
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TrayNotify)
-#: rc.cpp:657
+#: rc.cpp:786
 msgid "&Use system tray for new message notification"
 msgstr "새 메시지 알림에 대해 시스템 트레이 사용하기(&U)"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:65
+#. i18n: file: src/config/generalbehavior_config.ui:65
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TrayNotifyOnlyOwnNick)
-#: rc.cpp:660
+#: rc.cpp:789
 #, fuzzy
 msgid "Only &notify when a highlight is triggered or your current nick is used"
 msgstr "강조문장이나 당신의 현재 닉네임이 사용될 때만 알림"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:92
+#. i18n: file: src/config/generalbehavior_config.ui:92
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TrayNotifyBlink)
-#: rc.cpp:663
+#: rc.cpp:792
 msgid "Blin&k the icon"
 msgstr ""
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:101
+#. i18n: file: src/config/generalbehavior_config.ui:101
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideToTrayOnStartup)
-#: rc.cpp:666
+#: rc.cpp:795
 msgid "Hide window on startup"
 msgstr ""
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:111
+#. i18n: file: src/config/generalbehavior_config.ui:111
 #. i18n: ectx: property (title), widget (QGroupBox, middleLabel)
-#: rc.cpp:669
+#: rc.cpp:798
 msgid "Nickname Completion"
 msgstr "닉네임 완성"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:117
+#. i18n: file: src/config/generalbehavior_config.ui:117
 #. i18n: ectx: property (text), widget (QLabel, modeLbl)
-#: rc.cpp:672
+#: rc.cpp:801
 msgid "Completion &mode:"
 msgstr "완성 모드(&M):"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:131
+#. i18n: file: src/config/generalbehavior_config.ui:131
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_NickCompletionMode)
-#: rc.cpp:675
+#: rc.cpp:804
 msgid "Cycle NickList"
 msgstr "닉네임 목록 순환"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:136
+#. i18n: file: src/config/generalbehavior_config.ui:136
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_NickCompletionMode)
-#: rc.cpp:678
+#: rc.cpp:807
 msgid "Shell-Like"
 msgstr "쉘 같은 형태"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:141
+#. i18n: file: src/config/generalbehavior_config.ui:141
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_NickCompletionMode)
-#: rc.cpp:681
+#: rc.cpp:810
 msgid "Shell-Like with Completion Box"
 msgstr "완성 박스가 있는 쉘 같은 형태"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:152
+#. i18n: file: src/config/generalbehavior_config.ui:152
 #. i18n: ectx: property (text), widget (QLabel, startOfLineLabel)
-#: rc.cpp:684
+#: rc.cpp:813
 msgid "Suffi&x at start of line:"
 msgstr "행의 시작에 접미사(&X):"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:168
+#. i18n: file: src/config/generalbehavior_config.ui:168
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
-#: rc.cpp:687
+#: rc.cpp:816
 msgid "&Elsewhere:"
 msgstr "다른데서(&E):"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:181
+#. i18n: file: src/config/generalbehavior_config.ui:181
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_NickCompletionCaseSensitive)
-#: rc.cpp:690
+#: rc.cpp:819
 msgid "Case sensitive"
 msgstr "대소문자 구분"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:194
+#. i18n: file: src/config/generalbehavior_config.ui:194
 #. i18n: ectx: property (title), widget (QGroupBox, miscGBox)
-#: rc.cpp:693
+#: rc.cpp:822
 msgid "Miscellaneous"
 msgstr ""
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:200
+#. i18n: file: src/config/generalbehavior_config.ui:200
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DisableNotifyWhileAway)
-#: rc.cpp:696
+#: rc.cpp:825
 msgid "Disable notifications while &away"
 msgstr "자리비움일 때 알림 사용하지 않기(&A)"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:207
+#. i18n: file: src/config/generalbehavior_config.ui:207
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomVersionReplyEnabled)
-#: rc.cpp:699
+#: rc.cpp:828
 msgid "Use custom &version reply:"
 msgstr "사용자 정의 버전 응답 사용(&V):"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:217
+#. i18n: file: src/config/generalbehavior_config.ui:217
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, kcfg_CustomVersionReply)
-#: rc.cpp:702
+#: rc.cpp:831
 msgid ""
 "<qt>Here you can set a custom reply for <b>CTCP <i>VERSION</i></b> requests."
 "</qt>"
@@ -6980,90 +7327,90 @@ msgstr ""
 "<qt>여기에 <b>CTCP <i>버전</i></b> 요청에 대한 사용자의 응답을 설정 할 수 있"
 "습니다.</qt>"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:237
+#. i18n: file: src/config/generalbehavior_config.ui:237
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseMultiRowInputBox)
-#: rc.cpp:705
+#: rc.cpp:834
 msgid "Input box expands with text"
 msgstr ""
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:251
+#. i18n: file: src/config/generalbehavior_config.ui:251
 #. i18n: ectx: property (text), widget (QLabel, commandCharLabel)
-#: rc.cpp:708
+#: rc.cpp:837
 msgid "Comman&d char:"
 msgstr "명령 문자(&D):"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:264
+#. i18n: file: src/config/generalbehavior_config.ui:264
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseCustomBrowser)
-#: rc.cpp:711
+#: rc.cpp:840
 #, fuzzy
 msgid "Use custom web &browser:"
 msgstr "사용자 정의 웹 브라우저 사용(&B):"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:17
+#. i18n: file: src/config/dcc_configui.ui:17
 #. i18n: ectx: property (windowTitle), widget (QWidget, DCC_ConfigUI)
-#: rc.cpp:714
+#: rc.cpp:843
 msgid "DCC_Settings"
 msgstr "DCC 설정"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:26
+#. i18n: file: src/config/dcc_configui.ui:26
 #. i18n: ectx: property (text), widget (QLabel, dccPathLbl)
-#: rc.cpp:717
+#: rc.cpp:846
 msgid "Download &folder:"
 msgstr "다운로드 폴더(&F):"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:49
+#. i18n: file: src/config/dcc_configui.ui:49
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAddPartner)
-#: rc.cpp:720
+#: rc.cpp:849
 msgid "&Add sender to file name"
 msgstr "파일에 전송자 추가(&A)"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:56
+#. i18n: file: src/config/dcc_configui.ui:56
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccCreateFolder)
-#: rc.cpp:723
+#: rc.cpp:852
 msgid "Cr&eate folder for sender"
 msgstr "전송자에 대해 폴더 생성(&E)"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:63
+#. i18n: file: src/config/dcc_configui.ui:63
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpaceToUnderscore)
-#: rc.cpp:726
+#: rc.cpp:855
 msgid "Convert spaces in file names to underscores before sending"
 msgstr ""
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:73
+#. i18n: file: src/config/dcc_configui.ui:73
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAutoGet)
-#: rc.cpp:729
+#: rc.cpp:858
 #, fuzzy
 msgid "Automaticall&y accept download offer"
 msgstr "자동으로 다운로드 요청 수락(&Y)"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:80
+#. i18n: file: src/config/dcc_configui.ui:80
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAutoResume)
-#: rc.cpp:732
+#: rc.cpp:861
 msgid "Au&tomatically resume download"
 msgstr "자동으로 다운로드 재개하기(&T)"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:87
+#. i18n: file: src/config/dcc_configui.ui:87
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccFastSend)
-#: rc.cpp:735
+#: rc.cpp:864
 msgid "Enable fast DCC send (Might &not work with all clients)"
 msgstr ""
 "빠른 DCC 전송 사용하기 (몇몇 클라이언트에서는 작동하지 않을 것입니다)(&N)"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:110
+#. i18n: file: src/config/dcc_configui.ui:110
 #. i18n: ectx: property (text), widget (QLabel, textLabel6)
-#: rc.cpp:738
+#: rc.cpp:867
 msgid "Buffer si&ze:"
 msgstr "버퍼 크기(&Z):"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:123
+#. i18n: file: src/config/dcc_configui.ui:123
 #. i18n: ectx: property (text), widget (QLabel, textLabel7)
-#: rc.cpp:741
+#: rc.cpp:870
 msgid "DCC send t&imeout:"
 msgstr "DCC 전송 시간초과(&I):"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:136
+#. i18n: file: src/config/dcc_configui.ui:136
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DccIPv4Fallback)
-#: rc.cpp:744
+#: rc.cpp:873
 msgid ""
 "If this option enabled dcc transfers for IPv6 connections will be done over "
 "IPv4 interface set here"
@@ -7071,320 +7418,279 @@ msgstr ""
 "만약 이 옵션이 사용되면, 여기서 지정한 IPv4 인터페이스를 통해 IPv6 통신에 대"
 "한 dcc 전송이 완료될 것입니다."
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:139
+#. i18n: file: src/config/dcc_configui.ui:139
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccIPv4Fallback)
-#: rc.cpp:747
+#: rc.cpp:876
 #, fuzzy
 msgid "Fallback to an IPv&4 interface for DCC send:"
 msgstr "dcc 전송에 대한 IPv&4 인터페이스에 대해 대비:"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:146
+#. i18n: file: src/config/dcc_configui.ui:146
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_DccBufferSize)
-#: rc.cpp:750
+#: rc.cpp:879
 msgid " bytes"
 msgstr "바이트"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:162
+#. i18n: file: src/config/dcc_configui.ui:162
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_DccSendTimeout)
-#: rc.cpp:753
+#: rc.cpp:882
 msgid " sec"
 msgstr "초"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:182
+#. i18n: file: src/config/dcc_configui.ui:182
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccPassiveSend)
-#: rc.cpp:756
+#: rc.cpp:885
 #, fuzzy
 msgid "Enable passive DCC send"
 msgstr "DCC 전송에 대한 지정된 포트 사용하기(&P):"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:240
+#. i18n: file: src/config/dcc_configui.ui:240
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox1)
-#: rc.cpp:759
+#: rc.cpp:888
 msgid "IP"
 msgstr "IP"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:249
+#. i18n: file: src/config/dcc_configui.ui:249
 #. i18n: ectx: property (text), widget (QLabel, textLabel4)
-#: rc.cpp:762
+#: rc.cpp:891
 msgid "&Method to get own IP:"
 msgstr "소유한 IP를 얻기 위한 방법(&M):"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:262
+#. i18n: file: src/config/dcc_configui.ui:262
 #. i18n: ectx: property (text), widget (QLabel, ownIP)
-#: rc.cpp:765
+#: rc.cpp:894
 msgid "O&wn IP:"
 msgstr "소유 IP(&W):"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:281
+#. i18n: file: src/config/dcc_configui.ui:281
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
-#: rc.cpp:768
+#: rc.cpp:897
 #, fuzzy
 msgid "Ports"
 msgstr "포트"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:287
+#. i18n: file: src/config/dcc_configui.ui:287
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpecificChatPorts)
-#: rc.cpp:771
+#: rc.cpp:900
 msgid "Enable specific p&orts for DCC chat:"
 msgstr "DCC 채팅에 대한 지정된 포트 사용하기(&O):"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:326
+#. i18n: file: src/config/dcc_configui.ui:326
 #. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
-#. i18n: file: src/preferences/dcc_preferencesui.ui:391
+#. i18n: file: src/config/dcc_configui.ui:391
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:774 rc.cpp:780
+#: rc.cpp:903 rc.cpp:909
 msgid "to"
 msgstr "to"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:352
+#. i18n: file: src/config/dcc_configui.ui:352
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpecificSendPorts)
-#: rc.cpp:777
+#: rc.cpp:906
 #, fuzzy
 msgid "Enable specific &ports for DCC transfer server:"
 msgstr "DCC 전송에 대한 지정된 포트 사용하기(&P):"
 
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:25
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsText)
-#: rc.cpp:786
-msgid "Use colored text"
-msgstr "색상 적용된 글자 사용하기"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:35
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsLeds)
-#: rc.cpp:789
-msgid "Use colored LEDs"
-msgstr "색상 적용된 LED 사용하기"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:51
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsSystem)
-#: rc.cpp:795
-msgid ""
-"Application events occur in Konsole tabs, the DCC Status tab and other "
-"application tabs not used directly for chatting."
-msgstr ""
-"응용프로그램 이벤트는 콘솔탭, DCC 상태 탭에서 발생하며, 다른 응용프로그램 탭"
-"은 채팅에 직접적으로 사용되지 않습니다."
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:54
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsSystem)
-#: rc.cpp:798
-msgid "Application event"
-msgstr "응용프로그램 이벤트"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:87
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsMsgs)
-#: rc.cpp:801
-msgid "Message"
-msgstr "메시지"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:143
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsPrivate)
-#: rc.cpp:804
-#, fuzzy
-msgid "Private message"
-msgstr "서버 메시지(&S):"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:167
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsNick)
-#: rc.cpp:807
-msgid "Current nick used"
-msgstr "현재 사용 닉네임"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:223
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsEvents)
-#: rc.cpp:810
-msgid "Channel events are mode changes or users joining/leaving a channel."
-msgstr "채널 이벤트는 모드 변경이나 사용자 입장/퇴장 입니다. "
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:226
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsEvents)
-#: rc.cpp:813
-msgid "Channel event"
-msgstr "채널 이벤트"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:275
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox10)
-#. i18n: file: src/viewer/searchbarbase.ui:92
-#. i18n: ectx: property (text), widget (QToolButton, m_optionsButton)
-#: rc.cpp:819 rc.cpp:1715
-#, fuzzy
-#| msgid "Exception"
-msgid "Options"
-msgstr "예외"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:281
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsOverride)
-#: rc.cpp:822
-msgid ""
-"If you select this, the colors you chose in the Highlights preferences page "
-"will override the colors for \"Current nick used\" and \"Highlight\"."
-msgstr ""
-"만약 이것을 선택하면, 강조 설정 페이지에서 선택한 색상이 \"현재 사용 닉네임"
-"\"과 \"강조\"에 대한 색상을 덮을 것입니다."
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:284
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsOverride)
-#: rc.cpp:825
-msgid "Give precedence to chat window highlight colors"
-msgstr "채팅창 강조 색상에 대한 선행 주기"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:25
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_FixedMOTD)
-#: rc.cpp:828
-msgid "Show MOTD (Message Of The Day) message in fixed font"
-msgstr "고정폭 글꼴로 MOTD(Messages Of The Day, 그날의 메시지) 보이기"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:28
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_FixedMOTD)
-#: rc.cpp:831
-msgid "Enable fi&xed font for MOTD messages"
-msgstr "MOTD 메시지에 대해 고정폭 글꼴 사용하기(&X)"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:35
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseBoldNicks)
-#: rc.cpp:834
-#, fuzzy
-msgid "Show sender nicknames &bold in the chat view"
-msgstr "채팅창에서 전송자의 닉네임을 굵게 만들기(&B)"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:61
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomTextFont)
-#: rc.cpp:837
-msgid "Chat text:"
-msgstr "채팅 문장:"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:92
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomListFont)
-#: rc.cpp:840
-msgid "Nickname list:"
-msgstr "닉네임 목록:"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:102
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomTabFont)
-#: rc.cpp:843
-msgid "Tab bar:"
-msgstr "탭 막대:"
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:20
+#. i18n: file: src/config/highlight_configui.ui:20
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightSoundsEnabled)
-#: rc.cpp:846
+#: rc.cpp:912
 #, fuzzy
 msgid "Ena&ble sound for highlights"
 msgstr "강조된 목록 항목에 대해 사운드 사용하기(&B)"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:47
+#. i18n: file: src/config/highlight_configui.ui:47
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightNick)
-#: rc.cpp:849
+#: rc.cpp:915
 msgid "Alwa&ys highlight own current nick:"
 msgstr "현재 자신의 닉네임을 항상 강조하기(&Y):"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:54
+#. i18n: file: src/config/highlight_configui.ui:54
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightOwnLines)
-#: rc.cpp:852
+#: rc.cpp:918
 msgid "Always highlight own &lines:"
 msgstr "자신의 행 항상 강조하기(&L):"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:109
+#. i18n: file: src/config/highlight_configui.ui:109
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox1)
-#: rc.cpp:855
+#: rc.cpp:921
 #, fuzzy
 msgid "Highlight List"
 msgstr "강조 목록(&H)"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:131
+#. i18n: file: src/config/highlight_configui.ui:136
 #. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:43
-#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
-#: rc.cpp:858 rc.cpp:1022
-msgid "RegEx"
-msgstr ""
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:136
-#. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
-#: rc.cpp:861
+#: rc.cpp:927
 msgid "Highlights"
 msgstr "강조"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:141
+#. i18n: file: src/config/highlight_configui.ui:141
 #. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
-#: rc.cpp:864
+#: rc.cpp:930
 msgid "Sound"
 msgstr "사운드"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:146
+#. i18n: file: src/config/highlight_configui.ui:146
 #. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
-#: rc.cpp:867
+#: rc.cpp:933
 msgid "Auto Text"
 msgstr "자동 문장"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:205
+#. i18n: file: src/config/highlight_configui.ui:205
 #. i18n: ectx: property (text), widget (QLabel, patternLabel)
-#: rc.cpp:876
+#: rc.cpp:942
 msgid "&Pattern:"
 msgstr "패턴(&P):"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:245
-#. i18n: ectx: property (text), widget (KPushButton, patternButton)
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:177
-#. i18n: ectx: property (text), widget (QPushButton, regExpEditorButton)
-#: rc.cpp:882 rc.cpp:1046
-msgid "..."
-msgstr "..."
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:260
+#. i18n: file: src/config/highlight_configui.ui:260
 #. i18n: ectx: property (text), widget (QLabel, colorLabel)
-#: rc.cpp:885
+#: rc.cpp:951
 #, fuzzy
 msgid "Color:"
 msgstr "색상"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:283
+#. i18n: file: src/config/highlight_configui.ui:283
 #. i18n: ectx: property (text), widget (QLabel, soundLabel)
-#: rc.cpp:888
+#: rc.cpp:954
 msgid "&Sound:"
 msgstr "사운드(&S):"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:307
+#. i18n: file: src/config/highlight_configui.ui:307
 #. i18n: ectx: property (filter), widget (KUrlRequester, soundURL)
-#: rc.cpp:891
+#: rc.cpp:957
 msgid "audio/x-wav audio/x-mp3 application/ogg audio/x-adpcm"
 msgstr "audio/x-wav audio/x-mp3 application/ogg audio/x-adpcm"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:323
+#. i18n: file: src/config/highlight_configui.ui:323
 #. i18n: ectx: property (toolTip), widget (QToolButton, soundPlayBtn)
-#: rc.cpp:894
+#: rc.cpp:960
 #, fuzzy
 msgid "Test sound"
 msgstr "찾기 위한 문장:"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:338
+#. i18n: file: src/config/highlight_configui.ui:338
 #. i18n: ectx: property (text), widget (QLabel, autoTextLabel)
-#: rc.cpp:897
+#: rc.cpp:963
 msgid "&Auto text:"
 msgstr "자동 문장(&A):"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:25
+#. i18n: file: src/config/connectionbehavior_config.ui:25
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoReconnect)
+#: rc.cpp:966
+msgid "Enable Automatic Reconnect"
+msgstr "자동 재연결 사용하기"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:34
+#. i18n: ectx: property (text), widget (QLabel, reconnectDelayLabel)
+#: rc.cpp:969
+#, fuzzy
+msgid "Reconnect delay:"
+msgstr "재연결 초과시간:"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:63
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: rc.cpp:972
+msgid "Reconnection attempts:"
+msgstr "재연결 시도:"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:98
+#. i18n: ectx: property (specialValueText), widget (KIntNumInput, kcfg_ReconnectCount)
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:104
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_ScrollbackMax)
+#: rc.cpp:978 rc.cpp:1349
+msgid "Unlimited"
+msgstr "제한 없음"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:140
+#. i18n: ectx: property (title), widget (QGroupBox, debugGBox)
+#: rc.cpp:981
+msgid "Debug"
+msgstr "디버그"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:146
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_RawLog)
+#: rc.cpp:984
+msgid "Show raw &log window when connecting"
+msgstr "시작하면서 raw 로그 창을 보임(&L)"
+
+#. i18n: file: src/config/konversation.kcfg:21
+#. i18n: ectx: label, entry, group (Appearance)
+#: rc.cpp:989
+#, fuzzy
+#| msgid "Limit the size of the tab labels to fit all on screen"
+msgid "Limit the size of the tab labels to fit them all on screen"
+msgstr "스크린의 크기에 맞춰 탭 레이블의 크기 제한하기"
+
+#. i18n: file: src/config/konversation.kcfg:226
+#. i18n: ectx: label, entry, group (Appearance)
+#: rc.cpp:1058
+msgid "Hide the scrollbar"
+msgstr ""
+
+#. i18n: file: src/config/konversation.kcfg:232
+#. i18n: ectx: whatsthis, entry, group (General Options)
+#: rc.cpp:1061
+msgid ""
+"Enable if you want all the IRC input lines to check your spelling as you type"
+msgstr "당신이 IRC 입력행에 입력한 문장의 맞춤법을 확인하기 원한다면 사용하기"
+
+#. i18n: file: src/config/konversation.kcfg:241
+#. i18n: ectx: whatsthis, entry, group (General Options)
+#: rc.cpp:1064
+msgid ""
+"Enabling this will cause the input box to grow vertically when it fills up."
+msgstr ""
+
+#. i18n: file: src/config/konversation.kcfg:275
+#. i18n: ectx: label, entry, group (General Options)
+#: rc.cpp:1079
+msgid "Start with hidden main window"
+msgstr ""
+
+#. i18n: file: src/config/konversation.kcfg:329
+#. i18n: ectx: label, entry, group (General Options)
+#: rc.cpp:1102
+msgid "&Show real names next to nicknames"
+msgstr "닉네임 다음에 실제 이름 보이기(&S)"
+
+#. i18n: file: src/config/konversation.kcfg:543
+#. i18n: ectx: label, entry (OpenWatchedNicksAtStartup), group (Notify List)
+#: rc.cpp:1186
+msgid "Open Watched Nicks tab at application startup"
+msgstr "응용프로그램 시작 시에 관찰하는 닉네임 탭 열기"
+
+#. i18n: file: src/config/konversation.kcfg:827
+#. i18n: ectx: label, entry, group (Themes)
+#: rc.cpp:1284
+msgid "Enable emoticons"
+msgstr "이모티콘 사용하기"
+
+#. i18n: file: src/config/konversation.kcfg:831
+#. i18n: ectx: label, entry, group (Themes)
+#: rc.cpp:1287
+msgid "Emoticons theme"
+msgstr "이모티콘 테마"
+
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:25
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_Beep)
-#: rc.cpp:903
+#: rc.cpp:1314
 msgid ""
 "Sounds the system bell when you receive an ASCII BEL (0x07) control character"
 msgstr "아스키 벨(0x07) 제어 문자를 받았을 때 시스템 밸 소리내기"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:28
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:28
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_Beep)
-#: rc.cpp:906
+#: rc.cpp:1317
 msgid "Enable s&ystem bell on incoming ASCII BEL"
 msgstr "ASCII 벨로 시스템 벨 사용하기(&Y)"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:35
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:35
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideUnimportantEvents)
-#: rc.cpp:909
+#: rc.cpp:1320
 msgid "Hide &Join/Part/Nick events"
 msgstr "입장/최장/닉네임 이벤트 숨기기(&J)"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:42
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:42
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DisableExpansion)
-#: rc.cpp:913
+#: rc.cpp:1324
 #, no-c-format
 msgid ""
 "Do not expand variables when sending text to the server. A variable starts "
@@ -7394,37 +7700,37 @@ msgstr ""
 "서버에 텍스트를 전송할 때 변수를 확장하지 마십시오. '%'로 시작하는 변수, 예"
 "를 들어 %B는 텍스트를 굵게 표시하는데 필요한 문자로 확장될 것입니다."
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:45
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:45
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DisableExpansion)
-#: rc.cpp:917
+#: rc.cpp:1328
 #, no-c-format
 msgid "Disable variable (e.g. %C, %B, %G...) e&xpansion"
 msgstr "변수 확장 (예를 들어 %C, %B, %G...) 사용하지 않기"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:52
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:52
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_RedirectServerAndAppMsgToStatusPane)
-#: rc.cpp:920
+#: rc.cpp:1331
 #, fuzzy
 msgid "&Redirect status messages to the server status window"
 msgstr "서버 상태 창에 모든 상태 메시지 보내기(&R)"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:59
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:59
 #. i18n: ectx: property (whatsThis), widget (QLabel, textLabel1)
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:101
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:101
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_ScrollbackMax)
-#: rc.cpp:923 rc.cpp:935
+#: rc.cpp:1334 rc.cpp:1346
 msgid "How many lines to keep in buffers, 0 = unlimited"
 msgstr "얼마나 많은 행을 버퍼에 저장하시겠습니까? 0 = 제한없음"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:62
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:62
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:926
+#: rc.cpp:1337
 msgid "Scroll&back limit:"
 msgstr "스크롤 백 제한(&B):"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:91
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:91
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_UseLiteralModes)
-#: rc.cpp:929
+#: rc.cpp:1340
 msgid ""
 "Keep channel mode string as a combination of characters instead of "
 "translating them into human readable words. E.g. '*** Channel modes: no "
@@ -7434,480 +7740,369 @@ msgstr ""
 "드 문장을 유지하십시오. 예를 들어 '*** 채널 모드: 외부 메시지 없음'이 '*** 채"
 "널 모드: n'으로 변경될 것입니다."
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:94
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:94
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseLiteralModes)
-#: rc.cpp:932
+#: rc.cpp:1343
 msgid "&Use raw modes for mode changes"
 msgstr "모드 변경에 대해 raw 모드 사용하기(&U)"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:107
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:107
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_ScrollbackMax)
-#: rc.cpp:941
+#: rc.cpp:1352
 msgid " lines"
 msgstr " 온라인"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:136
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:136
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox3_2)
-#: rc.cpp:944
+#: rc.cpp:1355
 #, fuzzy
 msgid "Marker Lines"
 msgstr "서버 목록"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:142
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:142
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_AutomaticRememberLine)
-#: rc.cpp:947
+#: rc.cpp:1358
 msgid ""
 "Inserts a remember line into the chat window when you switch to another chat "
 "window or minimize the application."
 msgstr ""
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:145
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:145
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutomaticRememberLine)
-#: rc.cpp:950
+#: rc.cpp:1361
 msgid "Mark the last position in a chat window when it is hidden"
 msgstr ""
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:176
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:176
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutomaticRememberLineOnlyOnTextChange)
-#: rc.cpp:953
+#: rc.cpp:1364
 msgid "Move the line only when new text is about to be shown"
 msgstr ""
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:185
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:185
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MarkerLineInAllViews)
-#: rc.cpp:956
+#: rc.cpp:1367
 #, fuzzy
 msgid "Show manually inserted lines in all chat windows"
 msgstr "모든 채널과 쿼리에서 기억한 행 보이기(&Q)"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:195
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:195
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoWhoContinuousEnabled)
-#: rc.cpp:959
+#: rc.cpp:1370
 msgid "Enable Automatic User Information Look Up (/WHO)"
 msgstr "자동 사용자 정보 검색 사용하기 (/WHO)"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:239
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:239
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:962
+#: rc.cpp:1373
 msgid "Max. number of users in a channel:"
 msgstr "채널에서의 사용자 최대 수:"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:252
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:252
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_AutoWhoNicksLimit)
-#: rc.cpp:965
+#: rc.cpp:1376
 msgid " nicks"
 msgstr " 닉네임"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:287
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:287
 #. i18n: ectx: property (text), widget (QLabel, whoIntervalLbl)
-#: rc.cpp:971
+#: rc.cpp:1382
 msgid "Update interval:"
 msgstr "업데이트 주기:"
 
-#. i18n: file: src/preferences/osd_preferencesui.ui:35
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOSD)
-#: rc.cpp:974
-msgid "&Enable On Screen Display"
-msgstr "스크린 표시 사용하기(&E)"
+#. i18n: file: src/config/nicklistbehavior_configui.ui:26
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#: rc.cpp:1385
+msgid "&Command to be executed on double click:"
+msgstr "더블클릭으로 실행될 명령(&C):"
 
-#. i18n: file: src/preferences/osd_preferencesui.ui:45
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
-#: rc.cpp:977
-msgid "On &Screen Display"
-msgstr "스크린 표시할 때(&S)"
+#. i18n: file: src/config/nicklistbehavior_configui.ui:39
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortCaseInsensitive)
+#: rc.cpp:1388
+msgid "Sort case &insensitive"
+msgstr "대소문자 구분하여 정렬"
 
-#. i18n: file: src/preferences/osd_preferencesui.ui:54
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDDrawShadow)
-#: rc.cpp:980
-msgid "&Draw shadows"
-msgstr "그림자 그리기(&D)"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:67
-#. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:983
-msgid "OSD font:"
-msgstr "OSD 글꼴:"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:135
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
-#: rc.cpp:986
-msgid "Show &OSD Message"
-msgstr "OSD 메시지 보이기(&O)"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:141
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowOwnNick)
-#: rc.cpp:989
-msgid "&If own nick appears in channel message"
-msgstr "만약 채널 메시지에서 닉네임이 나타나면(&I)"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:148
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowChannel)
-#: rc.cpp:992
-msgid "On an&y channel message"
-msgstr "어떤 채널 메시지에도(&Y)"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:155
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowQuery)
-#: rc.cpp:995
-msgid "On &query activity"
+#. i18n: file: src/config/nicklistbehavior_configui.ui:46
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortByActivity)
+#: rc.cpp:1391
+#, fuzzy
+msgid "Sort by &activity"
 msgstr "쿼리 활성화 시(&Q)"
 
-#. i18n: file: src/preferences/osd_preferencesui.ui:162
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowChannelEvent)
-#: rc.cpp:998
-msgid "On &Join/Part events"
-msgstr "입장/퇴장 이벤트 시(&J)"
+#. i18n: file: src/config/nicklistbehavior_configui.ui:59
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortByStatus)
+#: rc.cpp:1394
+msgid "Sort b&y user status"
+msgstr "사용자 상태로 정렬(&Y)"
 
-#. i18n: file: src/preferences/osd_preferencesui.ui:175
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_OSDUseCustomColors)
-#: rc.cpp:1001
-msgid "Enable Custom Colors"
-msgstr "사용잦 지정 색상 사용하기"
+#. i18n: file: src/config/nicklistbehavior_configui.ui:72
+#. i18n: ectx: property (text), widget (QLabel, orderHintLabel)
+#: rc.cpp:1397
+msgid "(Reorder nick sorting order by drag and drop)"
+msgstr "(드래그 앤 드랍으로 닉네임 정렬 순서 재 정렬)"
 
-#. i18n: file: src/preferences/osd_preferencesui.ui:187
-#. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:1004
-msgid "Te&xt color:"
-msgstr "텍스트 색상(&X):"
+#. i18n: file: src/config/nicklistbehavior_configui.ui:103
+#. i18n: ectx: property (text), widget (QTreeWidget, sortOrder)
+#: rc.cpp:1403
+msgid "Explanation"
+msgstr "설명"
 
-#. i18n: file: src/preferences/osd_preferencesui.ui:200
-#. i18n: ectx: property (text), widget (QLabel, textLabel3)
-#. i18n: file: src/viewer/irccolorchooserui.ui:122
-#. i18n: ectx: property (text), widget (QLabel, m_bgColorLbl)
-#: rc.cpp:1007 rc.cpp:1775
-msgid "&Background color:"
-msgstr "배경 색상(&B):"
+#. i18n: file: src/config/fontappearance_config.ui:25
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_FixedMOTD)
+#: rc.cpp:1406
+msgid "Show MOTD (Message Of The Day) message in fixed font"
+msgstr "고정폭 글꼴로 MOTD(Messages Of The Day, 그날의 메시지) 보이기"
 
-#. i18n: file: src/preferences/osd_preferencesui.ui:249
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
-#: rc.cpp:1010
-msgid "O&ther Settings"
-msgstr "다른 설정(&T)"
+#. i18n: file: src/config/fontappearance_config.ui:28
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_FixedMOTD)
+#: rc.cpp:1409
+msgid "Enable fi&xed font for MOTD messages"
+msgstr "MOTD 메시지에 대해 고정폭 글꼴 사용하기(&X)"
 
-#. i18n: file: src/preferences/osd_preferencesui.ui:255
-#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:1013
-msgid "&Duration:"
-msgstr "지속기간(&D):"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:268
-#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
-#: rc.cpp:1016
-msgid "S&creen:"
-msgstr "스크린(&C):"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:281
-#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_OSDDuration)
-#: rc.cpp:1019
-msgid " ms"
-msgstr " ms"
-
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:48
-#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
-#: rc.cpp:1025
+#. i18n: file: src/config/fontappearance_config.ui:35
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseBoldNicks)
+#: rc.cpp:1412
 #, fuzzy
-msgid "Replace In"
-msgstr "대체"
+msgid "Show sender nicknames &bold in the chat view"
+msgstr "채팅창에서 전송자의 닉네임을 굵게 만들기(&B)"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:53
-#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
-#: rc.cpp:1028
-#, fuzzy
-msgid "Find"
-msgstr "찾기(&F)"
+#. i18n: file: src/config/fontappearance_config.ui:61
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomTextFont)
+#: rc.cpp:1415
+msgid "Chat text:"
+msgstr "채팅 문장:"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:58
-#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
-#: rc.cpp:1031
-#, fuzzy
-msgid "Replace With"
-msgstr "대체"
+#. i18n: file: src/config/fontappearance_config.ui:92
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomListFont)
+#: rc.cpp:1418
+msgid "Nickname list:"
+msgstr "닉네임 목록:"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:68
-#. i18n: ectx: property (text), widget (QPushButton, newButton)
-#: rc.cpp:1034
-#, fuzzy
-msgid "Ne&w"
-msgstr "추가"
+#. i18n: file: src/config/fontappearance_config.ui:102
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomTabFont)
+#: rc.cpp:1421
+msgid "Tab bar:"
+msgstr "탭 막대:"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:75
+#. i18n: file: src/config/theme_configui.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, Theme_ConfigUI)
+#: rc.cpp:1424
+msgid "Theme_Config"
+msgstr "테마 설정"
+
+#. i18n: file: src/config/theme_configui.ui:28
+#. i18n: ectx: property (text), widget (QPushButton, installButton)
+#: rc.cpp:1427
+msgid "I&nstall Theme..."
+msgstr "테마 설치(&N)..."
+
+#. i18n: file: src/config/theme_configui.ui:38
 #. i18n: ectx: property (text), widget (QPushButton, removeButton)
-#: rc.cpp:1037
+#: rc.cpp:1430
+msgid "&Remove Theme"
+msgstr "테마 제거(&R)"
+
+#. i18n: file: src/config/theme_configui.ui:78
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel1)
+#: rc.cpp:1433
+msgid "Icon for normal users"
+msgstr "일반 사용자에 대한 아이콘"
+
+#. i18n: file: src/config/theme_configui.ui:97
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel2)
+#: rc.cpp:1436
+msgid "Icon for away users"
+msgstr "자리비운 사용자에 대한 아이콘"
+
+#. i18n: file: src/config/theme_configui.ui:113
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel3)
+#: rc.cpp:1439
+msgid "Icon for users with voice"
+msgstr "발언권을 갖고 있는 사용자에 대한 아이콘"
+
+#. i18n: file: src/config/theme_configui.ui:129
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel4)
+#: rc.cpp:1442
 #, fuzzy
-msgid "R&emove"
-msgstr "제거됨"
+msgid "Icon for users with half-operator privileges"
+msgstr "부운영권자 권한을 갖고 있는 사용자에 대한 아이콘"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:111
-#. i18n: ectx: property (text), widget (QLabel, directionLabel)
-#: rc.cpp:1040
+#. i18n: file: src/config/theme_configui.ui:145
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel5)
+#: rc.cpp:1445
 #, fuzzy
-msgid "Replace in:"
-msgstr "대체:"
+msgid "Icon for users with operator privileges"
+msgstr "운영자 권한을 갖고 있는 사용자에 대한 아이콘"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:143
-#. i18n: ectx: property (text), widget (QLabel, patternLabel)
-#: rc.cpp:1043
-#, fuzzy
-msgid "Find:"
-msgstr "찾기(&F)"
+#. i18n: file: src/config/theme_configui.ui:161
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel6)
+#: rc.cpp:1448
+msgid "Icon for users with admin privileges"
+msgstr "관리자 권한을 갖고 있는 사용자에 대한 아이콘"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:198
-#. i18n: ectx: property (text), widget (QLabel, replacementLabel)
-#: rc.cpp:1049
-#, fuzzy
-msgid "Replace with:"
-msgstr "대체:"
+#. i18n: file: src/config/theme_configui.ui:177
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel7)
+#: rc.cpp:1451
+msgid "Icon for users with owner privileges"
+msgstr "소유자 권한을 갖고 있는 사용자에 대한 아이콘"
 
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:23
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_Timestamping)
-#: rc.cpp:1052
-msgid "Enable &Timestamps"
-msgstr "타임스탬프 사용하기(&T)"
+#. i18n: file: src/config/theme_configui.ui:202
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: rc.cpp:1454
+msgid "Preview:"
+msgstr "미리보기:"
 
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:32
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowDate)
-#: rc.cpp:1055
-#, fuzzy
-msgid "Sho&w dates"
-msgstr "날짜보기(&D)"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:39
-#. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:1058
-msgid "&Format:"
-msgstr "형식(&F):"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:78
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowBacklog)
-#: rc.cpp:1061
-#, fuzzy
-msgid "Show &Backlog"
-msgstr "이전로그 보기"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:87
-#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:1064
-msgid "&Lines: "
-msgstr "행(&L): "
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:129
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
-#: rc.cpp:1067
-msgid "&Layout"
-msgstr "레이아웃(&L)"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:135
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTopic)
-#: rc.cpp:1070
-msgid "&Show channel topic"
-msgstr "채널 주제 보기(&S)"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:142
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowModeButtons)
-#: rc.cpp:1073
-msgid "Show channel &mode buttons"
-msgstr "채널 모드 버튼 보이기(&M)"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:149
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowNickList)
-#: rc.cpp:1076
-msgid "Show channel &nick list and quick buttons"
-msgstr "채널 닉네임 목록과 빠른 버튼 보이기(&N)"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:177
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoUserhost)
-#: rc.cpp:1079
-msgid "Show hostmas&ks in nickname list"
-msgstr "닉네임 목록에서 호스트마스크 보이기(&K)"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:207
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowRealNames)
-#: rc.cpp:1082
-#, fuzzy
-msgid "Show real names in nickname list"
-msgstr "닉네임 다음에 실제 이름 보이기(&S)"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:237
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowQuickButtons)
-#: rc.cpp:1085
-msgid "Show &quick buttons"
-msgstr "빠른 버튼 보이기(&Q)"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:246
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowNicknameBox)
-#: rc.cpp:1088
-msgid "Show bo&x to change own nickname"
-msgstr "가지고 있는 닉네임을 변경하기 위해 박스 보이기(&X)"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:253
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowIRCViewScrollBar)
-#: rc.cpp:1091
-msgid "Show sc&rollbar"
-msgstr ""
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:266
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowBackgroundImage)
-#: rc.cpp:1094
-msgid "Enable Back&ground Image"
-msgstr "배경 이미지 사용하기(&G)"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:275
-#. i18n: ectx: property (text), widget (QLabel, textLabel4)
-#: rc.cpp:1097
-msgid "P&ath:"
-msgstr "경로(&A):"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:30
+#. i18n: file: src/config/colorsappearance_config.ui:30
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox1)
-#: rc.cpp:1100
+#: rc.cpp:1457
 msgid "Custom Colors"
 msgstr "사용자 지정 색상"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:36
+#. i18n: file: src/config/colorsappearance_config.ui:36
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_InputFieldsBackgroundColor)
-#: rc.cpp:1103
+#: rc.cpp:1460
 msgid "&Use custom colors for input box, nickname list and tab list"
 msgstr ""
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:273
+#. i18n: file: src/config/colorsappearance_config.ui:273
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
-#: rc.cpp:1106
+#: rc.cpp:1463
 msgid "&Background:"
 msgstr "배경(&B):"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:286
+#. i18n: file: src/config/colorsappearance_config.ui:286
 #. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
-#: rc.cpp:1109
+#: rc.cpp:1466
 msgid "&Server message:"
 msgstr "서버 메시지(&S):"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:299
+#. i18n: file: src/config/colorsappearance_config.ui:299
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:1112
+#: rc.cpp:1469
 msgid "H&yperlink:"
 msgstr "하이퍼링크(&Y):"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:312
+#. i18n: file: src/config/colorsappearance_config.ui:312
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:1115
+#: rc.cpp:1472
 msgid "Channel &message:"
 msgstr "채널 메시지(&M):"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:325
+#. i18n: file: src/config/colorsappearance_config.ui:325
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:1118
+#: rc.cpp:1475
 msgid "Actio&n:"
 msgstr "액션(&N):"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:338
+#. i18n: file: src/config/colorsappearance_config.ui:338
 #. i18n: ectx: property (text), widget (QLabel, textLabel4)
-#: rc.cpp:1121
+#: rc.cpp:1478
 msgid "Bac&klog:"
 msgstr "이전로그(&K):"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:351
+#. i18n: file: src/config/colorsappearance_config.ui:351
 #. i18n: ectx: property (text), widget (QLabel, textLabel5)
-#: rc.cpp:1124
+#: rc.cpp:1481
 msgid "Comman&d message:"
 msgstr "명령 메시지(&D):"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:364
+#. i18n: file: src/config/colorsappearance_config.ui:364
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_8)
-#: rc.cpp:1127
+#: rc.cpp:1484
 msgid "&Query message:"
 msgstr "쿼리 메시지(&Q):"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:377
+#. i18n: file: src/config/colorsappearance_config.ui:377
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_9)
-#: rc.cpp:1130
+#: rc.cpp:1487
 msgid "&Timestamp:"
 msgstr "타임스탬프(&T):"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:390
+#. i18n: file: src/config/colorsappearance_config.ui:390
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_10)
-#: rc.cpp:1133
+#: rc.cpp:1490
 msgid "A&lternate background:"
 msgstr "대채 배경(&L):"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:409
+#. i18n: file: src/config/colorsappearance_config.ui:409
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_UseColoredNicks)
-#: rc.cpp:1136
+#: rc.cpp:1493
 msgid "Colored Nicks"
 msgstr "색상적용된 닉네임"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:424
+#. i18n: file: src/config/colorsappearance_config.ui:424
 #. i18n: ectx: property (text), widget (QLabel, textLabel9)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:868
+#. i18n: file: src/config/colorsappearance_config.ui:868
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_6)
-#: rc.cpp:1139 rc.cpp:1190
+#: rc.cpp:1496 rc.cpp:1547
 msgid "5:"
 msgstr "5:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:447
+#. i18n: file: src/config/colorsappearance_config.ui:447
 #. i18n: ectx: property (text), widget (QLabel, textLabel8)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:878
+#. i18n: file: src/config/colorsappearance_config.ui:878
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_5)
-#: rc.cpp:1142 rc.cpp:1193
+#: rc.cpp:1499 rc.cpp:1550
 msgid "4:"
 msgstr "4:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:470
+#. i18n: file: src/config/colorsappearance_config.ui:470
 #. i18n: ectx: property (text), widget (QLabel, textLabel7)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:794
+#. i18n: file: src/config/colorsappearance_config.ui:794
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_4)
-#: rc.cpp:1145 rc.cpp:1178
+#: rc.cpp:1502 rc.cpp:1535
 msgid "3:"
 msgstr "3:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:500
+#. i18n: file: src/config/colorsappearance_config.ui:500
 #. i18n: ectx: property (text), widget (QLabel, textLabel6)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:778
+#. i18n: file: src/config/colorsappearance_config.ui:778
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_3)
-#: rc.cpp:1148 rc.cpp:1175
+#: rc.cpp:1505 rc.cpp:1532
 msgid "2:"
 msgstr "2:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:587
+#. i18n: file: src/config/colorsappearance_config.ui:587
 #. i18n: ectx: property (text), widget (QLabel, textLabel4_2)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:838
+#. i18n: file: src/config/colorsappearance_config.ui:838
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_14)
-#: rc.cpp:1151 rc.cpp:1181
+#: rc.cpp:1508 rc.cpp:1538
 msgid "0:"
 msgstr "0:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:610
+#. i18n: file: src/config/colorsappearance_config.ui:610
 #. i18n: ectx: property (text), widget (QLabel, textLabel5_2)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:762
+#. i18n: file: src/config/colorsappearance_config.ui:762
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_2)
-#: rc.cpp:1154 rc.cpp:1172
+#: rc.cpp:1511 rc.cpp:1529
 msgid "1:"
 msgstr "1:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:672
+#. i18n: file: src/config/colorsappearance_config.ui:672
 #. i18n: ectx: property (text), widget (QLabel, textLabel11)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:848
+#. i18n: file: src/config/colorsappearance_config.ui:848
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_8)
-#: rc.cpp:1157 rc.cpp:1184
+#: rc.cpp:1514 rc.cpp:1541
 msgid "7:"
 msgstr "7:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:688
+#. i18n: file: src/config/colorsappearance_config.ui:688
 #. i18n: ectx: property (text), widget (QLabel, textLabel10)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:858
+#. i18n: file: src/config/colorsappearance_config.ui:858
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_7)
-#: rc.cpp:1160 rc.cpp:1187
+#: rc.cpp:1517 rc.cpp:1544
 msgid "6:"
 msgstr "6:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:700
+#. i18n: file: src/config/colorsappearance_config.ui:700
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_3)
-#: rc.cpp:1163
+#: rc.cpp:1520
 msgid "&Own nick color:"
 msgstr "가지고 있는 닉네임 색상(&O):"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:744
+#. i18n: file: src/config/colorsappearance_config.ui:744
 #. i18n: ectx: property (whatsThis), widget (QGroupBox, kcfg_AllowColorCodes)
-#: rc.cpp:1166
+#: rc.cpp:1523
 msgid ""
 "By enabling this option, color codes added to IRC messages will be displayed "
 "in your chat window as colored text. You can add color codes to your "
@@ -7917,471 +8112,273 @@ msgstr ""
 "서 색상이 적용된 문장으로 표시될 것입니다. 삽입 -> IRC 색상을 선택하는 것으"
 "로 당신의 메시지에 색상 코드를 추가할 수 있습니다."
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:747
+#. i18n: file: src/config/colorsappearance_config.ui:747
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_AllowColorCodes)
-#: rc.cpp:1169
+#: rc.cpp:1526
 msgid "&Allow Colored Text in IRC Messages"
 msgstr "IRC 메시지에서 색상 적용된 문장 허용하기(&A)"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1051
+#. i18n: file: src/config/colorsappearance_config.ui:1051
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_12)
-#: rc.cpp:1196
+#: rc.cpp:1553
 msgid "11:"
 msgstr "11:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1082
+#. i18n: file: src/config/colorsappearance_config.ui:1082
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_10)
-#: rc.cpp:1199
+#: rc.cpp:1556
 msgid "9:"
 msgstr "9:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1092
+#. i18n: file: src/config/colorsappearance_config.ui:1092
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_9)
-#: rc.cpp:1202
+#: rc.cpp:1559
 msgid "8:"
 msgstr "8:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1102
+#. i18n: file: src/config/colorsappearance_config.ui:1102
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_11)
-#: rc.cpp:1205
+#: rc.cpp:1562
 msgid "10:"
 msgstr "10:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1183
+#. i18n: file: src/config/colorsappearance_config.ui:1183
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_13)
-#: rc.cpp:1208
+#: rc.cpp:1565
 msgid "12:"
 msgstr "12:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1200
+#. i18n: file: src/config/colorsappearance_config.ui:1200
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_16)
-#: rc.cpp:1211
+#: rc.cpp:1568
 msgid "15:"
 msgstr "15:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1224
+#. i18n: file: src/config/colorsappearance_config.ui:1224
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_15)
-#: rc.cpp:1214
+#: rc.cpp:1571
 msgid "14:"
 msgstr "14:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1234
+#. i18n: file: src/config/colorsappearance_config.ui:1234
 #. i18n: ectx: property (text), widget (QLabel, textLabel12)
-#: rc.cpp:1217
+#: rc.cpp:1574
 msgid "13:"
 msgstr "13:"
 
-#. i18n: file: src/preferences/warnings_preferencesui.ui:29
-#. i18n: ectx: property (text), widget (QTreeWidget, dialogListView)
-#: rc.cpp:1220
-msgid "Warning Dialogs to Show"
-msgstr "보이기 위한 대화상자 경고"
+#. i18n: file: src/config/log_config.ui:23
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_Log)
+#: rc.cpp:1577
+msgid "&Enable Logging"
+msgstr "로그인 사용하기(&E)"
 
-#. i18n: file: src/identitydialog.ui:25
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: rc.cpp:1223
-msgid "&Identity:"
-msgstr "사용자(&I):"
+#. i18n: file: src/config/log_config.ui:32
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_LowerLog)
+#: rc.cpp:1580
+msgid "Enable &lower case logfile names"
+msgstr "소문자 로그파일 이름 사용하기(%L)"
 
-#. i18n: file: src/identitydialog.ui:65
-#. i18n: ectx: property (toolTip), widget (KPushButton, newBtn)
-#: rc.cpp:1226
+#. i18n: file: src/config/log_config.ui:39
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AddHostnameToLog)
+#: rc.cpp:1583
+msgid "&Append hostname to logfile names"
+msgstr "로그파일 이름에 호스트이름 추가(&A)"
+
+#. i18n: file: src/config/log_config.ui:46
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: rc.cpp:1586
+msgid "Logfile &path:"
+msgstr "로그파일 경로(&P):"
+
+#. i18n: file: src/config/log_config.ui:69
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseExternalLogViewer)
+#: rc.cpp:1589
+msgid "Use system text editor to open logs"
+msgstr ""
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:23
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_Timestamping)
+#: rc.cpp:1592
+msgid "Enable &Timestamps"
+msgstr "타임스탬프 사용하기(&T)"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:32
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowDate)
+#: rc.cpp:1595
 #, fuzzy
-#| msgid "Add..."
-msgid "Add"
-msgstr "추가..."
+msgid "Sho&w dates"
+msgstr "날짜보기(&D)"
 
-#. i18n: file: src/identitydialog.ui:96
-#. i18n: ectx: property (toolTip), widget (KPushButton, copyBtn)
-#: rc.cpp:1229
-msgid "Duplicate"
-msgstr "복사"
+#. i18n: file: src/config/chatwindowappearance_config.ui:39
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: rc.cpp:1598
+msgid "&Format:"
+msgstr "형식(&F):"
 
-#. i18n: file: src/identitydialog.ui:127
-#. i18n: ectx: property (toolTip), widget (KPushButton, m_editBtn)
-#: rc.cpp:1232
-msgid "Rename"
-msgstr "이름바꿈"
-
-#. i18n: file: src/identitydialog.ui:187
-#. i18n: ectx: property (text), widget (QLabel, realNameLabel)
-#: rc.cpp:1241
-msgid "&Real name:"
-msgstr "실명(&R):"
-
-#. i18n: file: src/identitydialog.ui:197
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_realNameEdit)
-#: rc.cpp:1244
-msgid ""
-"Enter your real name here. IRC is not intended to keep you hidden from your "
-"friends or enemies. Keep this in mind if you are tempted to behave "
-"maliciously. A fake \"real name\" can be a good way to mask your gender from "
-"all the nerds out there, but the PC you use can always be traced so you will "
-"never be truly anonymous."
-msgstr ""
-"여기에 여러분의 실제 이름을 입력하십시오. IRC는 여러분의 친구들이나 적으로부"
-"터 여러분을 숨기도록 유도하지 않습니다. 불법적인 행위를 시도하려 한다면 이 점"
-"을 마음에 새겨두십시오. 가짜 \"실명\"은 우매한 사람들에게 여러분들로부터 여러"
-"분의 성별을 감추는 데에는 좋은 방법입니다만, 여러분이 사용하는 PC는 추적될 "
-"수 있으며 언제까지나 익명이 될 수는 없습니다."
-
-#. i18n: file: src/identitydialog.ui:208
-#. i18n: ectx: property (whatsThis), widget (KEditListBox, m_nicknameLBox)
-#: rc.cpp:1247
-msgid ""
-"This is your list of nicknames. A nickname is the name that other users will "
-"know you by. You may use any name you desire. The first character must be a "
-"letter.\n"
-"\n"
-"Since nicknames must be unique across an entire IRC network, your desired "
-"name may be rejected by the server because someone else is already using "
-"that nickname. Enter alternate nicknames for yourself. If your first choice "
-"is rejected by the server, Konversation will try the alternate nicknames."
-msgstr ""
-"이것은 여러분의 닉네임 목록입니다. 닉네임은 다른 사용자들이 여러분을 알 수 있"
-"는 수단입니다. 여러분이 원하는 이름을 사용하십시오. 닉네임 처음에는 꼭 문자"
-"로 시작해야 합니다.\n"
-"\n"
-"닉네임이 전체 IRC 네트워크를 통틀어 유일해야만 합니다. 여러분이 필요로 하는 "
-"이름이 서버로부터 거절될 수 있는데 이미 누군가 닉네임을 사용하고 있기 때문입"
-"니다. 여러분들에 대한 대체할 수 있는 닉네임을 입력하십시오. 만약 여러분의 첫"
-"번째 닉네임이 서버로부터 거절된다면 Konversation은 대체 닉네임으로 시도할 것"
-"입니다."
-
-#. i18n: file: src/identitydialog.ui:218
-#. i18n: ectx: property (title), widget (QGroupBox, autoIdentifyGroup)
-#: rc.cpp:1255
-msgid "Auto Identify"
-msgstr "자동 인증"
-
-#. i18n: file: src/identitydialog.ui:224
-#. i18n: ectx: property (text), widget (QLabel, botLabel)
-#: rc.cpp:1258
-msgid "Ser&vice:"
-msgstr "서비스(&V):"
-
-#. i18n: file: src/identitydialog.ui:234
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_botEdit)
-#: rc.cpp:1261
+#. i18n: file: src/config/chatwindowappearance_config.ui:78
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowBacklog)
+#: rc.cpp:1601
 #, fuzzy
-#| msgid ""
-#| "Service name can be <b><i>nickserv</i></b> or a network dependant name "
-#| "like  <b><i>nickserv@services.dal.net</i></b>"
-msgid ""
-"Service name can be <b><i>nickserv</i></b> or a network-dependent name such "
-"as <b><i>nickserv@services.dal.net</i></b>"
-msgstr ""
-"서비스 이름은 <b><i>nickserv</i></b>나 <b><i>nickserv@services.dal.net</i></"
-"b>와 같은 네트워크 관련 이름이 될 수 있습니다."
+msgid "Show &Backlog"
+msgstr "이전로그 보기"
 
-#. i18n: file: src/identitydialog.ui:241
-#. i18n: ectx: property (text), widget (QLabel, passwordLabel)
-#: rc.cpp:1264
-msgid "Pa&ssword:"
-msgstr "패스워드(&S):"
+#. i18n: file: src/config/chatwindowappearance_config.ui:87
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#: rc.cpp:1604
+msgid "&Lines: "
+msgstr "행(&L): "
 
-#. i18n: file: src/identitydialog.ui:270
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_insertRememberLineOnAwayChBox)
-#: rc.cpp:1270
-msgid ""
-"If you check this box, whenever you perform an <b>/away</b> command, a "
-"horizontal line will appear in the channel, marking the point where you went "
-"away. Other IRC users do not see this horizontal line."
-msgstr ""
-"이 상자를 선택하면, 여러분이 <b>/away</b> 명령을 실행할 때마다 여러분이 자리"
-"비움 한 시점을 표시하는 선이 채널에 보일 것입니다. 다른 IRC 사용자들은 이 수"
-"평 선이 보이지 않습니다."
+#. i18n: file: src/config/chatwindowappearance_config.ui:129
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
+#: rc.cpp:1607
+msgid "&Layout"
+msgstr "레이아웃(&L)"
 
-#. i18n: file: src/identitydialog.ui:273
-#. i18n: ectx: property (text), widget (QCheckBox, m_insertRememberLineOnAwayChBox)
-#: rc.cpp:1273
-msgid "Mark the last position in chat windows when going away"
-msgstr ""
+#. i18n: file: src/config/chatwindowappearance_config.ui:135
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTopic)
+#: rc.cpp:1610
+msgid "&Show channel topic"
+msgstr "채널 주제 보기(&S)"
 
-#. i18n: file: src/identitydialog.ui:280
-#. i18n: ectx: property (text), widget (QLabel, awayNicknameLabel)
-#: rc.cpp:1276
-msgid "Away nickname:"
-msgstr "자리비움 닉네임:"
+#. i18n: file: src/config/chatwindowappearance_config.ui:142
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowModeButtons)
+#: rc.cpp:1613
+msgid "Show channel &mode buttons"
+msgstr "채널 모드 버튼 보이기(&M)"
 
-#. i18n: file: src/identitydialog.ui:287
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_awayNickEdit)
-#: rc.cpp:1279
-msgid ""
-"Enter a nickname that indicates you are away. Whenever you perform an <b>/"
-"away msg</b> command in any channel joined with this Identity, Konversation "
-"will automatically change your nickname to the Away nickname. Other users "
-"will be able to tell you are away from your computer. Whenever you perform "
-"an <b>/away</b> command in any channel in which you are away, Konversation "
-"will automatically change your nickname back to the original. If you do not "
-"wish to automatically change your nickname when going away, leave blank."
-msgstr ""
-"여러분이 자리비움임을 나타내는 닉네임을 입력하십시오. 여러분이 이 인증으로 입"
-"장한 어떤 체널에서 <b>/away msg</b> 명령을 사용할 때마다 Konversation이 여러"
-"분의 닉네임을 자리비움 닉네임으로 자동적으로 바꿀 것입니다. 다른 사용자들은 "
-"여러분의 컴퓨터에서 여러분이 떠났다고 말할 수 있습니다. 여러분이 자리를 비운 "
-"체널에서 <b>/away</b> 명령을 실행할 때마다 Konversation은 자동적으로 여러분"
-"의 닉네임을 본래대로 변경할 것입니다.만약 자동적으로 자리비움 닉네임으로 변경"
-"하지 않으려면 이 부분을 비워두십시오."
+#. i18n: file: src/config/chatwindowappearance_config.ui:149
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowNickList)
+#: rc.cpp:1616
+msgid "Show channel &nick list and quick buttons"
+msgstr "채널 닉네임 목록과 빠른 버튼 보이기(&N)"
 
-#. i18n: file: src/identitydialog.ui:302
-#. i18n: ectx: property (whatsThis), widget (QGroupBox, automaticAwayGroup)
-#: rc.cpp:1282
-msgid ""
-"If you check this box, Konversation will automatically set all connections "
-"using this Identity away when the screensaver starts or after a period of "
-"user inactivity configured below."
-msgstr ""
+#. i18n: file: src/config/chatwindowappearance_config.ui:177
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoUserhost)
+#: rc.cpp:1619
+msgid "Show hostmas&ks in nickname list"
+msgstr "닉네임 목록에서 호스트마스크 보이기(&K)"
 
-#. i18n: file: src/identitydialog.ui:305
-#. i18n: ectx: property (title), widget (QGroupBox, automaticAwayGroup)
-#: rc.cpp:1285
-msgid "Automatic Away"
-msgstr ""
-
-#. i18n: file: src/identitydialog.ui:323
-#. i18n: ectx: property (text), widget (QLabel, setAwayAfterLabel)
-#: rc.cpp:1288
-msgid "Set away after"
-msgstr ""
-
-#. i18n: file: src/identitydialog.ui:346
-#. i18n: ectx: property (text), widget (QLabel, timeOfUserInactivityLabel)
-#: rc.cpp:1291
+#. i18n: file: src/config/chatwindowappearance_config.ui:207
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowRealNames)
+#: rc.cpp:1622
 #, fuzzy
-msgid "of user inactivity"
-msgstr "쿼리 활성화 시(&Q)"
-
-#. i18n: file: src/identitydialog.ui:353
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_automaticUnawayChBox)
-#: rc.cpp:1294
-msgid ""
-"If you check this box, Konversation will automatically cancel away for all "
-"connections using this Identity when the screensaver stops or new user "
-"activity is detected."
-msgstr ""
-
-#. i18n: file: src/identitydialog.ui:356
-#. i18n: ectx: property (text), widget (QCheckBox, m_automaticUnawayChBox)
-#: rc.cpp:1297
-#, fuzzy
-msgid "Automatically return on activity"
-msgstr "자동으로 다운로드 재개하기(&T)"
-
-#. i18n: file: src/identitydialog.ui:372
-#. i18n: ectx: property (whatsThis), widget (QGroupBox, awayMessageGroup)
-#: rc.cpp:1301
-#, no-c-format
-msgid ""
-"If you check this box, Konversation will automatically send the Away message "
-"to all channels joined with this Identity. <b>%s</b> is replaced with "
-"<b>msg</b>. Whenever you perform an <b>/away</b> command, the Return message "
-"will be displayed in all channels joined with this Identity."
-msgstr ""
-"이 상자를 선택하면 Konversation은 자동적으로 여러분이 입장한 체널에 자리비움 "
-"메시지를 전달할 것입니다. <b>%s</b>는 <b>msg</b>를 대체할 것입니다. 여러분이 "
-"<b>/away</b> 명령을 수행할 때마다, 되돌아옴 메시지들이 이 인증으로 입장한 모"
-"든 체널에서 보일 것입니다."
-
-#. i18n: file: src/identitydialog.ui:375
-#. i18n: ectx: property (title), widget (QGroupBox, awayMessageGroup)
-#: rc.cpp:1304
-#, fuzzy
-msgid "Away Messages"
-msgstr "자리비움 메시지:"
-
-#. i18n: file: src/identitydialog.ui:387
-#. i18n: ectx: property (text), widget (QLabel, awayLabel)
-#: rc.cpp:1307
-msgid "Away &message:"
-msgstr "자리비움 메시지(&M):"
-
-#. i18n: file: src/identitydialog.ui:400
-#. i18n: ectx: property (text), widget (QLabel, unAwayLabel)
-#: rc.cpp:1310
-msgid "Re&turn message:"
-msgstr "되돌아옴 메시지(&T):"
-
-#. i18n: file: src/identitydialog.ui:430
-#. i18n: ectx: attribute (title), widget (QWidget, advancedWidget)
-#: rc.cpp:1313
-msgid "Advanced"
-msgstr "고급"
-
-#. i18n: file: src/identitydialog.ui:436
-#. i18n: ectx: property (text), widget (QLabel, sCommandLabel)
-#: rc.cpp:1316
-msgid "&Pre-shell command:"
-msgstr "먼저 실행될 쉘 명령(&P):"
-
-#. i18n: file: src/identitydialog.ui:446
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_sCommandEdit)
-#: rc.cpp:1319
-msgid ""
-"Here you can enter a command to be executed before connection to server "
-"starts<br>If you have multiple servers in this identity this command will be "
-"executed for each server"
-msgstr ""
-"여기에 서버에 대한 연결을 시작하기 전에 수행해야 할 명령어들을 입력할 수 있습"
-"니다.<br>만약 여러분이 이 인증에서 여러 서버들을 가지고 있다면 이 명령은 각 "
-"서버에 대해 따로 수행될 것입니다."
-
-#. i18n: file: src/identitydialog.ui:459
-#. i18n: ectx: property (text), widget (QLabel, codecLabel)
-#: rc.cpp:1322
-msgid "&Encoding:"
-msgstr "인코딩(&E):"
-
-#. i18n: file: src/identitydialog.ui:469
-#. i18n: ectx: property (whatsThis), widget (KComboBox, m_codecCBox)
-#: rc.cpp:1325
-msgid ""
-"This setting affects how characters you type are encoded for sending to the "
-"server. It also affects how messages are displayed. When you first open "
-"Konversation, it automatically retrieves this setting from the operating "
-"system. If you seem to be having trouble seeing other user's messages "
-"correctly, try changing this setting."
-msgstr ""
-"이 설정은 여러분이 전달할 문자들을 어떤 방식의 인코딩을 전달할 지 결정합니"
-"다. 이것은 또한 메시지가 어떻게 보일지도 결정합니다. 여러분이 먼저 "
-"Konversation을 실행했을 때, 이것은 자동적으로 여러분의 OS 설정을 검색합니다. "
-"만약 사용자의 메시지가 올바르게 보이지 않는다면, 이 설정을 변경해보십시오."
-
-#. i18n: file: src/identitydialog.ui:476
-#. i18n: ectx: property (text), widget (QLabel, loginLabel)
-#: rc.cpp:1328
-msgid "I&dent:"
-msgstr "인증(&D):"
-
-#. i18n: file: src/identitydialog.ui:486
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_loginEdit)
-#: rc.cpp:1331
-msgid ""
-"When you connect, many servers query your computer for an IDENT response. If "
-"you computer is not running an IDENT server, this response is sent by "
-"Konversation. No spaces are allowed."
-msgstr ""
-"여러분이 접속할 때, 많은 서버들이 여러분의 컴퓨터에 IDENT에 대한 응답으로 쿼"
-"리를 보냅니다. 만약 여럽누의 컴퓨터가 IDENT 서러를 운영하지 않는다면 이 응답"
-"은 Konversation에 의해 전달될 것입니다. 공백은 허용되지 않습니다."
-
-#. i18n: file: src/identitydialog.ui:493
-#. i18n: ectx: property (text), widget (QLabel, quitLabel)
-#: rc.cpp:1334
-#, fuzzy
-msgid "&Quit reason:"
-msgstr "나가는 이유(&P):"
-
-#. i18n: file: src/identitydialog.ui:503
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_quitEdit)
-#: rc.cpp:1337
-#, fuzzy
-msgid "Whenever you leave a server, this message is shown to others."
-msgstr "체널을 떠날 때, 이 메시지가 체널에 전달됩니다."
-
-#. i18n: file: src/identitydialog.ui:506
-#. i18n: ectx: property (text), widget (KLineEdit, m_quitEdit)
-#. i18n: file: src/identitydialog.ui:526
-#. i18n: ectx: property (text), widget (KLineEdit, m_partEdit)
-#: rc.cpp:1340 rc.cpp:1349
-#, fuzzy
-#| msgid "Konversation"
-msgid "Konversation terminated."
-msgstr "Konversation"
-
-#. i18n: file: src/identitydialog.ui:513
-#. i18n: ectx: property (text), widget (QLabel, partLabel)
-#: rc.cpp:1343
-msgid "&Part reason:"
-msgstr "나가는 이유(&P):"
-
-#. i18n: file: src/identitydialog.ui:523
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_partEdit)
-#: rc.cpp:1346
-msgid "Whenever you leave a channel, this message is sent to the channel."
-msgstr "체널을 떠날 때, 이 메시지가 체널에 전달됩니다."
-
-#. i18n: file: src/identitydialog.ui:533
-#. i18n: ectx: property (text), widget (QLabel, kickLabel)
-#: rc.cpp:1352
-msgid "&Kick reason:"
-msgstr "킥 이유(&K):"
-
-#. i18n: file: src/identitydialog.ui:543
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_kickEdit)
-#: rc.cpp:1355
-msgid ""
-"Whenever you are kicked from a channel (usually by an IRC operator), this "
-"message is sent to the channel."
-msgstr ""
-"여러분이 체널로부터 (보통 IRC 관리자에 의해) 킥되었을 때, 이 메시지가 체널에 "
-"전달됩니다."
-
-#. i18n: file: src/identitydialog.ui:546
-#. i18n: ectx: property (text), widget (KLineEdit, m_kickEdit)
-#: rc.cpp:1358
-#, fuzzy
-#| msgid "Konversation"
-msgid "User terminated."
-msgstr "Konversation"
-
-#. i18n: file: src/config/konversation.kcfg:21
-#. i18n: ectx: label, entry, group (Appearance)
-#: rc.cpp:1363
-#, fuzzy
-#| msgid "Limit the size of the tab labels to fit all on screen"
-msgid "Limit the size of the tab labels to fit them all on screen"
-msgstr "스크린의 크기에 맞춰 탭 레이블의 크기 제한하기"
-
-#. i18n: file: src/config/konversation.kcfg:226
-#. i18n: ectx: label, entry, group (Appearance)
-#: rc.cpp:1432
-msgid "Hide the scrollbar"
-msgstr ""
-
-#. i18n: file: src/config/konversation.kcfg:232
-#. i18n: ectx: whatsthis, entry, group (General Options)
-#: rc.cpp:1435
-msgid ""
-"Enable if you want all the IRC input lines to check your spelling as you type"
-msgstr "당신이 IRC 입력행에 입력한 문장의 맞춤법을 확인하기 원한다면 사용하기"
-
-#. i18n: file: src/config/konversation.kcfg:241
-#. i18n: ectx: whatsthis, entry, group (General Options)
-#: rc.cpp:1438
-msgid ""
-"Enabling this will cause the input box to grow vertically when it fills up."
-msgstr ""
-
-#. i18n: file: src/config/konversation.kcfg:275
-#. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:1453
-msgid "Start with hidden main window"
-msgstr ""
-
-#. i18n: file: src/config/konversation.kcfg:329
-#. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:1476
-msgid "&Show real names next to nicknames"
+msgid "Show real names in nickname list"
 msgstr "닉네임 다음에 실제 이름 보이기(&S)"
 
-#. i18n: file: src/config/konversation.kcfg:543
-#. i18n: ectx: label, entry (OpenWatchedNicksAtStartup), group (Notify List)
-#: rc.cpp:1560
-msgid "Open Watched Nicks tab at application startup"
-msgstr "응용프로그램 시작 시에 관찰하는 닉네임 탭 열기"
+#. i18n: file: src/config/chatwindowappearance_config.ui:237
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowQuickButtons)
+#: rc.cpp:1625
+msgid "Show &quick buttons"
+msgstr "빠른 버튼 보이기(&Q)"
 
-#. i18n: file: src/config/konversation.kcfg:827
-#. i18n: ectx: label, entry, group (Themes)
+#. i18n: file: src/config/chatwindowappearance_config.ui:246
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowNicknameBox)
+#: rc.cpp:1628
+msgid "Show bo&x to change own nickname"
+msgstr "가지고 있는 닉네임을 변경하기 위해 박스 보이기(&X)"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:253
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowIRCViewScrollBar)
+#: rc.cpp:1631
+msgid "Show sc&rollbar"
+msgstr ""
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:266
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowBackgroundImage)
+#: rc.cpp:1634
+msgid "Enable Back&ground Image"
+msgstr "배경 이미지 사용하기(&G)"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:275
+#. i18n: ectx: property (text), widget (QLabel, textLabel4)
+#: rc.cpp:1637
+msgid "P&ath:"
+msgstr "경로(&A):"
+
+#. i18n: file: src/config/tabnotifications_config.ui:25
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsText)
+#: rc.cpp:1643
+msgid "Use colored text"
+msgstr "색상 적용된 글자 사용하기"
+
+#. i18n: file: src/config/tabnotifications_config.ui:35
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsLeds)
+#: rc.cpp:1646
+msgid "Use colored LEDs"
+msgstr "색상 적용된 LED 사용하기"
+
+#. i18n: file: src/config/tabnotifications_config.ui:51
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsSystem)
+#: rc.cpp:1652
+msgid ""
+"Application events occur in Konsole tabs, the DCC Status tab and other "
+"application tabs not used directly for chatting."
+msgstr ""
+"응용프로그램 이벤트는 콘솔탭, DCC 상태 탭에서 발생하며, 다른 응용프로그램 탭"
+"은 채팅에 직접적으로 사용되지 않습니다."
+
+#. i18n: file: src/config/tabnotifications_config.ui:54
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsSystem)
+#: rc.cpp:1655
+msgid "Application event"
+msgstr "응용프로그램 이벤트"
+
+#. i18n: file: src/config/tabnotifications_config.ui:87
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsMsgs)
 #: rc.cpp:1658
-msgid "Enable emoticons"
-msgstr "이모티콘 사용하기"
+msgid "Message"
+msgstr "메시지"
 
-#. i18n: file: src/config/konversation.kcfg:831
-#. i18n: ectx: label, entry, group (Themes)
+#. i18n: file: src/config/tabnotifications_config.ui:143
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsPrivate)
 #: rc.cpp:1661
-msgid "Emoticons theme"
-msgstr "이모티콘 테마"
+#, fuzzy
+msgid "Private message"
+msgstr "서버 메시지(&S):"
+
+#. i18n: file: src/config/tabnotifications_config.ui:167
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsNick)
+#: rc.cpp:1664
+msgid "Current nick used"
+msgstr "현재 사용 닉네임"
+
+#. i18n: file: src/config/tabnotifications_config.ui:223
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsEvents)
+#: rc.cpp:1667
+msgid "Channel events are mode changes or users joining/leaving a channel."
+msgstr "채널 이벤트는 모드 변경이나 사용자 입장/퇴장 입니다. "
+
+#. i18n: file: src/config/tabnotifications_config.ui:226
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsEvents)
+#: rc.cpp:1670
+msgid "Channel event"
+msgstr "채널 이벤트"
+
+#. i18n: file: src/config/tabnotifications_config.ui:275
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox10)
+#. i18n: file: src/viewer/searchbarbase.ui:92
+#. i18n: ectx: property (text), widget (QToolButton, m_optionsButton)
+#: rc.cpp:1676 rc.cpp:1715
+#, fuzzy
+#| msgid "Exception"
+msgid "Options"
+msgstr "예외"
+
+#. i18n: file: src/config/tabnotifications_config.ui:281
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsOverride)
+#: rc.cpp:1679
+msgid ""
+"If you select this, the colors you chose in the Highlights preferences page "
+"will override the colors for \"Current nick used\" and \"Highlight\"."
+msgstr ""
+"만약 이것을 선택하면, 강조 설정 페이지에서 선택한 색상이 \"현재 사용 닉네임"
+"\"과 \"강조\"에 대한 색상을 덮을 것입니다."
+
+#. i18n: file: src/config/tabnotifications_config.ui:284
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsOverride)
+#: rc.cpp:1682
+msgid "Give precedence to chat window highlight colors"
+msgstr "채팅창 강조 색상에 대한 선행 주기"
 
 #. i18n: file: src/linkaddressbook/linkaddressbookui_base.ui:41
 #. i18n: ectx: property (toolTip), widget (QPushButton, addAddresseeButton)

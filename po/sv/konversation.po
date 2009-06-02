@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-05-25 11:46+0200\n"
+"POT-Creation-Date: 2009-05-31 11:52+0200\n"
 "PO-Revision-Date: 2009-05-25 18:37+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@comhem.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -95,7 +95,7 @@ msgstr "Ingen ledig port"
 msgid "Could not open a socket"
 msgstr "Kunde inte öppna ett uttag"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:97
+#. i18n: file: src/config/ignore_configui.ui:97
 #. i18n: ectx: property (text), widget (QCheckBox, chkDCC)
 #: src/dcc/chat.cpp:142 src/dcc/chat.cpp:152 src/dcc/chat.cpp:165
 #: src/dcc/chat.cpp:183 src/dcc/chat.cpp:188 src/dcc/chat.cpp:193
@@ -103,10 +103,11 @@ msgstr "Kunde inte öppna ett uttag"
 #: src/irc/inputfilter.cpp:386 src/irc/inputfilter.cpp:401
 #: src/irc/inputfilter.cpp:417 src/irc/inputfilter.cpp:425
 #: src/irc/server.cpp:1802 src/irc/server.cpp:1828 src/irc/server.cpp:1840
-#: src/irc/server.cpp:1941 src/irc/server.cpp:1992 src/irc/server.cpp:2048
-#: src/irc/server.cpp:2051 src/irc/server.cpp:2062 src/irc/server.cpp:2065
-#: src/irc/server.cpp:2079 src/irc/server.cpp:2086 src/settingsdialog.cpp:149
-#: src/viewer/ignorelistviewitem.cpp:47 rc.cpp:410
+#: src/irc/server.cpp:1941 src/irc/server.cpp:1992 src/irc/server.cpp:2049
+#: src/irc/server.cpp:2054 src/irc/server.cpp:2066 src/irc/server.cpp:2069
+#: src/irc/server.cpp:2083 src/irc/server.cpp:2090
+#: src/config/settingsdialog.cpp:149 src/viewer/ignorelistviewitem.cpp:47
+#: rc.cpp:765
 msgid "DCC"
 msgstr "DCC"
 
@@ -168,14 +169,14 @@ msgstr "Fel"
 msgid "Connection broken, error (%1) %2."
 msgstr "Anslutningen nerkopplad, fel (%1) %2."
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:83
+#. i18n: file: src/config/ignore_configui.ui:83
 #. i18n: ectx: property (text), widget (QCheckBox, chkCTCP)
 #: src/dcc/chat.cpp:237 src/irc/outputfilter.cpp:757
 #: src/irc/inputfilter.cpp:272 src/irc/inputfilter.cpp:279
 #: src/irc/inputfilter.cpp:295 src/irc/inputfilter.cpp:302
 #: src/irc/inputfilter.cpp:434 src/irc/inputfilter.cpp:442
 #: src/irc/inputfilter.cpp:462 src/irc/inputfilter.cpp:513
-#: src/irc/inputfilter.cpp:541 src/viewer/ignorelistviewitem.cpp:46 rc.cpp:404
+#: src/irc/inputfilter.cpp:541 src/viewer/ignorelistviewitem.cpp:46 rc.cpp:759
 msgid "CTCP"
 msgstr "CTCP"
 
@@ -239,22 +240,23 @@ msgstr "DCC SEND-begäran förkastades"
 
 #: src/dcc/transfersend.cpp:251
 msgid "Could not send a DCC SEND request to the partner via the IRC server."
-msgstr "Kunde inte skicka begäran om DCC-sändning till motparten via IRC-servern."
+msgstr ""
+"Kunde inte skicka begäran om DCC-sändning till motparten via IRC-servern."
 
 #: src/dcc/transfersend.cpp:302
 msgid "Awaiting remote user's acceptance"
 msgstr "Väntar på att den andra användaren ska acceptera"
 
-#: src/dcc/transfersend.cpp:351 src/dcc/transferrecv.cpp:590
+#: src/dcc/transfersend.cpp:351 src/dcc/transferrecv.cpp:587
 msgid "Could not accept the connection (socket error.)"
 msgstr "Kunde inte acceptera anslutningen (uttagsfel)."
 
-#: src/dcc/transfersend.cpp:447 src/dcc/transferrecv.cpp:604
+#: src/dcc/transfersend.cpp:447 src/dcc/transferrecv.cpp:601
 #, kde-format
 msgid "Socket error: %1"
 msgstr "Uttagsfel: %1"
 
-#: src/dcc/transfersend.cpp:469 src/dcc/transferrecv.cpp:709
+#: src/dcc/transfersend.cpp:469 src/dcc/transferrecv.cpp:704
 msgid "Timed out"
 msgstr "Tidsgräns överskriden"
 
@@ -329,7 +331,7 @@ msgstr "Ingen detaljinformation om den här filen hittades."
 msgid "Send"
 msgstr "Skicka"
 
-#: src/dcc/transferpanelitem.cpp:266 src/dcc/transferrecv.cpp:84
+#: src/dcc/transferpanelitem.cpp:266 src/dcc/transferrecv.cpp:81
 msgid "Receive"
 msgstr "Ta emot"
 
@@ -374,34 +376,34 @@ msgstr "Avbruten"
 msgid "%1/sec"
 msgstr "%1/sekund"
 
-#: src/dcc/transferrecv.cpp:188
+#: src/dcc/transferrecv.cpp:185
 msgid "The admin has restricted the right to receive files"
 msgstr "Administratören har begränsat rättigheten att ta emot filer"
 
-#: src/dcc/transferrecv.cpp:195
+#: src/dcc/transferrecv.cpp:192
 #, kde-format
 msgid "Invalid sender address (%1)"
 msgstr "Ogiltig avsändaradress (%1)"
 
-#: src/dcc/transferrecv.cpp:202
+#: src/dcc/transferrecv.cpp:199
 msgid "Unsupported negotiation (filesize=0)"
 msgstr "Förhandling som inte stöds (filstorlek = 0)"
 
-#: src/dcc/transferrecv.cpp:301
+#: src/dcc/transferrecv.cpp:298
 #, kde-format
 msgid "<b>Cannot create the folder.</b><br>Folder: %1<br>"
 msgstr "<b>Kan inte skapa katalogen.</b><br>Katalog: %1<br>"
 
-#: src/dcc/transferrecv.cpp:321
+#: src/dcc/transferrecv.cpp:318
 msgid "Could not create a KIO instance"
 msgstr "Kunde inte skapa en I/O-slavinstans"
 
-#: src/dcc/transferrecv.cpp:390
+#: src/dcc/transferrecv.cpp:387
 #, kde-format
 msgid "<b>The file is used by another transfer.</b><br>%1<br>"
 msgstr "<b>Filen används av en annan överföring.</b><br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:403
+#: src/dcc/transferrecv.cpp:400
 #, kde-format
 msgid ""
 "<b>A partial file exists:</b><br/>%2<br/>Size of the partial file: 1 byte."
@@ -409,53 +411,57 @@ msgid ""
 msgid_plural ""
 "<b>A partial file exists:</b><br/>%2<br/>Size of the partial file: %1 bytes."
 "<br/>"
-msgstr[0] "<b>En del av filen finns:</b><br/>%2<br/>Fildelens storlek: 1 byte.<br/>"
-msgstr[1] "<b>En del av filen finns:</b><br/>%2<br/>Fildelens storlek: %1 byte.<br/>"
+msgstr[0] ""
+"<b>En del av filen finns:</b><br/>%2<br/>Fildelens storlek: 1 byte.<br/>"
+msgstr[1] ""
+"<b>En del av filen finns:</b><br/>%2<br/>Fildelens storlek: %1 byte.<br/>"
 
-#: src/dcc/transferrecv.cpp:434
+#: src/dcc/transferrecv.cpp:431
 #, kde-format
 msgid "<b>The file already exists.</b><br>%1<br>"
 msgstr "<b>Filen finns redan.</b><br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:441
+#: src/dcc/transferrecv.cpp:438
 #, kde-format
 msgid "<b>Could not open the file.<br>Error: %1</b><br>%2<br>"
 msgstr "<b>Kunde inte öppna filen.<br>Fel: %1</b><br>%2<br>"
 
-#: src/dcc/transferrecv.cpp:482
+#: src/dcc/transferrecv.cpp:479
 msgid ""
 "Could not send Reverse DCC SEND acknowledgement to the partner via the IRC "
 "server."
-msgstr "Kunde inte skicka omvänd DCC-sändningsbekräftelse motparten via IRC-servern."
+msgstr ""
+"Kunde inte skicka omvänd DCC-sändningsbekräftelse motparten via IRC-servern."
 
-#: src/dcc/transferrecv.cpp:489
+#: src/dcc/transferrecv.cpp:486
 msgid "Waiting for connection"
 msgstr "Väntar på anslutning"
 
-#: src/dcc/transferrecv.cpp:503
+#: src/dcc/transferrecv.cpp:500
 msgid "Waiting for remote host's acceptance"
 msgstr "Väntar på att den andra användaren ska acceptera"
 
-#: src/dcc/transferrecv.cpp:513
-msgid "Could not send DCC RECV resume request to the partner via the IRC server."
+#: src/dcc/transferrecv.cpp:510
+msgid ""
+"Could not send DCC RECV resume request to the partner via the IRC server."
 msgstr ""
 "Kunde inte skicka begäran om återupptagning av DCC-mottagning till motparten "
 "via IRC-servern."
 
-#: src/dcc/transferrecv.cpp:535
+#: src/dcc/transferrecv.cpp:532
 msgid "Unexpected response from remote host"
 msgstr "Oväntat svar från fjärrvärddator"
 
-#: src/dcc/transferrecv.cpp:672
+#: src/dcc/transferrecv.cpp:667
 msgid "Transfer error"
 msgstr "Överföringsfel"
 
-#: src/dcc/transferrecv.cpp:688
+#: src/dcc/transferrecv.cpp:683
 #, kde-format
 msgid "KIO error: %1"
 msgstr "I/O-fel: %1"
 
-#: src/dcc/transferpanel.cpp:46 src/viewer/viewcontainer.cpp:2055
+#: src/dcc/transferpanel.cpp:46 src/viewer/viewcontainer.cpp:2065
 msgid "DCC Status"
 msgstr "DCC Status"
 
@@ -600,12 +606,12 @@ msgstr "&Byt namn"
 msgid "Channel Settings for %1"
 msgstr "Kanalalternativ för %1"
 
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:98
+#. i18n: file: src/config/nicklistbehavior_configui.ui:98
 #. i18n: ectx: property (text), widget (QTreeWidget, sortOrder)
 #: src/irc/channeloptionsdialog.cpp:47 src/irc/inputfilter.cpp:935
 #: src/irc/inputfilter.cpp:939 src/irc/inputfilter.cpp:2032
 #: src/irc/inputfilter.cpp:2081 src/irc/channelnick.cpp:221
-#: src/irc/channel.cpp:2048 rc.cpp:461
+#: src/irc/channel.cpp:2048 rc.cpp:1400
 msgid "Mode"
 msgstr "Läge"
 
@@ -813,16 +819,16 @@ msgid "Kick / Ban"
 msgstr "Utsparkning/bannlysning"
 
 #: src/irc/nicklistview.cpp:132 src/irc/outputfilter.cpp:1325
-#: src/irc/outputfilter.cpp:1397 src/irc/server.cpp:3041 src/irc/query.cpp:96
+#: src/irc/outputfilter.cpp:1397 src/irc/server.cpp:3045 src/irc/query.cpp:96
 #: src/irc/query.cpp:396 src/irc/query.cpp:397 src/irc/channel.cpp:654
-#: src/irc/channel.cpp:655 src/preferences/warnings_preferences.cpp:120
-#: src/settingsdialog.cpp:137 src/viewer/ircview.cpp:878
+#: src/irc/channel.cpp:655 src/config/settingsdialog.cpp:137
+#: src/config/warnings_config.cpp:120 src/viewer/ircview.cpp:878
 msgid "Ignore"
 msgstr "Ignorera"
 
 #: src/irc/nicklistview.cpp:133 src/irc/query.cpp:97 src/irc/query.cpp:422
 #: src/irc/query.cpp:423 src/irc/channel.cpp:679 src/irc/channel.cpp:680
-#: src/preferences/warnings_preferences.cpp:121 src/viewer/ircview.cpp:879
+#: src/config/warnings_config.cpp:121 src/viewer/ircview.cpp:879
 msgid "Unignore"
 msgstr "Ignorera inte"
 
@@ -1135,12 +1141,12 @@ msgstr ""
 msgid "Usage: %1NOTICE <recipient> <message>"
 msgstr "Användning: %1NOTICE <mottagare> <meddelande>"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:104
+#. i18n: file: src/config/ignore_configui.ui:104
 #. i18n: ectx: property (text), widget (QCheckBox, chkNotice)
 #: src/irc/outputfilter.cpp:608 src/irc/outputfilter.cpp:1563
 #: src/irc/inputfilter.cpp:487 src/irc/inputfilter.cpp:566
 #: src/irc/inputfilter.cpp:731 src/irc/inputfilter.cpp:1257
-#: src/viewer/ignorelistviewitem.cpp:45 rc.cpp:413
+#: src/viewer/ignorelistviewitem.cpp:45 rc.cpp:768
 msgid "Notice"
 msgstr "Notis"
 
@@ -1209,8 +1215,8 @@ msgstr "Skriptnamnet får inte innehålla \"../\"."
 msgid "Usage: %1RAW [OPEN | CLOSE]"
 msgstr "Användning: %1RAW [OPEN | CLOSE]"
 
-#: src/irc/outputfilter.cpp:1098 src/irc/server.cpp:2427
-#: src/irc/server.cpp:2445 src/viewer/ircview.cpp:372
+#: src/irc/outputfilter.cpp:1098 src/irc/server.cpp:2431
+#: src/irc/server.cpp:2449 src/viewer/ircview.cpp:372
 msgid "Notify"
 msgstr "Underrättelse"
 
@@ -1734,9 +1740,9 @@ msgstr "Nuvarande användare på %1: %2."
 
 #. i18n: file: src/identitydialog.ui:262
 #. i18n: ectx: attribute (title), widget (QWidget, awayWidget)
-#: src/irc/inputfilter.cpp:1307 src/irc/server.cpp:3314
-#: src/irc/server.cpp:3339 src/irc/server.cpp:3348 src/irc/nicksonline.cpp:270
-#: src/linkaddressbook/addressbook.cpp:112 rc.cpp:1267
+#: src/irc/inputfilter.cpp:1307 src/irc/server.cpp:3318
+#: src/irc/server.cpp:3343 src/irc/server.cpp:3352 src/irc/nicksonline.cpp:270
+#: src/linkaddressbook/addressbook.cpp:112 rc.cpp:385
 msgid "Away"
 msgstr "Borta"
 
@@ -1881,7 +1887,8 @@ msgstr "%1 har varit overksam i %2, %3, %4 och %5."
 
 #: src/irc/inputfilter.cpp:1685
 #, kde-format
-msgctxt "%1 = name of person, %2 = (x hours), %3 = (x minutes), %4 = (x seconds)"
+msgctxt ""
+"%1 = name of person, %2 = (x hours), %3 = (x minutes), %4 = (x seconds)"
 msgid "%1 has been idle for %2, %3, and %4."
 msgstr "%1 har varit overksam i %2, %3 och %4."
 
@@ -1960,11 +1967,11 @@ msgstr "%1 tillagd av %2 den %3"
 msgid "End of Ban List."
 msgstr "Slut på bannlysningslista."
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:90
+#. i18n: file: src/config/ignore_configui.ui:90
 #. i18n: ectx: property (text), widget (QCheckBox, chkChannel)
 #: src/irc/inputfilter.cpp:1914 src/irc/inputfilter.cpp:1918
 #: src/irc/channellistpanel.cpp:102 src/viewer/ignorelistviewitem.cpp:43
-#: rc.cpp:407
+#: rc.cpp:762
 msgid "Channel"
 msgstr "Kanal"
 
@@ -2007,7 +2014,8 @@ msgid "&Server:"
 msgstr "&Server:"
 
 #: src/irc/serverdialog.cpp:40
-msgid "The name or IP number of the server. irchelp.org maintains a list of servers."
+msgid ""
+"The name or IP number of the server. irchelp.org maintains a list of servers."
 msgstr ""
 "Namnet eller IP-numret på servern. En lista med servrar upprätthålls av "
 "irchelp.org."
@@ -2113,8 +2121,8 @@ msgstr ""
 msgid "Nickname error"
 msgstr "Smeknamnsfel"
 
-#: src/irc/server.cpp:1300 src/irc/server.cpp:3050 src/irc/server.cpp:3055
-#: src/application.cpp:270
+#: src/irc/server.cpp:1300 src/irc/server.cpp:3054 src/irc/server.cpp:3059
+#: src/application.cpp:282
 msgid "D-Bus"
 msgstr "D-Bus"
 
@@ -2124,7 +2132,7 @@ msgid "Select File(s) to Send to %1"
 msgstr "Välj fil(er) att sända till %1"
 
 #: src/irc/server.cpp:1806 src/irc/server.cpp:1832 src/irc/server.cpp:1844
-#: src/irc/server.cpp:1947 src/irc/server.cpp:1998 src/irc/server.cpp:2089
+#: src/irc/server.cpp:1947 src/irc/server.cpp:1998 src/irc/server.cpp:2093
 msgid "unknown size"
 msgstr "okänd storlek"
 
@@ -2146,7 +2154,8 @@ msgstr "Frågar om %1 accepterar uppladdning av \"%2\" (%3)..."
 #: src/irc/server.cpp:1907
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname"
-msgid "Received invalid passive DCC send acceptance message for \"%1\" from %2."
+msgid ""
+"Received invalid passive DCC send acceptance message for \"%1\" from %2."
 msgstr ""
 "Mottog ogiltig meddelande med acceptans av passiv DCC-sändning för \"%1\" "
 "från %2."
@@ -2181,99 +2190,98 @@ msgstr "Mottog ogiltig begäran om att återuppta \"%1\" från %2."
 
 #: src/irc/server.cpp:2036
 #, kde-format
-#| msgctxt "%1 = file name, %2 = nickname"
-#| msgid "Received invalid resume request for \"%1\" from %2."
 msgctxt "%1 = file name, %2 = nickname"
 msgid "Received invalid reject request for \"%1\" from %2."
 msgstr "Mottog ogiltig begäran om att förkasta \"%1\" från %2."
 
-#: src/irc/server.cpp:2049
+#: src/irc/server.cpp:2050
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of sender"
 msgid "Download of \"%1\" from %2 finished."
 msgstr "Nerladdning av \"%1\" från %2 klar."
 
-#: src/irc/server.cpp:2052
+#: src/irc/server.cpp:2055
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of sender"
 msgid "Download of \"%1\" from %2 failed. Reason: %3."
 msgstr "Nerladdning av \"%1\" från %2 misslyckades. Orsak: %3."
 
-#: src/irc/server.cpp:2063
+#: src/irc/server.cpp:2067
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of recipient"
 msgid "Upload of \"%1\" to %2 finished."
 msgstr "Uppladdning av \"%1\" till %2 klar."
 
-#: src/irc/server.cpp:2066
+#: src/irc/server.cpp:2070
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of recipient"
 msgid "Upload of \"%1\" to %2 failed. Reason: %3."
 msgstr "Uppladdning av \"%1\" till %2 misslyckades. Orsak: %3."
 
-#: src/irc/server.cpp:2080
+#: src/irc/server.cpp:2084
 #, kde-format
 msgctxt "%1 = file name, %2 nickname of recipient"
 msgid "Sending \"%1\" to %2..."
 msgstr "Skickar \"%1\" till %2."
 
-#: src/irc/server.cpp:2087
+#: src/irc/server.cpp:2091
 #, kde-format
 msgctxt "%1 = file name, %2 = file size, %3 = nickname of sender"
 msgid "Downloading \"%1\" (%2) from %3..."
 msgstr "Nerladdning av \"%1\" (%2) från %3..."
 
-#: src/irc/server.cpp:2428 src/notificationhandler.cpp:261
+#: src/irc/server.cpp:2432 src/notificationhandler.cpp:261
 #, kde-format
 msgid "%1 is online (%2)."
 msgstr "%1 är uppkopplad (%2)."
 
-#: src/irc/server.cpp:2445 src/notificationhandler.cpp:275
+#: src/irc/server.cpp:2449 src/notificationhandler.cpp:275
 #, kde-format
 msgid "%1 went offline (%2)."
 msgstr "%1 kopplade ner (%2)."
 
-#: src/irc/server.cpp:3037
+#: src/irc/server.cpp:3041
 #, kde-format
-msgid "You were invited by %1 to join channel %2. Do you accept the invitation?"
+msgid ""
+"You were invited by %1 to join channel %2. Do you accept the invitation?"
 msgstr "Du inbjöds av %1 att gå med i kanal %2. Accepterar du inbjudningen?"
 
-#: src/irc/server.cpp:3039
+#: src/irc/server.cpp:3043
 msgid "Invitation"
 msgstr "Inbjudning"
 
-#: src/irc/server.cpp:3040 src/irc/channel.cpp:1313 src/irc/channel.cpp:1330
+#: src/irc/server.cpp:3044 src/irc/channel.cpp:1313 src/irc/channel.cpp:1330
 #: src/viewer/ircview.cpp:391
 msgid "Join"
 msgstr "Gå med"
 
-#: src/irc/server.cpp:3050
+#: src/irc/server.cpp:3054
 #, kde-format
 msgid "Error: Could not find script \"%1\"."
 msgstr "Fel: Kunde inte hitta skriptet \"%1\"."
 
-#: src/irc/server.cpp:3055
+#: src/irc/server.cpp:3059
 #, kde-format
 msgid "Error: Could not execute script \"%1\". Check file permissions."
 msgstr "Fel: Kunde inte köra skriptet \"%1\". Kontrollera filrättigheter."
 
-#: src/irc/server.cpp:3284
+#: src/irc/server.cpp:3288
 msgid "Gone away for now"
 msgstr "Borta för tillfället"
 
-#: src/irc/server.cpp:3314
+#: src/irc/server.cpp:3318
 msgid "You are now marked as being away."
 msgstr "Du anges nu som borta."
 
-#: src/irc/server.cpp:3339
+#: src/irc/server.cpp:3343
 msgid "You are no longer marked as being away."
 msgstr "Du anges inte längre som borta."
 
-#: src/irc/server.cpp:3348
+#: src/irc/server.cpp:3352
 msgid "You are not marked as being away."
 msgstr "Du anges inte som borta."
 
-#: src/irc/nicksonline.cpp:49 src/viewer/viewcontainer.cpp:2426
+#: src/irc/nicksonline.cpp:49 src/viewer/viewcontainer.cpp:2436
 msgid "Watched Nicks Online"
 msgstr "Bevakade uppkopplade smeknamn"
 
@@ -2344,7 +2352,8 @@ msgid "&Change Association..."
 msgstr "Ändra &koppling..."
 
 #: src/irc/nicksonline.cpp:111
-msgid "Click to associate the nickname selected above with an entry in KAddressBook."
+msgid ""
+"Click to associate the nickname selected above with an entry in KAddressBook."
 msgstr ""
 "Klicka för att koppla ihop smeknamnet som markerats ovan med en post i "
 "adressboken."
@@ -2407,8 +2416,8 @@ msgstr "&Välj koppling..."
 msgid "&Join Channel"
 msgstr "&Gå med i kanal"
 
-#: src/irc/channellistpanel.cpp:46 src/viewer/viewcontainer.cpp:2363
-#: src/viewer/viewcontainer.cpp:2416
+#: src/irc/channellistpanel.cpp:46 src/viewer/viewcontainer.cpp:2373
+#: src/viewer/viewcontainer.cpp:2426
 msgid "Channel List"
 msgstr "Kanaler"
 
@@ -2639,7 +2648,7 @@ msgstr "Behåll öppen"
 msgid "Do you want to stop ignoring %1?"
 msgstr "Vill du sluta ignorera %1?"
 
-#: src/irc/query.cpp:608 src/irc/channel.cpp:2713 src/statuspanel.cpp:360
+#: src/irc/query.cpp:608 src/irc/channel.cpp:2721 src/statuspanel.cpp:360
 #, kde-format
 msgid "Identity Default ( %1 )"
 msgstr "Standardidentitet (%1)"
@@ -3466,7 +3475,8 @@ msgstr "Antal försök att återansluta överskridna."
 
 #: src/connectionmanager.cpp:443
 #, kde-format
-msgid "You are already connected to %1. Do you want to open another connection?"
+msgid ""
+"You are already connected to %1. Do you want to open another connection?"
 msgstr "Du är redan ansluten till %1. Vill du öppna en annan anslutning?"
 
 #: src/connectionmanager.cpp:444 src/connectionmanager.cpp:466
@@ -3928,257 +3938,257 @@ msgstr "Lösenord för anslutning"
 msgid "Use SSL for connection"
 msgstr "Använd SSL för anslutning"
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:48
+#. i18n: file: src/config/quickbuttons_configui.ui:48
 #. i18n: ectx: property (text), widget (QPushButton, newButton)
-#: src/preferences/alias_preferences.cpp:171
-#: src/preferences/autoreplace_preferences.cpp:334
-#: src/preferences/quickbuttons_preferences.cpp:211
-#: src/preferences/watchednicknames_preferences.cpp:295
-#: src/preferences/highlight_preferences.cpp:251 rc.cpp:347
+#: src/config/watchednicknames_config.cpp:295
+#: src/config/quickbuttons_config.cpp:211 src/config/alias_config.cpp:171
+#: src/config/autoreplace_config.cpp:334 src/config/highlight_config.cpp:251
+#: rc.cpp:485
 msgid "New"
 msgstr "Ny"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:242
+#. i18n: file: src/config/highlight_configui.ui:242
 #. i18n: ectx: property (toolTip), widget (KPushButton, patternButton)
-#: src/preferences/autoreplace_preferences.cpp:53
-#: src/preferences/highlight_preferences.cpp:170 rc.cpp:879
+#: src/config/autoreplace_config.cpp:53 src/config/highlight_config.cpp:170
+#: rc.cpp:945
 msgid "Click to run Regular Expression Editor (KRegExpEditor)"
 msgstr "Klicka för att köra editorn för reguljära uttryck (Kregexpeditor)"
 
-#: src/preferences/autoreplace_preferences.cpp:58
-#: src/preferences/highlight_preferences.cpp:175
+#: src/config/autoreplace_config.cpp:58 src/config/highlight_config.cpp:175
 msgid "The Regular Expression Editor (KRegExpEditor) is not installed"
 msgstr "Editorn för reguljära uttryck (Kregexpeditor) är inte installerad"
 
-#: src/preferences/autoreplace_preferences.cpp:61
+#: src/config/autoreplace_config.cpp:61
 msgid "Outgoing"
 msgstr "Utgående"
 
-#: src/preferences/autoreplace_preferences.cpp:62
+#: src/config/autoreplace_config.cpp:62
 msgid "Incoming"
 msgstr "Inkommande"
 
-#: src/preferences/autoreplace_preferences.cpp:63
+#: src/config/autoreplace_config.cpp:63
 msgid "Both"
 msgstr "Båda"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:57
+#: src/config/nicklistbehavior_config.cpp:57
 msgid "Normal Users"
 msgstr "Normala användare"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:58
+#: src/config/nicklistbehavior_config.cpp:58
 msgid "Voice (+v)"
 msgstr "Med röst (+v)"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:59
+#: src/config/nicklistbehavior_config.cpp:59
 msgid "Halfops (+h)"
 msgstr "Deloperatörer (+h)"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:60
+#: src/config/nicklistbehavior_config.cpp:60
 msgid "Operators (+o)"
 msgstr "Operatörer (+o)"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:61
+#: src/config/nicklistbehavior_config.cpp:61
 msgid "Channel Admins (+p)"
 msgstr "Kanaladministratörer (+p)"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:62
+#: src/config/nicklistbehavior_config.cpp:62
 msgid "Channel Owners (+q)"
 msgstr "Kanalägare (+q)"
 
-#: src/preferences/dcc_preferences.cpp:50
-msgid "Network Interface"
-msgstr "Nätverksgränssnitt"
-
-#: src/preferences/dcc_preferences.cpp:51
-msgid "Reply From IRC Server"
-msgstr "Svar från IRC-server"
-
-#: src/preferences/dcc_preferences.cpp:52
-msgid "Specify Manually"
-msgstr "Ange manuellt"
-
-#: src/preferences/highlight_preferences.cpp:47
-msgid "Select Sound File"
-msgstr "Välj ljudfil"
-
-#: src/preferences/warnings_preferences.cpp:106
-msgid "Automatically join channel on invite"
-msgstr "Gå automatiskt med i kanal vid inbjudan"
-
-#: src/preferences/warnings_preferences.cpp:107
-msgid "Notice that saving logfiles will save whole file"
-msgstr "Observera att hela filen sparas när loggfiler sparas"
-
-#: src/preferences/warnings_preferences.cpp:108
-msgid "Ask before deleting logfile contents"
-msgstr "Fråga innan loggfilers innehåll tas bort"
-
-#: src/preferences/warnings_preferences.cpp:109
-msgid "Ask about closing queries after ignoring the nickname"
-msgstr "Fråga om att stänga frågekanaler efter att ha ignorerat smeknamn"
-
-#: src/preferences/warnings_preferences.cpp:110
-msgid "Ask before switching a connection to a network to a different server"
-msgstr "Fråga innan en anslutning bytes till en annan server i nätverket"
-
-#: src/preferences/warnings_preferences.cpp:111
-msgid "Ask before creating another connection to the same network or server"
-msgstr "Fråga innan en annan anslutning skapas till samma nätverk eller server"
-
-#: src/preferences/warnings_preferences.cpp:112
-msgid "Close server tab"
-msgstr "Stäng serverflik"
-
-#: src/preferences/warnings_preferences.cpp:113
-msgid "Close channel tab"
-msgstr "Stäng kanalflik"
-
-#: src/preferences/warnings_preferences.cpp:114
-msgid "Close query tab"
-msgstr "Stäng frågeflik"
-
-#: src/preferences/warnings_preferences.cpp:115
-msgid "The channel list can only be opened from server-aware tabs"
-msgstr "Kanallistan kan bara öppnas i flikar som känner till servern."
-
-#: src/preferences/warnings_preferences.cpp:116
-msgid "Warning on hiding the main window menu"
-msgstr "Varning då huvudmenyn döljs"
-
-#: src/preferences/warnings_preferences.cpp:117
-msgid "Warning on high traffic with channel list"
-msgstr "Varning vid mycket trafik för kanaler"
-
-#: src/preferences/warnings_preferences.cpp:118
-msgid "Warning on pasting large portions of text"
-msgstr "Varning då stora mängder text klistras in"
-
-#: src/preferences/warnings_preferences.cpp:119
-msgid "Warning on quitting Konversation"
-msgstr "Varning då Konversation avslutas"
-
-#: src/preferences/warnings_preferences.cpp:122
-msgid "Warn before quitting with active DCC file transfers"
-msgstr "Varna innan avslutning med aktiva DCC-filöverföringar"
-
-#: src/preferences/theme_preferences.cpp:174
+#: src/config/theme_config.cpp:174
 msgid "*.tar.gz *.tar.bz2 *.tar *.zip|Konversation Themes"
 msgstr "*.tar.gz *.tar.bz2 *.tar *.zip|Konversation-teman"
 
-#: src/preferences/theme_preferences.cpp:176
+#: src/config/theme_config.cpp:176
 msgid "Select Theme Package"
 msgstr "Välj temapaket"
 
-#: src/preferences/theme_preferences.cpp:189
+#: src/config/theme_config.cpp:189
 msgid "Failed to Download Theme"
 msgstr "Misslyckades ladda ner tema"
 
-#: src/preferences/theme_preferences.cpp:204
-#: src/preferences/theme_preferences.cpp:225
+#: src/config/theme_config.cpp:204 src/config/theme_config.cpp:225
 msgid "Theme archive is invalid."
 msgstr "Arkivet med teman är ogiltigt."
 
-#: src/preferences/theme_preferences.cpp:205
-#: src/preferences/theme_preferences.cpp:226
+#: src/config/theme_config.cpp:205 src/config/theme_config.cpp:226
 msgid "Cannot Install Theme"
 msgstr "Kan inte installera tema"
 
-#: src/preferences/theme_preferences.cpp:251
+#: src/config/theme_config.cpp:251
 #, kde-format
 msgid "Do you want to remove %1?"
 msgstr "Vill du ta bort %1?"
 
-#: src/preferences/theme_preferences.cpp:252
+#: src/config/theme_config.cpp:252
 msgid "Remove Theme"
 msgstr "Ta bort tema"
 
-#: src/settingsdialog.cpp:50
+#: src/config/settingsdialog.cpp:50
 msgid "Interface"
 msgstr "Gränssnitt"
 
-#: src/settingsdialog.cpp:54
+#: src/config/settingsdialog.cpp:54
 msgid "Behavior"
 msgstr "Beteende"
 
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:45
+#. i18n: file: src/config/tabnotifications_config.ui:45
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox5)
-#: src/settingsdialog.cpp:58 rc.cpp:792
+#: src/config/settingsdialog.cpp:58 rc.cpp:1649
 msgid "Notifications"
 msgstr "Underrättelser"
 
-#: src/settingsdialog.cpp:69 src/settingsdialog.cpp:115
+#: src/config/settingsdialog.cpp:69 src/config/settingsdialog.cpp:115
 msgid "Chat Window"
 msgstr "Chattfönster"
 
-#: src/settingsdialog.cpp:73
+#: src/config/settingsdialog.cpp:73
 msgid "Nicklist Themes"
 msgstr "Teman för smeknamnslista"
 
-#: src/settingsdialog.cpp:81
+#: src/config/settingsdialog.cpp:81
 msgid "Colors"
 msgstr "Färger"
 
-#: src/settingsdialog.cpp:87
+#: src/config/settingsdialog.cpp:87
 msgid "Fonts"
 msgstr "Teckensnitt"
 
-#: src/settingsdialog.cpp:91
+#: src/config/settingsdialog.cpp:91
 msgid "Quick Buttons"
 msgstr "Snabbknappar"
 
-#: src/settingsdialog.cpp:97 src/settingsdialog.cpp:155
+#: src/config/settingsdialog.cpp:97 src/config/settingsdialog.cpp:155
 #: src/viewer/viewtree.cpp:40
 msgid "Tabs"
 msgstr "Flikar"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:19
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
 #. i18n: file: src/identitydialog.ui:179
 #. i18n: ectx: attribute (title), widget (QWidget, generalWidget)
-#: src/settingsdialog.cpp:103 rc.cpp:900 rc.cpp:1238
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:19
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
+#: src/config/settingsdialog.cpp:103 rc.cpp:356 rc.cpp:1311
 msgid "General"
 msgstr "Allmänt"
 
-#: src/settingsdialog.cpp:109
+#: src/config/settingsdialog.cpp:109
 msgid "Connection"
 msgstr "Anslutning"
 
-#: src/settingsdialog.cpp:119
+#: src/config/settingsdialog.cpp:119
 msgid "Nickname List"
 msgstr "Smeknamnslista"
 
-#: src/settingsdialog.cpp:125
+#: src/config/settingsdialog.cpp:125
 msgid "Command Aliases"
 msgstr "Kommandoalias"
 
-#: src/settingsdialog.cpp:131
+#: src/config/settingsdialog.cpp:131
 msgid "Auto Replace"
 msgstr "Ersätt automatiskt"
 
-#: src/settingsdialog.cpp:146
+#: src/config/settingsdialog.cpp:146
 msgid "Logging"
 msgstr "Loggning"
 
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:236
+#. i18n: file: src/config/tabnotifications_config.ui:236
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsHighlights)
-#: src/settingsdialog.cpp:159 rc.cpp:816
+#: src/config/settingsdialog.cpp:159 rc.cpp:1673
 msgid "Highlight"
 msgstr "Färgläggning"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:149
+#. i18n: file: src/config/watchednicknames_configui.ui:149
 #. i18n: ectx: property (title), widget (QGroupBox, listGroupBox)
-#: src/settingsdialog.cpp:166 rc.cpp:597
+#: src/config/settingsdialog.cpp:166 rc.cpp:633
 msgid "Watched Nicknames"
 msgstr "Redigera bevakat smeknamn"
 
-#: src/settingsdialog.cpp:172
+#: src/config/settingsdialog.cpp:172
 msgid "On Screen Display"
 msgstr "Meddelanden på skärmen"
 
-#: src/settingsdialog.cpp:178
+#: src/config/settingsdialog.cpp:178
 msgid "Warning Dialogs"
 msgstr "Varningsdialogrutor"
+
+#: src/config/warnings_config.cpp:106
+msgid "Automatically join channel on invite"
+msgstr "Gå automatiskt med i kanal vid inbjudan"
+
+#: src/config/warnings_config.cpp:107
+msgid "Notice that saving logfiles will save whole file"
+msgstr "Observera att hela filen sparas när loggfiler sparas"
+
+#: src/config/warnings_config.cpp:108
+msgid "Ask before deleting logfile contents"
+msgstr "Fråga innan loggfilers innehåll tas bort"
+
+#: src/config/warnings_config.cpp:109
+msgid "Ask about closing queries after ignoring the nickname"
+msgstr "Fråga om att stänga frågekanaler efter att ha ignorerat smeknamn"
+
+#: src/config/warnings_config.cpp:110
+msgid "Ask before switching a connection to a network to a different server"
+msgstr "Fråga innan en anslutning bytes till en annan server i nätverket"
+
+#: src/config/warnings_config.cpp:111
+msgid "Ask before creating another connection to the same network or server"
+msgstr "Fråga innan en annan anslutning skapas till samma nätverk eller server"
+
+#: src/config/warnings_config.cpp:112
+msgid "Close server tab"
+msgstr "Stäng serverflik"
+
+#: src/config/warnings_config.cpp:113
+msgid "Close channel tab"
+msgstr "Stäng kanalflik"
+
+#: src/config/warnings_config.cpp:114
+msgid "Close query tab"
+msgstr "Stäng frågeflik"
+
+#: src/config/warnings_config.cpp:115
+msgid "The channel list can only be opened from server-aware tabs"
+msgstr "Kanallistan kan bara öppnas i flikar som känner till servern."
+
+#: src/config/warnings_config.cpp:116
+msgid "Warning on hiding the main window menu"
+msgstr "Varning då huvudmenyn döljs"
+
+#: src/config/warnings_config.cpp:117
+msgid "Warning on high traffic with channel list"
+msgstr "Varning vid mycket trafik för kanaler"
+
+#: src/config/warnings_config.cpp:118
+msgid "Warning on pasting large portions of text"
+msgstr "Varning då stora mängder text klistras in"
+
+#: src/config/warnings_config.cpp:119
+msgid "Warning on quitting Konversation"
+msgstr "Varning då Konversation avslutas"
+
+#: src/config/warnings_config.cpp:122
+msgid "Warn before quitting with active DCC file transfers"
+msgstr "Varna innan avslutning med aktiva DCC-filöverföringar"
+
+#: src/config/configdialog.cpp:76
+msgid "Configure"
+msgstr "Anpassa"
+
+#: src/config/dcc_config.cpp:50
+msgid "Network Interface"
+msgstr "Nätverksgränssnitt"
+
+#: src/config/dcc_config.cpp:51
+msgid "Reply From IRC Server"
+msgstr "Svar från IRC-server"
+
+#: src/config/dcc_config.cpp:52
+msgid "Specify Manually"
+msgstr "Ange manuellt"
+
+#: src/config/highlight_config.cpp:47
+msgid "Select Sound File"
+msgstr "Välj ljudfil"
 
 #: src/config/preferences.cpp:58
 msgid "Default Identity"
@@ -4265,7 +4275,8 @@ msgid "Reset..."
 msgstr "Återställ..."
 
 #: src/queuetuner.cpp:253
-msgid "This cannot be undone, are you sure you wish to reset to default values?"
+msgid ""
+"This cannot be undone, are you sure you wish to reset to default values?"
 msgstr ""
 "Det går inte att ångra detta. Är du säker på att du vill återställa till "
 "förvalda värden?"
@@ -4273,10 +4284,6 @@ msgstr ""
 #: src/queuetuner.cpp:254
 msgid "Reset Values"
 msgstr "Återställ värden"
-
-#: src/configdialog.cpp:76
-msgid "Configure"
-msgstr "Anpassa"
 
 #: src/statusbar.cpp:34 src/statusbar.cpp:78 src/statusbar.cpp:146
 msgid "Ready."
@@ -4338,7 +4345,8 @@ msgstr "Inget svar från servern %1 under mer än %2, %3, %4 och %5."
 
 #: src/statusbar.cpp:192
 #, kde-format
-msgctxt "%1 = name of server, %2 = (x hours), %3 = (x minutes), %4 = (x seconds)"
+msgctxt ""
+"%1 = name of server, %2 = (x hours), %3 = (x minutes), %4 = (x seconds)"
 msgid "No answer from server %1 for more than %2, %3, and %4."
 msgstr "Inget svar från servern %1 under mer än %2, %3 och %4."
 
@@ -4355,8 +4363,8 @@ msgid_plural "No answer from server %2 for more than %1 seconds."
 msgstr[0] "Inget svar från servern %2 under mer än 1 sekund."
 msgstr[1] "Inget svar från servern %2 under mer än %1 sekunder."
 
-#: src/konsolepanel.cpp:26 src/viewer/viewcontainer.cpp:1999
-#: src/viewer/viewcontainer.cpp:2000
+#: src/konsolepanel.cpp:26 src/viewer/viewcontainer.cpp:2009
+#: src/viewer/viewcontainer.cpp:2010
 msgid "Konsole"
 msgstr "Terminal"
 
@@ -4461,7 +4469,8 @@ msgstr ""
 "installera paketet 'kdepim'."
 
 #: src/linkaddressbook/addressbook_base.cpp:460
-msgid "None of the selected contacts are associated with address book entries. "
+msgid ""
+"None of the selected contacts are associated with address book entries. "
 msgstr "Ingen av de markerade kontakterna hör ihop med adressbokskontakter. "
 
 #: src/linkaddressbook/addressbook_base.cpp:462
@@ -4482,7 +4491,8 @@ msgstr ""
 msgid ""
 "One of the contacts (%1) that you have selected is not associated with an "
 "address book entry. "
-msgstr "En av de markerade kontakterna (%1) hör inte ihop med en adressbokskontakt. "
+msgstr ""
+"En av de markerade kontakterna (%1) hör inte ihop med en adressbokskontakt. "
 
 #: src/linkaddressbook/addressbook_base.cpp:471
 msgid ""
@@ -4493,7 +4503,8 @@ msgstr ""
 "för att länka dem till en kontakt i din adressbok."
 
 #: src/linkaddressbook/addressbook_base.cpp:478
-msgid "None of the selected contacts have an email address associated with them. "
+msgid ""
+"None of the selected contacts have an email address associated with them. "
 msgstr "Inga av de markerade kontakterna har en tillhörande e-postadress. "
 
 #: src/linkaddressbook/addressbook_base.cpp:480
@@ -4505,14 +4516,16 @@ msgstr "Den markerade kontakten har inte en tillhörande e-postadress. "
 msgid ""
 "Some of the contacts (%1) that you have selected do not have email addresses "
 "associated with them. "
-msgstr "Vissa av de markerade kontakterna (%1) har inte tillhörande e-postadresser. "
+msgstr ""
+"Vissa av de markerade kontakterna (%1) har inte tillhörande e-postadresser. "
 
 #: src/linkaddressbook/addressbook_base.cpp:487
 #, kde-format
 msgid ""
 "One of the contacts (%1) that you have selected does not have an email "
 "address associated with them. "
-msgstr "En av de markerade kontakterna (%1) har inte en tillhörande e-postadress. "
+msgstr ""
+"En av de markerade kontakterna (%1) har inte en tillhörande e-postadress. "
 
 #: src/linkaddressbook/addressbook_base.cpp:489
 msgid ""
@@ -4595,7 +4608,7 @@ msgstr "Ny adressbokspost"
 msgid "Name the new entry:"
 msgstr "Namnge ny post:"
 
-#: src/urlcatcher.cpp:35 src/viewer/viewcontainer.cpp:2011
+#: src/urlcatcher.cpp:35 src/viewer/viewcontainer.cpp:2021
 msgid "URL Catcher"
 msgstr "Webbadressinfångning"
 
@@ -4667,9 +4680,9 @@ msgstr "Klicka för att rensa hela listan."
 msgid "Save URL List"
 msgstr "Spara webbadresslista"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:111
+#. i18n: file: src/config/ignore_configui.ui:111
 #. i18n: ectx: property (text), widget (QCheckBox, chkQuery)
-#: src/viewer/ignorelistviewitem.cpp:44 rc.cpp:416
+#: src/viewer/ignorelistviewitem.cpp:44 rc.cpp:771
 msgid "Query"
 msgstr "Fråga"
 
@@ -4716,7 +4729,8 @@ msgstr ""
 "och de senaste längst ner."
 
 #: src/viewer/logfilereader.cpp:143
-msgid "Do you really want to permanently discard all log information of this file?"
+msgid ""
+"Do you really want to permanently discard all log information of this file?"
 msgstr "Vill du verkligen permanent ta bort all logginformation från filen?"
 
 #: src/viewer/logfilereader.cpp:157
@@ -4769,7 +4783,7 @@ msgstr "K&opiera"
 msgid "Select All"
 msgstr "Markera alla"
 
-#: src/viewer/ircview.cpp:146 src/viewer/viewcontainer.cpp:535
+#: src/viewer/ircview.cpp:146 src/viewer/viewcontainer.cpp:545
 msgid "Find Text..."
 msgstr "Sök text..."
 
@@ -4893,8 +4907,10 @@ msgid "N&ickname:"
 msgstr "Sm&eknamn:"
 
 #: src/viewer/editnotifydialog.cpp:51
-msgid "<qt>The nickname to watch for when connected to a server in the network.</qt>"
-msgstr "<qt>Smeknamnet att bevaka vid anslutning till en server i nätverket.</qt>"
+msgid ""
+"<qt>The nickname to watch for when connected to a server in the network.</qt>"
+msgstr ""
+"<qt>Smeknamnet att bevaka vid anslutning till en server i nätverket.</qt>"
 
 #: src/viewer/editnotifydialog.cpp:85
 msgid "Change notify information"
@@ -4934,80 +4950,80 @@ msgstr ""
 "*** den %1\n"
 "\n"
 
-#: src/viewer/rawlog.cpp:28 src/viewer/viewcontainer.cpp:2148
+#: src/viewer/rawlog.cpp:28 src/viewer/viewcontainer.cpp:2158
 msgid "Raw Log"
 msgstr "Obehandlad logg"
 
-#: src/viewer/viewcontainer.cpp:204 src/mainwindow.cpp:287
+#: src/viewer/viewcontainer.cpp:204 src/mainwindow.cpp:286
 msgid "Move Tab Up"
 msgstr "Flytta flik uppåt"
 
-#: src/viewer/viewcontainer.cpp:212 src/mainwindow.cpp:298
+#: src/viewer/viewcontainer.cpp:212 src/mainwindow.cpp:297
 msgid "Move Tab Down"
 msgstr "Flytta flik neråt"
 
-#: src/viewer/viewcontainer.cpp:305 src/mainwindow.cpp:318
-#: src/mainwindow.cpp:330
+#: src/viewer/viewcontainer.cpp:305 src/mainwindow.cpp:317
+#: src/mainwindow.cpp:329
 msgid "Move Tab Left"
 msgstr "Flytta flik åt vänster"
 
-#: src/viewer/viewcontainer.cpp:313 src/mainwindow.cpp:309
-#: src/mainwindow.cpp:339
+#: src/viewer/viewcontainer.cpp:313 src/mainwindow.cpp:308
+#: src/mainwindow.cpp:338
 msgid "Move Tab Right"
 msgstr "Flytta flik åt höger"
 
-#: src/viewer/viewcontainer.cpp:537
+#: src/viewer/viewcontainer.cpp:547
 msgid "Search for text in the current tab"
 msgstr "Sök efter text i nuvarande flik"
 
-#: src/viewer/viewcontainer.cpp:555
+#: src/viewer/viewcontainer.cpp:565
 #, kde-format
 msgid "Channel &List for %1"
 msgstr "Kanal&lista för %1"
 
-#: src/viewer/viewcontainer.cpp:561 src/mainwindow.cpp:207
+#: src/viewer/viewcontainer.cpp:571 src/mainwindow.cpp:206
 msgid "Channel &List"
 msgstr "Kanal&lista"
 
-#: src/viewer/viewcontainer.cpp:570 src/mainwindow.cpp:190
-#: src/mainwindow.cpp:736
+#: src/viewer/viewcontainer.cpp:580 src/mainwindow.cpp:189
+#: src/mainwindow.cpp:733
 msgid "&Open Logfile"
 msgstr "Ö&ppna loggfil"
 
-#: src/viewer/viewcontainer.cpp:575
+#: src/viewer/viewcontainer.cpp:585
 #, kde-format
 msgid "&Open Logfile for %1"
 msgstr "Ö&ppna loggfil för %1"
 
-#: src/viewer/viewcontainer.cpp:586
+#: src/viewer/viewcontainer.cpp:596
 #, kde-format
 msgid "&Channel Settings for %1..."
 msgstr "&Kanalalternativ för %1..."
 
-#: src/viewer/viewcontainer.cpp:591 src/mainwindow.cpp:199
+#: src/viewer/viewcontainer.cpp:601 src/mainwindow.cpp:198
 msgid "&Channel Settings..."
 msgstr "&Kanalinställningar..."
 
-#: src/viewer/viewcontainer.cpp:1631
+#: src/viewer/viewcontainer.cpp:1641
 #, kde-format
 msgctxt "Default encoding"
 msgid "Default ( %1 )"
 msgstr "Standard (%1)"
 
-#: src/viewer/viewcontainer.cpp:1796
+#: src/viewer/viewcontainer.cpp:1806
 msgid "You can only search in text fields."
 msgstr "Du kan bara söka i textfält."
 
-#: src/viewer/viewcontainer.cpp:1797
+#: src/viewer/viewcontainer.cpp:1807
 msgid "Find Text Information"
 msgstr "Sök textinformation"
 
-#: src/viewer/viewcontainer.cpp:1990
+#: src/viewer/viewcontainer.cpp:2000
 #, kde-format
 msgid "Logfile of %1"
 msgstr "Loggfil för %1"
 
-#: src/viewer/viewcontainer.cpp:2389
+#: src/viewer/viewcontainer.cpp:2399
 msgid ""
 "Using this function may result in a lot of network traffic. If your "
 "connection is not fast enough, it is possible that your client will be "
@@ -5017,11 +5033,11 @@ msgstr ""
 "anslutning inte är snabb nog, är det möjligt att din klient kopplas ner av "
 "servern."
 
-#: src/viewer/viewcontainer.cpp:2393
+#: src/viewer/viewcontainer.cpp:2403
 msgid "Channel List Warning"
 msgstr "Varning för kanaler"
 
-#: src/viewer/viewcontainer.cpp:2412
+#: src/viewer/viewcontainer.cpp:2422
 msgid ""
 "To know which server to display the channel list for, the list can only be "
 "opened from a query, channel or status window."
@@ -5033,7 +5049,7 @@ msgstr ""
 msgid "Konversation - IRC Client"
 msgstr "Konversation - IRC-klient"
 
-#: src/viewer/osd.cpp:342
+#: src/viewer/osd.cpp:337
 msgid "OSD Preview - drag to reposition"
 msgstr "Förhandsgranskning av skärmmeddelande. Dra för att byta plats."
 
@@ -5087,192 +5103,192 @@ msgstr "Koppla ner från servern"
 msgid "Disconnect"
 msgstr "Koppla ner"
 
-#: src/mainwindow.cpp:132
+#: src/mainwindow.cpp:131
 msgid "&Server List..."
 msgstr "&Serverlista..."
 
-#: src/mainwindow.cpp:135
+#: src/mainwindow.cpp:134
 msgid "Manage networks and servers"
 msgstr "Hantera nätverk och servrar"
 
-#: src/mainwindow.cpp:140
+#: src/mainwindow.cpp:139
 msgid "Quick &Connect..."
 msgstr "Snabb&anslutning..."
 
-#: src/mainwindow.cpp:143
+#: src/mainwindow.cpp:142
 msgid "Type in the address of a new IRC server to connect to"
 msgstr "Skriv in adressen för en ny IRC-server att ansluta till"
 
-#: src/mainwindow.cpp:148
+#: src/mainwindow.cpp:147
 msgid "&Reconnect"
 msgstr "Anslut i&gen"
 
-#: src/mainwindow.cpp:151
+#: src/mainwindow.cpp:150
 msgid "Reconnect to the current server."
 msgstr "Anslut till nuvarande server igen."
 
-#: src/mainwindow.cpp:157
+#: src/mainwindow.cpp:156
 msgid "&Disconnect"
 msgstr "&Koppla ner"
 
-#: src/mainwindow.cpp:160
+#: src/mainwindow.cpp:159
 msgid "Disconnect from the current server."
 msgstr "Koppla ner från nuvarande server."
 
-#: src/mainwindow.cpp:165
+#: src/mainwindow.cpp:164
 msgid "&Identities..."
 msgstr "&Identiteter..."
 
-#: src/mainwindow.cpp:168
+#: src/mainwindow.cpp:167
 msgid "Manage your nick, away and other identity settings"
 msgstr "Hantera smeknamn, frånvaro och andra identitetsinställningar"
 
-#: src/mainwindow.cpp:173
+#: src/mainwindow.cpp:172
 msgid "&Watched Nicks Online"
 msgstr "&Bevakade uppkopplade smeknamn"
 
-#: src/mainwindow.cpp:181
+#: src/mainwindow.cpp:180
 msgid "&DCC Status"
 msgstr "&DCC-status"
 
-#: src/mainwindow.cpp:194
+#: src/mainwindow.cpp:193
 msgid "Open the known history for this channel in a new tab"
 msgstr "Öppnar känd historik för kanalen under en ny flik"
 
-#: src/mainwindow.cpp:202
+#: src/mainwindow.cpp:201
 msgid "Open the channel settings dialog for this tab"
 msgstr "Öppna dialogrutan med kanalinställningar för fliken"
 
-#: src/mainwindow.cpp:211
+#: src/mainwindow.cpp:210
 msgid "Show a list of all the known channels on this server"
 msgstr "Visar en lista med alla kända kanaler på servern"
 
-#: src/mainwindow.cpp:216
+#: src/mainwindow.cpp:215
 msgid "&URL Catcher"
 msgstr "&Webbadressinfångning"
 
-#: src/mainwindow.cpp:219
+#: src/mainwindow.cpp:218
 msgid "List all URLs that have been mentioned recently in a new tab"
 msgstr "Listar alla webbadresser som nyligen har nämnts under en ny flik"
 
-#: src/mainwindow.cpp:226
+#: src/mainwindow.cpp:225
 msgid "New &Konsole"
 msgstr "&Ny terminal"
 
-#: src/mainwindow.cpp:228
+#: src/mainwindow.cpp:227
 msgid "Open a terminal in a new tab"
 msgstr "Öppna en terminal under en ny flik"
 
-#: src/mainwindow.cpp:254
+#: src/mainwindow.cpp:253
 msgid "&Next Tab"
 msgstr "&Nästa flik"
 
-#: src/mainwindow.cpp:262
+#: src/mainwindow.cpp:261
 msgid "&Previous Tab"
 msgstr "&Föregående flik"
 
-#: src/mainwindow.cpp:270
+#: src/mainwindow.cpp:269
 msgid "Close &Tab"
 msgstr "Stäng &flik"
 
-#: src/mainwindow.cpp:278
+#: src/mainwindow.cpp:277
 msgid "Next Active Tab"
 msgstr "Nästa aktiva flik"
 
-#: src/mainwindow.cpp:353
+#: src/mainwindow.cpp:352
 msgid "Rejoin Channel"
 msgstr "Gå med i kanal igen"
 
-#: src/mainwindow.cpp:359 src/mainwindow.cpp:742
+#: src/mainwindow.cpp:358 src/mainwindow.cpp:739
 msgid "Enable Notifications"
 msgstr "Aktivera underrättelser"
 
-#: src/mainwindow.cpp:365
+#: src/mainwindow.cpp:364
 msgid "Join on Connect"
 msgstr "Gå med vid anslutning"
 
-#: src/mainwindow.cpp:370
+#: src/mainwindow.cpp:369
 msgid "Default"
 msgstr "Standard"
 
-#: src/mainwindow.cpp:375
+#: src/mainwindow.cpp:374
 msgid "Set Encoding"
 msgstr "Ange kodning"
 
-#: src/mainwindow.cpp:387
+#: src/mainwindow.cpp:386
 #, kde-format
 msgid "Go to Tab %1"
 msgstr "Gå till flik %1"
 
-#: src/mainwindow.cpp:396
+#: src/mainwindow.cpp:395
 msgid "Clear &Marker Lines"
 msgstr "Rensa &markeringslinjer"
 
-#: src/mainwindow.cpp:399
+#: src/mainwindow.cpp:398
 msgid "Clear marker lines in the current tab"
 msgstr "Rensar markeringslinjer i nuvarande flik"
 
-#: src/mainwindow.cpp:404
+#: src/mainwindow.cpp:403
 msgid "&Clear Window"
 msgstr "&Töm fönster"
 
-#: src/mainwindow.cpp:407
+#: src/mainwindow.cpp:406
 msgid "Clear the contents of the current tab"
 msgstr "Tömmer innehållet i nuvarande flik"
 
-#: src/mainwindow.cpp:412
+#: src/mainwindow.cpp:411
 msgid "Clear &All Windows"
 msgstr "Töm &alla fönster"
 
-#: src/mainwindow.cpp:415
+#: src/mainwindow.cpp:414
 msgid "Clear the contents of all open tabs"
 msgstr "Tömmer innehållet i alla öppna flikar"
 
-#: src/mainwindow.cpp:420
+#: src/mainwindow.cpp:419
 msgid "Global Away"
 msgstr "Allmän frånvaro"
 
-#: src/mainwindow.cpp:428
+#: src/mainwindow.cpp:427
 msgid "&Join Channel..."
 msgstr "&Gå med i kanal..."
 
-#: src/mainwindow.cpp:448 src/mainwindow.cpp:744
+#: src/mainwindow.cpp:447 src/mainwindow.cpp:741
 msgid "&IRC Color..."
 msgstr "&IRC-färg..."
 
-#: src/mainwindow.cpp:452
+#: src/mainwindow.cpp:451
 msgid "Set the color of your current IRC message"
 msgstr "Ange färg för ditt nuvarande IRC-meddelande"
 
-#: src/mainwindow.cpp:457 src/mainwindow.cpp:746
+#: src/mainwindow.cpp:456 src/mainwindow.cpp:743
 msgid "&Marker Line"
 msgstr "&Markeringslinje"
 
-#: src/mainwindow.cpp:460
+#: src/mainwindow.cpp:459
 msgid "Insert a horizontal line into the current tab that only you can see"
 msgstr "Lägg till en horisontell linje i nuvarande flik som bara du kan se"
 
-#: src/mainwindow.cpp:465 src/mainwindow.cpp:745
+#: src/mainwindow.cpp:464 src/mainwindow.cpp:742
 msgid "Special &Character..."
 msgstr "Special&tecken..."
 
-#: src/mainwindow.cpp:469
+#: src/mainwindow.cpp:468
 msgid "Insert any character into your current IRC message"
 msgstr "Infoga vilket tecken som helst i ditt nuvarande IRC-meddelande"
 
-#: src/mainwindow.cpp:474
+#: src/mainwindow.cpp:473
 msgid "Close &All Open Queries"
 msgstr "Stäng &alla öppna frågekanaler"
 
-#: src/mainwindow.cpp:483
+#: src/mainwindow.cpp:482
 msgid "Hide Nicklist"
 msgstr "Dölj smeknamnslista"
 
-#: src/mainwindow.cpp:500
+#: src/mainwindow.cpp:499
 msgid "Bookmarks"
 msgstr "Bokmärken"
 
-#: src/mainwindow.cpp:551
+#: src/mainwindow.cpp:550
 msgid ""
 "<qt>You have active DCC file transfers. Are you sure you want to quit "
 "<b>Konversation</b>?</qt>"
@@ -5280,15 +5296,15 @@ msgstr ""
 "<qt>Du har aktiva DCC-filöverföringar. Är du säker på att du vill avsluta "
 "<b>Konversation</b>?</qt>"
 
-#: src/mainwindow.cpp:552 src/mainwindow.cpp:562
+#: src/mainwindow.cpp:551 src/mainwindow.cpp:561
 msgid "Confirm Quit"
 msgstr "Bekräfta avslutning"
 
-#: src/mainwindow.cpp:561
+#: src/mainwindow.cpp:560
 msgid "<qt>Are you sure you want to quit <b>Konversation</b>?</qt>"
 msgstr "<qt>Är du säker på att du vill avsluta <b>Konversation</b>?</qt>"
 
-#: src/mainwindow.cpp:594
+#: src/mainwindow.cpp:593
 msgid ""
 "<p>Closing the main window will keep Konversation running in the system "
 "tray. Use <b>Quit</b> from the <b>Konversation</b> menu to quit the "
@@ -5298,11 +5314,11 @@ msgstr ""
 "Använd <b>Avsluta</b> i menyn <b>Konversation</b> för att avsluta programmet."
 "</p>"
 
-#: src/mainwindow.cpp:596
+#: src/mainwindow.cpp:595
 msgid "Docking in System Tray"
 msgstr "Dockning i systembrickan"
 
-#: src/mainwindow.cpp:693
+#: src/mainwindow.cpp:690
 #, kde-format
 msgid ""
 "<qt>This will hide the menu bar completely. You can show it again by typing %"
@@ -5311,35 +5327,35 @@ msgstr ""
 "<qt>Det här döljer menyraden helt och hållet. Du kan visa den igen genom att "
 "skriva %1.</qt>"
 
-#: src/mainwindow.cpp:728
+#: src/mainwindow.cpp:725
 msgid "Toggle Notifications"
 msgstr "Växla underrättelser"
 
-#: src/mainwindow.cpp:729
+#: src/mainwindow.cpp:726
 msgid "Toggle Away Globally"
 msgstr "Växla borta globalt"
 
-#: src/mainwindow.cpp:730
+#: src/mainwindow.cpp:727
 msgid "Insert &IRC Color..."
 msgstr "Infoga &IRC-färg..."
 
-#: src/mainwindow.cpp:731
+#: src/mainwindow.cpp:728
 msgid "Insert Special &Character..."
 msgstr "Infoga special&tecken..."
 
-#: src/mainwindow.cpp:732
+#: src/mainwindow.cpp:729
 msgid "Insert &Marker Line"
 msgstr "Infoga &markeringslinje"
 
-#: src/mainwindow.cpp:734
+#: src/mainwindow.cpp:731
 msgid "&Channel List"
 msgstr "&Kanallista"
 
-#: src/mainwindow.cpp:743
+#: src/mainwindow.cpp:740
 msgid "Set &Away Globally"
 msgstr "&Ange som borta globalt"
 
-#: src/mainwindow.cpp:755
+#: src/mainwindow.cpp:752
 msgid "Server List"
 msgstr "Serverlista"
 
@@ -5607,7 +5623,7 @@ msgstr "Ä&mne"
 #. i18n: ectx: property (text), widget (QTreeWidget, topicHistoryList)
 #. i18n: file: src/identitydialog.ui:211
 #. i18n: ectx: property (title), widget (KEditListBox, m_nicknameLBox)
-#: rc.cpp:116 rc.cpp:1252
+#: rc.cpp:116 rc.cpp:370
 msgid "Nickname"
 msgstr "Smeknamn"
 
@@ -5937,47 +5953,387 @@ msgstr "Byte (obehandlade):"
 msgid "Bytes (Encoded):"
 msgstr "Byte (kodade):"
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:33
-#. i18n: ectx: property (text), widget (QTreeWidget, buttonListView)
+#. i18n: file: src/identitydialog.ui:25
+#. i18n: ectx: property (text), widget (QLabel, label)
 #: rc.cpp:341
-msgid "Button Name"
-msgstr "Knappnamn"
+msgid "&Identity:"
+msgstr "&Identitet:"
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:38
-#. i18n: ectx: property (text), widget (QTreeWidget, buttonListView)
+#. i18n: file: src/identitydialog.ui:65
+#. i18n: ectx: property (toolTip), widget (KPushButton, newBtn)
 #: rc.cpp:344
-msgid "Button Action"
-msgstr "Knapphändelse"
+msgid "Add"
+msgstr "Lägg till"
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:55
-#. i18n: ectx: property (text), widget (QPushButton, removeButton)
+#. i18n: file: src/identitydialog.ui:96
+#. i18n: ectx: property (toolTip), widget (KPushButton, copyBtn)
+#: rc.cpp:347
+msgid "Duplicate"
+msgstr "Duplicera"
+
+#. i18n: file: src/identitydialog.ui:127
+#. i18n: ectx: property (toolTip), widget (KPushButton, m_editBtn)
+#: rc.cpp:350
+msgid "Rename"
+msgstr "Byt namn"
+
 #. i18n: file: src/identitydialog.ui:158
 #. i18n: ectx: property (toolTip), widget (KPushButton, m_delBtn)
-#: rc.cpp:350 rc.cpp:1235
+#. i18n: file: src/config/quickbuttons_configui.ui:55
+#. i18n: ectx: property (text), widget (QPushButton, removeButton)
+#: rc.cpp:353 rc.cpp:488
 msgid "Remove"
 msgstr "Ta bort"
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:85
+#. i18n: file: src/identitydialog.ui:187
+#. i18n: ectx: property (text), widget (QLabel, realNameLabel)
+#: rc.cpp:359
+msgid "&Real name:"
+msgstr "&Riktigt namn:"
+
+#. i18n: file: src/identitydialog.ui:197
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_realNameEdit)
+#: rc.cpp:362
+msgid ""
+"Enter your real name here. IRC is not intended to keep you hidden from your "
+"friends or enemies. Keep this in mind if you are tempted to behave "
+"maliciously. A fake \"real name\" can be a good way to mask your gender from "
+"all the nerds out there, but the PC you use can always be traced so you will "
+"never be truly anonymous."
+msgstr ""
+"Skriv in ditt riktiga namn här. IRC är inte avsett för att hålla dig dold "
+"från dina vänner eller fiender. Kom ihåg det om du är frestad att bete dig "
+"ondsint. Ett förfalskat \"riktigt namn\" kan vara ett bra sätt att dölja "
+"ditt kön för töntar därute, men datorn du använder kan alltid spåras så du "
+"kan aldrig vara helt anonym."
+
+#. i18n: file: src/identitydialog.ui:208
+#. i18n: ectx: property (whatsThis), widget (KEditListBox, m_nicknameLBox)
+#: rc.cpp:365
+msgid ""
+"This is your list of nicknames. A nickname is the name that other users will "
+"know you by. You may use any name you desire. The first character must be a "
+"letter.\n"
+"\n"
+"Since nicknames must be unique across an entire IRC network, your desired "
+"name may be rejected by the server because someone else is already using "
+"that nickname. Enter alternate nicknames for yourself. If your first choice "
+"is rejected by the server, Konversation will try the alternate nicknames."
+msgstr ""
+"Det här är din lista med smeknamn. Ett smeknamn är namnet som andra "
+"användare känner dig som. Du kan använda vilket namn du vill. Det första "
+"tecknet måste vara en bokstav.\n"
+"\n"
+"Eftersom smeknamn måste vara unika i ett helt IRC-nätverk, kan ditt önskade "
+"namn förkastas av servern eftersom någon annan redan använder det. Skriv in "
+"alternativa smeknamn för dig själv. Om ditt första val förkastas av servern, "
+"försöker Konversation med de alternativa smeknamnen."
+
+#. i18n: file: src/identitydialog.ui:218
+#. i18n: ectx: property (title), widget (QGroupBox, autoIdentifyGroup)
+#: rc.cpp:373
+msgid "Auto Identify"
+msgstr "Automatisk identitet"
+
+#. i18n: file: src/identitydialog.ui:224
+#. i18n: ectx: property (text), widget (QLabel, botLabel)
+#: rc.cpp:376
+msgid "Ser&vice:"
+msgstr "T&jänst:"
+
+#. i18n: file: src/identitydialog.ui:234
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_botEdit)
+#: rc.cpp:379
+msgid ""
+"Service name can be <b><i>nickserv</i></b> or a network-dependent name such "
+"as <b><i>nickserv@services.dal.net</i></b>"
+msgstr ""
+"Tjänstnamnet kan vara <b><i>nickserv</i></b> eller ett nätverksberoende namn "
+"som <b><i>nickserv@services.dal.net</i></b>"
+
+#. i18n: file: src/identitydialog.ui:241
+#. i18n: ectx: property (text), widget (QLabel, passwordLabel)
+#: rc.cpp:382
+msgid "Pa&ssword:"
+msgstr "Lö&senord:"
+
+#. i18n: file: src/identitydialog.ui:270
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_insertRememberLineOnAwayChBox)
+#: rc.cpp:388
+msgid ""
+"If you check this box, whenever you perform an <b>/away</b> command, a "
+"horizontal line will appear in the channel, marking the point where you went "
+"away. Other IRC users do not see this horizontal line."
+msgstr ""
+"Om du markerar rutan, visas en horisontell linje i kanalen så fort du utför "
+"kommandot <b>/away</b> som markerar stället där du gick ifrån. Andra IRC-"
+"användare ser inte den horisontella linjen."
+
+#. i18n: file: src/identitydialog.ui:273
+#. i18n: ectx: property (text), widget (QCheckBox, m_insertRememberLineOnAwayChBox)
+#: rc.cpp:391
+msgid "Mark the last position in chat windows when going away"
+msgstr "Markera den sista positionen i chattfönster när du går ifrån"
+
+#. i18n: file: src/identitydialog.ui:280
+#. i18n: ectx: property (text), widget (QLabel, awayNicknameLabel)
+#: rc.cpp:394
+msgid "Away nickname:"
+msgstr "Smeknamn vid frånvaro:"
+
+#. i18n: file: src/identitydialog.ui:287
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_awayNickEdit)
+#: rc.cpp:397
+msgid ""
+"Enter a nickname that indicates you are away. Whenever you perform an <b>/"
+"away msg</b> command in any channel joined with this Identity, Konversation "
+"will automatically change your nickname to the Away nickname. Other users "
+"will be able to tell you are away from your computer. Whenever you perform "
+"an <b>/away</b> command in any channel in which you are away, Konversation "
+"will automatically change your nickname back to the original. If you do not "
+"wish to automatically change your nickname when going away, leave blank."
+msgstr ""
+"Skriv in ett smeknamn som anger att du är borta. Så fort du utför kommandot "
+"<b>/away meddelande</b> i någon kanal du gått med i med den här identiteten, "
+"ändrar Konversation automatiskt ditt smeknamn till smeknamnet vid frånvaro. "
+"Andra användare kan avgöra om du är borta från datorn. Så fort du utför "
+"kommandot <b>/away</b> i någon kanal där du är borta, ändrar Konversation "
+"automatiskt tillbaka ditt smeknamn till det ursprungliga. Om du inte vill "
+"ändra ditt smeknamn automatiskt när du är borta, lämna det tomt."
+
+#. i18n: file: src/identitydialog.ui:302
+#. i18n: ectx: property (whatsThis), widget (QGroupBox, automaticAwayGroup)
+#: rc.cpp:400
+msgid ""
+"If you check this box, Konversation will automatically set all connections "
+"using this Identity away when the screensaver starts or after a period of "
+"user inactivity configured below."
+msgstr ""
+"Om du markerar rutan, kommer Konversation automatiskt markera alla "
+"anslutningar som använder identiteten som frånvarande när skärmsläckaren "
+"startar eller efter en period utan aktivitet av användaren som ställs in "
+"nedan."
+
+#. i18n: file: src/identitydialog.ui:305
+#. i18n: ectx: property (title), widget (QGroupBox, automaticAwayGroup)
+#: rc.cpp:403
+msgid "Automatic Away"
+msgstr "Automatisk frånvaro"
+
+#. i18n: file: src/identitydialog.ui:323
+#. i18n: ectx: property (text), widget (QLabel, setAwayAfterLabel)
+#: rc.cpp:406
+msgid "Set away after"
+msgstr "Ange som frånvarande efter"
+
+#. i18n: file: src/identitydialog.ui:346
+#. i18n: ectx: property (text), widget (QLabel, timeOfUserInactivityLabel)
+#: rc.cpp:409
+msgid "of user inactivity"
+msgstr "utan aktivitet av användaren"
+
+#. i18n: file: src/identitydialog.ui:353
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_automaticUnawayChBox)
+#: rc.cpp:412
+msgid ""
+"If you check this box, Konversation will automatically cancel away for all "
+"connections using this Identity when the screensaver stops or new user "
+"activity is detected."
+msgstr ""
+"Om du markerar rutan, kommer Konversation automatiskt avbryta frånvaro för "
+"anslutningar som använder identiteten när skärmsläckaren stoppar eller ny "
+"aktivitet av användaren detekteras."
+
+#. i18n: file: src/identitydialog.ui:356
+#. i18n: ectx: property (text), widget (QCheckBox, m_automaticUnawayChBox)
+#: rc.cpp:415
+msgid "Automatically return on activity"
+msgstr "Återkom automatiskt vid aktivitet"
+
+#. i18n: file: src/identitydialog.ui:372
+#. i18n: ectx: property (whatsThis), widget (QGroupBox, awayMessageGroup)
+#: rc.cpp:419
+#, no-c-format
+msgid ""
+"If you check this box, Konversation will automatically send the Away message "
+"to all channels joined with this Identity. <b>%s</b> is replaced with "
+"<b>msg</b>. Whenever you perform an <b>/away</b> command, the Return message "
+"will be displayed in all channels joined with this Identity."
+msgstr ""
+"Om du markerar rutan, skickar Konversation automatiskt frånvaromeddelanden "
+"till alla kanaler du gått med i med den här identiteten. <b>%s</b> ersätts "
+"med <b>meddelande</b>. Så fort du utför kommandot <b>/away</b>, visas "
+"återkomstmeddelandet i alla kanaler du gått med i med den här identiteten."
+
+#. i18n: file: src/identitydialog.ui:375
+#. i18n: ectx: property (title), widget (QGroupBox, awayMessageGroup)
+#: rc.cpp:422
+msgid "Away Messages"
+msgstr "Frånvaromeddelanden"
+
+#. i18n: file: src/identitydialog.ui:387
+#. i18n: ectx: property (text), widget (QLabel, awayLabel)
+#: rc.cpp:425
+msgid "Away &message:"
+msgstr "Frånvaro&meddelande:"
+
+#. i18n: file: src/identitydialog.ui:400
+#. i18n: ectx: property (text), widget (QLabel, unAwayLabel)
+#: rc.cpp:428
+msgid "Re&turn message:"
+msgstr "Å&terkomstmeddelande:"
+
+#. i18n: file: src/identitydialog.ui:430
+#. i18n: ectx: attribute (title), widget (QWidget, advancedWidget)
+#: rc.cpp:431
+msgid "Advanced"
+msgstr "Avancerat"
+
+#. i18n: file: src/identitydialog.ui:436
+#. i18n: ectx: property (text), widget (QLabel, sCommandLabel)
+#: rc.cpp:434
+msgid "&Pre-shell command:"
+msgstr "&Inledande skalkommando:"
+
+#. i18n: file: src/identitydialog.ui:446
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_sCommandEdit)
+#: rc.cpp:437
+msgid ""
+"Here you can enter a command to be executed before connection to server "
+"starts<br>If you have multiple servers in this identity this command will be "
+"executed for each server"
+msgstr ""
+"Här kan du skriva in ett kommando som ska köras innan anslutningen till "
+"servern startas.<br>Om du har flera servrar i identiteten utförs kommandot "
+"för varje server."
+
+#. i18n: file: src/identitydialog.ui:459
+#. i18n: ectx: property (text), widget (QLabel, codecLabel)
+#: rc.cpp:440
+msgid "&Encoding:"
+msgstr "&Kodning:"
+
+#. i18n: file: src/identitydialog.ui:469
+#. i18n: ectx: property (whatsThis), widget (KComboBox, m_codecCBox)
+#: rc.cpp:443
+msgid ""
+"This setting affects how characters you type are encoded for sending to the "
+"server. It also affects how messages are displayed. When you first open "
+"Konversation, it automatically retrieves this setting from the operating "
+"system. If you seem to be having trouble seeing other user's messages "
+"correctly, try changing this setting."
+msgstr ""
+"Den här inställningen påverkar hur tecken du skriver in kodas för att "
+"skickas till servern. Den påverkar också hur meddelanden visas. När du först "
+"startar Konversation, hämtas inställningen automatiskt från "
+"operativsystemet. Om du verkar ha problem med att se andra användares "
+"meddelanden riktigt, försök att ändra den här inställningen."
+
+#. i18n: file: src/identitydialog.ui:476
+#. i18n: ectx: property (text), widget (QLabel, loginLabel)
+#: rc.cpp:446
+msgid "I&dent:"
+msgstr "I&dentifikation:"
+
+#. i18n: file: src/identitydialog.ui:486
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_loginEdit)
+#: rc.cpp:449
+msgid ""
+"When you connect, many servers query your computer for an IDENT response. If "
+"you computer is not running an IDENT server, this response is sent by "
+"Konversation. No spaces are allowed."
+msgstr ""
+"När du ansluter frågar många servrar din dator om ett IDENT-svar. Om datorn "
+"inte kör en IDENT-server, skickas det här svaret av Konversation. Några "
+"mellanslag är inte tillåtna."
+
+#. i18n: file: src/identitydialog.ui:493
+#. i18n: ectx: property (text), widget (QLabel, quitLabel)
+#: rc.cpp:452
+msgid "&Quit reason:"
+msgstr "&Avslutningsorsak:"
+
+#. i18n: file: src/identitydialog.ui:503
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_quitEdit)
+#: rc.cpp:455
+msgid "Whenever you leave a server, this message is shown to others."
+msgstr "Så fort du lämnar en server, visas det här meddelandet för andra."
+
+#. i18n: file: src/identitydialog.ui:506
+#. i18n: ectx: property (text), widget (KLineEdit, m_quitEdit)
+#. i18n: file: src/identitydialog.ui:526
+#. i18n: ectx: property (text), widget (KLineEdit, m_partEdit)
+#: rc.cpp:458 rc.cpp:467
+msgid "Konversation terminated."
+msgstr "Konversation avbruten."
+
+#. i18n: file: src/identitydialog.ui:513
+#. i18n: ectx: property (text), widget (QLabel, partLabel)
+#: rc.cpp:461
+msgid "&Part reason:"
+msgstr "&Lämningsorsak:"
+
+#. i18n: file: src/identitydialog.ui:523
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_partEdit)
+#: rc.cpp:464
+msgid "Whenever you leave a channel, this message is sent to the channel."
+msgstr "Så fort du lämnar en kanal, skickas det här meddelandet till kanalen."
+
+#. i18n: file: src/identitydialog.ui:533
+#. i18n: ectx: property (text), widget (QLabel, kickLabel)
+#: rc.cpp:470
+msgid "&Kick reason:"
+msgstr "&Utsparkningsorsak:"
+
+#. i18n: file: src/identitydialog.ui:543
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_kickEdit)
+#: rc.cpp:473
+msgid ""
+"Whenever you are kicked from a channel (usually by an IRC operator), this "
+"message is sent to the channel."
+msgstr ""
+"Så fort du sparkas ut från en kanal (oftast av en IRC-operatör), skickas det "
+"här meddelandet till kanalen."
+
+#. i18n: file: src/identitydialog.ui:546
+#. i18n: ectx: property (text), widget (KLineEdit, m_kickEdit)
+#: rc.cpp:476
+msgid "User terminated."
+msgstr "Avbruten av användare."
+
+#. i18n: file: src/config/quickbuttons_configui.ui:33
+#. i18n: ectx: property (text), widget (QTreeWidget, buttonListView)
+#: rc.cpp:479
+msgid "Button Name"
+msgstr "Knappnamn"
+
+#. i18n: file: src/config/quickbuttons_configui.ui:38
+#. i18n: ectx: property (text), widget (QTreeWidget, buttonListView)
+#: rc.cpp:482
+msgid "Button Action"
+msgstr "Knapphändelse"
+
+#. i18n: file: src/config/quickbuttons_configui.ui:85
 #. i18n: ectx: property (text), widget (QLabel, nameLabel)
-#: rc.cpp:353
+#: rc.cpp:491
 msgid "Button name:"
 msgstr "Knappnamn:"
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:111
+#. i18n: file: src/config/quickbuttons_configui.ui:111
 #. i18n: ectx: property (text), widget (QLabel, actionLabel)
-#: rc.cpp:356
+#: rc.cpp:494
 msgid "Button action:"
 msgstr "Knapphändelse:"
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:136
+#. i18n: file: src/config/quickbuttons_configui.ui:136
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
-#: rc.cpp:359
+#: rc.cpp:497
 msgid "Available Placeholders"
 msgstr "Tillgängliga platsmarkörer:"
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:153
+#. i18n: file: src/config/quickbuttons_configui.ui:153
 #. i18n: ectx: property (text), widget (QLabel, placeholderHelpLabel)
-#: rc.cpp:363
+#: rc.cpp:501
 #, no-c-format
 msgid ""
 "%o: Current nickname\n"
@@ -5994,323 +6350,161 @@ msgstr ""
 "%s&lt;ord>%: ord som används för att separera smeknamn i %u\n"
 "%n: Skicka kommandon direkt till servern istället för till din inmatningsrad"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:25
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoReconnect)
-#: rc.cpp:371
-msgid "Enable Automatic Reconnect"
-msgstr "Aktivera automatisk återuppkoppling"
+#. i18n: file: src/config/osd_configui.ui:35
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOSD)
+#: rc.cpp:509
+msgid "&Enable On Screen Display"
+msgstr "Akti&vera meddelanden på skärmen"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:34
-#. i18n: ectx: property (text), widget (QLabel, reconnectDelayLabel)
-#: rc.cpp:374
-msgid "Reconnect delay:"
-msgstr "Fördröjning innan återanslutning:"
+#. i18n: file: src/config/osd_configui.ui:45
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
+#: rc.cpp:512
+msgid "On &Screen Display"
+msgstr "Meddelanden &på skärmen"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:63
+#. i18n: file: src/config/osd_configui.ui:54
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDDrawShadow)
+#: rc.cpp:515
+msgid "&Draw shadows"
+msgstr "&Rita skuggor"
+
+#. i18n: file: src/config/osd_configui.ui:67
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:377
-msgid "Reconnection attempts:"
-msgstr "Återanslutningsförsök:"
+#: rc.cpp:518
+msgid "OSD font:"
+msgstr "Teckensnitt för skärmmeddelanden:"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:85
-#. i18n: ectx: property (suffix), widget (KIntNumInput, kcfg_ReconnectDelay)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:131
-#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_NotifyDelay)
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:271
-#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_AutoWhoContinuousInterval)
-#: rc.cpp:380 rc.cpp:594 rc.cpp:968
-msgid " seconds"
-msgstr " sekunder"
+#. i18n: file: src/config/osd_configui.ui:135
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
+#: rc.cpp:521
+msgid "Show &OSD Message"
+msgstr "&Visa meddelanden på skärmen"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:98
-#. i18n: ectx: property (specialValueText), widget (KIntNumInput, kcfg_ReconnectCount)
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:104
-#. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_ScrollbackMax)
-#: rc.cpp:383 rc.cpp:938
-msgid "Unlimited"
-msgstr "Obegränsad"
+#. i18n: file: src/config/osd_configui.ui:141
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowOwnNick)
+#: rc.cpp:524
+msgid "&If own nick appears in channel message"
+msgstr "Om eget smeknamn finns &i kanalmeddelande"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:140
-#. i18n: ectx: property (title), widget (QGroupBox, debugGBox)
-#: rc.cpp:386
-msgid "Debug"
-msgstr "Felsökning"
+#. i18n: file: src/config/osd_configui.ui:148
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowChannel)
+#: rc.cpp:527
+msgid "On an&y channel message"
+msgstr "Vid godtyckligt &kanalmeddelande"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:146
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_RawLog)
-#: rc.cpp:389
-msgid "Show raw &log window when connecting"
-msgstr "Visa fönster med obehandlad &logg vid anslutning"
+#. i18n: file: src/config/osd_configui.ui:155
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowQuery)
+#: rc.cpp:530
+msgid "On &query activity"
+msgstr "Vid aktivitet i &frågekanal"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:45
-#. i18n: ectx: property (text), widget (QTreeWidget, ignoreListView)
-#: rc.cpp:392
-msgid "Pattern"
-msgstr "Mönster"
+#. i18n: file: src/config/osd_configui.ui:162
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowChannelEvent)
+#: rc.cpp:533
+msgid "On &Join/Part events"
+msgstr "För händelserna &gå med eller lämna"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:50
-#. i18n: ectx: property (text), widget (QTreeWidget, ignoreListView)
-#: rc.cpp:395
-msgid "Type"
-msgstr "Typ"
+#. i18n: file: src/config/osd_configui.ui:175
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_OSDUseCustomColors)
+#: rc.cpp:536
+msgid "Enable Custom Colors"
+msgstr "Använd egna färger"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:58
+#. i18n: file: src/config/osd_configui.ui:187
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:398
-msgid "Pattern:"
-msgstr "Mönster:"
+#: rc.cpp:539
+msgid "Te&xt color:"
+msgstr "Te&xtfärg:"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:77
-#. i18n: ectx: property (title), widget (QGroupBox, grpMessageTypes)
-#: rc.cpp:401
-msgid "Message Types"
-msgstr "Meddelandetyper"
+#. i18n: file: src/config/osd_configui.ui:200
+#. i18n: ectx: property (text), widget (QLabel, textLabel3)
+#. i18n: file: src/viewer/irccolorchooserui.ui:122
+#. i18n: ectx: property (text), widget (QLabel, m_bgColorLbl)
+#: rc.cpp:542 rc.cpp:1775
+msgid "&Background color:"
+msgstr "&Bakgrundsfärg:"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:123
-#. i18n: ectx: property (text), widget (KPushButton, newButton)
-#. i18n: file: src/preferences/alias_preferencesui.ui:51
-#. i18n: ectx: property (text), widget (QPushButton, newButton)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:251
-#. i18n: ectx: property (text), widget (KPushButton, newButton)
-#. i18n: file: src/preferences/highlight_preferencesui.ui:162
-#. i18n: ectx: property (text), widget (KPushButton, newButton)
-#: rc.cpp:419 rc.cpp:434 rc.cpp:630 rc.cpp:870
-msgid "&New"
-msgstr "&Ny"
+#. i18n: file: src/config/osd_configui.ui:249
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
+#: rc.cpp:545
+msgid "O&ther Settings"
+msgstr "Ö&vriga inställningar"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:130
-#. i18n: ectx: property (text), widget (KPushButton, removeButton)
-#. i18n: file: src/preferences/alias_preferencesui.ui:58
-#. i18n: ectx: property (text), widget (QPushButton, removeButton)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:270
-#. i18n: ectx: property (text), widget (KPushButton, removeButton)
-#. i18n: file: src/preferences/highlight_preferencesui.ui:175
-#. i18n: ectx: property (text), widget (KPushButton, removeButton)
-#: rc.cpp:422 rc.cpp:437 rc.cpp:636 rc.cpp:873
-msgid "&Remove"
-msgstr "&Ta bort"
+#. i18n: file: src/config/osd_configui.ui:255
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#: rc.cpp:548
+msgid "&Duration:"
+msgstr "&Tid:"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:137
-#. i18n: ectx: property (text), widget (KPushButton, removeAllButton)
-#: rc.cpp:425
-msgid "Remove &All"
-msgstr "Ta bort &alla"
+#. i18n: file: src/config/osd_configui.ui:268
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
+#: rc.cpp:551
+msgid "S&creen:"
+msgstr "&Skärm:"
 
-#. i18n: file: src/preferences/alias_preferencesui.ui:36
+#. i18n: file: src/config/osd_configui.ui:281
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_OSDDuration)
+#: rc.cpp:554
+msgid " ms"
+msgstr " ms"
+
+#. i18n: file: src/config/alias_configui.ui:36
 #. i18n: ectx: property (text), widget (QTreeWidget, aliasListView)
-#: rc.cpp:428
+#: rc.cpp:557
 msgid "Alias"
 msgstr "Alias"
 
-#. i18n: file: src/preferences/alias_preferencesui.ui:41
+#. i18n: file: src/config/alias_configui.ui:41
 #. i18n: ectx: property (text), widget (QTreeWidget, aliasListView)
-#: rc.cpp:431
+#: rc.cpp:560
 msgid "Replacement"
 msgstr "Ersättning"
 
-#. i18n: file: src/preferences/alias_preferencesui.ui:88
+#. i18n: file: src/config/alias_configui.ui:51
+#. i18n: ectx: property (text), widget (QPushButton, newButton)
+#. i18n: file: src/config/watchednicknames_configui.ui:251
+#. i18n: ectx: property (text), widget (KPushButton, newButton)
+#. i18n: file: src/config/ignore_configui.ui:123
+#. i18n: ectx: property (text), widget (KPushButton, newButton)
+#. i18n: file: src/config/highlight_configui.ui:162
+#. i18n: ectx: property (text), widget (KPushButton, newButton)
+#: rc.cpp:563 rc.cpp:666 rc.cpp:774 rc.cpp:936
+msgid "&New"
+msgstr "&Ny"
+
+#. i18n: file: src/config/alias_configui.ui:58
+#. i18n: ectx: property (text), widget (QPushButton, removeButton)
+#. i18n: file: src/config/watchednicknames_configui.ui:270
+#. i18n: ectx: property (text), widget (KPushButton, removeButton)
+#. i18n: file: src/config/ignore_configui.ui:130
+#. i18n: ectx: property (text), widget (KPushButton, removeButton)
+#. i18n: file: src/config/highlight_configui.ui:175
+#. i18n: ectx: property (text), widget (KPushButton, removeButton)
+#: rc.cpp:566 rc.cpp:672 rc.cpp:777 rc.cpp:939
+msgid "&Remove"
+msgstr "&Ta bort"
+
+#. i18n: file: src/config/alias_configui.ui:88
 #. i18n: ectx: property (text), widget (QLabel, aliasLabel)
-#: rc.cpp:440
+#: rc.cpp:569
 msgid "Alias:"
 msgstr "Alias:"
 
-#. i18n: file: src/preferences/alias_preferencesui.ui:108
+#. i18n: file: src/config/alias_configui.ui:108
 #. i18n: ectx: property (text), widget (QLabel, replacementLabel)
-#: rc.cpp:443
+#: rc.cpp:572
 msgid "Replacement:"
 msgstr "Ersättning:"
 
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:26
-#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:446
-msgid "&Command to be executed on double click:"
-msgstr "&Kommandon att köra vid dubbelklick:"
+#. i18n: file: src/config/warnings_configui.ui:29
+#. i18n: ectx: property (text), widget (QTreeWidget, dialogListView)
+#: rc.cpp:575
+msgid "Warning Dialogs to Show"
+msgstr "Varningsdialogrutor att visa"
 
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:39
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortCaseInsensitive)
-#: rc.cpp:449
-msgid "Sort case &insensitive"
-msgstr "Sortera skift&lägesokänsligt"
-
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:46
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortByActivity)
-#: rc.cpp:452
-msgid "Sort by &activity"
-msgstr "Sortera enligt &aktivitet"
-
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:59
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortByStatus)
-#: rc.cpp:455
-msgid "Sort b&y user status"
-msgstr "So&rtera enligt användarstatus"
-
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:72
-#. i18n: ectx: property (text), widget (QLabel, orderHintLabel)
-#: rc.cpp:458
-msgid "(Reorder nick sorting order by drag and drop)"
-msgstr "(Ordna om smeknamnens sortering med drag och släpp)"
-
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:103
-#. i18n: ectx: property (text), widget (QTreeWidget, sortOrder)
-#: rc.cpp:464
-msgid "Explanation"
-msgstr "Förklaring"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, Theme_ConfigUI)
-#: rc.cpp:467
-msgid "Theme_Config"
-msgstr "Temainställning"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:28
-#. i18n: ectx: property (text), widget (QPushButton, installButton)
-#: rc.cpp:470
-msgid "I&nstall Theme..."
-msgstr "I&nstallera tema..."
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:38
-#. i18n: ectx: property (text), widget (QPushButton, removeButton)
-#: rc.cpp:473
-msgid "&Remove Theme"
-msgstr "&Ta bort tema"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:78
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel1)
-#: rc.cpp:476
-msgid "Icon for normal users"
-msgstr "Ikon för normala användare"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:97
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel2)
-#: rc.cpp:479
-msgid "Icon for away users"
-msgstr "Ikon för frånvarande användare"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:113
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel3)
-#: rc.cpp:482
-msgid "Icon for users with voice"
-msgstr "Ikon för användare med röst"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:129
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel4)
-#: rc.cpp:485
-msgid "Icon for users with half-operator privileges"
-msgstr "Ikon för användare med rättigheter som deloperatör"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:145
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel5)
-#: rc.cpp:488
-msgid "Icon for users with operator privileges"
-msgstr "Ikon för användare med rättigheter som operatör"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:161
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel6)
-#: rc.cpp:491
-msgid "Icon for users with admin privileges"
-msgstr "Ikon för användare med rättigheter som administratör"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:177
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel7)
-#: rc.cpp:494
-msgid "Icon for users with owner privileges"
-msgstr "Ikon för användare med rättigheter som ägare"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:202
-#. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:497
-msgid "Preview:"
-msgstr "Förhandsgranskning:"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:17
-#. i18n: ectx: property (windowTitle), widget (QWidget, Tabs_PreferencesUI)
-#: rc.cpp:500
-msgid "TabBar_Config"
-msgstr "Flikradsinställning"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:26
-#. i18n: ectx: property (title), widget (QGroupBox, lookGBox)
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:19
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
-#: rc.cpp:503 rc.cpp:783
-msgid "Look"
-msgstr "Utseende"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:34
-#. i18n: ectx: property (text), widget (QLabel, placementLabel)
-#: rc.cpp:506
-msgid "Placement:"
-msgstr "Placering:"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:45
-#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
-#: rc.cpp:509
-msgid "Top"
-msgstr "Längst upp"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:50
-#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
-#: rc.cpp:512
-msgid "Bottom"
-msgstr "Längst ner"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:55
-#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
-#: rc.cpp:515
-msgid "Left"
-msgstr "Vänster"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:81
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CloseButtons)
-#: rc.cpp:518
-msgid "Show &close button on tabs"
-msgstr "Visa &stängknappar på flikar"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:88
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTabBarCloseButton)
-#: rc.cpp:521
-msgid "Show a close button on the &right side of the tab bar"
-msgstr "Visa en stängningsknapp till &höger i flikraden"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:95
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseMaxSizedTabs)
-#: rc.cpp:524
-msgid "Limit the &size of the tab labels to fit all on screen"
-msgstr "Begränsa fliktext&storlek så att alla får plats på skärmen"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:105
-#. i18n: ectx: property (title), widget (QGroupBox, focusGBox)
-#: rc.cpp:527
-msgid "Focus"
-msgstr "Fokus"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:111
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_BringToFront)
-#: rc.cpp:530
-msgid "&Focus new tabs"
-msgstr "Ge nya flikar &fokus"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:118
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_FocusNewQueries)
-#: rc.cpp:533
-msgid "Focus new &queries"
-msgstr "Ge nya frå&gor fokus"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:128
-#. i18n: ectx: property (title), widget (QGroupBox, mouseGBox)
-#: rc.cpp:536
-msgid "Mouse"
-msgstr "Mus"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:134
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_MiddleClickClose)
-#: rc.cpp:539
-msgid "&Middle-click on a tab to close it"
-msgstr "&Mittenklicka på en flik för att stänga den"
-
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:24
+#. i18n: file: src/config/watchednicknames_configui.ui:24
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_UseNotify)
-#: rc.cpp:542
+#: rc.cpp:578
 msgid ""
 "<qt>\n"
 "<p>\n"
@@ -6330,15 +6524,15 @@ msgstr ""
 "för alla bevakade smeknamn.</p>\n"
 "</qt>"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:27
+#. i18n: file: src/config/watchednicknames_configui.ui:27
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseNotify)
-#: rc.cpp:549
+#: rc.cpp:585
 msgid "Enable nic&kname watcher"
 msgstr "Använd sme&knamnsbevakning"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:37
+#. i18n: file: src/config/watchednicknames_configui.ui:37
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_OpenWatchedNicksAtStartup)
-#: rc.cpp:552
+#: rc.cpp:588
 msgid ""
 "<qt>When checked, the <b>Nicks Online</b> window will be automatically "
 "opened when starting Konversation.</qt>"
@@ -6346,15 +6540,15 @@ msgstr ""
 "<qt>Om markerad, visas fönstret <b>Bevakade smeknamn</b> automatiskt när "
 "Konversation startas.</qt>"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:40
+#. i18n: file: src/config/watchednicknames_configui.ui:40
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_OpenWatchedNicksAtStartup)
-#: rc.cpp:555
+#: rc.cpp:591
 msgid "Show watched nicks online tab on &application startup"
 msgstr "Visa flik med bev&akade uppkopplade smeknamn vid start"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:66
+#. i18n: file: src/config/watchednicknames_configui.ui:66
 #. i18n: ectx: property (whatsThis), widget (QLabel, notifyActionLabel)
-#: rc.cpp:559
+#: rc.cpp:595
 #, no-c-format
 msgid ""
 "<qt>\n"
@@ -6380,15 +6574,15 @@ msgstr ""
 "</ul>\n"
 "</qt>"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:69
+#. i18n: file: src/config/watchednicknames_configui.ui:69
 #. i18n: ectx: property (text), widget (QLabel, notifyActionLabel)
-#: rc.cpp:570
+#: rc.cpp:606
 msgid "Command e&xecuted when nickname is double clicked:"
 msgstr "Kommando att &köra när smeknamn dubbelklickas:"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:99
+#. i18n: file: src/config/watchednicknames_configui.ui:99
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, kcfg_NotifyDoubleClickAction)
-#: rc.cpp:574
+#: rc.cpp:610
 #, no-c-format
 msgid ""
 "<qt>\n"
@@ -6414,11 +6608,11 @@ msgstr ""
 "</ul>\n"
 "</qt>"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:109
+#. i18n: file: src/config/watchednicknames_configui.ui:109
 #. i18n: ectx: property (whatsThis), widget (QLabel, notifyDelayLabel)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:128
+#. i18n: file: src/config/watchednicknames_configui.ui:128
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_NotifyDelay)
-#: rc.cpp:585 rc.cpp:591
+#: rc.cpp:621 rc.cpp:627
 msgid ""
 "Konversation will check the status of the nicknames listed below at this "
 "interval."
@@ -6426,45 +6620,56 @@ msgstr ""
 "Konversation kontrollerar status för smeknamnen som listas nedan med detta "
 "intervall."
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:112
+#. i18n: file: src/config/watchednicknames_configui.ui:112
 #. i18n: ectx: property (text), widget (QLabel, notifyDelayLabel)
-#: rc.cpp:588
+#: rc.cpp:624
 msgid "&Update interval:"
 msgstr "&Uppdateringsintervall:"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:158
+#. i18n: file: src/config/watchednicknames_configui.ui:131
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_NotifyDelay)
+#. i18n: file: src/config/connectionbehavior_config.ui:85
+#. i18n: ectx: property (suffix), widget (KIntNumInput, kcfg_ReconnectDelay)
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:271
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_AutoWhoContinuousInterval)
+#: rc.cpp:630 rc.cpp:975 rc.cpp:1379
+msgid " seconds"
+msgstr " sekunder"
+
+#. i18n: file: src/config/watchednicknames_configui.ui:158
 #. i18n: ectx: property (whatsThis), widget (QLabel, networkLabel)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:174
+#. i18n: file: src/config/watchednicknames_configui.ui:174
 #. i18n: ectx: property (whatsThis), widget (QComboBox, networkDropdown)
-#: rc.cpp:600 rc.cpp:606
+#: rc.cpp:636 rc.cpp:642
 msgid ""
 "The irc server network (such as 'freenode') that the selected user to watch "
 "is on."
-msgstr "IRC-servernätverket (som 'freenode') som användaren vald att bevaka är på."
+msgstr ""
+"IRC-servernätverket (som 'freenode') som användaren vald att bevaka är på."
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:161
+#. i18n: file: src/config/watchednicknames_configui.ui:161
 #. i18n: ectx: property (text), widget (QLabel, networkLabel)
-#: rc.cpp:603
+#: rc.cpp:639
 msgid "Network:"
 msgstr "Nätverk:"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:184
+#. i18n: file: src/config/watchednicknames_configui.ui:184
 #. i18n: ectx: property (whatsThis), widget (QLabel, nicknameLabel)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:200
+#. i18n: file: src/config/watchednicknames_configui.ui:200
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, nicknameInput)
-#: rc.cpp:609 rc.cpp:615
+#: rc.cpp:645 rc.cpp:651
 msgid "The nick (username) of the selected person to watch"
 msgstr "Smeknamn (användarnamn) för den valda personen att bevaka"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:187
+#. i18n: file: src/config/watchednicknames_configui.ui:187
 #. i18n: ectx: property (text), widget (QLabel, nicknameLabel)
-#: rc.cpp:612
+#: rc.cpp:648
 msgid "Nickname:"
 msgstr "Smeknamn:"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:219
+#. i18n: file: src/config/watchednicknames_configui.ui:219
 #. i18n: ectx: property (whatsThis), widget (QTreeWidget, notifyListView)
-#: rc.cpp:618
+#: rc.cpp:654
 msgid ""
 "<qt>\n"
 "<p>\n"
@@ -6482,155 +6687,305 @@ msgstr ""
 "<p>Du kan också öppna fönstret <b>Uppkopplade smeknamn</b> för att se status "
 "för alla bevakade smeknamn.</p></qt>"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:229
+#. i18n: file: src/config/watchednicknames_configui.ui:229
 #. i18n: ectx: property (text), widget (QTreeWidget, notifyListView)
-#: rc.cpp:624
+#: rc.cpp:660
 msgid "Watched Networks/Nicknames"
 msgstr "Bevakade nätverk eller smeknamn"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:248
+#. i18n: file: src/config/watchednicknames_configui.ui:248
 #. i18n: ectx: property (whatsThis), widget (KPushButton, newButton)
-#: rc.cpp:627
+#: rc.cpp:663
 msgid "Click to add a nickname to the list."
 msgstr "Klicka för att lägga till ett smeknamn till listan."
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:267
+#. i18n: file: src/config/watchednicknames_configui.ui:267
 #. i18n: ectx: property (whatsThis), widget (KPushButton, removeButton)
-#: rc.cpp:633
+#: rc.cpp:669
 msgid "Click to remove the selected nickname from the list."
 msgstr "Klicka för att ta bort markerat smeknamn från listan."
 
-#. i18n: file: src/preferences/log_preferences.ui:23
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_Log)
-#: rc.cpp:639
-msgid "&Enable Logging"
-msgstr "Aktivera loggning"
+#. i18n: file: src/config/tabs_configui.ui:17
+#. i18n: ectx: property (windowTitle), widget (QWidget, Tabs_PreferencesUI)
+#: rc.cpp:675
+msgid "TabBar_Config"
+msgstr "Flikradsinställning"
 
-#. i18n: file: src/preferences/log_preferences.ui:32
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_LowerLog)
-#: rc.cpp:642
-msgid "Enable &lower case logfile names"
-msgstr "Aktivera små &bokstäver i loggfilnamn"
+#. i18n: file: src/config/tabs_configui.ui:26
+#. i18n: ectx: property (title), widget (QGroupBox, lookGBox)
+#. i18n: file: src/config/tabnotifications_config.ui:19
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
+#: rc.cpp:678 rc.cpp:1640
+msgid "Look"
+msgstr "Utseende"
 
-#. i18n: file: src/preferences/log_preferences.ui:39
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AddHostnameToLog)
-#: rc.cpp:645
-msgid "&Append hostname to logfile names"
-msgstr "Lägg till &värddatornamn till loggfilnamn"
+#. i18n: file: src/config/tabs_configui.ui:34
+#. i18n: ectx: property (text), widget (QLabel, placementLabel)
+#: rc.cpp:681
+msgid "Placement:"
+msgstr "Placering:"
 
-#. i18n: file: src/preferences/log_preferences.ui:46
-#. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:648
-msgid "Logfile &path:"
-msgstr "Loggfil&sökväg:"
+#. i18n: file: src/config/tabs_configui.ui:45
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
+#: rc.cpp:684
+msgid "Top"
+msgstr "Längst upp"
 
-#. i18n: file: src/preferences/log_preferences.ui:69
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseExternalLogViewer)
-#: rc.cpp:651
-msgid "Use system text editor to open logs"
-msgstr "Använd systemets texteditor för att öppna loggar"
+#. i18n: file: src/config/tabs_configui.ui:50
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
+#: rc.cpp:687
+msgid "Bottom"
+msgstr "Längst ner"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:25
+#. i18n: file: src/config/tabs_configui.ui:55
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
+#: rc.cpp:690
+msgid "Left"
+msgstr "Vänster"
+
+#. i18n: file: src/config/tabs_configui.ui:81
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CloseButtons)
+#: rc.cpp:693
+msgid "Show &close button on tabs"
+msgstr "Visa &stängknappar på flikar"
+
+#. i18n: file: src/config/tabs_configui.ui:88
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTabBarCloseButton)
+#: rc.cpp:696
+msgid "Show a close button on the &right side of the tab bar"
+msgstr "Visa en stängningsknapp till &höger i flikraden"
+
+#. i18n: file: src/config/tabs_configui.ui:95
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseMaxSizedTabs)
+#: rc.cpp:699
+msgid "Limit the &size of the tab labels to fit all on screen"
+msgstr "Begränsa fliktext&storlek så att alla får plats på skärmen"
+
+#. i18n: file: src/config/tabs_configui.ui:105
+#. i18n: ectx: property (title), widget (QGroupBox, focusGBox)
+#: rc.cpp:702
+msgid "Focus"
+msgstr "Fokus"
+
+#. i18n: file: src/config/tabs_configui.ui:111
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_BringToFront)
+#: rc.cpp:705
+msgid "&Focus new tabs"
+msgstr "Ge nya flikar &fokus"
+
+#. i18n: file: src/config/tabs_configui.ui:118
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_FocusNewQueries)
+#: rc.cpp:708
+msgid "Focus new &queries"
+msgstr "Ge nya frå&gor fokus"
+
+#. i18n: file: src/config/tabs_configui.ui:128
+#. i18n: ectx: property (title), widget (QGroupBox, mouseGBox)
+#: rc.cpp:711
+msgid "Mouse"
+msgstr "Mus"
+
+#. i18n: file: src/config/tabs_configui.ui:134
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_MiddleClickClose)
+#: rc.cpp:714
+msgid "&Middle-click on a tab to close it"
+msgstr "&Mittenklicka på en flik för att stänga den"
+
+#. i18n: file: src/config/autoreplace_configui.ui:43
+#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
+#. i18n: file: src/config/highlight_configui.ui:131
+#. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
+#: rc.cpp:717 rc.cpp:924
+msgid "RegEx"
+msgstr "Reguljärt uttryck"
+
+#. i18n: file: src/config/autoreplace_configui.ui:48
+#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
+#: rc.cpp:720
+msgid "Replace In"
+msgstr "Ersätt i"
+
+#. i18n: file: src/config/autoreplace_configui.ui:53
+#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
+#: rc.cpp:723
+msgid "Find"
+msgstr "Sök"
+
+#. i18n: file: src/config/autoreplace_configui.ui:58
+#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
+#: rc.cpp:726
+msgid "Replace With"
+msgstr "Ersätt med"
+
+#. i18n: file: src/config/autoreplace_configui.ui:68
+#. i18n: ectx: property (text), widget (QPushButton, newButton)
+#: rc.cpp:729
+msgid "Ne&w"
+msgstr "N&y"
+
+#. i18n: file: src/config/autoreplace_configui.ui:75
+#. i18n: ectx: property (text), widget (QPushButton, removeButton)
+#: rc.cpp:732
+msgid "R&emove"
+msgstr "&Ta bort"
+
+#. i18n: file: src/config/autoreplace_configui.ui:111
+#. i18n: ectx: property (text), widget (QLabel, directionLabel)
+#: rc.cpp:735
+msgid "Replace in:"
+msgstr "Ersätt i:"
+
+#. i18n: file: src/config/autoreplace_configui.ui:143
+#. i18n: ectx: property (text), widget (QLabel, patternLabel)
+#: rc.cpp:738
+msgid "Find:"
+msgstr "Sök:"
+
+#. i18n: file: src/config/autoreplace_configui.ui:177
+#. i18n: ectx: property (text), widget (QPushButton, regExpEditorButton)
+#. i18n: file: src/config/highlight_configui.ui:245
+#. i18n: ectx: property (text), widget (KPushButton, patternButton)
+#: rc.cpp:741 rc.cpp:948
+msgid "..."
+msgstr "..."
+
+#. i18n: file: src/config/autoreplace_configui.ui:198
+#. i18n: ectx: property (text), widget (QLabel, replacementLabel)
+#: rc.cpp:744
+msgid "Replace with:"
+msgstr "Ersätt med:"
+
+#. i18n: file: src/config/ignore_configui.ui:45
+#. i18n: ectx: property (text), widget (QTreeWidget, ignoreListView)
+#: rc.cpp:747
+msgid "Pattern"
+msgstr "Mönster"
+
+#. i18n: file: src/config/ignore_configui.ui:50
+#. i18n: ectx: property (text), widget (QTreeWidget, ignoreListView)
+#: rc.cpp:750
+msgid "Type"
+msgstr "Typ"
+
+#. i18n: file: src/config/ignore_configui.ui:58
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: rc.cpp:753
+msgid "Pattern:"
+msgstr "Mönster:"
+
+#. i18n: file: src/config/ignore_configui.ui:77
+#. i18n: ectx: property (title), widget (QGroupBox, grpMessageTypes)
+#: rc.cpp:756
+msgid "Message Types"
+msgstr "Meddelandetyper"
+
+#. i18n: file: src/config/ignore_configui.ui:137
+#. i18n: ectx: property (text), widget (KPushButton, removeAllButton)
+#: rc.cpp:780
+msgid "Remove &All"
+msgstr "Ta bort &alla"
+
+#. i18n: file: src/config/generalbehavior_config.ui:25
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowTrayIcon)
-#: rc.cpp:654
+#: rc.cpp:783
 msgid "Enable System Tray"
 msgstr "Aktivera systembrickan"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:37
+#. i18n: file: src/config/generalbehavior_config.ui:37
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TrayNotify)
-#: rc.cpp:657
+#: rc.cpp:786
 msgid "&Use system tray for new message notification"
 msgstr "An&vänd systembrickan för underrättelse om nytt meddelande"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:65
+#. i18n: file: src/config/generalbehavior_config.ui:65
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TrayNotifyOnlyOwnNick)
-#: rc.cpp:660
+#: rc.cpp:789
 msgid "Only &notify when a highlight is triggered or your current nick is used"
 msgstr ""
 "Underrätta bara när en markering träffas på eller ditt &nuvarande smeknamn "
 "används"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:92
+#. i18n: file: src/config/generalbehavior_config.ui:92
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TrayNotifyBlink)
-#: rc.cpp:663
+#: rc.cpp:792
 msgid "Blin&k the icon"
 msgstr "Blin&ka ikonen"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:101
+#. i18n: file: src/config/generalbehavior_config.ui:101
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideToTrayOnStartup)
-#: rc.cpp:666
+#: rc.cpp:795
 msgid "Hide window on startup"
 msgstr "Dölj fönster vid start"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:111
+#. i18n: file: src/config/generalbehavior_config.ui:111
 #. i18n: ectx: property (title), widget (QGroupBox, middleLabel)
-#: rc.cpp:669
+#: rc.cpp:798
 msgid "Nickname Completion"
 msgstr "Komplettering av smeknamn"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:117
+#. i18n: file: src/config/generalbehavior_config.ui:117
 #. i18n: ectx: property (text), widget (QLabel, modeLbl)
-#: rc.cpp:672
+#: rc.cpp:801
 msgid "Completion &mode:"
 msgstr "Ko&mpletteringsläge:"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:131
+#. i18n: file: src/config/generalbehavior_config.ui:131
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_NickCompletionMode)
-#: rc.cpp:675
+#: rc.cpp:804
 msgid "Cycle NickList"
 msgstr "Gå runt i smeknamnslistan"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:136
+#. i18n: file: src/config/generalbehavior_config.ui:136
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_NickCompletionMode)
-#: rc.cpp:678
+#: rc.cpp:807
 msgid "Shell-Like"
 msgstr "Som skalet"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:141
+#. i18n: file: src/config/generalbehavior_config.ui:141
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_NickCompletionMode)
-#: rc.cpp:681
+#: rc.cpp:810
 msgid "Shell-Like with Completion Box"
 msgstr "Som skalet med kompletteringsruta"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:152
+#. i18n: file: src/config/generalbehavior_config.ui:152
 #. i18n: ectx: property (text), widget (QLabel, startOfLineLabel)
-#: rc.cpp:684
+#: rc.cpp:813
 msgid "Suffi&x at start of line:"
 msgstr "Suffi&x i början av raden:"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:168
+#. i18n: file: src/config/generalbehavior_config.ui:168
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
-#: rc.cpp:687
+#: rc.cpp:816
 msgid "&Elsewhere:"
 msgstr "A&lla andra ställen:"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:181
+#. i18n: file: src/config/generalbehavior_config.ui:181
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_NickCompletionCaseSensitive)
-#: rc.cpp:690
+#: rc.cpp:819
 msgid "Case sensitive"
 msgstr "Skiftlägeskänslig"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:194
+#. i18n: file: src/config/generalbehavior_config.ui:194
 #. i18n: ectx: property (title), widget (QGroupBox, miscGBox)
-#: rc.cpp:693
+#: rc.cpp:822
 msgid "Miscellaneous"
 msgstr "Diverse"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:200
+#. i18n: file: src/config/generalbehavior_config.ui:200
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DisableNotifyWhileAway)
-#: rc.cpp:696
+#: rc.cpp:825
 msgid "Disable notifications while &away"
 msgstr "Inaktivera underrättelser vid &frånvaro"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:207
+#. i18n: file: src/config/generalbehavior_config.ui:207
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomVersionReplyEnabled)
-#: rc.cpp:699
+#: rc.cpp:828
 msgid "Use custom &version reply:"
 msgstr "Använd eget &versionssvar:"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:217
+#. i18n: file: src/config/generalbehavior_config.ui:217
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, kcfg_CustomVersionReply)
-#: rc.cpp:702
+#: rc.cpp:831
 msgid ""
 "<qt>Here you can set a custom reply for <b>CTCP <i>VERSION</i></b> requests."
 "</qt>"
@@ -6638,87 +6993,87 @@ msgstr ""
 "<qt>Här kan du ställa in ett eget svar på begäran om <b>CTCP <i>VERSION</i></"
 "b>.</qt>"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:237
+#. i18n: file: src/config/generalbehavior_config.ui:237
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseMultiRowInputBox)
-#: rc.cpp:705
+#: rc.cpp:834
 msgid "Input box expands with text"
 msgstr "Indatarutan expanderar med texten"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:251
+#. i18n: file: src/config/generalbehavior_config.ui:251
 #. i18n: ectx: property (text), widget (QLabel, commandCharLabel)
-#: rc.cpp:708
+#: rc.cpp:837
 msgid "Comman&d char:"
 msgstr "&Kommandotecken:"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:264
+#. i18n: file: src/config/generalbehavior_config.ui:264
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseCustomBrowser)
-#: rc.cpp:711
+#: rc.cpp:840
 msgid "Use custom web &browser:"
 msgstr "Använd egen webb&läsare:"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:17
+#. i18n: file: src/config/dcc_configui.ui:17
 #. i18n: ectx: property (windowTitle), widget (QWidget, DCC_ConfigUI)
-#: rc.cpp:714
+#: rc.cpp:843
 msgid "DCC_Settings"
 msgstr "DCC-inställningar"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:26
+#. i18n: file: src/config/dcc_configui.ui:26
 #. i18n: ectx: property (text), widget (QLabel, dccPathLbl)
-#: rc.cpp:717
+#: rc.cpp:846
 msgid "Download &folder:"
 msgstr "Ladda ner &katalog:"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:49
+#. i18n: file: src/config/dcc_configui.ui:49
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAddPartner)
-#: rc.cpp:720
+#: rc.cpp:849
 msgid "&Add sender to file name"
 msgstr "Lägg till &avsändare till filnamn"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:56
+#. i18n: file: src/config/dcc_configui.ui:56
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccCreateFolder)
-#: rc.cpp:723
+#: rc.cpp:852
 msgid "Cr&eate folder for sender"
 msgstr "Skapa katalog &för avsändare"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:63
+#. i18n: file: src/config/dcc_configui.ui:63
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpaceToUnderscore)
-#: rc.cpp:726
+#: rc.cpp:855
 msgid "Convert spaces in file names to underscores before sending"
 msgstr "Omvandla mellanslag i filnamn till understreck innan den skickas"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:73
+#. i18n: file: src/config/dcc_configui.ui:73
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAutoGet)
-#: rc.cpp:729
+#: rc.cpp:858
 msgid "Automaticall&y accept download offer"
 msgstr "Acceptera a&utomatiskt begäran om nerladdning"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:80
+#. i18n: file: src/config/dcc_configui.ui:80
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAutoResume)
-#: rc.cpp:732
+#: rc.cpp:861
 msgid "Au&tomatically resume download"
 msgstr "Å&teruppta nerladdning automatiskt"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:87
+#. i18n: file: src/config/dcc_configui.ui:87
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccFastSend)
-#: rc.cpp:735
+#: rc.cpp:864
 msgid "Enable fast DCC send (Might &not work with all clients)"
 msgstr "Aktivera s&nabb DCC-sändning (fungerar kanske inte med alla klienter)"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:110
+#. i18n: file: src/config/dcc_configui.ui:110
 #. i18n: ectx: property (text), widget (QLabel, textLabel6)
-#: rc.cpp:738
+#: rc.cpp:867
 msgid "Buffer si&ze:"
 msgstr "B&ufferstorlek:"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:123
+#. i18n: file: src/config/dcc_configui.ui:123
 #. i18n: ectx: property (text), widget (QLabel, textLabel7)
-#: rc.cpp:741
+#: rc.cpp:870
 msgid "DCC send t&imeout:"
 msgstr "T&idsgräns vid DCC-sändning:"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:136
+#. i18n: file: src/config/dcc_configui.ui:136
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DccIPv4Fallback)
-#: rc.cpp:744
+#: rc.cpp:873
 msgid ""
 "If this option enabled dcc transfers for IPv6 connections will be done over "
 "IPv4 interface set here"
@@ -6726,310 +7081,271 @@ msgstr ""
 "Om det här alternativet är aktiverat, utförs DCC-överföringar med IPv6-"
 "anslutningar med IPv4-gränssnittet som anges här"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:139
+#. i18n: file: src/config/dcc_configui.ui:139
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccIPv4Fallback)
-#: rc.cpp:747
+#: rc.cpp:876
 msgid "Fallback to an IPv&4 interface for DCC send:"
 msgstr "Återgå till IPv&4-gränssnitt för DCC-sändning:"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:146
+#. i18n: file: src/config/dcc_configui.ui:146
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_DccBufferSize)
-#: rc.cpp:750
+#: rc.cpp:879
 msgid " bytes"
 msgstr " byte"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:162
+#. i18n: file: src/config/dcc_configui.ui:162
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_DccSendTimeout)
-#: rc.cpp:753
+#: rc.cpp:882
 msgid " sec"
 msgstr " sek"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:182
+#. i18n: file: src/config/dcc_configui.ui:182
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccPassiveSend)
-#: rc.cpp:756
+#: rc.cpp:885
 msgid "Enable passive DCC send"
 msgstr "Aktivera passiv DCC-sändning"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:240
+#. i18n: file: src/config/dcc_configui.ui:240
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox1)
-#: rc.cpp:759
+#: rc.cpp:888
 msgid "IP"
 msgstr "IP"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:249
+#. i18n: file: src/config/dcc_configui.ui:249
 #. i18n: ectx: property (text), widget (QLabel, textLabel4)
-#: rc.cpp:762
+#: rc.cpp:891
 msgid "&Method to get own IP:"
 msgstr "&Metod för att få egen IP-adress:"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:262
+#. i18n: file: src/config/dcc_configui.ui:262
 #. i18n: ectx: property (text), widget (QLabel, ownIP)
-#: rc.cpp:765
+#: rc.cpp:894
 msgid "O&wn IP:"
 msgstr "E&gen IP-adress:"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:281
+#. i18n: file: src/config/dcc_configui.ui:281
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
-#: rc.cpp:768
+#: rc.cpp:897
 msgid "Ports"
 msgstr "Portar"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:287
+#. i18n: file: src/config/dcc_configui.ui:287
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpecificChatPorts)
-#: rc.cpp:771
+#: rc.cpp:900
 msgid "Enable specific p&orts for DCC chat:"
 msgstr "Aktivera specifika p&ortar för DCC-chatt:"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:326
+#. i18n: file: src/config/dcc_configui.ui:326
 #. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
-#. i18n: file: src/preferences/dcc_preferencesui.ui:391
+#. i18n: file: src/config/dcc_configui.ui:391
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:774 rc.cpp:780
+#: rc.cpp:903 rc.cpp:909
 msgid "to"
 msgstr "till"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:352
+#. i18n: file: src/config/dcc_configui.ui:352
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpecificSendPorts)
-#: rc.cpp:777
+#: rc.cpp:906
 msgid "Enable specific &ports for DCC transfer server:"
 msgstr "Aktivera specifika &portar för DCC-överföringsservern:"
 
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:25
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsText)
-#: rc.cpp:786
-msgid "Use colored text"
-msgstr "Använd färgad text"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:35
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsLeds)
-#: rc.cpp:789
-msgid "Use colored LEDs"
-msgstr "Använd färgade lysdioder"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:51
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsSystem)
-#: rc.cpp:795
-msgid ""
-"Application events occur in Konsole tabs, the DCC Status tab and other "
-"application tabs not used directly for chatting."
-msgstr ""
-"Programhändelser inträffar i terminalflikar, DCC-statusfliken och andra "
-"programflikar som inte direkt används för chatt."
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:54
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsSystem)
-#: rc.cpp:798
-msgid "Application event"
-msgstr "Programhändelse"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:87
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsMsgs)
-#: rc.cpp:801
-msgid "Message"
-msgstr "Meddelande"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:143
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsPrivate)
-#: rc.cpp:804
-msgid "Private message"
-msgstr "Privat meddelande"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:167
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsNick)
-#: rc.cpp:807
-msgid "Current nick used"
-msgstr "Aktuellt använt smeknamn"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:223
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsEvents)
-#: rc.cpp:810
-msgid "Channel events are mode changes or users joining/leaving a channel."
-msgstr ""
-"Kanalhändelser är ändringar av läge eller användare som lämnar eller går med "
-"i en kanal."
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:226
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsEvents)
-#: rc.cpp:813
-msgid "Channel event"
-msgstr "Kanalhändelse"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:275
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox10)
-#. i18n: file: src/viewer/searchbarbase.ui:92
-#. i18n: ectx: property (text), widget (QToolButton, m_optionsButton)
-#: rc.cpp:819 rc.cpp:1715
-msgid "Options"
-msgstr "Alternativ"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:281
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsOverride)
-#: rc.cpp:822
-msgid ""
-"If you select this, the colors you chose in the Highlights preferences page "
-"will override the colors for \"Current nick used\" and \"Highlight\"."
-msgstr ""
-"Om du markerar det här, överskrider färgerna du väljer på inställningssidan "
-"Färgläggningar färgerna för \"Aktuellt använt smeknamn\" och \"Färgläggning"
-"\"."
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:284
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsOverride)
-#: rc.cpp:825
-msgid "Give precedence to chat window highlight colors"
-msgstr "Ge chattfönstrets färgläggning företräde"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:25
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_FixedMOTD)
-#: rc.cpp:828
-msgid "Show MOTD (Message Of The Day) message in fixed font"
-msgstr "Använd teckensnitt med fast breddsteg för MOTD (Dagens meddelande)"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:28
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_FixedMOTD)
-#: rc.cpp:831
-msgid "Enable fi&xed font for MOTD messages"
-msgstr "Aktivera te&ckensnitt med fast breddsteg för dagens meddelande"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:35
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseBoldNicks)
-#: rc.cpp:834
-msgid "Show sender nicknames &bold in the chat view"
-msgstr "Visa avsändarens smeknamn med &fetstil i chattfönstret"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:61
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomTextFont)
-#: rc.cpp:837
-msgid "Chat text:"
-msgstr "Chattext:"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:92
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomListFont)
-#: rc.cpp:840
-msgid "Nickname list:"
-msgstr "Smeknamnslista:"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:102
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomTabFont)
-#: rc.cpp:843
-msgid "Tab bar:"
-msgstr "Flikrad:"
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:20
+#. i18n: file: src/config/highlight_configui.ui:20
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightSoundsEnabled)
-#: rc.cpp:846
+#: rc.cpp:912
 msgid "Ena&ble sound for highlights"
 msgstr "Aktivera &ljud för markeringar"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:47
+#. i18n: file: src/config/highlight_configui.ui:47
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightNick)
-#: rc.cpp:849
+#: rc.cpp:915
 msgid "Alwa&ys highlight own current nick:"
 msgstr "Färglägg alltid n&uvarande smeknamn:"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:54
+#. i18n: file: src/config/highlight_configui.ui:54
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightOwnLines)
-#: rc.cpp:852
+#: rc.cpp:918
 msgid "Always highlight own &lines:"
 msgstr "&Färglägg alltid egna rader:"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:109
+#. i18n: file: src/config/highlight_configui.ui:109
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox1)
-#: rc.cpp:855
+#: rc.cpp:921
 msgid "Highlight List"
 msgstr "Markera lista"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:131
+#. i18n: file: src/config/highlight_configui.ui:136
 #. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:43
-#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
-#: rc.cpp:858 rc.cpp:1022
-msgid "RegEx"
-msgstr "Reguljärt uttryck"
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:136
-#. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
-#: rc.cpp:861
+#: rc.cpp:927
 msgid "Highlights"
 msgstr "Färgläggningar"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:141
+#. i18n: file: src/config/highlight_configui.ui:141
 #. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
-#: rc.cpp:864
+#: rc.cpp:930
 msgid "Sound"
 msgstr "Ljud"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:146
+#. i18n: file: src/config/highlight_configui.ui:146
 #. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
-#: rc.cpp:867
+#: rc.cpp:933
 msgid "Auto Text"
 msgstr "Automatisk text"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:205
+#. i18n: file: src/config/highlight_configui.ui:205
 #. i18n: ectx: property (text), widget (QLabel, patternLabel)
-#: rc.cpp:876
+#: rc.cpp:942
 msgid "&Pattern:"
 msgstr "&Mönster:"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:245
-#. i18n: ectx: property (text), widget (KPushButton, patternButton)
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:177
-#. i18n: ectx: property (text), widget (QPushButton, regExpEditorButton)
-#: rc.cpp:882 rc.cpp:1046
-msgid "..."
-msgstr "..."
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:260
+#. i18n: file: src/config/highlight_configui.ui:260
 #. i18n: ectx: property (text), widget (QLabel, colorLabel)
-#: rc.cpp:885
+#: rc.cpp:951
 msgid "Color:"
 msgstr "Färg:"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:283
+#. i18n: file: src/config/highlight_configui.ui:283
 #. i18n: ectx: property (text), widget (QLabel, soundLabel)
-#: rc.cpp:888
+#: rc.cpp:954
 msgid "&Sound:"
 msgstr "&Ljud:"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:307
+#. i18n: file: src/config/highlight_configui.ui:307
 #. i18n: ectx: property (filter), widget (KUrlRequester, soundURL)
-#: rc.cpp:891
+#: rc.cpp:957
 msgid "audio/x-wav audio/x-mp3 application/ogg audio/x-adpcm"
 msgstr "audio/x-wav audio/x-mp3 application/ogg audio/x-adpcm"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:323
+#. i18n: file: src/config/highlight_configui.ui:323
 #. i18n: ectx: property (toolTip), widget (QToolButton, soundPlayBtn)
-#: rc.cpp:894
+#: rc.cpp:960
 msgid "Test sound"
 msgstr "Testa ljud"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:338
+#. i18n: file: src/config/highlight_configui.ui:338
 #. i18n: ectx: property (text), widget (QLabel, autoTextLabel)
-#: rc.cpp:897
+#: rc.cpp:963
 msgid "&Auto text:"
 msgstr "Automatisk &text:"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:25
+#. i18n: file: src/config/connectionbehavior_config.ui:25
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoReconnect)
+#: rc.cpp:966
+msgid "Enable Automatic Reconnect"
+msgstr "Aktivera automatisk återuppkoppling"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:34
+#. i18n: ectx: property (text), widget (QLabel, reconnectDelayLabel)
+#: rc.cpp:969
+msgid "Reconnect delay:"
+msgstr "Fördröjning innan återanslutning:"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:63
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: rc.cpp:972
+msgid "Reconnection attempts:"
+msgstr "Återanslutningsförsök:"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:98
+#. i18n: ectx: property (specialValueText), widget (KIntNumInput, kcfg_ReconnectCount)
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:104
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_ScrollbackMax)
+#: rc.cpp:978 rc.cpp:1349
+msgid "Unlimited"
+msgstr "Obegränsad"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:140
+#. i18n: ectx: property (title), widget (QGroupBox, debugGBox)
+#: rc.cpp:981
+msgid "Debug"
+msgstr "Felsökning"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:146
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_RawLog)
+#: rc.cpp:984
+msgid "Show raw &log window when connecting"
+msgstr "Visa fönster med obehandlad &logg vid anslutning"
+
+#. i18n: file: src/config/konversation.kcfg:21
+#. i18n: ectx: label, entry, group (Appearance)
+#: rc.cpp:989
+msgid "Limit the size of the tab labels to fit them all on screen"
+msgstr "Begränsa flikarnas textstorlek så att alla får plats på skärmen"
+
+#. i18n: file: src/config/konversation.kcfg:226
+#. i18n: ectx: label, entry, group (Appearance)
+#: rc.cpp:1058
+msgid "Hide the scrollbar"
+msgstr "Dölj rullningslist"
+
+#. i18n: file: src/config/konversation.kcfg:232
+#. i18n: ectx: whatsthis, entry, group (General Options)
+#: rc.cpp:1061
+msgid ""
+"Enable if you want all the IRC input lines to check your spelling as you type"
+msgstr ""
+"Aktivera om du vill att alla IRC-inmatningsrader ska kontrollera stavning "
+"medan du skriver"
+
+#. i18n: file: src/config/konversation.kcfg:241
+#. i18n: ectx: whatsthis, entry, group (General Options)
+#: rc.cpp:1064
+msgid ""
+"Enabling this will cause the input box to grow vertically when it fills up."
+msgstr ""
+"Att aktivera det här gör att indatarutan växer vertikalt när den fylls."
+
+#. i18n: file: src/config/konversation.kcfg:275
+#. i18n: ectx: label, entry, group (General Options)
+#: rc.cpp:1079
+msgid "Start with hidden main window"
+msgstr "Starta med dolt huvudfönster"
+
+#. i18n: file: src/config/konversation.kcfg:329
+#. i18n: ectx: label, entry, group (General Options)
+#: rc.cpp:1102
+msgid "&Show real names next to nicknames"
+msgstr "Visa r&iktiga namn intill smeknamn"
+
+#. i18n: file: src/config/konversation.kcfg:543
+#. i18n: ectx: label, entry (OpenWatchedNicksAtStartup), group (Notify List)
+#: rc.cpp:1186
+msgid "Open Watched Nicks tab at application startup"
+msgstr "Visa flik med bevakade smeknamn vid programstart"
+
+#. i18n: file: src/config/konversation.kcfg:827
+#. i18n: ectx: label, entry, group (Themes)
+#: rc.cpp:1284
+msgid "Enable emoticons"
+msgstr "Aktivera smilisar"
+
+#. i18n: file: src/config/konversation.kcfg:831
+#. i18n: ectx: label, entry, group (Themes)
+#: rc.cpp:1287
+msgid "Emoticons theme"
+msgstr "Smilistema"
+
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:25
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_Beep)
-#: rc.cpp:903
-msgid "Sounds the system bell when you receive an ASCII BEL (0x07) control character"
+#: rc.cpp:1314
+msgid ""
+"Sounds the system bell when you receive an ASCII BEL (0x07) control character"
 msgstr "Aktiverar systemljud när du tar emot styrtecknet ASCII BEL (0x07)"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:28
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:28
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_Beep)
-#: rc.cpp:906
+#: rc.cpp:1317
 msgid "Enable s&ystem bell on incoming ASCII BEL"
 msgstr "Aktivera &signal vid inkommande ASCII BEL-tecken"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:35
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:35
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideUnimportantEvents)
-#: rc.cpp:909
+#: rc.cpp:1320
 msgid "Hide &Join/Part/Nick events"
 msgstr "Dölj &händelserna gå med, lämna eller smeknamn"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:42
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:42
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DisableExpansion)
-#: rc.cpp:913
+#: rc.cpp:1324
 #, no-c-format
 msgid ""
 "Do not expand variables when sending text to the server. A variable starts "
@@ -7040,36 +7356,36 @@ msgstr ""
 "med '%'. Till exempel expanderas %B till tecknen som behövs för att visa "
 "texten med fetstil."
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:45
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:45
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DisableExpansion)
-#: rc.cpp:917
+#: rc.cpp:1328
 #, no-c-format
 msgid "Disable variable (e.g. %C, %B, %G...) e&xpansion"
 msgstr "Inaktivera variabele&xpansion (t.ex. %C, %B, %G...)"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:52
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:52
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_RedirectServerAndAppMsgToStatusPane)
-#: rc.cpp:920
+#: rc.cpp:1331
 msgid "&Redirect status messages to the server status window"
 msgstr "&Skicka alla statusmeddelanden vidare till serverns statusfönster"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:59
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:59
 #. i18n: ectx: property (whatsThis), widget (QLabel, textLabel1)
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:101
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:101
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_ScrollbackMax)
-#: rc.cpp:923 rc.cpp:935
+#: rc.cpp:1334 rc.cpp:1346
 msgid "How many lines to keep in buffers, 0 = unlimited"
 msgstr "Hur många rader som behålls i buffrar. 0 = obegränsad"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:62
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:62
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:926
+#: rc.cpp:1337
 msgid "Scroll&back limit:"
 msgstr "&Historikgräns:"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:91
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:91
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_UseLiteralModes)
-#: rc.cpp:929
+#: rc.cpp:1340
 msgid ""
 "Keep channel mode string as a combination of characters instead of "
 "translating them into human readable words. E.g. '*** Channel modes: no "
@@ -7079,27 +7395,27 @@ msgstr ""
 "översätta dem till mänskligt läsbar form. T.ex. '*** Kanallägen: inga "
 "meddelanden utifrån' blir '*** Kanallägen: n'"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:94
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:94
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseLiteralModes)
-#: rc.cpp:932
+#: rc.cpp:1343
 msgid "&Use raw modes for mode changes"
 msgstr "Använd &obehandlade lägen vid ändringar av lägen"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:107
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:107
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_ScrollbackMax)
-#: rc.cpp:941
+#: rc.cpp:1352
 msgid " lines"
 msgstr " rader"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:136
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:136
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox3_2)
-#: rc.cpp:944
+#: rc.cpp:1355
 msgid "Marker Lines"
 msgstr "Markeringslinjer"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:142
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:142
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_AutomaticRememberLine)
-#: rc.cpp:947
+#: rc.cpp:1358
 msgid ""
 "Inserts a remember line into the chat window when you switch to another chat "
 "window or minimize the application."
@@ -7107,441 +7423,337 @@ msgstr ""
 "Infogar en komihåg-linje i chattfönster när du byter till ett annat "
 "chattfönster eller minimerar programmet."
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:145
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:145
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutomaticRememberLine)
-#: rc.cpp:950
+#: rc.cpp:1361
 msgid "Mark the last position in a chat window when it is hidden"
 msgstr "Markera den sista positionen i ett chattfönster när det döljs"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:176
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:176
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutomaticRememberLineOnlyOnTextChange)
-#: rc.cpp:953
+#: rc.cpp:1364
 msgid "Move the line only when new text is about to be shown"
 msgstr "Flytta bara linjen när ny text just ska visas"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:185
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:185
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MarkerLineInAllViews)
-#: rc.cpp:956
+#: rc.cpp:1367
 msgid "Show manually inserted lines in all chat windows"
 msgstr "Visa manuellt infogade linjer i alla chattfönster"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:195
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:195
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoWhoContinuousEnabled)
-#: rc.cpp:959
+#: rc.cpp:1370
 msgid "Enable Automatic User Information Look Up (/WHO)"
 msgstr "Aktivera automatisk uppslagning av användarinformation (/WHO)"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:239
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:239
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:962
+#: rc.cpp:1373
 msgid "Max. number of users in a channel:"
 msgstr "Maximalt antal användare i en kanal:"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:252
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:252
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_AutoWhoNicksLimit)
-#: rc.cpp:965
+#: rc.cpp:1376
 msgid " nicks"
 msgstr " smeknamn"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:287
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:287
 #. i18n: ectx: property (text), widget (QLabel, whoIntervalLbl)
-#: rc.cpp:971
+#: rc.cpp:1382
 msgid "Update interval:"
 msgstr "Uppdateringsintervall:"
 
-#. i18n: file: src/preferences/osd_preferencesui.ui:35
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOSD)
-#: rc.cpp:974
-msgid "&Enable On Screen Display"
-msgstr "Akti&vera meddelanden på skärmen"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:45
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
-#: rc.cpp:977
-msgid "On &Screen Display"
-msgstr "Meddelanden &på skärmen"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:54
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDDrawShadow)
-#: rc.cpp:980
-msgid "&Draw shadows"
-msgstr "&Rita skuggor"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:67
-#. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:983
-msgid "OSD font:"
-msgstr "Teckensnitt för skärmmeddelanden:"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:135
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
-#: rc.cpp:986
-msgid "Show &OSD Message"
-msgstr "&Visa meddelanden på skärmen"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:141
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowOwnNick)
-#: rc.cpp:989
-msgid "&If own nick appears in channel message"
-msgstr "Om eget smeknamn finns &i kanalmeddelande"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:148
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowChannel)
-#: rc.cpp:992
-msgid "On an&y channel message"
-msgstr "Vid godtyckligt &kanalmeddelande"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:155
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowQuery)
-#: rc.cpp:995
-msgid "On &query activity"
-msgstr "Vid aktivitet i &frågekanal"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:162
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowChannelEvent)
-#: rc.cpp:998
-msgid "On &Join/Part events"
-msgstr "För händelserna &gå med eller lämna"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:175
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_OSDUseCustomColors)
-#: rc.cpp:1001
-msgid "Enable Custom Colors"
-msgstr "Använd egna färger"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:187
-#. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:1004
-msgid "Te&xt color:"
-msgstr "Te&xtfärg:"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:200
-#. i18n: ectx: property (text), widget (QLabel, textLabel3)
-#. i18n: file: src/viewer/irccolorchooserui.ui:122
-#. i18n: ectx: property (text), widget (QLabel, m_bgColorLbl)
-#: rc.cpp:1007 rc.cpp:1775
-msgid "&Background color:"
-msgstr "&Bakgrundsfärg:"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:249
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
-#: rc.cpp:1010
-msgid "O&ther Settings"
-msgstr "Ö&vriga inställningar"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:255
+#. i18n: file: src/config/nicklistbehavior_configui.ui:26
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:1013
-msgid "&Duration:"
-msgstr "&Tid:"
+#: rc.cpp:1385
+msgid "&Command to be executed on double click:"
+msgstr "&Kommandon att köra vid dubbelklick:"
 
-#. i18n: file: src/preferences/osd_preferencesui.ui:268
-#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
-#: rc.cpp:1016
-msgid "S&creen:"
-msgstr "&Skärm:"
+#. i18n: file: src/config/nicklistbehavior_configui.ui:39
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortCaseInsensitive)
+#: rc.cpp:1388
+msgid "Sort case &insensitive"
+msgstr "Sortera skift&lägesokänsligt"
 
-#. i18n: file: src/preferences/osd_preferencesui.ui:281
-#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_OSDDuration)
-#: rc.cpp:1019
-msgid " ms"
-msgstr " ms"
+#. i18n: file: src/config/nicklistbehavior_configui.ui:46
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortByActivity)
+#: rc.cpp:1391
+msgid "Sort by &activity"
+msgstr "Sortera enligt &aktivitet"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:48
-#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
-#: rc.cpp:1025
-msgid "Replace In"
-msgstr "Ersätt i"
+#. i18n: file: src/config/nicklistbehavior_configui.ui:59
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortByStatus)
+#: rc.cpp:1394
+msgid "Sort b&y user status"
+msgstr "So&rtera enligt användarstatus"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:53
-#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
-#: rc.cpp:1028
-msgid "Find"
-msgstr "Sök"
+#. i18n: file: src/config/nicklistbehavior_configui.ui:72
+#. i18n: ectx: property (text), widget (QLabel, orderHintLabel)
+#: rc.cpp:1397
+msgid "(Reorder nick sorting order by drag and drop)"
+msgstr "(Ordna om smeknamnens sortering med drag och släpp)"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:58
-#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
-#: rc.cpp:1031
-msgid "Replace With"
-msgstr "Ersätt med"
+#. i18n: file: src/config/nicklistbehavior_configui.ui:103
+#. i18n: ectx: property (text), widget (QTreeWidget, sortOrder)
+#: rc.cpp:1403
+msgid "Explanation"
+msgstr "Förklaring"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:68
-#. i18n: ectx: property (text), widget (QPushButton, newButton)
-#: rc.cpp:1034
-msgid "Ne&w"
-msgstr "N&y"
+#. i18n: file: src/config/fontappearance_config.ui:25
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_FixedMOTD)
+#: rc.cpp:1406
+msgid "Show MOTD (Message Of The Day) message in fixed font"
+msgstr "Använd teckensnitt med fast breddsteg för MOTD (Dagens meddelande)"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:75
+#. i18n: file: src/config/fontappearance_config.ui:28
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_FixedMOTD)
+#: rc.cpp:1409
+msgid "Enable fi&xed font for MOTD messages"
+msgstr "Aktivera te&ckensnitt med fast breddsteg för dagens meddelande"
+
+#. i18n: file: src/config/fontappearance_config.ui:35
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseBoldNicks)
+#: rc.cpp:1412
+msgid "Show sender nicknames &bold in the chat view"
+msgstr "Visa avsändarens smeknamn med &fetstil i chattfönstret"
+
+#. i18n: file: src/config/fontappearance_config.ui:61
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomTextFont)
+#: rc.cpp:1415
+msgid "Chat text:"
+msgstr "Chattext:"
+
+#. i18n: file: src/config/fontappearance_config.ui:92
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomListFont)
+#: rc.cpp:1418
+msgid "Nickname list:"
+msgstr "Smeknamnslista:"
+
+#. i18n: file: src/config/fontappearance_config.ui:102
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomTabFont)
+#: rc.cpp:1421
+msgid "Tab bar:"
+msgstr "Flikrad:"
+
+#. i18n: file: src/config/theme_configui.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, Theme_ConfigUI)
+#: rc.cpp:1424
+msgid "Theme_Config"
+msgstr "Temainställning"
+
+#. i18n: file: src/config/theme_configui.ui:28
+#. i18n: ectx: property (text), widget (QPushButton, installButton)
+#: rc.cpp:1427
+msgid "I&nstall Theme..."
+msgstr "I&nstallera tema..."
+
+#. i18n: file: src/config/theme_configui.ui:38
 #. i18n: ectx: property (text), widget (QPushButton, removeButton)
-#: rc.cpp:1037
-msgid "R&emove"
-msgstr "&Ta bort"
+#: rc.cpp:1430
+msgid "&Remove Theme"
+msgstr "&Ta bort tema"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:111
-#. i18n: ectx: property (text), widget (QLabel, directionLabel)
-#: rc.cpp:1040
-msgid "Replace in:"
-msgstr "Ersätt i:"
+#. i18n: file: src/config/theme_configui.ui:78
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel1)
+#: rc.cpp:1433
+msgid "Icon for normal users"
+msgstr "Ikon för normala användare"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:143
-#. i18n: ectx: property (text), widget (QLabel, patternLabel)
-#: rc.cpp:1043
-msgid "Find:"
-msgstr "Sök:"
+#. i18n: file: src/config/theme_configui.ui:97
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel2)
+#: rc.cpp:1436
+msgid "Icon for away users"
+msgstr "Ikon för frånvarande användare"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:198
-#. i18n: ectx: property (text), widget (QLabel, replacementLabel)
-#: rc.cpp:1049
-msgid "Replace with:"
-msgstr "Ersätt med:"
+#. i18n: file: src/config/theme_configui.ui:113
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel3)
+#: rc.cpp:1439
+msgid "Icon for users with voice"
+msgstr "Ikon för användare med röst"
 
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:23
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_Timestamping)
-#: rc.cpp:1052
-msgid "Enable &Timestamps"
-msgstr "Aktivera &tidsstämplar"
+#. i18n: file: src/config/theme_configui.ui:129
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel4)
+#: rc.cpp:1442
+msgid "Icon for users with half-operator privileges"
+msgstr "Ikon för användare med rättigheter som deloperatör"
 
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:32
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowDate)
-#: rc.cpp:1055
-msgid "Sho&w dates"
-msgstr "Visa &datum"
+#. i18n: file: src/config/theme_configui.ui:145
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel5)
+#: rc.cpp:1445
+msgid "Icon for users with operator privileges"
+msgstr "Ikon för användare med rättigheter som operatör"
 
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:39
-#. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:1058
-msgid "&Format:"
-msgstr "&Format:"
+#. i18n: file: src/config/theme_configui.ui:161
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel6)
+#: rc.cpp:1448
+msgid "Icon for users with admin privileges"
+msgstr "Ikon för användare med rättigheter som administratör"
 
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:78
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowBacklog)
-#: rc.cpp:1061
-msgid "Show &Backlog"
-msgstr "Visa &historik"
+#. i18n: file: src/config/theme_configui.ui:177
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel7)
+#: rc.cpp:1451
+msgid "Icon for users with owner privileges"
+msgstr "Ikon för användare med rättigheter som ägare"
 
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:87
-#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:1064
-msgid "&Lines: "
-msgstr "&Rader: "
+#. i18n: file: src/config/theme_configui.ui:202
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: rc.cpp:1454
+msgid "Preview:"
+msgstr "Förhandsgranskning:"
 
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:129
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
-#: rc.cpp:1067
-msgid "&Layout"
-msgstr "&Layout"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:135
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTopic)
-#: rc.cpp:1070
-msgid "&Show channel topic"
-msgstr "&Visa kanalämne"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:142
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowModeButtons)
-#: rc.cpp:1073
-msgid "Show channel &mode buttons"
-msgstr "Visa &kanallägesknappar"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:149
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowNickList)
-#: rc.cpp:1076
-msgid "Show channel &nick list and quick buttons"
-msgstr "Visa kanalsmek&namnslista och snabbknappar"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:177
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoUserhost)
-#: rc.cpp:1079
-msgid "Show hostmas&ks in nickname list"
-msgstr "Visa värddatormask i sme&knamnslista"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:207
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowRealNames)
-#: rc.cpp:1082
-msgid "Show real names in nickname list"
-msgstr "Visa riktiga namn i smeknamnslistan"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:237
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowQuickButtons)
-#: rc.cpp:1085
-msgid "Show &quick buttons"
-msgstr "Visa sna&bbknappar"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:246
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowNicknameBox)
-#: rc.cpp:1088
-msgid "Show bo&x to change own nickname"
-msgstr "Visa r&uta för att ändra eget smeknamn"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:253
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowIRCViewScrollBar)
-#: rc.cpp:1091
-msgid "Show sc&rollbar"
-msgstr "Visa &rullningslist"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:266
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowBackgroundImage)
-#: rc.cpp:1094
-msgid "Enable Back&ground Image"
-msgstr "Aktivera bak&grundsbild"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:275
-#. i18n: ectx: property (text), widget (QLabel, textLabel4)
-#: rc.cpp:1097
-msgid "P&ath:"
-msgstr "Sök&väg:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:30
+#. i18n: file: src/config/colorsappearance_config.ui:30
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox1)
-#: rc.cpp:1100
+#: rc.cpp:1457
 msgid "Custom Colors"
 msgstr "Egna färger"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:36
+#. i18n: file: src/config/colorsappearance_config.ui:36
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_InputFieldsBackgroundColor)
-#: rc.cpp:1103
+#: rc.cpp:1460
 msgid "&Use custom colors for input box, nickname list and tab list"
 msgstr "An&vänd egna färger för indatarutor, smeknamnslista och fliklista"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:273
+#. i18n: file: src/config/colorsappearance_config.ui:273
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
-#: rc.cpp:1106
+#: rc.cpp:1463
 msgid "&Background:"
 msgstr "&Bakgrund:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:286
+#. i18n: file: src/config/colorsappearance_config.ui:286
 #. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
-#: rc.cpp:1109
+#: rc.cpp:1466
 msgid "&Server message:"
 msgstr "&Servermeddelande:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:299
+#. i18n: file: src/config/colorsappearance_config.ui:299
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:1112
+#: rc.cpp:1469
 msgid "H&yperlink:"
 msgstr "&Hyperlänk:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:312
+#. i18n: file: src/config/colorsappearance_config.ui:312
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:1115
+#: rc.cpp:1472
 msgid "Channel &message:"
 msgstr "Kanal&meddelande:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:325
+#. i18n: file: src/config/colorsappearance_config.ui:325
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:1118
+#: rc.cpp:1475
 msgid "Actio&n:"
 msgstr "&Åtgärd:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:338
+#. i18n: file: src/config/colorsappearance_config.ui:338
 #. i18n: ectx: property (text), widget (QLabel, textLabel4)
-#: rc.cpp:1121
+#: rc.cpp:1478
 msgid "Bac&klog:"
 msgstr "&Historik:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:351
+#. i18n: file: src/config/colorsappearance_config.ui:351
 #. i18n: ectx: property (text), widget (QLabel, textLabel5)
-#: rc.cpp:1124
+#: rc.cpp:1481
 msgid "Comman&d message:"
 msgstr "K&ommandomeddelande:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:364
+#. i18n: file: src/config/colorsappearance_config.ui:364
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_8)
-#: rc.cpp:1127
+#: rc.cpp:1484
 msgid "&Query message:"
 msgstr "&Frågemeddelande:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:377
+#. i18n: file: src/config/colorsappearance_config.ui:377
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_9)
-#: rc.cpp:1130
+#: rc.cpp:1487
 msgid "&Timestamp:"
 msgstr "&Tidsstämpel:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:390
+#. i18n: file: src/config/colorsappearance_config.ui:390
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_10)
-#: rc.cpp:1133
+#: rc.cpp:1490
 msgid "A&lternate background:"
 msgstr "A&lternativ bakgrund:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:409
+#. i18n: file: src/config/colorsappearance_config.ui:409
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_UseColoredNicks)
-#: rc.cpp:1136
+#: rc.cpp:1493
 msgid "Colored Nicks"
 msgstr "Färgade smeknamn"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:424
+#. i18n: file: src/config/colorsappearance_config.ui:424
 #. i18n: ectx: property (text), widget (QLabel, textLabel9)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:868
+#. i18n: file: src/config/colorsappearance_config.ui:868
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_6)
-#: rc.cpp:1139 rc.cpp:1190
+#: rc.cpp:1496 rc.cpp:1547
 msgid "5:"
 msgstr "5:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:447
+#. i18n: file: src/config/colorsappearance_config.ui:447
 #. i18n: ectx: property (text), widget (QLabel, textLabel8)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:878
+#. i18n: file: src/config/colorsappearance_config.ui:878
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_5)
-#: rc.cpp:1142 rc.cpp:1193
+#: rc.cpp:1499 rc.cpp:1550
 msgid "4:"
 msgstr "4:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:470
+#. i18n: file: src/config/colorsappearance_config.ui:470
 #. i18n: ectx: property (text), widget (QLabel, textLabel7)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:794
+#. i18n: file: src/config/colorsappearance_config.ui:794
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_4)
-#: rc.cpp:1145 rc.cpp:1178
+#: rc.cpp:1502 rc.cpp:1535
 msgid "3:"
 msgstr "3:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:500
+#. i18n: file: src/config/colorsappearance_config.ui:500
 #. i18n: ectx: property (text), widget (QLabel, textLabel6)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:778
+#. i18n: file: src/config/colorsappearance_config.ui:778
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_3)
-#: rc.cpp:1148 rc.cpp:1175
+#: rc.cpp:1505 rc.cpp:1532
 msgid "2:"
 msgstr "2:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:587
+#. i18n: file: src/config/colorsappearance_config.ui:587
 #. i18n: ectx: property (text), widget (QLabel, textLabel4_2)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:838
+#. i18n: file: src/config/colorsappearance_config.ui:838
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_14)
-#: rc.cpp:1151 rc.cpp:1181
+#: rc.cpp:1508 rc.cpp:1538
 msgid "0:"
 msgstr "0:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:610
+#. i18n: file: src/config/colorsappearance_config.ui:610
 #. i18n: ectx: property (text), widget (QLabel, textLabel5_2)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:762
+#. i18n: file: src/config/colorsappearance_config.ui:762
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_2)
-#: rc.cpp:1154 rc.cpp:1172
+#: rc.cpp:1511 rc.cpp:1529
 msgid "1:"
 msgstr "1:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:672
+#. i18n: file: src/config/colorsappearance_config.ui:672
 #. i18n: ectx: property (text), widget (QLabel, textLabel11)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:848
+#. i18n: file: src/config/colorsappearance_config.ui:848
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_8)
-#: rc.cpp:1157 rc.cpp:1184
+#: rc.cpp:1514 rc.cpp:1541
 msgid "7:"
 msgstr "7:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:688
+#. i18n: file: src/config/colorsappearance_config.ui:688
 #. i18n: ectx: property (text), widget (QLabel, textLabel10)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:858
+#. i18n: file: src/config/colorsappearance_config.ui:858
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_7)
-#: rc.cpp:1160 rc.cpp:1187
+#: rc.cpp:1517 rc.cpp:1544
 msgid "6:"
 msgstr "6:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:700
+#. i18n: file: src/config/colorsappearance_config.ui:700
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_3)
-#: rc.cpp:1163
+#: rc.cpp:1520
 msgid "&Own nick color:"
 msgstr "&Egen smeknamnsfärg:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:744
+#. i18n: file: src/config/colorsappearance_config.ui:744
 #. i18n: ectx: property (whatsThis), widget (QGroupBox, kcfg_AllowColorCodes)
-#: rc.cpp:1166
+#: rc.cpp:1523
 msgid ""
 "By enabling this option, color codes added to IRC messages will be displayed "
 "in your chat window as colored text. You can add color codes to your "
@@ -7551,461 +7763,270 @@ msgstr ""
 "i IRC-meddelanden som färgad text i ditt chattfönster. Du kan lägga till "
 "färgkoder i dina meddelanden genom att välja Infoga -> IRC-färg."
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:747
+#. i18n: file: src/config/colorsappearance_config.ui:747
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_AllowColorCodes)
-#: rc.cpp:1169
+#: rc.cpp:1526
 msgid "&Allow Colored Text in IRC Messages"
 msgstr "Tillåt &färgad text i IRC-meddelanden"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1051
+#. i18n: file: src/config/colorsappearance_config.ui:1051
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_12)
-#: rc.cpp:1196
+#: rc.cpp:1553
 msgid "11:"
 msgstr "11:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1082
+#. i18n: file: src/config/colorsappearance_config.ui:1082
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_10)
-#: rc.cpp:1199
+#: rc.cpp:1556
 msgid "9:"
 msgstr "9:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1092
+#. i18n: file: src/config/colorsappearance_config.ui:1092
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_9)
-#: rc.cpp:1202
+#: rc.cpp:1559
 msgid "8:"
 msgstr "8:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1102
+#. i18n: file: src/config/colorsappearance_config.ui:1102
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_11)
-#: rc.cpp:1205
+#: rc.cpp:1562
 msgid "10:"
 msgstr "10:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1183
+#. i18n: file: src/config/colorsappearance_config.ui:1183
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_13)
-#: rc.cpp:1208
+#: rc.cpp:1565
 msgid "12:"
 msgstr "12:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1200
+#. i18n: file: src/config/colorsappearance_config.ui:1200
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_16)
-#: rc.cpp:1211
+#: rc.cpp:1568
 msgid "15:"
 msgstr "15:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1224
+#. i18n: file: src/config/colorsappearance_config.ui:1224
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_15)
-#: rc.cpp:1214
+#: rc.cpp:1571
 msgid "14:"
 msgstr "14:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1234
+#. i18n: file: src/config/colorsappearance_config.ui:1234
 #. i18n: ectx: property (text), widget (QLabel, textLabel12)
-#: rc.cpp:1217
+#: rc.cpp:1574
 msgid "13:"
 msgstr "13:"
 
-#. i18n: file: src/preferences/warnings_preferencesui.ui:29
-#. i18n: ectx: property (text), widget (QTreeWidget, dialogListView)
-#: rc.cpp:1220
-msgid "Warning Dialogs to Show"
-msgstr "Varningsdialogrutor att visa"
+#. i18n: file: src/config/log_config.ui:23
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_Log)
+#: rc.cpp:1577
+msgid "&Enable Logging"
+msgstr "Aktivera loggning"
 
-#. i18n: file: src/identitydialog.ui:25
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: rc.cpp:1223
-msgid "&Identity:"
-msgstr "&Identitet:"
+#. i18n: file: src/config/log_config.ui:32
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_LowerLog)
+#: rc.cpp:1580
+msgid "Enable &lower case logfile names"
+msgstr "Aktivera små &bokstäver i loggfilnamn"
 
-#. i18n: file: src/identitydialog.ui:65
-#. i18n: ectx: property (toolTip), widget (KPushButton, newBtn)
-#: rc.cpp:1226
-msgid "Add"
-msgstr "Lägg till"
+#. i18n: file: src/config/log_config.ui:39
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AddHostnameToLog)
+#: rc.cpp:1583
+msgid "&Append hostname to logfile names"
+msgstr "Lägg till &värddatornamn till loggfilnamn"
 
-#. i18n: file: src/identitydialog.ui:96
-#. i18n: ectx: property (toolTip), widget (KPushButton, copyBtn)
-#: rc.cpp:1229
-msgid "Duplicate"
-msgstr "Duplicera"
+#. i18n: file: src/config/log_config.ui:46
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: rc.cpp:1586
+msgid "Logfile &path:"
+msgstr "Loggfil&sökväg:"
 
-#. i18n: file: src/identitydialog.ui:127
-#. i18n: ectx: property (toolTip), widget (KPushButton, m_editBtn)
-#: rc.cpp:1232
-msgid "Rename"
-msgstr "Byt namn"
+#. i18n: file: src/config/log_config.ui:69
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseExternalLogViewer)
+#: rc.cpp:1589
+msgid "Use system text editor to open logs"
+msgstr "Använd systemets texteditor för att öppna loggar"
 
-#. i18n: file: src/identitydialog.ui:187
-#. i18n: ectx: property (text), widget (QLabel, realNameLabel)
-#: rc.cpp:1241
-msgid "&Real name:"
-msgstr "&Riktigt namn:"
+#. i18n: file: src/config/chatwindowappearance_config.ui:23
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_Timestamping)
+#: rc.cpp:1592
+msgid "Enable &Timestamps"
+msgstr "Aktivera &tidsstämplar"
 
-#. i18n: file: src/identitydialog.ui:197
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_realNameEdit)
-#: rc.cpp:1244
+#. i18n: file: src/config/chatwindowappearance_config.ui:32
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowDate)
+#: rc.cpp:1595
+msgid "Sho&w dates"
+msgstr "Visa &datum"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:39
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: rc.cpp:1598
+msgid "&Format:"
+msgstr "&Format:"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:78
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowBacklog)
+#: rc.cpp:1601
+msgid "Show &Backlog"
+msgstr "Visa &historik"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:87
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#: rc.cpp:1604
+msgid "&Lines: "
+msgstr "&Rader: "
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:129
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
+#: rc.cpp:1607
+msgid "&Layout"
+msgstr "&Layout"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:135
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTopic)
+#: rc.cpp:1610
+msgid "&Show channel topic"
+msgstr "&Visa kanalämne"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:142
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowModeButtons)
+#: rc.cpp:1613
+msgid "Show channel &mode buttons"
+msgstr "Visa &kanallägesknappar"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:149
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowNickList)
+#: rc.cpp:1616
+msgid "Show channel &nick list and quick buttons"
+msgstr "Visa kanalsmek&namnslista och snabbknappar"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:177
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoUserhost)
+#: rc.cpp:1619
+msgid "Show hostmas&ks in nickname list"
+msgstr "Visa värddatormask i sme&knamnslista"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:207
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowRealNames)
+#: rc.cpp:1622
+msgid "Show real names in nickname list"
+msgstr "Visa riktiga namn i smeknamnslistan"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:237
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowQuickButtons)
+#: rc.cpp:1625
+msgid "Show &quick buttons"
+msgstr "Visa sna&bbknappar"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:246
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowNicknameBox)
+#: rc.cpp:1628
+msgid "Show bo&x to change own nickname"
+msgstr "Visa r&uta för att ändra eget smeknamn"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:253
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowIRCViewScrollBar)
+#: rc.cpp:1631
+msgid "Show sc&rollbar"
+msgstr "Visa &rullningslist"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:266
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowBackgroundImage)
+#: rc.cpp:1634
+msgid "Enable Back&ground Image"
+msgstr "Aktivera bak&grundsbild"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:275
+#. i18n: ectx: property (text), widget (QLabel, textLabel4)
+#: rc.cpp:1637
+msgid "P&ath:"
+msgstr "Sök&väg:"
+
+#. i18n: file: src/config/tabnotifications_config.ui:25
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsText)
+#: rc.cpp:1643
+msgid "Use colored text"
+msgstr "Använd färgad text"
+
+#. i18n: file: src/config/tabnotifications_config.ui:35
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsLeds)
+#: rc.cpp:1646
+msgid "Use colored LEDs"
+msgstr "Använd färgade lysdioder"
+
+#. i18n: file: src/config/tabnotifications_config.ui:51
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsSystem)
+#: rc.cpp:1652
 msgid ""
-"Enter your real name here. IRC is not intended to keep you hidden from your "
-"friends or enemies. Keep this in mind if you are tempted to behave "
-"maliciously. A fake \"real name\" can be a good way to mask your gender from "
-"all the nerds out there, but the PC you use can always be traced so you will "
-"never be truly anonymous."
+"Application events occur in Konsole tabs, the DCC Status tab and other "
+"application tabs not used directly for chatting."
 msgstr ""
-"Skriv in ditt riktiga namn här. IRC är inte avsett för att hålla dig dold "
-"från dina vänner eller fiender. Kom ihåg det om du är frestad att bete dig "
-"ondsint. Ett förfalskat \"riktigt namn\" kan vara ett bra sätt att dölja "
-"ditt kön för töntar därute, men datorn du använder kan alltid spåras så du "
-"kan aldrig vara helt anonym."
+"Programhändelser inträffar i terminalflikar, DCC-statusfliken och andra "
+"programflikar som inte direkt används för chatt."
 
-#. i18n: file: src/identitydialog.ui:208
-#. i18n: ectx: property (whatsThis), widget (KEditListBox, m_nicknameLBox)
-#: rc.cpp:1247
-msgid ""
-"This is your list of nicknames. A nickname is the name that other users will "
-"know you by. You may use any name you desire. The first character must be a "
-"letter.\n"
-"\n"
-"Since nicknames must be unique across an entire IRC network, your desired "
-"name may be rejected by the server because someone else is already using "
-"that nickname. Enter alternate nicknames for yourself. If your first choice "
-"is rejected by the server, Konversation will try the alternate nicknames."
-msgstr ""
-"Det här är din lista med smeknamn. Ett smeknamn är namnet som andra "
-"användare känner dig som. Du kan använda vilket namn du vill. Det första "
-"tecknet måste vara en bokstav.\n"
-"\n"
-"Eftersom smeknamn måste vara unika i ett helt IRC-nätverk, kan ditt önskade "
-"namn förkastas av servern eftersom någon annan redan använder det. Skriv in "
-"alternativa smeknamn för dig själv. Om ditt första val förkastas av servern, "
-"försöker Konversation med de alternativa smeknamnen."
+#. i18n: file: src/config/tabnotifications_config.ui:54
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsSystem)
+#: rc.cpp:1655
+msgid "Application event"
+msgstr "Programhändelse"
 
-#. i18n: file: src/identitydialog.ui:218
-#. i18n: ectx: property (title), widget (QGroupBox, autoIdentifyGroup)
-#: rc.cpp:1255
-msgid "Auto Identify"
-msgstr "Automatisk identitet"
-
-#. i18n: file: src/identitydialog.ui:224
-#. i18n: ectx: property (text), widget (QLabel, botLabel)
-#: rc.cpp:1258
-msgid "Ser&vice:"
-msgstr "T&jänst:"
-
-#. i18n: file: src/identitydialog.ui:234
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_botEdit)
-#: rc.cpp:1261
-msgid ""
-"Service name can be <b><i>nickserv</i></b> or a network-dependent name such "
-"as <b><i>nickserv@services.dal.net</i></b>"
-msgstr ""
-"Tjänstnamnet kan vara <b><i>nickserv</i></b> eller ett nätverksberoende namn "
-"som <b><i>nickserv@services.dal.net</i></b>"
-
-#. i18n: file: src/identitydialog.ui:241
-#. i18n: ectx: property (text), widget (QLabel, passwordLabel)
-#: rc.cpp:1264
-msgid "Pa&ssword:"
-msgstr "Lö&senord:"
-
-#. i18n: file: src/identitydialog.ui:270
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_insertRememberLineOnAwayChBox)
-#: rc.cpp:1270
-msgid ""
-"If you check this box, whenever you perform an <b>/away</b> command, a "
-"horizontal line will appear in the channel, marking the point where you went "
-"away. Other IRC users do not see this horizontal line."
-msgstr ""
-"Om du markerar rutan, visas en horisontell linje i kanalen så fort du utför "
-"kommandot <b>/away</b> som markerar stället där du gick ifrån. Andra IRC-"
-"användare ser inte den horisontella linjen."
-
-#. i18n: file: src/identitydialog.ui:273
-#. i18n: ectx: property (text), widget (QCheckBox, m_insertRememberLineOnAwayChBox)
-#: rc.cpp:1273
-msgid "Mark the last position in chat windows when going away"
-msgstr "Markera den sista positionen i chattfönster när du går ifrån"
-
-#. i18n: file: src/identitydialog.ui:280
-#. i18n: ectx: property (text), widget (QLabel, awayNicknameLabel)
-#: rc.cpp:1276
-msgid "Away nickname:"
-msgstr "Smeknamn vid frånvaro:"
-
-#. i18n: file: src/identitydialog.ui:287
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_awayNickEdit)
-#: rc.cpp:1279
-msgid ""
-"Enter a nickname that indicates you are away. Whenever you perform an <b>/"
-"away msg</b> command in any channel joined with this Identity, Konversation "
-"will automatically change your nickname to the Away nickname. Other users "
-"will be able to tell you are away from your computer. Whenever you perform "
-"an <b>/away</b> command in any channel in which you are away, Konversation "
-"will automatically change your nickname back to the original. If you do not "
-"wish to automatically change your nickname when going away, leave blank."
-msgstr ""
-"Skriv in ett smeknamn som anger att du är borta. Så fort du utför kommandot "
-"<b>/away meddelande</b> i någon kanal du gått med i med den här identiteten, "
-"ändrar Konversation automatiskt ditt smeknamn till smeknamnet vid frånvaro. "
-"Andra användare kan avgöra om du är borta från datorn. Så fort du utför "
-"kommandot <b>/away</b> i någon kanal där du är borta, ändrar Konversation "
-"automatiskt tillbaka ditt smeknamn till det ursprungliga. Om du inte vill "
-"ändra ditt smeknamn automatiskt när du är borta, lämna det tomt."
-
-#. i18n: file: src/identitydialog.ui:302
-#. i18n: ectx: property (whatsThis), widget (QGroupBox, automaticAwayGroup)
-#: rc.cpp:1282
-msgid ""
-"If you check this box, Konversation will automatically set all connections "
-"using this Identity away when the screensaver starts or after a period of "
-"user inactivity configured below."
-msgstr ""
-"Om du markerar rutan, kommer Konversation automatiskt markera alla "
-"anslutningar som använder identiteten som frånvarande när skärmsläckaren "
-"startar eller efter en period utan aktivitet av användaren som ställs in "
-"nedan."
-
-#. i18n: file: src/identitydialog.ui:305
-#. i18n: ectx: property (title), widget (QGroupBox, automaticAwayGroup)
-#: rc.cpp:1285
-msgid "Automatic Away"
-msgstr "Automatisk frånvaro"
-
-#. i18n: file: src/identitydialog.ui:323
-#. i18n: ectx: property (text), widget (QLabel, setAwayAfterLabel)
-#: rc.cpp:1288
-msgid "Set away after"
-msgstr "Ange som frånvarande efter"
-
-#. i18n: file: src/identitydialog.ui:346
-#. i18n: ectx: property (text), widget (QLabel, timeOfUserInactivityLabel)
-#: rc.cpp:1291
-msgid "of user inactivity"
-msgstr "utan aktivitet av användaren"
-
-#. i18n: file: src/identitydialog.ui:353
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_automaticUnawayChBox)
-#: rc.cpp:1294
-msgid ""
-"If you check this box, Konversation will automatically cancel away for all "
-"connections using this Identity when the screensaver stops or new user "
-"activity is detected."
-msgstr ""
-"Om du markerar rutan, kommer Konversation automatiskt avbryta frånvaro för "
-"anslutningar som använder identiteten när skärmsläckaren stoppar eller ny "
-"aktivitet av användaren detekteras."
-
-#. i18n: file: src/identitydialog.ui:356
-#. i18n: ectx: property (text), widget (QCheckBox, m_automaticUnawayChBox)
-#: rc.cpp:1297
-msgid "Automatically return on activity"
-msgstr "Återkom automatiskt vid aktivitet"
-
-#. i18n: file: src/identitydialog.ui:372
-#. i18n: ectx: property (whatsThis), widget (QGroupBox, awayMessageGroup)
-#: rc.cpp:1301
-#, no-c-format
-msgid ""
-"If you check this box, Konversation will automatically send the Away message "
-"to all channels joined with this Identity. <b>%s</b> is replaced with "
-"<b>msg</b>. Whenever you perform an <b>/away</b> command, the Return message "
-"will be displayed in all channels joined with this Identity."
-msgstr ""
-"Om du markerar rutan, skickar Konversation automatiskt frånvaromeddelanden "
-"till alla kanaler du gått med i med den här identiteten. <b>%s</b> ersätts "
-"med <b>meddelande</b>. Så fort du utför kommandot <b>/away</b>, visas "
-"återkomstmeddelandet i alla kanaler du gått med i med den här identiteten."
-
-#. i18n: file: src/identitydialog.ui:375
-#. i18n: ectx: property (title), widget (QGroupBox, awayMessageGroup)
-#: rc.cpp:1304
-msgid "Away Messages"
-msgstr "Frånvaromeddelanden"
-
-#. i18n: file: src/identitydialog.ui:387
-#. i18n: ectx: property (text), widget (QLabel, awayLabel)
-#: rc.cpp:1307
-msgid "Away &message:"
-msgstr "Frånvaro&meddelande:"
-
-#. i18n: file: src/identitydialog.ui:400
-#. i18n: ectx: property (text), widget (QLabel, unAwayLabel)
-#: rc.cpp:1310
-msgid "Re&turn message:"
-msgstr "Å&terkomstmeddelande:"
-
-#. i18n: file: src/identitydialog.ui:430
-#. i18n: ectx: attribute (title), widget (QWidget, advancedWidget)
-#: rc.cpp:1313
-msgid "Advanced"
-msgstr "Avancerat"
-
-#. i18n: file: src/identitydialog.ui:436
-#. i18n: ectx: property (text), widget (QLabel, sCommandLabel)
-#: rc.cpp:1316
-msgid "&Pre-shell command:"
-msgstr "&Inledande skalkommando:"
-
-#. i18n: file: src/identitydialog.ui:446
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_sCommandEdit)
-#: rc.cpp:1319
-msgid ""
-"Here you can enter a command to be executed before connection to server "
-"starts<br>If you have multiple servers in this identity this command will be "
-"executed for each server"
-msgstr ""
-"Här kan du skriva in ett kommando som ska köras innan anslutningen till "
-"servern startas.<br>Om du har flera servrar i identiteten utförs kommandot "
-"för varje server."
-
-#. i18n: file: src/identitydialog.ui:459
-#. i18n: ectx: property (text), widget (QLabel, codecLabel)
-#: rc.cpp:1322
-msgid "&Encoding:"
-msgstr "&Kodning:"
-
-#. i18n: file: src/identitydialog.ui:469
-#. i18n: ectx: property (whatsThis), widget (KComboBox, m_codecCBox)
-#: rc.cpp:1325
-msgid ""
-"This setting affects how characters you type are encoded for sending to the "
-"server. It also affects how messages are displayed. When you first open "
-"Konversation, it automatically retrieves this setting from the operating "
-"system. If you seem to be having trouble seeing other user's messages "
-"correctly, try changing this setting."
-msgstr ""
-"Den här inställningen påverkar hur tecken du skriver in kodas för att "
-"skickas till servern. Den påverkar också hur meddelanden visas. När du först "
-"startar Konversation, hämtas inställningen automatiskt från "
-"operativsystemet. Om du verkar ha problem med att se andra användares "
-"meddelanden riktigt, försök att ändra den här inställningen."
-
-#. i18n: file: src/identitydialog.ui:476
-#. i18n: ectx: property (text), widget (QLabel, loginLabel)
-#: rc.cpp:1328
-msgid "I&dent:"
-msgstr "I&dentifikation:"
-
-#. i18n: file: src/identitydialog.ui:486
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_loginEdit)
-#: rc.cpp:1331
-msgid ""
-"When you connect, many servers query your computer for an IDENT response. If "
-"you computer is not running an IDENT server, this response is sent by "
-"Konversation. No spaces are allowed."
-msgstr ""
-"När du ansluter frågar många servrar din dator om ett IDENT-svar. Om datorn "
-"inte kör en IDENT-server, skickas det här svaret av Konversation. Några "
-"mellanslag är inte tillåtna."
-
-#. i18n: file: src/identitydialog.ui:493
-#. i18n: ectx: property (text), widget (QLabel, quitLabel)
-#: rc.cpp:1334
-msgid "&Quit reason:"
-msgstr "&Avslutningsorsak:"
-
-#. i18n: file: src/identitydialog.ui:503
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_quitEdit)
-#: rc.cpp:1337
-msgid "Whenever you leave a server, this message is shown to others."
-msgstr "Så fort du lämnar en server, visas det här meddelandet för andra."
-
-#. i18n: file: src/identitydialog.ui:506
-#. i18n: ectx: property (text), widget (KLineEdit, m_quitEdit)
-#. i18n: file: src/identitydialog.ui:526
-#. i18n: ectx: property (text), widget (KLineEdit, m_partEdit)
-#: rc.cpp:1340 rc.cpp:1349
-msgid "Konversation terminated."
-msgstr "Konversation avbruten."
-
-#. i18n: file: src/identitydialog.ui:513
-#. i18n: ectx: property (text), widget (QLabel, partLabel)
-#: rc.cpp:1343
-msgid "&Part reason:"
-msgstr "&Lämningsorsak:"
-
-#. i18n: file: src/identitydialog.ui:523
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_partEdit)
-#: rc.cpp:1346
-msgid "Whenever you leave a channel, this message is sent to the channel."
-msgstr "Så fort du lämnar en kanal, skickas det här meddelandet till kanalen."
-
-#. i18n: file: src/identitydialog.ui:533
-#. i18n: ectx: property (text), widget (QLabel, kickLabel)
-#: rc.cpp:1352
-msgid "&Kick reason:"
-msgstr "&Utsparkningsorsak:"
-
-#. i18n: file: src/identitydialog.ui:543
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_kickEdit)
-#: rc.cpp:1355
-msgid ""
-"Whenever you are kicked from a channel (usually by an IRC operator), this "
-"message is sent to the channel."
-msgstr ""
-"Så fort du sparkas ut från en kanal (oftast av en IRC-operatör), skickas det "
-"här meddelandet till kanalen."
-
-#. i18n: file: src/identitydialog.ui:546
-#. i18n: ectx: property (text), widget (KLineEdit, m_kickEdit)
-#: rc.cpp:1358
-msgid "User terminated."
-msgstr "Avbruten av användare."
-
-#. i18n: file: src/config/konversation.kcfg:21
-#. i18n: ectx: label, entry, group (Appearance)
-#: rc.cpp:1363
-msgid "Limit the size of the tab labels to fit them all on screen"
-msgstr "Begränsa flikarnas textstorlek så att alla får plats på skärmen"
-
-#. i18n: file: src/config/konversation.kcfg:226
-#. i18n: ectx: label, entry, group (Appearance)
-#: rc.cpp:1432
-msgid "Hide the scrollbar"
-msgstr "Dölj rullningslist"
-
-#. i18n: file: src/config/konversation.kcfg:232
-#. i18n: ectx: whatsthis, entry, group (General Options)
-#: rc.cpp:1435
-msgid "Enable if you want all the IRC input lines to check your spelling as you type"
-msgstr ""
-"Aktivera om du vill att alla IRC-inmatningsrader ska kontrollera stavning "
-"medan du skriver"
-
-#. i18n: file: src/config/konversation.kcfg:241
-#. i18n: ectx: whatsthis, entry, group (General Options)
-#: rc.cpp:1438
-msgid "Enabling this will cause the input box to grow vertically when it fills up."
-msgstr "Att aktivera det här gör att indatarutan växer vertikalt när den fylls."
-
-#. i18n: file: src/config/konversation.kcfg:275
-#. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:1453
-msgid "Start with hidden main window"
-msgstr "Starta med dolt huvudfönster"
-
-#. i18n: file: src/config/konversation.kcfg:329
-#. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:1476
-msgid "&Show real names next to nicknames"
-msgstr "Visa r&iktiga namn intill smeknamn"
-
-#. i18n: file: src/config/konversation.kcfg:543
-#. i18n: ectx: label, entry (OpenWatchedNicksAtStartup), group (Notify List)
-#: rc.cpp:1560
-msgid "Open Watched Nicks tab at application startup"
-msgstr "Visa flik med bevakade smeknamn vid programstart"
-
-#. i18n: file: src/config/konversation.kcfg:827
-#. i18n: ectx: label, entry, group (Themes)
+#. i18n: file: src/config/tabnotifications_config.ui:87
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsMsgs)
 #: rc.cpp:1658
-msgid "Enable emoticons"
-msgstr "Aktivera smilisar"
+msgid "Message"
+msgstr "Meddelande"
 
-#. i18n: file: src/config/konversation.kcfg:831
-#. i18n: ectx: label, entry, group (Themes)
+#. i18n: file: src/config/tabnotifications_config.ui:143
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsPrivate)
 #: rc.cpp:1661
-msgid "Emoticons theme"
-msgstr "Smilistema"
+msgid "Private message"
+msgstr "Privat meddelande"
+
+#. i18n: file: src/config/tabnotifications_config.ui:167
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsNick)
+#: rc.cpp:1664
+msgid "Current nick used"
+msgstr "Aktuellt använt smeknamn"
+
+#. i18n: file: src/config/tabnotifications_config.ui:223
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsEvents)
+#: rc.cpp:1667
+msgid "Channel events are mode changes or users joining/leaving a channel."
+msgstr ""
+"Kanalhändelser är ändringar av läge eller användare som lämnar eller går med "
+"i en kanal."
+
+#. i18n: file: src/config/tabnotifications_config.ui:226
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsEvents)
+#: rc.cpp:1670
+msgid "Channel event"
+msgstr "Kanalhändelse"
+
+#. i18n: file: src/config/tabnotifications_config.ui:275
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox10)
+#. i18n: file: src/viewer/searchbarbase.ui:92
+#. i18n: ectx: property (text), widget (QToolButton, m_optionsButton)
+#: rc.cpp:1676 rc.cpp:1715
+msgid "Options"
+msgstr "Alternativ"
+
+#. i18n: file: src/config/tabnotifications_config.ui:281
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsOverride)
+#: rc.cpp:1679
+msgid ""
+"If you select this, the colors you chose in the Highlights preferences page "
+"will override the colors for \"Current nick used\" and \"Highlight\"."
+msgstr ""
+"Om du markerar det här, överskrider färgerna du väljer på inställningssidan "
+"Färgläggningar färgerna för \"Aktuellt använt smeknamn\" och \"Färgläggning"
+"\"."
+
+#. i18n: file: src/config/tabnotifications_config.ui:284
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsOverride)
+#: rc.cpp:1682
+msgid "Give precedence to chat window highlight colors"
+msgstr "Ge chattfönstrets färgläggning företräde"
 
 #. i18n: file: src/linkaddressbook/linkaddressbookui_base.ui:41
 #. i18n: ectx: property (toolTip), widget (QPushButton, addAddresseeButton)
@@ -8177,4 +8198,3 @@ msgstr ""
 #: rc.cpp:1781
 msgid "&Window"
 msgstr "&Fönster"
-

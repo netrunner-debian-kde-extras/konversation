@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-05-25 11:46+0200\n"
+"POT-Creation-Date: 2009-05-31 11:52+0200\n"
 "PO-Revision-Date: 2008-07-14 16:21+0800\n"
 "Last-Translator: Franklin Weng <franklin@mail.everfocus.com.tw>\n"
 "Language-Team: Chinese Traditional <zh@li.org>\n"
@@ -102,7 +102,7 @@ msgstr "沒有閒置連接埠"
 msgid "Could not open a socket"
 msgstr "無法開啟通訊端"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:97
+#. i18n: file: src/config/ignore_configui.ui:97
 #. i18n: ectx: property (text), widget (QCheckBox, chkDCC)
 #: src/dcc/chat.cpp:142 src/dcc/chat.cpp:152 src/dcc/chat.cpp:165
 #: src/dcc/chat.cpp:183 src/dcc/chat.cpp:188 src/dcc/chat.cpp:193
@@ -110,10 +110,11 @@ msgstr "無法開啟通訊端"
 #: src/irc/inputfilter.cpp:386 src/irc/inputfilter.cpp:401
 #: src/irc/inputfilter.cpp:417 src/irc/inputfilter.cpp:425
 #: src/irc/server.cpp:1802 src/irc/server.cpp:1828 src/irc/server.cpp:1840
-#: src/irc/server.cpp:1941 src/irc/server.cpp:1992 src/irc/server.cpp:2048
-#: src/irc/server.cpp:2051 src/irc/server.cpp:2062 src/irc/server.cpp:2065
-#: src/irc/server.cpp:2079 src/irc/server.cpp:2086 src/settingsdialog.cpp:149
-#: src/viewer/ignorelistviewitem.cpp:47 rc.cpp:410
+#: src/irc/server.cpp:1941 src/irc/server.cpp:1992 src/irc/server.cpp:2049
+#: src/irc/server.cpp:2054 src/irc/server.cpp:2066 src/irc/server.cpp:2069
+#: src/irc/server.cpp:2083 src/irc/server.cpp:2090
+#: src/config/settingsdialog.cpp:149 src/viewer/ignorelistviewitem.cpp:47
+#: rc.cpp:765
 msgid "DCC"
 msgstr "DCC"
 
@@ -179,14 +180,14 @@ msgstr ""
 msgid "Connection broken, error (%1) %2."
 msgstr "連線中斷，錯誤程式碼 %1。"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:83
+#. i18n: file: src/config/ignore_configui.ui:83
 #. i18n: ectx: property (text), widget (QCheckBox, chkCTCP)
 #: src/dcc/chat.cpp:237 src/irc/outputfilter.cpp:757
 #: src/irc/inputfilter.cpp:272 src/irc/inputfilter.cpp:279
 #: src/irc/inputfilter.cpp:295 src/irc/inputfilter.cpp:302
 #: src/irc/inputfilter.cpp:434 src/irc/inputfilter.cpp:442
 #: src/irc/inputfilter.cpp:462 src/irc/inputfilter.cpp:513
-#: src/irc/inputfilter.cpp:541 src/viewer/ignorelistviewitem.cpp:46 rc.cpp:404
+#: src/irc/inputfilter.cpp:541 src/viewer/ignorelistviewitem.cpp:46 rc.cpp:759
 msgid "CTCP"
 msgstr "CTCP"
 
@@ -260,18 +261,18 @@ msgstr "無法透過 IRC 伺服器傳送 DCC SEND 要求給同伴。"
 msgid "Awaiting remote user's acceptance"
 msgstr "正在等待遠端使用者接收"
 
-#: src/dcc/transfersend.cpp:351 src/dcc/transferrecv.cpp:590
+#: src/dcc/transfersend.cpp:351 src/dcc/transferrecv.cpp:587
 #, fuzzy
 #| msgid "Could not accept the connection. (Socket Error)"
 msgid "Could not accept the connection (socket error.)"
 msgstr "無法接收連線(Socket 錯誤)。"
 
-#: src/dcc/transfersend.cpp:447 src/dcc/transferrecv.cpp:604
+#: src/dcc/transfersend.cpp:447 src/dcc/transferrecv.cpp:601
 #, kde-format
 msgid "Socket error: %1"
 msgstr "Socket 發生錯誤：%1"
 
-#: src/dcc/transfersend.cpp:469 src/dcc/transferrecv.cpp:709
+#: src/dcc/transfersend.cpp:469 src/dcc/transferrecv.cpp:704
 msgid "Timed out"
 msgstr "逾時"
 
@@ -346,7 +347,7 @@ msgstr "找不到此檔案的詳細資訊。"
 msgid "Send"
 msgstr "傳送"
 
-#: src/dcc/transferpanelitem.cpp:266 src/dcc/transferrecv.cpp:84
+#: src/dcc/transferpanelitem.cpp:266 src/dcc/transferrecv.cpp:81
 msgid "Receive"
 msgstr "接收"
 
@@ -391,34 +392,34 @@ msgstr "已放棄"
 msgid "%1/sec"
 msgstr "%1/秒"
 
-#: src/dcc/transferrecv.cpp:188
+#: src/dcc/transferrecv.cpp:185
 msgid "The admin has restricted the right to receive files"
 msgstr "總管已限制您接收檔案"
 
-#: src/dcc/transferrecv.cpp:195
+#: src/dcc/transferrecv.cpp:192
 #, kde-format
 msgid "Invalid sender address (%1)"
 msgstr "不合法的傳送者位址（%1）"
 
-#: src/dcc/transferrecv.cpp:202
+#: src/dcc/transferrecv.cpp:199
 msgid "Unsupported negotiation (filesize=0)"
 msgstr "不支援的對話(檔案大小=0)"
 
-#: src/dcc/transferrecv.cpp:301
+#: src/dcc/transferrecv.cpp:298
 #, kde-format
 msgid "<b>Cannot create the folder.</b><br>Folder: %1<br>"
 msgstr "<b>無法建立資料夾。</b><br>資料夾：%1<br>"
 
-#: src/dcc/transferrecv.cpp:321
+#: src/dcc/transferrecv.cpp:318
 msgid "Could not create a KIO instance"
 msgstr "無法建立 KIO 實體"
 
-#: src/dcc/transferrecv.cpp:390
+#: src/dcc/transferrecv.cpp:387
 #, kde-format
 msgid "<b>The file is used by another transfer.</b><br>%1<br>"
 msgstr "<b>檔案正被另一個傳輸使用中。</b><br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:403
+#: src/dcc/transferrecv.cpp:400
 #, fuzzy, kde-format
 #| msgid ""
 #| "<b>A partial file exists.</b><br>%1<br>Size of the partial file: %2 "
@@ -431,51 +432,51 @@ msgid_plural ""
 "<br/>"
 msgstr[0] "<b>部分檔案已存在。</b><br>%1<br>部分檔案大小：%2 位元組<br>"
 
-#: src/dcc/transferrecv.cpp:434
+#: src/dcc/transferrecv.cpp:431
 #, kde-format
 msgid "<b>The file already exists.</b><br>%1<br>"
 msgstr "<b>檔案已存在。</b><br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:441
+#: src/dcc/transferrecv.cpp:438
 #, kde-format
 msgid "<b>Could not open the file.<br>Error: %1</b><br>%2<br>"
 msgstr "<b>無法開啟檔案。<br>錯誤：%1</b><br>%2<br>"
 
-#: src/dcc/transferrecv.cpp:482
+#: src/dcc/transferrecv.cpp:479
 msgid ""
 "Could not send Reverse DCC SEND acknowledgement to the partner via the IRC "
 "server."
 msgstr "無法透過 IRC 伺服器傳送反向 DCC SEND 承認給同伴。"
 
-#: src/dcc/transferrecv.cpp:489
+#: src/dcc/transferrecv.cpp:486
 msgid "Waiting for connection"
 msgstr "等待連線中"
 
-#: src/dcc/transferrecv.cpp:503
+#: src/dcc/transferrecv.cpp:500
 msgid "Waiting for remote host's acceptance"
 msgstr "正在等待遠端主機接收"
 
-#: src/dcc/transferrecv.cpp:513
+#: src/dcc/transferrecv.cpp:510
 msgid ""
 "Could not send DCC RECV resume request to the partner via the IRC server."
 msgstr "無法透過 IRC 伺服器傳送 DCC RECV 回復要求給同伴。"
 
-#: src/dcc/transferrecv.cpp:535
+#: src/dcc/transferrecv.cpp:532
 msgid "Unexpected response from remote host"
 msgstr "不可預料的遠端主機應答"
 
-#: src/dcc/transferrecv.cpp:672
+#: src/dcc/transferrecv.cpp:667
 #, fuzzy
 #| msgid "Transferring error"
 msgid "Transfer error"
 msgstr "傳輸時發生錯誤"
 
-#: src/dcc/transferrecv.cpp:688
+#: src/dcc/transferrecv.cpp:683
 #, kde-format
 msgid "KIO error: %1"
 msgstr "KIO 發生錯誤：%1"
 
-#: src/dcc/transferpanel.cpp:46 src/viewer/viewcontainer.cpp:2055
+#: src/dcc/transferpanel.cpp:46 src/viewer/viewcontainer.cpp:2065
 msgid "DCC Status"
 msgstr "DCC 狀態"
 
@@ -628,12 +629,12 @@ msgstr "重新命名(&E)"
 msgid "Channel Settings for %1"
 msgstr "%1 頻道設定"
 
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:98
+#. i18n: file: src/config/nicklistbehavior_configui.ui:98
 #. i18n: ectx: property (text), widget (QTreeWidget, sortOrder)
 #: src/irc/channeloptionsdialog.cpp:47 src/irc/inputfilter.cpp:935
 #: src/irc/inputfilter.cpp:939 src/irc/inputfilter.cpp:2032
 #: src/irc/inputfilter.cpp:2081 src/irc/channelnick.cpp:221
-#: src/irc/channel.cpp:2048 rc.cpp:461
+#: src/irc/channel.cpp:2048 rc.cpp:1400
 msgid "Mode"
 msgstr "模式"
 
@@ -887,16 +888,16 @@ msgid "Kick / Ban"
 msgstr "踢出/封禁"
 
 #: src/irc/nicklistview.cpp:132 src/irc/outputfilter.cpp:1325
-#: src/irc/outputfilter.cpp:1397 src/irc/server.cpp:3041 src/irc/query.cpp:96
+#: src/irc/outputfilter.cpp:1397 src/irc/server.cpp:3045 src/irc/query.cpp:96
 #: src/irc/query.cpp:396 src/irc/query.cpp:397 src/irc/channel.cpp:654
-#: src/irc/channel.cpp:655 src/preferences/warnings_preferences.cpp:120
-#: src/settingsdialog.cpp:137 src/viewer/ircview.cpp:878
+#: src/irc/channel.cpp:655 src/config/settingsdialog.cpp:137
+#: src/config/warnings_config.cpp:120 src/viewer/ircview.cpp:878
 msgid "Ignore"
 msgstr "忽略"
 
 #: src/irc/nicklistview.cpp:133 src/irc/query.cpp:97 src/irc/query.cpp:422
 #: src/irc/query.cpp:423 src/irc/channel.cpp:679 src/irc/channel.cpp:680
-#: src/preferences/warnings_preferences.cpp:121 src/viewer/ircview.cpp:879
+#: src/config/warnings_config.cpp:121 src/viewer/ircview.cpp:879
 msgid "Unignore"
 msgstr "取消忽略"
 
@@ -1214,12 +1215,12 @@ msgstr "用法：%1close [視窗] 關閉該頻道或對話分頁，若未指定�
 msgid "Usage: %1NOTICE <recipient> <message>"
 msgstr "用法：%1NOTICE <接收人> <訊息>"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:104
+#. i18n: file: src/config/ignore_configui.ui:104
 #. i18n: ectx: property (text), widget (QCheckBox, chkNotice)
 #: src/irc/outputfilter.cpp:608 src/irc/outputfilter.cpp:1563
 #: src/irc/inputfilter.cpp:487 src/irc/inputfilter.cpp:566
 #: src/irc/inputfilter.cpp:731 src/irc/inputfilter.cpp:1257
-#: src/viewer/ignorelistviewitem.cpp:45 rc.cpp:413
+#: src/viewer/ignorelistviewitem.cpp:45 rc.cpp:768
 msgid "Notice"
 msgstr "通知"
 
@@ -1291,8 +1292,8 @@ msgstr "命令稿名稱不能包含「../」！"
 msgid "Usage: %1RAW [OPEN | CLOSE]"
 msgstr "用法：%1RAW [OPEN | CLOSE]"
 
-#: src/irc/outputfilter.cpp:1098 src/irc/server.cpp:2427
-#: src/irc/server.cpp:2445 src/viewer/ircview.cpp:372
+#: src/irc/outputfilter.cpp:1098 src/irc/server.cpp:2431
+#: src/irc/server.cpp:2449 src/viewer/ircview.cpp:372
 msgid "Notify"
 msgstr "通知"
 
@@ -1813,9 +1814,9 @@ msgstr "目前在 %1 的使用者：%2。"
 
 #. i18n: file: src/identitydialog.ui:262
 #. i18n: ectx: attribute (title), widget (QWidget, awayWidget)
-#: src/irc/inputfilter.cpp:1307 src/irc/server.cpp:3314
-#: src/irc/server.cpp:3339 src/irc/server.cpp:3348 src/irc/nicksonline.cpp:270
-#: src/linkaddressbook/addressbook.cpp:112 rc.cpp:1267
+#: src/irc/inputfilter.cpp:1307 src/irc/server.cpp:3318
+#: src/irc/server.cpp:3343 src/irc/server.cpp:3352 src/irc/nicksonline.cpp:270
+#: src/linkaddressbook/addressbook.cpp:112 rc.cpp:385
 msgid "Away"
 msgstr "離開"
 
@@ -2036,11 +2037,11 @@ msgstr "%1 由 %2 於 %3 設定"
 msgid "End of Ban List."
 msgstr "封禁清單結束。"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:90
+#. i18n: file: src/config/ignore_configui.ui:90
 #. i18n: ectx: property (text), widget (QCheckBox, chkChannel)
 #: src/irc/inputfilter.cpp:1914 src/irc/inputfilter.cpp:1918
 #: src/irc/channellistpanel.cpp:102 src/viewer/ignorelistviewitem.cpp:43
-#: rc.cpp:407
+#: rc.cpp:762
 msgid "Channel"
 msgstr "頻道"
 
@@ -2198,8 +2199,8 @@ msgstr "身份 %1 在連線 %2 的暱稱未被接受。請輸入新的暱稱，�
 msgid "Nickname error"
 msgstr "暱稱錯誤"
 
-#: src/irc/server.cpp:1300 src/irc/server.cpp:3050 src/irc/server.cpp:3055
-#: src/application.cpp:270
+#: src/irc/server.cpp:1300 src/irc/server.cpp:3054 src/irc/server.cpp:3059
+#: src/application.cpp:282
 msgid "D-Bus"
 msgstr ""
 
@@ -2209,7 +2210,7 @@ msgid "Select File(s) to Send to %1"
 msgstr "選擇要傳送到 %1 的檔案"
 
 #: src/irc/server.cpp:1806 src/irc/server.cpp:1832 src/irc/server.cpp:1844
-#: src/irc/server.cpp:1947 src/irc/server.cpp:1998 src/irc/server.cpp:2089
+#: src/irc/server.cpp:1947 src/irc/server.cpp:1998 src/irc/server.cpp:2093
 msgid "unknown size"
 msgstr "大小不明"
 
@@ -2272,94 +2273,94 @@ msgctxt "%1 = file name, %2 = nickname"
 msgid "Received invalid reject request for \"%1\" from %2."
 msgstr "從 %2 接收到不正確的對檔案「%1」的續傳請求。"
 
-#: src/irc/server.cpp:2049
+#: src/irc/server.cpp:2050
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of sender"
 msgid "Download of \"%1\" from %2 finished."
 msgstr "從 %2 下載檔案「%1」完成。"
 
-#: src/irc/server.cpp:2052
+#: src/irc/server.cpp:2055
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of sender"
 msgid "Download of \"%1\" from %2 failed. Reason: %3."
 msgstr "從 %2 下載檔案「%1」失敗。原因：%3。"
 
-#: src/irc/server.cpp:2063
+#: src/irc/server.cpp:2067
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of recipient"
 msgid "Upload of \"%1\" to %2 finished."
 msgstr "上傳 %1 到 %2 已完成。"
 
-#: src/irc/server.cpp:2066
+#: src/irc/server.cpp:2070
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of recipient"
 msgid "Upload of \"%1\" to %2 failed. Reason: %3."
 msgstr "上傳「%1」到 %2 失敗，原因：%3。"
 
-#: src/irc/server.cpp:2080
+#: src/irc/server.cpp:2084
 #, kde-format
 msgctxt "%1 = file name, %2 nickname of recipient"
 msgid "Sending \"%1\" to %2..."
 msgstr "傳送 \"%1\" 到 %2..."
 
-#: src/irc/server.cpp:2087
+#: src/irc/server.cpp:2091
 #, kde-format
 msgctxt "%1 = file name, %2 = file size, %3 = nickname of sender"
 msgid "Downloading \"%1\" (%2) from %3..."
 msgstr "從 %3 下載 %1（%2）..."
 
-#: src/irc/server.cpp:2428 src/notificationhandler.cpp:261
+#: src/irc/server.cpp:2432 src/notificationhandler.cpp:261
 #, kde-format
 msgid "%1 is online (%2)."
 msgstr "%1 上線(%2)。"
 
-#: src/irc/server.cpp:2445 src/notificationhandler.cpp:275
+#: src/irc/server.cpp:2449 src/notificationhandler.cpp:275
 #, kde-format
 msgid "%1 went offline (%2)."
 msgstr "%1 離線(%2)。"
 
-#: src/irc/server.cpp:3037
+#: src/irc/server.cpp:3041
 #, kde-format
 msgid ""
 "You were invited by %1 to join channel %2. Do you accept the invitation?"
 msgstr "%1 邀請您加入頻道 %2，您要接受邀請嗎？"
 
-#: src/irc/server.cpp:3039
+#: src/irc/server.cpp:3043
 msgid "Invitation"
 msgstr "邀請"
 
-#: src/irc/server.cpp:3040 src/irc/channel.cpp:1313 src/irc/channel.cpp:1330
+#: src/irc/server.cpp:3044 src/irc/channel.cpp:1313 src/irc/channel.cpp:1330
 #: src/viewer/ircview.cpp:391
 msgid "Join"
 msgstr "加入"
 
-#: src/irc/server.cpp:3050
+#: src/irc/server.cpp:3054
 #, kde-format
 msgid "Error: Could not find script \"%1\"."
 msgstr "錯誤：無法找到命令稿「%1」。"
 
-#: src/irc/server.cpp:3055
+#: src/irc/server.cpp:3059
 #, kde-format
 msgid "Error: Could not execute script \"%1\". Check file permissions."
 msgstr "錯誤：無法執行命令稿「%1」，請檢查檔案權限。"
 
-#: src/irc/server.cpp:3284
+#: src/irc/server.cpp:3288
 msgid "Gone away for now"
 msgstr "立即離開"
 
-#: src/irc/server.cpp:3314
+#: src/irc/server.cpp:3318
 msgid "You are now marked as being away."
 msgstr "您已經標記為離開。"
 
-#: src/irc/server.cpp:3339
+#: src/irc/server.cpp:3343
 msgid "You are no longer marked as being away."
 msgstr "您不再標記為離開。"
 
-#: src/irc/server.cpp:3348
+#: src/irc/server.cpp:3352
 msgid "You are not marked as being away."
 msgstr "您不再標記為離開。"
 
-#: src/irc/nicksonline.cpp:49 src/viewer/viewcontainer.cpp:2426
+#: src/irc/nicksonline.cpp:49 src/viewer/viewcontainer.cpp:2436
 msgid "Watched Nicks Online"
 msgstr "監視的上線暱稱"
 
@@ -2485,8 +2486,8 @@ msgstr "選擇關聯(&C)......"
 msgid "&Join Channel"
 msgstr "加入頻道(&J)"
 
-#: src/irc/channellistpanel.cpp:46 src/viewer/viewcontainer.cpp:2363
-#: src/viewer/viewcontainer.cpp:2416
+#: src/irc/channellistpanel.cpp:46 src/viewer/viewcontainer.cpp:2373
+#: src/viewer/viewcontainer.cpp:2426
 msgid "Channel List"
 msgstr "頻道清單"
 
@@ -2720,7 +2721,7 @@ msgstr "保持開啟"
 msgid "Do you want to stop ignoring %1?"
 msgstr "您想要停止忽略 %1 嗎？"
 
-#: src/irc/query.cpp:608 src/irc/channel.cpp:2713 src/statuspanel.cpp:360
+#: src/irc/query.cpp:608 src/irc/channel.cpp:2721 src/statuspanel.cpp:360
 #, kde-format
 msgid "Identity Default ( %1 )"
 msgstr "預設身分（%1）"
@@ -4023,260 +4024,260 @@ msgstr "連線密碼"
 msgid "Use SSL for connection"
 msgstr "使用 SSL 連線"
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:48
+#. i18n: file: src/config/quickbuttons_configui.ui:48
 #. i18n: ectx: property (text), widget (QPushButton, newButton)
-#: src/preferences/alias_preferences.cpp:171
-#: src/preferences/autoreplace_preferences.cpp:334
-#: src/preferences/quickbuttons_preferences.cpp:211
-#: src/preferences/watchednicknames_preferences.cpp:295
-#: src/preferences/highlight_preferences.cpp:251 rc.cpp:347
+#: src/config/watchednicknames_config.cpp:295
+#: src/config/quickbuttons_config.cpp:211 src/config/alias_config.cpp:171
+#: src/config/autoreplace_config.cpp:334 src/config/highlight_config.cpp:251
+#: rc.cpp:485
 msgid "New"
 msgstr "新增"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:242
+#. i18n: file: src/config/highlight_configui.ui:242
 #. i18n: ectx: property (toolTip), widget (KPushButton, patternButton)
-#: src/preferences/autoreplace_preferences.cpp:53
-#: src/preferences/highlight_preferences.cpp:170 rc.cpp:879
+#: src/config/autoreplace_config.cpp:53 src/config/highlight_config.cpp:170
+#: rc.cpp:945
 msgid "Click to run Regular Expression Editor (KRegExpEditor)"
 msgstr "點此執行正規運算式編輯器(KRegExpEditor)"
 
-#: src/preferences/autoreplace_preferences.cpp:58
-#: src/preferences/highlight_preferences.cpp:175
+#: src/config/autoreplace_config.cpp:58 src/config/highlight_config.cpp:175
 msgid "The Regular Expression Editor (KRegExpEditor) is not installed"
 msgstr "正規表示式編輯器（KRegExpEditor）未安裝"
 
-#: src/preferences/autoreplace_preferences.cpp:61
+#: src/config/autoreplace_config.cpp:61
 msgid "Outgoing"
 msgstr "外傳"
 
-#: src/preferences/autoreplace_preferences.cpp:62
+#: src/config/autoreplace_config.cpp:62
 msgid "Incoming"
 msgstr "內送"
 
-#: src/preferences/autoreplace_preferences.cpp:63
+#: src/config/autoreplace_config.cpp:63
 msgid "Both"
 msgstr "雙向"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:57
+#: src/config/nicklistbehavior_config.cpp:57
 msgid "Normal Users"
 msgstr "普通使用者"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:58
+#: src/config/nicklistbehavior_config.cpp:58
 msgid "Voice (+v)"
 msgstr "語音 (+v)"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:59
+#: src/config/nicklistbehavior_config.cpp:59
 msgid "Halfops (+h)"
 msgstr "助理 (+h)"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:60
+#: src/config/nicklistbehavior_config.cpp:60
 msgid "Operators (+o)"
 msgstr "管理員 (+o)"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:61
+#: src/config/nicklistbehavior_config.cpp:61
 msgid "Channel Admins (+p)"
 msgstr "頻道總管 (+p)"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:62
+#: src/config/nicklistbehavior_config.cpp:62
 msgid "Channel Owners (+q)"
 msgstr "頻道擁有者 (+q)"
 
-#: src/preferences/dcc_preferences.cpp:50
-msgid "Network Interface"
-msgstr "網路介面"
-
-#: src/preferences/dcc_preferences.cpp:51
-msgid "Reply From IRC Server"
-msgstr "來自 IRC 伺服器的回應"
-
-#: src/preferences/dcc_preferences.cpp:52
-msgid "Specify Manually"
-msgstr "手動指定"
-
-#: src/preferences/highlight_preferences.cpp:47
-msgid "Select Sound File"
-msgstr "選擇聲音檔案"
-
-#: src/preferences/warnings_preferences.cpp:106
-msgid "Automatically join channel on invite"
-msgstr "接到邀請自動加入頻道"
-
-#: src/preferences/warnings_preferences.cpp:107
-msgid "Notice that saving logfiles will save whole file"
-msgstr "通知儲存日誌檔案會儲存完整檔案"
-
-#: src/preferences/warnings_preferences.cpp:108
-msgid "Ask before deleting logfile contents"
-msgstr "刪除紀錄檔案內容前提問"
-
-#: src/preferences/warnings_preferences.cpp:109
-msgid "Ask about closing queries after ignoring the nickname"
-msgstr "在忽略暱稱後關閉對話時提問"
-
-#: src/preferences/warnings_preferences.cpp:110
-msgid "Ask before switching a connection to a network to a different server"
-msgstr "將到網路的連線切換到不同伺服器時提問"
-
-#: src/preferences/warnings_preferences.cpp:111
-msgid "Ask before creating another connection to the same network or server"
-msgstr "建立到同一個網路或伺服器的其他連線時先提問"
-
-#: src/preferences/warnings_preferences.cpp:112
-msgid "Close server tab"
-msgstr "關閉伺服器分頁"
-
-#: src/preferences/warnings_preferences.cpp:113
-msgid "Close channel tab"
-msgstr "關閉頻道分頁"
-
-#: src/preferences/warnings_preferences.cpp:114
-msgid "Close query tab"
-msgstr "關閉對話分頁"
-
-#: src/preferences/warnings_preferences.cpp:115
-msgid "The channel list can only be opened from server-aware tabs"
-msgstr "頻道清單只能從已知伺服器分頁開啟"
-
-#: src/preferences/warnings_preferences.cpp:116
-msgid "Warning on hiding the main window menu"
-msgstr "隱藏主視窗選單時發出警告"
-
-#: src/preferences/warnings_preferences.cpp:117
-msgid "Warning on high traffic with channel list"
-msgstr "頻道清單流量高時發出警告"
-
-#: src/preferences/warnings_preferences.cpp:118
-msgid "Warning on pasting large portions of text"
-msgstr "貼上大量文字時發出警告"
-
-#: src/preferences/warnings_preferences.cpp:119
-msgid "Warning on quitting Konversation"
-msgstr "離開 Konversation 時發出警告"
-
-#: src/preferences/warnings_preferences.cpp:122
-msgid "Warn before quitting with active DCC file transfers"
-msgstr "離開時還有 DCC 檔案傳輸進行中時發出警告"
-
-#: src/preferences/theme_preferences.cpp:174
+#: src/config/theme_config.cpp:174
 msgid "*.tar.gz *.tar.bz2 *.tar *.zip|Konversation Themes"
 msgstr "*.tar.gz *.tar.bz2 *.tar *.zip|Konversation 主題"
 
-#: src/preferences/theme_preferences.cpp:176
+#: src/config/theme_config.cpp:176
 msgid "Select Theme Package"
 msgstr "選擇主題套件"
 
-#: src/preferences/theme_preferences.cpp:189
+#: src/config/theme_config.cpp:189
 msgid "Failed to Download Theme"
 msgstr "下載主題失敗"
 
-#: src/preferences/theme_preferences.cpp:204
-#: src/preferences/theme_preferences.cpp:225
+#: src/config/theme_config.cpp:204 src/config/theme_config.cpp:225
 msgid "Theme archive is invalid."
 msgstr "主題套件無效"
 
-#: src/preferences/theme_preferences.cpp:205
-#: src/preferences/theme_preferences.cpp:226
+#: src/config/theme_config.cpp:205 src/config/theme_config.cpp:226
 msgid "Cannot Install Theme"
 msgstr "無法安裝主題"
 
-#: src/preferences/theme_preferences.cpp:251
+#: src/config/theme_config.cpp:251
 #, fuzzy, kde-format
 #| msgid "Do you want to remove %1 ?"
 msgid "Do you want to remove %1?"
 msgstr "您真的要刪除 %1 嗎？"
 
-#: src/preferences/theme_preferences.cpp:252
+#: src/config/theme_config.cpp:252
 msgid "Remove Theme"
 msgstr "刪除主題"
 
-#: src/settingsdialog.cpp:50
+#: src/config/settingsdialog.cpp:50
 msgid "Interface"
 msgstr "介面"
 
-#: src/settingsdialog.cpp:54
+#: src/config/settingsdialog.cpp:54
 msgid "Behavior"
 msgstr "行為"
 
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:45
+#. i18n: file: src/config/tabnotifications_config.ui:45
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox5)
-#: src/settingsdialog.cpp:58 rc.cpp:792
+#: src/config/settingsdialog.cpp:58 rc.cpp:1649
 msgid "Notifications"
 msgstr "通知"
 
-#: src/settingsdialog.cpp:69 src/settingsdialog.cpp:115
+#: src/config/settingsdialog.cpp:69 src/config/settingsdialog.cpp:115
 msgid "Chat Window"
 msgstr "聊天視窗"
 
-#: src/settingsdialog.cpp:73
+#: src/config/settingsdialog.cpp:73
 msgid "Nicklist Themes"
 msgstr "暱稱清單主題圖示"
 
-#: src/settingsdialog.cpp:81
+#: src/config/settingsdialog.cpp:81
 msgid "Colors"
 msgstr "顏色"
 
-#: src/settingsdialog.cpp:87
+#: src/config/settingsdialog.cpp:87
 #, fuzzy
 #| msgid "Focus"
 msgid "Fonts"
 msgstr "焦點"
 
-#: src/settingsdialog.cpp:91
+#: src/config/settingsdialog.cpp:91
 msgid "Quick Buttons"
 msgstr "快捷按鈕"
 
-#: src/settingsdialog.cpp:97 src/settingsdialog.cpp:155
+#: src/config/settingsdialog.cpp:97 src/config/settingsdialog.cpp:155
 #: src/viewer/viewtree.cpp:40
 msgid "Tabs"
 msgstr "分頁"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:19
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
 #. i18n: file: src/identitydialog.ui:179
 #. i18n: ectx: attribute (title), widget (QWidget, generalWidget)
-#: src/settingsdialog.cpp:103 rc.cpp:900 rc.cpp:1238
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:19
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
+#: src/config/settingsdialog.cpp:103 rc.cpp:356 rc.cpp:1311
 msgid "General"
 msgstr "一般"
 
-#: src/settingsdialog.cpp:109
+#: src/config/settingsdialog.cpp:109
 msgid "Connection"
 msgstr "連線"
 
-#: src/settingsdialog.cpp:119
+#: src/config/settingsdialog.cpp:119
 msgid "Nickname List"
 msgstr "暱稱清單"
 
-#: src/settingsdialog.cpp:125
+#: src/config/settingsdialog.cpp:125
 msgid "Command Aliases"
 msgstr "命令別名"
 
-#: src/settingsdialog.cpp:131
+#: src/config/settingsdialog.cpp:131
 msgid "Auto Replace"
 msgstr "自動取代"
 
-#: src/settingsdialog.cpp:146
+#: src/config/settingsdialog.cpp:146
 msgid "Logging"
 msgstr "日誌"
 
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:236
+#. i18n: file: src/config/tabnotifications_config.ui:236
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsHighlights)
-#: src/settingsdialog.cpp:159 rc.cpp:816
+#: src/config/settingsdialog.cpp:159 rc.cpp:1673
 msgid "Highlight"
 msgstr "高亮度"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:149
+#. i18n: file: src/config/watchednicknames_configui.ui:149
 #. i18n: ectx: property (title), widget (QGroupBox, listGroupBox)
-#: src/settingsdialog.cpp:166 rc.cpp:597
+#: src/config/settingsdialog.cpp:166 rc.cpp:633
 msgid "Watched Nicknames"
 msgstr "被監視的暱稱"
 
-#: src/settingsdialog.cpp:172
+#: src/config/settingsdialog.cpp:172
 msgid "On Screen Display"
 msgstr "螢幕顯示"
 
-#: src/settingsdialog.cpp:178
+#: src/config/settingsdialog.cpp:178
 msgid "Warning Dialogs"
 msgstr "警告對話"
+
+#: src/config/warnings_config.cpp:106
+msgid "Automatically join channel on invite"
+msgstr "接到邀請自動加入頻道"
+
+#: src/config/warnings_config.cpp:107
+msgid "Notice that saving logfiles will save whole file"
+msgstr "通知儲存日誌檔案會儲存完整檔案"
+
+#: src/config/warnings_config.cpp:108
+msgid "Ask before deleting logfile contents"
+msgstr "刪除紀錄檔案內容前提問"
+
+#: src/config/warnings_config.cpp:109
+msgid "Ask about closing queries after ignoring the nickname"
+msgstr "在忽略暱稱後關閉對話時提問"
+
+#: src/config/warnings_config.cpp:110
+msgid "Ask before switching a connection to a network to a different server"
+msgstr "將到網路的連線切換到不同伺服器時提問"
+
+#: src/config/warnings_config.cpp:111
+msgid "Ask before creating another connection to the same network or server"
+msgstr "建立到同一個網路或伺服器的其他連線時先提問"
+
+#: src/config/warnings_config.cpp:112
+msgid "Close server tab"
+msgstr "關閉伺服器分頁"
+
+#: src/config/warnings_config.cpp:113
+msgid "Close channel tab"
+msgstr "關閉頻道分頁"
+
+#: src/config/warnings_config.cpp:114
+msgid "Close query tab"
+msgstr "關閉對話分頁"
+
+#: src/config/warnings_config.cpp:115
+msgid "The channel list can only be opened from server-aware tabs"
+msgstr "頻道清單只能從已知伺服器分頁開啟"
+
+#: src/config/warnings_config.cpp:116
+msgid "Warning on hiding the main window menu"
+msgstr "隱藏主視窗選單時發出警告"
+
+#: src/config/warnings_config.cpp:117
+msgid "Warning on high traffic with channel list"
+msgstr "頻道清單流量高時發出警告"
+
+#: src/config/warnings_config.cpp:118
+msgid "Warning on pasting large portions of text"
+msgstr "貼上大量文字時發出警告"
+
+#: src/config/warnings_config.cpp:119
+msgid "Warning on quitting Konversation"
+msgstr "離開 Konversation 時發出警告"
+
+#: src/config/warnings_config.cpp:122
+msgid "Warn before quitting with active DCC file transfers"
+msgstr "離開時還有 DCC 檔案傳輸進行中時發出警告"
+
+#: src/config/configdialog.cpp:76
+msgid "Configure"
+msgstr ""
+
+#: src/config/dcc_config.cpp:50
+msgid "Network Interface"
+msgstr "網路介面"
+
+#: src/config/dcc_config.cpp:51
+msgid "Reply From IRC Server"
+msgstr "來自 IRC 伺服器的回應"
+
+#: src/config/dcc_config.cpp:52
+msgid "Specify Manually"
+msgstr "手動指定"
+
+#: src/config/highlight_config.cpp:47
+msgid "Select Sound File"
+msgstr "選擇聲音檔案"
 
 #: src/config/preferences.cpp:58
 msgid "Default Identity"
@@ -4375,10 +4376,6 @@ msgstr "這個動作無法復原。您確定要全部重置回預設值嗎？"
 msgid "Reset Values"
 msgstr "重置設定值"
 
-#: src/configdialog.cpp:76
-msgid "Configure"
-msgstr ""
-
 #: src/statusbar.cpp:34 src/statusbar.cpp:78 src/statusbar.cpp:146
 msgid "Ready."
 msgstr "就緒。"
@@ -4460,8 +4457,8 @@ msgid "No answer from server %2 for more than 1 second."
 msgid_plural "No answer from server %2 for more than %1 seconds."
 msgstr[0] "伺服器 %2 已有超過 %1 秒沒有回應。"
 
-#: src/konsolepanel.cpp:26 src/viewer/viewcontainer.cpp:1999
-#: src/viewer/viewcontainer.cpp:2000
+#: src/konsolepanel.cpp:26 src/viewer/viewcontainer.cpp:2009
+#: src/viewer/viewcontainer.cpp:2010
 msgid "Konsole"
 msgstr "Konsole"
 
@@ -4748,7 +4745,7 @@ msgstr "新增通訊錄條目"
 msgid "Name the new entry:"
 msgstr "命名新條目："
 
-#: src/urlcatcher.cpp:35 src/viewer/viewcontainer.cpp:2011
+#: src/urlcatcher.cpp:35 src/viewer/viewcontainer.cpp:2021
 msgid "URL Catcher"
 msgstr "URL 擷取器"
 
@@ -4813,9 +4810,9 @@ msgstr "點此擦除 URL 條目清單。"
 msgid "Save URL List"
 msgstr "儲存 URL 清單"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:111
+#. i18n: file: src/config/ignore_configui.ui:111
 #. i18n: ectx: property (text), widget (QCheckBox, chkQuery)
-#: src/viewer/ignorelistviewitem.cpp:44 rc.cpp:416
+#: src/viewer/ignorelistviewitem.cpp:44 rc.cpp:771
 msgid "Query"
 msgstr "對話"
 
@@ -4923,7 +4920,7 @@ msgstr "複製 URL(&C)"
 msgid "Select All"
 msgstr "選取全部項目(&S)"
 
-#: src/viewer/ircview.cpp:146 src/viewer/viewcontainer.cpp:535
+#: src/viewer/ircview.cpp:146 src/viewer/viewcontainer.cpp:545
 msgid "Find Text..."
 msgstr "尋找文字..."
 
@@ -5106,80 +5103,80 @@ msgstr ""
 "*** 於 %1\n"
 "\n"
 
-#: src/viewer/rawlog.cpp:28 src/viewer/viewcontainer.cpp:2148
+#: src/viewer/rawlog.cpp:28 src/viewer/viewcontainer.cpp:2158
 msgid "Raw Log"
 msgstr "原始日誌"
 
-#: src/viewer/viewcontainer.cpp:204 src/mainwindow.cpp:287
+#: src/viewer/viewcontainer.cpp:204 src/mainwindow.cpp:286
 msgid "Move Tab Up"
 msgstr "分頁上移"
 
-#: src/viewer/viewcontainer.cpp:212 src/mainwindow.cpp:298
+#: src/viewer/viewcontainer.cpp:212 src/mainwindow.cpp:297
 msgid "Move Tab Down"
 msgstr "分頁下移"
 
-#: src/viewer/viewcontainer.cpp:305 src/mainwindow.cpp:318
-#: src/mainwindow.cpp:330
+#: src/viewer/viewcontainer.cpp:305 src/mainwindow.cpp:317
+#: src/mainwindow.cpp:329
 msgid "Move Tab Left"
 msgstr "分頁左移"
 
-#: src/viewer/viewcontainer.cpp:313 src/mainwindow.cpp:309
-#: src/mainwindow.cpp:339
+#: src/viewer/viewcontainer.cpp:313 src/mainwindow.cpp:308
+#: src/mainwindow.cpp:338
 msgid "Move Tab Right"
 msgstr "分頁右移"
 
-#: src/viewer/viewcontainer.cpp:537
+#: src/viewer/viewcontainer.cpp:547
 msgid "Search for text in the current tab"
 msgstr "在目前分頁中搜尋文字"
 
-#: src/viewer/viewcontainer.cpp:555
+#: src/viewer/viewcontainer.cpp:565
 #, kde-format
 msgid "Channel &List for %1"
 msgstr "%1 的頻道清單(&L)"
 
-#: src/viewer/viewcontainer.cpp:561 src/mainwindow.cpp:207
+#: src/viewer/viewcontainer.cpp:571 src/mainwindow.cpp:206
 msgid "Channel &List"
 msgstr "頻道清單(&L)"
 
-#: src/viewer/viewcontainer.cpp:570 src/mainwindow.cpp:190
-#: src/mainwindow.cpp:736
+#: src/viewer/viewcontainer.cpp:580 src/mainwindow.cpp:189
+#: src/mainwindow.cpp:733
 msgid "&Open Logfile"
 msgstr "開啟日誌檔案(&O)"
 
-#: src/viewer/viewcontainer.cpp:575
+#: src/viewer/viewcontainer.cpp:585
 #, kde-format
 msgid "&Open Logfile for %1"
 msgstr "開啟 %1 的日誌檔案(&O)"
 
-#: src/viewer/viewcontainer.cpp:586
+#: src/viewer/viewcontainer.cpp:596
 #, kde-format
 msgid "&Channel Settings for %1..."
 msgstr "%1 的頻道設定(&C)..."
 
-#: src/viewer/viewcontainer.cpp:591 src/mainwindow.cpp:199
+#: src/viewer/viewcontainer.cpp:601 src/mainwindow.cpp:198
 msgid "&Channel Settings..."
 msgstr "頻道設定(&C)"
 
-#: src/viewer/viewcontainer.cpp:1631
+#: src/viewer/viewcontainer.cpp:1641
 #, kde-format
 msgctxt "Default encoding"
 msgid "Default ( %1 )"
 msgstr "預設 (%1)"
 
-#: src/viewer/viewcontainer.cpp:1796
+#: src/viewer/viewcontainer.cpp:1806
 msgid "You can only search in text fields."
 msgstr "您只能在文字欄搜尋。"
 
-#: src/viewer/viewcontainer.cpp:1797
+#: src/viewer/viewcontainer.cpp:1807
 msgid "Find Text Information"
 msgstr "尋找文字資訊"
 
-#: src/viewer/viewcontainer.cpp:1990
+#: src/viewer/viewcontainer.cpp:2000
 #, kde-format
 msgid "Logfile of %1"
 msgstr "%1 的日誌檔案"
 
-#: src/viewer/viewcontainer.cpp:2389
+#: src/viewer/viewcontainer.cpp:2399
 msgid ""
 "Using this function may result in a lot of network traffic. If your "
 "connection is not fast enough, it is possible that your client will be "
@@ -5188,11 +5185,11 @@ msgstr ""
 "使用這項功能可能導致大量的網路流量。如果您的網路連線不夠迅速，您的客戶端連線"
 "有可能被伺服器插斷。"
 
-#: src/viewer/viewcontainer.cpp:2393
+#: src/viewer/viewcontainer.cpp:2403
 msgid "Channel List Warning"
 msgstr "頻道清單警告"
 
-#: src/viewer/viewcontainer.cpp:2412
+#: src/viewer/viewcontainer.cpp:2422
 #, fuzzy
 #| msgid ""
 #| "The channel list can only be opened from a query, channel or status "
@@ -5206,7 +5203,7 @@ msgstr "頻道清單只能從對話，頻道或狀態視窗開啟，以找出清
 msgid "Konversation - IRC Client"
 msgstr "Konversation - IRC 客戶端"
 
-#: src/viewer/osd.cpp:342
+#: src/viewer/osd.cpp:337
 msgid "OSD Preview - drag to reposition"
 msgstr "OSD 預覽 - 拖曳可重新定位"
 
@@ -5260,211 +5257,211 @@ msgstr "從伺服器中斷連線"
 msgid "Disconnect"
 msgstr "中斷"
 
-#: src/mainwindow.cpp:132
+#: src/mainwindow.cpp:131
 msgid "&Server List..."
 msgstr "伺服器清單(&S)..."
 
-#: src/mainwindow.cpp:135
+#: src/mainwindow.cpp:134
 msgid "Manage networks and servers"
 msgstr "管理網路和伺服器"
 
-#: src/mainwindow.cpp:140
+#: src/mainwindow.cpp:139
 msgid "Quick &Connect..."
 msgstr "快速連線(&C)..."
 
-#: src/mainwindow.cpp:143
+#: src/mainwindow.cpp:142
 msgid "Type in the address of a new IRC server to connect to"
 msgstr "輸入一個要連線到的新 IRC 伺服器位址"
 
-#: src/mainwindow.cpp:148
+#: src/mainwindow.cpp:147
 msgid "&Reconnect"
 msgstr "重新連線(&R)"
 
-#: src/mainwindow.cpp:151
+#: src/mainwindow.cpp:150
 msgid "Reconnect to the current server."
 msgstr "重新連線到目前的伺服器。"
 
-#: src/mainwindow.cpp:157
+#: src/mainwindow.cpp:156
 msgid "&Disconnect"
 msgstr "斷線(&D)"
 
-#: src/mainwindow.cpp:160
+#: src/mainwindow.cpp:159
 msgid "Disconnect from the current server."
 msgstr "中斷與目前伺服器的連線。"
 
-#: src/mainwindow.cpp:165
+#: src/mainwindow.cpp:164
 msgid "&Identities..."
 msgstr "身分(&I)..."
 
-#: src/mainwindow.cpp:168
+#: src/mainwindow.cpp:167
 msgid "Manage your nick, away and other identity settings"
 msgstr "管理您的暱稱，離開訊息和其他身分設定"
 
-#: src/mainwindow.cpp:173
+#: src/mainwindow.cpp:172
 msgid "&Watched Nicks Online"
 msgstr "監視上線的暱稱(&W)"
 
-#: src/mainwindow.cpp:181
+#: src/mainwindow.cpp:180
 msgid "&DCC Status"
 msgstr "DCC 狀態(&D)"
 
-#: src/mainwindow.cpp:194
+#: src/mainwindow.cpp:193
 msgid "Open the known history for this channel in a new tab"
 msgstr "在一個新分頁中開啟已有的頻道命令歷程記錄"
 
-#: src/mainwindow.cpp:202
+#: src/mainwindow.cpp:201
 msgid "Open the channel settings dialog for this tab"
 msgstr "在此分頁開啟頻道設定對話框"
 
-#: src/mainwindow.cpp:211
+#: src/mainwindow.cpp:210
 msgid "Show a list of all the known channels on this server"
 msgstr "顯示此伺服器上已知的頻道清單"
 
-#: src/mainwindow.cpp:216
+#: src/mainwindow.cpp:215
 msgid "&URL Catcher"
 msgstr "URL 擷取器(&U)"
 
-#: src/mainwindow.cpp:219
+#: src/mainwindow.cpp:218
 msgid "List all URLs that have been mentioned recently in a new tab"
 msgstr "在一個新分頁中列出最近的對話中所有提及到的 URL。"
 
-#: src/mainwindow.cpp:226
+#: src/mainwindow.cpp:225
 msgid "New &Konsole"
 msgstr "新增 Konsole(&K)"
 
-#: src/mainwindow.cpp:228
+#: src/mainwindow.cpp:227
 msgid "Open a terminal in a new tab"
 msgstr "在新分頁中開啟終端機"
 
-#: src/mainwindow.cpp:254
+#: src/mainwindow.cpp:253
 msgid "&Next Tab"
 msgstr "下一個分頁(&N)"
 
-#: src/mainwindow.cpp:262
+#: src/mainwindow.cpp:261
 msgid "&Previous Tab"
 msgstr "前一個分頁(&P)"
 
-#: src/mainwindow.cpp:270
+#: src/mainwindow.cpp:269
 msgid "Close &Tab"
 msgstr "關閉分頁(&T)"
 
-#: src/mainwindow.cpp:278
+#: src/mainwindow.cpp:277
 msgid "Next Active Tab"
 msgstr "下一個活躍的分頁"
 
-#: src/mainwindow.cpp:353
+#: src/mainwindow.cpp:352
 msgid "Rejoin Channel"
 msgstr "重新加入頻道"
 
-#: src/mainwindow.cpp:359 src/mainwindow.cpp:742
+#: src/mainwindow.cpp:358 src/mainwindow.cpp:739
 msgid "Enable Notifications"
 msgstr "啟用通知"
 
-#: src/mainwindow.cpp:365
+#: src/mainwindow.cpp:364
 msgid "Join on Connect"
 msgstr "連線時即加入"
 
-#: src/mainwindow.cpp:370
+#: src/mainwindow.cpp:369
 #, fuzzy
 #| msgid "Default ( %1 )"
 msgid "Default"
 msgstr "預設(%1)"
 
-#: src/mainwindow.cpp:375
+#: src/mainwindow.cpp:374
 msgid "Set Encoding"
 msgstr "設定編碼"
 
-#: src/mainwindow.cpp:387
+#: src/mainwindow.cpp:386
 #, kde-format
 msgid "Go to Tab %1"
 msgstr "到第 %1 個分頁"
 
-#: src/mainwindow.cpp:396
+#: src/mainwindow.cpp:395
 msgid "Clear &Marker Lines"
 msgstr "清除標記線(&M)"
 
-#: src/mainwindow.cpp:399
+#: src/mainwindow.cpp:398
 msgid "Clear marker lines in the current tab"
 msgstr "清除目前分頁裏的標記線"
 
-#: src/mainwindow.cpp:404
+#: src/mainwindow.cpp:403
 msgid "&Clear Window"
 msgstr "清除視窗(&C)"
 
-#: src/mainwindow.cpp:407
+#: src/mainwindow.cpp:406
 msgid "Clear the contents of the current tab"
 msgstr "清除目前分頁裏的內容"
 
-#: src/mainwindow.cpp:412
+#: src/mainwindow.cpp:411
 msgid "Clear &All Windows"
 msgstr "清除所有視窗(&A)"
 
-#: src/mainwindow.cpp:415
+#: src/mainwindow.cpp:414
 msgid "Clear the contents of all open tabs"
 msgstr "清除所有已開啟分頁裏的內容"
 
-#: src/mainwindow.cpp:420
+#: src/mainwindow.cpp:419
 msgid "Global Away"
 msgstr "全域離開"
 
-#: src/mainwindow.cpp:428
+#: src/mainwindow.cpp:427
 msgid "&Join Channel..."
 msgstr "加入頻道(&J)..."
 
-#: src/mainwindow.cpp:448 src/mainwindow.cpp:744
+#: src/mainwindow.cpp:447 src/mainwindow.cpp:741
 msgid "&IRC Color..."
 msgstr "&IRC 顏色..."
 
-#: src/mainwindow.cpp:452
+#: src/mainwindow.cpp:451
 msgid "Set the color of your current IRC message"
 msgstr "選擇您目前 IRC 訊息的顏色。"
 
-#: src/mainwindow.cpp:457 src/mainwindow.cpp:746
+#: src/mainwindow.cpp:456 src/mainwindow.cpp:743
 msgid "&Marker Line"
 msgstr "標記線(&M)"
 
-#: src/mainwindow.cpp:460
+#: src/mainwindow.cpp:459
 msgid "Insert a horizontal line into the current tab that only you can see"
 msgstr "在目前分頁裏插入一條只有您能看見的水平線"
 
-#: src/mainwindow.cpp:465 src/mainwindow.cpp:745
+#: src/mainwindow.cpp:464 src/mainwindow.cpp:742
 msgid "Special &Character..."
 msgstr "特殊字元(&C)..."
 
-#: src/mainwindow.cpp:469
+#: src/mainwindow.cpp:468
 msgid "Insert any character into your current IRC message"
 msgstr "在目前 IRC 訊息裏插入任何可能的字元"
 
-#: src/mainwindow.cpp:474
+#: src/mainwindow.cpp:473
 msgid "Close &All Open Queries"
 msgstr "關閉全部開啟的對話(&A)"
 
-#: src/mainwindow.cpp:483
+#: src/mainwindow.cpp:482
 msgid "Hide Nicklist"
 msgstr "隱藏暱稱清單"
 
-#: src/mainwindow.cpp:500
+#: src/mainwindow.cpp:499
 #, fuzzy
 #| msgid "Add to Bookmarks"
 msgid "Bookmarks"
 msgstr "加入到書籤"
 
-#: src/mainwindow.cpp:551
+#: src/mainwindow.cpp:550
 msgid ""
 "<qt>You have active DCC file transfers. Are you sure you want to quit "
 "<b>Konversation</b>?</qt>"
 msgstr ""
 "<qt>您已啟動 DCC 檔案傳輸。您確定您要離開 <b>Konversation</b> 嗎？</qt>"
 
-#: src/mainwindow.cpp:552 src/mainwindow.cpp:562
+#: src/mainwindow.cpp:551 src/mainwindow.cpp:561
 msgid "Confirm Quit"
 msgstr "確認離開"
 
-#: src/mainwindow.cpp:561
+#: src/mainwindow.cpp:560
 msgid "<qt>Are you sure you want to quit <b>Konversation</b>?</qt>"
 msgstr "<qt>您確定您要離開 <b>Konversation</b> 嗎？</qt>"
 
-#: src/mainwindow.cpp:594
+#: src/mainwindow.cpp:593
 msgid ""
 "<p>Closing the main window will keep Konversation running in the system "
 "tray. Use <b>Quit</b> from the <b>Konversation</b> menu to quit the "
@@ -5473,46 +5470,46 @@ msgstr ""
 "<p>關閉程式的主視窗仍會使得 Konversation 保持在系統匣內繼續執行。使用  "
 "<b>Konversation</b> 選單中的<b>離開</b>可切實地離開程式。</p>"
 
-#: src/mainwindow.cpp:596
+#: src/mainwindow.cpp:595
 msgid "Docking in System Tray"
 msgstr "在系統匣中顯示圖示"
 
-#: src/mainwindow.cpp:693
+#: src/mainwindow.cpp:690
 #, kde-format
 msgid ""
 "<qt>This will hide the menu bar completely. You can show it again by typing %"
 "1.</qt>"
 msgstr "<qt>這樣將完全隱藏功能表列。您可以輸入 %1 再將其開啟。</qt>"
 
-#: src/mainwindow.cpp:728
+#: src/mainwindow.cpp:725
 msgid "Toggle Notifications"
 msgstr "切換通知"
 
-#: src/mainwindow.cpp:729
+#: src/mainwindow.cpp:726
 msgid "Toggle Away Globally"
 msgstr "切換全域離開狀態"
 
-#: src/mainwindow.cpp:730
+#: src/mainwindow.cpp:727
 msgid "Insert &IRC Color..."
 msgstr "插入 IRC 顏色(&I)..."
 
-#: src/mainwindow.cpp:731
+#: src/mainwindow.cpp:728
 msgid "Insert Special &Character..."
 msgstr "插入特殊字元(&C)..."
 
-#: src/mainwindow.cpp:732
+#: src/mainwindow.cpp:729
 msgid "Insert &Marker Line"
 msgstr "插入標記線(&R)"
 
-#: src/mainwindow.cpp:734
+#: src/mainwindow.cpp:731
 msgid "&Channel List"
 msgstr "頻道清單(&C)"
 
-#: src/mainwindow.cpp:743
+#: src/mainwindow.cpp:740
 msgid "Set &Away Globally"
 msgstr "設定全域離開狀態(&A)"
 
-#: src/mainwindow.cpp:755
+#: src/mainwindow.cpp:752
 msgid "Server List"
 msgstr "伺服器清單"
 
@@ -5792,7 +5789,7 @@ msgstr "話題(&C)"
 #. i18n: ectx: property (text), widget (QTreeWidget, topicHistoryList)
 #. i18n: file: src/identitydialog.ui:211
 #. i18n: ectx: property (title), widget (KEditListBox, m_nicknameLBox)
-#: rc.cpp:116 rc.cpp:1252
+#: rc.cpp:116 rc.cpp:370
 msgid "Nickname"
 msgstr "暱稱"
 
@@ -6132,49 +6129,385 @@ msgstr "位元組（原始）："
 msgid "Bytes (Encoded):"
 msgstr "位元組（已編碼）："
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:33
-#. i18n: ectx: property (text), widget (QTreeWidget, buttonListView)
+#. i18n: file: src/identitydialog.ui:25
+#. i18n: ectx: property (text), widget (QLabel, label)
 #: rc.cpp:341
-msgid "Button Name"
-msgstr "按鈕名稱"
+msgid "&Identity:"
+msgstr "身分(&I)："
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:38
-#. i18n: ectx: property (text), widget (QTreeWidget, buttonListView)
+#. i18n: file: src/identitydialog.ui:65
+#. i18n: ectx: property (toolTip), widget (KPushButton, newBtn)
 #: rc.cpp:344
-msgid "Button Action"
-msgstr "按鈕動作"
+#, fuzzy
+#| msgid "Add..."
+msgid "Add"
+msgstr "加入..."
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:55
-#. i18n: ectx: property (text), widget (QPushButton, removeButton)
+#. i18n: file: src/identitydialog.ui:96
+#. i18n: ectx: property (toolTip), widget (KPushButton, copyBtn)
+#: rc.cpp:347
+msgid "Duplicate"
+msgstr "複製"
+
+#. i18n: file: src/identitydialog.ui:127
+#. i18n: ectx: property (toolTip), widget (KPushButton, m_editBtn)
+#: rc.cpp:350
+msgid "Rename"
+msgstr "重新命名"
+
 #. i18n: file: src/identitydialog.ui:158
 #. i18n: ectx: property (toolTip), widget (KPushButton, m_delBtn)
-#: rc.cpp:350 rc.cpp:1235
+#. i18n: file: src/config/quickbuttons_configui.ui:55
+#. i18n: ectx: property (text), widget (QPushButton, removeButton)
+#: rc.cpp:353 rc.cpp:488
 #, fuzzy
 #| msgid "R&emove"
 msgid "Remove"
 msgstr "移除(&E)"
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:85
+#. i18n: file: src/identitydialog.ui:187
+#. i18n: ectx: property (text), widget (QLabel, realNameLabel)
+#: rc.cpp:359
+msgid "&Real name:"
+msgstr "真實姓名(&R)："
+
+#. i18n: file: src/identitydialog.ui:197
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_realNameEdit)
+#: rc.cpp:362
+msgid ""
+"Enter your real name here. IRC is not intended to keep you hidden from your "
+"friends or enemies. Keep this in mind if you are tempted to behave "
+"maliciously. A fake \"real name\" can be a good way to mask your gender from "
+"all the nerds out there, but the PC you use can always be traced so you will "
+"never be truly anonymous."
+msgstr ""
+"在此輸入您的真實姓名。IRC 不會刻意地維護您在朋友或仇敵前保持隱蔽，如果您有意"
+"要挑起或面對惡意的行為，請斟酌填寫這個設定。如果您希望在各式各樣的另類面前掩"
+"藏自己的真實，一個偽造的「真實姓名」是有效的應對手段，但他人仍然可以追蹤您使"
+"用的 PC，因此您無法完全地將自己匿藏起來。"
+
+#. i18n: file: src/identitydialog.ui:208
+#. i18n: ectx: property (whatsThis), widget (KEditListBox, m_nicknameLBox)
+#: rc.cpp:365
+msgid ""
+"This is your list of nicknames. A nickname is the name that other users will "
+"know you by. You may use any name you desire. The first character must be a "
+"letter.\n"
+"\n"
+"Since nicknames must be unique across an entire IRC network, your desired "
+"name may be rejected by the server because someone else is already using "
+"that nickname. Enter alternate nicknames for yourself. If your first choice "
+"is rejected by the server, Konversation will try the alternate nicknames."
+msgstr ""
+"這裏是您的暱稱的清單。暱稱是一種能讓其他使用者識別您的名稱，您可在此使用任何"
+"您願意的名稱，不過首字元必須是一個字母。\n"
+"\n"
+"由於暱稱在通行於一個完整 IRC 網路中時必須是唯一的，所以您想用的名稱可能會被伺"
+"服器拒絕，這是因為有人正在使用相同的暱稱。輸入您的可選暱稱，如果偏好的暱稱被"
+"伺服器拒絕，Konversation 可以自動嘗試使用備選的暱稱。"
+
+#. i18n: file: src/identitydialog.ui:218
+#. i18n: ectx: property (title), widget (QGroupBox, autoIdentifyGroup)
+#: rc.cpp:373
+msgid "Auto Identify"
+msgstr "自動認證"
+
+#. i18n: file: src/identitydialog.ui:224
+#. i18n: ectx: property (text), widget (QLabel, botLabel)
+#: rc.cpp:376
+msgid "Ser&vice:"
+msgstr "服務(&V)："
+
+#. i18n: file: src/identitydialog.ui:234
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_botEdit)
+#: rc.cpp:379
+#, fuzzy
+#| msgid ""
+#| "Service name can be <b><i>nickserv</i></b> or a network dependant name "
+#| "like  <b><i>nickserv@services.dal.net</i></b>"
+msgid ""
+"Service name can be <b><i>nickserv</i></b> or a network-dependent name such "
+"as <b><i>nickserv@services.dal.net</i></b>"
+msgstr ""
+"服務名稱可以是 <b><i>nickserv</i></b> 或類似<b><i>nickserv@services.dal.net</"
+"i></b> 這樣的網路依賴名稱。"
+
+#. i18n: file: src/identitydialog.ui:241
+#. i18n: ectx: property (text), widget (QLabel, passwordLabel)
+#: rc.cpp:382
+msgid "Pa&ssword:"
+msgstr "密碼(&S)："
+
+#. i18n: file: src/identitydialog.ui:270
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_insertRememberLineOnAwayChBox)
+#: rc.cpp:388
+msgid ""
+"If you check this box, whenever you perform an <b>/away</b> command, a "
+"horizontal line will appear in the channel, marking the point where you went "
+"away. Other IRC users do not see this horizontal line."
+msgstr ""
+"如果您選取此項，每當您執行 <b>/away</b> 命令時，一條水平分隔線會自動顯現在頻"
+"道內，標記出您離開時的錨點。其他 IRC 使用者並不會看到這條線。"
+
+#. i18n: file: src/identitydialog.ui:273
+#. i18n: ectx: property (text), widget (QCheckBox, m_insertRememberLineOnAwayChBox)
+#: rc.cpp:391
+msgid "Mark the last position in chat windows when going away"
+msgstr "離開時標記聊天視窗中的最後位置"
+
+#. i18n: file: src/identitydialog.ui:280
+#. i18n: ectx: property (text), widget (QLabel, awayNicknameLabel)
+#: rc.cpp:394
+msgid "Away nickname:"
+msgstr "離開暱稱："
+
+#. i18n: file: src/identitydialog.ui:287
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_awayNickEdit)
+#: rc.cpp:397
+msgid ""
+"Enter a nickname that indicates you are away. Whenever you perform an <b>/"
+"away msg</b> command in any channel joined with this Identity, Konversation "
+"will automatically change your nickname to the Away nickname. Other users "
+"will be able to tell you are away from your computer. Whenever you perform "
+"an <b>/away</b> command in any channel in which you are away, Konversation "
+"will automatically change your nickname back to the original. If you do not "
+"wish to automatically change your nickname when going away, leave blank."
+msgstr ""
+"輸入一個象徵您已經離開的暱稱。每當您在任何一個以目前這個身分加入的頻道內執行 "
+"<b>/away</b> 命令時，Konversation 會自動將您的暱稱改名為離開暱稱，其他使用者"
+"便可由此得悉您已經離開了電腦。而每當您在一個已經處於離開狀態的頻道內執行 <b>/"
+"away</b> 命令時，Konversation 會自動將您的暱稱變更回原始形態。如果您不希望在"
+"離開時自動變更暱稱，請將此項留空。"
+
+#. i18n: file: src/identitydialog.ui:302
+#. i18n: ectx: property (whatsThis), widget (QGroupBox, automaticAwayGroup)
+#: rc.cpp:400
+msgid ""
+"If you check this box, Konversation will automatically set all connections "
+"using this Identity away when the screensaver starts or after a period of "
+"user inactivity configured below."
+msgstr ""
+"勾選此選項的話，當螢幕保護程式啟動，或使用者有一段時間沒有任何動作的話，"
+"Konversation 會自動將所有連線設定使用底下的身份。"
+
+#. i18n: file: src/identitydialog.ui:305
+#. i18n: ectx: property (title), widget (QGroupBox, automaticAwayGroup)
+#: rc.cpp:403
+msgid "Automatic Away"
+msgstr "自動離開"
+
+#. i18n: file: src/identitydialog.ui:323
+#. i18n: ectx: property (text), widget (QLabel, setAwayAfterLabel)
+#: rc.cpp:406
+msgid "Set away after"
+msgstr "設定離開時間："
+
+#. i18n: file: src/identitydialog.ui:346
+#. i18n: ectx: property (text), widget (QLabel, timeOfUserInactivityLabel)
+#: rc.cpp:409
+msgid "of user inactivity"
+msgstr "使用者沒有任何動作"
+
+#. i18n: file: src/identitydialog.ui:353
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_automaticUnawayChBox)
+#: rc.cpp:412
+msgid ""
+"If you check this box, Konversation will automatically cancel away for all "
+"connections using this Identity when the screensaver stops or new user "
+"activity is detected."
+msgstr ""
+"如果勾選此選項的話，在螢幕保護程式停止，或使用者回復動作時，會自動對所有連線"
+"取消離開的狀態。"
+
+#. i18n: file: src/identitydialog.ui:356
+#. i18n: ectx: property (text), widget (QCheckBox, m_automaticUnawayChBox)
+#: rc.cpp:415
+msgid "Automatically return on activity"
+msgstr "活動時自動返回"
+
+#. i18n: file: src/identitydialog.ui:372
+#. i18n: ectx: property (whatsThis), widget (QGroupBox, awayMessageGroup)
+#: rc.cpp:419
+#, no-c-format
+msgid ""
+"If you check this box, Konversation will automatically send the Away message "
+"to all channels joined with this Identity. <b>%s</b> is replaced with "
+"<b>msg</b>. Whenever you perform an <b>/away</b> command, the Return message "
+"will be displayed in all channels joined with this Identity."
+msgstr ""
+"如果您選取此項，Konversation 會在每當您切換到離開狀態時自動傳送一條離開訊息到"
+"所有您以目前這個身分加入的頻道，<b>%s</b> 會被 <b>msg</b> 所替代。而每當您再"
+"次執行 <b>/away</b> 命令時，一條回傳訊息也將被自動顯示在所有您以目前身分加入"
+"的頻道。"
+
+#. i18n: file: src/identitydialog.ui:375
+#. i18n: ectx: property (title), widget (QGroupBox, awayMessageGroup)
+#: rc.cpp:422
+msgid "Away Messages"
+msgstr "離開訊息"
+
+#. i18n: file: src/identitydialog.ui:387
+#. i18n: ectx: property (text), widget (QLabel, awayLabel)
+#: rc.cpp:425
+msgid "Away &message:"
+msgstr "離開訊息(&M)："
+
+#. i18n: file: src/identitydialog.ui:400
+#. i18n: ectx: property (text), widget (QLabel, unAwayLabel)
+#: rc.cpp:428
+msgid "Re&turn message:"
+msgstr "回傳訊息(&T)："
+
+#. i18n: file: src/identitydialog.ui:430
+#. i18n: ectx: attribute (title), widget (QWidget, advancedWidget)
+#: rc.cpp:431
+msgid "Advanced"
+msgstr "進階"
+
+#. i18n: file: src/identitydialog.ui:436
+#. i18n: ectx: property (text), widget (QLabel, sCommandLabel)
+#: rc.cpp:434
+msgid "&Pre-shell command:"
+msgstr "預執行命令(&P)："
+
+#. i18n: file: src/identitydialog.ui:446
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_sCommandEdit)
+#: rc.cpp:437
+msgid ""
+"Here you can enter a command to be executed before connection to server "
+"starts<br>If you have multiple servers in this identity this command will be "
+"executed for each server"
+msgstr ""
+"您可以在這裏輸入一條在連線伺服器前預先要執行的命令。<br>如果您以目前身分對應"
+"了多個伺服器，則此命令會為每個伺服器分別執行。"
+
+#. i18n: file: src/identitydialog.ui:459
+#. i18n: ectx: property (text), widget (QLabel, codecLabel)
+#: rc.cpp:440
+msgid "&Encoding:"
+msgstr "編碼(&E)："
+
+#. i18n: file: src/identitydialog.ui:469
+#. i18n: ectx: property (whatsThis), widget (KComboBox, m_codecCBox)
+#: rc.cpp:443
+msgid ""
+"This setting affects how characters you type are encoded for sending to the "
+"server. It also affects how messages are displayed. When you first open "
+"Konversation, it automatically retrieves this setting from the operating "
+"system. If you seem to be having trouble seeing other user's messages "
+"correctly, try changing this setting."
+msgstr ""
+"此設定會影響您輸入的內容會以哪種字元編碼傳送到伺服器，它同時也決定訊息以哪種"
+"編碼被顯示。每當您開啟 Konversation 時，它會自動根據目前系統環境取得相關設"
+"定。要是您在檢視其他使用者的訊息文字時出現問題，可嘗試變更此設定。"
+
+#. i18n: file: src/identitydialog.ui:476
+#. i18n: ectx: property (text), widget (QLabel, loginLabel)
+#: rc.cpp:446
+msgid "I&dent:"
+msgstr "身分(&D)："
+
+#. i18n: file: src/identitydialog.ui:486
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_loginEdit)
+#: rc.cpp:449
+msgid ""
+"When you connect, many servers query your computer for an IDENT response. If "
+"you computer is not running an IDENT server, this response is sent by "
+"Konversation. No spaces are allowed."
+msgstr ""
+"當您進行連線時，許多伺服器會向您的電腦請求一個 IDENT 應答。如果您的電腦不是"
+"以 IDENT 伺服器執行，此應答會由 Konversation 代為傳送。此處不允許留空。"
+
+#. i18n: file: src/identitydialog.ui:493
+#. i18n: ectx: property (text), widget (QLabel, quitLabel)
+#: rc.cpp:452
+msgid "&Quit reason:"
+msgstr "離開原因(&Q)："
+
+#. i18n: file: src/identitydialog.ui:503
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_quitEdit)
+#: rc.cpp:455
+msgid "Whenever you leave a server, this message is shown to others."
+msgstr "當您離開某伺服器時會被傳送到頻道內的訊息。"
+
+#. i18n: file: src/identitydialog.ui:506
+#. i18n: ectx: property (text), widget (KLineEdit, m_quitEdit)
+#. i18n: file: src/identitydialog.ui:526
+#. i18n: ectx: property (text), widget (KLineEdit, m_partEdit)
+#: rc.cpp:458 rc.cpp:467
+#, fuzzy
+#| msgid "Konversation"
+msgid "Konversation terminated."
+msgstr "Konversation"
+
+#. i18n: file: src/identitydialog.ui:513
+#. i18n: ectx: property (text), widget (QLabel, partLabel)
+#: rc.cpp:461
+msgid "&Part reason:"
+msgstr "退出原因(&P)："
+
+#. i18n: file: src/identitydialog.ui:523
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_partEdit)
+#: rc.cpp:464
+msgid "Whenever you leave a channel, this message is sent to the channel."
+msgstr "當您退出頻道時會被傳送到頻道內的訊息。"
+
+#. i18n: file: src/identitydialog.ui:533
+#. i18n: ectx: property (text), widget (QLabel, kickLabel)
+#: rc.cpp:470
+msgid "&Kick reason:"
+msgstr "踢出原因(&K)："
+
+#. i18n: file: src/identitydialog.ui:543
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_kickEdit)
+#: rc.cpp:473
+msgid ""
+"Whenever you are kicked from a channel (usually by an IRC operator), this "
+"message is sent to the channel."
+msgstr ""
+"當您從一個被頻道踢出時(一般是 IRC 管理員的行為)，此訊息會被傳送到頻道內。"
+
+#. i18n: file: src/identitydialog.ui:546
+#. i18n: ectx: property (text), widget (KLineEdit, m_kickEdit)
+#: rc.cpp:476
+#, fuzzy
+#| msgid "Konversation"
+msgid "User terminated."
+msgstr "Konversation"
+
+#. i18n: file: src/config/quickbuttons_configui.ui:33
+#. i18n: ectx: property (text), widget (QTreeWidget, buttonListView)
+#: rc.cpp:479
+msgid "Button Name"
+msgstr "按鈕名稱"
+
+#. i18n: file: src/config/quickbuttons_configui.ui:38
+#. i18n: ectx: property (text), widget (QTreeWidget, buttonListView)
+#: rc.cpp:482
+msgid "Button Action"
+msgstr "按鈕動作"
+
+#. i18n: file: src/config/quickbuttons_configui.ui:85
 #. i18n: ectx: property (text), widget (QLabel, nameLabel)
-#: rc.cpp:353
+#: rc.cpp:491
 msgid "Button name:"
 msgstr "按鈕名稱："
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:111
+#. i18n: file: src/config/quickbuttons_configui.ui:111
 #. i18n: ectx: property (text), widget (QLabel, actionLabel)
-#: rc.cpp:356
+#: rc.cpp:494
 msgid "Button action:"
 msgstr "按鈕動作："
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:136
+#. i18n: file: src/config/quickbuttons_configui.ui:136
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
-#: rc.cpp:359
+#: rc.cpp:497
 msgid "Available Placeholders"
 msgstr "可用的替代符"
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:153
+#. i18n: file: src/config/quickbuttons_configui.ui:153
 #. i18n: ectx: property (text), widget (QLabel, placeholderHelpLabel)
-#: rc.cpp:363
+#: rc.cpp:501
 #, fuzzy, no-c-format
 #| msgid ""
 #| "%o: Current nickname\n"
@@ -6198,329 +6531,163 @@ msgstr ""
 "%s<條件>%：在 %u 中分隔暱稱的條件\n"
 "%n：將命令直接傳送到伺服器而不是您所說的話"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:25
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoReconnect)
-#: rc.cpp:371
-msgid "Enable Automatic Reconnect"
-msgstr "允許自動重連"
+#. i18n: file: src/config/osd_configui.ui:35
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOSD)
+#: rc.cpp:509
+msgid "&Enable On Screen Display"
+msgstr "啟用螢幕顯示(&E)"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:34
-#. i18n: ectx: property (text), widget (QLabel, reconnectDelayLabel)
-#: rc.cpp:374
-msgid "Reconnect delay:"
-msgstr "重連延遲："
+#. i18n: file: src/config/osd_configui.ui:45
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
+#: rc.cpp:512
+msgid "On &Screen Display"
+msgstr "在螢幕上顯示(&S)"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:63
+#. i18n: file: src/config/osd_configui.ui:54
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDDrawShadow)
+#: rc.cpp:515
+msgid "&Draw shadows"
+msgstr "繪製陰影(&D)"
+
+#. i18n: file: src/config/osd_configui.ui:67
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:377
-msgid "Reconnection attempts:"
-msgstr "重連嘗試："
+#: rc.cpp:518
+msgid "OSD font:"
+msgstr "OSD 字型："
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:85
-#. i18n: ectx: property (suffix), widget (KIntNumInput, kcfg_ReconnectDelay)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:131
-#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_NotifyDelay)
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:271
-#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_AutoWhoContinuousInterval)
-#: rc.cpp:380 rc.cpp:594 rc.cpp:968
-msgid " seconds"
-msgstr " 秒"
+#. i18n: file: src/config/osd_configui.ui:135
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
+#: rc.cpp:521
+msgid "Show &OSD Message"
+msgstr "顯示 &OSD 訊息"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:98
-#. i18n: ectx: property (specialValueText), widget (KIntNumInput, kcfg_ReconnectCount)
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:104
-#. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_ScrollbackMax)
-#: rc.cpp:383 rc.cpp:938
-msgid "Unlimited"
-msgstr "無限制"
+#. i18n: file: src/config/osd_configui.ui:141
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowOwnNick)
+#: rc.cpp:524
+msgid "&If own nick appears in channel message"
+msgstr "當自己的暱稱出現在頻道訊息內(&I)"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:140
-#. i18n: ectx: property (title), widget (QGroupBox, debugGBox)
-#: rc.cpp:386
-msgid "Debug"
-msgstr "除錯"
+#. i18n: file: src/config/osd_configui.ui:148
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowChannel)
+#: rc.cpp:527
+msgid "On an&y channel message"
+msgstr "在任何頻道訊息上顯示(&Y)"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:146
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_RawLog)
-#: rc.cpp:389
-msgid "Show raw &log window when connecting"
-msgstr "連線時顯示原始記錄視窗(&L)"
+#. i18n: file: src/config/osd_configui.ui:155
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowQuery)
+#: rc.cpp:530
+msgid "On &query activity"
+msgstr "在對話動作上顯示(&Q)"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:45
-#. i18n: ectx: property (text), widget (QTreeWidget, ignoreListView)
-#: rc.cpp:392
-msgid "Pattern"
-msgstr "模式"
+#. i18n: file: src/config/osd_configui.ui:162
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowChannelEvent)
+#: rc.cpp:533
+msgid "On &Join/Part events"
+msgstr "在加入/退出事件上顯示(&J)"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:50
-#. i18n: ectx: property (text), widget (QTreeWidget, ignoreListView)
-#: rc.cpp:395
-msgid "Type"
-msgstr "輸入"
+#. i18n: file: src/config/osd_configui.ui:175
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_OSDUseCustomColors)
+#: rc.cpp:536
+msgid "Enable Custom Colors"
+msgstr "啟用自訂顏色"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:58
+#. i18n: file: src/config/osd_configui.ui:187
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:398
-msgid "Pattern:"
-msgstr "模式："
+#: rc.cpp:539
+msgid "Te&xt color:"
+msgstr "文字顏色(&X)："
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:77
-#. i18n: ectx: property (title), widget (QGroupBox, grpMessageTypes)
-#: rc.cpp:401
-msgid "Message Types"
-msgstr "訊息輸入"
+#. i18n: file: src/config/osd_configui.ui:200
+#. i18n: ectx: property (text), widget (QLabel, textLabel3)
+#. i18n: file: src/viewer/irccolorchooserui.ui:122
+#. i18n: ectx: property (text), widget (QLabel, m_bgColorLbl)
+#: rc.cpp:542 rc.cpp:1775
+msgid "&Background color:"
+msgstr "背景顏色(&B)："
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:123
-#. i18n: ectx: property (text), widget (KPushButton, newButton)
-#. i18n: file: src/preferences/alias_preferencesui.ui:51
+#. i18n: file: src/config/osd_configui.ui:249
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
+#: rc.cpp:545
+msgid "O&ther Settings"
+msgstr "其他設定(&T)"
+
+#. i18n: file: src/config/osd_configui.ui:255
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#: rc.cpp:548
+msgid "&Duration:"
+msgstr "作用持續(&D)："
+
+#. i18n: file: src/config/osd_configui.ui:268
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
+#: rc.cpp:551
+msgid "S&creen:"
+msgstr "螢幕(&C)："
+
+#. i18n: file: src/config/osd_configui.ui:281
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_OSDDuration)
+#: rc.cpp:554
+msgid " ms"
+msgstr " 毫秒"
+
+#. i18n: file: src/config/alias_configui.ui:36
+#. i18n: ectx: property (text), widget (QTreeWidget, aliasListView)
+#: rc.cpp:557
+msgid "Alias"
+msgstr "別名"
+
+#. i18n: file: src/config/alias_configui.ui:41
+#. i18n: ectx: property (text), widget (QTreeWidget, aliasListView)
+#: rc.cpp:560
+msgid "Replacement"
+msgstr "替換"
+
+#. i18n: file: src/config/alias_configui.ui:51
 #. i18n: ectx: property (text), widget (QPushButton, newButton)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:251
+#. i18n: file: src/config/watchednicknames_configui.ui:251
 #. i18n: ectx: property (text), widget (KPushButton, newButton)
-#. i18n: file: src/preferences/highlight_preferencesui.ui:162
+#. i18n: file: src/config/ignore_configui.ui:123
 #. i18n: ectx: property (text), widget (KPushButton, newButton)
-#: rc.cpp:419 rc.cpp:434 rc.cpp:630 rc.cpp:870
+#. i18n: file: src/config/highlight_configui.ui:162
+#. i18n: ectx: property (text), widget (KPushButton, newButton)
+#: rc.cpp:563 rc.cpp:666 rc.cpp:774 rc.cpp:936
 msgid "&New"
 msgstr "新增(&N)"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:130
-#. i18n: ectx: property (text), widget (KPushButton, removeButton)
-#. i18n: file: src/preferences/alias_preferencesui.ui:58
+#. i18n: file: src/config/alias_configui.ui:58
 #. i18n: ectx: property (text), widget (QPushButton, removeButton)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:270
+#. i18n: file: src/config/watchednicknames_configui.ui:270
 #. i18n: ectx: property (text), widget (KPushButton, removeButton)
-#. i18n: file: src/preferences/highlight_preferencesui.ui:175
+#. i18n: file: src/config/ignore_configui.ui:130
 #. i18n: ectx: property (text), widget (KPushButton, removeButton)
-#: rc.cpp:422 rc.cpp:437 rc.cpp:636 rc.cpp:873
+#. i18n: file: src/config/highlight_configui.ui:175
+#. i18n: ectx: property (text), widget (KPushButton, removeButton)
+#: rc.cpp:566 rc.cpp:672 rc.cpp:777 rc.cpp:939
 #, fuzzy
 #| msgid "R&emove"
 msgid "&Remove"
 msgstr "移除(&E)"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:137
-#. i18n: ectx: property (text), widget (KPushButton, removeAllButton)
-#: rc.cpp:425
-msgid "Remove &All"
-msgstr "全部刪除(&A)"
-
-#. i18n: file: src/preferences/alias_preferencesui.ui:36
-#. i18n: ectx: property (text), widget (QTreeWidget, aliasListView)
-#: rc.cpp:428
-msgid "Alias"
-msgstr "別名"
-
-#. i18n: file: src/preferences/alias_preferencesui.ui:41
-#. i18n: ectx: property (text), widget (QTreeWidget, aliasListView)
-#: rc.cpp:431
-msgid "Replacement"
-msgstr "替換"
-
-#. i18n: file: src/preferences/alias_preferencesui.ui:88
+#. i18n: file: src/config/alias_configui.ui:88
 #. i18n: ectx: property (text), widget (QLabel, aliasLabel)
-#: rc.cpp:440
+#: rc.cpp:569
 msgid "Alias:"
 msgstr "別名："
 
-#. i18n: file: src/preferences/alias_preferencesui.ui:108
+#. i18n: file: src/config/alias_configui.ui:108
 #. i18n: ectx: property (text), widget (QLabel, replacementLabel)
-#: rc.cpp:443
+#: rc.cpp:572
 msgid "Replacement:"
 msgstr "取代："
 
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:26
-#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:446
-msgid "&Command to be executed on double click:"
-msgstr "按兩下時執行的命令(&C)："
+#. i18n: file: src/config/warnings_configui.ui:29
+#. i18n: ectx: property (text), widget (QTreeWidget, dialogListView)
+#: rc.cpp:575
+msgid "Warning Dialogs to Show"
+msgstr "顯示的警告對話方塊"
 
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:39
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortCaseInsensitive)
-#: rc.cpp:449
-msgid "Sort case &insensitive"
-msgstr "排序不區分大小寫(&I)"
-
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:46
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortByActivity)
-#: rc.cpp:452
-msgid "Sort by &activity"
-msgstr "依動作排序(&A)"
-
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:59
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortByStatus)
-#: rc.cpp:455
-msgid "Sort b&y user status"
-msgstr "依使用者狀態排序(&Y)"
-
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:72
-#. i18n: ectx: property (text), widget (QLabel, orderHintLabel)
-#: rc.cpp:458
-msgid "(Reorder nick sorting order by drag and drop)"
-msgstr "(使用拖曳對暱稱重新排序)"
-
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:103
-#. i18n: ectx: property (text), widget (QTreeWidget, sortOrder)
-#: rc.cpp:464
-msgid "Explanation"
-msgstr "解釋"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, Theme_ConfigUI)
-#: rc.cpp:467
-msgid "Theme_Config"
-msgstr "主題配置"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:28
-#. i18n: ectx: property (text), widget (QPushButton, installButton)
-#: rc.cpp:470
-msgid "I&nstall Theme..."
-msgstr "安裝主題(&N)..."
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:38
-#. i18n: ectx: property (text), widget (QPushButton, removeButton)
-#: rc.cpp:473
-msgid "&Remove Theme"
-msgstr "刪除主題(&R)"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:78
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel1)
-#: rc.cpp:476
-msgid "Icon for normal users"
-msgstr "普通使用者圖示"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:97
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel2)
-#: rc.cpp:479
-msgid "Icon for away users"
-msgstr "離開使用者圖示"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:113
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel3)
-#: rc.cpp:482
-msgid "Icon for users with voice"
-msgstr "語音使用者圖示"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:129
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel4)
-#: rc.cpp:485
-msgid "Icon for users with half-operator privileges"
-msgstr "助理員使用者圖示"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:145
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel5)
-#: rc.cpp:488
-msgid "Icon for users with operator privileges"
-msgstr "管理員使用者圖示"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:161
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel6)
-#: rc.cpp:491
-msgid "Icon for users with admin privileges"
-msgstr "總管使用者圖示"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:177
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel7)
-#: rc.cpp:494
-msgid "Icon for users with owner privileges"
-msgstr "擁有者使用者圖示"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:202
-#. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:497
-msgid "Preview:"
-msgstr "預覽："
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:17
-#. i18n: ectx: property (windowTitle), widget (QWidget, Tabs_PreferencesUI)
-#: rc.cpp:500
-msgid "TabBar_Config"
-msgstr "分頁列配置"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:26
-#. i18n: ectx: property (title), widget (QGroupBox, lookGBox)
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:19
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
-#: rc.cpp:503 rc.cpp:783
-msgid "Look"
-msgstr "外觀"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:34
-#. i18n: ectx: property (text), widget (QLabel, placementLabel)
-#: rc.cpp:506
-msgid "Placement:"
-msgstr "位置："
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:45
-#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
-#: rc.cpp:509
-#, fuzzy
-#| msgid "Topic"
-msgid "Top"
-msgstr "話題"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:50
-#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
-#: rc.cpp:512
-#, fuzzy
-#| msgid "Both"
-msgid "Bottom"
-msgstr "雙向"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:55
-#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
-#: rc.cpp:515
-msgid "Left"
-msgstr ""
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:81
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CloseButtons)
-#: rc.cpp:518
-msgid "Show &close button on tabs"
-msgstr "在分頁上顯示關閉按鈕(&C)"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:88
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTabBarCloseButton)
-#: rc.cpp:521
-msgid "Show a close button on the &right side of the tab bar"
-msgstr "在分頁欄右邊顯示關閉分頁按鈕(&R)"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:95
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseMaxSizedTabs)
-#: rc.cpp:524
-msgid "Limit the &size of the tab labels to fit all on screen"
-msgstr "限制分頁標籤的大小以符合螢幕(&S)"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:105
-#. i18n: ectx: property (title), widget (QGroupBox, focusGBox)
-#: rc.cpp:527
-msgid "Focus"
-msgstr "焦點"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:111
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_BringToFront)
-#: rc.cpp:530
-msgid "&Focus new tabs"
-msgstr "焦點切換到新分頁(&F)"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:118
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_FocusNewQueries)
-#: rc.cpp:533
-msgid "Focus new &queries"
-msgstr "焦點切換到新對話(&Q)"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:128
-#. i18n: ectx: property (title), widget (QGroupBox, mouseGBox)
-#: rc.cpp:536
-msgid "Mouse"
-msgstr "滑鼠"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:134
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_MiddleClickClose)
-#: rc.cpp:539
-msgid "&Middle-click on a tab to close it"
-msgstr "對分頁點擊中鍵將它關閉(&M)"
-
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:24
+#. i18n: file: src/config/watchednicknames_configui.ui:24
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_UseNotify)
-#: rc.cpp:542
+#: rc.cpp:578
 msgid ""
 "<qt>\n"
 "<p>\n"
@@ -6538,15 +6705,15 @@ msgstr ""
 "<p>您也可以開啟<b>上線暱稱</b>視窗檢閱所有被監視暱稱的目前狀態。</p>\n"
 "</qt>"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:27
+#. i18n: file: src/config/watchednicknames_configui.ui:27
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseNotify)
-#: rc.cpp:549
+#: rc.cpp:585
 msgid "Enable nic&kname watcher"
 msgstr "開啟暱稱監視器(&K)"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:37
+#. i18n: file: src/config/watchednicknames_configui.ui:37
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_OpenWatchedNicksAtStartup)
-#: rc.cpp:552
+#: rc.cpp:588
 msgid ""
 "<qt>When checked, the <b>Nicks Online</b> window will be automatically "
 "opened when starting Konversation.</qt>"
@@ -6554,15 +6721,15 @@ msgstr ""
 "<qt>當此項所選中時，<b>上線暱稱</b>視窗會在 Konversation 程式開啟後自動開啟。"
 "</qt>"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:40
+#. i18n: file: src/config/watchednicknames_configui.ui:40
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_OpenWatchedNicksAtStartup)
-#: rc.cpp:555
+#: rc.cpp:591
 msgid "Show watched nicks online tab on &application startup"
 msgstr "在程式啟動時開啟被監視上線暱稱的分頁(&A)"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:66
+#. i18n: file: src/config/watchednicknames_configui.ui:66
 #. i18n: ectx: property (whatsThis), widget (QLabel, notifyActionLabel)
-#: rc.cpp:559
+#: rc.cpp:595
 #, no-c-format
 msgid ""
 "<qt>\n"
@@ -6586,15 +6753,15 @@ msgstr ""
 "</ul>\n"
 "</qt>"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:69
+#. i18n: file: src/config/watchednicknames_configui.ui:69
 #. i18n: ectx: property (text), widget (QLabel, notifyActionLabel)
-#: rc.cpp:570
+#: rc.cpp:606
 msgid "Command e&xecuted when nickname is double clicked:"
 msgstr "按兩下暱稱時執行的命令(&X)："
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:99
+#. i18n: file: src/config/watchednicknames_configui.ui:99
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, kcfg_NotifyDoubleClickAction)
-#: rc.cpp:574
+#: rc.cpp:610
 #, no-c-format
 msgid ""
 "<qt>\n"
@@ -6618,55 +6785,65 @@ msgstr ""
 "</ul>\n"
 "</qt>"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:109
+#. i18n: file: src/config/watchednicknames_configui.ui:109
 #. i18n: ectx: property (whatsThis), widget (QLabel, notifyDelayLabel)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:128
+#. i18n: file: src/config/watchednicknames_configui.ui:128
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_NotifyDelay)
-#: rc.cpp:585 rc.cpp:591
+#: rc.cpp:621 rc.cpp:627
 msgid ""
 "Konversation will check the status of the nicknames listed below at this "
 "interval."
 msgstr "Konversation 可以每相隔一段時間檢查一次以下列出的暱稱的狀態。"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:112
+#. i18n: file: src/config/watchednicknames_configui.ui:112
 #. i18n: ectx: property (text), widget (QLabel, notifyDelayLabel)
-#: rc.cpp:588
+#: rc.cpp:624
 msgid "&Update interval:"
 msgstr "更新間隔(&U)："
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:158
+#. i18n: file: src/config/watchednicknames_configui.ui:131
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_NotifyDelay)
+#. i18n: file: src/config/connectionbehavior_config.ui:85
+#. i18n: ectx: property (suffix), widget (KIntNumInput, kcfg_ReconnectDelay)
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:271
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_AutoWhoContinuousInterval)
+#: rc.cpp:630 rc.cpp:975 rc.cpp:1379
+msgid " seconds"
+msgstr " 秒"
+
+#. i18n: file: src/config/watchednicknames_configui.ui:158
 #. i18n: ectx: property (whatsThis), widget (QLabel, networkLabel)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:174
+#. i18n: file: src/config/watchednicknames_configui.ui:174
 #. i18n: ectx: property (whatsThis), widget (QComboBox, networkDropdown)
-#: rc.cpp:600 rc.cpp:606
+#: rc.cpp:636 rc.cpp:642
 msgid ""
 "The irc server network (such as 'freenode') that the selected user to watch "
 "is on."
 msgstr "所選中使用者要監視的 IRC 伺服器網路(如「freenode」)已經上線。"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:161
+#. i18n: file: src/config/watchednicknames_configui.ui:161
 #. i18n: ectx: property (text), widget (QLabel, networkLabel)
-#: rc.cpp:603
+#: rc.cpp:639
 msgid "Network:"
 msgstr "網路："
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:184
+#. i18n: file: src/config/watchednicknames_configui.ui:184
 #. i18n: ectx: property (whatsThis), widget (QLabel, nicknameLabel)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:200
+#. i18n: file: src/config/watchednicknames_configui.ui:200
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, nicknameInput)
-#: rc.cpp:609 rc.cpp:615
+#: rc.cpp:645 rc.cpp:651
 msgid "The nick (username) of the selected person to watch"
 msgstr "所選中使用者要監視的暱稱(使用者名稱)"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:187
+#. i18n: file: src/config/watchednicknames_configui.ui:187
 #. i18n: ectx: property (text), widget (QLabel, nicknameLabel)
-#: rc.cpp:612
+#: rc.cpp:648
 msgid "Nickname:"
 msgstr "暱稱："
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:219
+#. i18n: file: src/config/watchednicknames_configui.ui:219
 #. i18n: ectx: property (whatsThis), widget (QTreeWidget, notifyListView)
-#: rc.cpp:618
+#: rc.cpp:654
 msgid ""
 "<qt>\n"
 "<p>\n"
@@ -6683,548 +6860,664 @@ msgstr ""
 "<p>您也可以開啟<b>上線暱稱</b>視窗檢閱所有被監視暱稱的目前狀態。</p>\n"
 "</qt>"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:229
+#. i18n: file: src/config/watchednicknames_configui.ui:229
 #. i18n: ectx: property (text), widget (QTreeWidget, notifyListView)
-#: rc.cpp:624
+#: rc.cpp:660
 msgid "Watched Networks/Nicknames"
 msgstr "被監視網路/暱稱"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:248
+#. i18n: file: src/config/watchednicknames_configui.ui:248
 #. i18n: ectx: property (whatsThis), widget (KPushButton, newButton)
-#: rc.cpp:627
+#: rc.cpp:663
 msgid "Click to add a nickname to the list."
 msgstr "點此加入一個暱稱到清單。"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:267
+#. i18n: file: src/config/watchednicknames_configui.ui:267
 #. i18n: ectx: property (whatsThis), widget (KPushButton, removeButton)
-#: rc.cpp:633
+#: rc.cpp:669
 msgid "Click to remove the selected nickname from the list."
 msgstr "點此從清單中刪除選取的暱稱。"
 
-#. i18n: file: src/preferences/log_preferences.ui:23
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_Log)
-#: rc.cpp:639
-msgid "&Enable Logging"
-msgstr "啟用日誌(&E)"
+#. i18n: file: src/config/tabs_configui.ui:17
+#. i18n: ectx: property (windowTitle), widget (QWidget, Tabs_PreferencesUI)
+#: rc.cpp:675
+msgid "TabBar_Config"
+msgstr "分頁列配置"
 
-#. i18n: file: src/preferences/log_preferences.ui:32
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_LowerLog)
-#: rc.cpp:642
-msgid "Enable &lower case logfile names"
-msgstr "使用小寫日誌檔案名稱(&U)"
+#. i18n: file: src/config/tabs_configui.ui:26
+#. i18n: ectx: property (title), widget (QGroupBox, lookGBox)
+#. i18n: file: src/config/tabnotifications_config.ui:19
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
+#: rc.cpp:678 rc.cpp:1640
+msgid "Look"
+msgstr "外觀"
 
-#. i18n: file: src/preferences/log_preferences.ui:39
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AddHostnameToLog)
-#: rc.cpp:645
-msgid "&Append hostname to logfile names"
-msgstr "為檔案名稱加入傳送者(&S)"
+#. i18n: file: src/config/tabs_configui.ui:34
+#. i18n: ectx: property (text), widget (QLabel, placementLabel)
+#: rc.cpp:681
+msgid "Placement:"
+msgstr "位置："
 
-#. i18n: file: src/preferences/log_preferences.ui:46
-#. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:648
-msgid "Logfile &path:"
-msgstr "日誌檔案路徑(&P)："
+#. i18n: file: src/config/tabs_configui.ui:45
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
+#: rc.cpp:684
+#, fuzzy
+#| msgid "Topic"
+msgid "Top"
+msgstr "話題"
 
-#. i18n: file: src/preferences/log_preferences.ui:69
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseExternalLogViewer)
-#: rc.cpp:651
-msgid "Use system text editor to open logs"
+#. i18n: file: src/config/tabs_configui.ui:50
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
+#: rc.cpp:687
+#, fuzzy
+#| msgid "Both"
+msgid "Bottom"
+msgstr "雙向"
+
+#. i18n: file: src/config/tabs_configui.ui:55
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
+#: rc.cpp:690
+msgid "Left"
 msgstr ""
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:25
+#. i18n: file: src/config/tabs_configui.ui:81
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CloseButtons)
+#: rc.cpp:693
+msgid "Show &close button on tabs"
+msgstr "在分頁上顯示關閉按鈕(&C)"
+
+#. i18n: file: src/config/tabs_configui.ui:88
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTabBarCloseButton)
+#: rc.cpp:696
+msgid "Show a close button on the &right side of the tab bar"
+msgstr "在分頁欄右邊顯示關閉分頁按鈕(&R)"
+
+#. i18n: file: src/config/tabs_configui.ui:95
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseMaxSizedTabs)
+#: rc.cpp:699
+msgid "Limit the &size of the tab labels to fit all on screen"
+msgstr "限制分頁標籤的大小以符合螢幕(&S)"
+
+#. i18n: file: src/config/tabs_configui.ui:105
+#. i18n: ectx: property (title), widget (QGroupBox, focusGBox)
+#: rc.cpp:702
+msgid "Focus"
+msgstr "焦點"
+
+#. i18n: file: src/config/tabs_configui.ui:111
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_BringToFront)
+#: rc.cpp:705
+msgid "&Focus new tabs"
+msgstr "焦點切換到新分頁(&F)"
+
+#. i18n: file: src/config/tabs_configui.ui:118
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_FocusNewQueries)
+#: rc.cpp:708
+msgid "Focus new &queries"
+msgstr "焦點切換到新對話(&Q)"
+
+#. i18n: file: src/config/tabs_configui.ui:128
+#. i18n: ectx: property (title), widget (QGroupBox, mouseGBox)
+#: rc.cpp:711
+msgid "Mouse"
+msgstr "滑鼠"
+
+#. i18n: file: src/config/tabs_configui.ui:134
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_MiddleClickClose)
+#: rc.cpp:714
+msgid "&Middle-click on a tab to close it"
+msgstr "對分頁點擊中鍵將它關閉(&M)"
+
+#. i18n: file: src/config/autoreplace_configui.ui:43
+#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
+#. i18n: file: src/config/highlight_configui.ui:131
+#. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
+#: rc.cpp:717 rc.cpp:924
+msgid "RegEx"
+msgstr "正規表示式"
+
+#. i18n: file: src/config/autoreplace_configui.ui:48
+#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
+#: rc.cpp:720
+msgid "Replace In"
+msgstr "替換"
+
+#. i18n: file: src/config/autoreplace_configui.ui:53
+#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
+#: rc.cpp:723
+msgid "Find"
+msgstr "尋找"
+
+#. i18n: file: src/config/autoreplace_configui.ui:58
+#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
+#: rc.cpp:726
+msgid "Replace With"
+msgstr "替換為"
+
+#. i18n: file: src/config/autoreplace_configui.ui:68
+#. i18n: ectx: property (text), widget (QPushButton, newButton)
+#: rc.cpp:729
+msgid "Ne&w"
+msgstr "新增(&W)"
+
+#. i18n: file: src/config/autoreplace_configui.ui:75
+#. i18n: ectx: property (text), widget (QPushButton, removeButton)
+#: rc.cpp:732
+msgid "R&emove"
+msgstr "移除(&E)"
+
+#. i18n: file: src/config/autoreplace_configui.ui:111
+#. i18n: ectx: property (text), widget (QLabel, directionLabel)
+#: rc.cpp:735
+msgid "Replace in:"
+msgstr "替換："
+
+#. i18n: file: src/config/autoreplace_configui.ui:143
+#. i18n: ectx: property (text), widget (QLabel, patternLabel)
+#: rc.cpp:738
+msgid "Find:"
+msgstr "尋找："
+
+#. i18n: file: src/config/autoreplace_configui.ui:177
+#. i18n: ectx: property (text), widget (QPushButton, regExpEditorButton)
+#. i18n: file: src/config/highlight_configui.ui:245
+#. i18n: ectx: property (text), widget (KPushButton, patternButton)
+#: rc.cpp:741 rc.cpp:948
+msgid "..."
+msgstr "..."
+
+#. i18n: file: src/config/autoreplace_configui.ui:198
+#. i18n: ectx: property (text), widget (QLabel, replacementLabel)
+#: rc.cpp:744
+msgid "Replace with:"
+msgstr "替換為："
+
+#. i18n: file: src/config/ignore_configui.ui:45
+#. i18n: ectx: property (text), widget (QTreeWidget, ignoreListView)
+#: rc.cpp:747
+msgid "Pattern"
+msgstr "模式"
+
+#. i18n: file: src/config/ignore_configui.ui:50
+#. i18n: ectx: property (text), widget (QTreeWidget, ignoreListView)
+#: rc.cpp:750
+msgid "Type"
+msgstr "輸入"
+
+#. i18n: file: src/config/ignore_configui.ui:58
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: rc.cpp:753
+msgid "Pattern:"
+msgstr "模式："
+
+#. i18n: file: src/config/ignore_configui.ui:77
+#. i18n: ectx: property (title), widget (QGroupBox, grpMessageTypes)
+#: rc.cpp:756
+msgid "Message Types"
+msgstr "訊息輸入"
+
+#. i18n: file: src/config/ignore_configui.ui:137
+#. i18n: ectx: property (text), widget (KPushButton, removeAllButton)
+#: rc.cpp:780
+msgid "Remove &All"
+msgstr "全部刪除(&A)"
+
+#. i18n: file: src/config/generalbehavior_config.ui:25
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowTrayIcon)
-#: rc.cpp:654
+#: rc.cpp:783
 msgid "Enable System Tray"
 msgstr "活化到系統匣"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:37
+#. i18n: file: src/config/generalbehavior_config.ui:37
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TrayNotify)
-#: rc.cpp:657
+#: rc.cpp:786
 msgid "&Use system tray for new message notification"
 msgstr "為新訊息通知使用系統匣(&U)"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:65
+#. i18n: file: src/config/generalbehavior_config.ui:65
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TrayNotifyOnlyOwnNick)
-#: rc.cpp:660
+#: rc.cpp:789
 msgid "Only &notify when a highlight is triggered or your current nick is used"
 msgstr "只有當突顯事件被觸發或您目前的暱稱被佔用時才通知(&N)"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:92
+#. i18n: file: src/config/generalbehavior_config.ui:92
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TrayNotifyBlink)
-#: rc.cpp:663
+#: rc.cpp:792
 msgid "Blin&k the icon"
 msgstr "閃爍圖示(&K)"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:101
+#. i18n: file: src/config/generalbehavior_config.ui:101
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideToTrayOnStartup)
-#: rc.cpp:666
+#: rc.cpp:795
 msgid "Hide window on startup"
 msgstr "啟動時隱藏視窗"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:111
+#. i18n: file: src/config/generalbehavior_config.ui:111
 #. i18n: ectx: property (title), widget (QGroupBox, middleLabel)
-#: rc.cpp:669
+#: rc.cpp:798
 msgid "Nickname Completion"
 msgstr "暱稱補齊"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:117
+#. i18n: file: src/config/generalbehavior_config.ui:117
 #. i18n: ectx: property (text), widget (QLabel, modeLbl)
-#: rc.cpp:672
+#: rc.cpp:801
 msgid "Completion &mode:"
 msgstr "補齊模式(&M)："
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:131
+#. i18n: file: src/config/generalbehavior_config.ui:131
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_NickCompletionMode)
-#: rc.cpp:675
+#: rc.cpp:804
 msgid "Cycle NickList"
 msgstr "循環暱稱清單"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:136
+#. i18n: file: src/config/generalbehavior_config.ui:136
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_NickCompletionMode)
-#: rc.cpp:678
+#: rc.cpp:807
 msgid "Shell-Like"
 msgstr "仿 Shell 外觀"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:141
+#. i18n: file: src/config/generalbehavior_config.ui:141
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_NickCompletionMode)
-#: rc.cpp:681
+#: rc.cpp:810
 msgid "Shell-Like with Completion Box"
 msgstr "帶補齊方框的仿 Shell 外觀"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:152
+#. i18n: file: src/config/generalbehavior_config.ui:152
 #. i18n: ectx: property (text), widget (QLabel, startOfLineLabel)
-#: rc.cpp:684
+#: rc.cpp:813
 msgid "Suffi&x at start of line:"
 msgstr "列首(&X)："
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:168
+#. i18n: file: src/config/generalbehavior_config.ui:168
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
-#: rc.cpp:687
+#: rc.cpp:816
 msgid "&Elsewhere:"
 msgstr "別處(&E)："
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:181
+#. i18n: file: src/config/generalbehavior_config.ui:181
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_NickCompletionCaseSensitive)
-#: rc.cpp:690
+#: rc.cpp:819
 msgid "Case sensitive"
 msgstr "區分大小寫"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:194
+#. i18n: file: src/config/generalbehavior_config.ui:194
 #. i18n: ectx: property (title), widget (QGroupBox, miscGBox)
-#: rc.cpp:693
+#: rc.cpp:822
 msgid "Miscellaneous"
 msgstr ""
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:200
+#. i18n: file: src/config/generalbehavior_config.ui:200
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DisableNotifyWhileAway)
-#: rc.cpp:696
+#: rc.cpp:825
 msgid "Disable notifications while &away"
 msgstr "處於離開狀態時停用系統通知(&A)"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:207
+#. i18n: file: src/config/generalbehavior_config.ui:207
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomVersionReplyEnabled)
-#: rc.cpp:699
+#: rc.cpp:828
 msgid "Use custom &version reply:"
 msgstr "自訂版本回復(&V)："
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:217
+#. i18n: file: src/config/generalbehavior_config.ui:217
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, kcfg_CustomVersionReply)
-#: rc.cpp:702
+#: rc.cpp:831
 msgid ""
 "<qt>Here you can set a custom reply for <b>CTCP <i>VERSION</i></b> requests."
 "</qt>"
 msgstr "<qt>您可以在這裏為 <b>CTCP<i> 版本</i></b>請求設定自訂回復。"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:237
+#. i18n: file: src/config/generalbehavior_config.ui:237
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseMultiRowInputBox)
-#: rc.cpp:705
+#: rc.cpp:834
 msgid "Input box expands with text"
 msgstr "輸入盒隨著文字而擴展"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:251
+#. i18n: file: src/config/generalbehavior_config.ui:251
 #. i18n: ectx: property (text), widget (QLabel, commandCharLabel)
-#: rc.cpp:708
+#: rc.cpp:837
 msgid "Comman&d char:"
 msgstr "命令字元(&D)："
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:264
+#. i18n: file: src/config/generalbehavior_config.ui:264
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseCustomBrowser)
-#: rc.cpp:711
+#: rc.cpp:840
 msgid "Use custom web &browser:"
 msgstr "使用自訂瀏覽器(&B)："
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:17
+#. i18n: file: src/config/dcc_configui.ui:17
 #. i18n: ectx: property (windowTitle), widget (QWidget, DCC_ConfigUI)
-#: rc.cpp:714
+#: rc.cpp:843
 msgid "DCC_Settings"
 msgstr "DCC 設定"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:26
+#. i18n: file: src/config/dcc_configui.ui:26
 #. i18n: ectx: property (text), widget (QLabel, dccPathLbl)
-#: rc.cpp:717
+#: rc.cpp:846
 msgid "Download &folder:"
 msgstr "下載資料夾(&F)："
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:49
+#. i18n: file: src/config/dcc_configui.ui:49
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAddPartner)
-#: rc.cpp:720
+#: rc.cpp:849
 msgid "&Add sender to file name"
 msgstr "為檔案名稱加入傳送者(&A)"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:56
+#. i18n: file: src/config/dcc_configui.ui:56
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccCreateFolder)
-#: rc.cpp:723
+#: rc.cpp:852
 msgid "Cr&eate folder for sender"
 msgstr "為傳送者建立資料夾(&E)"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:63
+#. i18n: file: src/config/dcc_configui.ui:63
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpaceToUnderscore)
-#: rc.cpp:726
+#: rc.cpp:855
 msgid "Convert spaces in file names to underscores before sending"
 msgstr "在傳送前，將檔名裡的空白換成底線"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:73
+#. i18n: file: src/config/dcc_configui.ui:73
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAutoGet)
-#: rc.cpp:729
+#: rc.cpp:858
 msgid "Automaticall&y accept download offer"
 msgstr "自動接受 DCC 下載要求(&Y)"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:80
+#. i18n: file: src/config/dcc_configui.ui:80
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAutoResume)
-#: rc.cpp:732
+#: rc.cpp:861
 msgid "Au&tomatically resume download"
 msgstr "自動續傳(&T)"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:87
+#. i18n: file: src/config/dcc_configui.ui:87
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccFastSend)
-#: rc.cpp:735
+#: rc.cpp:864
 msgid "Enable fast DCC send (Might &not work with all clients)"
 msgstr "啟用快速 DCC 傳送(不是所有客戶端都能正常工作)(&N)"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:110
+#. i18n: file: src/config/dcc_configui.ui:110
 #. i18n: ectx: property (text), widget (QLabel, textLabel6)
-#: rc.cpp:738
+#: rc.cpp:867
 msgid "Buffer si&ze:"
 msgstr "緩衝區大小(&Z)："
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:123
+#. i18n: file: src/config/dcc_configui.ui:123
 #. i18n: ectx: property (text), widget (QLabel, textLabel7)
-#: rc.cpp:741
+#: rc.cpp:870
 msgid "DCC send t&imeout:"
 msgstr "DCC 傳送逾時(&I)："
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:136
+#. i18n: file: src/config/dcc_configui.ui:136
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DccIPv4Fallback)
-#: rc.cpp:744
+#: rc.cpp:873
 msgid ""
 "If this option enabled dcc transfers for IPv6 connections will be done over "
 "IPv4 interface set here"
 msgstr "如果此選項被啟用，為 IPv6 建立的 DCC 傳輸連線會改由 IPv4 介面來操作"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:139
+#. i18n: file: src/config/dcc_configui.ui:139
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccIPv4Fallback)
-#: rc.cpp:747
+#: rc.cpp:876
 msgid "Fallback to an IPv&4 interface for DCC send:"
 msgstr "DCC 傳輸時回溯到 IPv4 介面(&4)："
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:146
+#. i18n: file: src/config/dcc_configui.ui:146
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_DccBufferSize)
-#: rc.cpp:750
+#: rc.cpp:879
 msgid " bytes"
 msgstr " 位元組"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:162
+#. i18n: file: src/config/dcc_configui.ui:162
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_DccSendTimeout)
-#: rc.cpp:753
+#: rc.cpp:882
 msgid " sec"
 msgstr " 秒"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:182
+#. i18n: file: src/config/dcc_configui.ui:182
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccPassiveSend)
-#: rc.cpp:756
+#: rc.cpp:885
 msgid "Enable passive DCC send"
 msgstr "開啟被動 DCC 傳送"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:240
+#. i18n: file: src/config/dcc_configui.ui:240
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox1)
-#: rc.cpp:759
+#: rc.cpp:888
 msgid "IP"
 msgstr "IP"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:249
+#. i18n: file: src/config/dcc_configui.ui:249
 #. i18n: ectx: property (text), widget (QLabel, textLabel4)
-#: rc.cpp:762
+#: rc.cpp:891
 msgid "&Method to get own IP:"
 msgstr "獲取本機 IP 的方式(&M)："
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:262
+#. i18n: file: src/config/dcc_configui.ui:262
 #. i18n: ectx: property (text), widget (QLabel, ownIP)
-#: rc.cpp:765
+#: rc.cpp:894
 msgid "O&wn IP:"
 msgstr "本機 IP(&W)："
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:281
+#. i18n: file: src/config/dcc_configui.ui:281
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
-#: rc.cpp:768
+#: rc.cpp:897
 msgid "Ports"
 msgstr "連接埠"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:287
+#. i18n: file: src/config/dcc_configui.ui:287
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpecificChatPorts)
-#: rc.cpp:771
+#: rc.cpp:900
 msgid "Enable specific p&orts for DCC chat:"
 msgstr "允許指定 DCC 密聊連接埠(&O)："
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:326
+#. i18n: file: src/config/dcc_configui.ui:326
 #. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
-#. i18n: file: src/preferences/dcc_preferencesui.ui:391
+#. i18n: file: src/config/dcc_configui.ui:391
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:774 rc.cpp:780
+#: rc.cpp:903 rc.cpp:909
 msgid "to"
 msgstr "到"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:352
+#. i18n: file: src/config/dcc_configui.ui:352
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpecificSendPorts)
-#: rc.cpp:777
+#: rc.cpp:906
 msgid "Enable specific &ports for DCC transfer server:"
 msgstr "允許指定 DCC 傳送伺服器連接埠(&P)："
 
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:25
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsText)
-#: rc.cpp:786
-msgid "Use colored text"
-msgstr "使用多彩文字"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:35
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsLeds)
-#: rc.cpp:789
-msgid "Use colored LEDs"
-msgstr "使用多彩信號燈"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:51
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsSystem)
-#: rc.cpp:795
-msgid ""
-"Application events occur in Konsole tabs, the DCC Status tab and other "
-"application tabs not used directly for chatting."
-msgstr ""
-"應用程式事件會發生在 Konsole 分頁裏，DCC 狀態分頁和其他程式分頁不能被直接地用"
-"於聊天。"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:54
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsSystem)
-#: rc.cpp:798
-msgid "Application event"
-msgstr "應用程式事件"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:87
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsMsgs)
-#: rc.cpp:801
-msgid "Message"
-msgstr "訊息"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:143
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsPrivate)
-#: rc.cpp:804
-msgid "Private message"
-msgstr "私密訊息"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:167
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsNick)
-#: rc.cpp:807
-msgid "Current nick used"
-msgstr "目前使用的暱稱"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:223
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsEvents)
-#: rc.cpp:810
-msgid "Channel events are mode changes or users joining/leaving a channel."
-msgstr "頻道事件是指模式變更或使用者加入/退出頻道等狀況。"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:226
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsEvents)
-#: rc.cpp:813
-msgid "Channel event"
-msgstr "頻道事件"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:275
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox10)
-#. i18n: file: src/viewer/searchbarbase.ui:92
-#. i18n: ectx: property (text), widget (QToolButton, m_optionsButton)
-#: rc.cpp:819 rc.cpp:1715
-#, fuzzy
-#| msgid "Exception"
-msgid "Options"
-msgstr "例外"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:281
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsOverride)
-#: rc.cpp:822
-msgid ""
-"If you select this, the colors you chose in the Highlights preferences page "
-"will override the colors for \"Current nick used\" and \"Highlight\"."
-msgstr ""
-"如果您選取此項，您在高亮度屬性頁中選擇的顏色會覆寫「目前使用的暱稱」和「高亮"
-"度」所顯示的色彩。"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:284
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsOverride)
-#: rc.cpp:825
-msgid "Give precedence to chat window highlight colors"
-msgstr "給與高亮度色的聊天視窗較高優先等級"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:25
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_FixedMOTD)
-#: rc.cpp:828
-msgid "Show MOTD (Message Of The Day) message in fixed font"
-msgstr "以等寬字型顯示 MOTD(每日新聞)訊息"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:28
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_FixedMOTD)
-#: rc.cpp:831
-msgid "Enable fi&xed font for MOTD messages"
-msgstr "允許為 MOTD 訊息使用等寬字型(&X)"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:35
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseBoldNicks)
-#: rc.cpp:834
-msgid "Show sender nicknames &bold in the chat view"
-msgstr "在聊天檢視中加粗傳送者暱稱(&B)"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:61
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomTextFont)
-#: rc.cpp:837
-msgid "Chat text:"
-msgstr "聊天文字字型："
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:92
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomListFont)
-#: rc.cpp:840
-msgid "Nickname list:"
-msgstr "暱稱清單字型："
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:102
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomTabFont)
-#: rc.cpp:843
-msgid "Tab bar:"
-msgstr "分頁欄："
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:20
+#. i18n: file: src/config/highlight_configui.ui:20
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightSoundsEnabled)
-#: rc.cpp:846
+#: rc.cpp:912
 msgid "Ena&ble sound for highlights"
 msgstr "為突顯清單項啟用聲音(&B)"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:47
+#. i18n: file: src/config/highlight_configui.ui:47
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightNick)
-#: rc.cpp:849
+#: rc.cpp:915
 msgid "Alwa&ys highlight own current nick:"
 msgstr "總是高亮度顯示目前暱稱(&Y)："
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:54
+#. i18n: file: src/config/highlight_configui.ui:54
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightOwnLines)
-#: rc.cpp:852
+#: rc.cpp:918
 msgid "Always highlight own &lines:"
 msgstr "總是高亮度顯示自己的話(&L)："
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:109
+#. i18n: file: src/config/highlight_configui.ui:109
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox1)
-#: rc.cpp:855
+#: rc.cpp:921
 msgid "Highlight List"
 msgstr "突顯清單"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:131
+#. i18n: file: src/config/highlight_configui.ui:136
 #. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:43
-#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
-#: rc.cpp:858 rc.cpp:1022
-msgid "RegEx"
-msgstr "正規表示式"
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:136
-#. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
-#: rc.cpp:861
+#: rc.cpp:927
 msgid "Highlights"
 msgstr "突顯"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:141
+#. i18n: file: src/config/highlight_configui.ui:141
 #. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
-#: rc.cpp:864
+#: rc.cpp:930
 msgid "Sound"
 msgstr "聲音"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:146
+#. i18n: file: src/config/highlight_configui.ui:146
 #. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
-#: rc.cpp:867
+#: rc.cpp:933
 msgid "Auto Text"
 msgstr "自動文字"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:205
+#. i18n: file: src/config/highlight_configui.ui:205
 #. i18n: ectx: property (text), widget (QLabel, patternLabel)
-#: rc.cpp:876
+#: rc.cpp:942
 msgid "&Pattern:"
 msgstr "模式(&P)："
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:245
-#. i18n: ectx: property (text), widget (KPushButton, patternButton)
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:177
-#. i18n: ectx: property (text), widget (QPushButton, regExpEditorButton)
-#: rc.cpp:882 rc.cpp:1046
-msgid "..."
-msgstr "..."
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:260
+#. i18n: file: src/config/highlight_configui.ui:260
 #. i18n: ectx: property (text), widget (QLabel, colorLabel)
-#: rc.cpp:885
+#: rc.cpp:951
 msgid "Color:"
 msgstr "顏色："
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:283
+#. i18n: file: src/config/highlight_configui.ui:283
 #. i18n: ectx: property (text), widget (QLabel, soundLabel)
-#: rc.cpp:888
+#: rc.cpp:954
 msgid "&Sound:"
 msgstr "聲音(&S)："
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:307
+#. i18n: file: src/config/highlight_configui.ui:307
 #. i18n: ectx: property (filter), widget (KUrlRequester, soundURL)
-#: rc.cpp:891
+#: rc.cpp:957
 msgid "audio/x-wav audio/x-mp3 application/ogg audio/x-adpcm"
 msgstr "audio/x-wav audio/x-mp3 application/ogg audio/x-adpcm"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:323
+#. i18n: file: src/config/highlight_configui.ui:323
 #. i18n: ectx: property (toolTip), widget (QToolButton, soundPlayBtn)
-#: rc.cpp:894
+#: rc.cpp:960
 msgid "Test sound"
 msgstr "測試聲音"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:338
+#. i18n: file: src/config/highlight_configui.ui:338
 #. i18n: ectx: property (text), widget (QLabel, autoTextLabel)
-#: rc.cpp:897
+#: rc.cpp:963
 msgid "&Auto text:"
 msgstr "自動文字(&A)："
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:25
+#. i18n: file: src/config/connectionbehavior_config.ui:25
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoReconnect)
+#: rc.cpp:966
+msgid "Enable Automatic Reconnect"
+msgstr "允許自動重連"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:34
+#. i18n: ectx: property (text), widget (QLabel, reconnectDelayLabel)
+#: rc.cpp:969
+msgid "Reconnect delay:"
+msgstr "重連延遲："
+
+#. i18n: file: src/config/connectionbehavior_config.ui:63
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: rc.cpp:972
+msgid "Reconnection attempts:"
+msgstr "重連嘗試："
+
+#. i18n: file: src/config/connectionbehavior_config.ui:98
+#. i18n: ectx: property (specialValueText), widget (KIntNumInput, kcfg_ReconnectCount)
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:104
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_ScrollbackMax)
+#: rc.cpp:978 rc.cpp:1349
+msgid "Unlimited"
+msgstr "無限制"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:140
+#. i18n: ectx: property (title), widget (QGroupBox, debugGBox)
+#: rc.cpp:981
+msgid "Debug"
+msgstr "除錯"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:146
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_RawLog)
+#: rc.cpp:984
+msgid "Show raw &log window when connecting"
+msgstr "連線時顯示原始記錄視窗(&L)"
+
+#. i18n: file: src/config/konversation.kcfg:21
+#. i18n: ectx: label, entry, group (Appearance)
+#: rc.cpp:989
+#, fuzzy
+#| msgid "Limit the size of the tab labels to fit all on screen"
+msgid "Limit the size of the tab labels to fit them all on screen"
+msgstr "限制分頁標籤的大小以符合螢幕"
+
+#. i18n: file: src/config/konversation.kcfg:226
+#. i18n: ectx: label, entry, group (Appearance)
+#: rc.cpp:1058
+msgid "Hide the scrollbar"
+msgstr "隱藏捲軸列"
+
+#. i18n: file: src/config/konversation.kcfg:232
+#. i18n: ectx: whatsthis, entry, group (General Options)
+#: rc.cpp:1061
+msgid ""
+"Enable if you want all the IRC input lines to check your spelling as you type"
+msgstr "如果您想要對每列輸入都自動執行拼寫檢查，請選取此項。"
+
+#. i18n: file: src/config/konversation.kcfg:241
+#. i18n: ectx: whatsthis, entry, group (General Options)
+#: rc.cpp:1064
+msgid ""
+"Enabling this will cause the input box to grow vertically when it fills up."
+msgstr "開啟此項會讓輸入盒隨著文字輸入而垂直擴展。"
+
+#. i18n: file: src/config/konversation.kcfg:275
+#. i18n: ectx: label, entry, group (General Options)
+#: rc.cpp:1079
+#, fuzzy
+#| msgid "Start with hidden mainwindow"
+msgid "Start with hidden main window"
+msgstr "啟動時隱藏主視窗"
+
+#. i18n: file: src/config/konversation.kcfg:329
+#. i18n: ectx: label, entry, group (General Options)
+#: rc.cpp:1102
+msgid "&Show real names next to nicknames"
+msgstr "在暱稱旁顯示真實姓名(&S)"
+
+#. i18n: file: src/config/konversation.kcfg:543
+#. i18n: ectx: label, entry (OpenWatchedNicksAtStartup), group (Notify List)
+#: rc.cpp:1186
+msgid "Open Watched Nicks tab at application startup"
+msgstr "在程式啟動時自動開啟暱稱監視清單"
+
+#. i18n: file: src/config/konversation.kcfg:827
+#. i18n: ectx: label, entry, group (Themes)
+#: rc.cpp:1284
+msgid "Enable emoticons"
+msgstr "啟用表情"
+
+#. i18n: file: src/config/konversation.kcfg:831
+#. i18n: ectx: label, entry, group (Themes)
+#: rc.cpp:1287
+msgid "Emoticons theme"
+msgstr "表情主題"
+
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:25
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_Beep)
-#: rc.cpp:903
+#: rc.cpp:1314
 msgid ""
 "Sounds the system bell when you receive an ASCII BEL (0x07) control character"
 msgstr "當您收到一個 ASCII BEL(0x07)控制符時發出系統響鈴"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:28
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:28
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_Beep)
-#: rc.cpp:906
+#: rc.cpp:1317
 msgid "Enable s&ystem bell on incoming ASCII BEL"
 msgstr "收到 ASCII 響鈴字元時發聲(&Y)"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:35
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:35
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideUnimportantEvents)
-#: rc.cpp:909
+#: rc.cpp:1320
 msgid "Hide &Join/Part/Nick events"
 msgstr "隱藏加入/退出/暱稱 事件(&J)"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:42
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:42
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DisableExpansion)
-#: rc.cpp:913
+#: rc.cpp:1324
 #, no-c-format
 msgid ""
 "Do not expand variables when sending text to the server. A variable starts "
@@ -7234,36 +7527,36 @@ msgstr ""
 "在將文字傳送到伺服器時不要展開變數，每一個變數都會以「%」符號開頭。例：%B 會"
 "被展開為要加粗的文字。"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:45
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:45
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DisableExpansion)
-#: rc.cpp:917
+#: rc.cpp:1328
 #, no-c-format
 msgid "Disable variable (e.g. %C, %B, %G...) e&xpansion"
 msgstr "停用變數(如：%C、%B、%G...)展開(&X)"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:52
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:52
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_RedirectServerAndAppMsgToStatusPane)
-#: rc.cpp:920
+#: rc.cpp:1331
 msgid "&Redirect status messages to the server status window"
 msgstr "重新導向所有狀態訊息到伺服器狀態視窗(&R)"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:59
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:59
 #. i18n: ectx: property (whatsThis), widget (QLabel, textLabel1)
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:101
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:101
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_ScrollbackMax)
-#: rc.cpp:923 rc.cpp:935
+#: rc.cpp:1334 rc.cpp:1346
 msgid "How many lines to keep in buffers, 0 = unlimited"
 msgstr "在緩衝區裏保留多少列目，0為無限制"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:62
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:62
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:926
+#: rc.cpp:1337
 msgid "Scroll&back limit:"
 msgstr "捲軸限制(&B)："
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:91
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:91
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_UseLiteralModes)
-#: rc.cpp:929
+#: rc.cpp:1340
 msgid ""
 "Keep channel mode string as a combination of characters instead of "
 "translating them into human readable words. E.g. '*** Channel modes: no "
@@ -7272,467 +7565,363 @@ msgstr ""
 "將頻道模式字串保留為一組字元的組合而不是轉譯成人可讀的單字。如：「*** 頻道模"
 "式：不接受外部訊息」會變成「*** 頻道模式：n」。"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:94
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:94
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseLiteralModes)
-#: rc.cpp:932
+#: rc.cpp:1343
 msgid "&Use raw modes for mode changes"
 msgstr "為模式改動使用原始模式(&U)"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:107
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:107
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_ScrollbackMax)
-#: rc.cpp:941
+#: rc.cpp:1352
 msgid " lines"
 msgstr " 列"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:136
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:136
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox3_2)
-#: rc.cpp:944
+#: rc.cpp:1355
 msgid "Marker Lines"
 msgstr "標記線"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:142
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:142
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_AutomaticRememberLine)
-#: rc.cpp:947
+#: rc.cpp:1358
 msgid ""
 "Inserts a remember line into the chat window when you switch to another chat "
 "window or minimize the application."
 msgstr "切換到其它聊天視窗或將主視窗最小化時，插入標記線。"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:145
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:145
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutomaticRememberLine)
-#: rc.cpp:950
+#: rc.cpp:1361
 msgid "Mark the last position in a chat window when it is hidden"
 msgstr "在隱藏聊天視窗時標記最後位置"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:176
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:176
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutomaticRememberLineOnlyOnTextChange)
-#: rc.cpp:953
+#: rc.cpp:1364
 msgid "Move the line only when new text is about to be shown"
 msgstr "只在新文字要顯示時移動此線"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:185
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:185
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MarkerLineInAllViews)
-#: rc.cpp:956
+#: rc.cpp:1367
 msgid "Show manually inserted lines in all chat windows"
 msgstr "在所有頻道和對話中顯示標記線"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:195
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:195
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoWhoContinuousEnabled)
-#: rc.cpp:959
+#: rc.cpp:1370
 msgid "Enable Automatic User Information Look Up (/WHO)"
 msgstr "啟用自動使用者資訊查找(/WHO)"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:239
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:239
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:962
+#: rc.cpp:1373
 msgid "Max. number of users in a channel:"
 msgstr "頻道內最大使用者數量："
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:252
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:252
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_AutoWhoNicksLimit)
-#: rc.cpp:965
+#: rc.cpp:1376
 msgid " nicks"
 msgstr " 暱稱"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:287
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:287
 #. i18n: ectx: property (text), widget (QLabel, whoIntervalLbl)
-#: rc.cpp:971
+#: rc.cpp:1382
 msgid "Update interval:"
 msgstr "檢查間隔："
 
-#. i18n: file: src/preferences/osd_preferencesui.ui:35
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOSD)
-#: rc.cpp:974
-msgid "&Enable On Screen Display"
-msgstr "啟用螢幕顯示(&E)"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:45
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
-#: rc.cpp:977
-msgid "On &Screen Display"
-msgstr "在螢幕上顯示(&S)"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:54
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDDrawShadow)
-#: rc.cpp:980
-msgid "&Draw shadows"
-msgstr "繪製陰影(&D)"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:67
-#. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:983
-msgid "OSD font:"
-msgstr "OSD 字型："
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:135
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
-#: rc.cpp:986
-msgid "Show &OSD Message"
-msgstr "顯示 &OSD 訊息"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:141
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowOwnNick)
-#: rc.cpp:989
-msgid "&If own nick appears in channel message"
-msgstr "當自己的暱稱出現在頻道訊息內(&I)"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:148
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowChannel)
-#: rc.cpp:992
-msgid "On an&y channel message"
-msgstr "在任何頻道訊息上顯示(&Y)"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:155
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowQuery)
-#: rc.cpp:995
-msgid "On &query activity"
-msgstr "在對話動作上顯示(&Q)"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:162
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowChannelEvent)
-#: rc.cpp:998
-msgid "On &Join/Part events"
-msgstr "在加入/退出事件上顯示(&J)"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:175
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_OSDUseCustomColors)
-#: rc.cpp:1001
-msgid "Enable Custom Colors"
-msgstr "啟用自訂顏色"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:187
-#. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:1004
-msgid "Te&xt color:"
-msgstr "文字顏色(&X)："
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:200
-#. i18n: ectx: property (text), widget (QLabel, textLabel3)
-#. i18n: file: src/viewer/irccolorchooserui.ui:122
-#. i18n: ectx: property (text), widget (QLabel, m_bgColorLbl)
-#: rc.cpp:1007 rc.cpp:1775
-msgid "&Background color:"
-msgstr "背景顏色(&B)："
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:249
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
-#: rc.cpp:1010
-msgid "O&ther Settings"
-msgstr "其他設定(&T)"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:255
+#. i18n: file: src/config/nicklistbehavior_configui.ui:26
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:1013
-msgid "&Duration:"
-msgstr "作用持續(&D)："
+#: rc.cpp:1385
+msgid "&Command to be executed on double click:"
+msgstr "按兩下時執行的命令(&C)："
 
-#. i18n: file: src/preferences/osd_preferencesui.ui:268
-#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
-#: rc.cpp:1016
-msgid "S&creen:"
-msgstr "螢幕(&C)："
+#. i18n: file: src/config/nicklistbehavior_configui.ui:39
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortCaseInsensitive)
+#: rc.cpp:1388
+msgid "Sort case &insensitive"
+msgstr "排序不區分大小寫(&I)"
 
-#. i18n: file: src/preferences/osd_preferencesui.ui:281
-#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_OSDDuration)
-#: rc.cpp:1019
-msgid " ms"
-msgstr " 毫秒"
+#. i18n: file: src/config/nicklistbehavior_configui.ui:46
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortByActivity)
+#: rc.cpp:1391
+msgid "Sort by &activity"
+msgstr "依動作排序(&A)"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:48
-#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
-#: rc.cpp:1025
-msgid "Replace In"
-msgstr "替換"
+#. i18n: file: src/config/nicklistbehavior_configui.ui:59
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortByStatus)
+#: rc.cpp:1394
+msgid "Sort b&y user status"
+msgstr "依使用者狀態排序(&Y)"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:53
-#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
-#: rc.cpp:1028
-msgid "Find"
-msgstr "尋找"
+#. i18n: file: src/config/nicklistbehavior_configui.ui:72
+#. i18n: ectx: property (text), widget (QLabel, orderHintLabel)
+#: rc.cpp:1397
+msgid "(Reorder nick sorting order by drag and drop)"
+msgstr "(使用拖曳對暱稱重新排序)"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:58
-#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
-#: rc.cpp:1031
-msgid "Replace With"
-msgstr "替換為"
+#. i18n: file: src/config/nicklistbehavior_configui.ui:103
+#. i18n: ectx: property (text), widget (QTreeWidget, sortOrder)
+#: rc.cpp:1403
+msgid "Explanation"
+msgstr "解釋"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:68
-#. i18n: ectx: property (text), widget (QPushButton, newButton)
-#: rc.cpp:1034
-msgid "Ne&w"
-msgstr "新增(&W)"
+#. i18n: file: src/config/fontappearance_config.ui:25
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_FixedMOTD)
+#: rc.cpp:1406
+msgid "Show MOTD (Message Of The Day) message in fixed font"
+msgstr "以等寬字型顯示 MOTD(每日新聞)訊息"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:75
+#. i18n: file: src/config/fontappearance_config.ui:28
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_FixedMOTD)
+#: rc.cpp:1409
+msgid "Enable fi&xed font for MOTD messages"
+msgstr "允許為 MOTD 訊息使用等寬字型(&X)"
+
+#. i18n: file: src/config/fontappearance_config.ui:35
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseBoldNicks)
+#: rc.cpp:1412
+msgid "Show sender nicknames &bold in the chat view"
+msgstr "在聊天檢視中加粗傳送者暱稱(&B)"
+
+#. i18n: file: src/config/fontappearance_config.ui:61
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomTextFont)
+#: rc.cpp:1415
+msgid "Chat text:"
+msgstr "聊天文字字型："
+
+#. i18n: file: src/config/fontappearance_config.ui:92
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomListFont)
+#: rc.cpp:1418
+msgid "Nickname list:"
+msgstr "暱稱清單字型："
+
+#. i18n: file: src/config/fontappearance_config.ui:102
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomTabFont)
+#: rc.cpp:1421
+msgid "Tab bar:"
+msgstr "分頁欄："
+
+#. i18n: file: src/config/theme_configui.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, Theme_ConfigUI)
+#: rc.cpp:1424
+msgid "Theme_Config"
+msgstr "主題配置"
+
+#. i18n: file: src/config/theme_configui.ui:28
+#. i18n: ectx: property (text), widget (QPushButton, installButton)
+#: rc.cpp:1427
+msgid "I&nstall Theme..."
+msgstr "安裝主題(&N)..."
+
+#. i18n: file: src/config/theme_configui.ui:38
 #. i18n: ectx: property (text), widget (QPushButton, removeButton)
-#: rc.cpp:1037
-msgid "R&emove"
-msgstr "移除(&E)"
+#: rc.cpp:1430
+msgid "&Remove Theme"
+msgstr "刪除主題(&R)"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:111
-#. i18n: ectx: property (text), widget (QLabel, directionLabel)
-#: rc.cpp:1040
-msgid "Replace in:"
-msgstr "替換："
+#. i18n: file: src/config/theme_configui.ui:78
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel1)
+#: rc.cpp:1433
+msgid "Icon for normal users"
+msgstr "普通使用者圖示"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:143
-#. i18n: ectx: property (text), widget (QLabel, patternLabel)
-#: rc.cpp:1043
-msgid "Find:"
-msgstr "尋找："
+#. i18n: file: src/config/theme_configui.ui:97
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel2)
+#: rc.cpp:1436
+msgid "Icon for away users"
+msgstr "離開使用者圖示"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:198
-#. i18n: ectx: property (text), widget (QLabel, replacementLabel)
-#: rc.cpp:1049
-msgid "Replace with:"
-msgstr "替換為："
+#. i18n: file: src/config/theme_configui.ui:113
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel3)
+#: rc.cpp:1439
+msgid "Icon for users with voice"
+msgstr "語音使用者圖示"
 
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:23
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_Timestamping)
-#: rc.cpp:1052
-msgid "Enable &Timestamps"
-msgstr "啟用時間戳記(&T)"
+#. i18n: file: src/config/theme_configui.ui:129
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel4)
+#: rc.cpp:1442
+msgid "Icon for users with half-operator privileges"
+msgstr "助理員使用者圖示"
 
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:32
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowDate)
-#: rc.cpp:1055
-msgid "Sho&w dates"
-msgstr "顯示日期(&W)"
+#. i18n: file: src/config/theme_configui.ui:145
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel5)
+#: rc.cpp:1445
+msgid "Icon for users with operator privileges"
+msgstr "管理員使用者圖示"
 
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:39
-#. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:1058
-msgid "&Format:"
-msgstr "格式(&F)："
+#. i18n: file: src/config/theme_configui.ui:161
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel6)
+#: rc.cpp:1448
+msgid "Icon for users with admin privileges"
+msgstr "總管使用者圖示"
 
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:78
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowBacklog)
-#: rc.cpp:1061
-msgid "Show &Backlog"
-msgstr "顯示回溯日誌(&B)"
+#. i18n: file: src/config/theme_configui.ui:177
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel7)
+#: rc.cpp:1451
+msgid "Icon for users with owner privileges"
+msgstr "擁有者使用者圖示"
 
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:87
-#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:1064
-msgid "&Lines: "
-msgstr "行數(&L)："
+#. i18n: file: src/config/theme_configui.ui:202
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: rc.cpp:1454
+msgid "Preview:"
+msgstr "預覽："
 
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:129
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
-#: rc.cpp:1067
-msgid "&Layout"
-msgstr "版面設置(&L)"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:135
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTopic)
-#: rc.cpp:1070
-msgid "&Show channel topic"
-msgstr "顯示頻道話題(&S)"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:142
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowModeButtons)
-#: rc.cpp:1073
-msgid "Show channel &mode buttons"
-msgstr "顯示頻道模式按鈕(&M)"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:149
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowNickList)
-#: rc.cpp:1076
-msgid "Show channel &nick list and quick buttons"
-msgstr "顯示頻道暱稱清單和快捷按鈕(&N)"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:177
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoUserhost)
-#: rc.cpp:1079
-msgid "Show hostmas&ks in nickname list"
-msgstr "在暱稱清單中顯示主機遮罩(&K)"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:207
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowRealNames)
-#: rc.cpp:1082
-msgid "Show real names in nickname list"
-msgstr "在暱稱清單中顯示真實姓名"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:237
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowQuickButtons)
-#: rc.cpp:1085
-msgid "Show &quick buttons"
-msgstr "顯示快捷按鈕(&Q)"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:246
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowNicknameBox)
-#: rc.cpp:1088
-msgid "Show bo&x to change own nickname"
-msgstr "顯示可供修改自己暱稱的方框(&X)"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:253
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowIRCViewScrollBar)
-#: rc.cpp:1091
-msgid "Show sc&rollbar"
-msgstr "顯示捲軸列(&R)"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:266
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowBackgroundImage)
-#: rc.cpp:1094
-msgid "Enable Back&ground Image"
-msgstr "啟用背景圖像(&G)"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:275
-#. i18n: ectx: property (text), widget (QLabel, textLabel4)
-#: rc.cpp:1097
-msgid "P&ath:"
-msgstr "路徑(&A)："
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:30
+#. i18n: file: src/config/colorsappearance_config.ui:30
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox1)
-#: rc.cpp:1100
+#: rc.cpp:1457
 msgid "Custom Colors"
 msgstr "自訂顏色"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:36
+#. i18n: file: src/config/colorsappearance_config.ui:36
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_InputFieldsBackgroundColor)
-#: rc.cpp:1103
+#: rc.cpp:1460
 msgid "&Use custom colors for input box, nickname list and tab list"
 msgstr "輸入盒、暱稱清單與分頁清單中使用自訂顏色(&U)"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:273
+#. i18n: file: src/config/colorsappearance_config.ui:273
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
-#: rc.cpp:1106
+#: rc.cpp:1463
 msgid "&Background:"
 msgstr "背景(&B)："
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:286
+#. i18n: file: src/config/colorsappearance_config.ui:286
 #. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
-#: rc.cpp:1109
+#: rc.cpp:1466
 msgid "&Server message:"
 msgstr "伺服器訊息(&S)："
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:299
+#. i18n: file: src/config/colorsappearance_config.ui:299
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:1112
+#: rc.cpp:1469
 msgid "H&yperlink:"
 msgstr "超連結(&Y)："
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:312
+#. i18n: file: src/config/colorsappearance_config.ui:312
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:1115
+#: rc.cpp:1472
 msgid "Channel &message:"
 msgstr "頻道訊息(&M)："
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:325
+#. i18n: file: src/config/colorsappearance_config.ui:325
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:1118
+#: rc.cpp:1475
 msgid "Actio&n:"
 msgstr "動作(&N)："
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:338
+#. i18n: file: src/config/colorsappearance_config.ui:338
 #. i18n: ectx: property (text), widget (QLabel, textLabel4)
-#: rc.cpp:1121
+#: rc.cpp:1478
 msgid "Bac&klog:"
 msgstr "回溯日誌(&K)："
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:351
+#. i18n: file: src/config/colorsappearance_config.ui:351
 #. i18n: ectx: property (text), widget (QLabel, textLabel5)
-#: rc.cpp:1124
+#: rc.cpp:1481
 msgid "Comman&d message:"
 msgstr "命令訊息(&D)："
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:364
+#. i18n: file: src/config/colorsappearance_config.ui:364
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_8)
-#: rc.cpp:1127
+#: rc.cpp:1484
 msgid "&Query message:"
 msgstr "對話訊息(&Q)："
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:377
+#. i18n: file: src/config/colorsappearance_config.ui:377
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_9)
-#: rc.cpp:1130
+#: rc.cpp:1487
 msgid "&Timestamp:"
 msgstr "時間戳記(&T)："
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:390
+#. i18n: file: src/config/colorsappearance_config.ui:390
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_10)
-#: rc.cpp:1133
+#: rc.cpp:1490
 msgid "A&lternate background:"
 msgstr "可選背景(&L)："
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:409
+#. i18n: file: src/config/colorsappearance_config.ui:409
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_UseColoredNicks)
-#: rc.cpp:1136
+#: rc.cpp:1493
 msgid "Colored Nicks"
 msgstr "彩色暱稱"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:424
+#. i18n: file: src/config/colorsappearance_config.ui:424
 #. i18n: ectx: property (text), widget (QLabel, textLabel9)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:868
+#. i18n: file: src/config/colorsappearance_config.ui:868
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_6)
-#: rc.cpp:1139 rc.cpp:1190
+#: rc.cpp:1496 rc.cpp:1547
 msgid "5:"
 msgstr "5："
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:447
+#. i18n: file: src/config/colorsappearance_config.ui:447
 #. i18n: ectx: property (text), widget (QLabel, textLabel8)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:878
+#. i18n: file: src/config/colorsappearance_config.ui:878
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_5)
-#: rc.cpp:1142 rc.cpp:1193
+#: rc.cpp:1499 rc.cpp:1550
 msgid "4:"
 msgstr "4："
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:470
+#. i18n: file: src/config/colorsappearance_config.ui:470
 #. i18n: ectx: property (text), widget (QLabel, textLabel7)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:794
+#. i18n: file: src/config/colorsappearance_config.ui:794
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_4)
-#: rc.cpp:1145 rc.cpp:1178
+#: rc.cpp:1502 rc.cpp:1535
 msgid "3:"
 msgstr "3："
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:500
+#. i18n: file: src/config/colorsappearance_config.ui:500
 #. i18n: ectx: property (text), widget (QLabel, textLabel6)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:778
+#. i18n: file: src/config/colorsappearance_config.ui:778
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_3)
-#: rc.cpp:1148 rc.cpp:1175
+#: rc.cpp:1505 rc.cpp:1532
 msgid "2:"
 msgstr "2："
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:587
+#. i18n: file: src/config/colorsappearance_config.ui:587
 #. i18n: ectx: property (text), widget (QLabel, textLabel4_2)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:838
+#. i18n: file: src/config/colorsappearance_config.ui:838
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_14)
-#: rc.cpp:1151 rc.cpp:1181
+#: rc.cpp:1508 rc.cpp:1538
 msgid "0:"
 msgstr "0："
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:610
+#. i18n: file: src/config/colorsappearance_config.ui:610
 #. i18n: ectx: property (text), widget (QLabel, textLabel5_2)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:762
+#. i18n: file: src/config/colorsappearance_config.ui:762
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_2)
-#: rc.cpp:1154 rc.cpp:1172
+#: rc.cpp:1511 rc.cpp:1529
 msgid "1:"
 msgstr "1："
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:672
+#. i18n: file: src/config/colorsappearance_config.ui:672
 #. i18n: ectx: property (text), widget (QLabel, textLabel11)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:848
+#. i18n: file: src/config/colorsappearance_config.ui:848
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_8)
-#: rc.cpp:1157 rc.cpp:1184
+#: rc.cpp:1514 rc.cpp:1541
 msgid "7:"
 msgstr "7："
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:688
+#. i18n: file: src/config/colorsappearance_config.ui:688
 #. i18n: ectx: property (text), widget (QLabel, textLabel10)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:858
+#. i18n: file: src/config/colorsappearance_config.ui:858
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_7)
-#: rc.cpp:1160 rc.cpp:1187
+#: rc.cpp:1517 rc.cpp:1544
 msgid "6:"
 msgstr "6："
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:700
+#. i18n: file: src/config/colorsappearance_config.ui:700
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_3)
-#: rc.cpp:1163
+#: rc.cpp:1520
 msgid "&Own nick color:"
 msgstr "自己暱稱的顏色(&O)："
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:744
+#. i18n: file: src/config/colorsappearance_config.ui:744
 #. i18n: ectx: property (whatsThis), widget (QGroupBox, kcfg_AllowColorCodes)
-#: rc.cpp:1166
+#: rc.cpp:1523
 msgid ""
 "By enabling this option, color codes added to IRC messages will be displayed "
 "in your chat window as colored text. You can add color codes to your "
@@ -7741,461 +7930,269 @@ msgstr ""
 "如果啟用此選項，在 IRC 訊息中加入的顏色程式碼會在聊天視窗中顯示為彩色的文字。"
 "您可以在您的訊息中加入顏色程式碼，只需在選單中選擇「插入 -> IRC 顏色」。"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:747
+#. i18n: file: src/config/colorsappearance_config.ui:747
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_AllowColorCodes)
-#: rc.cpp:1169
+#: rc.cpp:1526
 msgid "&Allow Colored Text in IRC Messages"
 msgstr "允許在 IRC 訊息裏使用彩色文字(&A)"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1051
+#. i18n: file: src/config/colorsappearance_config.ui:1051
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_12)
-#: rc.cpp:1196
+#: rc.cpp:1553
 msgid "11:"
 msgstr "11："
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1082
+#. i18n: file: src/config/colorsappearance_config.ui:1082
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_10)
-#: rc.cpp:1199
+#: rc.cpp:1556
 msgid "9:"
 msgstr "9："
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1092
+#. i18n: file: src/config/colorsappearance_config.ui:1092
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_9)
-#: rc.cpp:1202
+#: rc.cpp:1559
 msgid "8:"
 msgstr "8："
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1102
+#. i18n: file: src/config/colorsappearance_config.ui:1102
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_11)
-#: rc.cpp:1205
+#: rc.cpp:1562
 msgid "10:"
 msgstr "10："
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1183
+#. i18n: file: src/config/colorsappearance_config.ui:1183
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_13)
-#: rc.cpp:1208
+#: rc.cpp:1565
 msgid "12:"
 msgstr "12："
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1200
+#. i18n: file: src/config/colorsappearance_config.ui:1200
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_16)
-#: rc.cpp:1211
+#: rc.cpp:1568
 msgid "15:"
 msgstr "15："
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1224
+#. i18n: file: src/config/colorsappearance_config.ui:1224
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_15)
-#: rc.cpp:1214
+#: rc.cpp:1571
 msgid "14:"
 msgstr "14："
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1234
+#. i18n: file: src/config/colorsappearance_config.ui:1234
 #. i18n: ectx: property (text), widget (QLabel, textLabel12)
-#: rc.cpp:1217
+#: rc.cpp:1574
 msgid "13:"
 msgstr "13："
 
-#. i18n: file: src/preferences/warnings_preferencesui.ui:29
-#. i18n: ectx: property (text), widget (QTreeWidget, dialogListView)
-#: rc.cpp:1220
-msgid "Warning Dialogs to Show"
-msgstr "顯示的警告對話方塊"
+#. i18n: file: src/config/log_config.ui:23
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_Log)
+#: rc.cpp:1577
+msgid "&Enable Logging"
+msgstr "啟用日誌(&E)"
 
-#. i18n: file: src/identitydialog.ui:25
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: rc.cpp:1223
-msgid "&Identity:"
-msgstr "身分(&I)："
+#. i18n: file: src/config/log_config.ui:32
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_LowerLog)
+#: rc.cpp:1580
+msgid "Enable &lower case logfile names"
+msgstr "使用小寫日誌檔案名稱(&U)"
 
-#. i18n: file: src/identitydialog.ui:65
-#. i18n: ectx: property (toolTip), widget (KPushButton, newBtn)
-#: rc.cpp:1226
-#, fuzzy
-#| msgid "Add..."
-msgid "Add"
-msgstr "加入..."
+#. i18n: file: src/config/log_config.ui:39
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AddHostnameToLog)
+#: rc.cpp:1583
+msgid "&Append hostname to logfile names"
+msgstr "為檔案名稱加入傳送者(&S)"
 
-#. i18n: file: src/identitydialog.ui:96
-#. i18n: ectx: property (toolTip), widget (KPushButton, copyBtn)
-#: rc.cpp:1229
-msgid "Duplicate"
-msgstr "複製"
+#. i18n: file: src/config/log_config.ui:46
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: rc.cpp:1586
+msgid "Logfile &path:"
+msgstr "日誌檔案路徑(&P)："
 
-#. i18n: file: src/identitydialog.ui:127
-#. i18n: ectx: property (toolTip), widget (KPushButton, m_editBtn)
-#: rc.cpp:1232
-msgid "Rename"
-msgstr "重新命名"
-
-#. i18n: file: src/identitydialog.ui:187
-#. i18n: ectx: property (text), widget (QLabel, realNameLabel)
-#: rc.cpp:1241
-msgid "&Real name:"
-msgstr "真實姓名(&R)："
-
-#. i18n: file: src/identitydialog.ui:197
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_realNameEdit)
-#: rc.cpp:1244
-msgid ""
-"Enter your real name here. IRC is not intended to keep you hidden from your "
-"friends or enemies. Keep this in mind if you are tempted to behave "
-"maliciously. A fake \"real name\" can be a good way to mask your gender from "
-"all the nerds out there, but the PC you use can always be traced so you will "
-"never be truly anonymous."
+#. i18n: file: src/config/log_config.ui:69
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseExternalLogViewer)
+#: rc.cpp:1589
+msgid "Use system text editor to open logs"
 msgstr ""
-"在此輸入您的真實姓名。IRC 不會刻意地維護您在朋友或仇敵前保持隱蔽，如果您有意"
-"要挑起或面對惡意的行為，請斟酌填寫這個設定。如果您希望在各式各樣的另類面前掩"
-"藏自己的真實，一個偽造的「真實姓名」是有效的應對手段，但他人仍然可以追蹤您使"
-"用的 PC，因此您無法完全地將自己匿藏起來。"
 
-#. i18n: file: src/identitydialog.ui:208
-#. i18n: ectx: property (whatsThis), widget (KEditListBox, m_nicknameLBox)
-#: rc.cpp:1247
+#. i18n: file: src/config/chatwindowappearance_config.ui:23
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_Timestamping)
+#: rc.cpp:1592
+msgid "Enable &Timestamps"
+msgstr "啟用時間戳記(&T)"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:32
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowDate)
+#: rc.cpp:1595
+msgid "Sho&w dates"
+msgstr "顯示日期(&W)"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:39
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: rc.cpp:1598
+msgid "&Format:"
+msgstr "格式(&F)："
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:78
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowBacklog)
+#: rc.cpp:1601
+msgid "Show &Backlog"
+msgstr "顯示回溯日誌(&B)"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:87
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#: rc.cpp:1604
+msgid "&Lines: "
+msgstr "行數(&L)："
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:129
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
+#: rc.cpp:1607
+msgid "&Layout"
+msgstr "版面設置(&L)"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:135
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTopic)
+#: rc.cpp:1610
+msgid "&Show channel topic"
+msgstr "顯示頻道話題(&S)"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:142
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowModeButtons)
+#: rc.cpp:1613
+msgid "Show channel &mode buttons"
+msgstr "顯示頻道模式按鈕(&M)"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:149
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowNickList)
+#: rc.cpp:1616
+msgid "Show channel &nick list and quick buttons"
+msgstr "顯示頻道暱稱清單和快捷按鈕(&N)"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:177
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoUserhost)
+#: rc.cpp:1619
+msgid "Show hostmas&ks in nickname list"
+msgstr "在暱稱清單中顯示主機遮罩(&K)"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:207
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowRealNames)
+#: rc.cpp:1622
+msgid "Show real names in nickname list"
+msgstr "在暱稱清單中顯示真實姓名"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:237
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowQuickButtons)
+#: rc.cpp:1625
+msgid "Show &quick buttons"
+msgstr "顯示快捷按鈕(&Q)"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:246
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowNicknameBox)
+#: rc.cpp:1628
+msgid "Show bo&x to change own nickname"
+msgstr "顯示可供修改自己暱稱的方框(&X)"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:253
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowIRCViewScrollBar)
+#: rc.cpp:1631
+msgid "Show sc&rollbar"
+msgstr "顯示捲軸列(&R)"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:266
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowBackgroundImage)
+#: rc.cpp:1634
+msgid "Enable Back&ground Image"
+msgstr "啟用背景圖像(&G)"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:275
+#. i18n: ectx: property (text), widget (QLabel, textLabel4)
+#: rc.cpp:1637
+msgid "P&ath:"
+msgstr "路徑(&A)："
+
+#. i18n: file: src/config/tabnotifications_config.ui:25
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsText)
+#: rc.cpp:1643
+msgid "Use colored text"
+msgstr "使用多彩文字"
+
+#. i18n: file: src/config/tabnotifications_config.ui:35
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsLeds)
+#: rc.cpp:1646
+msgid "Use colored LEDs"
+msgstr "使用多彩信號燈"
+
+#. i18n: file: src/config/tabnotifications_config.ui:51
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsSystem)
+#: rc.cpp:1652
 msgid ""
-"This is your list of nicknames. A nickname is the name that other users will "
-"know you by. You may use any name you desire. The first character must be a "
-"letter.\n"
-"\n"
-"Since nicknames must be unique across an entire IRC network, your desired "
-"name may be rejected by the server because someone else is already using "
-"that nickname. Enter alternate nicknames for yourself. If your first choice "
-"is rejected by the server, Konversation will try the alternate nicknames."
+"Application events occur in Konsole tabs, the DCC Status tab and other "
+"application tabs not used directly for chatting."
 msgstr ""
-"這裏是您的暱稱的清單。暱稱是一種能讓其他使用者識別您的名稱，您可在此使用任何"
-"您願意的名稱，不過首字元必須是一個字母。\n"
-"\n"
-"由於暱稱在通行於一個完整 IRC 網路中時必須是唯一的，所以您想用的名稱可能會被伺"
-"服器拒絕，這是因為有人正在使用相同的暱稱。輸入您的可選暱稱，如果偏好的暱稱被"
-"伺服器拒絕，Konversation 可以自動嘗試使用備選的暱稱。"
+"應用程式事件會發生在 Konsole 分頁裏，DCC 狀態分頁和其他程式分頁不能被直接地用"
+"於聊天。"
 
-#. i18n: file: src/identitydialog.ui:218
-#. i18n: ectx: property (title), widget (QGroupBox, autoIdentifyGroup)
-#: rc.cpp:1255
-msgid "Auto Identify"
-msgstr "自動認證"
+#. i18n: file: src/config/tabnotifications_config.ui:54
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsSystem)
+#: rc.cpp:1655
+msgid "Application event"
+msgstr "應用程式事件"
 
-#. i18n: file: src/identitydialog.ui:224
-#. i18n: ectx: property (text), widget (QLabel, botLabel)
-#: rc.cpp:1258
-msgid "Ser&vice:"
-msgstr "服務(&V)："
-
-#. i18n: file: src/identitydialog.ui:234
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_botEdit)
-#: rc.cpp:1261
-#, fuzzy
-#| msgid ""
-#| "Service name can be <b><i>nickserv</i></b> or a network dependant name "
-#| "like  <b><i>nickserv@services.dal.net</i></b>"
-msgid ""
-"Service name can be <b><i>nickserv</i></b> or a network-dependent name such "
-"as <b><i>nickserv@services.dal.net</i></b>"
-msgstr ""
-"服務名稱可以是 <b><i>nickserv</i></b> 或類似<b><i>nickserv@services.dal.net</"
-"i></b> 這樣的網路依賴名稱。"
-
-#. i18n: file: src/identitydialog.ui:241
-#. i18n: ectx: property (text), widget (QLabel, passwordLabel)
-#: rc.cpp:1264
-msgid "Pa&ssword:"
-msgstr "密碼(&S)："
-
-#. i18n: file: src/identitydialog.ui:270
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_insertRememberLineOnAwayChBox)
-#: rc.cpp:1270
-msgid ""
-"If you check this box, whenever you perform an <b>/away</b> command, a "
-"horizontal line will appear in the channel, marking the point where you went "
-"away. Other IRC users do not see this horizontal line."
-msgstr ""
-"如果您選取此項，每當您執行 <b>/away</b> 命令時，一條水平分隔線會自動顯現在頻"
-"道內，標記出您離開時的錨點。其他 IRC 使用者並不會看到這條線。"
-
-#. i18n: file: src/identitydialog.ui:273
-#. i18n: ectx: property (text), widget (QCheckBox, m_insertRememberLineOnAwayChBox)
-#: rc.cpp:1273
-msgid "Mark the last position in chat windows when going away"
-msgstr "離開時標記聊天視窗中的最後位置"
-
-#. i18n: file: src/identitydialog.ui:280
-#. i18n: ectx: property (text), widget (QLabel, awayNicknameLabel)
-#: rc.cpp:1276
-msgid "Away nickname:"
-msgstr "離開暱稱："
-
-#. i18n: file: src/identitydialog.ui:287
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_awayNickEdit)
-#: rc.cpp:1279
-msgid ""
-"Enter a nickname that indicates you are away. Whenever you perform an <b>/"
-"away msg</b> command in any channel joined with this Identity, Konversation "
-"will automatically change your nickname to the Away nickname. Other users "
-"will be able to tell you are away from your computer. Whenever you perform "
-"an <b>/away</b> command in any channel in which you are away, Konversation "
-"will automatically change your nickname back to the original. If you do not "
-"wish to automatically change your nickname when going away, leave blank."
-msgstr ""
-"輸入一個象徵您已經離開的暱稱。每當您在任何一個以目前這個身分加入的頻道內執行 "
-"<b>/away</b> 命令時，Konversation 會自動將您的暱稱改名為離開暱稱，其他使用者"
-"便可由此得悉您已經離開了電腦。而每當您在一個已經處於離開狀態的頻道內執行 <b>/"
-"away</b> 命令時，Konversation 會自動將您的暱稱變更回原始形態。如果您不希望在"
-"離開時自動變更暱稱，請將此項留空。"
-
-#. i18n: file: src/identitydialog.ui:302
-#. i18n: ectx: property (whatsThis), widget (QGroupBox, automaticAwayGroup)
-#: rc.cpp:1282
-msgid ""
-"If you check this box, Konversation will automatically set all connections "
-"using this Identity away when the screensaver starts or after a period of "
-"user inactivity configured below."
-msgstr ""
-"勾選此選項的話，當螢幕保護程式啟動，或使用者有一段時間沒有任何動作的話，"
-"Konversation 會自動將所有連線設定使用底下的身份。"
-
-#. i18n: file: src/identitydialog.ui:305
-#. i18n: ectx: property (title), widget (QGroupBox, automaticAwayGroup)
-#: rc.cpp:1285
-msgid "Automatic Away"
-msgstr "自動離開"
-
-#. i18n: file: src/identitydialog.ui:323
-#. i18n: ectx: property (text), widget (QLabel, setAwayAfterLabel)
-#: rc.cpp:1288
-msgid "Set away after"
-msgstr "設定離開時間："
-
-#. i18n: file: src/identitydialog.ui:346
-#. i18n: ectx: property (text), widget (QLabel, timeOfUserInactivityLabel)
-#: rc.cpp:1291
-msgid "of user inactivity"
-msgstr "使用者沒有任何動作"
-
-#. i18n: file: src/identitydialog.ui:353
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_automaticUnawayChBox)
-#: rc.cpp:1294
-msgid ""
-"If you check this box, Konversation will automatically cancel away for all "
-"connections using this Identity when the screensaver stops or new user "
-"activity is detected."
-msgstr ""
-"如果勾選此選項的話，在螢幕保護程式停止，或使用者回復動作時，會自動對所有連線"
-"取消離開的狀態。"
-
-#. i18n: file: src/identitydialog.ui:356
-#. i18n: ectx: property (text), widget (QCheckBox, m_automaticUnawayChBox)
-#: rc.cpp:1297
-msgid "Automatically return on activity"
-msgstr "活動時自動返回"
-
-#. i18n: file: src/identitydialog.ui:372
-#. i18n: ectx: property (whatsThis), widget (QGroupBox, awayMessageGroup)
-#: rc.cpp:1301
-#, no-c-format
-msgid ""
-"If you check this box, Konversation will automatically send the Away message "
-"to all channels joined with this Identity. <b>%s</b> is replaced with "
-"<b>msg</b>. Whenever you perform an <b>/away</b> command, the Return message "
-"will be displayed in all channels joined with this Identity."
-msgstr ""
-"如果您選取此項，Konversation 會在每當您切換到離開狀態時自動傳送一條離開訊息到"
-"所有您以目前這個身分加入的頻道，<b>%s</b> 會被 <b>msg</b> 所替代。而每當您再"
-"次執行 <b>/away</b> 命令時，一條回傳訊息也將被自動顯示在所有您以目前身分加入"
-"的頻道。"
-
-#. i18n: file: src/identitydialog.ui:375
-#. i18n: ectx: property (title), widget (QGroupBox, awayMessageGroup)
-#: rc.cpp:1304
-msgid "Away Messages"
-msgstr "離開訊息"
-
-#. i18n: file: src/identitydialog.ui:387
-#. i18n: ectx: property (text), widget (QLabel, awayLabel)
-#: rc.cpp:1307
-msgid "Away &message:"
-msgstr "離開訊息(&M)："
-
-#. i18n: file: src/identitydialog.ui:400
-#. i18n: ectx: property (text), widget (QLabel, unAwayLabel)
-#: rc.cpp:1310
-msgid "Re&turn message:"
-msgstr "回傳訊息(&T)："
-
-#. i18n: file: src/identitydialog.ui:430
-#. i18n: ectx: attribute (title), widget (QWidget, advancedWidget)
-#: rc.cpp:1313
-msgid "Advanced"
-msgstr "進階"
-
-#. i18n: file: src/identitydialog.ui:436
-#. i18n: ectx: property (text), widget (QLabel, sCommandLabel)
-#: rc.cpp:1316
-msgid "&Pre-shell command:"
-msgstr "預執行命令(&P)："
-
-#. i18n: file: src/identitydialog.ui:446
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_sCommandEdit)
-#: rc.cpp:1319
-msgid ""
-"Here you can enter a command to be executed before connection to server "
-"starts<br>If you have multiple servers in this identity this command will be "
-"executed for each server"
-msgstr ""
-"您可以在這裏輸入一條在連線伺服器前預先要執行的命令。<br>如果您以目前身分對應"
-"了多個伺服器，則此命令會為每個伺服器分別執行。"
-
-#. i18n: file: src/identitydialog.ui:459
-#. i18n: ectx: property (text), widget (QLabel, codecLabel)
-#: rc.cpp:1322
-msgid "&Encoding:"
-msgstr "編碼(&E)："
-
-#. i18n: file: src/identitydialog.ui:469
-#. i18n: ectx: property (whatsThis), widget (KComboBox, m_codecCBox)
-#: rc.cpp:1325
-msgid ""
-"This setting affects how characters you type are encoded for sending to the "
-"server. It also affects how messages are displayed. When you first open "
-"Konversation, it automatically retrieves this setting from the operating "
-"system. If you seem to be having trouble seeing other user's messages "
-"correctly, try changing this setting."
-msgstr ""
-"此設定會影響您輸入的內容會以哪種字元編碼傳送到伺服器，它同時也決定訊息以哪種"
-"編碼被顯示。每當您開啟 Konversation 時，它會自動根據目前系統環境取得相關設"
-"定。要是您在檢視其他使用者的訊息文字時出現問題，可嘗試變更此設定。"
-
-#. i18n: file: src/identitydialog.ui:476
-#. i18n: ectx: property (text), widget (QLabel, loginLabel)
-#: rc.cpp:1328
-msgid "I&dent:"
-msgstr "身分(&D)："
-
-#. i18n: file: src/identitydialog.ui:486
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_loginEdit)
-#: rc.cpp:1331
-msgid ""
-"When you connect, many servers query your computer for an IDENT response. If "
-"you computer is not running an IDENT server, this response is sent by "
-"Konversation. No spaces are allowed."
-msgstr ""
-"當您進行連線時，許多伺服器會向您的電腦請求一個 IDENT 應答。如果您的電腦不是"
-"以 IDENT 伺服器執行，此應答會由 Konversation 代為傳送。此處不允許留空。"
-
-#. i18n: file: src/identitydialog.ui:493
-#. i18n: ectx: property (text), widget (QLabel, quitLabel)
-#: rc.cpp:1334
-msgid "&Quit reason:"
-msgstr "離開原因(&Q)："
-
-#. i18n: file: src/identitydialog.ui:503
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_quitEdit)
-#: rc.cpp:1337
-msgid "Whenever you leave a server, this message is shown to others."
-msgstr "當您離開某伺服器時會被傳送到頻道內的訊息。"
-
-#. i18n: file: src/identitydialog.ui:506
-#. i18n: ectx: property (text), widget (KLineEdit, m_quitEdit)
-#. i18n: file: src/identitydialog.ui:526
-#. i18n: ectx: property (text), widget (KLineEdit, m_partEdit)
-#: rc.cpp:1340 rc.cpp:1349
-#, fuzzy
-#| msgid "Konversation"
-msgid "Konversation terminated."
-msgstr "Konversation"
-
-#. i18n: file: src/identitydialog.ui:513
-#. i18n: ectx: property (text), widget (QLabel, partLabel)
-#: rc.cpp:1343
-msgid "&Part reason:"
-msgstr "退出原因(&P)："
-
-#. i18n: file: src/identitydialog.ui:523
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_partEdit)
-#: rc.cpp:1346
-msgid "Whenever you leave a channel, this message is sent to the channel."
-msgstr "當您退出頻道時會被傳送到頻道內的訊息。"
-
-#. i18n: file: src/identitydialog.ui:533
-#. i18n: ectx: property (text), widget (QLabel, kickLabel)
-#: rc.cpp:1352
-msgid "&Kick reason:"
-msgstr "踢出原因(&K)："
-
-#. i18n: file: src/identitydialog.ui:543
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_kickEdit)
-#: rc.cpp:1355
-msgid ""
-"Whenever you are kicked from a channel (usually by an IRC operator), this "
-"message is sent to the channel."
-msgstr ""
-"當您從一個被頻道踢出時(一般是 IRC 管理員的行為)，此訊息會被傳送到頻道內。"
-
-#. i18n: file: src/identitydialog.ui:546
-#. i18n: ectx: property (text), widget (KLineEdit, m_kickEdit)
-#: rc.cpp:1358
-#, fuzzy
-#| msgid "Konversation"
-msgid "User terminated."
-msgstr "Konversation"
-
-#. i18n: file: src/config/konversation.kcfg:21
-#. i18n: ectx: label, entry, group (Appearance)
-#: rc.cpp:1363
-#, fuzzy
-#| msgid "Limit the size of the tab labels to fit all on screen"
-msgid "Limit the size of the tab labels to fit them all on screen"
-msgstr "限制分頁標籤的大小以符合螢幕"
-
-#. i18n: file: src/config/konversation.kcfg:226
-#. i18n: ectx: label, entry, group (Appearance)
-#: rc.cpp:1432
-msgid "Hide the scrollbar"
-msgstr "隱藏捲軸列"
-
-#. i18n: file: src/config/konversation.kcfg:232
-#. i18n: ectx: whatsthis, entry, group (General Options)
-#: rc.cpp:1435
-msgid ""
-"Enable if you want all the IRC input lines to check your spelling as you type"
-msgstr "如果您想要對每列輸入都自動執行拼寫檢查，請選取此項。"
-
-#. i18n: file: src/config/konversation.kcfg:241
-#. i18n: ectx: whatsthis, entry, group (General Options)
-#: rc.cpp:1438
-msgid ""
-"Enabling this will cause the input box to grow vertically when it fills up."
-msgstr "開啟此項會讓輸入盒隨著文字輸入而垂直擴展。"
-
-#. i18n: file: src/config/konversation.kcfg:275
-#. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:1453
-#, fuzzy
-#| msgid "Start with hidden mainwindow"
-msgid "Start with hidden main window"
-msgstr "啟動時隱藏主視窗"
-
-#. i18n: file: src/config/konversation.kcfg:329
-#. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:1476
-msgid "&Show real names next to nicknames"
-msgstr "在暱稱旁顯示真實姓名(&S)"
-
-#. i18n: file: src/config/konversation.kcfg:543
-#. i18n: ectx: label, entry (OpenWatchedNicksAtStartup), group (Notify List)
-#: rc.cpp:1560
-msgid "Open Watched Nicks tab at application startup"
-msgstr "在程式啟動時自動開啟暱稱監視清單"
-
-#. i18n: file: src/config/konversation.kcfg:827
-#. i18n: ectx: label, entry, group (Themes)
+#. i18n: file: src/config/tabnotifications_config.ui:87
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsMsgs)
 #: rc.cpp:1658
-msgid "Enable emoticons"
-msgstr "啟用表情"
+msgid "Message"
+msgstr "訊息"
 
-#. i18n: file: src/config/konversation.kcfg:831
-#. i18n: ectx: label, entry, group (Themes)
+#. i18n: file: src/config/tabnotifications_config.ui:143
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsPrivate)
 #: rc.cpp:1661
-msgid "Emoticons theme"
-msgstr "表情主題"
+msgid "Private message"
+msgstr "私密訊息"
+
+#. i18n: file: src/config/tabnotifications_config.ui:167
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsNick)
+#: rc.cpp:1664
+msgid "Current nick used"
+msgstr "目前使用的暱稱"
+
+#. i18n: file: src/config/tabnotifications_config.ui:223
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsEvents)
+#: rc.cpp:1667
+msgid "Channel events are mode changes or users joining/leaving a channel."
+msgstr "頻道事件是指模式變更或使用者加入/退出頻道等狀況。"
+
+#. i18n: file: src/config/tabnotifications_config.ui:226
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsEvents)
+#: rc.cpp:1670
+msgid "Channel event"
+msgstr "頻道事件"
+
+#. i18n: file: src/config/tabnotifications_config.ui:275
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox10)
+#. i18n: file: src/viewer/searchbarbase.ui:92
+#. i18n: ectx: property (text), widget (QToolButton, m_optionsButton)
+#: rc.cpp:1676 rc.cpp:1715
+#, fuzzy
+#| msgid "Exception"
+msgid "Options"
+msgstr "例外"
+
+#. i18n: file: src/config/tabnotifications_config.ui:281
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsOverride)
+#: rc.cpp:1679
+msgid ""
+"If you select this, the colors you chose in the Highlights preferences page "
+"will override the colors for \"Current nick used\" and \"Highlight\"."
+msgstr ""
+"如果您選取此項，您在高亮度屬性頁中選擇的顏色會覆寫「目前使用的暱稱」和「高亮"
+"度」所顯示的色彩。"
+
+#. i18n: file: src/config/tabnotifications_config.ui:284
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsOverride)
+#: rc.cpp:1682
+msgid "Give precedence to chat window highlight colors"
+msgstr "給與高亮度色的聊天視窗較高優先等級"
 
 #. i18n: file: src/linkaddressbook/linkaddressbookui_base.ui:41
 #. i18n: ectx: property (toolTip), widget (QPushButton, addAddresseeButton)

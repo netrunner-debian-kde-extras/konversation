@@ -489,7 +489,7 @@ void IRCView::doRawAppend(const QString& newLine)
     QTextCursor cursor = textCursor();
     bool checkSelection = false;
 
-    if(cursor.hasSelection() && cursor.atEnd())
+    if(cursor.hasSelection())
     {
         selectionLength = cursor.selectionEnd() - cursor.selectionStart();
         checkSelection = true;
@@ -1235,7 +1235,20 @@ void IRCView::contextMenuEvent(QContextMenuEvent* ev)
     }
     else
     {
+        KActionCollection* actionCollection = KonversationApplication::instance()->getMainWindow()->actionCollection();
+        KToggleAction* toggleMenuBarAction = static_cast<KToggleAction*>(actionCollection->action("options_show_menubar"));
+
+        if(toggleMenuBarAction && !toggleMenuBarAction->isChecked())
+        {
+            m_popup->insertAction(m_copyUrlClipBoard, toggleMenuBarAction);
+        }
+
         m_popup->exec(ev->globalPos());
+
+        if(toggleMenuBarAction && !toggleMenuBarAction->isChecked())
+        {
+            m_popup->removeAction(toggleMenuBarAction);
+        }
     }
 }
 
