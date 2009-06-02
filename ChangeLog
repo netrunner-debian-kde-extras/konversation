@@ -1,3 +1,51 @@
+Changes from 1.2-alpha2 to 1.2-alpha3:
+This third alpha fixes a fair amount of annoying bugs encountered in
+day-to-day usage, as well as a serious bug in handling NAMES messages
+from IRC servers. We've also made some UI changes that we'd like to
+get your feedback on: We've changed the default tab completion mode
+to "Cycle Nicklist", and we've removed the frame around the tab wid-
+get when using the listview version of the tab bar.
+
+
+* Worked around a Qt bug that has a text selection in the chat view that
+  includes the last line in the view grow to include the new text when
+  new text is appended to the view.
+* Fixed Konversation exposing various signals on D-Bus that it shouldn't
+  have.
+* Fixed a regression causing '/names #channel' to end up duplicating the
+  nickname list contents when already attending '#channel'.
+* When using Qt 4.5, Konversation no longer paints a frame around the UI
+  elements of a view (e.g. a channel) when using the listview version of
+  the tab bar. Feedback on this change is appreciated!
+* Fixed duplicated messages about DCC transfer failures in the chat view.
+* When the menu bar is hidden, the top-most item in the chat view context
+  menu is now the option to unhide it again.
+* Fixed the OSD disappearing also cancelling the system tray blinking no-
+  tification.
+* Fixed a crash on quit by D-Bus / by KDE session logout.
+* Fixed the tab completion nickname list sorting behavior for the "Shell-
+  like" completion modes. The behavior now matches the "Cycle Nicklist"
+  mode and the "Shell-like" modes of previous Konversation 1.x versions
+  again: The last active nick for the given prefix is at the top of the
+  list, with the rest of the list sorted alphabetically.
+* The default tab completion mode has been changed to "Cycle Nicklist".
+  Feedback on this change is appreciated!
+* Changed the bundled 'bug' script to perform a quick search with the
+  given parameter, rather than try to use it as a bug ID directly. The
+  resulting behavior is unchanged for a numerical parameter, but with
+  a string, much more useful.
+* The 'mail' script, which was disabled in the build system up until now,
+  is now getting installed again.
+* Fixed a bug causing the "Set Encoding" menu not to work.
+* Fixed a bug causing the bundled 'media' script not to work when used
+  to retrieve song information from Amarok 2 for a song which has any
+  of the following meta data fields not set: title, artist or album.
+* Fixed the 'Self' field of the DCC transfer details panel not showing
+  the port when available.
+* Fixed DCC transfers showing an average speed of 1 TB/s in their first
+  second.
+
+
 Changes from 1.2-alpha1 to 1.2-alpha2:
 After just under a week's worth of adding back some missing functiona-
 lity, polishing the interface and, of course, of fixing bugs, we've de-

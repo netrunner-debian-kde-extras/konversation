@@ -31,6 +31,7 @@ DccTransfer::DccTransfer( DccType dccType, QObject* parent ) : QObject(parent)
 
     m_status = Configuring;
 
+    m_ownPort = 0;
     m_fileSize = 0;
     m_resumed = false;
     m_reverse = false;
@@ -206,7 +207,8 @@ void DccTransfer::updateTransferMeters()
         for ( ; itTime != m_transferLogTime.end() ; ++itTime )
             (*itTime) = (*itTime) - shiftOffset;
 
-        if ( m_transferLogTime.count() >= 2 )
+        // The logTimer is 100ms, as 200ms is below 1sec we get "undefined" speed
+        if ( m_transferLogTime.count() >= 2 && m_timeTransferStarted.secsTo( QDateTime::currentDateTime()) > 0)
         {
             // FIXME: precision of average speed is too bad
             m_averageSpeed = (double)( m_transferringPosition - m_transferStartPosition ) / (double)m_timeTransferStarted.secsTo( QDateTime::currentDateTime() );
@@ -235,9 +237,14 @@ void DccTransfer::updateTransferMeters()
     else if ( m_status >= Done )
     {
         if ( m_timeTransferStarted.secsTo( m_timeTransferFinished ) > 1 )
+        {
             m_averageSpeed = (double)( m_transferringPosition - m_transferStartPosition ) / (double)m_timeTransferStarted.secsTo( m_timeTransferFinished );
+        }
         else
+        {
             m_averageSpeed = DccTransfer::InfiniteValue;
+        }
+
         m_currentSpeed = 0;
         if (m_status == Done)
         {

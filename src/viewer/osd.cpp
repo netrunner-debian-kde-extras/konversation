@@ -8,7 +8,7 @@
 /*
   Copyright (C) 2004 Christian Muehlhaeuser <chris@chris.de>
   Copyright (C) 2004-2006 Seb Ruiz <ruiz@kde.org>
-  Copyright (C) 2004, 2005 Max Howell
+  Copyright (C) 2004-2005 Max Howell <max.howell@methylblue.com>
   Copyright (C) 2005 Gábor Lehel <illissius@gmail.com>
   Copyright (C) 2008 Mark Kretschmann <kretschmann@kde.org>
 */
@@ -300,11 +300,6 @@ bool OSDWidget::event( QEvent *e )
 void OSDWidget::mousePressEvent( QMouseEvent* )
 {
     hide();
-}
-
-void OSDWidget::hideEvent( QHideEvent * )
-{
-    emit hidden();
 }
 
 void OSDWidget::unsetColors()

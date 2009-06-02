@@ -14,7 +14,6 @@
 */
 
 #include "application.h" ////// header renamed
-#include "mainwindow.h" ////// header renamed
 #include "connectionmanager.h"
 #include "awaymanager.h"
 #include "transfermanager.h" ////// header renamed
@@ -84,6 +83,8 @@ int KonversationApplication::newInstance()
 
     if (!mainWindow)
     {
+        connect(this, SIGNAL(aboutToQuit()), this, SLOT(prepareShutdown()));
+
         m_connectionManager = new ConnectionManager(this);
 
         m_awayManager = new AwayManager(this);
@@ -137,7 +138,7 @@ int KonversationApplication::newInstance()
 
         connect(mainWindow, SIGNAL(showQuickConnectDialog()), this, SLOT(openQuickConnectDialog()) );
         connect(Preferences::self(), SIGNAL(updateTrayIcon()), mainWindow, SLOT(updateTrayIcon()) );
-        connect(osd, SIGNAL(hidden()), mainWindow, SIGNAL(endNotification()));
+        connect(mainWindow, SIGNAL(endNotification()), osd, SLOT(hide()) );
         // take care of user style changes, setting back colors and stuff
 
         // apply GUI settings
@@ -171,9 +172,9 @@ int KonversationApplication::newInstance()
 
         // prepare dcop interface
         dbusObject = new Konversation::DBus(this);
-        QDBusConnection::sessionBus().registerObject("/irc", dbusObject, QDBusConnection::ExportNonScriptableSlots | QDBusConnection::ExportNonScriptableSignals);
+        QDBusConnection::sessionBus().registerObject("/irc", dbusObject, QDBusConnection::ExportNonScriptableSlots);
         identDBus = new Konversation::IdentDBus(this);
-        QDBusConnection::sessionBus().registerObject("/identity", identDBus, QDBusConnection::ExportNonScriptableSlots | QDBusConnection::ExportNonScriptableSignals);
+        QDBusConnection::sessionBus().registerObject("/identity", identDBus, QDBusConnection::ExportNonScriptableSlots);
         QDBusConnection::sessionBus().registerObject("/KIMIface", Konversation::Addressbook::self(), QDBusConnection::ExportNonScriptableSlots | QDBusConnection::ExportNonScriptableSignals);
 
         if (dbusObject)
@@ -218,12 +219,23 @@ KonversationApplication* KonversationApplication::instance()
 
 void KonversationApplication::prepareShutdown()
 {
-    m_awayManager->blockSignals(true);
-    delete m_awayManager;
+    if (mainWindow)
+        mainWindow->getViewContainer()->prepareShutdown();
 
-    m_connectionManager->quitServers();
-    m_connectionManager->blockSignals(true);
-    delete m_connectionManager;
+    if (m_awayManager)
+    {
+        m_awayManager->blockSignals(true);
+        delete m_awayManager;
+        m_awayManager = 0;
+    }
+
+    if (m_connectionManager)
+    {
+        m_connectionManager->quitServers();
+        m_connectionManager->blockSignals(true);
+        delete m_connectionManager;
+        m_connectionManager = 0;
+    }
 }
 
 void KonversationApplication::showQueueTuner(bool p)

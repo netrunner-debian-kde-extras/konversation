@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-05-25 11:46+0200\n"
+"POT-Creation-Date: 2009-05-31 11:52+0200\n"
 "PO-Revision-Date: 2006-09-02 11:52+0200\n"
 "Last-Translator: mvillarino <mvillarino@users.sourceforge.net>\n"
 "Language-Team: Galician <trasno@ceu.fi.udc.es>\n"
@@ -99,7 +99,7 @@ msgstr "Sen porto libre"
 msgid "Could not open a socket"
 msgstr "Non foi posíbel abrir un socket"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:97
+#. i18n: file: src/config/ignore_configui.ui:97
 #. i18n: ectx: property (text), widget (QCheckBox, chkDCC)
 #: src/dcc/chat.cpp:142 src/dcc/chat.cpp:152 src/dcc/chat.cpp:165
 #: src/dcc/chat.cpp:183 src/dcc/chat.cpp:188 src/dcc/chat.cpp:193
@@ -107,10 +107,11 @@ msgstr "Non foi posíbel abrir un socket"
 #: src/irc/inputfilter.cpp:386 src/irc/inputfilter.cpp:401
 #: src/irc/inputfilter.cpp:417 src/irc/inputfilter.cpp:425
 #: src/irc/server.cpp:1802 src/irc/server.cpp:1828 src/irc/server.cpp:1840
-#: src/irc/server.cpp:1941 src/irc/server.cpp:1992 src/irc/server.cpp:2048
-#: src/irc/server.cpp:2051 src/irc/server.cpp:2062 src/irc/server.cpp:2065
-#: src/irc/server.cpp:2079 src/irc/server.cpp:2086 src/settingsdialog.cpp:149
-#: src/viewer/ignorelistviewitem.cpp:47 rc.cpp:410
+#: src/irc/server.cpp:1941 src/irc/server.cpp:1992 src/irc/server.cpp:2049
+#: src/irc/server.cpp:2054 src/irc/server.cpp:2066 src/irc/server.cpp:2069
+#: src/irc/server.cpp:2083 src/irc/server.cpp:2090
+#: src/config/settingsdialog.cpp:149 src/viewer/ignorelistviewitem.cpp:47
+#: rc.cpp:765
 msgid "DCC"
 msgstr "DCC"
 
@@ -176,14 +177,14 @@ msgstr ""
 msgid "Connection broken, error (%1) %2."
 msgstr "Conexón quebrada, código de erro %1."
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:83
+#. i18n: file: src/config/ignore_configui.ui:83
 #. i18n: ectx: property (text), widget (QCheckBox, chkCTCP)
 #: src/dcc/chat.cpp:237 src/irc/outputfilter.cpp:757
 #: src/irc/inputfilter.cpp:272 src/irc/inputfilter.cpp:279
 #: src/irc/inputfilter.cpp:295 src/irc/inputfilter.cpp:302
 #: src/irc/inputfilter.cpp:434 src/irc/inputfilter.cpp:442
 #: src/irc/inputfilter.cpp:462 src/irc/inputfilter.cpp:513
-#: src/irc/inputfilter.cpp:541 src/viewer/ignorelistviewitem.cpp:46 rc.cpp:404
+#: src/irc/inputfilter.cpp:541 src/viewer/ignorelistviewitem.cpp:46 rc.cpp:759
 msgid "CTCP"
 msgstr "CTCP"
 
@@ -258,18 +259,18 @@ msgstr ""
 msgid "Awaiting remote user's acceptance"
 msgstr "Á espera da aceitazón do usuário remoto"
 
-#: src/dcc/transfersend.cpp:351 src/dcc/transferrecv.cpp:590
+#: src/dcc/transfersend.cpp:351 src/dcc/transferrecv.cpp:587
 #, fuzzy
 #| msgid "Could not accept the connection. (Socket Error)"
 msgid "Could not accept the connection (socket error.)"
 msgstr "Non foi posíbel aceitar a conexón. (Erro no Socket)"
 
-#: src/dcc/transfersend.cpp:447 src/dcc/transferrecv.cpp:604
+#: src/dcc/transfersend.cpp:447 src/dcc/transferrecv.cpp:601
 #, kde-format
 msgid "Socket error: %1"
 msgstr "Erro no socket: %1"
 
-#: src/dcc/transfersend.cpp:469 src/dcc/transferrecv.cpp:709
+#: src/dcc/transfersend.cpp:469 src/dcc/transferrecv.cpp:704
 msgid "Timed out"
 msgstr "Tempo-limite expirado"
 
@@ -344,7 +345,7 @@ msgstr "Non se atopou informazón detallada deste ficheiro."
 msgid "Send"
 msgstr "Enviar"
 
-#: src/dcc/transferpanelitem.cpp:266 src/dcc/transferrecv.cpp:84
+#: src/dcc/transferpanelitem.cpp:266 src/dcc/transferrecv.cpp:81
 msgid "Receive"
 msgstr "Receber"
 
@@ -389,34 +390,34 @@ msgstr "Interrompido"
 msgid "%1/sec"
 msgstr "%1/seg"
 
-#: src/dcc/transferrecv.cpp:188
+#: src/dcc/transferrecv.cpp:185
 msgid "The admin has restricted the right to receive files"
 msgstr "O administrador restrinxiu o direito a receber ficheiros"
 
-#: src/dcc/transferrecv.cpp:195
+#: src/dcc/transferrecv.cpp:192
 #, kde-format
 msgid "Invalid sender address (%1)"
 msgstr ""
 
-#: src/dcc/transferrecv.cpp:202
+#: src/dcc/transferrecv.cpp:199
 msgid "Unsupported negotiation (filesize=0)"
 msgstr "Negociazón non soportada (tamaño de ficheiro=0)"
 
-#: src/dcc/transferrecv.cpp:301
+#: src/dcc/transferrecv.cpp:298
 #, kde-format
 msgid "<b>Cannot create the folder.</b><br>Folder: %1<br>"
 msgstr "<b>Non foi posíbel criar o cartafol</b><br>Cartafol %1<br>"
 
-#: src/dcc/transferrecv.cpp:321
+#: src/dcc/transferrecv.cpp:318
 msgid "Could not create a KIO instance"
 msgstr "Non foi posíbel criar unha instancia KIO"
 
-#: src/dcc/transferrecv.cpp:390
+#: src/dcc/transferrecv.cpp:387
 #, kde-format
 msgid "<b>The file is used by another transfer.</b><br>%1<br>"
 msgstr "<b>O ficheiro está a ser usado noutra transferéncia.</b><br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:403
+#: src/dcc/transferrecv.cpp:400
 #, fuzzy, kde-format
 #| msgid ""
 #| "<b>A partial file exists.</b><br>%1<br>Size of the partial file: %2 "
@@ -434,52 +435,52 @@ msgstr[1] ""
 "<b>Existe un ficheiro parcial.</b><br>%1<br>Tamaño do ficheiro parcial: %2  "
 "bytes<br>"
 
-#: src/dcc/transferrecv.cpp:434
+#: src/dcc/transferrecv.cpp:431
 #, kde-format
 msgid "<b>The file already exists.</b><br>%1<br>"
 msgstr "<b>O ficheiro xa existe.</b><br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:441
+#: src/dcc/transferrecv.cpp:438
 #, kde-format
 msgid "<b>Could not open the file.<br>Error: %1</b><br>%2<br>"
 msgstr "<b>Non foi posíbel abrir o ficheiro.<br>Erro: %1</b><br>%2<br>"
 
-#: src/dcc/transferrecv.cpp:482
+#: src/dcc/transferrecv.cpp:479
 msgid ""
 "Could not send Reverse DCC SEND acknowledgement to the partner via the IRC "
 "server."
 msgstr ""
 
-#: src/dcc/transferrecv.cpp:489
+#: src/dcc/transferrecv.cpp:486
 #, fuzzy
 msgid "Waiting for connection"
 msgstr "Contrasinal da conexón"
 
-#: src/dcc/transferrecv.cpp:503
+#: src/dcc/transferrecv.cpp:500
 msgid "Waiting for remote host's acceptance"
 msgstr "Á espera da aceitazón do ordenador remoto"
 
-#: src/dcc/transferrecv.cpp:513
+#: src/dcc/transferrecv.cpp:510
 msgid ""
 "Could not send DCC RECV resume request to the partner via the IRC server."
 msgstr ""
 
-#: src/dcc/transferrecv.cpp:535
+#: src/dcc/transferrecv.cpp:532
 msgid "Unexpected response from remote host"
 msgstr "Resposta inesperada da máquina remota"
 
-#: src/dcc/transferrecv.cpp:672
+#: src/dcc/transferrecv.cpp:667
 #, fuzzy
 #| msgid "Transferring error"
 msgid "Transfer error"
 msgstr "Erro de transferéncia"
 
-#: src/dcc/transferrecv.cpp:688
+#: src/dcc/transferrecv.cpp:683
 #, kde-format
 msgid "KIO error: %1"
 msgstr "Erro do KIO: %1"
 
-#: src/dcc/transferpanel.cpp:46 src/viewer/viewcontainer.cpp:2055
+#: src/dcc/transferpanel.cpp:46 src/viewer/viewcontainer.cpp:2065
 msgid "DCC Status"
 msgstr "Estado de DCC"
 
@@ -632,12 +633,12 @@ msgstr "Mudar o Nom&e"
 msgid "Channel Settings for %1"
 msgstr "Opzóns do Canal para %1"
 
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:98
+#. i18n: file: src/config/nicklistbehavior_configui.ui:98
 #. i18n: ectx: property (text), widget (QTreeWidget, sortOrder)
 #: src/irc/channeloptionsdialog.cpp:47 src/irc/inputfilter.cpp:935
 #: src/irc/inputfilter.cpp:939 src/irc/inputfilter.cpp:2032
 #: src/irc/inputfilter.cpp:2081 src/irc/channelnick.cpp:221
-#: src/irc/channel.cpp:2048 rc.cpp:461
+#: src/irc/channel.cpp:2048 rc.cpp:1400
 msgid "Mode"
 msgstr "Modo"
 
@@ -897,16 +898,16 @@ msgid "Kick / Ban"
 msgstr "Expulsar / Proibir aceso"
 
 #: src/irc/nicklistview.cpp:132 src/irc/outputfilter.cpp:1325
-#: src/irc/outputfilter.cpp:1397 src/irc/server.cpp:3041 src/irc/query.cpp:96
+#: src/irc/outputfilter.cpp:1397 src/irc/server.cpp:3045 src/irc/query.cpp:96
 #: src/irc/query.cpp:396 src/irc/query.cpp:397 src/irc/channel.cpp:654
-#: src/irc/channel.cpp:655 src/preferences/warnings_preferences.cpp:120
-#: src/settingsdialog.cpp:137 src/viewer/ircview.cpp:878
+#: src/irc/channel.cpp:655 src/config/settingsdialog.cpp:137
+#: src/config/warnings_config.cpp:120 src/viewer/ircview.cpp:878
 msgid "Ignore"
 msgstr "Ignorar"
 
 #: src/irc/nicklistview.cpp:133 src/irc/query.cpp:97 src/irc/query.cpp:422
 #: src/irc/query.cpp:423 src/irc/channel.cpp:679 src/irc/channel.cpp:680
-#: src/preferences/warnings_preferences.cpp:121 src/viewer/ircview.cpp:879
+#: src/config/warnings_config.cpp:121 src/viewer/ircview.cpp:879
 msgid "Unignore"
 msgstr "Non Ignorar"
 
@@ -1234,12 +1235,12 @@ msgstr ""
 msgid "Usage: %1NOTICE <recipient> <message>"
 msgstr "Utilizazón: %1NOTICE <destinatário> <mensaxe>"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:104
+#. i18n: file: src/config/ignore_configui.ui:104
 #. i18n: ectx: property (text), widget (QCheckBox, chkNotice)
 #: src/irc/outputfilter.cpp:608 src/irc/outputfilter.cpp:1563
 #: src/irc/inputfilter.cpp:487 src/irc/inputfilter.cpp:566
 #: src/irc/inputfilter.cpp:731 src/irc/inputfilter.cpp:1257
-#: src/viewer/ignorelistviewitem.cpp:45 rc.cpp:413
+#: src/viewer/ignorelistviewitem.cpp:45 rc.cpp:768
 msgid "Notice"
 msgstr "Aviso"
 
@@ -1312,8 +1313,8 @@ msgstr "O nome do guión non pode conter \"../\"!"
 msgid "Usage: %1RAW [OPEN | CLOSE]"
 msgstr "Utilizazón: %1RAW [OPEN | CLOSE]"
 
-#: src/irc/outputfilter.cpp:1098 src/irc/server.cpp:2427
-#: src/irc/server.cpp:2445 src/viewer/ircview.cpp:372
+#: src/irc/outputfilter.cpp:1098 src/irc/server.cpp:2431
+#: src/irc/server.cpp:2449 src/viewer/ircview.cpp:372
 msgid "Notify"
 msgstr "Notificar"
 
@@ -1839,9 +1840,9 @@ msgstr "Usuários actualmente en %1: %2."
 
 #. i18n: file: src/identitydialog.ui:262
 #. i18n: ectx: attribute (title), widget (QWidget, awayWidget)
-#: src/irc/inputfilter.cpp:1307 src/irc/server.cpp:3314
-#: src/irc/server.cpp:3339 src/irc/server.cpp:3348 src/irc/nicksonline.cpp:270
-#: src/linkaddressbook/addressbook.cpp:112 rc.cpp:1267
+#: src/irc/inputfilter.cpp:1307 src/irc/server.cpp:3318
+#: src/irc/server.cpp:3343 src/irc/server.cpp:3352 src/irc/nicksonline.cpp:270
+#: src/linkaddressbook/addressbook.cpp:112 rc.cpp:385
 msgid "Away"
 msgstr "Ausente"
 
@@ -2068,11 +2069,11 @@ msgstr "%1 definido por %2 en %3"
 msgid "End of Ban List."
 msgstr "Fin da lista de expulsións."
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:90
+#. i18n: file: src/config/ignore_configui.ui:90
 #. i18n: ectx: property (text), widget (QCheckBox, chkChannel)
 #: src/irc/inputfilter.cpp:1914 src/irc/inputfilter.cpp:1918
 #: src/irc/channellistpanel.cpp:102 src/viewer/ignorelistviewitem.cpp:43
-#: rc.cpp:407
+#: rc.cpp:762
 msgid "Channel"
 msgstr "Canal"
 
@@ -2234,8 +2235,8 @@ msgstr ""
 msgid "Nickname error"
 msgstr "Erro do alcume"
 
-#: src/irc/server.cpp:1300 src/irc/server.cpp:3050 src/irc/server.cpp:3055
-#: src/application.cpp:270
+#: src/irc/server.cpp:1300 src/irc/server.cpp:3054 src/irc/server.cpp:3059
+#: src/application.cpp:282
 msgid "D-Bus"
 msgstr ""
 
@@ -2245,7 +2246,7 @@ msgid "Select File(s) to Send to %1"
 msgstr "Escolla os Ficheiros a Enviar para %1"
 
 #: src/irc/server.cpp:1806 src/irc/server.cpp:1832 src/irc/server.cpp:1844
-#: src/irc/server.cpp:1947 src/irc/server.cpp:1998 src/irc/server.cpp:2089
+#: src/irc/server.cpp:1947 src/irc/server.cpp:1998 src/irc/server.cpp:2093
 msgid "unknown size"
 msgstr "tamaño descoñecido"
 
@@ -2308,97 +2309,97 @@ msgctxt "%1 = file name, %2 = nickname"
 msgid "Received invalid reject request for \"%1\" from %2."
 msgstr "Recebiu-se de %2 unha petizón non válida para continuar con \"%1\"."
 
-#: src/irc/server.cpp:2049
+#: src/irc/server.cpp:2050
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of sender"
 msgid "Download of \"%1\" from %2 finished."
 msgstr "A obtenzón de \"%1\" de %2 rematou."
 
-#: src/irc/server.cpp:2052
+#: src/irc/server.cpp:2055
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of sender"
 msgid "Download of \"%1\" from %2 failed. Reason: %3."
 msgstr "A obtenzón de \"%1\" de %2 fallou. Motivo: %3."
 
-#: src/irc/server.cpp:2063
+#: src/irc/server.cpp:2067
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of recipient"
 msgid "Upload of \"%1\" to %2 finished."
 msgstr "O envio de \"%1\" para %2 rematou."
 
-#: src/irc/server.cpp:2066
+#: src/irc/server.cpp:2070
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of recipient"
 msgid "Upload of \"%1\" to %2 failed. Reason: %3."
 msgstr "O envio de \"%1\" para %2 fallou. Motivo: %3."
 
-#: src/irc/server.cpp:2080
+#: src/irc/server.cpp:2084
 #, kde-format
 msgctxt "%1 = file name, %2 nickname of recipient"
 msgid "Sending \"%1\" to %2..."
 msgstr "A enviar \"%1\" para %2..."
 
-#: src/irc/server.cpp:2087
+#: src/irc/server.cpp:2091
 #, kde-format
 msgctxt "%1 = file name, %2 = file size, %3 = nickname of sender"
 msgid "Downloading \"%1\" (%2) from %3..."
 msgstr "A obter \"%1\" (%2) de  %3..."
 
-#: src/irc/server.cpp:2428 src/notificationhandler.cpp:261
+#: src/irc/server.cpp:2432 src/notificationhandler.cpp:261
 #, kde-format
 msgid "%1 is online (%2)."
 msgstr "%1 está en liña (%2) ."
 
-#: src/irc/server.cpp:2445 src/notificationhandler.cpp:275
+#: src/irc/server.cpp:2449 src/notificationhandler.cpp:275
 #, kde-format
 msgid "%1 went offline (%2)."
 msgstr "%1 desconectou-se (%2)."
 
-#: src/irc/server.cpp:3037
+#: src/irc/server.cpp:3041
 #, kde-format
 msgid ""
 "You were invited by %1 to join channel %2. Do you accept the invitation?"
 msgstr "Foi convidado por %1 a unir-se ao canal %2. Desexa aceitar o convite?"
 
-#: src/irc/server.cpp:3039
+#: src/irc/server.cpp:3043
 msgid "Invitation"
 msgstr "Convite"
 
-#: src/irc/server.cpp:3040 src/irc/channel.cpp:1313 src/irc/channel.cpp:1330
+#: src/irc/server.cpp:3044 src/irc/channel.cpp:1313 src/irc/channel.cpp:1330
 #: src/viewer/ircview.cpp:391
 msgid "Join"
 msgstr "Entrar"
 
-#: src/irc/server.cpp:3050
+#: src/irc/server.cpp:3054
 #, kde-format
 msgid "Error: Could not find script \"%1\"."
 msgstr "Erro: Non foi posíbel atopar o guión \"%1\"."
 
-#: src/irc/server.cpp:3055
+#: src/irc/server.cpp:3059
 #, kde-format
 msgid "Error: Could not execute script \"%1\". Check file permissions."
 msgstr ""
 "Erro: non foi posíbel executar o guión \"%1\". Verifique os permisos do "
 "ficheiro."
 
-#: src/irc/server.cpp:3284
+#: src/irc/server.cpp:3288
 #, fuzzy
 msgid "Gone away for now"
 msgstr "Ausente por agora."
 
-#: src/irc/server.cpp:3314
+#: src/irc/server.cpp:3318
 msgid "You are now marked as being away."
 msgstr "Agora está marcado como ausente."
 
-#: src/irc/server.cpp:3339
+#: src/irc/server.cpp:3343
 msgid "You are no longer marked as being away."
 msgstr "Xa deixou de estar marcado como ausente."
 
-#: src/irc/server.cpp:3348
+#: src/irc/server.cpp:3352
 msgid "You are not marked as being away."
 msgstr "Non está marcado como ausente."
 
-#: src/irc/nicksonline.cpp:49 src/viewer/viewcontainer.cpp:2426
+#: src/irc/nicksonline.cpp:49 src/viewer/viewcontainer.cpp:2436
 msgid "Watched Nicks Online"
 msgstr "Alcumes vixiados en liña"
 
@@ -2532,8 +2533,8 @@ msgstr "Es&coller a Asociazón..."
 msgid "&Join Channel"
 msgstr "&Unir-se ao Canal"
 
-#: src/irc/channellistpanel.cpp:46 src/viewer/viewcontainer.cpp:2363
-#: src/viewer/viewcontainer.cpp:2416
+#: src/irc/channellistpanel.cpp:46 src/viewer/viewcontainer.cpp:2373
+#: src/viewer/viewcontainer.cpp:2426
 msgid "Channel List"
 msgstr "Lista de Canais"
 
@@ -2783,7 +2784,7 @@ msgstr "Manter Aberto"
 msgid "Do you want to stop ignoring %1?"
 msgstr "Desexa parar de ignorar a %1?"
 
-#: src/irc/query.cpp:608 src/irc/channel.cpp:2713 src/statuspanel.cpp:360
+#: src/irc/query.cpp:608 src/irc/channel.cpp:2721 src/statuspanel.cpp:360
 #, kde-format
 msgid "Identity Default ( %1 )"
 msgstr "Identidade Predefinida (%1)"
@@ -4115,267 +4116,267 @@ msgstr "Contrasinal da conexón"
 msgid "Use SSL for connection"
 msgstr "Usar SSL na conexón"
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:48
+#. i18n: file: src/config/quickbuttons_configui.ui:48
 #. i18n: ectx: property (text), widget (QPushButton, newButton)
-#: src/preferences/alias_preferences.cpp:171
-#: src/preferences/autoreplace_preferences.cpp:334
-#: src/preferences/quickbuttons_preferences.cpp:211
-#: src/preferences/watchednicknames_preferences.cpp:295
-#: src/preferences/highlight_preferences.cpp:251 rc.cpp:347
+#: src/config/watchednicknames_config.cpp:295
+#: src/config/quickbuttons_config.cpp:211 src/config/alias_config.cpp:171
+#: src/config/autoreplace_config.cpp:334 src/config/highlight_config.cpp:251
+#: rc.cpp:485
 msgid "New"
 msgstr "Novo"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:242
+#. i18n: file: src/config/highlight_configui.ui:242
 #. i18n: ectx: property (toolTip), widget (KPushButton, patternButton)
-#: src/preferences/autoreplace_preferences.cpp:53
-#: src/preferences/highlight_preferences.cpp:170 rc.cpp:879
+#: src/config/autoreplace_config.cpp:53 src/config/highlight_config.cpp:170
+#: rc.cpp:945
 msgid "Click to run Regular Expression Editor (KRegExpEditor)"
 msgstr "Prema para executar o Editor de Expresións Regulares (KRexExpEditor)"
 
-#: src/preferences/autoreplace_preferences.cpp:58
-#: src/preferences/highlight_preferences.cpp:175
+#: src/config/autoreplace_config.cpp:58 src/config/highlight_config.cpp:175
 #, fuzzy
 msgid "The Regular Expression Editor (KRegExpEditor) is not installed"
 msgstr "Prema para executar o Editor de Expresións Regulares (KRexExpEditor)"
 
-#: src/preferences/autoreplace_preferences.cpp:61
+#: src/config/autoreplace_config.cpp:61
 msgid "Outgoing"
 msgstr "Saínte"
 
-#: src/preferences/autoreplace_preferences.cpp:62
+#: src/config/autoreplace_config.cpp:62
 msgid "Incoming"
 msgstr "Entrante"
 
-#: src/preferences/autoreplace_preferences.cpp:63
+#: src/config/autoreplace_config.cpp:63
 msgid "Both"
 msgstr "Ambos os dous"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:57
+#: src/config/nicklistbehavior_config.cpp:57
 msgid "Normal Users"
 msgstr "Usuários Normais"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:58
+#: src/config/nicklistbehavior_config.cpp:58
 msgid "Voice (+v)"
 msgstr "Voz (+v)"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:59
+#: src/config/nicklistbehavior_config.cpp:59
 msgid "Halfops (+h)"
 msgstr "Sub-operadores (+h)"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:60
+#: src/config/nicklistbehavior_config.cpp:60
 msgid "Operators (+o)"
 msgstr "Operadores (+o)"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:61
+#: src/config/nicklistbehavior_config.cpp:61
 msgid "Channel Admins (+p)"
 msgstr "Administradores do Canal (+p)"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:62
+#: src/config/nicklistbehavior_config.cpp:62
 msgid "Channel Owners (+q)"
 msgstr "Donos do Canal (+q)"
 
-#: src/preferences/dcc_preferences.cpp:50
-msgid "Network Interface"
-msgstr "Interface de Rede"
-
-#: src/preferences/dcc_preferences.cpp:51
-msgid "Reply From IRC Server"
-msgstr "Resposta do Servidor IRC"
-
-#: src/preferences/dcc_preferences.cpp:52
-msgid "Specify Manually"
-msgstr "Especificar Manualmente"
-
-#: src/preferences/highlight_preferences.cpp:47
-msgid "Select Sound File"
-msgstr "Escoller o Ficheiro de Son"
-
-#: src/preferences/warnings_preferences.cpp:106
-msgid "Automatically join channel on invite"
-msgstr "Unir-se automaticamente ao canal ao ser convidado"
-
-#: src/preferences/warnings_preferences.cpp:107
-msgid "Notice that saving logfiles will save whole file"
-msgstr ""
-"Avisar de que ao guardar un ficheiro de rexisto guardará todo o ficheiro"
-
-#: src/preferences/warnings_preferences.cpp:108
-msgid "Ask before deleting logfile contents"
-msgstr "Perguntar antes de borrar contidos do ficheiro de rexisto"
-
-#: src/preferences/warnings_preferences.cpp:109
-msgid "Ask about closing queries after ignoring the nickname"
-msgstr ""
-"Perguntar acerca de pechar unha conversa privada após ignorar ao alcume"
-
-#: src/preferences/warnings_preferences.cpp:110
-#, fuzzy
-msgid "Ask before switching a connection to a network to a different server"
-msgstr "Perguntar antes de conectar a un servidor diferente da rede"
-
-#: src/preferences/warnings_preferences.cpp:111
-#, fuzzy
-msgid "Ask before creating another connection to the same network or server"
-msgstr "Perguntar antes de conectar a un servidor diferente da rede"
-
-#: src/preferences/warnings_preferences.cpp:112
-msgid "Close server tab"
-msgstr "Pechar a páxina do servidor"
-
-#: src/preferences/warnings_preferences.cpp:113
-msgid "Close channel tab"
-msgstr "Pechar a páxina do canal"
-
-#: src/preferences/warnings_preferences.cpp:114
-msgid "Close query tab"
-msgstr "Pechar a páxina da conversa privada"
-
-#: src/preferences/warnings_preferences.cpp:115
-msgid "The channel list can only be opened from server-aware tabs"
-msgstr ""
-"A lista de canais só pode ser aberta para páxinas que coñecen o servidor"
-
-#: src/preferences/warnings_preferences.cpp:116
-msgid "Warning on hiding the main window menu"
-msgstr "Avisar ao acochar o menu da fiestra principal"
-
-#: src/preferences/warnings_preferences.cpp:117
-msgid "Warning on high traffic with channel list"
-msgstr "Avisar se hai tránsito elevado na lista de canais"
-
-#: src/preferences/warnings_preferences.cpp:118
-msgid "Warning on pasting large portions of text"
-msgstr "Avisar ao apegar pedazos grandes de texto"
-
-#: src/preferences/warnings_preferences.cpp:119
-#, fuzzy
-msgid "Warning on quitting Konversation"
-msgstr "Avisar ao apegar pedazos grandes de texto"
-
-#: src/preferences/warnings_preferences.cpp:122
-msgid "Warn before quitting with active DCC file transfers"
-msgstr ""
-
-#: src/preferences/theme_preferences.cpp:174
+#: src/config/theme_config.cpp:174
 msgid "*.tar.gz *.tar.bz2 *.tar *.zip|Konversation Themes"
 msgstr "*.tar.gz *.tar.bz2 *.tar *.zip|Temas de Konversation"
 
-#: src/preferences/theme_preferences.cpp:176
+#: src/config/theme_config.cpp:176
 msgid "Select Theme Package"
 msgstr "Escolla o Pacote do Tema"
 
-#: src/preferences/theme_preferences.cpp:189
+#: src/config/theme_config.cpp:189
 msgid "Failed to Download Theme"
 msgstr "Non Foi Posíbel Obter o Tema"
 
-#: src/preferences/theme_preferences.cpp:204
-#: src/preferences/theme_preferences.cpp:225
+#: src/config/theme_config.cpp:204 src/config/theme_config.cpp:225
 msgid "Theme archive is invalid."
 msgstr "O arquivo do tema non é válido."
 
-#: src/preferences/theme_preferences.cpp:205
-#: src/preferences/theme_preferences.cpp:226
+#: src/config/theme_config.cpp:205 src/config/theme_config.cpp:226
 msgid "Cannot Install Theme"
 msgstr "Non Foi Posíbel Instalar o Tema"
 
-#: src/preferences/theme_preferences.cpp:251
+#: src/config/theme_config.cpp:251
 #, fuzzy, kde-format
 #| msgid "Do you want to remove %1 ?"
 msgid "Do you want to remove %1?"
 msgstr "Desexa realmente borrar %1?"
 
-#: src/preferences/theme_preferences.cpp:252
+#: src/config/theme_config.cpp:252
 msgid "Remove Theme"
 msgstr "Borrar o Tema"
 
-#: src/settingsdialog.cpp:50
+#: src/config/settingsdialog.cpp:50
 msgid "Interface"
 msgstr "Interface"
 
-#: src/settingsdialog.cpp:54
+#: src/config/settingsdialog.cpp:54
 msgid "Behavior"
 msgstr "Comportamento"
 
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:45
+#. i18n: file: src/config/tabnotifications_config.ui:45
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox5)
-#: src/settingsdialog.cpp:58 rc.cpp:792
+#: src/config/settingsdialog.cpp:58 rc.cpp:1649
 msgid "Notifications"
 msgstr "Notificazóns"
 
-#: src/settingsdialog.cpp:69 src/settingsdialog.cpp:115
+#: src/config/settingsdialog.cpp:69 src/config/settingsdialog.cpp:115
 msgid "Chat Window"
 msgstr "Fiestra de Conversazón"
 
-#: src/settingsdialog.cpp:73
+#: src/config/settingsdialog.cpp:73
 msgid "Nicklist Themes"
 msgstr "Temas da Lista de Alcumes"
 
-#: src/settingsdialog.cpp:81
+#: src/config/settingsdialog.cpp:81
 msgid "Colors"
 msgstr "Cores"
 
-#: src/settingsdialog.cpp:87
+#: src/config/settingsdialog.cpp:87
 #, fuzzy
 #| msgid "Focus"
 msgid "Fonts"
 msgstr "Foco"
 
-#: src/settingsdialog.cpp:91
+#: src/config/settingsdialog.cpp:91
 msgid "Quick Buttons"
 msgstr "Botóns Rápidos"
 
-#: src/settingsdialog.cpp:97 src/settingsdialog.cpp:155
+#: src/config/settingsdialog.cpp:97 src/config/settingsdialog.cpp:155
 #: src/viewer/viewtree.cpp:40
 msgid "Tabs"
 msgstr "Páxinas"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:19
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
 #. i18n: file: src/identitydialog.ui:179
 #. i18n: ectx: attribute (title), widget (QWidget, generalWidget)
-#: src/settingsdialog.cpp:103 rc.cpp:900 rc.cpp:1238
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:19
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
+#: src/config/settingsdialog.cpp:103 rc.cpp:356 rc.cpp:1311
 msgid "General"
 msgstr "Xeral"
 
-#: src/settingsdialog.cpp:109
+#: src/config/settingsdialog.cpp:109
 msgid "Connection"
 msgstr "Conexón"
 
-#: src/settingsdialog.cpp:119
+#: src/config/settingsdialog.cpp:119
 msgid "Nickname List"
 msgstr "Lista de Alcumes"
 
-#: src/settingsdialog.cpp:125
+#: src/config/settingsdialog.cpp:125
 msgid "Command Aliases"
 msgstr "Alcumes dos Comandos"
 
-#: src/settingsdialog.cpp:131
+#: src/config/settingsdialog.cpp:131
 msgid "Auto Replace"
 msgstr "Substituizón Automática"
 
-#: src/settingsdialog.cpp:146
+#: src/config/settingsdialog.cpp:146
 msgid "Logging"
 msgstr "Rexisto"
 
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:236
+#. i18n: file: src/config/tabnotifications_config.ui:236
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsHighlights)
-#: src/settingsdialog.cpp:159 rc.cpp:816
+#: src/config/settingsdialog.cpp:159 rc.cpp:1673
 msgid "Highlight"
 msgstr "Realces"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:149
+#. i18n: file: src/config/watchednicknames_configui.ui:149
 #. i18n: ectx: property (title), widget (QGroupBox, listGroupBox)
-#: src/settingsdialog.cpp:166 rc.cpp:597
+#: src/config/settingsdialog.cpp:166 rc.cpp:633
 msgid "Watched Nicknames"
 msgstr "Alcumes Vixiados"
 
-#: src/settingsdialog.cpp:172
+#: src/config/settingsdialog.cpp:172
 msgid "On Screen Display"
 msgstr "Visualizazón na pantalla"
 
-#: src/settingsdialog.cpp:178
+#: src/config/settingsdialog.cpp:178
 msgid "Warning Dialogs"
 msgstr "Diálogos de Aviso"
+
+#: src/config/warnings_config.cpp:106
+msgid "Automatically join channel on invite"
+msgstr "Unir-se automaticamente ao canal ao ser convidado"
+
+#: src/config/warnings_config.cpp:107
+msgid "Notice that saving logfiles will save whole file"
+msgstr ""
+"Avisar de que ao guardar un ficheiro de rexisto guardará todo o ficheiro"
+
+#: src/config/warnings_config.cpp:108
+msgid "Ask before deleting logfile contents"
+msgstr "Perguntar antes de borrar contidos do ficheiro de rexisto"
+
+#: src/config/warnings_config.cpp:109
+msgid "Ask about closing queries after ignoring the nickname"
+msgstr ""
+"Perguntar acerca de pechar unha conversa privada após ignorar ao alcume"
+
+#: src/config/warnings_config.cpp:110
+#, fuzzy
+msgid "Ask before switching a connection to a network to a different server"
+msgstr "Perguntar antes de conectar a un servidor diferente da rede"
+
+#: src/config/warnings_config.cpp:111
+#, fuzzy
+msgid "Ask before creating another connection to the same network or server"
+msgstr "Perguntar antes de conectar a un servidor diferente da rede"
+
+#: src/config/warnings_config.cpp:112
+msgid "Close server tab"
+msgstr "Pechar a páxina do servidor"
+
+#: src/config/warnings_config.cpp:113
+msgid "Close channel tab"
+msgstr "Pechar a páxina do canal"
+
+#: src/config/warnings_config.cpp:114
+msgid "Close query tab"
+msgstr "Pechar a páxina da conversa privada"
+
+#: src/config/warnings_config.cpp:115
+msgid "The channel list can only be opened from server-aware tabs"
+msgstr ""
+"A lista de canais só pode ser aberta para páxinas que coñecen o servidor"
+
+#: src/config/warnings_config.cpp:116
+msgid "Warning on hiding the main window menu"
+msgstr "Avisar ao acochar o menu da fiestra principal"
+
+#: src/config/warnings_config.cpp:117
+msgid "Warning on high traffic with channel list"
+msgstr "Avisar se hai tránsito elevado na lista de canais"
+
+#: src/config/warnings_config.cpp:118
+msgid "Warning on pasting large portions of text"
+msgstr "Avisar ao apegar pedazos grandes de texto"
+
+#: src/config/warnings_config.cpp:119
+#, fuzzy
+msgid "Warning on quitting Konversation"
+msgstr "Avisar ao apegar pedazos grandes de texto"
+
+#: src/config/warnings_config.cpp:122
+msgid "Warn before quitting with active DCC file transfers"
+msgstr ""
+
+#: src/config/configdialog.cpp:76
+msgid "Configure"
+msgstr ""
+
+#: src/config/dcc_config.cpp:50
+msgid "Network Interface"
+msgstr "Interface de Rede"
+
+#: src/config/dcc_config.cpp:51
+msgid "Reply From IRC Server"
+msgstr "Resposta do Servidor IRC"
+
+#: src/config/dcc_config.cpp:52
+msgid "Specify Manually"
+msgstr "Especificar Manualmente"
+
+#: src/config/highlight_config.cpp:47
+msgid "Select Sound File"
+msgstr "Escoller o Ficheiro de Son"
 
 #: src/config/preferences.cpp:58
 msgid "Default Identity"
@@ -4472,10 +4473,6 @@ msgstr ""
 msgid "Reset Values"
 msgstr ""
 
-#: src/configdialog.cpp:76
-msgid "Configure"
-msgstr ""
-
 #: src/statusbar.cpp:34 src/statusbar.cpp:78 src/statusbar.cpp:146
 msgid "Ready."
 msgstr "Listo."
@@ -4566,8 +4563,8 @@ msgstr[0] ""
 msgstr[1] ""
 "Non houbo nengunha resposta do servidor %2 desde hai mais de %1 segundos."
 
-#: src/konsolepanel.cpp:26 src/viewer/viewcontainer.cpp:1999
-#: src/viewer/viewcontainer.cpp:2000
+#: src/konsolepanel.cpp:26 src/viewer/viewcontainer.cpp:2009
+#: src/viewer/viewcontainer.cpp:2010
 msgid "Konsole"
 msgstr "Konsole"
 
@@ -4881,7 +4878,7 @@ msgstr "Novo contacto do Libro de Enderezos"
 msgid "Name the new entry:"
 msgstr "Nome do novo contacto:"
 
-#: src/urlcatcher.cpp:35 src/viewer/viewcontainer.cpp:2011
+#: src/urlcatcher.cpp:35 src/viewer/viewcontainer.cpp:2021
 msgid "URL Catcher"
 msgstr "Extractor de URLs"
 
@@ -4953,9 +4950,9 @@ msgstr "Prema para borrar toda a lista."
 msgid "Save URL List"
 msgstr "Guardar a Lista de URLs"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:111
+#. i18n: file: src/config/ignore_configui.ui:111
 #. i18n: ectx: property (text), widget (QCheckBox, chkQuery)
-#: src/viewer/ignorelistviewitem.cpp:44 rc.cpp:416
+#: src/viewer/ignorelistviewitem.cpp:44 rc.cpp:771
 msgid "Query"
 msgstr "Conversa Privada"
 
@@ -5068,7 +5065,7 @@ msgstr "&Copiar o URL"
 msgid "Select All"
 msgstr "&Escoller Todos os Ítens"
 
-#: src/viewer/ircview.cpp:146 src/viewer/viewcontainer.cpp:535
+#: src/viewer/ircview.cpp:146 src/viewer/viewcontainer.cpp:545
 msgid "Find Text..."
 msgstr "Procurar o Texto..."
 
@@ -5242,80 +5239,80 @@ msgstr ""
 "*** o %1\n"
 "\n"
 
-#: src/viewer/rawlog.cpp:28 src/viewer/viewcontainer.cpp:2148
+#: src/viewer/rawlog.cpp:28 src/viewer/viewcontainer.cpp:2158
 msgid "Raw Log"
 msgstr "Rexisto en Bruto"
 
-#: src/viewer/viewcontainer.cpp:204 src/mainwindow.cpp:287
+#: src/viewer/viewcontainer.cpp:204 src/mainwindow.cpp:286
 msgid "Move Tab Up"
 msgstr "Subir a páxina"
 
-#: src/viewer/viewcontainer.cpp:212 src/mainwindow.cpp:298
+#: src/viewer/viewcontainer.cpp:212 src/mainwindow.cpp:297
 msgid "Move Tab Down"
 msgstr "Baixar a páxina"
 
-#: src/viewer/viewcontainer.cpp:305 src/mainwindow.cpp:318
-#: src/mainwindow.cpp:330
+#: src/viewer/viewcontainer.cpp:305 src/mainwindow.cpp:317
+#: src/mainwindow.cpp:329
 msgid "Move Tab Left"
 msgstr "Mover a Páxina para a Esquerda"
 
-#: src/viewer/viewcontainer.cpp:313 src/mainwindow.cpp:309
-#: src/mainwindow.cpp:339
+#: src/viewer/viewcontainer.cpp:313 src/mainwindow.cpp:308
+#: src/mainwindow.cpp:338
 msgid "Move Tab Right"
 msgstr "Mover a Páxina para a Direita"
 
-#: src/viewer/viewcontainer.cpp:537
+#: src/viewer/viewcontainer.cpp:547
 msgid "Search for text in the current tab"
 msgstr "Procurar o texto na páxina actual"
 
-#: src/viewer/viewcontainer.cpp:555
+#: src/viewer/viewcontainer.cpp:565
 #, kde-format
 msgid "Channel &List for %1"
 msgstr "&Lista de Canais de %1"
 
-#: src/viewer/viewcontainer.cpp:561 src/mainwindow.cpp:207
+#: src/viewer/viewcontainer.cpp:571 src/mainwindow.cpp:206
 msgid "Channel &List"
 msgstr "&Lista de Canais"
 
-#: src/viewer/viewcontainer.cpp:570 src/mainwindow.cpp:190
-#: src/mainwindow.cpp:736
+#: src/viewer/viewcontainer.cpp:580 src/mainwindow.cpp:189
+#: src/mainwindow.cpp:733
 msgid "&Open Logfile"
 msgstr "Abrir &o Rexisto"
 
-#: src/viewer/viewcontainer.cpp:575
+#: src/viewer/viewcontainer.cpp:585
 #, kde-format
 msgid "&Open Logfile for %1"
 msgstr "Abrir &o Ficheiro de Rexisto de %1"
 
-#: src/viewer/viewcontainer.cpp:586
+#: src/viewer/viewcontainer.cpp:596
 #, kde-format
 msgid "&Channel Settings for %1..."
 msgstr "Configurazón do &Canal para %1..."
 
-#: src/viewer/viewcontainer.cpp:591 src/mainwindow.cpp:199
+#: src/viewer/viewcontainer.cpp:601 src/mainwindow.cpp:198
 msgid "&Channel Settings..."
 msgstr "Configuración do &Canal..."
 
-#: src/viewer/viewcontainer.cpp:1631
+#: src/viewer/viewcontainer.cpp:1641
 #, kde-format
 msgctxt "Default encoding"
 msgid "Default ( %1 )"
 msgstr "Por omisión (%1)"
 
-#: src/viewer/viewcontainer.cpp:1796
+#: src/viewer/viewcontainer.cpp:1806
 msgid "You can only search in text fields."
 msgstr "Só pode procurar en campos de texto."
 
-#: src/viewer/viewcontainer.cpp:1797
+#: src/viewer/viewcontainer.cpp:1807
 msgid "Find Text Information"
 msgstr "Procurar Informazón do Texto"
 
-#: src/viewer/viewcontainer.cpp:1990
+#: src/viewer/viewcontainer.cpp:2000
 #, kde-format
 msgid "Logfile of %1"
 msgstr "Ficheiro de rexisto de %1"
 
-#: src/viewer/viewcontainer.cpp:2389
+#: src/viewer/viewcontainer.cpp:2399
 msgid ""
 "Using this function may result in a lot of network traffic. If your "
 "connection is not fast enough, it is possible that your client will be "
@@ -5325,11 +5322,11 @@ msgstr ""
 "non é suficientemente rápida, é posíbel que o seu cliente sexa desconectado "
 "do servidor."
 
-#: src/viewer/viewcontainer.cpp:2393
+#: src/viewer/viewcontainer.cpp:2403
 msgid "Channel List Warning"
 msgstr "Aviso da Lista de Canais"
 
-#: src/viewer/viewcontainer.cpp:2412
+#: src/viewer/viewcontainer.cpp:2422
 #, fuzzy
 #| msgid ""
 #| "The channel list can only be opened from a query, channel or status "
@@ -5345,7 +5342,7 @@ msgstr ""
 msgid "Konversation - IRC Client"
 msgstr "Konversation - Cliente de IRC"
 
-#: src/viewer/osd.cpp:342
+#: src/viewer/osd.cpp:337
 msgid "OSD Preview - drag to reposition"
 msgstr "Antevisión OSD - arrastre para posicionar"
 
@@ -5394,217 +5391,217 @@ msgstr "Desconectar do Servidor"
 msgid "Disconnect"
 msgstr "Desconectar"
 
-#: src/mainwindow.cpp:132
+#: src/mainwindow.cpp:131
 msgid "&Server List..."
 msgstr "Lista de &Servidores..."
 
-#: src/mainwindow.cpp:135
+#: src/mainwindow.cpp:134
 msgid "Manage networks and servers"
 msgstr "Xestionar as redes e os servidores"
 
-#: src/mainwindow.cpp:140
+#: src/mainwindow.cpp:139
 msgid "Quick &Connect..."
 msgstr "Cone&xón Rápida..."
 
-#: src/mainwindow.cpp:143
+#: src/mainwindow.cpp:142
 msgid "Type in the address of a new IRC server to connect to"
 msgstr "Escreba o enderezo do novo servidor de IRC co que conectar-se"
 
-#: src/mainwindow.cpp:148
+#: src/mainwindow.cpp:147
 msgid "&Reconnect"
 msgstr "&Conectar de novo"
 
-#: src/mainwindow.cpp:151
+#: src/mainwindow.cpp:150
 msgid "Reconnect to the current server."
 msgstr "Conectar de novo do servidor actual."
 
-#: src/mainwindow.cpp:157
+#: src/mainwindow.cpp:156
 msgid "&Disconnect"
 msgstr "&Desconectar"
 
-#: src/mainwindow.cpp:160
+#: src/mainwindow.cpp:159
 msgid "Disconnect from the current server."
 msgstr "Desconectar do servidor actual."
 
-#: src/mainwindow.cpp:165
+#: src/mainwindow.cpp:164
 msgid "&Identities..."
 msgstr "&Identidades..."
 
-#: src/mainwindow.cpp:168
+#: src/mainwindow.cpp:167
 msgid "Manage your nick, away and other identity settings"
 msgstr "Xestionar o alcumes, auséncia e outros parámetros da identidade"
 
-#: src/mainwindow.cpp:173
+#: src/mainwindow.cpp:172
 msgid "&Watched Nicks Online"
 msgstr "Alcumes Conectados e &Vixiados "
 
-#: src/mainwindow.cpp:181
+#: src/mainwindow.cpp:180
 msgid "&DCC Status"
 msgstr "Estado de &DCC"
 
-#: src/mainwindow.cpp:194
+#: src/mainwindow.cpp:193
 msgid "Open the known history for this channel in a new tab"
 msgstr "Abre o histórico coñecido deste canal nunha páxina nova"
 
-#: src/mainwindow.cpp:202
+#: src/mainwindow.cpp:201
 msgid "Open the channel settings dialog for this tab"
 msgstr "Abre o diálogo de configurazón do canal desta páxina"
 
-#: src/mainwindow.cpp:211
+#: src/mainwindow.cpp:210
 msgid "Show a list of all the known channels on this server"
 msgstr "Mostra unha lista con todos os canais coñecidos neste servidor"
 
-#: src/mainwindow.cpp:216
+#: src/mainwindow.cpp:215
 msgid "&URL Catcher"
 msgstr "Extractor de &URLs"
 
-#: src/mainwindow.cpp:219
+#: src/mainwindow.cpp:218
 msgid "List all URLs that have been mentioned recently in a new tab"
 msgstr ""
 "Mostra todos os URLs que foron mencionados recentemente nunha páxina nova"
 
-#: src/mainwindow.cpp:226
+#: src/mainwindow.cpp:225
 msgid "New &Konsole"
 msgstr "Nova &Konsole"
 
-#: src/mainwindow.cpp:228
+#: src/mainwindow.cpp:227
 msgid "Open a terminal in a new tab"
 msgstr "Abre un terminal nunha páxina nova"
 
-#: src/mainwindow.cpp:254
+#: src/mainwindow.cpp:253
 msgid "&Next Tab"
 msgstr "Páxina Segui&nte"
 
-#: src/mainwindow.cpp:262
+#: src/mainwindow.cpp:261
 msgid "&Previous Tab"
 msgstr "&Páxina Anterior"
 
-#: src/mainwindow.cpp:270
+#: src/mainwindow.cpp:269
 msgid "Close &Tab"
 msgstr "Pe&char a Páxina"
 
-#: src/mainwindow.cpp:278
+#: src/mainwindow.cpp:277
 #, fuzzy
 msgid "Next Active Tab"
 msgstr "Páxina Segui&nte"
 
-#: src/mainwindow.cpp:353
+#: src/mainwindow.cpp:352
 #, fuzzy
 msgid "Rejoin Channel"
 msgstr "&Unir-se ao Canal"
 
-#: src/mainwindow.cpp:359 src/mainwindow.cpp:742
+#: src/mainwindow.cpp:358 src/mainwindow.cpp:739
 msgid "Enable Notifications"
 msgstr "Activar as Notificazóns"
 
-#: src/mainwindow.cpp:365
+#: src/mainwindow.cpp:364
 #, fuzzy
 msgid "Join on Connect"
 msgstr "&Unir-se ao Canal"
 
-#: src/mainwindow.cpp:370
+#: src/mainwindow.cpp:369
 #, fuzzy
 #| msgid "Default ( %1 )"
 msgid "Default"
 msgstr "Por omisión (%1) "
 
-#: src/mainwindow.cpp:375
+#: src/mainwindow.cpp:374
 msgid "Set Encoding"
 msgstr "Escoller a Codificazón"
 
-#: src/mainwindow.cpp:387
+#: src/mainwindow.cpp:386
 #, kde-format
 msgid "Go to Tab %1"
 msgstr "Ir para a Páxina %1"
 
-#: src/mainwindow.cpp:396
+#: src/mainwindow.cpp:395
 #, fuzzy
 msgid "Clear &Marker Lines"
 msgstr "&Limpar a Lista"
 
-#: src/mainwindow.cpp:399
+#: src/mainwindow.cpp:398
 #, fuzzy
 msgid "Clear marker lines in the current tab"
 msgstr "Limpa o contido da páxina actual"
 
-#: src/mainwindow.cpp:404
+#: src/mainwindow.cpp:403
 msgid "&Clear Window"
 msgstr "Limpar a &Xanela"
 
-#: src/mainwindow.cpp:407
+#: src/mainwindow.cpp:406
 msgid "Clear the contents of the current tab"
 msgstr "Limpa o contido da páxina actual"
 
-#: src/mainwindow.cpp:412
+#: src/mainwindow.cpp:411
 msgid "Clear &All Windows"
 msgstr "Limpar Tod&as as Xanelas"
 
-#: src/mainwindow.cpp:415
+#: src/mainwindow.cpp:414
 msgid "Clear the contents of all open tabs"
 msgstr "Limpa o contido de todas as xanelas"
 
-#: src/mainwindow.cpp:420
+#: src/mainwindow.cpp:419
 msgid "Global Away"
 msgstr ""
 
-#: src/mainwindow.cpp:428
+#: src/mainwindow.cpp:427
 msgid "&Join Channel..."
 msgstr "&Unir-se ao Canal..."
 
-#: src/mainwindow.cpp:448 src/mainwindow.cpp:744
+#: src/mainwindow.cpp:447 src/mainwindow.cpp:741
 msgid "&IRC Color..."
 msgstr "Cor de &IRC..."
 
-#: src/mainwindow.cpp:452
+#: src/mainwindow.cpp:451
 msgid "Set the color of your current IRC message"
 msgstr "Troca a cor da mensaxe de IRC actual"
 
-#: src/mainwindow.cpp:457 src/mainwindow.cpp:746
+#: src/mainwindow.cpp:456 src/mainwindow.cpp:743
 #, fuzzy
 msgid "&Marker Line"
 msgstr "Liña de &Recordatório"
 
-#: src/mainwindow.cpp:460
+#: src/mainwindow.cpp:459
 msgid "Insert a horizontal line into the current tab that only you can see"
 msgstr "Engade unha liña horizontal nesta páxina que só o usuário pode ver"
 
-#: src/mainwindow.cpp:465 src/mainwindow.cpp:745
+#: src/mainwindow.cpp:464 src/mainwindow.cpp:742
 msgid "Special &Character..."
 msgstr "&Carácter Especial..."
 
-#: src/mainwindow.cpp:469
+#: src/mainwindow.cpp:468
 msgid "Insert any character into your current IRC message"
 msgstr "Insere calquer carácter na mensaxe actual"
 
-#: src/mainwindow.cpp:474
+#: src/mainwindow.cpp:473
 msgid "Close &All Open Queries"
 msgstr "Pechar Todas as Conversas privadas &Abertas"
 
-#: src/mainwindow.cpp:483
+#: src/mainwindow.cpp:482
 msgid "Hide Nicklist"
 msgstr "Acochar a Lista de Alcumes"
 
-#: src/mainwindow.cpp:500
+#: src/mainwindow.cpp:499
 #, fuzzy
 #| msgid "Add to Bookmarks"
 msgid "Bookmarks"
 msgstr "Engadir aos Favoritos"
 
-#: src/mainwindow.cpp:551
+#: src/mainwindow.cpp:550
 msgid ""
 "<qt>You have active DCC file transfers. Are you sure you want to quit "
 "<b>Konversation</b>?</qt>"
 msgstr ""
 
-#: src/mainwindow.cpp:552 src/mainwindow.cpp:562
+#: src/mainwindow.cpp:551 src/mainwindow.cpp:561
 msgid "Confirm Quit"
 msgstr ""
 
-#: src/mainwindow.cpp:561
+#: src/mainwindow.cpp:560
 msgid "<qt>Are you sure you want to quit <b>Konversation</b>?</qt>"
 msgstr ""
 
-#: src/mainwindow.cpp:594
+#: src/mainwindow.cpp:593
 msgid ""
 "<p>Closing the main window will keep Konversation running in the system "
 "tray. Use <b>Quit</b> from the <b>Konversation</b> menu to quit the "
@@ -5614,11 +5611,11 @@ msgstr ""
 "bandexa do sistema. Utilice <b>Sair</b> no menu <b>Konversation</b> para "
 "sair do programa.</p>"
 
-#: src/mainwindow.cpp:596
+#: src/mainwindow.cpp:595
 msgid "Docking in System Tray"
 msgstr "Acoplaxe na Bandexa do Sistema"
 
-#: src/mainwindow.cpp:693
+#: src/mainwindow.cpp:690
 #, kde-format
 msgid ""
 "<qt>This will hide the menu bar completely. You can show it again by typing %"
@@ -5626,36 +5623,36 @@ msgid ""
 msgstr ""
 "<qt>Isto acochará a barra de menu. Pode mostrá-la de novo escrebendo %1.</qt>"
 
-#: src/mainwindow.cpp:728
+#: src/mainwindow.cpp:725
 msgid "Toggle Notifications"
 msgstr "Comutar Notificazóns"
 
-#: src/mainwindow.cpp:729
+#: src/mainwindow.cpp:726
 msgid "Toggle Away Globally"
 msgstr "Comutar o estado de auséncia para todos"
 
-#: src/mainwindow.cpp:730
+#: src/mainwindow.cpp:727
 msgid "Insert &IRC Color..."
 msgstr "Inserir cor no &IRC..."
 
-#: src/mainwindow.cpp:731
+#: src/mainwindow.cpp:728
 msgid "Insert Special &Character..."
 msgstr "Inserir &carácter especial..."
 
-#: src/mainwindow.cpp:732
+#: src/mainwindow.cpp:729
 #, fuzzy
 msgid "Insert &Marker Line"
 msgstr "Inserir Liña de &Recordatório"
 
-#: src/mainwindow.cpp:734
+#: src/mainwindow.cpp:731
 msgid "&Channel List"
 msgstr "Lista de &Canais"
 
-#: src/mainwindow.cpp:743
+#: src/mainwindow.cpp:740
 msgid "Set &Away Globally"
 msgstr "Pór como &Ausente Globalmente"
 
-#: src/mainwindow.cpp:755
+#: src/mainwindow.cpp:752
 msgid "Server List"
 msgstr "Lista de Servidores"
 
@@ -5948,7 +5945,7 @@ msgstr "Te&ma"
 #. i18n: ectx: property (text), widget (QTreeWidget, topicHistoryList)
 #. i18n: file: src/identitydialog.ui:211
 #. i18n: ectx: property (title), widget (KEditListBox, m_nicknameLBox)
-#: rc.cpp:116 rc.cpp:1252
+#: rc.cpp:116 rc.cpp:370
 msgid "Nickname"
 msgstr "Alcume"
 
@@ -6301,48 +6298,398 @@ msgstr ""
 msgid "Bytes (Encoded):"
 msgstr ""
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:33
-#. i18n: ectx: property (text), widget (QTreeWidget, buttonListView)
+#. i18n: file: src/identitydialog.ui:25
+#. i18n: ectx: property (text), widget (QLabel, label)
 #: rc.cpp:341
-msgid "Button Name"
-msgstr "Nome do Botón"
+msgid "&Identity:"
+msgstr "&Identidade:"
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:38
-#. i18n: ectx: property (text), widget (QTreeWidget, buttonListView)
+#. i18n: file: src/identitydialog.ui:65
+#. i18n: ectx: property (toolTip), widget (KPushButton, newBtn)
 #: rc.cpp:344
-msgid "Button Action"
-msgstr "Aczón do Botón"
+#, fuzzy
+#| msgid "Add..."
+msgid "Add"
+msgstr "Engadir..."
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:55
-#. i18n: ectx: property (text), widget (QPushButton, removeButton)
+#. i18n: file: src/identitydialog.ui:96
+#. i18n: ectx: property (toolTip), widget (KPushButton, copyBtn)
+#: rc.cpp:347
+msgid "Duplicate"
+msgstr "Duplicada"
+
+#. i18n: file: src/identitydialog.ui:127
+#. i18n: ectx: property (toolTip), widget (KPushButton, m_editBtn)
+#: rc.cpp:350
+msgid "Rename"
+msgstr "Mudar o Nome"
+
 #. i18n: file: src/identitydialog.ui:158
 #. i18n: ectx: property (toolTip), widget (KPushButton, m_delBtn)
-#: rc.cpp:350 rc.cpp:1235
+#. i18n: file: src/config/quickbuttons_configui.ui:55
+#. i18n: ectx: property (text), widget (QPushButton, removeButton)
+#: rc.cpp:353 rc.cpp:488
 #, fuzzy
 msgid "Remove"
 msgstr "Borrado"
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:85
+#. i18n: file: src/identitydialog.ui:187
+#. i18n: ectx: property (text), widget (QLabel, realNameLabel)
+#: rc.cpp:359
+msgid "&Real name:"
+msgstr "Nome ve&rdadeiro:"
+
+#. i18n: file: src/identitydialog.ui:197
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_realNameEdit)
+#: rc.cpp:362
+msgid ""
+"Enter your real name here. IRC is not intended to keep you hidden from your "
+"friends or enemies. Keep this in mind if you are tempted to behave "
+"maliciously. A fake \"real name\" can be a good way to mask your gender from "
+"all the nerds out there, but the PC you use can always be traced so you will "
+"never be truly anonymous."
+msgstr ""
+"Indique aqui o seu nome verdadeiro. IRC non está feito para acochá-lo dos "
+"seus amigos e inimigos. Teña isto en conta se tenta comportar-se  "
+"indebidamente. Un \"nome verdadeiro\" falso pode ser unha boa forma de "
+"ocultar o seu sexo aos anormais existentes por aí, pero o PC que use sempre "
+"pode ser localizado, polo que nunca será anónimo de todo."
+
+#. i18n: file: src/identitydialog.ui:208
+#. i18n: ectx: property (whatsThis), widget (KEditListBox, m_nicknameLBox)
+#: rc.cpp:365
+msgid ""
+"This is your list of nicknames. A nickname is the name that other users will "
+"know you by. You may use any name you desire. The first character must be a "
+"letter.\n"
+"\n"
+"Since nicknames must be unique across an entire IRC network, your desired "
+"name may be rejected by the server because someone else is already using "
+"that nickname. Enter alternate nicknames for yourself. If your first choice "
+"is rejected by the server, Konversation will try the alternate nicknames."
+msgstr ""
+"Esta é a súa lista de alcumes. un alcume é o nome polo cal os outros "
+"usuários o coñecerán. Pode usar calquer nome que desexe. O primeiro carácter "
+"deberá ser unha letra.\n"
+"\n"
+"Xa que os alcumes deben ser únicos en toda a rede IRC, o nome que desexe "
+"poderá ser rexeitado polo servidor, se alguén xa o estivese a usar. Indique "
+"alcumes alternativas para si. Se a sua primeira escolla fose rexeitada polo "
+"servidor, Konversation tentará cos alcumes alternativos."
+
+#. i18n: file: src/identitydialog.ui:218
+#. i18n: ectx: property (title), widget (QGroupBox, autoIdentifyGroup)
+#: rc.cpp:373
+msgid "Auto Identify"
+msgstr "Identificar Automaticamente"
+
+#. i18n: file: src/identitydialog.ui:224
+#. i18n: ectx: property (text), widget (QLabel, botLabel)
+#: rc.cpp:376
+msgid "Ser&vice:"
+msgstr "Ser&vizo:"
+
+#. i18n: file: src/identitydialog.ui:234
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_botEdit)
+#: rc.cpp:379
+#, fuzzy
+#| msgid ""
+#| "Service name can be <b><i>nickserv</i></b> or a network dependant name "
+#| "like  <b><i>nickserv@services.dal.net</i></b>"
+msgid ""
+"Service name can be <b><i>nickserv</i></b> or a network-dependent name such "
+"as <b><i>nickserv@services.dal.net</i></b>"
+msgstr ""
+"O nome do servizo pode ser <b><i>nickserv</i></b> ou un nome dependente da "
+"rede como <b><i>nickserv@services.dal.net</i></b>"
+
+#. i18n: file: src/identitydialog.ui:241
+#. i18n: ectx: property (text), widget (QLabel, passwordLabel)
+#: rc.cpp:382
+msgid "Pa&ssword:"
+msgstr "&Contrasinal:"
+
+#. i18n: file: src/identitydialog.ui:270
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_insertRememberLineOnAwayChBox)
+#: rc.cpp:388
+msgid ""
+"If you check this box, whenever you perform an <b>/away</b> command, a "
+"horizontal line will appear in the channel, marking the point where you went "
+"away. Other IRC users do not see this horizontal line."
+msgstr ""
+"Se sinala esta opzón, sempre que efectue un comando <b>/away</b>, aparecerá "
+"unha liña horizontal no canal, marcando o ponto en que se  ausentou. Os "
+"outros usuários de IRC non verán esta liña horizontal."
+
+#. i18n: file: src/identitydialog.ui:273
+#. i18n: ectx: property (text), widget (QCheckBox, m_insertRememberLineOnAwayChBox)
+#: rc.cpp:391
+msgid "Mark the last position in chat windows when going away"
+msgstr ""
+
+#. i18n: file: src/identitydialog.ui:280
+#. i18n: ectx: property (text), widget (QLabel, awayNicknameLabel)
+#: rc.cpp:394
+msgid "Away nickname:"
+msgstr "Alcume de auséncia:"
+
+#. i18n: file: src/identitydialog.ui:287
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_awayNickEdit)
+#: rc.cpp:397
+msgid ""
+"Enter a nickname that indicates you are away. Whenever you perform an <b>/"
+"away msg</b> command in any channel joined with this Identity, Konversation "
+"will automatically change your nickname to the Away nickname. Other users "
+"will be able to tell you are away from your computer. Whenever you perform "
+"an <b>/away</b> command in any channel in which you are away, Konversation "
+"will automatically change your nickname back to the original. If you do not "
+"wish to automatically change your nickname when going away, leave blank."
+msgstr ""
+"Escreba un alcume que indique que está ausente. Sempre que efectue un "
+"comando <b>/away mensaxe</b> en calquer canal ao que estexa conectado con "
+"esta identidade, Konversation mudará automaticamente o seu alcume para o "
+"alcume de auséncia. Os outros usuários poderán perceber que está ausente do "
+"seu ordenador. Sempre que execute un comando <b>/away</b> en calquer canal "
+"onde estexa ausente, Konversation mudará automaticamente o seu alcume de "
+"volta para o orixinal. Se non quer mudar automaticamente o seu alcume ao "
+"pasar para ausente, deixe-o en branco."
+
+#. i18n: file: src/identitydialog.ui:302
+#. i18n: ectx: property (whatsThis), widget (QGroupBox, automaticAwayGroup)
+#: rc.cpp:400
+msgid ""
+"If you check this box, Konversation will automatically set all connections "
+"using this Identity away when the screensaver starts or after a period of "
+"user inactivity configured below."
+msgstr ""
+
+#. i18n: file: src/identitydialog.ui:305
+#. i18n: ectx: property (title), widget (QGroupBox, automaticAwayGroup)
+#: rc.cpp:403
+msgid "Automatic Away"
+msgstr ""
+
+#. i18n: file: src/identitydialog.ui:323
+#. i18n: ectx: property (text), widget (QLabel, setAwayAfterLabel)
+#: rc.cpp:406
+msgid "Set away after"
+msgstr ""
+
+#. i18n: file: src/identitydialog.ui:346
+#. i18n: ectx: property (text), widget (QLabel, timeOfUserInactivityLabel)
+#: rc.cpp:409
+#, fuzzy
+msgid "of user inactivity"
+msgstr "Na actividade de pes&quisa"
+
+#. i18n: file: src/identitydialog.ui:353
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_automaticUnawayChBox)
+#: rc.cpp:412
+msgid ""
+"If you check this box, Konversation will automatically cancel away for all "
+"connections using this Identity when the screensaver stops or new user "
+"activity is detected."
+msgstr ""
+
+#. i18n: file: src/identitydialog.ui:356
+#. i18n: ectx: property (text), widget (QCheckBox, m_automaticUnawayChBox)
+#: rc.cpp:415
+#, fuzzy
+msgid "Automatically return on activity"
+msgstr "Continuar au&tomaticamente as transferéncias"
+
+#. i18n: file: src/identitydialog.ui:372
+#. i18n: ectx: property (whatsThis), widget (QGroupBox, awayMessageGroup)
+#: rc.cpp:419
+#, no-c-format
+msgid ""
+"If you check this box, Konversation will automatically send the Away message "
+"to all channels joined with this Identity. <b>%s</b> is replaced with "
+"<b>msg</b>. Whenever you perform an <b>/away</b> command, the Return message "
+"will be displayed in all channels joined with this Identity."
+msgstr ""
+"Se sinala esta opzón, Konversation enviará automaticamente a mensaxe de "
+"auséncia a todos os canais aos que estexa conectado con esta identidade. <b>%"
+"s</b> é substituido por <b>mensaxe</b>.  Sempre que execute un comando <b>/"
+"away</b>, a mensaxe de regreso será apresentada en todos os canais aos que "
+"se conecta-se con esta identidade."
+
+#. i18n: file: src/identitydialog.ui:375
+#. i18n: ectx: property (title), widget (QGroupBox, awayMessageGroup)
+#: rc.cpp:422
+#, fuzzy
+msgid "Away Messages"
+msgstr "Mensaxe de auséncia:"
+
+#. i18n: file: src/identitydialog.ui:387
+#. i18n: ectx: property (text), widget (QLabel, awayLabel)
+#: rc.cpp:425
+msgid "Away &message:"
+msgstr "&Mensaxe de auséncia:"
+
+#. i18n: file: src/identitydialog.ui:400
+#. i18n: ectx: property (text), widget (QLabel, unAwayLabel)
+#: rc.cpp:428
+msgid "Re&turn message:"
+msgstr "Mensaxe de re&greso:"
+
+#. i18n: file: src/identitydialog.ui:430
+#. i18n: ectx: attribute (title), widget (QWidget, advancedWidget)
+#: rc.cpp:431
+msgid "Advanced"
+msgstr "Avanzado"
+
+#. i18n: file: src/identitydialog.ui:436
+#. i18n: ectx: property (text), widget (QLabel, sCommandLabel)
+#: rc.cpp:434
+msgid "&Pre-shell command:"
+msgstr "&Pré-comando:"
+
+#. i18n: file: src/identitydialog.ui:446
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_sCommandEdit)
+#: rc.cpp:437
+msgid ""
+"Here you can enter a command to be executed before connection to server "
+"starts<br>If you have multiple servers in this identity this command will be "
+"executed for each server"
+msgstr ""
+"Aqui poderá indicar un comando a executar antes de conectar co "
+"servidor<br>Se tivese vários servidores nesta identidade, o comando  será "
+"executado para cada un deles"
+
+#. i18n: file: src/identitydialog.ui:459
+#. i18n: ectx: property (text), widget (QLabel, codecLabel)
+#: rc.cpp:440
+msgid "&Encoding:"
+msgstr "&Codificazón:"
+
+#. i18n: file: src/identitydialog.ui:469
+#. i18n: ectx: property (whatsThis), widget (KComboBox, m_codecCBox)
+#: rc.cpp:443
+msgid ""
+"This setting affects how characters you type are encoded for sending to the "
+"server. It also affects how messages are displayed. When you first open "
+"Konversation, it automatically retrieves this setting from the operating "
+"system. If you seem to be having trouble seeing other user's messages "
+"correctly, try changing this setting."
+msgstr ""
+"Esta opzón afecta a maneira de codificar os caracteres que escreba para "
+"enviar ao servidor. Tamén afecta a forma de apresentar as mensaxes. Cando o "
+"usuário abra Konversation por primeira vez, obtén esta opzón a partir do "
+"sistema operativo. Se tivese problemas para ver correctamente as mensaxes "
+"dos outros usuários, cámbie esta configurazón."
+
+#. i18n: file: src/identitydialog.ui:476
+#. i18n: ectx: property (text), widget (QLabel, loginLabel)
+#: rc.cpp:446
+msgid "I&dent:"
+msgstr "I&dent:"
+
+#. i18n: file: src/identitydialog.ui:486
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_loginEdit)
+#: rc.cpp:449
+msgid ""
+"When you connect, many servers query your computer for an IDENT response. If "
+"you computer is not running an IDENT server, this response is sent by "
+"Konversation. No spaces are allowed."
+msgstr ""
+"Cando se conecta, vários servidores tentarán obter do seu ordenador unha "
+"resposta de IDENT. Se o seu ordenador non estivese a executar un servidor de "
+"IDENT, esta resposta é enviada por Konversation. Non pode conter espazos."
+
+#. i18n: file: src/identitydialog.ui:493
+#. i18n: ectx: property (text), widget (QLabel, quitLabel)
+#: rc.cpp:452
+#, fuzzy
+msgid "&Quit reason:"
+msgstr "Motivo da &partida:"
+
+#. i18n: file: src/identitydialog.ui:503
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_quitEdit)
+#: rc.cpp:455
+#, fuzzy
+msgid "Whenever you leave a server, this message is shown to others."
+msgstr "Sempre que abandone un canal, esta mensaxe é enviada para el."
+
+#. i18n: file: src/identitydialog.ui:506
+#. i18n: ectx: property (text), widget (KLineEdit, m_quitEdit)
+#. i18n: file: src/identitydialog.ui:526
+#. i18n: ectx: property (text), widget (KLineEdit, m_partEdit)
+#: rc.cpp:458 rc.cpp:467
+#, fuzzy
+#| msgid "Konversation"
+msgid "Konversation terminated."
+msgstr "Konversation"
+
+#. i18n: file: src/identitydialog.ui:513
+#. i18n: ectx: property (text), widget (QLabel, partLabel)
+#: rc.cpp:461
+msgid "&Part reason:"
+msgstr "Motivo da &partida:"
+
+#. i18n: file: src/identitydialog.ui:523
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_partEdit)
+#: rc.cpp:464
+msgid "Whenever you leave a channel, this message is sent to the channel."
+msgstr "Sempre que abandone un canal, esta mensaxe é enviada para el."
+
+#. i18n: file: src/identitydialog.ui:533
+#. i18n: ectx: property (text), widget (QLabel, kickLabel)
+#: rc.cpp:470
+msgid "&Kick reason:"
+msgstr "Motivo da e&xpulsión:"
+
+#. i18n: file: src/identitydialog.ui:543
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_kickEdit)
+#: rc.cpp:473
+msgid ""
+"Whenever you are kicked from a channel (usually by an IRC operator), this "
+"message is sent to the channel."
+msgstr ""
+"Sempre que sexa expulsado dun canal (normalmente por un operador de IRC), "
+"esta mensaxe é enviada para dito canal."
+
+#. i18n: file: src/identitydialog.ui:546
+#. i18n: ectx: property (text), widget (KLineEdit, m_kickEdit)
+#: rc.cpp:476
+#, fuzzy
+#| msgid "Konversation"
+msgid "User terminated."
+msgstr "Konversation"
+
+#. i18n: file: src/config/quickbuttons_configui.ui:33
+#. i18n: ectx: property (text), widget (QTreeWidget, buttonListView)
+#: rc.cpp:479
+msgid "Button Name"
+msgstr "Nome do Botón"
+
+#. i18n: file: src/config/quickbuttons_configui.ui:38
+#. i18n: ectx: property (text), widget (QTreeWidget, buttonListView)
+#: rc.cpp:482
+msgid "Button Action"
+msgstr "Aczón do Botón"
+
+#. i18n: file: src/config/quickbuttons_configui.ui:85
 #. i18n: ectx: property (text), widget (QLabel, nameLabel)
-#: rc.cpp:353
+#: rc.cpp:491
 msgid "Button name:"
 msgstr "Nome do botón:"
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:111
+#. i18n: file: src/config/quickbuttons_configui.ui:111
 #. i18n: ectx: property (text), widget (QLabel, actionLabel)
-#: rc.cpp:356
+#: rc.cpp:494
 msgid "Button action:"
 msgstr "Aczón do botón:"
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:136
+#. i18n: file: src/config/quickbuttons_configui.ui:136
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
-#: rc.cpp:359
+#: rc.cpp:497
 msgid "Available Placeholders"
 msgstr "Meta-palabras disponíbeis"
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:153
+#. i18n: file: src/config/quickbuttons_configui.ui:153
 #. i18n: ectx: property (text), widget (QLabel, placeholderHelpLabel)
-#: rc.cpp:363
+#: rc.cpp:501
 #, fuzzy, no-c-format
 msgid ""
 "%o: Current nickname\n"
@@ -6359,333 +6706,162 @@ msgstr ""
 "%s<term>%: termo usado para separar os alcumes en %u\n"
 "%n:Enviar comando directamente ao servidor no canto de á sua liña de entrada"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:25
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoReconnect)
-#: rc.cpp:371
-msgid "Enable Automatic Reconnect"
-msgstr "Activar a Reconexón Automática"
+#. i18n: file: src/config/osd_configui.ui:35
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOSD)
+#: rc.cpp:509
+msgid "&Enable On Screen Display"
+msgstr "A&ctivar o OSD"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:34
-#. i18n: ectx: property (text), widget (QLabel, reconnectDelayLabel)
-#: rc.cpp:374
-#, fuzzy
-msgid "Reconnect delay:"
-msgstr "Tempo-limite para nova conexón:"
+#. i18n: file: src/config/osd_configui.ui:45
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
+#: rc.cpp:512
+msgid "On &Screen Display"
+msgstr "Vi&sualizazón na Pantalla"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:63
+#. i18n: file: src/config/osd_configui.ui:54
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDDrawShadow)
+#: rc.cpp:515
+msgid "&Draw shadows"
+msgstr "&Debuxar sombras"
+
+#. i18n: file: src/config/osd_configui.ui:67
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:377
-msgid "Reconnection attempts:"
-msgstr "Tentativas de nova conexón:"
+#: rc.cpp:518
+msgid "OSD font:"
+msgstr "Tipo de letra do OSD:"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:85
-#. i18n: ectx: property (suffix), widget (KIntNumInput, kcfg_ReconnectDelay)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:131
-#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_NotifyDelay)
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:271
-#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_AutoWhoContinuousInterval)
-#: rc.cpp:380 rc.cpp:594 rc.cpp:968
-msgid " seconds"
-msgstr " segundos"
+#. i18n: file: src/config/osd_configui.ui:135
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
+#: rc.cpp:521
+msgid "Show &OSD Message"
+msgstr "M&ostrar Mensaxe OSD"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:98
-#. i18n: ectx: property (specialValueText), widget (KIntNumInput, kcfg_ReconnectCount)
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:104
-#. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_ScrollbackMax)
-#: rc.cpp:383 rc.cpp:938
-msgid "Unlimited"
-msgstr "Sen Limite"
+#. i18n: file: src/config/osd_configui.ui:141
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowOwnNick)
+#: rc.cpp:524
+msgid "&If own nick appears in channel message"
+msgstr "Se o própr&io nome aparece na mensaxe do canal"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:140
-#. i18n: ectx: property (title), widget (QGroupBox, debugGBox)
-#: rc.cpp:386
-msgid "Debug"
-msgstr "Depurazón"
+#. i18n: file: src/config/osd_configui.ui:148
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowChannel)
+#: rc.cpp:527
+msgid "On an&y channel message"
+msgstr "En calquer me&nsaxe do canal"
 
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:146
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_RawLog)
-#: rc.cpp:389
-msgid "Show raw &log window when connecting"
-msgstr "Mostrar a fiestra de rexistos en bruto no início da &conexón"
+#. i18n: file: src/config/osd_configui.ui:155
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowQuery)
+#: rc.cpp:530
+msgid "On &query activity"
+msgstr "Na actividade de pes&quisa"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:45
-#. i18n: ectx: property (text), widget (QTreeWidget, ignoreListView)
-#: rc.cpp:392
-msgid "Pattern"
-msgstr "Padrón"
+#. i18n: file: src/config/osd_configui.ui:162
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowChannelEvent)
+#: rc.cpp:533
+msgid "On &Join/Part events"
+msgstr "Nos eventos de U&nión/Saída"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:50
-#. i18n: ectx: property (text), widget (QTreeWidget, ignoreListView)
-#: rc.cpp:395
-msgid "Type"
-msgstr "Tipo"
+#. i18n: file: src/config/osd_configui.ui:175
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_OSDUseCustomColors)
+#: rc.cpp:536
+msgid "Enable Custom Colors"
+msgstr "Activar as Cores Personalizadas"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:58
+#. i18n: file: src/config/osd_configui.ui:187
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:398
-msgid "Pattern:"
-msgstr "Padrón:"
+#: rc.cpp:539
+msgid "Te&xt color:"
+msgstr "Cor do te&xto:"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:77
-#. i18n: ectx: property (title), widget (QGroupBox, grpMessageTypes)
-#: rc.cpp:401
-msgid "Message Types"
-msgstr "Tipos de Mensaxes"
+#. i18n: file: src/config/osd_configui.ui:200
+#. i18n: ectx: property (text), widget (QLabel, textLabel3)
+#. i18n: file: src/viewer/irccolorchooserui.ui:122
+#. i18n: ectx: property (text), widget (QLabel, m_bgColorLbl)
+#: rc.cpp:542 rc.cpp:1775
+msgid "&Background color:"
+msgstr "Cor de &fondo:"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:123
-#. i18n: ectx: property (text), widget (KPushButton, newButton)
-#. i18n: file: src/preferences/alias_preferencesui.ui:51
+#. i18n: file: src/config/osd_configui.ui:249
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
+#: rc.cpp:545
+msgid "O&ther Settings"
+msgstr "Ou&tras Configurazóns"
+
+#. i18n: file: src/config/osd_configui.ui:255
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#: rc.cpp:548
+msgid "&Duration:"
+msgstr "&Durazón:"
+
+#. i18n: file: src/config/osd_configui.ui:268
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
+#: rc.cpp:551
+msgid "S&creen:"
+msgstr "P&antalla:"
+
+#. i18n: file: src/config/osd_configui.ui:281
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_OSDDuration)
+#: rc.cpp:554
+msgid " ms"
+msgstr " ms"
+
+#. i18n: file: src/config/alias_configui.ui:36
+#. i18n: ectx: property (text), widget (QTreeWidget, aliasListView)
+#: rc.cpp:557
+msgid "Alias"
+msgstr "Nome Alternativo"
+
+#. i18n: file: src/config/alias_configui.ui:41
+#. i18n: ectx: property (text), widget (QTreeWidget, aliasListView)
+#: rc.cpp:560
+msgid "Replacement"
+msgstr "Substituizón"
+
+#. i18n: file: src/config/alias_configui.ui:51
 #. i18n: ectx: property (text), widget (QPushButton, newButton)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:251
+#. i18n: file: src/config/watchednicknames_configui.ui:251
 #. i18n: ectx: property (text), widget (KPushButton, newButton)
-#. i18n: file: src/preferences/highlight_preferencesui.ui:162
+#. i18n: file: src/config/ignore_configui.ui:123
 #. i18n: ectx: property (text), widget (KPushButton, newButton)
-#: rc.cpp:419 rc.cpp:434 rc.cpp:630 rc.cpp:870
+#. i18n: file: src/config/highlight_configui.ui:162
+#. i18n: ectx: property (text), widget (KPushButton, newButton)
+#: rc.cpp:563 rc.cpp:666 rc.cpp:774 rc.cpp:936
 msgid "&New"
 msgstr "&Novo"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:130
-#. i18n: ectx: property (text), widget (KPushButton, removeButton)
-#. i18n: file: src/preferences/alias_preferencesui.ui:58
+#. i18n: file: src/config/alias_configui.ui:58
 #. i18n: ectx: property (text), widget (QPushButton, removeButton)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:270
+#. i18n: file: src/config/watchednicknames_configui.ui:270
 #. i18n: ectx: property (text), widget (KPushButton, removeButton)
-#. i18n: file: src/preferences/highlight_preferencesui.ui:175
+#. i18n: file: src/config/ignore_configui.ui:130
 #. i18n: ectx: property (text), widget (KPushButton, removeButton)
-#: rc.cpp:422 rc.cpp:437 rc.cpp:636 rc.cpp:873
+#. i18n: file: src/config/highlight_configui.ui:175
+#. i18n: ectx: property (text), widget (KPushButton, removeButton)
+#: rc.cpp:566 rc.cpp:672 rc.cpp:777 rc.cpp:939
 #, fuzzy
 msgid "&Remove"
 msgstr "Borrado"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:137
-#. i18n: ectx: property (text), widget (KPushButton, removeAllButton)
-#: rc.cpp:425
-msgid "Remove &All"
-msgstr "Borrar &todo"
-
-#. i18n: file: src/preferences/alias_preferencesui.ui:36
-#. i18n: ectx: property (text), widget (QTreeWidget, aliasListView)
-#: rc.cpp:428
-msgid "Alias"
-msgstr "Nome Alternativo"
-
-#. i18n: file: src/preferences/alias_preferencesui.ui:41
-#. i18n: ectx: property (text), widget (QTreeWidget, aliasListView)
-#: rc.cpp:431
-msgid "Replacement"
-msgstr "Substituizón"
-
-#. i18n: file: src/preferences/alias_preferencesui.ui:88
+#. i18n: file: src/config/alias_configui.ui:88
 #. i18n: ectx: property (text), widget (QLabel, aliasLabel)
-#: rc.cpp:440
+#: rc.cpp:569
 msgid "Alias:"
 msgstr "Alcume:"
 
-#. i18n: file: src/preferences/alias_preferencesui.ui:108
+#. i18n: file: src/config/alias_configui.ui:108
 #. i18n: ectx: property (text), widget (QLabel, replacementLabel)
-#: rc.cpp:443
+#: rc.cpp:572
 msgid "Replacement:"
 msgstr "Substituizón:"
 
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:26
-#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:446
-msgid "&Command to be executed on double click:"
-msgstr "&Comandos a executar ao facer duplo-click:"
+#. i18n: file: src/config/warnings_configui.ui:29
+#. i18n: ectx: property (text), widget (QTreeWidget, dialogListView)
+#: rc.cpp:575
+msgid "Warning Dialogs to Show"
+msgstr "Xanelas de Aviso a Mostrar"
 
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:39
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortCaseInsensitive)
-#: rc.cpp:449
-msgid "Sort case &insensitive"
-msgstr "Ordenar sen d&istinguir capitalizazón"
-
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:46
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortByActivity)
-#: rc.cpp:452
-#, fuzzy
-msgid "Sort by &activity"
-msgstr "Na actividade de pes&quisa"
-
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:59
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortByStatus)
-#: rc.cpp:455
-msgid "Sort b&y user status"
-msgstr "Ordenar polo e&stado do usuário"
-
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:72
-#. i18n: ectx: property (text), widget (QLabel, orderHintLabel)
-#: rc.cpp:458
-msgid "(Reorder nick sorting order by drag and drop)"
-msgstr "(Ordene de novo os alcumes arrastando e soltando) "
-
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:103
-#. i18n: ectx: property (text), widget (QTreeWidget, sortOrder)
-#: rc.cpp:464
-msgid "Explanation"
-msgstr "Explicazón"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, Theme_ConfigUI)
-#: rc.cpp:467
-msgid "Theme_Config"
-msgstr "Theme_Config"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:28
-#. i18n: ectx: property (text), widget (QPushButton, installButton)
-#: rc.cpp:470
-msgid "I&nstall Theme..."
-msgstr "I&nstalar Tema..."
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:38
-#. i18n: ectx: property (text), widget (QPushButton, removeButton)
-#: rc.cpp:473
-msgid "&Remove Theme"
-msgstr "&Borrar o Tema"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:78
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel1)
-#: rc.cpp:476
-msgid "Icon for normal users"
-msgstr "Ícone para usuários normais"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:97
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel2)
-#: rc.cpp:479
-msgid "Icon for away users"
-msgstr "Ícone para usuários ausentes"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:113
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel3)
-#: rc.cpp:482
-msgid "Icon for users with voice"
-msgstr "Ícone para usuários con voz"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:129
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel4)
-#: rc.cpp:485
-#, fuzzy
-msgid "Icon for users with half-operator privileges"
-msgstr "Ícone para usuários con priviléxios de sub-operador"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:145
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel5)
-#: rc.cpp:488
-#, fuzzy
-msgid "Icon for users with operator privileges"
-msgstr "Ícone para usuários con priviléxios de operador"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:161
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel6)
-#: rc.cpp:491
-msgid "Icon for users with admin privileges"
-msgstr "Ícone para usuários con priviléxios de administrador"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:177
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel7)
-#: rc.cpp:494
-msgid "Icon for users with owner privileges"
-msgstr "Ícone para usuários con priviléxios de dono"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:202
-#. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:497
-msgid "Preview:"
-msgstr "Antevisión:"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:17
-#. i18n: ectx: property (windowTitle), widget (QWidget, Tabs_PreferencesUI)
-#: rc.cpp:500
-msgid "TabBar_Config"
-msgstr "TabBar_Config"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:26
-#. i18n: ectx: property (title), widget (QGroupBox, lookGBox)
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:19
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
-#: rc.cpp:503 rc.cpp:783
-msgid "Look"
-msgstr "Aparéncia"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:34
-#. i18n: ectx: property (text), widget (QLabel, placementLabel)
-#: rc.cpp:506
-msgid "Placement:"
-msgstr "Situazón:"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:45
-#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
-#: rc.cpp:509
-#, fuzzy
-#| msgid "Topic"
-msgid "Top"
-msgstr "Tema"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:50
-#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
-#: rc.cpp:512
-#, fuzzy
-#| msgid "Both"
-msgid "Bottom"
-msgstr "Ambos os dous"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:55
-#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
-#: rc.cpp:515
-msgid "Left"
-msgstr ""
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:81
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CloseButtons)
-#: rc.cpp:518
-msgid "Show &close button on tabs"
-msgstr "Mostrar botón de &pechar nos separadores"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:88
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTabBarCloseButton)
-#: rc.cpp:521
-msgid "Show a close button on the &right side of the tab bar"
-msgstr "Mostrar un botón de pechar á &direita da barra das páxinas"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:95
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseMaxSizedTabs)
-#: rc.cpp:524
-msgid "Limit the &size of the tab labels to fit all on screen"
-msgstr "Axustar o tamaño dos textos dos &separadores para couberen na pantalla"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:105
-#. i18n: ectx: property (title), widget (QGroupBox, focusGBox)
-#: rc.cpp:527
-msgid "Focus"
-msgstr "Foco"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:111
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_BringToFront)
-#: rc.cpp:530
-msgid "&Focus new tabs"
-msgstr "&Focalizar as páxinas novas"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:118
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_FocusNewQueries)
-#: rc.cpp:533
-msgid "Focus new &queries"
-msgstr "&Focalizar as conversar privadas novas"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:128
-#. i18n: ectx: property (title), widget (QGroupBox, mouseGBox)
-#: rc.cpp:536
-#, fuzzy
-msgid "Mouse"
-msgstr "Modo"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:134
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_MiddleClickClose)
-#: rc.cpp:539
-msgid "&Middle-click on a tab to close it"
-msgstr ""
-
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:24
+#. i18n: file: src/config/watchednicknames_configui.ui:24
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_UseNotify)
-#: rc.cpp:542
+#: rc.cpp:578
 msgid ""
 "<qt>\n"
 "<p>\n"
@@ -6704,16 +6880,16 @@ msgstr ""
 "todos os alcumes vixiados.</p>\n"
 "</qt>"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:27
+#. i18n: file: src/config/watchednicknames_configui.ui:27
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseNotify)
-#: rc.cpp:549
+#: rc.cpp:585
 #, fuzzy
 msgid "Enable nic&kname watcher"
 msgstr "Activar o vixiante d&e alcumes"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:37
+#. i18n: file: src/config/watchednicknames_configui.ui:37
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_OpenWatchedNicksAtStartup)
-#: rc.cpp:552
+#: rc.cpp:588
 msgid ""
 "<qt>When checked, the <b>Nicks Online</b> window will be automatically "
 "opened when starting Konversation.</qt>"
@@ -6721,18 +6897,18 @@ msgstr ""
 "<qt>Cando estexa activado, a fiestra de <b>Alcumes en liña</b> será aberta "
 "automaticamente ao iniciar Konversation.</qt>"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:40
+#. i18n: file: src/config/watchednicknames_configui.ui:40
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_OpenWatchedNicksAtStartup)
-#: rc.cpp:555
+#: rc.cpp:591
 #, fuzzy
 msgid "Show watched nicks online tab on &application startup"
 msgstr ""
 "Mo&strar a páxina dos alcumes vixiados de están en liña no início da "
 "aplicazón"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:66
+#. i18n: file: src/config/watchednicknames_configui.ui:66
 #. i18n: ectx: property (whatsThis), widget (QLabel, notifyActionLabel)
-#: rc.cpp:559
+#: rc.cpp:595
 #, no-c-format
 msgid ""
 "<qt>\n"
@@ -6757,15 +6933,15 @@ msgstr ""
 "</ul>\n"
 "</qt>"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:69
+#. i18n: file: src/config/watchednicknames_configui.ui:69
 #. i18n: ectx: property (text), widget (QLabel, notifyActionLabel)
-#: rc.cpp:570
+#: rc.cpp:606
 msgid "Command e&xecuted when nickname is double clicked:"
 msgstr "Comandos a e&xecutar ao facer duplo-click no alcume:"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:99
+#. i18n: file: src/config/watchednicknames_configui.ui:99
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, kcfg_NotifyDoubleClickAction)
-#: rc.cpp:574
+#: rc.cpp:610
 #, no-c-format
 msgid ""
 "<qt>\n"
@@ -6791,11 +6967,11 @@ msgstr ""
 "</ul>\n"
 "</qt>"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:109
+#. i18n: file: src/config/watchednicknames_configui.ui:109
 #. i18n: ectx: property (whatsThis), widget (QLabel, notifyDelayLabel)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:128
+#. i18n: file: src/config/watchednicknames_configui.ui:128
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_NotifyDelay)
-#: rc.cpp:585 rc.cpp:591
+#: rc.cpp:621 rc.cpp:627
 msgid ""
 "Konversation will check the status of the nicknames listed below at this "
 "interval."
@@ -6803,18 +6979,28 @@ msgstr ""
 "Konversation verificará o estado dos alcumes listados en baixo con este "
 "intervalo."
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:112
+#. i18n: file: src/config/watchednicknames_configui.ui:112
 #. i18n: ectx: property (text), widget (QLabel, notifyDelayLabel)
-#: rc.cpp:588
+#: rc.cpp:624
 #, fuzzy
 msgid "&Update interval:"
 msgstr "Intervalo de actualizazón:"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:158
+#. i18n: file: src/config/watchednicknames_configui.ui:131
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_NotifyDelay)
+#. i18n: file: src/config/connectionbehavior_config.ui:85
+#. i18n: ectx: property (suffix), widget (KIntNumInput, kcfg_ReconnectDelay)
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:271
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_AutoWhoContinuousInterval)
+#: rc.cpp:630 rc.cpp:975 rc.cpp:1379
+msgid " seconds"
+msgstr " segundos"
+
+#. i18n: file: src/config/watchednicknames_configui.ui:158
 #. i18n: ectx: property (whatsThis), widget (QLabel, networkLabel)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:174
+#. i18n: file: src/config/watchednicknames_configui.ui:174
 #. i18n: ectx: property (whatsThis), widget (QComboBox, networkDropdown)
-#: rc.cpp:600 rc.cpp:606
+#: rc.cpp:636 rc.cpp:642
 msgid ""
 "The irc server network (such as 'freenode') that the selected user to watch "
 "is on."
@@ -6822,29 +7008,29 @@ msgstr ""
 "A rede do servidor de IRC (como \"freenode\") onde o usuário a vixiar está "
 "conectado."
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:161
+#. i18n: file: src/config/watchednicknames_configui.ui:161
 #. i18n: ectx: property (text), widget (QLabel, networkLabel)
-#: rc.cpp:603
+#: rc.cpp:639
 msgid "Network:"
 msgstr "Rede:"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:184
+#. i18n: file: src/config/watchednicknames_configui.ui:184
 #. i18n: ectx: property (whatsThis), widget (QLabel, nicknameLabel)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:200
+#. i18n: file: src/config/watchednicknames_configui.ui:200
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, nicknameInput)
-#: rc.cpp:609 rc.cpp:615
+#: rc.cpp:645 rc.cpp:651
 msgid "The nick (username) of the selected person to watch"
 msgstr "O alcume (nome de usuário) da persoa a ser vixiada"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:187
+#. i18n: file: src/config/watchednicknames_configui.ui:187
 #. i18n: ectx: property (text), widget (QLabel, nicknameLabel)
-#: rc.cpp:612
+#: rc.cpp:648
 msgid "Nickname:"
 msgstr "Alcume:"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:219
+#. i18n: file: src/config/watchednicknames_configui.ui:219
 #. i18n: ectx: property (whatsThis), widget (QTreeWidget, notifyListView)
-#: rc.cpp:618
+#: rc.cpp:654
 #, fuzzy
 msgid ""
 "<qt>\n"
@@ -6863,155 +7049,312 @@ msgstr ""
 "todos os alcumes vixiados.</p>\n"
 "</qt>"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:229
+#. i18n: file: src/config/watchednicknames_configui.ui:229
 #. i18n: ectx: property (text), widget (QTreeWidget, notifyListView)
-#: rc.cpp:624
+#: rc.cpp:660
 msgid "Watched Networks/Nicknames"
 msgstr "Redes/Alcumes Vixiados"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:248
+#. i18n: file: src/config/watchednicknames_configui.ui:248
 #. i18n: ectx: property (whatsThis), widget (KPushButton, newButton)
-#: rc.cpp:627
+#: rc.cpp:663
 msgid "Click to add a nickname to the list."
 msgstr "Prema para engadir un alcume á lista."
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:267
+#. i18n: file: src/config/watchednicknames_configui.ui:267
 #. i18n: ectx: property (whatsThis), widget (KPushButton, removeButton)
-#: rc.cpp:633
+#: rc.cpp:669
 msgid "Click to remove the selected nickname from the list."
 msgstr "Prema para borrar o alcume escollido da lista."
 
-#. i18n: file: src/preferences/log_preferences.ui:23
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_Log)
-#: rc.cpp:639
-msgid "&Enable Logging"
-msgstr "Activar o R&existo"
+#. i18n: file: src/config/tabs_configui.ui:17
+#. i18n: ectx: property (windowTitle), widget (QWidget, Tabs_PreferencesUI)
+#: rc.cpp:675
+msgid "TabBar_Config"
+msgstr "TabBar_Config"
 
-#. i18n: file: src/preferences/log_preferences.ui:32
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_LowerLog)
-#: rc.cpp:642
-msgid "Enable &lower case logfile names"
-msgstr "Usar nomes dos rexistos en minúscu&las"
+#. i18n: file: src/config/tabs_configui.ui:26
+#. i18n: ectx: property (title), widget (QGroupBox, lookGBox)
+#. i18n: file: src/config/tabnotifications_config.ui:19
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
+#: rc.cpp:678 rc.cpp:1640
+msgid "Look"
+msgstr "Aparéncia"
 
-#. i18n: file: src/preferences/log_preferences.ui:39
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AddHostnameToLog)
-#: rc.cpp:645
-msgid "&Append hostname to logfile names"
-msgstr "&Engadir o nome da máquina ao nome do ficheiro"
+#. i18n: file: src/config/tabs_configui.ui:34
+#. i18n: ectx: property (text), widget (QLabel, placementLabel)
+#: rc.cpp:681
+msgid "Placement:"
+msgstr "Situazón:"
 
-#. i18n: file: src/preferences/log_preferences.ui:46
-#. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:648
-msgid "Logfile &path:"
-msgstr "&Localizazón do rexisto:"
+#. i18n: file: src/config/tabs_configui.ui:45
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
+#: rc.cpp:684
+#, fuzzy
+#| msgid "Topic"
+msgid "Top"
+msgstr "Tema"
 
-#. i18n: file: src/preferences/log_preferences.ui:69
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseExternalLogViewer)
-#: rc.cpp:651
-msgid "Use system text editor to open logs"
+#. i18n: file: src/config/tabs_configui.ui:50
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
+#: rc.cpp:687
+#, fuzzy
+#| msgid "Both"
+msgid "Bottom"
+msgstr "Ambos os dous"
+
+#. i18n: file: src/config/tabs_configui.ui:55
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
+#: rc.cpp:690
+msgid "Left"
 msgstr ""
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:25
+#. i18n: file: src/config/tabs_configui.ui:81
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CloseButtons)
+#: rc.cpp:693
+msgid "Show &close button on tabs"
+msgstr "Mostrar botón de &pechar nos separadores"
+
+#. i18n: file: src/config/tabs_configui.ui:88
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTabBarCloseButton)
+#: rc.cpp:696
+msgid "Show a close button on the &right side of the tab bar"
+msgstr "Mostrar un botón de pechar á &direita da barra das páxinas"
+
+#. i18n: file: src/config/tabs_configui.ui:95
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseMaxSizedTabs)
+#: rc.cpp:699
+msgid "Limit the &size of the tab labels to fit all on screen"
+msgstr "Axustar o tamaño dos textos dos &separadores para couberen na pantalla"
+
+#. i18n: file: src/config/tabs_configui.ui:105
+#. i18n: ectx: property (title), widget (QGroupBox, focusGBox)
+#: rc.cpp:702
+msgid "Focus"
+msgstr "Foco"
+
+#. i18n: file: src/config/tabs_configui.ui:111
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_BringToFront)
+#: rc.cpp:705
+msgid "&Focus new tabs"
+msgstr "&Focalizar as páxinas novas"
+
+#. i18n: file: src/config/tabs_configui.ui:118
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_FocusNewQueries)
+#: rc.cpp:708
+msgid "Focus new &queries"
+msgstr "&Focalizar as conversar privadas novas"
+
+#. i18n: file: src/config/tabs_configui.ui:128
+#. i18n: ectx: property (title), widget (QGroupBox, mouseGBox)
+#: rc.cpp:711
+#, fuzzy
+msgid "Mouse"
+msgstr "Modo"
+
+#. i18n: file: src/config/tabs_configui.ui:134
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_MiddleClickClose)
+#: rc.cpp:714
+msgid "&Middle-click on a tab to close it"
+msgstr ""
+
+#. i18n: file: src/config/autoreplace_configui.ui:43
+#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
+#. i18n: file: src/config/highlight_configui.ui:131
+#. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
+#: rc.cpp:717 rc.cpp:924
+msgid "RegEx"
+msgstr "RegEx"
+
+#. i18n: file: src/config/autoreplace_configui.ui:48
+#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
+#: rc.cpp:720
+msgid "Replace In"
+msgstr "Substituir En"
+
+#. i18n: file: src/config/autoreplace_configui.ui:53
+#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
+#: rc.cpp:723
+msgid "Find"
+msgstr "Procurar"
+
+#. i18n: file: src/config/autoreplace_configui.ui:58
+#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
+#: rc.cpp:726
+msgid "Replace With"
+msgstr "Substituir con"
+
+#. i18n: file: src/config/autoreplace_configui.ui:68
+#. i18n: ectx: property (text), widget (QPushButton, newButton)
+#: rc.cpp:729
+#, fuzzy
+msgid "Ne&w"
+msgstr "Novo"
+
+#. i18n: file: src/config/autoreplace_configui.ui:75
+#. i18n: ectx: property (text), widget (QPushButton, removeButton)
+#: rc.cpp:732
+#, fuzzy
+msgid "R&emove"
+msgstr "Borrado"
+
+#. i18n: file: src/config/autoreplace_configui.ui:111
+#. i18n: ectx: property (text), widget (QLabel, directionLabel)
+#: rc.cpp:735
+msgid "Replace in:"
+msgstr "Substituir en:"
+
+#. i18n: file: src/config/autoreplace_configui.ui:143
+#. i18n: ectx: property (text), widget (QLabel, patternLabel)
+#: rc.cpp:738
+msgid "Find:"
+msgstr "Procurar:"
+
+#. i18n: file: src/config/autoreplace_configui.ui:177
+#. i18n: ectx: property (text), widget (QPushButton, regExpEditorButton)
+#. i18n: file: src/config/highlight_configui.ui:245
+#. i18n: ectx: property (text), widget (KPushButton, patternButton)
+#: rc.cpp:741 rc.cpp:948
+msgid "..."
+msgstr "..."
+
+#. i18n: file: src/config/autoreplace_configui.ui:198
+#. i18n: ectx: property (text), widget (QLabel, replacementLabel)
+#: rc.cpp:744
+msgid "Replace with:"
+msgstr "Substituir con:"
+
+#. i18n: file: src/config/ignore_configui.ui:45
+#. i18n: ectx: property (text), widget (QTreeWidget, ignoreListView)
+#: rc.cpp:747
+msgid "Pattern"
+msgstr "Padrón"
+
+#. i18n: file: src/config/ignore_configui.ui:50
+#. i18n: ectx: property (text), widget (QTreeWidget, ignoreListView)
+#: rc.cpp:750
+msgid "Type"
+msgstr "Tipo"
+
+#. i18n: file: src/config/ignore_configui.ui:58
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: rc.cpp:753
+msgid "Pattern:"
+msgstr "Padrón:"
+
+#. i18n: file: src/config/ignore_configui.ui:77
+#. i18n: ectx: property (title), widget (QGroupBox, grpMessageTypes)
+#: rc.cpp:756
+msgid "Message Types"
+msgstr "Tipos de Mensaxes"
+
+#. i18n: file: src/config/ignore_configui.ui:137
+#. i18n: ectx: property (text), widget (KPushButton, removeAllButton)
+#: rc.cpp:780
+msgid "Remove &All"
+msgstr "Borrar &todo"
+
+#. i18n: file: src/config/generalbehavior_config.ui:25
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowTrayIcon)
-#: rc.cpp:654
+#: rc.cpp:783
 msgid "Enable System Tray"
 msgstr "Activar a Bandexa do Sistema"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:37
+#. i18n: file: src/config/generalbehavior_config.ui:37
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TrayNotify)
-#: rc.cpp:657
+#: rc.cpp:786
 msgid "&Use system tray for new message notification"
 msgstr "&Usar a bandexa do sistema para a notificazón de novas mensaxes"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:65
+#. i18n: file: src/config/generalbehavior_config.ui:65
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TrayNotifyOnlyOwnNick)
-#: rc.cpp:660
+#: rc.cpp:789
 #, fuzzy
 msgid "Only &notify when a highlight is triggered or your current nick is used"
 msgstr ""
 "Notificar só cando se active un realce ou cando sexa usado o seu alcume"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:92
+#. i18n: file: src/config/generalbehavior_config.ui:92
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TrayNotifyBlink)
-#: rc.cpp:663
+#: rc.cpp:792
 msgid "Blin&k the icon"
 msgstr ""
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:101
+#. i18n: file: src/config/generalbehavior_config.ui:101
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideToTrayOnStartup)
-#: rc.cpp:666
+#: rc.cpp:795
 msgid "Hide window on startup"
 msgstr ""
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:111
+#. i18n: file: src/config/generalbehavior_config.ui:111
 #. i18n: ectx: property (title), widget (QGroupBox, middleLabel)
-#: rc.cpp:669
+#: rc.cpp:798
 msgid "Nickname Completion"
 msgstr "Completazón de Alcumes"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:117
+#. i18n: file: src/config/generalbehavior_config.ui:117
 #. i18n: ectx: property (text), widget (QLabel, modeLbl)
-#: rc.cpp:672
+#: rc.cpp:801
 msgid "Completion &mode:"
 msgstr "&Modo de completazón:"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:131
+#. i18n: file: src/config/generalbehavior_config.ui:131
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_NickCompletionMode)
-#: rc.cpp:675
+#: rc.cpp:804
 msgid "Cycle NickList"
 msgstr "Percorrer a Lista de Alcumes"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:136
+#. i18n: file: src/config/generalbehavior_config.ui:136
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_NickCompletionMode)
-#: rc.cpp:678
+#: rc.cpp:807
 msgid "Shell-Like"
 msgstr "Tipo Liña de Comandos"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:141
+#. i18n: file: src/config/generalbehavior_config.ui:141
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_NickCompletionMode)
-#: rc.cpp:681
+#: rc.cpp:810
 msgid "Shell-Like with Completion Box"
 msgstr "Tipo Liña de Comandos con Campo de Completazón"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:152
+#. i18n: file: src/config/generalbehavior_config.ui:152
 #. i18n: ectx: property (text), widget (QLabel, startOfLineLabel)
-#: rc.cpp:684
+#: rc.cpp:813
 msgid "Suffi&x at start of line:"
 msgstr "Sufi&xo no inicio da liña:"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:168
+#. i18n: file: src/config/generalbehavior_config.ui:168
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
-#: rc.cpp:687
+#: rc.cpp:816
 msgid "&Elsewhere:"
 msgstr "N&outro lado:"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:181
+#. i18n: file: src/config/generalbehavior_config.ui:181
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_NickCompletionCaseSensitive)
-#: rc.cpp:690
+#: rc.cpp:819
 msgid "Case sensitive"
 msgstr "Distinguir capitalizazón"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:194
+#. i18n: file: src/config/generalbehavior_config.ui:194
 #. i18n: ectx: property (title), widget (QGroupBox, miscGBox)
-#: rc.cpp:693
+#: rc.cpp:822
 msgid "Miscellaneous"
 msgstr ""
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:200
+#. i18n: file: src/config/generalbehavior_config.ui:200
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DisableNotifyWhileAway)
-#: rc.cpp:696
+#: rc.cpp:825
 msgid "Disable notifications while &away"
 msgstr "Desactivar as notificazóns cando estexa &ausente"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:207
+#. i18n: file: src/config/generalbehavior_config.ui:207
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomVersionReplyEnabled)
-#: rc.cpp:699
+#: rc.cpp:828
 msgid "Use custom &version reply:"
 msgstr "Utilizar resposta de &versión personalizada:"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:217
+#. i18n: file: src/config/generalbehavior_config.ui:217
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, kcfg_CustomVersionReply)
-#: rc.cpp:702
+#: rc.cpp:831
 msgid ""
 "<qt>Here you can set a custom reply for <b>CTCP <i>VERSION</i></b> requests."
 "</qt>"
@@ -7019,89 +7362,89 @@ msgstr ""
 "<qt>Aqui pode indicar unha resposta personalizada aos pedidos <b>CTCP "
 "<i>VERSION</i></b>.</qt>"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:237
+#. i18n: file: src/config/generalbehavior_config.ui:237
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseMultiRowInputBox)
-#: rc.cpp:705
+#: rc.cpp:834
 msgid "Input box expands with text"
 msgstr "O campo de texto expande-se co texto"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:251
+#. i18n: file: src/config/generalbehavior_config.ui:251
 #. i18n: ectx: property (text), widget (QLabel, commandCharLabel)
-#: rc.cpp:708
+#: rc.cpp:837
 msgid "Comman&d char:"
 msgstr "Caracter &de comando:"
 
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:264
+#. i18n: file: src/config/generalbehavior_config.ui:264
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseCustomBrowser)
-#: rc.cpp:711
+#: rc.cpp:840
 msgid "Use custom web &browser:"
 msgstr "Usar &navegador web personalizado:"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:17
+#. i18n: file: src/config/dcc_configui.ui:17
 #. i18n: ectx: property (windowTitle), widget (QWidget, DCC_ConfigUI)
-#: rc.cpp:714
+#: rc.cpp:843
 msgid "DCC_Settings"
 msgstr "DCC_Settings"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:26
+#. i18n: file: src/config/dcc_configui.ui:26
 #. i18n: ectx: property (text), widget (QLabel, dccPathLbl)
-#: rc.cpp:717
+#: rc.cpp:846
 msgid "Download &folder:"
 msgstr "Cartafol de trans&feréncias:"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:49
+#. i18n: file: src/config/dcc_configui.ui:49
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAddPartner)
-#: rc.cpp:720
+#: rc.cpp:849
 msgid "&Add sender to file name"
 msgstr "&Engadir o remetente ao nome do ficheiro"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:56
+#. i18n: file: src/config/dcc_configui.ui:56
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccCreateFolder)
-#: rc.cpp:723
+#: rc.cpp:852
 msgid "Cr&eate folder for sender"
 msgstr "Criar un cartafol para o r&emetente"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:63
+#. i18n: file: src/config/dcc_configui.ui:63
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpaceToUnderscore)
-#: rc.cpp:726
+#: rc.cpp:855
 msgid "Convert spaces in file names to underscores before sending"
 msgstr ""
 "Converter os espazos nos nomes dos ficheiros para subliñados antes de enviar"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:73
+#. i18n: file: src/config/dcc_configui.ui:73
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAutoGet)
-#: rc.cpp:729
+#: rc.cpp:858
 msgid "Automaticall&y accept download offer"
 msgstr "Aceitar &automaticamente as ofertas de transferéncias"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:80
+#. i18n: file: src/config/dcc_configui.ui:80
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAutoResume)
-#: rc.cpp:732
+#: rc.cpp:861
 msgid "Au&tomatically resume download"
 msgstr "Continuar au&tomaticamente as transferéncias"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:87
+#. i18n: file: src/config/dcc_configui.ui:87
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccFastSend)
-#: rc.cpp:735
+#: rc.cpp:864
 msgid "Enable fast DCC send (Might &not work with all clients)"
 msgstr ""
 "Activar o envio por DCC rápido (Pode &non funcionar en todos os clientes)"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:110
+#. i18n: file: src/config/dcc_configui.ui:110
 #. i18n: ectx: property (text), widget (QLabel, textLabel6)
-#: rc.cpp:738
+#: rc.cpp:867
 msgid "Buffer si&ze:"
 msgstr "Tamaño do b&uffer:"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:123
+#. i18n: file: src/config/dcc_configui.ui:123
 #. i18n: ectx: property (text), widget (QLabel, textLabel7)
-#: rc.cpp:741
+#: rc.cpp:870
 msgid "DCC send t&imeout:"
 msgstr "Tempo-l&imite do envio DCC:"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:136
+#. i18n: file: src/config/dcc_configui.ui:136
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DccIPv4Fallback)
-#: rc.cpp:744
+#: rc.cpp:873
 msgid ""
 "If this option enabled dcc transfers for IPv6 connections will be done over "
 "IPv4 interface set here"
@@ -7109,321 +7452,282 @@ msgstr ""
 "Se esta opzón estivese activa as transferéncias DCC das conexóns IPv6 son  "
 "feitas utilizando a interface IPv4 configurada aqui"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:139
+#. i18n: file: src/config/dcc_configui.ui:139
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccIPv4Fallback)
-#: rc.cpp:747
+#: rc.cpp:876
 msgid "Fallback to an IPv&4 interface for DCC send:"
 msgstr "Recorrer a unha interface IPv&4 para os envios DCC:"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:146
+#. i18n: file: src/config/dcc_configui.ui:146
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_DccBufferSize)
-#: rc.cpp:750
+#: rc.cpp:879
 msgid " bytes"
 msgstr " bytes"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:162
+#. i18n: file: src/config/dcc_configui.ui:162
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_DccSendTimeout)
-#: rc.cpp:753
+#: rc.cpp:882
 msgid " sec"
 msgstr " s"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:182
+#. i18n: file: src/config/dcc_configui.ui:182
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccPassiveSend)
-#: rc.cpp:756
+#: rc.cpp:885
 #, fuzzy
 msgid "Enable passive DCC send"
 msgstr "Activar os &portos indicados para o envio DCC:"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:240
+#. i18n: file: src/config/dcc_configui.ui:240
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox1)
-#: rc.cpp:759
+#: rc.cpp:888
 msgid "IP"
 msgstr "IP"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:249
+#. i18n: file: src/config/dcc_configui.ui:249
 #. i18n: ectx: property (text), widget (QLabel, textLabel4)
-#: rc.cpp:762
+#: rc.cpp:891
 msgid "&Method to get own IP:"
 msgstr "&Método para obter o IP próprio:"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:262
+#. i18n: file: src/config/dcc_configui.ui:262
 #. i18n: ectx: property (text), widget (QLabel, ownIP)
-#: rc.cpp:765
+#: rc.cpp:894
 msgid "O&wn IP:"
 msgstr "IP &Próprio:"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:281
+#. i18n: file: src/config/dcc_configui.ui:281
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
-#: rc.cpp:768
+#: rc.cpp:897
 msgid "Ports"
 msgstr "Portos"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:287
+#. i18n: file: src/config/dcc_configui.ui:287
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpecificChatPorts)
-#: rc.cpp:771
+#: rc.cpp:900
 msgid "Enable specific p&orts for DCC chat:"
 msgstr "Utilizar os p&ortos indicados para as conversas DCC:"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:326
+#. i18n: file: src/config/dcc_configui.ui:326
 #. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
-#. i18n: file: src/preferences/dcc_preferencesui.ui:391
+#. i18n: file: src/config/dcc_configui.ui:391
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:774 rc.cpp:780
+#: rc.cpp:903 rc.cpp:909
 msgid "to"
 msgstr "para"
 
-#. i18n: file: src/preferences/dcc_preferencesui.ui:352
+#. i18n: file: src/config/dcc_configui.ui:352
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpecificSendPorts)
-#: rc.cpp:777
+#: rc.cpp:906
 #, fuzzy
 msgid "Enable specific &ports for DCC transfer server:"
 msgstr "Activar os &portos indicados para o envio DCC:"
 
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:25
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsText)
-#: rc.cpp:786
-msgid "Use colored text"
-msgstr "Usar texto colorido"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:35
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsLeds)
-#: rc.cpp:789
-msgid "Use colored LEDs"
-msgstr "Usar LEDs coloridos"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:51
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsSystem)
-#: rc.cpp:795
-msgid ""
-"Application events occur in Konsole tabs, the DCC Status tab and other "
-"application tabs not used directly for chatting."
-msgstr ""
-"Os eventos da aplicazón ocorren nas páxinas de Konsole, na páxina de Estado "
-"do DCC e nas outras páxinas de aplicazóns non usadas directamente para "
-"conversar."
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:54
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsSystem)
-#: rc.cpp:798
-msgid "Application event"
-msgstr "Evento da aplicazón"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:87
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsMsgs)
-#: rc.cpp:801
-msgid "Message"
-msgstr "Mensaxe"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:143
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsPrivate)
-#: rc.cpp:804
-#, fuzzy
-msgid "Private message"
-msgstr "Mensaxe do &servidor:"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:167
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsNick)
-#: rc.cpp:807
-msgid "Current nick used"
-msgstr "Alcume actual usado"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:223
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsEvents)
-#: rc.cpp:810
-msgid "Channel events are mode changes or users joining/leaving a channel."
-msgstr ""
-"Os eventos do canal son os cámbios do modo ou os usuários a entrar/sair dun "
-"canal."
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:226
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsEvents)
-#: rc.cpp:813
-msgid "Channel event"
-msgstr "Evento do canal"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:275
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox10)
-#. i18n: file: src/viewer/searchbarbase.ui:92
-#. i18n: ectx: property (text), widget (QToolButton, m_optionsButton)
-#: rc.cpp:819 rc.cpp:1715
-#, fuzzy
-#| msgid "Exception"
-msgid "Options"
-msgstr "Excepzón"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:281
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsOverride)
-#: rc.cpp:822
-msgid ""
-"If you select this, the colors you chose in the Highlights preferences page "
-"will override the colors for \"Current nick used\" and \"Highlight\"."
-msgstr ""
-"Se escolle isto, as cores que escolleu na páxina de preferéncias do realce "
-"substituirán as cores do \"Alcume actual usado\" e do \"Realce\"."
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:284
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsOverride)
-#: rc.cpp:825
-msgid "Give precedence to chat window highlight colors"
-msgstr "Dar preferéncia ás cores de realce da fiestra de conversazón"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:25
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_FixedMOTD)
-#: rc.cpp:828
-msgid "Show MOTD (Message Of The Day) message in fixed font"
-msgstr "Mostra a MOTD (Mensaxe do Dia) con texto monoespazado"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:28
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_FixedMOTD)
-#: rc.cpp:831
-msgid "Enable fi&xed font for MOTD messages"
-msgstr "&Usar un tipo de letra monoespazado para as mensaxes MOTD"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:35
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseBoldNicks)
-#: rc.cpp:834
-msgid "Show sender nicknames &bold in the chat view"
-msgstr "Mostra os alcumes do remetente en &negriña na vista da conversa"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:61
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomTextFont)
-#: rc.cpp:837
-msgid "Chat text:"
-msgstr "Texto da conversa:"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:92
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomListFont)
-#: rc.cpp:840
-msgid "Nickname list:"
-msgstr "Lista de alcumes:"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:102
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomTabFont)
-#: rc.cpp:843
-msgid "Tab bar:"
-msgstr "Barra de páxinas:"
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:20
+#. i18n: file: src/config/highlight_configui.ui:20
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightSoundsEnabled)
-#: rc.cpp:846
+#: rc.cpp:912
 #, fuzzy
 msgid "Ena&ble sound for highlights"
 msgstr "A&ctivar sons para o itens escollidos na lista"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:47
+#. i18n: file: src/config/highlight_configui.ui:47
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightNick)
-#: rc.cpp:849
+#: rc.cpp:915
 msgid "Alwa&ys highlight own current nick:"
 msgstr "Realzar se&mpre o alcume próprio actual:"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:54
+#. i18n: file: src/config/highlight_configui.ui:54
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightOwnLines)
-#: rc.cpp:852
+#: rc.cpp:918
 msgid "Always highlight own &lines:"
 msgstr "Realzar sempre as &liñas próprias:"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:109
+#. i18n: file: src/config/highlight_configui.ui:109
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox1)
-#: rc.cpp:855
+#: rc.cpp:921
 #, fuzzy
 msgid "Highlight List"
 msgstr "Lista de &Realces"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:131
+#. i18n: file: src/config/highlight_configui.ui:136
 #. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:43
-#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
-#: rc.cpp:858 rc.cpp:1022
-msgid "RegEx"
-msgstr "RegEx"
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:136
-#. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
-#: rc.cpp:861
+#: rc.cpp:927
 msgid "Highlights"
 msgstr "Realces"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:141
+#. i18n: file: src/config/highlight_configui.ui:141
 #. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
-#: rc.cpp:864
+#: rc.cpp:930
 msgid "Sound"
 msgstr "Son"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:146
+#. i18n: file: src/config/highlight_configui.ui:146
 #. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
-#: rc.cpp:867
+#: rc.cpp:933
 msgid "Auto Text"
 msgstr "Texto Automático"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:205
+#. i18n: file: src/config/highlight_configui.ui:205
 #. i18n: ectx: property (text), widget (QLabel, patternLabel)
-#: rc.cpp:876
+#: rc.cpp:942
 msgid "&Pattern:"
 msgstr "&Padrón:"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:245
-#. i18n: ectx: property (text), widget (KPushButton, patternButton)
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:177
-#. i18n: ectx: property (text), widget (QPushButton, regExpEditorButton)
-#: rc.cpp:882 rc.cpp:1046
-msgid "..."
-msgstr "..."
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:260
+#. i18n: file: src/config/highlight_configui.ui:260
 #. i18n: ectx: property (text), widget (QLabel, colorLabel)
-#: rc.cpp:885
+#: rc.cpp:951
 #, fuzzy
 msgid "Color:"
 msgstr "Cores"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:283
+#. i18n: file: src/config/highlight_configui.ui:283
 #. i18n: ectx: property (text), widget (QLabel, soundLabel)
-#: rc.cpp:888
+#: rc.cpp:954
 msgid "&Sound:"
 msgstr "&Son:"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:307
+#. i18n: file: src/config/highlight_configui.ui:307
 #. i18n: ectx: property (filter), widget (KUrlRequester, soundURL)
-#: rc.cpp:891
+#: rc.cpp:957
 msgid "audio/x-wav audio/x-mp3 application/ogg audio/x-adpcm"
 msgstr "audio/x-wav audio/x-mp3 application/ogg audio/x-adpcm"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:323
+#. i18n: file: src/config/highlight_configui.ui:323
 #. i18n: ectx: property (toolTip), widget (QToolButton, soundPlayBtn)
-#: rc.cpp:894
+#: rc.cpp:960
 msgid "Test sound"
 msgstr ""
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:338
+#. i18n: file: src/config/highlight_configui.ui:338
 #. i18n: ectx: property (text), widget (QLabel, autoTextLabel)
-#: rc.cpp:897
+#: rc.cpp:963
 msgid "&Auto text:"
 msgstr "Texto &automático:"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:25
+#. i18n: file: src/config/connectionbehavior_config.ui:25
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoReconnect)
+#: rc.cpp:966
+msgid "Enable Automatic Reconnect"
+msgstr "Activar a Reconexón Automática"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:34
+#. i18n: ectx: property (text), widget (QLabel, reconnectDelayLabel)
+#: rc.cpp:969
+#, fuzzy
+msgid "Reconnect delay:"
+msgstr "Tempo-limite para nova conexón:"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:63
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: rc.cpp:972
+msgid "Reconnection attempts:"
+msgstr "Tentativas de nova conexón:"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:98
+#. i18n: ectx: property (specialValueText), widget (KIntNumInput, kcfg_ReconnectCount)
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:104
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_ScrollbackMax)
+#: rc.cpp:978 rc.cpp:1349
+msgid "Unlimited"
+msgstr "Sen Limite"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:140
+#. i18n: ectx: property (title), widget (QGroupBox, debugGBox)
+#: rc.cpp:981
+msgid "Debug"
+msgstr "Depurazón"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:146
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_RawLog)
+#: rc.cpp:984
+msgid "Show raw &log window when connecting"
+msgstr "Mostrar a fiestra de rexistos en bruto no início da &conexón"
+
+#. i18n: file: src/config/konversation.kcfg:21
+#. i18n: ectx: label, entry, group (Appearance)
+#: rc.cpp:989
+#, fuzzy
+#| msgid "Limit the size of the tab labels to fit all on screen"
+msgid "Limit the size of the tab labels to fit them all on screen"
+msgstr ""
+"Limitar o tamaño das lendas dos separadores para couber todo na pantalla"
+
+#. i18n: file: src/config/konversation.kcfg:226
+#. i18n: ectx: label, entry, group (Appearance)
+#: rc.cpp:1058
+msgid "Hide the scrollbar"
+msgstr ""
+
+#. i18n: file: src/config/konversation.kcfg:232
+#. i18n: ectx: whatsthis, entry, group (General Options)
+#: rc.cpp:1061
+msgid ""
+"Enable if you want all the IRC input lines to check your spelling as you type"
+msgstr ""
+"Active se quer verificar ortograficamente todas as liñas introducidas no  "
+"IRC, á medida que escrebe"
+
+#. i18n: file: src/config/konversation.kcfg:241
+#. i18n: ectx: whatsthis, entry, group (General Options)
+#: rc.cpp:1064
+msgid ""
+"Enabling this will cause the input box to grow vertically when it fills up."
+msgstr ""
+"Se activa esta opzón, o campo de texto crecerá na vertical cando se preencha."
+
+#. i18n: file: src/config/konversation.kcfg:275
+#. i18n: ectx: label, entry, group (General Options)
+#: rc.cpp:1079
+msgid "Start with hidden main window"
+msgstr ""
+
+#. i18n: file: src/config/konversation.kcfg:329
+#. i18n: ectx: label, entry, group (General Options)
+#: rc.cpp:1102
+msgid "&Show real names next to nicknames"
+msgstr "Mo&strar os nomes verdadeiros ao lado dos alcumes"
+
+#. i18n: file: src/config/konversation.kcfg:543
+#. i18n: ectx: label, entry (OpenWatchedNicksAtStartup), group (Notify List)
+#: rc.cpp:1186
+msgid "Open Watched Nicks tab at application startup"
+msgstr "Mostrar a páxina de alcumes vixiados no início da aplicazón"
+
+#. i18n: file: src/config/konversation.kcfg:827
+#. i18n: ectx: label, entry, group (Themes)
+#: rc.cpp:1284
+msgid "Enable emoticons"
+msgstr "Activar os emoticones"
+
+#. i18n: file: src/config/konversation.kcfg:831
+#. i18n: ectx: label, entry, group (Themes)
+#: rc.cpp:1287
+msgid "Emoticons theme"
+msgstr "Tema de emoticones"
+
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:25
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_Beep)
-#: rc.cpp:903
+#: rc.cpp:1314
 msgid ""
 "Sounds the system bell when you receive an ASCII BEL (0x07) control character"
 msgstr ""
 "Toca a campaiña do sistema cando recebe un carácter de controlo ASCII BEL "
 "(0x07)"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:28
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:28
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_Beep)
-#: rc.cpp:906
+#: rc.cpp:1317
 msgid "Enable s&ystem bell on incoming ASCII BEL"
 msgstr "Tocar a campa&iña do sistema ao receber un BEL de ASCII"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:35
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:35
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideUnimportantEvents)
-#: rc.cpp:909
+#: rc.cpp:1320
 msgid "Hide &Join/Part/Nick events"
 msgstr "Acochar os eventos de Li&gazón/Abandono/Alcume"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:42
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:42
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DisableExpansion)
-#: rc.cpp:913
+#: rc.cpp:1324
 #, no-c-format
 msgid ""
 "Do not expand variables when sending text to the server. A variable starts "
@@ -7434,36 +7738,36 @@ msgstr ""
 "comeza por \"%\". P.ex., %B expande-se para os carácteres que son necesários "
 "para colocar un texto en negriña."
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:45
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:45
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DisableExpansion)
-#: rc.cpp:917
+#: rc.cpp:1328
 #, no-c-format
 msgid "Disable variable (e.g. %C, %B, %G...) e&xpansion"
 msgstr "Desactivar a e&xpansión de variábeis (p.ex., %C, %B, %G...)"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:52
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:52
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_RedirectServerAndAppMsgToStatusPane)
-#: rc.cpp:920
+#: rc.cpp:1331
 msgid "&Redirect status messages to the server status window"
 msgstr "&Redirixir as mensaxes de estado para a fiestra de estado do servidor"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:59
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:59
 #. i18n: ectx: property (whatsThis), widget (QLabel, textLabel1)
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:101
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:101
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_ScrollbackMax)
-#: rc.cpp:923 rc.cpp:935
+#: rc.cpp:1334 rc.cpp:1346
 msgid "How many lines to keep in buffers, 0 = unlimited"
 msgstr "Cantas liñas manter no histórico, 0 = ilimitado"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:62
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:62
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:926
+#: rc.cpp:1337
 msgid "Scroll&back limit:"
 msgstr "Limite de hi&stórico:"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:91
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:91
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_UseLiteralModes)
-#: rc.cpp:929
+#: rc.cpp:1340
 msgid ""
 "Keep channel mode string as a combination of characters instead of "
 "translating them into human readable words. E.g. '*** Channel modes: no "
@@ -7473,28 +7777,28 @@ msgstr ""
 "de traduci-los para mensaxes comprensíbeis. P.ex., \"*** Modos do canal: sen "
 "mensaxes do exterior\" ficará \"*** Modos do canal: n\""
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:94
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:94
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseLiteralModes)
-#: rc.cpp:932
+#: rc.cpp:1343
 msgid "&Use raw modes for mode changes"
 msgstr "&Utilizar modos en bruto para os cámbios de modo"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:107
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:107
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_ScrollbackMax)
-#: rc.cpp:941
+#: rc.cpp:1352
 msgid " lines"
 msgstr " liñas"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:136
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:136
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox3_2)
-#: rc.cpp:944
+#: rc.cpp:1355
 #, fuzzy
 msgid "Marker Lines"
 msgstr "Lista de Servidores"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:142
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:142
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_AutomaticRememberLine)
-#: rc.cpp:947
+#: rc.cpp:1358
 msgid ""
 "Inserts a remember line into the chat window when you switch to another chat "
 "window or minimize the application."
@@ -7502,449 +7806,343 @@ msgstr ""
 "Insere unha liña de recordatório na fiestra da conversa cando cámbia de "
 "conversa ou minimiza o programa."
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:145
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:145
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutomaticRememberLine)
-#: rc.cpp:950
+#: rc.cpp:1361
 msgid "Mark the last position in a chat window when it is hidden"
 msgstr ""
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:176
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:176
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutomaticRememberLineOnlyOnTextChange)
-#: rc.cpp:953
+#: rc.cpp:1364
 msgid "Move the line only when new text is about to be shown"
 msgstr ""
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:185
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:185
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MarkerLineInAllViews)
-#: rc.cpp:956
+#: rc.cpp:1367
 #, fuzzy
 msgid "Show manually inserted lines in all chat windows"
 msgstr "Mostrar liñas de recordatório en todas as fiestras de conversa"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:195
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:195
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoWhoContinuousEnabled)
-#: rc.cpp:959
+#: rc.cpp:1370
 msgid "Enable Automatic User Information Look Up (/WHO)"
 msgstr "Activar a Pesquisa Automática deInformazón do Usuário (/WHO)"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:239
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:239
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:962
+#: rc.cpp:1373
 msgid "Max. number of users in a channel:"
 msgstr "Número máximo de usuários nun canal:"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:252
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:252
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_AutoWhoNicksLimit)
-#: rc.cpp:965
+#: rc.cpp:1376
 msgid " nicks"
 msgstr " alcumes"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:287
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:287
 #. i18n: ectx: property (text), widget (QLabel, whoIntervalLbl)
-#: rc.cpp:971
+#: rc.cpp:1382
 msgid "Update interval:"
 msgstr "Intervalo de actualizazón:"
 
-#. i18n: file: src/preferences/osd_preferencesui.ui:35
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOSD)
-#: rc.cpp:974
-msgid "&Enable On Screen Display"
-msgstr "A&ctivar o OSD"
+#. i18n: file: src/config/nicklistbehavior_configui.ui:26
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#: rc.cpp:1385
+msgid "&Command to be executed on double click:"
+msgstr "&Comandos a executar ao facer duplo-click:"
 
-#. i18n: file: src/preferences/osd_preferencesui.ui:45
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
-#: rc.cpp:977
-msgid "On &Screen Display"
-msgstr "Vi&sualizazón na Pantalla"
+#. i18n: file: src/config/nicklistbehavior_configui.ui:39
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortCaseInsensitive)
+#: rc.cpp:1388
+msgid "Sort case &insensitive"
+msgstr "Ordenar sen d&istinguir capitalizazón"
 
-#. i18n: file: src/preferences/osd_preferencesui.ui:54
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDDrawShadow)
-#: rc.cpp:980
-msgid "&Draw shadows"
-msgstr "&Debuxar sombras"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:67
-#. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:983
-msgid "OSD font:"
-msgstr "Tipo de letra do OSD:"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:135
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
-#: rc.cpp:986
-msgid "Show &OSD Message"
-msgstr "M&ostrar Mensaxe OSD"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:141
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowOwnNick)
-#: rc.cpp:989
-msgid "&If own nick appears in channel message"
-msgstr "Se o própr&io nome aparece na mensaxe do canal"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:148
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowChannel)
-#: rc.cpp:992
-msgid "On an&y channel message"
-msgstr "En calquer me&nsaxe do canal"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:155
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowQuery)
-#: rc.cpp:995
-msgid "On &query activity"
+#. i18n: file: src/config/nicklistbehavior_configui.ui:46
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortByActivity)
+#: rc.cpp:1391
+#, fuzzy
+msgid "Sort by &activity"
 msgstr "Na actividade de pes&quisa"
 
-#. i18n: file: src/preferences/osd_preferencesui.ui:162
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowChannelEvent)
-#: rc.cpp:998
-msgid "On &Join/Part events"
-msgstr "Nos eventos de U&nión/Saída"
+#. i18n: file: src/config/nicklistbehavior_configui.ui:59
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortByStatus)
+#: rc.cpp:1394
+msgid "Sort b&y user status"
+msgstr "Ordenar polo e&stado do usuário"
 
-#. i18n: file: src/preferences/osd_preferencesui.ui:175
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_OSDUseCustomColors)
-#: rc.cpp:1001
-msgid "Enable Custom Colors"
-msgstr "Activar as Cores Personalizadas"
+#. i18n: file: src/config/nicklistbehavior_configui.ui:72
+#. i18n: ectx: property (text), widget (QLabel, orderHintLabel)
+#: rc.cpp:1397
+msgid "(Reorder nick sorting order by drag and drop)"
+msgstr "(Ordene de novo os alcumes arrastando e soltando) "
 
-#. i18n: file: src/preferences/osd_preferencesui.ui:187
-#. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:1004
-msgid "Te&xt color:"
-msgstr "Cor do te&xto:"
+#. i18n: file: src/config/nicklistbehavior_configui.ui:103
+#. i18n: ectx: property (text), widget (QTreeWidget, sortOrder)
+#: rc.cpp:1403
+msgid "Explanation"
+msgstr "Explicazón"
 
-#. i18n: file: src/preferences/osd_preferencesui.ui:200
-#. i18n: ectx: property (text), widget (QLabel, textLabel3)
-#. i18n: file: src/viewer/irccolorchooserui.ui:122
-#. i18n: ectx: property (text), widget (QLabel, m_bgColorLbl)
-#: rc.cpp:1007 rc.cpp:1775
-msgid "&Background color:"
-msgstr "Cor de &fondo:"
+#. i18n: file: src/config/fontappearance_config.ui:25
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_FixedMOTD)
+#: rc.cpp:1406
+msgid "Show MOTD (Message Of The Day) message in fixed font"
+msgstr "Mostra a MOTD (Mensaxe do Dia) con texto monoespazado"
 
-#. i18n: file: src/preferences/osd_preferencesui.ui:249
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
-#: rc.cpp:1010
-msgid "O&ther Settings"
-msgstr "Ou&tras Configurazóns"
+#. i18n: file: src/config/fontappearance_config.ui:28
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_FixedMOTD)
+#: rc.cpp:1409
+msgid "Enable fi&xed font for MOTD messages"
+msgstr "&Usar un tipo de letra monoespazado para as mensaxes MOTD"
 
-#. i18n: file: src/preferences/osd_preferencesui.ui:255
-#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:1013
-msgid "&Duration:"
-msgstr "&Durazón:"
+#. i18n: file: src/config/fontappearance_config.ui:35
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseBoldNicks)
+#: rc.cpp:1412
+msgid "Show sender nicknames &bold in the chat view"
+msgstr "Mostra os alcumes do remetente en &negriña na vista da conversa"
 
-#. i18n: file: src/preferences/osd_preferencesui.ui:268
-#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
-#: rc.cpp:1016
-msgid "S&creen:"
-msgstr "P&antalla:"
+#. i18n: file: src/config/fontappearance_config.ui:61
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomTextFont)
+#: rc.cpp:1415
+msgid "Chat text:"
+msgstr "Texto da conversa:"
 
-#. i18n: file: src/preferences/osd_preferencesui.ui:281
-#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_OSDDuration)
-#: rc.cpp:1019
-msgid " ms"
-msgstr " ms"
+#. i18n: file: src/config/fontappearance_config.ui:92
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomListFont)
+#: rc.cpp:1418
+msgid "Nickname list:"
+msgstr "Lista de alcumes:"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:48
-#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
-#: rc.cpp:1025
-msgid "Replace In"
-msgstr "Substituir En"
+#. i18n: file: src/config/fontappearance_config.ui:102
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomTabFont)
+#: rc.cpp:1421
+msgid "Tab bar:"
+msgstr "Barra de páxinas:"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:53
-#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
-#: rc.cpp:1028
-msgid "Find"
-msgstr "Procurar"
+#. i18n: file: src/config/theme_configui.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, Theme_ConfigUI)
+#: rc.cpp:1424
+msgid "Theme_Config"
+msgstr "Theme_Config"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:58
-#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
-#: rc.cpp:1031
-msgid "Replace With"
-msgstr "Substituir con"
+#. i18n: file: src/config/theme_configui.ui:28
+#. i18n: ectx: property (text), widget (QPushButton, installButton)
+#: rc.cpp:1427
+msgid "I&nstall Theme..."
+msgstr "I&nstalar Tema..."
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:68
-#. i18n: ectx: property (text), widget (QPushButton, newButton)
-#: rc.cpp:1034
-#, fuzzy
-msgid "Ne&w"
-msgstr "Novo"
-
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:75
+#. i18n: file: src/config/theme_configui.ui:38
 #. i18n: ectx: property (text), widget (QPushButton, removeButton)
-#: rc.cpp:1037
+#: rc.cpp:1430
+msgid "&Remove Theme"
+msgstr "&Borrar o Tema"
+
+#. i18n: file: src/config/theme_configui.ui:78
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel1)
+#: rc.cpp:1433
+msgid "Icon for normal users"
+msgstr "Ícone para usuários normais"
+
+#. i18n: file: src/config/theme_configui.ui:97
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel2)
+#: rc.cpp:1436
+msgid "Icon for away users"
+msgstr "Ícone para usuários ausentes"
+
+#. i18n: file: src/config/theme_configui.ui:113
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel3)
+#: rc.cpp:1439
+msgid "Icon for users with voice"
+msgstr "Ícone para usuários con voz"
+
+#. i18n: file: src/config/theme_configui.ui:129
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel4)
+#: rc.cpp:1442
 #, fuzzy
-msgid "R&emove"
-msgstr "Borrado"
+msgid "Icon for users with half-operator privileges"
+msgstr "Ícone para usuários con priviléxios de sub-operador"
 
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:111
-#. i18n: ectx: property (text), widget (QLabel, directionLabel)
-#: rc.cpp:1040
-msgid "Replace in:"
-msgstr "Substituir en:"
-
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:143
-#. i18n: ectx: property (text), widget (QLabel, patternLabel)
-#: rc.cpp:1043
-msgid "Find:"
-msgstr "Procurar:"
-
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:198
-#. i18n: ectx: property (text), widget (QLabel, replacementLabel)
-#: rc.cpp:1049
-msgid "Replace with:"
-msgstr "Substituir con:"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:23
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_Timestamping)
-#: rc.cpp:1052
-msgid "Enable &Timestamps"
-msgstr "Activar as Marcas de &Tempo"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:32
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowDate)
-#: rc.cpp:1055
+#. i18n: file: src/config/theme_configui.ui:145
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel5)
+#: rc.cpp:1445
 #, fuzzy
-msgid "Sho&w dates"
-msgstr "Mostrar as &datas"
+msgid "Icon for users with operator privileges"
+msgstr "Ícone para usuários con priviléxios de operador"
 
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:39
-#. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:1058
-msgid "&Format:"
-msgstr "&Formato:"
+#. i18n: file: src/config/theme_configui.ui:161
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel6)
+#: rc.cpp:1448
+msgid "Icon for users with admin privileges"
+msgstr "Ícone para usuários con priviléxios de administrador"
 
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:78
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowBacklog)
-#: rc.cpp:1061
-#, fuzzy
-msgid "Show &Backlog"
-msgstr "Mostrar Histórico"
+#. i18n: file: src/config/theme_configui.ui:177
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel7)
+#: rc.cpp:1451
+msgid "Icon for users with owner privileges"
+msgstr "Ícone para usuários con priviléxios de dono"
 
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:87
-#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:1064
-msgid "&Lines: "
-msgstr "&Liñas: "
+#. i18n: file: src/config/theme_configui.ui:202
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: rc.cpp:1454
+msgid "Preview:"
+msgstr "Antevisión:"
 
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:129
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
-#: rc.cpp:1067
-msgid "&Layout"
-msgstr "&Disposizón"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:135
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTopic)
-#: rc.cpp:1070
-msgid "&Show channel topic"
-msgstr "Mo&strar o tema do canal"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:142
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowModeButtons)
-#: rc.cpp:1073
-msgid "Show channel &mode buttons"
-msgstr "Mostrar os botóns do &modo de canal"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:149
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowNickList)
-#: rc.cpp:1076
-msgid "Show channel &nick list and quick buttons"
-msgstr "Mostrar a lista de alcu&mes e os botóns rápidos"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:177
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoUserhost)
-#: rc.cpp:1079
-msgid "Show hostmas&ks in nickname list"
-msgstr "Mostrar as más&caras de nomes na lista de alcumes"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:207
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowRealNames)
-#: rc.cpp:1082
-#, fuzzy
-msgid "Show real names in nickname list"
-msgstr "Mo&strar os nomes verdadeiros ao lado dos alcumes"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:237
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowQuickButtons)
-#: rc.cpp:1085
-msgid "Show &quick buttons"
-msgstr "Mostrar os &botóns rápidos"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:246
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowNicknameBox)
-#: rc.cpp:1088
-msgid "Show bo&x to change own nickname"
-msgstr "Mostrar un &campo para alterar o alcume próprio"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:253
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowIRCViewScrollBar)
-#: rc.cpp:1091
-msgid "Show sc&rollbar"
-msgstr ""
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:266
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowBackgroundImage)
-#: rc.cpp:1094
-msgid "Enable Back&ground Image"
-msgstr "Activar unha Ima&xe de Fondo"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:275
-#. i18n: ectx: property (text), widget (QLabel, textLabel4)
-#: rc.cpp:1097
-msgid "P&ath:"
-msgstr "Loc&alizazón:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:30
+#. i18n: file: src/config/colorsappearance_config.ui:30
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox1)
-#: rc.cpp:1100
+#: rc.cpp:1457
 msgid "Custom Colors"
 msgstr "Cores Personalizadas"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:36
+#. i18n: file: src/config/colorsappearance_config.ui:36
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_InputFieldsBackgroundColor)
-#: rc.cpp:1103
+#: rc.cpp:1460
 msgid "&Use custom colors for input box, nickname list and tab list"
 msgstr ""
 "&Usar cores personalizadas no campo de entrada, lista de alcumes e lista de "
 "páxinas"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:273
+#. i18n: file: src/config/colorsappearance_config.ui:273
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
-#: rc.cpp:1106
+#: rc.cpp:1463
 msgid "&Background:"
 msgstr "&Fondo:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:286
+#. i18n: file: src/config/colorsappearance_config.ui:286
 #. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
-#: rc.cpp:1109
+#: rc.cpp:1466
 msgid "&Server message:"
 msgstr "Mensaxe do &servidor:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:299
+#. i18n: file: src/config/colorsappearance_config.ui:299
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:1112
+#: rc.cpp:1469
 msgid "H&yperlink:"
 msgstr "&Hiperligazón:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:312
+#. i18n: file: src/config/colorsappearance_config.ui:312
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:1115
+#: rc.cpp:1472
 msgid "Channel &message:"
 msgstr "&Mensaxe do canal:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:325
+#. i18n: file: src/config/colorsappearance_config.ui:325
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:1118
+#: rc.cpp:1475
 msgid "Actio&n:"
 msgstr "&Aczón:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:338
+#. i18n: file: src/config/colorsappearance_config.ui:338
 #. i18n: ectx: property (text), widget (QLabel, textLabel4)
-#: rc.cpp:1121
+#: rc.cpp:1478
 msgid "Bac&klog:"
 msgstr "Re&xisto histórico:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:351
+#. i18n: file: src/config/colorsappearance_config.ui:351
 #. i18n: ectx: property (text), widget (QLabel, textLabel5)
-#: rc.cpp:1124
+#: rc.cpp:1481
 msgid "Comman&d message:"
 msgstr "Mensaxe do coman&do:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:364
+#. i18n: file: src/config/colorsappearance_config.ui:364
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_8)
-#: rc.cpp:1127
+#: rc.cpp:1484
 msgid "&Query message:"
 msgstr "Mensaxe de conversa &privada:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:377
+#. i18n: file: src/config/colorsappearance_config.ui:377
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_9)
-#: rc.cpp:1130
+#: rc.cpp:1487
 msgid "&Timestamp:"
 msgstr "Marca de &Tempo:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:390
+#. i18n: file: src/config/colorsappearance_config.ui:390
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_10)
-#: rc.cpp:1133
+#: rc.cpp:1490
 msgid "A&lternate background:"
 msgstr "Fondo a&lternativo:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:409
+#. i18n: file: src/config/colorsappearance_config.ui:409
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_UseColoredNicks)
-#: rc.cpp:1136
+#: rc.cpp:1493
 msgid "Colored Nicks"
 msgstr "Alcumes Coloridos"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:424
+#. i18n: file: src/config/colorsappearance_config.ui:424
 #. i18n: ectx: property (text), widget (QLabel, textLabel9)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:868
+#. i18n: file: src/config/colorsappearance_config.ui:868
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_6)
-#: rc.cpp:1139 rc.cpp:1190
+#: rc.cpp:1496 rc.cpp:1547
 msgid "5:"
 msgstr "5:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:447
+#. i18n: file: src/config/colorsappearance_config.ui:447
 #. i18n: ectx: property (text), widget (QLabel, textLabel8)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:878
+#. i18n: file: src/config/colorsappearance_config.ui:878
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_5)
-#: rc.cpp:1142 rc.cpp:1193
+#: rc.cpp:1499 rc.cpp:1550
 msgid "4:"
 msgstr "4:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:470
+#. i18n: file: src/config/colorsappearance_config.ui:470
 #. i18n: ectx: property (text), widget (QLabel, textLabel7)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:794
+#. i18n: file: src/config/colorsappearance_config.ui:794
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_4)
-#: rc.cpp:1145 rc.cpp:1178
+#: rc.cpp:1502 rc.cpp:1535
 msgid "3:"
 msgstr "3:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:500
+#. i18n: file: src/config/colorsappearance_config.ui:500
 #. i18n: ectx: property (text), widget (QLabel, textLabel6)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:778
+#. i18n: file: src/config/colorsappearance_config.ui:778
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_3)
-#: rc.cpp:1148 rc.cpp:1175
+#: rc.cpp:1505 rc.cpp:1532
 msgid "2:"
 msgstr "2:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:587
+#. i18n: file: src/config/colorsappearance_config.ui:587
 #. i18n: ectx: property (text), widget (QLabel, textLabel4_2)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:838
+#. i18n: file: src/config/colorsappearance_config.ui:838
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_14)
-#: rc.cpp:1151 rc.cpp:1181
+#: rc.cpp:1508 rc.cpp:1538
 msgid "0:"
 msgstr "0:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:610
+#. i18n: file: src/config/colorsappearance_config.ui:610
 #. i18n: ectx: property (text), widget (QLabel, textLabel5_2)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:762
+#. i18n: file: src/config/colorsappearance_config.ui:762
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_2)
-#: rc.cpp:1154 rc.cpp:1172
+#: rc.cpp:1511 rc.cpp:1529
 msgid "1:"
 msgstr "1:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:672
+#. i18n: file: src/config/colorsappearance_config.ui:672
 #. i18n: ectx: property (text), widget (QLabel, textLabel11)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:848
+#. i18n: file: src/config/colorsappearance_config.ui:848
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_8)
-#: rc.cpp:1157 rc.cpp:1184
+#: rc.cpp:1514 rc.cpp:1541
 msgid "7:"
 msgstr "7:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:688
+#. i18n: file: src/config/colorsappearance_config.ui:688
 #. i18n: ectx: property (text), widget (QLabel, textLabel10)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:858
+#. i18n: file: src/config/colorsappearance_config.ui:858
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_7)
-#: rc.cpp:1160 rc.cpp:1187
+#: rc.cpp:1517 rc.cpp:1544
 msgid "6:"
 msgstr "6:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:700
+#. i18n: file: src/config/colorsappearance_config.ui:700
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_3)
-#: rc.cpp:1163
+#: rc.cpp:1520
 msgid "&Own nick color:"
 msgstr "C&or do alcume de seu:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:744
+#. i18n: file: src/config/colorsappearance_config.ui:744
 #. i18n: ectx: property (whatsThis), widget (QGroupBox, kcfg_AllowColorCodes)
-#: rc.cpp:1166
+#: rc.cpp:1523
 msgid ""
 "By enabling this option, color codes added to IRC messages will be displayed "
 "in your chat window as colored text. You can add color codes to your "
@@ -7954,477 +8152,276 @@ msgstr ""
 "mostrados na sua fiestra de conversa como texto colorido. Pode engadir "
 "códigos de cores ás suas mensaxes escollendo Inserir -> Cor de IRC"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:747
+#. i18n: file: src/config/colorsappearance_config.ui:747
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_AllowColorCodes)
-#: rc.cpp:1169
+#: rc.cpp:1526
 msgid "&Allow Colored Text in IRC Messages"
 msgstr "Permitir Texto Colorido n&as Mensaxes de IRC"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1051
+#. i18n: file: src/config/colorsappearance_config.ui:1051
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_12)
-#: rc.cpp:1196
+#: rc.cpp:1553
 msgid "11:"
 msgstr "11:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1082
+#. i18n: file: src/config/colorsappearance_config.ui:1082
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_10)
-#: rc.cpp:1199
+#: rc.cpp:1556
 msgid "9:"
 msgstr "9:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1092
+#. i18n: file: src/config/colorsappearance_config.ui:1092
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_9)
-#: rc.cpp:1202
+#: rc.cpp:1559
 msgid "8:"
 msgstr "8:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1102
+#. i18n: file: src/config/colorsappearance_config.ui:1102
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_11)
-#: rc.cpp:1205
+#: rc.cpp:1562
 msgid "10:"
 msgstr "10:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1183
+#. i18n: file: src/config/colorsappearance_config.ui:1183
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_13)
-#: rc.cpp:1208
+#: rc.cpp:1565
 msgid "12:"
 msgstr "12:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1200
+#. i18n: file: src/config/colorsappearance_config.ui:1200
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_16)
-#: rc.cpp:1211
+#: rc.cpp:1568
 msgid "15:"
 msgstr "15:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1224
+#. i18n: file: src/config/colorsappearance_config.ui:1224
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_15)
-#: rc.cpp:1214
+#: rc.cpp:1571
 msgid "14:"
 msgstr "14:"
 
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1234
+#. i18n: file: src/config/colorsappearance_config.ui:1234
 #. i18n: ectx: property (text), widget (QLabel, textLabel12)
-#: rc.cpp:1217
+#: rc.cpp:1574
 msgid "13:"
 msgstr "13:"
 
-#. i18n: file: src/preferences/warnings_preferencesui.ui:29
-#. i18n: ectx: property (text), widget (QTreeWidget, dialogListView)
-#: rc.cpp:1220
-msgid "Warning Dialogs to Show"
-msgstr "Xanelas de Aviso a Mostrar"
+#. i18n: file: src/config/log_config.ui:23
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_Log)
+#: rc.cpp:1577
+msgid "&Enable Logging"
+msgstr "Activar o R&existo"
 
-#. i18n: file: src/identitydialog.ui:25
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: rc.cpp:1223
-msgid "&Identity:"
-msgstr "&Identidade:"
+#. i18n: file: src/config/log_config.ui:32
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_LowerLog)
+#: rc.cpp:1580
+msgid "Enable &lower case logfile names"
+msgstr "Usar nomes dos rexistos en minúscu&las"
 
-#. i18n: file: src/identitydialog.ui:65
-#. i18n: ectx: property (toolTip), widget (KPushButton, newBtn)
-#: rc.cpp:1226
+#. i18n: file: src/config/log_config.ui:39
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AddHostnameToLog)
+#: rc.cpp:1583
+msgid "&Append hostname to logfile names"
+msgstr "&Engadir o nome da máquina ao nome do ficheiro"
+
+#. i18n: file: src/config/log_config.ui:46
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: rc.cpp:1586
+msgid "Logfile &path:"
+msgstr "&Localizazón do rexisto:"
+
+#. i18n: file: src/config/log_config.ui:69
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseExternalLogViewer)
+#: rc.cpp:1589
+msgid "Use system text editor to open logs"
+msgstr ""
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:23
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_Timestamping)
+#: rc.cpp:1592
+msgid "Enable &Timestamps"
+msgstr "Activar as Marcas de &Tempo"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:32
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowDate)
+#: rc.cpp:1595
 #, fuzzy
-#| msgid "Add..."
-msgid "Add"
-msgstr "Engadir..."
+msgid "Sho&w dates"
+msgstr "Mostrar as &datas"
 
-#. i18n: file: src/identitydialog.ui:96
-#. i18n: ectx: property (toolTip), widget (KPushButton, copyBtn)
-#: rc.cpp:1229
-msgid "Duplicate"
-msgstr "Duplicada"
+#. i18n: file: src/config/chatwindowappearance_config.ui:39
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: rc.cpp:1598
+msgid "&Format:"
+msgstr "&Formato:"
 
-#. i18n: file: src/identitydialog.ui:127
-#. i18n: ectx: property (toolTip), widget (KPushButton, m_editBtn)
-#: rc.cpp:1232
-msgid "Rename"
-msgstr "Mudar o Nome"
-
-#. i18n: file: src/identitydialog.ui:187
-#. i18n: ectx: property (text), widget (QLabel, realNameLabel)
-#: rc.cpp:1241
-msgid "&Real name:"
-msgstr "Nome ve&rdadeiro:"
-
-#. i18n: file: src/identitydialog.ui:197
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_realNameEdit)
-#: rc.cpp:1244
-msgid ""
-"Enter your real name here. IRC is not intended to keep you hidden from your "
-"friends or enemies. Keep this in mind if you are tempted to behave "
-"maliciously. A fake \"real name\" can be a good way to mask your gender from "
-"all the nerds out there, but the PC you use can always be traced so you will "
-"never be truly anonymous."
-msgstr ""
-"Indique aqui o seu nome verdadeiro. IRC non está feito para acochá-lo dos "
-"seus amigos e inimigos. Teña isto en conta se tenta comportar-se  "
-"indebidamente. Un \"nome verdadeiro\" falso pode ser unha boa forma de "
-"ocultar o seu sexo aos anormais existentes por aí, pero o PC que use sempre "
-"pode ser localizado, polo que nunca será anónimo de todo."
-
-#. i18n: file: src/identitydialog.ui:208
-#. i18n: ectx: property (whatsThis), widget (KEditListBox, m_nicknameLBox)
-#: rc.cpp:1247
-msgid ""
-"This is your list of nicknames. A nickname is the name that other users will "
-"know you by. You may use any name you desire. The first character must be a "
-"letter.\n"
-"\n"
-"Since nicknames must be unique across an entire IRC network, your desired "
-"name may be rejected by the server because someone else is already using "
-"that nickname. Enter alternate nicknames for yourself. If your first choice "
-"is rejected by the server, Konversation will try the alternate nicknames."
-msgstr ""
-"Esta é a súa lista de alcumes. un alcume é o nome polo cal os outros "
-"usuários o coñecerán. Pode usar calquer nome que desexe. O primeiro carácter "
-"deberá ser unha letra.\n"
-"\n"
-"Xa que os alcumes deben ser únicos en toda a rede IRC, o nome que desexe "
-"poderá ser rexeitado polo servidor, se alguén xa o estivese a usar. Indique "
-"alcumes alternativas para si. Se a sua primeira escolla fose rexeitada polo "
-"servidor, Konversation tentará cos alcumes alternativos."
-
-#. i18n: file: src/identitydialog.ui:218
-#. i18n: ectx: property (title), widget (QGroupBox, autoIdentifyGroup)
-#: rc.cpp:1255
-msgid "Auto Identify"
-msgstr "Identificar Automaticamente"
-
-#. i18n: file: src/identitydialog.ui:224
-#. i18n: ectx: property (text), widget (QLabel, botLabel)
-#: rc.cpp:1258
-msgid "Ser&vice:"
-msgstr "Ser&vizo:"
-
-#. i18n: file: src/identitydialog.ui:234
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_botEdit)
-#: rc.cpp:1261
+#. i18n: file: src/config/chatwindowappearance_config.ui:78
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowBacklog)
+#: rc.cpp:1601
 #, fuzzy
-#| msgid ""
-#| "Service name can be <b><i>nickserv</i></b> or a network dependant name "
-#| "like  <b><i>nickserv@services.dal.net</i></b>"
-msgid ""
-"Service name can be <b><i>nickserv</i></b> or a network-dependent name such "
-"as <b><i>nickserv@services.dal.net</i></b>"
-msgstr ""
-"O nome do servizo pode ser <b><i>nickserv</i></b> ou un nome dependente da "
-"rede como <b><i>nickserv@services.dal.net</i></b>"
+msgid "Show &Backlog"
+msgstr "Mostrar Histórico"
 
-#. i18n: file: src/identitydialog.ui:241
-#. i18n: ectx: property (text), widget (QLabel, passwordLabel)
-#: rc.cpp:1264
-msgid "Pa&ssword:"
-msgstr "&Contrasinal:"
+#. i18n: file: src/config/chatwindowappearance_config.ui:87
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#: rc.cpp:1604
+msgid "&Lines: "
+msgstr "&Liñas: "
 
-#. i18n: file: src/identitydialog.ui:270
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_insertRememberLineOnAwayChBox)
-#: rc.cpp:1270
-msgid ""
-"If you check this box, whenever you perform an <b>/away</b> command, a "
-"horizontal line will appear in the channel, marking the point where you went "
-"away. Other IRC users do not see this horizontal line."
-msgstr ""
-"Se sinala esta opzón, sempre que efectue un comando <b>/away</b>, aparecerá "
-"unha liña horizontal no canal, marcando o ponto en que se  ausentou. Os "
-"outros usuários de IRC non verán esta liña horizontal."
+#. i18n: file: src/config/chatwindowappearance_config.ui:129
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
+#: rc.cpp:1607
+msgid "&Layout"
+msgstr "&Disposizón"
 
-#. i18n: file: src/identitydialog.ui:273
-#. i18n: ectx: property (text), widget (QCheckBox, m_insertRememberLineOnAwayChBox)
-#: rc.cpp:1273
-msgid "Mark the last position in chat windows when going away"
-msgstr ""
+#. i18n: file: src/config/chatwindowappearance_config.ui:135
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTopic)
+#: rc.cpp:1610
+msgid "&Show channel topic"
+msgstr "Mo&strar o tema do canal"
 
-#. i18n: file: src/identitydialog.ui:280
-#. i18n: ectx: property (text), widget (QLabel, awayNicknameLabel)
-#: rc.cpp:1276
-msgid "Away nickname:"
-msgstr "Alcume de auséncia:"
+#. i18n: file: src/config/chatwindowappearance_config.ui:142
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowModeButtons)
+#: rc.cpp:1613
+msgid "Show channel &mode buttons"
+msgstr "Mostrar os botóns do &modo de canal"
 
-#. i18n: file: src/identitydialog.ui:287
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_awayNickEdit)
-#: rc.cpp:1279
-msgid ""
-"Enter a nickname that indicates you are away. Whenever you perform an <b>/"
-"away msg</b> command in any channel joined with this Identity, Konversation "
-"will automatically change your nickname to the Away nickname. Other users "
-"will be able to tell you are away from your computer. Whenever you perform "
-"an <b>/away</b> command in any channel in which you are away, Konversation "
-"will automatically change your nickname back to the original. If you do not "
-"wish to automatically change your nickname when going away, leave blank."
-msgstr ""
-"Escreba un alcume que indique que está ausente. Sempre que efectue un "
-"comando <b>/away mensaxe</b> en calquer canal ao que estexa conectado con "
-"esta identidade, Konversation mudará automaticamente o seu alcume para o "
-"alcume de auséncia. Os outros usuários poderán perceber que está ausente do "
-"seu ordenador. Sempre que execute un comando <b>/away</b> en calquer canal "
-"onde estexa ausente, Konversation mudará automaticamente o seu alcume de "
-"volta para o orixinal. Se non quer mudar automaticamente o seu alcume ao "
-"pasar para ausente, deixe-o en branco."
+#. i18n: file: src/config/chatwindowappearance_config.ui:149
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowNickList)
+#: rc.cpp:1616
+msgid "Show channel &nick list and quick buttons"
+msgstr "Mostrar a lista de alcu&mes e os botóns rápidos"
 
-#. i18n: file: src/identitydialog.ui:302
-#. i18n: ectx: property (whatsThis), widget (QGroupBox, automaticAwayGroup)
-#: rc.cpp:1282
-msgid ""
-"If you check this box, Konversation will automatically set all connections "
-"using this Identity away when the screensaver starts or after a period of "
-"user inactivity configured below."
-msgstr ""
+#. i18n: file: src/config/chatwindowappearance_config.ui:177
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoUserhost)
+#: rc.cpp:1619
+msgid "Show hostmas&ks in nickname list"
+msgstr "Mostrar as más&caras de nomes na lista de alcumes"
 
-#. i18n: file: src/identitydialog.ui:305
-#. i18n: ectx: property (title), widget (QGroupBox, automaticAwayGroup)
-#: rc.cpp:1285
-msgid "Automatic Away"
-msgstr ""
-
-#. i18n: file: src/identitydialog.ui:323
-#. i18n: ectx: property (text), widget (QLabel, setAwayAfterLabel)
-#: rc.cpp:1288
-msgid "Set away after"
-msgstr ""
-
-#. i18n: file: src/identitydialog.ui:346
-#. i18n: ectx: property (text), widget (QLabel, timeOfUserInactivityLabel)
-#: rc.cpp:1291
+#. i18n: file: src/config/chatwindowappearance_config.ui:207
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowRealNames)
+#: rc.cpp:1622
 #, fuzzy
-msgid "of user inactivity"
-msgstr "Na actividade de pes&quisa"
-
-#. i18n: file: src/identitydialog.ui:353
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_automaticUnawayChBox)
-#: rc.cpp:1294
-msgid ""
-"If you check this box, Konversation will automatically cancel away for all "
-"connections using this Identity when the screensaver stops or new user "
-"activity is detected."
-msgstr ""
-
-#. i18n: file: src/identitydialog.ui:356
-#. i18n: ectx: property (text), widget (QCheckBox, m_automaticUnawayChBox)
-#: rc.cpp:1297
-#, fuzzy
-msgid "Automatically return on activity"
-msgstr "Continuar au&tomaticamente as transferéncias"
-
-#. i18n: file: src/identitydialog.ui:372
-#. i18n: ectx: property (whatsThis), widget (QGroupBox, awayMessageGroup)
-#: rc.cpp:1301
-#, no-c-format
-msgid ""
-"If you check this box, Konversation will automatically send the Away message "
-"to all channels joined with this Identity. <b>%s</b> is replaced with "
-"<b>msg</b>. Whenever you perform an <b>/away</b> command, the Return message "
-"will be displayed in all channels joined with this Identity."
-msgstr ""
-"Se sinala esta opzón, Konversation enviará automaticamente a mensaxe de "
-"auséncia a todos os canais aos que estexa conectado con esta identidade. <b>%"
-"s</b> é substituido por <b>mensaxe</b>.  Sempre que execute un comando <b>/"
-"away</b>, a mensaxe de regreso será apresentada en todos os canais aos que "
-"se conecta-se con esta identidade."
-
-#. i18n: file: src/identitydialog.ui:375
-#. i18n: ectx: property (title), widget (QGroupBox, awayMessageGroup)
-#: rc.cpp:1304
-#, fuzzy
-msgid "Away Messages"
-msgstr "Mensaxe de auséncia:"
-
-#. i18n: file: src/identitydialog.ui:387
-#. i18n: ectx: property (text), widget (QLabel, awayLabel)
-#: rc.cpp:1307
-msgid "Away &message:"
-msgstr "&Mensaxe de auséncia:"
-
-#. i18n: file: src/identitydialog.ui:400
-#. i18n: ectx: property (text), widget (QLabel, unAwayLabel)
-#: rc.cpp:1310
-msgid "Re&turn message:"
-msgstr "Mensaxe de re&greso:"
-
-#. i18n: file: src/identitydialog.ui:430
-#. i18n: ectx: attribute (title), widget (QWidget, advancedWidget)
-#: rc.cpp:1313
-msgid "Advanced"
-msgstr "Avanzado"
-
-#. i18n: file: src/identitydialog.ui:436
-#. i18n: ectx: property (text), widget (QLabel, sCommandLabel)
-#: rc.cpp:1316
-msgid "&Pre-shell command:"
-msgstr "&Pré-comando:"
-
-#. i18n: file: src/identitydialog.ui:446
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_sCommandEdit)
-#: rc.cpp:1319
-msgid ""
-"Here you can enter a command to be executed before connection to server "
-"starts<br>If you have multiple servers in this identity this command will be "
-"executed for each server"
-msgstr ""
-"Aqui poderá indicar un comando a executar antes de conectar co "
-"servidor<br>Se tivese vários servidores nesta identidade, o comando  será "
-"executado para cada un deles"
-
-#. i18n: file: src/identitydialog.ui:459
-#. i18n: ectx: property (text), widget (QLabel, codecLabel)
-#: rc.cpp:1322
-msgid "&Encoding:"
-msgstr "&Codificazón:"
-
-#. i18n: file: src/identitydialog.ui:469
-#. i18n: ectx: property (whatsThis), widget (KComboBox, m_codecCBox)
-#: rc.cpp:1325
-msgid ""
-"This setting affects how characters you type are encoded for sending to the "
-"server. It also affects how messages are displayed. When you first open "
-"Konversation, it automatically retrieves this setting from the operating "
-"system. If you seem to be having trouble seeing other user's messages "
-"correctly, try changing this setting."
-msgstr ""
-"Esta opzón afecta a maneira de codificar os caracteres que escreba para "
-"enviar ao servidor. Tamén afecta a forma de apresentar as mensaxes. Cando o "
-"usuário abra Konversation por primeira vez, obtén esta opzón a partir do "
-"sistema operativo. Se tivese problemas para ver correctamente as mensaxes "
-"dos outros usuários, cámbie esta configurazón."
-
-#. i18n: file: src/identitydialog.ui:476
-#. i18n: ectx: property (text), widget (QLabel, loginLabel)
-#: rc.cpp:1328
-msgid "I&dent:"
-msgstr "I&dent:"
-
-#. i18n: file: src/identitydialog.ui:486
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_loginEdit)
-#: rc.cpp:1331
-msgid ""
-"When you connect, many servers query your computer for an IDENT response. If "
-"you computer is not running an IDENT server, this response is sent by "
-"Konversation. No spaces are allowed."
-msgstr ""
-"Cando se conecta, vários servidores tentarán obter do seu ordenador unha "
-"resposta de IDENT. Se o seu ordenador non estivese a executar un servidor de "
-"IDENT, esta resposta é enviada por Konversation. Non pode conter espazos."
-
-#. i18n: file: src/identitydialog.ui:493
-#. i18n: ectx: property (text), widget (QLabel, quitLabel)
-#: rc.cpp:1334
-#, fuzzy
-msgid "&Quit reason:"
-msgstr "Motivo da &partida:"
-
-#. i18n: file: src/identitydialog.ui:503
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_quitEdit)
-#: rc.cpp:1337
-#, fuzzy
-msgid "Whenever you leave a server, this message is shown to others."
-msgstr "Sempre que abandone un canal, esta mensaxe é enviada para el."
-
-#. i18n: file: src/identitydialog.ui:506
-#. i18n: ectx: property (text), widget (KLineEdit, m_quitEdit)
-#. i18n: file: src/identitydialog.ui:526
-#. i18n: ectx: property (text), widget (KLineEdit, m_partEdit)
-#: rc.cpp:1340 rc.cpp:1349
-#, fuzzy
-#| msgid "Konversation"
-msgid "Konversation terminated."
-msgstr "Konversation"
-
-#. i18n: file: src/identitydialog.ui:513
-#. i18n: ectx: property (text), widget (QLabel, partLabel)
-#: rc.cpp:1343
-msgid "&Part reason:"
-msgstr "Motivo da &partida:"
-
-#. i18n: file: src/identitydialog.ui:523
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_partEdit)
-#: rc.cpp:1346
-msgid "Whenever you leave a channel, this message is sent to the channel."
-msgstr "Sempre que abandone un canal, esta mensaxe é enviada para el."
-
-#. i18n: file: src/identitydialog.ui:533
-#. i18n: ectx: property (text), widget (QLabel, kickLabel)
-#: rc.cpp:1352
-msgid "&Kick reason:"
-msgstr "Motivo da e&xpulsión:"
-
-#. i18n: file: src/identitydialog.ui:543
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, m_kickEdit)
-#: rc.cpp:1355
-msgid ""
-"Whenever you are kicked from a channel (usually by an IRC operator), this "
-"message is sent to the channel."
-msgstr ""
-"Sempre que sexa expulsado dun canal (normalmente por un operador de IRC), "
-"esta mensaxe é enviada para dito canal."
-
-#. i18n: file: src/identitydialog.ui:546
-#. i18n: ectx: property (text), widget (KLineEdit, m_kickEdit)
-#: rc.cpp:1358
-#, fuzzy
-#| msgid "Konversation"
-msgid "User terminated."
-msgstr "Konversation"
-
-#. i18n: file: src/config/konversation.kcfg:21
-#. i18n: ectx: label, entry, group (Appearance)
-#: rc.cpp:1363
-#, fuzzy
-#| msgid "Limit the size of the tab labels to fit all on screen"
-msgid "Limit the size of the tab labels to fit them all on screen"
-msgstr ""
-"Limitar o tamaño das lendas dos separadores para couber todo na pantalla"
-
-#. i18n: file: src/config/konversation.kcfg:226
-#. i18n: ectx: label, entry, group (Appearance)
-#: rc.cpp:1432
-msgid "Hide the scrollbar"
-msgstr ""
-
-#. i18n: file: src/config/konversation.kcfg:232
-#. i18n: ectx: whatsthis, entry, group (General Options)
-#: rc.cpp:1435
-msgid ""
-"Enable if you want all the IRC input lines to check your spelling as you type"
-msgstr ""
-"Active se quer verificar ortograficamente todas as liñas introducidas no  "
-"IRC, á medida que escrebe"
-
-#. i18n: file: src/config/konversation.kcfg:241
-#. i18n: ectx: whatsthis, entry, group (General Options)
-#: rc.cpp:1438
-msgid ""
-"Enabling this will cause the input box to grow vertically when it fills up."
-msgstr ""
-"Se activa esta opzón, o campo de texto crecerá na vertical cando se preencha."
-
-#. i18n: file: src/config/konversation.kcfg:275
-#. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:1453
-msgid "Start with hidden main window"
-msgstr ""
-
-#. i18n: file: src/config/konversation.kcfg:329
-#. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:1476
-msgid "&Show real names next to nicknames"
+msgid "Show real names in nickname list"
 msgstr "Mo&strar os nomes verdadeiros ao lado dos alcumes"
 
-#. i18n: file: src/config/konversation.kcfg:543
-#. i18n: ectx: label, entry (OpenWatchedNicksAtStartup), group (Notify List)
-#: rc.cpp:1560
-msgid "Open Watched Nicks tab at application startup"
-msgstr "Mostrar a páxina de alcumes vixiados no início da aplicazón"
+#. i18n: file: src/config/chatwindowappearance_config.ui:237
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowQuickButtons)
+#: rc.cpp:1625
+msgid "Show &quick buttons"
+msgstr "Mostrar os &botóns rápidos"
 
-#. i18n: file: src/config/konversation.kcfg:827
-#. i18n: ectx: label, entry, group (Themes)
+#. i18n: file: src/config/chatwindowappearance_config.ui:246
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowNicknameBox)
+#: rc.cpp:1628
+msgid "Show bo&x to change own nickname"
+msgstr "Mostrar un &campo para alterar o alcume próprio"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:253
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowIRCViewScrollBar)
+#: rc.cpp:1631
+msgid "Show sc&rollbar"
+msgstr ""
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:266
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowBackgroundImage)
+#: rc.cpp:1634
+msgid "Enable Back&ground Image"
+msgstr "Activar unha Ima&xe de Fondo"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:275
+#. i18n: ectx: property (text), widget (QLabel, textLabel4)
+#: rc.cpp:1637
+msgid "P&ath:"
+msgstr "Loc&alizazón:"
+
+#. i18n: file: src/config/tabnotifications_config.ui:25
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsText)
+#: rc.cpp:1643
+msgid "Use colored text"
+msgstr "Usar texto colorido"
+
+#. i18n: file: src/config/tabnotifications_config.ui:35
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsLeds)
+#: rc.cpp:1646
+msgid "Use colored LEDs"
+msgstr "Usar LEDs coloridos"
+
+#. i18n: file: src/config/tabnotifications_config.ui:51
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsSystem)
+#: rc.cpp:1652
+msgid ""
+"Application events occur in Konsole tabs, the DCC Status tab and other "
+"application tabs not used directly for chatting."
+msgstr ""
+"Os eventos da aplicazón ocorren nas páxinas de Konsole, na páxina de Estado "
+"do DCC e nas outras páxinas de aplicazóns non usadas directamente para "
+"conversar."
+
+#. i18n: file: src/config/tabnotifications_config.ui:54
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsSystem)
+#: rc.cpp:1655
+msgid "Application event"
+msgstr "Evento da aplicazón"
+
+#. i18n: file: src/config/tabnotifications_config.ui:87
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsMsgs)
 #: rc.cpp:1658
-msgid "Enable emoticons"
-msgstr "Activar os emoticones"
+msgid "Message"
+msgstr "Mensaxe"
 
-#. i18n: file: src/config/konversation.kcfg:831
-#. i18n: ectx: label, entry, group (Themes)
+#. i18n: file: src/config/tabnotifications_config.ui:143
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsPrivate)
 #: rc.cpp:1661
-msgid "Emoticons theme"
-msgstr "Tema de emoticones"
+#, fuzzy
+msgid "Private message"
+msgstr "Mensaxe do &servidor:"
+
+#. i18n: file: src/config/tabnotifications_config.ui:167
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsNick)
+#: rc.cpp:1664
+msgid "Current nick used"
+msgstr "Alcume actual usado"
+
+#. i18n: file: src/config/tabnotifications_config.ui:223
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsEvents)
+#: rc.cpp:1667
+msgid "Channel events are mode changes or users joining/leaving a channel."
+msgstr ""
+"Os eventos do canal son os cámbios do modo ou os usuários a entrar/sair dun "
+"canal."
+
+#. i18n: file: src/config/tabnotifications_config.ui:226
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsEvents)
+#: rc.cpp:1670
+msgid "Channel event"
+msgstr "Evento do canal"
+
+#. i18n: file: src/config/tabnotifications_config.ui:275
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox10)
+#. i18n: file: src/viewer/searchbarbase.ui:92
+#. i18n: ectx: property (text), widget (QToolButton, m_optionsButton)
+#: rc.cpp:1676 rc.cpp:1715
+#, fuzzy
+#| msgid "Exception"
+msgid "Options"
+msgstr "Excepzón"
+
+#. i18n: file: src/config/tabnotifications_config.ui:281
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsOverride)
+#: rc.cpp:1679
+msgid ""
+"If you select this, the colors you chose in the Highlights preferences page "
+"will override the colors for \"Current nick used\" and \"Highlight\"."
+msgstr ""
+"Se escolle isto, as cores que escolleu na páxina de preferéncias do realce "
+"substituirán as cores do \"Alcume actual usado\" e do \"Realce\"."
+
+#. i18n: file: src/config/tabnotifications_config.ui:284
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsOverride)
+#: rc.cpp:1682
+msgid "Give precedence to chat window highlight colors"
+msgstr "Dar preferéncia ás cores de realce da fiestra de conversazón"
 
 #. i18n: file: src/linkaddressbook/linkaddressbookui_base.ui:41
 #. i18n: ectx: property (toolTip), widget (QPushButton, addAddresseeButton)

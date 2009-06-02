@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-05-25 11:46+0200\n"
+"POT-Creation-Date: 2009-05-31 11:52+0200\n"
 "PO-Revision-Date: 2008-08-02 22:53+0300\n"
 "Last-Translator: Diego Iastrubni <elcuco@kde.org>\n"
 "Language-Team:  <kde-il@yahoogroups.com>\n"
@@ -100,7 +100,7 @@ msgstr "אין יציאה זמינה"
 msgid "Could not open a socket"
 msgstr "לא יכול לפתוח שקע (socket)"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:97
+#. i18n: file: src/config/ignore_configui.ui:97
 #. i18n: ectx: property (text), widget (QCheckBox, chkDCC)
 #: src/dcc/chat.cpp:142 src/dcc/chat.cpp:152 src/dcc/chat.cpp:165
 #: src/dcc/chat.cpp:183 src/dcc/chat.cpp:188 src/dcc/chat.cpp:193
@@ -108,10 +108,11 @@ msgstr "לא יכול לפתוח שקע (socket)"
 #: src/irc/inputfilter.cpp:386 src/irc/inputfilter.cpp:401
 #: src/irc/inputfilter.cpp:417 src/irc/inputfilter.cpp:425
 #: src/irc/server.cpp:1802 src/irc/server.cpp:1828 src/irc/server.cpp:1840
-#: src/irc/server.cpp:1941 src/irc/server.cpp:1992 src/irc/server.cpp:2048
-#: src/irc/server.cpp:2051 src/irc/server.cpp:2062 src/irc/server.cpp:2065
-#: src/irc/server.cpp:2079 src/irc/server.cpp:2086 src/settingsdialog.cpp:149
-#: src/viewer/ignorelistviewitem.cpp:47 rc.cpp:410
+#: src/irc/server.cpp:1941 src/irc/server.cpp:1992 src/irc/server.cpp:2049
+#: src/irc/server.cpp:2054 src/irc/server.cpp:2066 src/irc/server.cpp:2069
+#: src/irc/server.cpp:2083 src/irc/server.cpp:2090
+#: src/config/settingsdialog.cpp:149 src/viewer/ignorelistviewitem.cpp:47
+#: rc.cpp:765
 msgid "DCC"
 msgstr "DCC"
 
@@ -177,14 +178,14 @@ msgstr ""
 msgid "Connection broken, error (%1) %2."
 msgstr "החיבור נשבר, קוד שגיאה %1."
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:83
+#. i18n: file: src/config/ignore_configui.ui:83
 #. i18n: ectx: property (text), widget (QCheckBox, chkCTCP)
 #: src/dcc/chat.cpp:237 src/irc/outputfilter.cpp:757
 #: src/irc/inputfilter.cpp:272 src/irc/inputfilter.cpp:279
 #: src/irc/inputfilter.cpp:295 src/irc/inputfilter.cpp:302
 #: src/irc/inputfilter.cpp:434 src/irc/inputfilter.cpp:442
 #: src/irc/inputfilter.cpp:462 src/irc/inputfilter.cpp:513
-#: src/irc/inputfilter.cpp:541 src/viewer/ignorelistviewitem.cpp:46 rc.cpp:404
+#: src/irc/inputfilter.cpp:541 src/viewer/ignorelistviewitem.cpp:46 rc.cpp:759
 msgid "CTCP"
 msgstr "CTCP"
 
@@ -258,18 +259,18 @@ msgstr ""
 msgid "Awaiting remote user's acceptance"
 msgstr "מחכה לתגובת המשתמש המרוחק"
 
-#: src/dcc/transfersend.cpp:351 src/dcc/transferrecv.cpp:590
+#: src/dcc/transfersend.cpp:351 src/dcc/transferrecv.cpp:587
 #, fuzzy
 #| msgid "Could not accept the connection. (Socket Error)"
 msgid "Could not accept the connection (socket error.)"
 msgstr "לא יכול לאשר את החיבור (שגיאת שקע, socket error)"
 
-#: src/dcc/transfersend.cpp:447 src/dcc/transferrecv.cpp:604
+#: src/dcc/transfersend.cpp:447 src/dcc/transferrecv.cpp:601
 #, kde-format
 msgid "Socket error: %1"
 msgstr "שגיאת שקע: %1"
 
-#: src/dcc/transfersend.cpp:469 src/dcc/transferrecv.cpp:709
+#: src/dcc/transfersend.cpp:469 src/dcc/transferrecv.cpp:704
 msgid "Timed out"
 msgstr "הזמן עבר"
 
@@ -344,7 +345,7 @@ msgstr "אין מידע מופרט זמין  עבור קובץ זה."
 msgid "Send"
 msgstr "שלח"
 
-#: src/dcc/transferpanelitem.cpp:266 src/dcc/transferrecv.cpp:84
+#: src/dcc/transferpanelitem.cpp:266 src/dcc/transferrecv.cpp:81
 msgid "Receive"
 msgstr "קבל"
 
@@ -389,34 +390,34 @@ msgstr "בוטל"
 msgid "%1/sec"
 msgstr "%1/ש"
 
-#: src/dcc/transferrecv.cpp:188
+#: src/dcc/transferrecv.cpp:185
 msgid "The admin has restricted the right to receive files"
 msgstr "המנהל הגביל את ההרשאות לקבל קבצים"
 
-#: src/dcc/transferrecv.cpp:195
+#: src/dcc/transferrecv.cpp:192
 #, kde-format
 msgid "Invalid sender address (%1)"
 msgstr ""
 
-#: src/dcc/transferrecv.cpp:202
+#: src/dcc/transferrecv.cpp:199
 msgid "Unsupported negotiation (filesize=0)"
 msgstr ""
 
-#: src/dcc/transferrecv.cpp:301
+#: src/dcc/transferrecv.cpp:298
 #, kde-format
 msgid "<b>Cannot create the folder.</b><br>Folder: %1<br>"
 msgstr "<b>אין אפשרות ליצור את התיקייה.</b><br>תיקייה: %1<br>"
 
-#: src/dcc/transferrecv.cpp:321
+#: src/dcc/transferrecv.cpp:318
 msgid "Could not create a KIO instance"
 msgstr "לא יכול ליצור מופע של KIO"
 
-#: src/dcc/transferrecv.cpp:390
+#: src/dcc/transferrecv.cpp:387
 #, kde-format
 msgid "<b>The file is used by another transfer.</b><br>%1<br>"
 msgstr "<b>הקובץ בשימוש על ידי העברה אחרת.</b><br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:403
+#: src/dcc/transferrecv.cpp:400
 #, fuzzy, kde-format
 #| msgid ""
 #| "<b>A partial file exists.</b><br>%1<br>Size of the partial file: %2 "
@@ -432,52 +433,52 @@ msgstr[0] ""
 msgstr[1] ""
 "<b>קובץ חלקי כבר קיים.</b><br>%1<br>גודל הקובץ החלקי הוא %2 בתים<br>"
 
-#: src/dcc/transferrecv.cpp:434
+#: src/dcc/transferrecv.cpp:431
 #, kde-format
 msgid "<b>The file already exists.</b><br>%1<br>"
 msgstr "<b>הקובץ כבר קיים.</b><br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:441
+#: src/dcc/transferrecv.cpp:438
 #, kde-format
 msgid "<b>Could not open the file.<br>Error: %1</b><br>%2<br>"
 msgstr "<b>אין אפשרות לפתוח את הקובץ.<br>שגיאה: %1</b><br>%2<br>"
 
-#: src/dcc/transferrecv.cpp:482
+#: src/dcc/transferrecv.cpp:479
 msgid ""
 "Could not send Reverse DCC SEND acknowledgement to the partner via the IRC "
 "server."
 msgstr ""
 
-#: src/dcc/transferrecv.cpp:489
+#: src/dcc/transferrecv.cpp:486
 #, fuzzy
 msgid "Waiting for connection"
 msgstr "ססמה לחיבור"
 
-#: src/dcc/transferrecv.cpp:503
+#: src/dcc/transferrecv.cpp:500
 msgid "Waiting for remote host's acceptance"
 msgstr "ממתין לאישור השרת המרוחק"
 
-#: src/dcc/transferrecv.cpp:513
+#: src/dcc/transferrecv.cpp:510
 msgid ""
 "Could not send DCC RECV resume request to the partner via the IRC server."
 msgstr ""
 
-#: src/dcc/transferrecv.cpp:535
+#: src/dcc/transferrecv.cpp:532
 msgid "Unexpected response from remote host"
 msgstr "תגובה לא צפויה מהשרת"
 
-#: src/dcc/transferrecv.cpp:672
+#: src/dcc/transferrecv.cpp:667
 #, fuzzy
 #| msgid "Transferring error"
 msgid "Transfer error"
 msgstr "שגיאת העברה"
 
-#: src/dcc/transferrecv.cpp:688
+#: src/dcc/transferrecv.cpp:683
 #, kde-format
 msgid "KIO error: %1"
 msgstr "KIO error: %1"
 
-#: src/dcc/transferpanel.cpp:46 src/viewer/viewcontainer.cpp:2055
+#: src/dcc/transferpanel.cpp:46 src/viewer/viewcontainer.cpp:2065
 msgid "DCC Status"
 msgstr "מצב העברות"
 
@@ -630,12 +631,12 @@ msgstr "ש&נה שם"
 msgid "Channel Settings for %1"
 msgstr "אפשרויות חדר עבור %1"
 
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:98
+#. i18n: file: src/config/nicklistbehavior_configui.ui:98
 #. i18n: ectx: property (text), widget (QTreeWidget, sortOrder)
 #: src/irc/channeloptionsdialog.cpp:47 src/irc/inputfilter.cpp:935
 #: src/irc/inputfilter.cpp:939 src/irc/inputfilter.cpp:2032
 #: src/irc/inputfilter.cpp:2081 src/irc/channelnick.cpp:221
-#: src/irc/channel.cpp:2048 rc.cpp:461
+#: src/irc/channel.cpp:2048 rc.cpp:1400
 msgid "Mode"
 msgstr "מצב"
 
@@ -814,16 +815,16 @@ msgid "Kick / Ban"
 msgstr "בעיטה / נידוי"
 
 #: src/irc/nicklistview.cpp:132 src/irc/outputfilter.cpp:1325
-#: src/irc/outputfilter.cpp:1397 src/irc/server.cpp:3041 src/irc/query.cpp:96
+#: src/irc/outputfilter.cpp:1397 src/irc/server.cpp:3045 src/irc/query.cpp:96
 #: src/irc/query.cpp:396 src/irc/query.cpp:397 src/irc/channel.cpp:654
-#: src/irc/channel.cpp:655 src/preferences/warnings_preferences.cpp:120
-#: src/settingsdialog.cpp:137 src/viewer/ircview.cpp:878
+#: src/irc/channel.cpp:655 src/config/settingsdialog.cpp:137
+#: src/config/warnings_config.cpp:120 src/viewer/ircview.cpp:878
 msgid "Ignore"
 msgstr "התעלם"
 
 #: src/irc/nicklistview.cpp:133 src/irc/query.cpp:97 src/irc/query.cpp:422
 #: src/irc/query.cpp:423 src/irc/channel.cpp:679 src/irc/channel.cpp:680
-#: src/preferences/warnings_preferences.cpp:121 src/viewer/ircview.cpp:879
+#: src/config/warnings_config.cpp:121 src/viewer/ircview.cpp:879
 msgid "Unignore"
 msgstr "בטל התעלמות"
 
@@ -1102,12 +1103,12 @@ msgstr ""
 msgid "Usage: %1NOTICE <recipient> <message>"
 msgstr ""
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:104
+#. i18n: file: src/config/ignore_configui.ui:104
 #. i18n: ectx: property (text), widget (QCheckBox, chkNotice)
 #: src/irc/outputfilter.cpp:608 src/irc/outputfilter.cpp:1563
 #: src/irc/inputfilter.cpp:487 src/irc/inputfilter.cpp:566
 #: src/irc/inputfilter.cpp:731 src/irc/inputfilter.cpp:1257
-#: src/viewer/ignorelistviewitem.cpp:45 rc.cpp:413
+#: src/viewer/ignorelistviewitem.cpp:45 rc.cpp:768
 msgid "Notice"
 msgstr "Notice"
 
@@ -1179,8 +1180,8 @@ msgstr "שם התסריט לא יכול להכיל \"../\"!"
 msgid "Usage: %1RAW [OPEN | CLOSE]"
 msgstr ""
 
-#: src/irc/outputfilter.cpp:1098 src/irc/server.cpp:2427
-#: src/irc/server.cpp:2445 src/viewer/ircview.cpp:372
+#: src/irc/outputfilter.cpp:1098 src/irc/server.cpp:2431
+#: src/irc/server.cpp:2449 src/viewer/ircview.cpp:372
 msgid "Notify"
 msgstr "הודעה"
 
@@ -1698,9 +1699,9 @@ msgstr "Current users on %1: %2."
 
 #. i18n: file: src/identitydialog.ui:262
 #. i18n: ectx: attribute (title), widget (QWidget, awayWidget)
-#: src/irc/inputfilter.cpp:1307 src/irc/server.cpp:3314
-#: src/irc/server.cpp:3339 src/irc/server.cpp:3348 src/irc/nicksonline.cpp:270
-#: src/linkaddressbook/addressbook.cpp:112 rc.cpp:1267
+#: src/irc/inputfilter.cpp:1307 src/irc/server.cpp:3318
+#: src/irc/server.cpp:3343 src/irc/server.cpp:3352 src/irc/nicksonline.cpp:270
+#: src/linkaddressbook/addressbook.cpp:112 rc.cpp:385
 msgid "Away"
 msgstr "מרוחק"
 
@@ -1927,11 +1928,11 @@ msgstr "המשתמשים %1 נקבעו על ידי %2 בתאריך %3"
 msgid "End of Ban List."
 msgstr "End of Ban List."
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:90
+#. i18n: file: src/config/ignore_configui.ui:90
 #. i18n: ectx: property (text), widget (QCheckBox, chkChannel)
 #: src/irc/inputfilter.cpp:1914 src/irc/inputfilter.cpp:1918
 #: src/irc/channellistpanel.cpp:102 src/viewer/ignorelistviewitem.cpp:43
-#: rc.cpp:407
+#: rc.cpp:762
 msgid "Channel"
 msgstr "חדר"
 
@@ -2081,8 +2082,8 @@ msgstr ""
 msgid "Nickname error"
 msgstr "שגיאת כינוי"
 
-#: src/irc/server.cpp:1300 src/irc/server.cpp:3050 src/irc/server.cpp:3055
-#: src/application.cpp:270
+#: src/irc/server.cpp:1300 src/irc/server.cpp:3054 src/irc/server.cpp:3059
+#: src/application.cpp:282
 msgid "D-Bus"
 msgstr ""
 
@@ -2092,7 +2093,7 @@ msgid "Select File(s) to Send to %1"
 msgstr "בחר קובץ או קבצים לשליחה אל %1"
 
 #: src/irc/server.cpp:1806 src/irc/server.cpp:1832 src/irc/server.cpp:1844
-#: src/irc/server.cpp:1947 src/irc/server.cpp:1998 src/irc/server.cpp:2089
+#: src/irc/server.cpp:1947 src/irc/server.cpp:1998 src/irc/server.cpp:2093
 msgid "unknown size"
 msgstr "גודל לא יודע"
 
@@ -2155,95 +2156,95 @@ msgctxt "%1 = file name, %2 = nickname"
 msgid "Received invalid reject request for \"%1\" from %2."
 msgstr "התקבלה בקשת המשך לא תקינה עבור \"%1\" מאת %2."
 
-#: src/irc/server.cpp:2049
+#: src/irc/server.cpp:2050
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of sender"
 msgid "Download of \"%1\" from %2 finished."
 msgstr "ההורדה של \"%1\" מאת %2 הסתיימה."
 
-#: src/irc/server.cpp:2052
+#: src/irc/server.cpp:2055
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of sender"
 msgid "Download of \"%1\" from %2 failed. Reason: %3."
 msgstr "ההורדה של \"%1\" מאת %2 נכשלה. סיבה: %3."
 
-#: src/irc/server.cpp:2063
+#: src/irc/server.cpp:2067
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of recipient"
 msgid "Upload of \"%1\" to %2 finished."
 msgstr "השליחה של \"%1\" אל %2 הסתיימה."
 
-#: src/irc/server.cpp:2066
+#: src/irc/server.cpp:2070
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of recipient"
 msgid "Upload of \"%1\" to %2 failed. Reason: %3."
 msgstr "השליחה של \"%1\" אל %2 נכשלה. שליחה: %3."
 
-#: src/irc/server.cpp:2080
+#: src/irc/server.cpp:2084
 #, kde-format
 msgctxt "%1 = file name, %2 nickname of recipient"
 msgid "Sending \"%1\" to %2..."
 msgstr "שולח את \"%1\" אל %2..."
 
-#: src/irc/server.cpp:2087
+#: src/irc/server.cpp:2091
 #, kde-format
 msgctxt "%1 = file name, %2 = file size, %3 = nickname of sender"
 msgid "Downloading \"%1\" (%2) from %3..."
 msgstr "מוריד את \"%1\" (%2) מאת %3..."
 
-#: src/irc/server.cpp:2428 src/notificationhandler.cpp:261
+#: src/irc/server.cpp:2432 src/notificationhandler.cpp:261
 #, kde-format
 msgid "%1 is online (%2)."
 msgstr "המשתמש %1 מחובר (%2)."
 
-#: src/irc/server.cpp:2445 src/notificationhandler.cpp:275
+#: src/irc/server.cpp:2449 src/notificationhandler.cpp:275
 #, kde-format
 msgid "%1 went offline (%2)."
 msgstr "המשתמש %1 כבר לא מחובר (%2)."
 
-#: src/irc/server.cpp:3037
+#: src/irc/server.cpp:3041
 #, kde-format
 msgid ""
 "You were invited by %1 to join channel %2. Do you accept the invitation?"
 msgstr "אתה הוזמנת על ידי %1 להצטרף אל חדר %2. האם אתה רוצה לקבל את ההזמנה?"
 
-#: src/irc/server.cpp:3039
+#: src/irc/server.cpp:3043
 msgid "Invitation"
 msgstr "הזמנה"
 
-#: src/irc/server.cpp:3040 src/irc/channel.cpp:1313 src/irc/channel.cpp:1330
+#: src/irc/server.cpp:3044 src/irc/channel.cpp:1313 src/irc/channel.cpp:1330
 #: src/viewer/ircview.cpp:391
 msgid "Join"
 msgstr "הצטרף"
 
-#: src/irc/server.cpp:3050
+#: src/irc/server.cpp:3054
 #, kde-format
 msgid "Error: Could not find script \"%1\"."
 msgstr "שגיאה: לא יכול למצוא את התסריט \"%1\"."
 
-#: src/irc/server.cpp:3055
+#: src/irc/server.cpp:3059
 #, kde-format
 msgid "Error: Could not execute script \"%1\". Check file permissions."
 msgstr "שגיאה: לא יכול להפעיל את התסריט \"%1\". אנא בדוק הרשאות."
 
-#: src/irc/server.cpp:3284
+#: src/irc/server.cpp:3288
 #, fuzzy
 msgid "Gone away for now"
 msgstr "הלכתי לרגע קט."
 
-#: src/irc/server.cpp:3314
+#: src/irc/server.cpp:3318
 msgid "You are now marked as being away."
 msgstr "אתה כעת מסומן בתור מרוחק."
 
-#: src/irc/server.cpp:3339
+#: src/irc/server.cpp:3343
 msgid "You are no longer marked as being away."
 msgstr "אתה כבר לא מסומן כמרוחק."
 
-#: src/irc/server.cpp:3348
+#: src/irc/server.cpp:3352
 msgid "You are not marked as being away."
 msgstr "אתה לא מסומן בתור מרוחק."
 
-#: src/irc/nicksonline.cpp:49 src/viewer/viewcontainer.cpp:2426
+#: src/irc/nicksonline.cpp:49 src/viewer/viewcontainer.cpp:2436
 msgid "Watched Nicks Online"
 msgstr "רשימת כינויים מחוברים בתצפית"
 
@@ -2363,8 +2364,8 @@ msgstr "&בחר שיוך..."
 msgid "&Join Channel"
 msgstr "&הצטרף אל חדר"
 
-#: src/irc/channellistpanel.cpp:46 src/viewer/viewcontainer.cpp:2363
-#: src/viewer/viewcontainer.cpp:2416
+#: src/irc/channellistpanel.cpp:46 src/viewer/viewcontainer.cpp:2373
+#: src/viewer/viewcontainer.cpp:2426
 msgid "Channel List"
 msgstr "רשימת החדרים"
 
@@ -2590,7 +2591,7 @@ msgstr "השאר פתוח"
 msgid "Do you want to stop ignoring %1?"
 msgstr "האם ברצונך להפסיק להתעלם ממשתמש %1?"
 
-#: src/irc/query.cpp:608 src/irc/channel.cpp:2713 src/statuspanel.cpp:360
+#: src/irc/query.cpp:608 src/irc/channel.cpp:2721 src/statuspanel.cpp:360
 #, kde-format
 msgid "Identity Default ( %1 )"
 msgstr "זהות ברירת־המחדל (%1)"
@@ -3871,262 +3872,262 @@ msgstr "ססמה לחיבור"
 msgid "Use SSL for connection"
 msgstr "השתמש בחיבור מאובטח לחיבור (SSL)"
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:48
+#. i18n: file: src/config/quickbuttons_configui.ui:48
 #. i18n: ectx: property (text), widget (QPushButton, newButton)
-#: src/preferences/alias_preferences.cpp:171
-#: src/preferences/autoreplace_preferences.cpp:334
-#: src/preferences/quickbuttons_preferences.cpp:211
-#: src/preferences/watchednicknames_preferences.cpp:295
-#: src/preferences/highlight_preferences.cpp:251 rc.cpp:347
+#: src/config/watchednicknames_config.cpp:295
+#: src/config/quickbuttons_config.cpp:211 src/config/alias_config.cpp:171
+#: src/config/autoreplace_config.cpp:334 src/config/highlight_config.cpp:251
+#: rc.cpp:485
 msgid "New"
 msgstr "חדש"
 
-#. i18n: file: src/preferences/highlight_preferencesui.ui:242
+#. i18n: file: src/config/highlight_configui.ui:242
 #. i18n: ectx: property (toolTip), widget (KPushButton, patternButton)
-#: src/preferences/autoreplace_preferences.cpp:53
-#: src/preferences/highlight_preferences.cpp:170 rc.cpp:879
+#: src/config/autoreplace_config.cpp:53 src/config/highlight_config.cpp:170
+#: rc.cpp:945
 msgid "Click to run Regular Expression Editor (KRegExpEditor)"
 msgstr "לחץ להריץ את עורך הביטויים הרגולים (KRegExpEditor)"
 
-#: src/preferences/autoreplace_preferences.cpp:58
-#: src/preferences/highlight_preferences.cpp:175
+#: src/config/autoreplace_config.cpp:58 src/config/highlight_config.cpp:175
 msgid "The Regular Expression Editor (KRegExpEditor) is not installed"
 msgstr "עורך הביטויים הרגולים (KRegExpEditor) לא מותקן"
 
-#: src/preferences/autoreplace_preferences.cpp:61
+#: src/config/autoreplace_config.cpp:61
 msgid "Outgoing"
 msgstr "יוצא"
 
-#: src/preferences/autoreplace_preferences.cpp:62
+#: src/config/autoreplace_config.cpp:62
 msgid "Incoming"
 msgstr "נכנס"
 
-#: src/preferences/autoreplace_preferences.cpp:63
+#: src/config/autoreplace_config.cpp:63
 msgid "Both"
 msgstr "שניהם"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:57
+#: src/config/nicklistbehavior_config.cpp:57
 msgid "Normal Users"
 msgstr "משתמשים רגילים"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:58
+#: src/config/nicklistbehavior_config.cpp:58
 msgid "Voice (+v)"
 msgstr "קול (V+)"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:59
+#: src/config/nicklistbehavior_config.cpp:59
 msgid "Halfops (+h)"
 msgstr "אופ למחצה (h+)"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:60
+#: src/config/nicklistbehavior_config.cpp:60
 msgid "Operators (+o)"
 msgstr "אופים (o+)"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:61
+#: src/config/nicklistbehavior_config.cpp:61
 msgid "Channel Admins (+p)"
 msgstr "מנהלי החדר (+p)"
 
-#: src/preferences/nicklistbehavior_preferences.cpp:62
+#: src/config/nicklistbehavior_config.cpp:62
 msgid "Channel Owners (+q)"
 msgstr "בעלי החדר (+q)"
 
-#: src/preferences/dcc_preferences.cpp:50
-msgid "Network Interface"
-msgstr "ממשק רשת"
-
-#: src/preferences/dcc_preferences.cpp:51
-msgid "Reply From IRC Server"
-msgstr "תשובה מהשרת IRC"
-
-#: src/preferences/dcc_preferences.cpp:52
-msgid "Specify Manually"
-msgstr "קבע ידנית"
-
-#: src/preferences/highlight_preferences.cpp:47
-msgid "Select Sound File"
-msgstr "בחר את קובץ הצליל"
-
-#: src/preferences/warnings_preferences.cpp:106
-msgid "Automatically join channel on invite"
-msgstr "הצטרף אל חדר באופן אוטומטי בעת ההזמנה"
-
-#: src/preferences/warnings_preferences.cpp:107
-msgid "Notice that saving logfiles will save whole file"
-msgstr "שים לב, שבעת שמירת קבצי־יומן הם ישמרו בתור קובץ אחד"
-
-#: src/preferences/warnings_preferences.cpp:108
-msgid "Ask before deleting logfile contents"
-msgstr "שאל לפני מחיקת תוכן של קבצי־יומן"
-
-#: src/preferences/warnings_preferences.cpp:109
-msgid "Ask about closing queries after ignoring the nickname"
-msgstr "שאל לפני סגירת שאילתות לאחר התעלמות של כינוי"
-
-#: src/preferences/warnings_preferences.cpp:110
-#, fuzzy
-msgid "Ask before switching a connection to a network to a different server"
-msgstr "שאל לפני חיבור לשרת אחר ברשת"
-
-#: src/preferences/warnings_preferences.cpp:111
-#, fuzzy
-msgid "Ask before creating another connection to the same network or server"
-msgstr "שאל לפני חיבור לשרת אחר ברשת"
-
-#: src/preferences/warnings_preferences.cpp:112
-msgid "Close server tab"
-msgstr "סגירת כרטיסיית שרת"
-
-#: src/preferences/warnings_preferences.cpp:113
-msgid "Close channel tab"
-msgstr "סגירת כרטיסיית חדר"
-
-#: src/preferences/warnings_preferences.cpp:114
-msgid "Close query tab"
-msgstr "סגירת כרטיסיית השאילתה"
-
-#: src/preferences/warnings_preferences.cpp:115
-msgid "The channel list can only be opened from server-aware tabs"
-msgstr "רשימת החדרים בשרת יכולה להיפתח רק בכרטיסיות הקשורות לרשת"
-
-#: src/preferences/warnings_preferences.cpp:116
-msgid "Warning on hiding the main window menu"
-msgstr "הזהרה בעת הסתרת התפריט הראשי של התוכנה"
-
-#: src/preferences/warnings_preferences.cpp:117
-msgid "Warning on high traffic with channel list"
-msgstr "הזהרה בעת תעבורה רבה ברשימת החדרים"
-
-#: src/preferences/warnings_preferences.cpp:118
-msgid "Warning on pasting large portions of text"
-msgstr "הזהרה בעת הדבקת כמות רבה של טקסט"
-
-#: src/preferences/warnings_preferences.cpp:119
-msgid "Warning on quitting Konversation"
-msgstr "הזהרה בעת יציאה מ־Konversation"
-
-#: src/preferences/warnings_preferences.cpp:122
-msgid "Warn before quitting with active DCC file transfers"
-msgstr ""
-
-#: src/preferences/theme_preferences.cpp:174
+#: src/config/theme_config.cpp:174
 msgid "*.tar.gz *.tar.bz2 *.tar *.zip|Konversation Themes"
 msgstr ""
 
-#: src/preferences/theme_preferences.cpp:176
+#: src/config/theme_config.cpp:176
 msgid "Select Theme Package"
 msgstr ""
 
-#: src/preferences/theme_preferences.cpp:189
+#: src/config/theme_config.cpp:189
 msgid "Failed to Download Theme"
 msgstr ""
 
-#: src/preferences/theme_preferences.cpp:204
-#: src/preferences/theme_preferences.cpp:225
+#: src/config/theme_config.cpp:204 src/config/theme_config.cpp:225
 msgid "Theme archive is invalid."
 msgstr ""
 
-#: src/preferences/theme_preferences.cpp:205
-#: src/preferences/theme_preferences.cpp:226
+#: src/config/theme_config.cpp:205 src/config/theme_config.cpp:226
 msgid "Cannot Install Theme"
 msgstr ""
 
-#: src/preferences/theme_preferences.cpp:251
+#: src/config/theme_config.cpp:251
 #, fuzzy, kde-format
 #| msgid "Do you want to remove %1 ?"
 msgid "Do you want to remove %1?"
 msgstr "האם ברצונך להסיר את %1?"
 
-#: src/preferences/theme_preferences.cpp:252
+#: src/config/theme_config.cpp:252
 msgid "Remove Theme"
 msgstr "הסר ערכה"
 
-#: src/settingsdialog.cpp:50
+#: src/config/settingsdialog.cpp:50
 msgid "Interface"
 msgstr "ממשק"
 
-#: src/settingsdialog.cpp:54
+#: src/config/settingsdialog.cpp:54
 msgid "Behavior"
 msgstr "התנהגות"
 
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:45
+#. i18n: file: src/config/tabnotifications_config.ui:45
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox5)
-#: src/settingsdialog.cpp:58 rc.cpp:792
+#: src/config/settingsdialog.cpp:58 rc.cpp:1649
 msgid "Notifications"
 msgstr "הודעות"
 
-#: src/settingsdialog.cpp:69 src/settingsdialog.cpp:115
+#: src/config/settingsdialog.cpp:69 src/config/settingsdialog.cpp:115
 msgid "Chat Window"
 msgstr "חלון שיחה"
 
-#: src/settingsdialog.cpp:73
+#: src/config/settingsdialog.cpp:73
 msgid "Nicklist Themes"
 msgstr "ערכות נושא של כינויים"
 
-#: src/settingsdialog.cpp:81
+#: src/config/settingsdialog.cpp:81
 msgid "Colors"
 msgstr "צבעים"
 
-#: src/settingsdialog.cpp:87
+#: src/config/settingsdialog.cpp:87
 #, fuzzy
 #| msgid "Focus"
 msgid "Fonts"
 msgstr "מקוד"
 
-#: src/settingsdialog.cpp:91
+#: src/config/settingsdialog.cpp:91
 msgid "Quick Buttons"
 msgstr "כפתורים מהירים"
 
-#: src/settingsdialog.cpp:97 src/settingsdialog.cpp:155
+#: src/config/settingsdialog.cpp:97 src/config/settingsdialog.cpp:155
 #: src/viewer/viewtree.cpp:40
 msgid "Tabs"
 msgstr "כרטיסיות"
 
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:19
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
 #. i18n: file: src/identitydialog.ui:179
 #. i18n: ectx: attribute (title), widget (QWidget, generalWidget)
-#: src/settingsdialog.cpp:103 rc.cpp:900 rc.cpp:1238
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:19
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
+#: src/config/settingsdialog.cpp:103 rc.cpp:356 rc.cpp:1311
 msgid "General"
 msgstr "כללי"
 
-#: src/settingsdialog.cpp:109
+#: src/config/settingsdialog.cpp:109
 msgid "Connection"
 msgstr "חיבור"
 
-#: src/settingsdialog.cpp:119
+#: src/config/settingsdialog.cpp:119
 msgid "Nickname List"
 msgstr "רשימת כינויים"
 
-#: src/settingsdialog.cpp:125
+#: src/config/settingsdialog.cpp:125
 msgid "Command Aliases"
 msgstr "קיצורי פקודות"
 
-#: src/settingsdialog.cpp:131
+#: src/config/settingsdialog.cpp:131
 msgid "Auto Replace"
 msgstr "החלפה אוטומטית"
 
-#: src/settingsdialog.cpp:146
+#: src/config/settingsdialog.cpp:146
 msgid "Logging"
 msgstr "יומן"
 
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:236
+#. i18n: file: src/config/tabnotifications_config.ui:236
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsHighlights)
-#: src/settingsdialog.cpp:159 rc.cpp:816
+#: src/config/settingsdialog.cpp:159 rc.cpp:1673
 msgid "Highlight"
 msgstr "הדגשות"
 
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:149
+#. i18n: file: src/config/watchednicknames_configui.ui:149
 #. i18n: ectx: property (title), widget (QGroupBox, listGroupBox)
-#: src/settingsdialog.cpp:166 rc.cpp:597
+#: src/config/settingsdialog.cpp:166 rc.cpp:633
 msgid "Watched Nicknames"
 msgstr "כינויים בתצפית"
 
-#: src/settingsdialog.cpp:172
+#: src/config/settingsdialog.cpp:172
 msgid "On Screen Display"
 msgstr "תצוגה על המסך (OSD)"
 
-#: src/settingsdialog.cpp:178
+#: src/config/settingsdialog.cpp:178
 msgid "Warning Dialogs"
 msgstr "חלונות הזהרה"
+
+#: src/config/warnings_config.cpp:106
+msgid "Automatically join channel on invite"
+msgstr "הצטרף אל חדר באופן אוטומטי בעת ההזמנה"
+
+#: src/config/warnings_config.cpp:107
+msgid "Notice that saving logfiles will save whole file"
+msgstr "שים לב, שבעת שמירת קבצי־יומן הם ישמרו בתור קובץ אחד"
+
+#: src/config/warnings_config.cpp:108
+msgid "Ask before deleting logfile contents"
+msgstr "שאל לפני מחיקת תוכן של קבצי־יומן"
+
+#: src/config/warnings_config.cpp:109
+msgid "Ask about closing queries after ignoring the nickname"
+msgstr "שאל לפני סגירת שאילתות לאחר התעלמות של כינוי"
+
+#: src/config/warnings_config.cpp:110
+#, fuzzy
+msgid "Ask before switching a connection to a network to a different server"
+msgstr "שאל לפני חיבור לשרת אחר ברשת"
+
+#: src/config/warnings_config.cpp:111
+#, fuzzy
+msgid "Ask before creating another connection to the same network or server"
+msgstr "שאל לפני חיבור לשרת אחר ברשת"
+
+#: src/config/warnings_config.cpp:112
+msgid "Close server tab"
+msgstr "סגירת כרטיסיית שרת"
+
+#: src/config/warnings_config.cpp:113
+msgid "Close channel tab"
+msgstr "סגירת כרטיסיית חדר"
+
+#: src/config/warnings_config.cpp:114
+msgid "Close query tab"
+msgstr "סגירת כרטיסיית השאילתה"
+
+#: src/config/warnings_config.cpp:115
+msgid "The channel list can only be opened from server-aware tabs"
+msgstr "רשימת החדרים בשרת יכולה להיפתח רק בכרטיסיות הקשורות לרשת"
+
+#: src/config/warnings_config.cpp:116
+msgid "Warning on hiding the main window menu"
+msgstr "הזהרה בעת הסתרת התפריט הראשי של התוכנה"
+
+#: src/config/warnings_config.cpp:117
+msgid "Warning on high traffic with channel list"
+msgstr "הזהרה בעת תעבורה רבה ברשימת החדרים"
+
+#: src/config/warnings_config.cpp:118
+msgid "Warning on pasting large portions of text"
+msgstr "הזהרה בעת הדבקת כמות רבה של טקסט"
+
+#: src/config/warnings_config.cpp:119
+msgid "Warning on quitting Konversation"
+msgstr "הזהרה בעת יציאה מ־Konversation"
+
+#: src/config/warnings_config.cpp:122
+msgid "Warn before quitting with active DCC file transfers"
+msgstr ""
+
+#: src/config/configdialog.cpp:76
+msgid "Configure"
+msgstr ""
+
+#: src/config/dcc_config.cpp:50
+msgid "Network Interface"
+msgstr "ממשק רשת"
+
+#: src/config/dcc_config.cpp:51
+msgid "Reply From IRC Server"
+msgstr "תשובה מהשרת IRC"
+
+#: src/config/dcc_config.cpp:52
+msgid "Specify Manually"
+msgstr "קבע ידנית"
+
+#: src/config/highlight_config.cpp:47
+msgid "Select Sound File"
+msgstr "בחר את קובץ הצליל"
 
 #: src/config/preferences.cpp:58
 msgid "Default Identity"
@@ -4222,10 +4223,6 @@ msgstr ""
 msgid "Reset Values"
 msgstr ""
 
-#: src/configdialog.cpp:76
-msgid "Configure"
-msgstr ""
-
 #: src/statusbar.cpp:34 src/statusbar.cpp:78 src/statusbar.cpp:146
 msgid "Ready."
 msgstr "מוכן."
@@ -4297,8 +4294,8 @@ msgid_plural "No answer from server %2 for more than %1 seconds."
 msgstr[0] "אין תשובה מהשרת %2 למשך יותר משנייה אחת."
 msgstr[1] "אין תשובה מהשרת %2 יותר מ־%1 שניות."
 
-#: src/konsolepanel.cpp:26 src/viewer/viewcontainer.cpp:1999
-#: src/viewer/viewcontainer.cpp:2000
+#: src/konsolepanel.cpp:26 src/viewer/viewcontainer.cpp:2009
+#: src/viewer/viewcontainer.cpp:2010
 msgid "Konsole"
 msgstr "מסוף - Konsole"
 
@@ -4514,7 +4511,7 @@ msgstr "כניסה חדשה בפנקס הכתובות"
 msgid "Name the new entry:"
 msgstr "שם הכניסה:"
 
-#: src/urlcatcher.cpp:35 src/viewer/viewcontainer.cpp:2011
+#: src/urlcatcher.cpp:35 src/viewer/viewcontainer.cpp:2021
 msgid "URL Catcher"
 msgstr "תופס כתובות"
 
@@ -4576,9 +4573,9 @@ msgstr "לחץ למחיקת על הרשימה."
 msgid "Save URL List"
 msgstr "שמור את כתובת הרשימה"
 
-#. i18n: file: src/preferences/ignore_preferencesui.ui:111
+#. i18n: file: src/config/ignore_configui.ui:111
 #. i18n: ectx: property (text), widget (QCheckBox, chkQuery)
-#: src/viewer/ignorelistviewitem.cpp:44 rc.cpp:416
+#: src/viewer/ignorelistviewitem.cpp:44 rc.cpp:771
 msgid "Query"
 msgstr "Query"
 
@@ -4687,7 +4684,7 @@ msgstr "&העתק כתובת הקישור"
 msgid "Select All"
 msgstr "&בחר את כל הפרטים"
 
-#: src/viewer/ircview.cpp:146 src/viewer/viewcontainer.cpp:535
+#: src/viewer/ircview.cpp:146 src/viewer/viewcontainer.cpp:545
 msgid "Find Text..."
 msgstr "מצא טקסט..."
 
@@ -4849,91 +4846,91 @@ msgstr ""
 "*** בתאריך %1\n"
 "\n"
 
-#: src/viewer/rawlog.cpp:28 src/viewer/viewcontainer.cpp:2148
+#: src/viewer/rawlog.cpp:28 src/viewer/viewcontainer.cpp:2158
 msgid "Raw Log"
 msgstr "יומן נקי"
 
-#: src/viewer/viewcontainer.cpp:204 src/mainwindow.cpp:287
+#: src/viewer/viewcontainer.cpp:204 src/mainwindow.cpp:286
 msgid "Move Tab Up"
 msgstr "העבר כרטיסייה מעלה"
 
-#: src/viewer/viewcontainer.cpp:212 src/mainwindow.cpp:298
+#: src/viewer/viewcontainer.cpp:212 src/mainwindow.cpp:297
 msgid "Move Tab Down"
 msgstr "העבר כרטיסייה מטה"
 
-#: src/viewer/viewcontainer.cpp:305 src/mainwindow.cpp:318
-#: src/mainwindow.cpp:330
+#: src/viewer/viewcontainer.cpp:305 src/mainwindow.cpp:317
+#: src/mainwindow.cpp:329
 msgid "Move Tab Left"
 msgstr "העבר כרטיסייה שמאלה"
 
-#: src/viewer/viewcontainer.cpp:313 src/mainwindow.cpp:309
-#: src/mainwindow.cpp:339
+#: src/viewer/viewcontainer.cpp:313 src/mainwindow.cpp:308
+#: src/mainwindow.cpp:338
 msgid "Move Tab Right"
 msgstr "העבר כרטיסייה ימינה"
 
-#: src/viewer/viewcontainer.cpp:537
+#: src/viewer/viewcontainer.cpp:547
 msgid "Search for text in the current tab"
 msgstr "חפש עבור טקסט בכרטיסייה הנוכחית"
 
-#: src/viewer/viewcontainer.cpp:555
+#: src/viewer/viewcontainer.cpp:565
 #, kde-format
 msgid "Channel &List for %1"
 msgstr "&רשימת החדרים עבור %1"
 
-#: src/viewer/viewcontainer.cpp:561 src/mainwindow.cpp:207
+#: src/viewer/viewcontainer.cpp:571 src/mainwindow.cpp:206
 msgid "Channel &List"
 msgstr "&רשימת חדרים"
 
-#: src/viewer/viewcontainer.cpp:570 src/mainwindow.cpp:190
-#: src/mainwindow.cpp:736
+#: src/viewer/viewcontainer.cpp:580 src/mainwindow.cpp:189
+#: src/mainwindow.cpp:733
 msgid "&Open Logfile"
 msgstr "&פתח קובץ יומן"
 
-#: src/viewer/viewcontainer.cpp:575
+#: src/viewer/viewcontainer.cpp:585
 #, kde-format
 msgid "&Open Logfile for %1"
 msgstr "&פתח קובץ־יומן עבור %1"
 
-#: src/viewer/viewcontainer.cpp:586
+#: src/viewer/viewcontainer.cpp:596
 #, kde-format
 msgid "&Channel Settings for %1..."
 msgstr "&אפשרויות חדר עבור %1..."
 
-#: src/viewer/viewcontainer.cpp:591 src/mainwindow.cpp:199
+#: src/viewer/viewcontainer.cpp:601 src/mainwindow.cpp:198
 msgid "&Channel Settings..."
 msgstr "&הגדרת חדר..."
 
-#: src/viewer/viewcontainer.cpp:1631
+#: src/viewer/viewcontainer.cpp:1641
 #, kde-format
 msgctxt "Default encoding"
 msgid "Default ( %1 )"
 msgstr "ברירת מחדל (%1)"
 
-#: src/viewer/viewcontainer.cpp:1796
+#: src/viewer/viewcontainer.cpp:1806
 msgid "You can only search in text fields."
 msgstr "אתה יכול לחפש רק בשדות טקסט."
 
-#: src/viewer/viewcontainer.cpp:1797
+#: src/viewer/viewcontainer.cpp:1807
 msgid "Find Text Information"
 msgstr "מידע חיפוש טקסט"
 
-#: src/viewer/viewcontainer.cpp:1990
+#: src/viewer/viewcontainer.cpp:2000
 #, kde-format
 msgid "Logfile of %1"
 msgstr "קובץ היומן של %1"
 
-#: src/viewer/viewcontainer.cpp:2389
+#: src/viewer/viewcontainer.cpp:2399
 msgid ""
 "Using this function may result in a lot of network traffic. If your "
 "connection is not fast enough, it is possible that your client will be "
 "disconnected by the server."
 msgstr ""
 
-#: src/viewer/viewcontainer.cpp:2393
+#: src/viewer/viewcontainer.cpp:2403
 msgid "Channel List Warning"
 msgstr "הזהרת רשימת חלונות"
 
-#: src/viewer/viewcontainer.cpp:2412
+#: src/viewer/viewcontainer.cpp:2422
 msgid ""
 "To know which server to display the channel list for, the list can only be "
 "opened from a query, channel or status window."
@@ -4943,7 +4940,7 @@ msgstr ""
 msgid "Konversation - IRC Client"
 msgstr ""
 
-#: src/viewer/osd.cpp:342
+#: src/viewer/osd.cpp:337
 msgid "OSD Preview - drag to reposition"
 msgstr "OSD - תצוגה על המסך - הזז למיקום מחדש"
 
@@ -4992,196 +4989,196 @@ msgstr "התנתק מהשרת"
 msgid "Disconnect"
 msgstr "התנתק"
 
-#: src/mainwindow.cpp:132
+#: src/mainwindow.cpp:131
 msgid "&Server List..."
 msgstr "&רשימת שרתים..."
 
-#: src/mainwindow.cpp:135
+#: src/mainwindow.cpp:134
 msgid "Manage networks and servers"
 msgstr "ניהול רשתות ושרתים"
 
-#: src/mainwindow.cpp:140
+#: src/mainwindow.cpp:139
 msgid "Quick &Connect..."
 msgstr "&חיבור מהיר..."
 
-#: src/mainwindow.cpp:143
+#: src/mainwindow.cpp:142
 msgid "Type in the address of a new IRC server to connect to"
 msgstr "הכנס את כתובת שרת ה־IRC להתחברות"
 
-#: src/mainwindow.cpp:148
+#: src/mainwindow.cpp:147
 msgid "&Reconnect"
 msgstr "&התחבר מחדש"
 
-#: src/mainwindow.cpp:151
+#: src/mainwindow.cpp:150
 msgid "Reconnect to the current server."
 msgstr "התחבר מחדש אל השרת."
 
-#: src/mainwindow.cpp:157
+#: src/mainwindow.cpp:156
 msgid "&Disconnect"
 msgstr "&התנתק"
 
-#: src/mainwindow.cpp:160
+#: src/mainwindow.cpp:159
 msgid "Disconnect from the current server."
 msgstr "התנתק מהשרת הנוכחי."
 
-#: src/mainwindow.cpp:165
+#: src/mainwindow.cpp:164
 msgid "&Identities..."
 msgstr "&זהויות..."
 
-#: src/mainwindow.cpp:168
+#: src/mainwindow.cpp:167
 msgid "Manage your nick, away and other identity settings"
 msgstr "נהל את הכינוי שלך במצב \"מרוחק\", והגדרות זהויות אחרות"
 
-#: src/mainwindow.cpp:173
+#: src/mainwindow.cpp:172
 msgid "&Watched Nicks Online"
 msgstr "&כינויים ברשימת בתצפית"
 
-#: src/mainwindow.cpp:181
+#: src/mainwindow.cpp:180
 msgid "&DCC Status"
 msgstr "&מצב העברות DCC"
 
-#: src/mainwindow.cpp:194
+#: src/mainwindow.cpp:193
 msgid "Open the known history for this channel in a new tab"
 msgstr "פתח את ההיסטוריה הידועה עבור חדר זה בכרטיסייה חדשה"
 
-#: src/mainwindow.cpp:202
+#: src/mainwindow.cpp:201
 msgid "Open the channel settings dialog for this tab"
 msgstr "פותח את הגדרות החדר עבור כרטיסייה זו"
 
-#: src/mainwindow.cpp:211
+#: src/mainwindow.cpp:210
 msgid "Show a list of all the known channels on this server"
 msgstr "הצג את רשימת על החדרים בשרת זה"
 
-#: src/mainwindow.cpp:216
+#: src/mainwindow.cpp:215
 msgid "&URL Catcher"
 msgstr "&תופס כתובות"
 
-#: src/mainwindow.cpp:219
+#: src/mainwindow.cpp:218
 msgid "List all URLs that have been mentioned recently in a new tab"
 msgstr "רשימה של כל הכתובות שהוזכרו לאחרונה בכרטיסייה חדשה"
 
-#: src/mainwindow.cpp:226
+#: src/mainwindow.cpp:225
 msgid "New &Konsole"
 msgstr "&מסוף חדש"
 
-#: src/mainwindow.cpp:228
+#: src/mainwindow.cpp:227
 msgid "Open a terminal in a new tab"
 msgstr "פתח מסוף בכרטיסייה חדשה"
 
-#: src/mainwindow.cpp:254
+#: src/mainwindow.cpp:253
 msgid "&Next Tab"
 msgstr "&כרטיסייה הבאה"
 
-#: src/mainwindow.cpp:262
+#: src/mainwindow.cpp:261
 msgid "&Previous Tab"
 msgstr "&כרטיסייה קודמת"
 
-#: src/mainwindow.cpp:270
+#: src/mainwindow.cpp:269
 msgid "Close &Tab"
 msgstr "סגור &כרטיסייה"
 
-#: src/mainwindow.cpp:278
+#: src/mainwindow.cpp:277
 msgid "Next Active Tab"
 msgstr "כרטיסייה פעילה הבאה"
 
-#: src/mainwindow.cpp:353
+#: src/mainwindow.cpp:352
 msgid "Rejoin Channel"
 msgstr "הצטרף מחדש אל החדר"
 
-#: src/mainwindow.cpp:359 src/mainwindow.cpp:742
+#: src/mainwindow.cpp:358 src/mainwindow.cpp:739
 msgid "Enable Notifications"
 msgstr "אפשר הודעות"
 
-#: src/mainwindow.cpp:365
+#: src/mainwindow.cpp:364
 msgid "Join on Connect"
 msgstr "הצטרף בעת התחברות"
 
-#: src/mainwindow.cpp:370
+#: src/mainwindow.cpp:369
 #, fuzzy
 #| msgid "Default ( %1 )"
 msgid "Default"
 msgstr "ברירת מחדל (%1)"
 
-#: src/mainwindow.cpp:375
+#: src/mainwindow.cpp:374
 msgid "Set Encoding"
 msgstr "קבע קידוד"
 
-#: src/mainwindow.cpp:387
+#: src/mainwindow.cpp:386
 #, kde-format
 msgid "Go to Tab %1"
 msgstr "עבור אל כרטיסייה %1"
 
-#: src/mainwindow.cpp:396
+#: src/mainwindow.cpp:395
 msgid "Clear &Marker Lines"
 msgstr "נקה שורות &סימון"
 
-#: src/mainwindow.cpp:399
+#: src/mainwindow.cpp:398
 msgid "Clear marker lines in the current tab"
 msgstr "נקה שורות &סימון"
 
-#: src/mainwindow.cpp:404
+#: src/mainwindow.cpp:403
 msgid "&Clear Window"
 msgstr "&נקה חלון"
 
-#: src/mainwindow.cpp:407
+#: src/mainwindow.cpp:406
 msgid "Clear the contents of the current tab"
 msgstr "נקה את התוכן של הכרטיסייה הנוכחית"
 
-#: src/mainwindow.cpp:412
+#: src/mainwindow.cpp:411
 msgid "Clear &All Windows"
 msgstr "נקה את &כל החלונות"
 
-#: src/mainwindow.cpp:415
+#: src/mainwindow.cpp:414
 msgid "Clear the contents of all open tabs"
 msgstr "נקה את התוכן של כל הכרטיסיות הפתוחות"
 
-#: src/mainwindow.cpp:420
+#: src/mainwindow.cpp:419
 msgid "Global Away"
 msgstr "מצג מרוחק גלובאלי"
 
-#: src/mainwindow.cpp:428
+#: src/mainwindow.cpp:427
 msgid "&Join Channel..."
 msgstr "&הצטרף אל חדר..."
 
-#: src/mainwindow.cpp:448 src/mainwindow.cpp:744
+#: src/mainwindow.cpp:447 src/mainwindow.cpp:741
 msgid "&IRC Color..."
 msgstr "&צבעים של IRC..."
 
-#: src/mainwindow.cpp:452
+#: src/mainwindow.cpp:451
 msgid "Set the color of your current IRC message"
 msgstr "קבע את הצבע של הודעת ה־IRC הנוכחית"
 
-#: src/mainwindow.cpp:457 src/mainwindow.cpp:746
+#: src/mainwindow.cpp:456 src/mainwindow.cpp:743
 msgid "&Marker Line"
 msgstr "&שורת סימון"
 
-#: src/mainwindow.cpp:460
+#: src/mainwindow.cpp:459
 msgid "Insert a horizontal line into the current tab that only you can see"
 msgstr "הוסף קו אופקי בכרטיסייה הנוכחית שרק אתה יכול לראות"
 
-#: src/mainwindow.cpp:465 src/mainwindow.cpp:745
+#: src/mainwindow.cpp:464 src/mainwindow.cpp:742
 msgid "Special &Character..."
 msgstr "&תו מיוחד..."
 
-#: src/mainwindow.cpp:469
+#: src/mainwindow.cpp:468
 msgid "Insert any character into your current IRC message"
 msgstr "הכנס תו כלשהו אל הודעת ה־IRC שלך"
 
-#: src/mainwindow.cpp:474
+#: src/mainwindow.cpp:473
 msgid "Close &All Open Queries"
 msgstr "סגור את &כל השאילתות הפתוחות"
 
-#: src/mainwindow.cpp:483
+#: src/mainwindow.cpp:482
 msgid "Hide Nicklist"
 msgstr "הסתר את רשימת הכינויים"
 
-#: src/mainwindow.cpp:500
+#: src/mainwindow.cpp:499
 #, fuzzy
 #| msgid "Add to Bookmarks"
 msgid "Bookmarks"
 msgstr "הוסף למועדפים"
 
-#: src/mainwindow.cpp:551
+#: src/mainwindow.cpp:550
 msgid ""
 "<qt>You have active DCC file transfers. Are you sure you want to quit "
 "<b>Konversation</b>?</qt>"
@@ -5189,15 +5186,15 @@ msgstr ""
 "<qt> יש לך העברה ישירה של קובץ פעילה. האם ברצונך לצאת מ־<b>Konversaion</b>? "
 "</qt>"
 
-#: src/mainwindow.cpp:552 src/mainwindow.cpp:562
+#: src/mainwindow.cpp:551 src/mainwindow.cpp:561
 msgid "Confirm Quit"
 msgstr "אישור יציאה"
 
-#: src/mainwindow.cpp:561
+#: src/mainwindow.cpp:560
 msgid "<qt>Are you sure you want to quit <b>Konversation</b>?</qt>"
 msgstr "<qt> האם אתה בטוח כי ברצונך לצאת מ־<b>konversation</b>? </qt> "
 
-#: src/mainwindow.cpp:594
+#: src/mainwindow.cpp:593
 msgid ""
 "<p>Closing the main window will keep Konversation running in the system "
 "tray. Use <b>Quit</b> from the <b>Konversation</b> menu to quit the "
@@ -5206,11 +5203,11 @@ msgstr ""
 "<p> סגירת החלון הראשי תשאיר את Konversation רצה במגש המערכת. השתמש בפקודת "
 "<b>יציאה</b> מתפריט <b>Konversation</b> בכדי לצאת מהיישום. </p>"
 
-#: src/mainwindow.cpp:596
+#: src/mainwindow.cpp:595
 msgid "Docking in System Tray"
 msgstr "עוגן במגש המערכת"
 
-#: src/mainwindow.cpp:693
+#: src/mainwindow.cpp:690
 #, kde-format
 msgid ""
 "<qt>This will hide the menu bar completely. You can show it again by typing %"
@@ -5219,35 +5216,35 @@ msgstr ""
 "<qt> זה יחביא את שורת התפריט לגמרי. באפשרותך להציג אותה שוב על ידי הפקודה: %"
 "1. </qt>"
 
-#: src/mainwindow.cpp:728
+#: src/mainwindow.cpp:725
 msgid "Toggle Notifications"
 msgstr "אפשר או בטל הודעות"
 
-#: src/mainwindow.cpp:729
+#: src/mainwindow.cpp:726
 msgid "Toggle Away Globally"
 msgstr "קבע או בטל מרוחק באופן גלובלי"
 
-#: src/mainwindow.cpp:730
+#: src/mainwindow.cpp:727
 msgid "Insert &IRC Color..."
 msgstr "&הכנס צבע של IRC..."
 
-#: src/mainwindow.cpp:731
+#: src/mainwindow.cpp:728
 msgid "Insert Special &Character..."
 msgstr "הכנס &תו מיוחד..."
 
-#: src/mainwindow.cpp:732
+#: src/mainwindow.cpp:729
 msgid "Insert &Marker Line"
 msgstr "הכנס &שורת סימון"
 
-#: src/mainwindow.cpp:734
+#: src/mainwindow.cpp:731
 msgid "&Channel List"
 msgstr "&רשימת חדרים"
 
-#: src/mainwindow.cpp:743
+#: src/mainwindow.cpp:740
 msgid "Set &Away Globally"
 msgstr "קבע &מרוחק באופן גלובלי"
 
-#: src/mainwindow.cpp:755
+#: src/mainwindow.cpp:752
 msgid "Server List"
 msgstr "רשימת שרתים"
 
@@ -5509,7 +5506,7 @@ msgstr "&נושא"
 #. i18n: ectx: property (text), widget (QTreeWidget, topicHistoryList)
 #. i18n: file: src/identitydialog.ui:211
 #. i18n: ectx: property (title), widget (KEditListBox, m_nicknameLBox)
-#: rc.cpp:116 rc.cpp:1252
+#: rc.cpp:116 rc.cpp:370
 msgid "Nickname"
 msgstr "כינוי"
 
@@ -5849,1658 +5846,15 @@ msgstr ""
 msgid "Bytes (Encoded):"
 msgstr ""
 
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:33
-#. i18n: ectx: property (text), widget (QTreeWidget, buttonListView)
-#: rc.cpp:341
-msgid "Button Name"
-msgstr "שם הכפתור"
-
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:38
-#. i18n: ectx: property (text), widget (QTreeWidget, buttonListView)
-#: rc.cpp:344
-msgid "Button Action"
-msgstr "פעולת הכפתור"
-
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:55
-#. i18n: ectx: property (text), widget (QPushButton, removeButton)
-#. i18n: file: src/identitydialog.ui:158
-#. i18n: ectx: property (toolTip), widget (KPushButton, m_delBtn)
-#: rc.cpp:350 rc.cpp:1235
-#, fuzzy
-msgid "Remove"
-msgstr "הוסר"
-
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:85
-#. i18n: ectx: property (text), widget (QLabel, nameLabel)
-#: rc.cpp:353
-msgid "Button name:"
-msgstr "שם הכפתור:"
-
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:111
-#. i18n: ectx: property (text), widget (QLabel, actionLabel)
-#: rc.cpp:356
-msgid "Button action:"
-msgstr "פעולת הכפתור:"
-
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:136
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
-#: rc.cpp:359
-msgid "Available Placeholders"
-msgstr ""
-
-#. i18n: file: src/preferences/quickbuttons_preferencesui.ui:153
-#. i18n: ectx: property (text), widget (QLabel, placeholderHelpLabel)
-#: rc.cpp:363
-#, fuzzy, no-c-format
-msgid ""
-"%o: Current nickname\n"
-"%c: Current channel\n"
-"%K: Server password\n"
-"%u: List of selected nicknames\n"
-"%s&lt;term>%: term used to separate nicknames in %u\n"
-"%n: Send command directly to the server instead of your input line"
-msgstr ""
-"%c: החדר הנוכחי\n"
-"%K: ססמת השרת\n"
-"%u: רשימת הכינויים הנבחרים\n"
-"%s<term>%:מילת הפרדה של כינויים ב־%u\n"
-"%n: שליחת פקודה ישירות לשרת במקום לשורת קלט"
-
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:25
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoReconnect)
-#: rc.cpp:371
-msgid "Enable Automatic Reconnect"
-msgstr "אפשר התחברות מחדש אוטומטית"
-
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:34
-#. i18n: ectx: property (text), widget (QLabel, reconnectDelayLabel)
-#: rc.cpp:374
-#, fuzzy
-msgid "Reconnect delay:"
-msgstr "זמן חיבור מחדש:"
-
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:63
-#. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:377
-msgid "Reconnection attempts:"
-msgstr "מספר ניסיונות לחיבור מחדש:"
-
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:85
-#. i18n: ectx: property (suffix), widget (KIntNumInput, kcfg_ReconnectDelay)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:131
-#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_NotifyDelay)
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:271
-#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_AutoWhoContinuousInterval)
-#: rc.cpp:380 rc.cpp:594 rc.cpp:968
-msgid " seconds"
-msgstr "שניות"
-
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:98
-#. i18n: ectx: property (specialValueText), widget (KIntNumInput, kcfg_ReconnectCount)
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:104
-#. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_ScrollbackMax)
-#: rc.cpp:383 rc.cpp:938
-msgid "Unlimited"
-msgstr "ללא הגבלה"
-
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:140
-#. i18n: ectx: property (title), widget (QGroupBox, debugGBox)
-#: rc.cpp:386
-msgid "Debug"
-msgstr "דיבאג"
-
-#. i18n: file: src/preferences/connectionbehavior_preferences.ui:146
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_RawLog)
-#: rc.cpp:389
-msgid "Show raw &log window when connecting"
-msgstr "הצג חלון &יומן נקי בעת החיבור"
-
-#. i18n: file: src/preferences/ignore_preferencesui.ui:45
-#. i18n: ectx: property (text), widget (QTreeWidget, ignoreListView)
-#: rc.cpp:392
-msgid "Pattern"
-msgstr "תבנית"
-
-#. i18n: file: src/preferences/ignore_preferencesui.ui:50
-#. i18n: ectx: property (text), widget (QTreeWidget, ignoreListView)
-#: rc.cpp:395
-msgid "Type"
-msgstr "סוג"
-
-#. i18n: file: src/preferences/ignore_preferencesui.ui:58
-#. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:398
-msgid "Pattern:"
-msgstr "תבנית:"
-
-#. i18n: file: src/preferences/ignore_preferencesui.ui:77
-#. i18n: ectx: property (title), widget (QGroupBox, grpMessageTypes)
-#: rc.cpp:401
-msgid "Message Types"
-msgstr "סוגי הודעות"
-
-#. i18n: file: src/preferences/ignore_preferencesui.ui:123
-#. i18n: ectx: property (text), widget (KPushButton, newButton)
-#. i18n: file: src/preferences/alias_preferencesui.ui:51
-#. i18n: ectx: property (text), widget (QPushButton, newButton)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:251
-#. i18n: ectx: property (text), widget (KPushButton, newButton)
-#. i18n: file: src/preferences/highlight_preferencesui.ui:162
-#. i18n: ectx: property (text), widget (KPushButton, newButton)
-#: rc.cpp:419 rc.cpp:434 rc.cpp:630 rc.cpp:870
-msgid "&New"
-msgstr "&חדש"
-
-#. i18n: file: src/preferences/ignore_preferencesui.ui:130
-#. i18n: ectx: property (text), widget (KPushButton, removeButton)
-#. i18n: file: src/preferences/alias_preferencesui.ui:58
-#. i18n: ectx: property (text), widget (QPushButton, removeButton)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:270
-#. i18n: ectx: property (text), widget (KPushButton, removeButton)
-#. i18n: file: src/preferences/highlight_preferencesui.ui:175
-#. i18n: ectx: property (text), widget (KPushButton, removeButton)
-#: rc.cpp:422 rc.cpp:437 rc.cpp:636 rc.cpp:873
-#, fuzzy
-msgid "&Remove"
-msgstr "הוסר"
-
-#. i18n: file: src/preferences/ignore_preferencesui.ui:137
-#. i18n: ectx: property (text), widget (KPushButton, removeAllButton)
-#: rc.cpp:425
-msgid "Remove &All"
-msgstr "&הסר הכל"
-
-#. i18n: file: src/preferences/alias_preferencesui.ui:36
-#. i18n: ectx: property (text), widget (QTreeWidget, aliasListView)
-#: rc.cpp:428
-msgid "Alias"
-msgstr ""
-
-#. i18n: file: src/preferences/alias_preferencesui.ui:41
-#. i18n: ectx: property (text), widget (QTreeWidget, aliasListView)
-#: rc.cpp:431
-msgid "Replacement"
-msgstr "מיקום"
-
-#. i18n: file: src/preferences/alias_preferencesui.ui:88
-#. i18n: ectx: property (text), widget (QLabel, aliasLabel)
-#: rc.cpp:440
-msgid "Alias:"
-msgstr "כינוי:"
-
-#. i18n: file: src/preferences/alias_preferencesui.ui:108
-#. i18n: ectx: property (text), widget (QLabel, replacementLabel)
-#: rc.cpp:443
-msgid "Replacement:"
-msgstr "מיקום מחדש:"
-
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:26
-#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:446
-msgid "&Command to be executed on double click:"
-msgstr "&פקודה להפעלה בעת לחיצה כפולה על כינוי:"
-
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:39
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortCaseInsensitive)
-#: rc.cpp:449
-msgid "Sort case &insensitive"
-msgstr "מיין ללא תלות באותיות &רישיות"
-
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:46
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortByActivity)
-#: rc.cpp:452
-#, fuzzy
-msgid "Sort by &activity"
-msgstr "בפעילות &שאילתה"
-
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:59
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortByStatus)
-#: rc.cpp:455
-msgid "Sort b&y user status"
-msgstr "מיין &לפי מצב משתמש"
-
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:72
-#. i18n: ectx: property (text), widget (QLabel, orderHintLabel)
-#: rc.cpp:458
-msgid "(Reorder nick sorting order by drag and drop)"
-msgstr "(סדר כינויים מחדש על ידי גרירה)"
-
-#. i18n: file: src/preferences/nicklistbehavior_preferencesui.ui:103
-#. i18n: ectx: property (text), widget (QTreeWidget, sortOrder)
-#: rc.cpp:464
-msgid "Explanation"
-msgstr ""
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, Theme_ConfigUI)
-#: rc.cpp:467
-msgid "Theme_Config"
-msgstr ""
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:28
-#. i18n: ectx: property (text), widget (QPushButton, installButton)
-#: rc.cpp:470
-msgid "I&nstall Theme..."
-msgstr "&התקן ערכת נושא..."
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:38
-#. i18n: ectx: property (text), widget (QPushButton, removeButton)
-#: rc.cpp:473
-msgid "&Remove Theme"
-msgstr "&הסר ערכה"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:78
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel1)
-#: rc.cpp:476
-msgid "Icon for normal users"
-msgstr "סמל עבור משתמשים רגילים"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:97
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel2)
-#: rc.cpp:479
-msgid "Icon for away users"
-msgstr "סמל עבור משתמשים \"מרוחקים\""
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:113
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel3)
-#: rc.cpp:482
-msgid "Icon for users with voice"
-msgstr "סמל עבור אנשים עם קול"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:129
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel4)
-#: rc.cpp:485
-#, fuzzy
-msgid "Icon for users with half-operator privileges"
-msgstr "סמל עבור משתמשים עם הרשאות בעלות"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:145
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel5)
-#: rc.cpp:488
-#, fuzzy
-msgid "Icon for users with operator privileges"
-msgstr "סמל עבור משתמשים עם הרשאות בעלות"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:161
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel6)
-#: rc.cpp:491
-msgid "Icon for users with admin privileges"
-msgstr "סמל עבור משתמשים עם הרשאות ניהול"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:177
-#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel7)
-#: rc.cpp:494
-msgid "Icon for users with owner privileges"
-msgstr "סמל עבור משתמשים עם הרשאות בעלות"
-
-#. i18n: file: src/preferences/theme_preferencesui.ui:202
-#. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:497
-msgid "Preview:"
-msgstr "תצוגה מקדימה:"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:17
-#. i18n: ectx: property (windowTitle), widget (QWidget, Tabs_PreferencesUI)
-#: rc.cpp:500
-msgid "TabBar_Config"
-msgstr ""
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:26
-#. i18n: ectx: property (title), widget (QGroupBox, lookGBox)
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:19
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
-#: rc.cpp:503 rc.cpp:783
-msgid "Look"
-msgstr "מראה"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:34
-#. i18n: ectx: property (text), widget (QLabel, placementLabel)
-#: rc.cpp:506
-msgid "Placement:"
-msgstr "מיקום:"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:45
-#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
-#: rc.cpp:509
-#, fuzzy
-#| msgid "Topic"
-msgid "Top"
-msgstr "נושא"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:50
-#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
-#: rc.cpp:512
-#, fuzzy
-#| msgid "Both"
-msgid "Bottom"
-msgstr "שניהם"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:55
-#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
-#: rc.cpp:515
-msgid "Left"
-msgstr ""
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:81
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CloseButtons)
-#: rc.cpp:518
-msgid "Show &close button on tabs"
-msgstr "הצג &כפתורי סגירה על הכרטיסיות"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:88
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTabBarCloseButton)
-#: rc.cpp:521
-msgid "Show a close button on the &right side of the tab bar"
-msgstr "מקם את כפתור הסגירה בצד &ימין של תצוגת הכרטיסיות"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:95
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseMaxSizedTabs)
-#: rc.cpp:524
-msgid "Limit the &size of the tab labels to fit all on screen"
-msgstr "הגבל את &גודל הכרטיסיות כדי שכולן יוצגו במסך"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:105
-#. i18n: ectx: property (title), widget (QGroupBox, focusGBox)
-#: rc.cpp:527
-msgid "Focus"
-msgstr "מקוד"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:111
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_BringToFront)
-#: rc.cpp:530
-msgid "&Focus new tabs"
-msgstr "העבר &התמקדות אל כרטיסיות חדשות"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:118
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_FocusNewQueries)
-#: rc.cpp:533
-msgid "Focus new &queries"
-msgstr "העבר התמקדות אל &שאילתות חדשות"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:128
-#. i18n: ectx: property (title), widget (QGroupBox, mouseGBox)
-#: rc.cpp:536
-msgid "Mouse"
-msgstr "עכבר"
-
-#. i18n: file: src/preferences/tabs_preferencesui.ui:134
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_MiddleClickClose)
-#: rc.cpp:539
-msgid "&Middle-click on a tab to close it"
-msgstr ""
-
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:24
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_UseNotify)
-#: rc.cpp:542
-msgid ""
-"<qt>\n"
-"<p>\n"
-"When the nickname watcher is turned on, you will be notified when the "
-"nicknames appearing in the <b>Watched Networks/Nicknames</b> list come "
-"online or go offline.</p>\n"
-"<p>You can also open the <b>Nicks Online</b> window to see the status of all "
-"the watched nicknames.</p>\n"
-"</qt>"
-msgstr ""
-
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:27
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseNotify)
-#: rc.cpp:549
-#, fuzzy
-msgid "Enable nic&kname watcher"
-msgstr "&השתמש בעוקב הכינויים"
-
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:37
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_OpenWatchedNicksAtStartup)
-#: rc.cpp:552
-msgid ""
-"<qt>When checked, the <b>Nicks Online</b> window will be automatically "
-"opened when starting Konversation.</qt>"
-msgstr ""
-
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:40
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OpenWatchedNicksAtStartup)
-#: rc.cpp:555
-#, fuzzy
-msgid "Show watched nicks online tab on &application startup"
-msgstr "&הצג כינויים ברשימת התצפית בכרטיסייה בעת הפעלת היישום"
-
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:66
-#. i18n: ectx: property (whatsThis), widget (QLabel, notifyActionLabel)
-#: rc.cpp:559
-#, no-c-format
-msgid ""
-"<qt>\n"
-"<p>When you double click a nickname in the <b>Nicks Online</b> window, this\n"
-"command is placed in the <b>Input Line</b> on the server window.</p>\n"
-"<p>The following symbols can be used in the command:</p><ul>\n"
-"<li>%u: The nickname double clicked.</li>\n"
-"<li>%K: Server password.</li>\n"
-"<li>%n: Send command directly to the server instead of your input line.</li>"
-"\"\n"
-"</ul>\n"
-"</qt>"
-msgstr ""
-
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:69
-#. i18n: ectx: property (text), widget (QLabel, notifyActionLabel)
-#: rc.cpp:570
-msgid "Command e&xecuted when nickname is double clicked:"
-msgstr "פקודה ל&ביצוע כאשר בעת לחיצה כפולה על איש־קשר:"
-
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:99
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, kcfg_NotifyDoubleClickAction)
-#: rc.cpp:574
-#, no-c-format
-msgid ""
-"<qt>\n"
-"<p>When you double click a nickname in the <b>Nicks Online</b> window, this\n"
-" command is placed in the <b>Input Line</b> on the server window.</p>\n"
-"<p>The following symbols can be used in the command:</p><ul>\n"
-"<li>%u: The nickname double clicked.</li>\n"
-"<li>%K: Server password.</li>\n"
-"<li>%n: Send command directly to the server instead of your input line.</"
-"li>\n"
-"</ul>\n"
-"</qt>"
-msgstr ""
-
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:109
-#. i18n: ectx: property (whatsThis), widget (QLabel, notifyDelayLabel)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:128
-#. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_NotifyDelay)
-#: rc.cpp:585 rc.cpp:591
-msgid ""
-"Konversation will check the status of the nicknames listed below at this "
-"interval."
-msgstr ""
-
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:112
-#. i18n: ectx: property (text), widget (QLabel, notifyDelayLabel)
-#: rc.cpp:588
-#, fuzzy
-msgid "&Update interval:"
-msgstr "תדירות עדכון:"
-
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:158
-#. i18n: ectx: property (whatsThis), widget (QLabel, networkLabel)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:174
-#. i18n: ectx: property (whatsThis), widget (QComboBox, networkDropdown)
-#: rc.cpp:600 rc.cpp:606
-msgid ""
-"The irc server network (such as 'freenode') that the selected user to watch "
-"is on."
-msgstr ""
-
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:161
-#. i18n: ectx: property (text), widget (QLabel, networkLabel)
-#: rc.cpp:603
-msgid "Network:"
-msgstr "רשת:"
-
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:184
-#. i18n: ectx: property (whatsThis), widget (QLabel, nicknameLabel)
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:200
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, nicknameInput)
-#: rc.cpp:609 rc.cpp:615
-msgid "The nick (username) of the selected person to watch"
-msgstr ""
-
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:187
-#. i18n: ectx: property (text), widget (QLabel, nicknameLabel)
-#: rc.cpp:612
-msgid "Nickname:"
-msgstr "כינוי:"
-
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:219
-#. i18n: ectx: property (whatsThis), widget (QTreeWidget, notifyListView)
-#: rc.cpp:618
-msgid ""
-"<qt>\n"
-"<p>\n"
-"When the nickname watcher is turned on, you will be notified when the "
-"nicknames appearing in the <b>Watched Networks/Nicknames</b> list come "
-"online or go offline.</p>\n"
-"<p>You can also open the <b>Nicks Online</b> window to see the status of all "
-"the watched nicknames.</p></qt>"
-msgstr ""
-
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:229
-#. i18n: ectx: property (text), widget (QTreeWidget, notifyListView)
-#: rc.cpp:624
-msgid "Watched Networks/Nicknames"
-msgstr "רשתות/כינויים בתצפית"
-
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:248
-#. i18n: ectx: property (whatsThis), widget (KPushButton, newButton)
-#: rc.cpp:627
-msgid "Click to add a nickname to the list."
-msgstr "לחץ בכדי להוסיף איש־קשר אל הרשימה."
-
-#. i18n: file: src/preferences/watchednicknames_preferencesui.ui:267
-#. i18n: ectx: property (whatsThis), widget (KPushButton, removeButton)
-#: rc.cpp:633
-msgid "Click to remove the selected nickname from the list."
-msgstr "לחץ להסרת האיש־קשר הנבחר מהרשימה."
-
-#. i18n: file: src/preferences/log_preferences.ui:23
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_Log)
-#: rc.cpp:639
-msgid "&Enable Logging"
-msgstr "&אפשר יומן"
-
-#. i18n: file: src/preferences/log_preferences.ui:32
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_LowerLog)
-#: rc.cpp:642
-msgid "Enable &lower case logfile names"
-msgstr "אפשר קבצי־יומן באותיות &קטנות"
-
-#. i18n: file: src/preferences/log_preferences.ui:39
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AddHostnameToLog)
-#: rc.cpp:645
-msgid "&Append hostname to logfile names"
-msgstr "&הוסף את שם המארח לשם קובץ היומן"
-
-#. i18n: file: src/preferences/log_preferences.ui:46
-#. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:648
-msgid "Logfile &path:"
-msgstr "&נתיב קובץ היומן:"
-
-#. i18n: file: src/preferences/log_preferences.ui:69
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseExternalLogViewer)
-#: rc.cpp:651
-msgid "Use system text editor to open logs"
-msgstr ""
-
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:25
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowTrayIcon)
-#: rc.cpp:654
-msgid "Enable System Tray"
-msgstr "אפשר עגינה בלוח"
-
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:37
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TrayNotify)
-#: rc.cpp:657
-msgid "&Use system tray for new message notification"
-msgstr "&השתמש במגש המערכת עבור הודעות חדשות"
-
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:65
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TrayNotifyOnlyOwnNick)
-#: rc.cpp:660
-#, fuzzy
-msgid "Only &notify when a highlight is triggered or your current nick is used"
-msgstr "התרע רק כאשר מוקפצת הדגשה הכינוי שלך בשימוש"
-
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:92
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TrayNotifyBlink)
-#: rc.cpp:663
-msgid "Blin&k the icon"
-msgstr ""
-
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:101
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideToTrayOnStartup)
-#: rc.cpp:666
-msgid "Hide window on startup"
-msgstr ""
-
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:111
-#. i18n: ectx: property (title), widget (QGroupBox, middleLabel)
-#: rc.cpp:669
-msgid "Nickname Completion"
-msgstr "השלמת כינויים"
-
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:117
-#. i18n: ectx: property (text), widget (QLabel, modeLbl)
-#: rc.cpp:672
-msgid "Completion &mode:"
-msgstr "&שיטת השלמה:"
-
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:131
-#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_NickCompletionMode)
-#: rc.cpp:675
-msgid "Cycle NickList"
-msgstr "עבור בין הכינויים בצורה מעגלית"
-
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:136
-#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_NickCompletionMode)
-#: rc.cpp:678
-msgid "Shell-Like"
-msgstr "השלמת מסוף"
-
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:141
-#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_NickCompletionMode)
-#: rc.cpp:681
-msgid "Shell-Like with Completion Box"
-msgstr "השלמת מסוף עם תיבת השלמות"
-
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:152
-#. i18n: ectx: property (text), widget (QLabel, startOfLineLabel)
-#: rc.cpp:684
-msgid "Suffi&x at start of line:"
-msgstr "&רישא בתחילת השורה:"
-
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:168
-#. i18n: ectx: property (text), widget (QLabel, textLabel3)
-#: rc.cpp:687
-msgid "&Elsewhere:"
-msgstr "&מקום אחר:"
-
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:181
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_NickCompletionCaseSensitive)
-#: rc.cpp:690
-msgid "Case sensitive"
-msgstr "תלוי רישיות"
-
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:194
-#. i18n: ectx: property (title), widget (QGroupBox, miscGBox)
-#: rc.cpp:693
-msgid "Miscellaneous"
-msgstr ""
-
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:200
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DisableNotifyWhileAway)
-#: rc.cpp:696
-msgid "Disable notifications while &away"
-msgstr "בטל התראות כאשר במצב &מרוחק"
-
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:207
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomVersionReplyEnabled)
-#: rc.cpp:699
-msgid "Use custom &version reply:"
-msgstr "השתמש בתגובת &גרסה מותאמת אישית:"
-
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:217
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, kcfg_CustomVersionReply)
-#: rc.cpp:702
-msgid ""
-"<qt>Here you can set a custom reply for <b>CTCP <i>VERSION</i></b> requests."
-"</qt>"
-msgstr ""
-
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:237
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseMultiRowInputBox)
-#: rc.cpp:705
-msgid "Input box expands with text"
-msgstr "תיבת הקלט מתרחבת עם הטקסט"
-
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:251
-#. i18n: ectx: property (text), widget (QLabel, commandCharLabel)
-#: rc.cpp:708
-msgid "Comman&d char:"
-msgstr "תו &פקודה:"
-
-#. i18n: file: src/preferences/generalbehavior_preferences.ui:264
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseCustomBrowser)
-#: rc.cpp:711
-msgid "Use custom web &browser:"
-msgstr "השתמש ב&דפדפן מותאם אישית:"
-
-#. i18n: file: src/preferences/dcc_preferencesui.ui:17
-#. i18n: ectx: property (windowTitle), widget (QWidget, DCC_ConfigUI)
-#: rc.cpp:714
-msgid "DCC_Settings"
-msgstr "DCC_Settings"
-
-#. i18n: file: src/preferences/dcc_preferencesui.ui:26
-#. i18n: ectx: property (text), widget (QLabel, dccPathLbl)
-#: rc.cpp:717
-msgid "Download &folder:"
-msgstr "&תיקיית הורדה:"
-
-#. i18n: file: src/preferences/dcc_preferencesui.ui:49
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAddPartner)
-#: rc.cpp:720
-msgid "&Add sender to file name"
-msgstr "&הוסף שולח לשם הקובץ"
-
-#. i18n: file: src/preferences/dcc_preferencesui.ui:56
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccCreateFolder)
-#: rc.cpp:723
-msgid "Cr&eate folder for sender"
-msgstr "&צור תיקייה עבור השולח"
-
-#. i18n: file: src/preferences/dcc_preferencesui.ui:63
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpaceToUnderscore)
-#: rc.cpp:726
-msgid "Convert spaces in file names to underscores before sending"
-msgstr "המר רווחים בשמות הקבצים אל קוים תחתונים לפני השליחה"
-
-#. i18n: file: src/preferences/dcc_preferencesui.ui:73
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAutoGet)
-#: rc.cpp:729
-msgid "Automaticall&y accept download offer"
-msgstr "קבל קבצים להורדה באופן א&וטומטי"
-
-#. i18n: file: src/preferences/dcc_preferencesui.ui:80
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAutoResume)
-#: rc.cpp:732
-msgid "Au&tomatically resume download"
-msgstr "המשך הורדות באופן או&טומטי"
-
-#. i18n: file: src/preferences/dcc_preferencesui.ui:87
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccFastSend)
-#: rc.cpp:735
-msgid "Enable fast DCC send (Might &not work with all clients)"
-msgstr "אפשר מצב העברה מהירה, Fast DCC (ייתכן כי &לא יעבוד עם כל הלקוחות)"
-
-#. i18n: file: src/preferences/dcc_preferencesui.ui:110
-#. i18n: ectx: property (text), widget (QLabel, textLabel6)
-#: rc.cpp:738
-msgid "Buffer si&ze:"
-msgstr "&גודל החוצץ:"
-
-#. i18n: file: src/preferences/dcc_preferencesui.ui:123
-#. i18n: ectx: property (text), widget (QLabel, textLabel7)
-#: rc.cpp:741
-msgid "DCC send t&imeout:"
-msgstr "מקסימום &זמן העברת DCC:"
-
-#. i18n: file: src/preferences/dcc_preferencesui.ui:136
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DccIPv4Fallback)
-#: rc.cpp:744
-msgid ""
-"If this option enabled dcc transfers for IPv6 connections will be done over "
-"IPv4 interface set here"
-msgstr ""
-"אם אפשרות זו מופעלת עבור העברות בחיבורי IPv6 יעשו על ידי ממשק IPv4 הנקבע כאן"
-
-#. i18n: file: src/preferences/dcc_preferencesui.ui:139
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccIPv4Fallback)
-#: rc.cpp:747
-msgid "Fallback to an IPv&4 interface for DCC send:"
-msgstr "עבור ל־&IPv4 לשליחות DCC:"
-
-#. i18n: file: src/preferences/dcc_preferencesui.ui:146
-#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_DccBufferSize)
-#: rc.cpp:750
-msgid " bytes"
-msgstr "בתים"
-
-#. i18n: file: src/preferences/dcc_preferencesui.ui:162
-#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_DccSendTimeout)
-#: rc.cpp:753
-msgid " sec"
-msgstr " שניות"
-
-#. i18n: file: src/preferences/dcc_preferencesui.ui:182
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccPassiveSend)
-#: rc.cpp:756
-#, fuzzy
-msgid "Enable passive DCC send"
-msgstr "אפשר י&ציאות מסוימות עבור שליחות DCC:"
-
-#. i18n: file: src/preferences/dcc_preferencesui.ui:240
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox1)
-#: rc.cpp:759
-msgid "IP"
-msgstr ""
-
-#. i18n: file: src/preferences/dcc_preferencesui.ui:249
-#. i18n: ectx: property (text), widget (QLabel, textLabel4)
-#: rc.cpp:762
-msgid "&Method to get own IP:"
-msgstr "&שיטה לקבלת כתובת עצמית:"
-
-#. i18n: file: src/preferences/dcc_preferencesui.ui:262
-#. i18n: ectx: property (text), widget (QLabel, ownIP)
-#: rc.cpp:765
-msgid "O&wn IP:"
-msgstr "כתובת &עצמית:"
-
-#. i18n: file: src/preferences/dcc_preferencesui.ui:281
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
-#: rc.cpp:768
-msgid "Ports"
-msgstr "יציאות"
-
-#. i18n: file: src/preferences/dcc_preferencesui.ui:287
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpecificChatPorts)
-#: rc.cpp:771
-msgid "Enable specific p&orts for DCC chat:"
-msgstr "אפשר &יציאות מסוימות עבור שיחות DCC:"
-
-#. i18n: file: src/preferences/dcc_preferencesui.ui:326
-#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
-#. i18n: file: src/preferences/dcc_preferencesui.ui:391
-#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:774 rc.cpp:780
-msgid "to"
-msgstr "אל"
-
-#. i18n: file: src/preferences/dcc_preferencesui.ui:352
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpecificSendPorts)
-#: rc.cpp:777
-#, fuzzy
-msgid "Enable specific &ports for DCC transfer server:"
-msgstr "אפשר י&ציאות מסוימות עבור שליחות DCC:"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:25
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsText)
-#: rc.cpp:786
-msgid "Use colored text"
-msgstr "השתמש בטקסט צבעוני"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:35
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsLeds)
-#: rc.cpp:789
-msgid "Use colored LEDs"
-msgstr "השתמש בֵּלֶדִים צבעוניים"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:51
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsSystem)
-#: rc.cpp:795
-msgid ""
-"Application events occur in Konsole tabs, the DCC Status tab and other "
-"application tabs not used directly for chatting."
-msgstr ""
-"אירועי יישום קוראים בכרטיסיות Konsole, כרטיסיות מצבי DCC או כרטיסיות יישום "
-"אחרות שלא קשורות ישירות לשיחות."
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:54
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsSystem)
-#: rc.cpp:798
-msgid "Application event"
-msgstr "אירוע יישום"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:87
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsMsgs)
-#: rc.cpp:801
-msgid "Message"
-msgstr "הודעה"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:143
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsPrivate)
-#: rc.cpp:804
-#, fuzzy
-msgid "Private message"
-msgstr "&הודעת השרת:"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:167
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsNick)
-#: rc.cpp:807
-msgid "Current nick used"
-msgstr "הכינוי בשימוש כעת"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:223
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsEvents)
-#: rc.cpp:810
-msgid "Channel events are mode changes or users joining/leaving a channel."
-msgstr "אירוע בחדר הם שינויי מצבים או משתמשים עוזבים (או מצטרפים) לחדר."
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:226
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsEvents)
-#: rc.cpp:813
-msgid "Channel event"
-msgstr "אירוע בחדר"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:275
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox10)
-#. i18n: file: src/viewer/searchbarbase.ui:92
-#. i18n: ectx: property (text), widget (QToolButton, m_optionsButton)
-#: rc.cpp:819 rc.cpp:1715
-#, fuzzy
-#| msgid "Exception"
-msgid "Options"
-msgstr "יוצאים מן הכלל"
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:281
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsOverride)
-#: rc.cpp:822
-msgid ""
-"If you select this, the colors you chose in the Highlights preferences page "
-"will override the colors for \"Current nick used\" and \"Highlight\"."
-msgstr ""
-
-#. i18n: file: src/preferences/tabnotifications_preferences.ui:284
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsOverride)
-#: rc.cpp:825
-msgid "Give precedence to chat window highlight colors"
-msgstr "תן קדימות לחלון שיחת הגדשת צבעים"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:25
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_FixedMOTD)
-#: rc.cpp:828
-msgid "Show MOTD (Message Of The Day) message in fixed font"
-msgstr "הצג את הודעת היום (MOTD) בגופן ברוחב קבוע"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:28
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_FixedMOTD)
-#: rc.cpp:831
-msgid "Enable fi&xed font for MOTD messages"
-msgstr "אפשר גופן &קבוע רוחב עבור הודעות MOTD"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:35
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseBoldNicks)
-#: rc.cpp:834
-msgid "Show sender nicknames &bold in the chat view"
-msgstr "הפוך את כינויי השולחים ל&מודגשים בתצוגת השיחה"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:61
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomTextFont)
-#: rc.cpp:837
-msgid "Chat text:"
-msgstr "טקסט השיחה:"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:92
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomListFont)
-#: rc.cpp:840
-msgid "Nickname list:"
-msgstr "רשימת כינויים:"
-
-#. i18n: file: src/preferences/fontappearance_preferences.ui:102
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomTabFont)
-#: rc.cpp:843
-msgid "Tab bar:"
-msgstr "תצוגת כרטיסיות:"
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:20
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightSoundsEnabled)
-#: rc.cpp:846
-#, fuzzy
-msgid "Ena&ble sound for highlights"
-msgstr "&השמע צליל עבור פרטי רשימה מודגשים"
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:47
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightNick)
-#: rc.cpp:849
-msgid "Alwa&ys highlight own current nick:"
-msgstr "הדגש &תמיד את הכינוי הנוכחי:"
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:54
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightOwnLines)
-#: rc.cpp:852
-msgid "Always highlight own &lines:"
-msgstr "תמיד הדגש את ה&שורות שלי:"
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:109
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox1)
-#: rc.cpp:855
-#, fuzzy
-msgid "Highlight List"
-msgstr "&רשימת סימון"
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:131
-#. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:43
-#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
-#: rc.cpp:858 rc.cpp:1022
-msgid "RegEx"
-msgstr ""
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:136
-#. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
-#: rc.cpp:861
-msgid "Highlights"
-msgstr "הדגשות"
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:141
-#. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
-#: rc.cpp:864
-msgid "Sound"
-msgstr "שמע"
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:146
-#. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
-#: rc.cpp:867
-msgid "Auto Text"
-msgstr "טקסט אוטומטי"
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:205
-#. i18n: ectx: property (text), widget (QLabel, patternLabel)
-#: rc.cpp:876
-msgid "&Pattern:"
-msgstr "&תבנית:"
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:245
-#. i18n: ectx: property (text), widget (KPushButton, patternButton)
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:177
-#. i18n: ectx: property (text), widget (QPushButton, regExpEditorButton)
-#: rc.cpp:882 rc.cpp:1046
-msgid "..."
-msgstr "..."
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:260
-#. i18n: ectx: property (text), widget (QLabel, colorLabel)
-#: rc.cpp:885
-#, fuzzy
-msgid "Color:"
-msgstr "צבעים"
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:283
-#. i18n: ectx: property (text), widget (QLabel, soundLabel)
-#: rc.cpp:888
-msgid "&Sound:"
-msgstr "&צליל:"
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:307
-#. i18n: ectx: property (filter), widget (KUrlRequester, soundURL)
-#: rc.cpp:891
-msgid "audio/x-wav audio/x-mp3 application/ogg audio/x-adpcm"
-msgstr "audio/x-wav audio/x-mp3 application/ogg audio/x-adpcm"
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:323
-#. i18n: ectx: property (toolTip), widget (QToolButton, soundPlayBtn)
-#: rc.cpp:894
-msgid "Test sound"
-msgstr ""
-
-#. i18n: file: src/preferences/highlight_preferencesui.ui:338
-#. i18n: ectx: property (text), widget (QLabel, autoTextLabel)
-#: rc.cpp:897
-msgid "&Auto text:"
-msgstr "&טקסט אוטומטי:"
-
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:25
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_Beep)
-#: rc.cpp:903
-msgid ""
-"Sounds the system bell when you receive an ASCII BEL (0x07) control character"
-msgstr "השמע את צליל המערכת כאשר מתקבל אצלך צלצול אסקיי (תו 0x07)"
-
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:28
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_Beep)
-#: rc.cpp:906
-msgid "Enable s&ystem bell on incoming ASCII BEL"
-msgstr "השמע צפצוף &מערכת בעץ קבלת פעמון ASCII"
-
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:35
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideUnimportantEvents)
-#: rc.cpp:909
-msgid "Hide &Join/Part/Nick events"
-msgstr "הסתר אירועים של &כניסה/יציאה/כינויים"
-
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:42
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DisableExpansion)
-#: rc.cpp:913
-#, no-c-format
-msgid ""
-"Do not expand variables when sending text to the server. A variable starts "
-"with '%'; for example, %B will expand to the characters needed to make a "
-"text bold."
-msgstr ""
-
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:45
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DisableExpansion)
-#: rc.cpp:917
-#, no-c-format
-msgid "Disable variable (e.g. %C, %B, %G...) e&xpansion"
-msgstr "בטל &הרחבת משתנים (למשל %C, %B, %G...) "
-
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:52
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_RedirectServerAndAppMsgToStatusPane)
-#: rc.cpp:920
-msgid "&Redirect status messages to the server status window"
-msgstr "&נתב את כל הודעות המצב אל חלון מצב השרת"
-
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:59
-#. i18n: ectx: property (whatsThis), widget (QLabel, textLabel1)
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:101
-#. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_ScrollbackMax)
-#: rc.cpp:923 rc.cpp:935
-msgid "How many lines to keep in buffers, 0 = unlimited"
-msgstr "כמה שורות לשמור בחוצצים, 0 = ללא הגבלה"
-
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:62
-#. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:926
-msgid "Scroll&back limit:"
-msgstr "הגדלת &גלילה:"
-
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:91
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_UseLiteralModes)
-#: rc.cpp:929
-msgid ""
-"Keep channel mode string as a combination of characters instead of "
-"translating them into human readable words. E.g. '*** Channel modes: no "
-"messages from outside' will become '*** Channel modes: n'"
-msgstr ""
-
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:94
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseLiteralModes)
-#: rc.cpp:932
-msgid "&Use raw modes for mode changes"
-msgstr "&השתמש במצג גולמי עבור הודעות מצב"
-
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:107
-#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_ScrollbackMax)
-#: rc.cpp:941
-msgid " lines"
-msgstr " שורות"
-
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:136
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox3_2)
-#: rc.cpp:944
-#, fuzzy
-msgid "Marker Lines"
-msgstr "רשימת שרתים"
-
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:142
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_AutomaticRememberLine)
-#: rc.cpp:947
-msgid ""
-"Inserts a remember line into the chat window when you switch to another chat "
-"window or minimize the application."
-msgstr ""
-"מכניס שורת תזכורת אל חלון השיחה כאשר אתה עובר אל חלון שיחה אחת או מקטין את "
-"היישום."
-
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:145
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutomaticRememberLine)
-#: rc.cpp:950
-msgid "Mark the last position in a chat window when it is hidden"
-msgstr ""
-
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:176
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutomaticRememberLineOnlyOnTextChange)
-#: rc.cpp:953
-msgid "Move the line only when new text is about to be shown"
-msgstr ""
-
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:185
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_MarkerLineInAllViews)
-#: rc.cpp:956
-#, fuzzy
-msgid "Show manually inserted lines in all chat windows"
-msgstr "הצג שורת תזכורת בכל החדרים והשאילתות"
-
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:195
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoWhoContinuousEnabled)
-#: rc.cpp:959
-msgid "Enable Automatic User Information Look Up (/WHO)"
-msgstr "אפשר חיפוש מידע אוטומטי אודות משתמשים (/who)"
-
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:239
-#. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:962
-msgid "Max. number of users in a channel:"
-msgstr "מספר המשתמשים המרבי בחדר:"
-
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:252
-#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_AutoWhoNicksLimit)
-#: rc.cpp:965
-msgid " nicks"
-msgstr " כינויים"
-
-#. i18n: file: src/preferences/chatwindowbehaviour_preferences.ui:287
-#. i18n: ectx: property (text), widget (QLabel, whoIntervalLbl)
-#: rc.cpp:971
-msgid "Update interval:"
-msgstr "תדירות עדכון:"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:35
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOSD)
-#: rc.cpp:974
-msgid "&Enable On Screen Display"
-msgstr "&אפשר תצוגה על המסך"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:45
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
-#: rc.cpp:977
-msgid "On &Screen Display"
-msgstr "תצוגה על ה&מסך"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:54
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDDrawShadow)
-#: rc.cpp:980
-msgid "&Draw shadows"
-msgstr "&צייר צלליות"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:67
-#. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:983
-msgid "OSD font:"
-msgstr "גופן תצוגה:"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:135
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
-#: rc.cpp:986
-msgid "Show &OSD Message"
-msgstr "הצג הודעות על ה&מסך"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:141
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowOwnNick)
-#: rc.cpp:989
-msgid "&If own nick appears in channel message"
-msgstr "&אם הכינוי שלי מופיע בהודעות חדר"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:148
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowChannel)
-#: rc.cpp:992
-msgid "On an&y channel message"
-msgstr "ב&כל הודעה בחדר"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:155
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowQuery)
-#: rc.cpp:995
-msgid "On &query activity"
-msgstr "בפעילות &שאילתה"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:162
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowChannelEvent)
-#: rc.cpp:998
-msgid "On &Join/Part events"
-msgstr "כאשר אנשים עוזבים או &מצטרפים לחדר"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:175
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_OSDUseCustomColors)
-#: rc.cpp:1001
-msgid "Enable Custom Colors"
-msgstr "אפשר צבעים מותאמים אישית"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:187
-#. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:1004
-msgid "Te&xt color:"
-msgstr "צבע ה&טקסט:"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:200
-#. i18n: ectx: property (text), widget (QLabel, textLabel3)
-#. i18n: file: src/viewer/irccolorchooserui.ui:122
-#. i18n: ectx: property (text), widget (QLabel, m_bgColorLbl)
-#: rc.cpp:1007 rc.cpp:1775
-msgid "&Background color:"
-msgstr "צבע ה&רקע:"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:249
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
-#: rc.cpp:1010
-msgid "O&ther Settings"
-msgstr "&הגדרות אחרות"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:255
-#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:1013
-msgid "&Duration:"
-msgstr "&משך:"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:268
-#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
-#: rc.cpp:1016
-msgid "S&creen:"
-msgstr "&מסך:"
-
-#. i18n: file: src/preferences/osd_preferencesui.ui:281
-#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_OSDDuration)
-#: rc.cpp:1019
-msgid " ms"
-msgstr " מש"
-
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:48
-#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
-#: rc.cpp:1025
-msgid "Replace In"
-msgstr "החלף ב"
-
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:53
-#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
-#: rc.cpp:1028
-msgid "Find"
-msgstr "חפש"
-
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:58
-#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
-#: rc.cpp:1031
-msgid "Replace With"
-msgstr "החלף בתוך"
-
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:68
-#. i18n: ectx: property (text), widget (QPushButton, newButton)
-#: rc.cpp:1034
-#, fuzzy
-msgid "Ne&w"
-msgstr "חדש"
-
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:75
-#. i18n: ectx: property (text), widget (QPushButton, removeButton)
-#: rc.cpp:1037
-#, fuzzy
-msgid "R&emove"
-msgstr "הוסר"
-
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:111
-#. i18n: ectx: property (text), widget (QLabel, directionLabel)
-#: rc.cpp:1040
-msgid "Replace in:"
-msgstr "החלף ב:"
-
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:143
-#. i18n: ectx: property (text), widget (QLabel, patternLabel)
-#: rc.cpp:1043
-msgid "Find:"
-msgstr "חפש:"
-
-#. i18n: file: src/preferences/autoreplace_preferencesui.ui:198
-#. i18n: ectx: property (text), widget (QLabel, replacementLabel)
-#: rc.cpp:1049
-msgid "Replace with:"
-msgstr "החלף עם:"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:23
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_Timestamping)
-#: rc.cpp:1052
-msgid "Enable &Timestamps"
-msgstr "אפשר חתימות &זמן"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:32
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowDate)
-#: rc.cpp:1055
-#, fuzzy
-msgid "Sho&w dates"
-msgstr "הצג &תאריכים"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:39
-#. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:1058
-msgid "&Format:"
-msgstr "&תבנית:"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:78
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowBacklog)
-#: rc.cpp:1061
-#, fuzzy
-msgid "Show &Backlog"
-msgstr "הצג יומן של שיחה קודמת"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:87
-#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:1064
-msgid "&Lines: "
-msgstr "&שורות: "
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:129
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
-#: rc.cpp:1067
-msgid "&Layout"
-msgstr "&מראה"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:135
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTopic)
-#: rc.cpp:1070
-msgid "&Show channel topic"
-msgstr "&הצג את נושא החדר"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:142
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowModeButtons)
-#: rc.cpp:1073
-msgid "Show channel &mode buttons"
-msgstr "הצג כפתורי &מצב החדר"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:149
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowNickList)
-#: rc.cpp:1076
-msgid "Show channel &nick list and quick buttons"
-msgstr "הצג &רשימת כינויים וכפתורים מהירים"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:177
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoUserhost)
-#: rc.cpp:1079
-msgid "Show hostmas&ks in nickname list"
-msgstr "הצג את שמות המתחמים &ברשימת הכינויים"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:207
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowRealNames)
-#: rc.cpp:1082
-#, fuzzy
-msgid "Show real names in nickname list"
-msgstr "&הצג שמות אמתיים ליד הכינויים"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:237
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowQuickButtons)
-#: rc.cpp:1085
-msgid "Show &quick buttons"
-msgstr "הצג &כפתורים מהירים"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:246
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowNicknameBox)
-#: rc.cpp:1088
-msgid "Show bo&x to change own nickname"
-msgstr "הצג &קופסה לשינוי הכינוי שלך"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:253
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowIRCViewScrollBar)
-#: rc.cpp:1091
-msgid "Show sc&rollbar"
-msgstr ""
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:266
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowBackgroundImage)
-#: rc.cpp:1094
-msgid "Enable Back&ground Image"
-msgstr "אפשר תמונת &רקע"
-
-#. i18n: file: src/preferences/chatwindowappearance_preferences.ui:275
-#. i18n: ectx: property (text), widget (QLabel, textLabel4)
-#: rc.cpp:1097
-msgid "P&ath:"
-msgstr "&נתיב:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:30
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox1)
-#: rc.cpp:1100
-msgid "Custom Colors"
-msgstr "צבעים מותאמים אישית"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:36
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_InputFieldsBackgroundColor)
-#: rc.cpp:1103
-msgid "&Use custom colors for input box, nickname list and tab list"
-msgstr "&השתמש בצבעים מותאמים אישית עבור שדה הקלט, שם הכינוי ורשימת הכרטיסיות"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:273
-#. i18n: ectx: property (text), widget (QLabel, textLabel3)
-#: rc.cpp:1106
-msgid "&Background:"
-msgstr "&רקע:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:286
-#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
-#: rc.cpp:1109
-msgid "&Server message:"
-msgstr "&הודעת השרת:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:299
-#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:1112
-msgid "H&yperlink:"
-msgstr "&קישור:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:312
-#. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:1115
-msgid "Channel &message:"
-msgstr "הודעת ה&חדר:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:325
-#. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:1118
-msgid "Actio&n:"
-msgstr "&פעולה:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:338
-#. i18n: ectx: property (text), widget (QLabel, textLabel4)
-#: rc.cpp:1121
-msgid "Bac&klog:"
-msgstr "יומן של שיחה &קודמת:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:351
-#. i18n: ectx: property (text), widget (QLabel, textLabel5)
-#: rc.cpp:1124
-msgid "Comman&d message:"
-msgstr "הודעת ה&פקודה:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:364
-#. i18n: ectx: property (text), widget (QLabel, textLabel1_8)
-#: rc.cpp:1127
-msgid "&Query message:"
-msgstr "הודעת &שאילתה:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:377
-#. i18n: ectx: property (text), widget (QLabel, textLabel1_9)
-#: rc.cpp:1130
-msgid "&Timestamp:"
-msgstr "&חותמת זמן:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:390
-#. i18n: ectx: property (text), widget (QLabel, textLabel1_10)
-#: rc.cpp:1133
-msgid "A&lternate background:"
-msgstr "רקע &חלופי:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:409
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_UseColoredNicks)
-#: rc.cpp:1136
-msgid "Colored Nicks"
-msgstr "כינויים צבועים"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:424
-#. i18n: ectx: property (text), widget (QLabel, textLabel9)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:868
-#. i18n: ectx: property (text), widget (QLabel, textLabel12_6)
-#: rc.cpp:1139 rc.cpp:1190
-msgid "5:"
-msgstr "5:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:447
-#. i18n: ectx: property (text), widget (QLabel, textLabel8)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:878
-#. i18n: ectx: property (text), widget (QLabel, textLabel12_5)
-#: rc.cpp:1142 rc.cpp:1193
-msgid "4:"
-msgstr "4:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:470
-#. i18n: ectx: property (text), widget (QLabel, textLabel7)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:794
-#. i18n: ectx: property (text), widget (QLabel, textLabel12_4)
-#: rc.cpp:1145 rc.cpp:1178
-msgid "3:"
-msgstr "3:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:500
-#. i18n: ectx: property (text), widget (QLabel, textLabel6)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:778
-#. i18n: ectx: property (text), widget (QLabel, textLabel12_3)
-#: rc.cpp:1148 rc.cpp:1175
-msgid "2:"
-msgstr "2:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:587
-#. i18n: ectx: property (text), widget (QLabel, textLabel4_2)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:838
-#. i18n: ectx: property (text), widget (QLabel, textLabel12_14)
-#: rc.cpp:1151 rc.cpp:1181
-msgid "0:"
-msgstr "0:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:610
-#. i18n: ectx: property (text), widget (QLabel, textLabel5_2)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:762
-#. i18n: ectx: property (text), widget (QLabel, textLabel12_2)
-#: rc.cpp:1154 rc.cpp:1172
-msgid "1:"
-msgstr "1:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:672
-#. i18n: ectx: property (text), widget (QLabel, textLabel11)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:848
-#. i18n: ectx: property (text), widget (QLabel, textLabel12_8)
-#: rc.cpp:1157 rc.cpp:1184
-msgid "7:"
-msgstr "7:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:688
-#. i18n: ectx: property (text), widget (QLabel, textLabel10)
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:858
-#. i18n: ectx: property (text), widget (QLabel, textLabel12_7)
-#: rc.cpp:1160 rc.cpp:1187
-msgid "6:"
-msgstr "6:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:700
-#. i18n: ectx: property (text), widget (QLabel, textLabel1_3)
-#: rc.cpp:1163
-msgid "&Own nick color:"
-msgstr "צבע הכינוי ה&עצמי:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:744
-#. i18n: ectx: property (whatsThis), widget (QGroupBox, kcfg_AllowColorCodes)
-#: rc.cpp:1166
-msgid ""
-"By enabling this option, color codes added to IRC messages will be displayed "
-"in your chat window as colored text. You can add color codes to your "
-"messages, by selecting Insert -> IRC Color"
-msgstr ""
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:747
-#. i18n: ectx: property (title), widget (QGroupBox, kcfg_AllowColorCodes)
-#: rc.cpp:1169
-msgid "&Allow Colored Text in IRC Messages"
-msgstr "&אפשר טקסט צבוע בהודעות IRC"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1051
-#. i18n: ectx: property (text), widget (QLabel, textLabel12_12)
-#: rc.cpp:1196
-msgid "11:"
-msgstr "11:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1082
-#. i18n: ectx: property (text), widget (QLabel, textLabel12_10)
-#: rc.cpp:1199
-msgid "9:"
-msgstr "9:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1092
-#. i18n: ectx: property (text), widget (QLabel, textLabel12_9)
-#: rc.cpp:1202
-msgid "8:"
-msgstr "8:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1102
-#. i18n: ectx: property (text), widget (QLabel, textLabel12_11)
-#: rc.cpp:1205
-msgid "10:"
-msgstr "10:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1183
-#. i18n: ectx: property (text), widget (QLabel, textLabel12_13)
-#: rc.cpp:1208
-msgid "12:"
-msgstr "12:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1200
-#. i18n: ectx: property (text), widget (QLabel, textLabel12_16)
-#: rc.cpp:1211
-msgid "15:"
-msgstr "15:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1224
-#. i18n: ectx: property (text), widget (QLabel, textLabel12_15)
-#: rc.cpp:1214
-msgid "14:"
-msgstr "14:"
-
-#. i18n: file: src/preferences/colorsappearance_preferences.ui:1234
-#. i18n: ectx: property (text), widget (QLabel, textLabel12)
-#: rc.cpp:1217
-msgid "13:"
-msgstr "13:"
-
-#. i18n: file: src/preferences/warnings_preferencesui.ui:29
-#. i18n: ectx: property (text), widget (QTreeWidget, dialogListView)
-#: rc.cpp:1220
-msgid "Warning Dialogs to Show"
-msgstr "חלונות הזהרה להצגה"
-
 #. i18n: file: src/identitydialog.ui:25
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: rc.cpp:1223
+#: rc.cpp:341
 msgid "&Identity:"
 msgstr "&זהות:"
 
 #. i18n: file: src/identitydialog.ui:65
 #. i18n: ectx: property (toolTip), widget (KPushButton, newBtn)
-#: rc.cpp:1226
+#: rc.cpp:344
 #, fuzzy
 #| msgid "Add..."
 msgid "Add"
@@ -7508,25 +5862,34 @@ msgstr "הוסף..."
 
 #. i18n: file: src/identitydialog.ui:96
 #. i18n: ectx: property (toolTip), widget (KPushButton, copyBtn)
-#: rc.cpp:1229
+#: rc.cpp:347
 msgid "Duplicate"
 msgstr "העתק"
 
 #. i18n: file: src/identitydialog.ui:127
 #. i18n: ectx: property (toolTip), widget (KPushButton, m_editBtn)
-#: rc.cpp:1232
+#: rc.cpp:350
 msgid "Rename"
 msgstr "שנה שם"
 
+#. i18n: file: src/identitydialog.ui:158
+#. i18n: ectx: property (toolTip), widget (KPushButton, m_delBtn)
+#. i18n: file: src/config/quickbuttons_configui.ui:55
+#. i18n: ectx: property (text), widget (QPushButton, removeButton)
+#: rc.cpp:353 rc.cpp:488
+#, fuzzy
+msgid "Remove"
+msgstr "הוסר"
+
 #. i18n: file: src/identitydialog.ui:187
 #. i18n: ectx: property (text), widget (QLabel, realNameLabel)
-#: rc.cpp:1241
+#: rc.cpp:359
 msgid "&Real name:"
 msgstr "&שם אמיתי:"
 
 #. i18n: file: src/identitydialog.ui:197
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, m_realNameEdit)
-#: rc.cpp:1244
+#: rc.cpp:362
 msgid ""
 "Enter your real name here. IRC is not intended to keep you hidden from your "
 "friends or enemies. Keep this in mind if you are tempted to behave "
@@ -7537,7 +5900,7 @@ msgstr ""
 
 #. i18n: file: src/identitydialog.ui:208
 #. i18n: ectx: property (whatsThis), widget (KEditListBox, m_nicknameLBox)
-#: rc.cpp:1247
+#: rc.cpp:365
 msgid ""
 "This is your list of nicknames. A nickname is the name that other users will "
 "know you by. You may use any name you desire. The first character must be a "
@@ -7551,19 +5914,19 @@ msgstr ""
 
 #. i18n: file: src/identitydialog.ui:218
 #. i18n: ectx: property (title), widget (QGroupBox, autoIdentifyGroup)
-#: rc.cpp:1255
+#: rc.cpp:373
 msgid "Auto Identify"
 msgstr "זיהוי אוטומטי"
 
 #. i18n: file: src/identitydialog.ui:224
 #. i18n: ectx: property (text), widget (QLabel, botLabel)
-#: rc.cpp:1258
+#: rc.cpp:376
 msgid "Ser&vice:"
 msgstr "&שירות:"
 
 #. i18n: file: src/identitydialog.ui:234
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, m_botEdit)
-#: rc.cpp:1261
+#: rc.cpp:379
 #, fuzzy
 #| msgid ""
 #| "Service name can be <b><i>nickserv</i></b> or a network dependant name "
@@ -7577,13 +5940,13 @@ msgstr ""
 
 #. i18n: file: src/identitydialog.ui:241
 #. i18n: ectx: property (text), widget (QLabel, passwordLabel)
-#: rc.cpp:1264
+#: rc.cpp:382
 msgid "Pa&ssword:"
 msgstr "&ססמה:"
 
 #. i18n: file: src/identitydialog.ui:270
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_insertRememberLineOnAwayChBox)
-#: rc.cpp:1270
+#: rc.cpp:388
 msgid ""
 "If you check this box, whenever you perform an <b>/away</b> command, a "
 "horizontal line will appear in the channel, marking the point where you went "
@@ -7594,19 +5957,19 @@ msgstr ""
 
 #. i18n: file: src/identitydialog.ui:273
 #. i18n: ectx: property (text), widget (QCheckBox, m_insertRememberLineOnAwayChBox)
-#: rc.cpp:1273
+#: rc.cpp:391
 msgid "Mark the last position in chat windows when going away"
 msgstr "סמן את המקום האחרון בחלונות השיחה כאשר אתה במצב מרוחק"
 
 #. i18n: file: src/identitydialog.ui:280
 #. i18n: ectx: property (text), widget (QLabel, awayNicknameLabel)
-#: rc.cpp:1276
+#: rc.cpp:394
 msgid "Away nickname:"
 msgstr "כינוי מרוחק:"
 
 #. i18n: file: src/identitydialog.ui:287
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, m_awayNickEdit)
-#: rc.cpp:1279
+#: rc.cpp:397
 #, fuzzy
 msgid ""
 "Enter a nickname that indicates you are away. Whenever you perform an <b>/"
@@ -7623,7 +5986,7 @@ msgstr ""
 
 #. i18n: file: src/identitydialog.ui:302
 #. i18n: ectx: property (whatsThis), widget (QGroupBox, automaticAwayGroup)
-#: rc.cpp:1282
+#: rc.cpp:400
 msgid ""
 "If you check this box, Konversation will automatically set all connections "
 "using this Identity away when the screensaver starts or after a period of "
@@ -7634,25 +5997,25 @@ msgstr ""
 
 #. i18n: file: src/identitydialog.ui:305
 #. i18n: ectx: property (title), widget (QGroupBox, automaticAwayGroup)
-#: rc.cpp:1285
+#: rc.cpp:403
 msgid "Automatic Away"
 msgstr "מצב מרוחק אוטומטי"
 
 #. i18n: file: src/identitydialog.ui:323
 #. i18n: ectx: property (text), widget (QLabel, setAwayAfterLabel)
-#: rc.cpp:1288
+#: rc.cpp:406
 msgid "Set away after"
 msgstr "קבע מרוחק אחרי"
 
 #. i18n: file: src/identitydialog.ui:346
 #. i18n: ectx: property (text), widget (QLabel, timeOfUserInactivityLabel)
-#: rc.cpp:1291
+#: rc.cpp:409
 msgid "of user inactivity"
 msgstr "של חוסר פעולה מצד המשתמש"
 
 #. i18n: file: src/identitydialog.ui:353
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_automaticUnawayChBox)
-#: rc.cpp:1294
+#: rc.cpp:412
 msgid ""
 "If you check this box, Konversation will automatically cancel away for all "
 "connections using this Identity when the screensaver stops or new user "
@@ -7663,13 +6026,13 @@ msgstr ""
 
 #. i18n: file: src/identitydialog.ui:356
 #. i18n: ectx: property (text), widget (QCheckBox, m_automaticUnawayChBox)
-#: rc.cpp:1297
+#: rc.cpp:415
 msgid "Automatically return on activity"
 msgstr "חזור ממצב מרוחק כאשר יש פעילות מצד המשתמש"
 
 #. i18n: file: src/identitydialog.ui:372
 #. i18n: ectx: property (whatsThis), widget (QGroupBox, awayMessageGroup)
-#: rc.cpp:1301
+#: rc.cpp:419
 #, no-c-format
 msgid ""
 "If you check this box, Konversation will automatically send the Away message "
@@ -7680,37 +6043,37 @@ msgstr ""
 
 #. i18n: file: src/identitydialog.ui:375
 #. i18n: ectx: property (title), widget (QGroupBox, awayMessageGroup)
-#: rc.cpp:1304
+#: rc.cpp:422
 msgid "Away Messages"
 msgstr "הודעות מרוחק"
 
 #. i18n: file: src/identitydialog.ui:387
 #. i18n: ectx: property (text), widget (QLabel, awayLabel)
-#: rc.cpp:1307
+#: rc.cpp:425
 msgid "Away &message:"
 msgstr "&הודעת \"מרוחק\":"
 
 #. i18n: file: src/identitydialog.ui:400
 #. i18n: ectx: property (text), widget (QLabel, unAwayLabel)
-#: rc.cpp:1310
+#: rc.cpp:428
 msgid "Re&turn message:"
 msgstr "הודעת &חזרה:"
 
 #. i18n: file: src/identitydialog.ui:430
 #. i18n: ectx: attribute (title), widget (QWidget, advancedWidget)
-#: rc.cpp:1313
+#: rc.cpp:431
 msgid "Advanced"
 msgstr "מתקדם"
 
 #. i18n: file: src/identitydialog.ui:436
 #. i18n: ectx: property (text), widget (QLabel, sCommandLabel)
-#: rc.cpp:1316
+#: rc.cpp:434
 msgid "&Pre-shell command:"
 msgstr "&פקודת קדם במסוף:"
 
 #. i18n: file: src/identitydialog.ui:446
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, m_sCommandEdit)
-#: rc.cpp:1319
+#: rc.cpp:437
 msgid ""
 "Here you can enter a command to be executed before connection to server "
 "starts<br>If you have multiple servers in this identity this command will be "
@@ -7719,13 +6082,13 @@ msgstr ""
 
 #. i18n: file: src/identitydialog.ui:459
 #. i18n: ectx: property (text), widget (QLabel, codecLabel)
-#: rc.cpp:1322
+#: rc.cpp:440
 msgid "&Encoding:"
 msgstr "קבע קיד&וד:"
 
 #. i18n: file: src/identitydialog.ui:469
 #. i18n: ectx: property (whatsThis), widget (KComboBox, m_codecCBox)
-#: rc.cpp:1325
+#: rc.cpp:443
 msgid ""
 "This setting affects how characters you type are encoded for sending to the "
 "server. It also affects how messages are displayed. When you first open "
@@ -7736,13 +6099,13 @@ msgstr ""
 
 #. i18n: file: src/identitydialog.ui:476
 #. i18n: ectx: property (text), widget (QLabel, loginLabel)
-#: rc.cpp:1328
+#: rc.cpp:446
 msgid "I&dent:"
 msgstr "&זהות:"
 
 #. i18n: file: src/identitydialog.ui:486
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, m_loginEdit)
-#: rc.cpp:1331
+#: rc.cpp:449
 msgid ""
 "When you connect, many servers query your computer for an IDENT response. If "
 "you computer is not running an IDENT server, this response is sent by "
@@ -7751,13 +6114,13 @@ msgstr ""
 
 #. i18n: file: src/identitydialog.ui:493
 #. i18n: ectx: property (text), widget (QLabel, quitLabel)
-#: rc.cpp:1334
+#: rc.cpp:452
 msgid "&Quit reason:"
 msgstr "&סיבת עזיבה:"
 
 #. i18n: file: src/identitydialog.ui:503
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, m_quitEdit)
-#: rc.cpp:1337
+#: rc.cpp:455
 msgid "Whenever you leave a server, this message is shown to others."
 msgstr "כאשר אתה עוזב שרת, ההודעה הזאת מוצגת לאחרים."
 
@@ -7765,7 +6128,7 @@ msgstr "כאשר אתה עוזב שרת, ההודעה הזאת מוצגת לאח
 #. i18n: ectx: property (text), widget (KLineEdit, m_quitEdit)
 #. i18n: file: src/identitydialog.ui:526
 #. i18n: ectx: property (text), widget (KLineEdit, m_partEdit)
-#: rc.cpp:1340 rc.cpp:1349
+#: rc.cpp:458 rc.cpp:467
 #, fuzzy
 #| msgid "Konversation"
 msgid "Konversation terminated."
@@ -7773,25 +6136,25 @@ msgstr "Konversation"
 
 #. i18n: file: src/identitydialog.ui:513
 #. i18n: ectx: property (text), widget (QLabel, partLabel)
-#: rc.cpp:1343
+#: rc.cpp:461
 msgid "&Part reason:"
 msgstr "&סיבת עזיבה:"
 
 #. i18n: file: src/identitydialog.ui:523
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, m_partEdit)
-#: rc.cpp:1346
+#: rc.cpp:464
 msgid "Whenever you leave a channel, this message is sent to the channel."
 msgstr "כאשר אתה עוזב חדר, ההודעה הזאת נשלחת לחדר."
 
 #. i18n: file: src/identitydialog.ui:533
 #. i18n: ectx: property (text), widget (QLabel, kickLabel)
-#: rc.cpp:1352
+#: rc.cpp:470
 msgid "&Kick reason:"
 msgstr "&סיבת \"בעיטה\":"
 
 #. i18n: file: src/identitydialog.ui:543
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, m_kickEdit)
-#: rc.cpp:1355
+#: rc.cpp:473
 msgid ""
 "Whenever you are kicked from a channel (usually by an IRC operator), this "
 "message is sent to the channel."
@@ -7799,15 +6162,948 @@ msgstr "כאשר בועטים אותך מחדר (בדרך כלל אופ), ההו
 
 #. i18n: file: src/identitydialog.ui:546
 #. i18n: ectx: property (text), widget (KLineEdit, m_kickEdit)
-#: rc.cpp:1358
+#: rc.cpp:476
 #, fuzzy
 #| msgid "Konversation"
 msgid "User terminated."
 msgstr "Konversation"
 
+#. i18n: file: src/config/quickbuttons_configui.ui:33
+#. i18n: ectx: property (text), widget (QTreeWidget, buttonListView)
+#: rc.cpp:479
+msgid "Button Name"
+msgstr "שם הכפתור"
+
+#. i18n: file: src/config/quickbuttons_configui.ui:38
+#. i18n: ectx: property (text), widget (QTreeWidget, buttonListView)
+#: rc.cpp:482
+msgid "Button Action"
+msgstr "פעולת הכפתור"
+
+#. i18n: file: src/config/quickbuttons_configui.ui:85
+#. i18n: ectx: property (text), widget (QLabel, nameLabel)
+#: rc.cpp:491
+msgid "Button name:"
+msgstr "שם הכפתור:"
+
+#. i18n: file: src/config/quickbuttons_configui.ui:111
+#. i18n: ectx: property (text), widget (QLabel, actionLabel)
+#: rc.cpp:494
+msgid "Button action:"
+msgstr "פעולת הכפתור:"
+
+#. i18n: file: src/config/quickbuttons_configui.ui:136
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
+#: rc.cpp:497
+msgid "Available Placeholders"
+msgstr ""
+
+#. i18n: file: src/config/quickbuttons_configui.ui:153
+#. i18n: ectx: property (text), widget (QLabel, placeholderHelpLabel)
+#: rc.cpp:501
+#, fuzzy, no-c-format
+msgid ""
+"%o: Current nickname\n"
+"%c: Current channel\n"
+"%K: Server password\n"
+"%u: List of selected nicknames\n"
+"%s&lt;term>%: term used to separate nicknames in %u\n"
+"%n: Send command directly to the server instead of your input line"
+msgstr ""
+"%c: החדר הנוכחי\n"
+"%K: ססמת השרת\n"
+"%u: רשימת הכינויים הנבחרים\n"
+"%s<term>%:מילת הפרדה של כינויים ב־%u\n"
+"%n: שליחת פקודה ישירות לשרת במקום לשורת קלט"
+
+#. i18n: file: src/config/osd_configui.ui:35
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOSD)
+#: rc.cpp:509
+msgid "&Enable On Screen Display"
+msgstr "&אפשר תצוגה על המסך"
+
+#. i18n: file: src/config/osd_configui.ui:45
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
+#: rc.cpp:512
+msgid "On &Screen Display"
+msgstr "תצוגה על ה&מסך"
+
+#. i18n: file: src/config/osd_configui.ui:54
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDDrawShadow)
+#: rc.cpp:515
+msgid "&Draw shadows"
+msgstr "&צייר צלליות"
+
+#. i18n: file: src/config/osd_configui.ui:67
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: rc.cpp:518
+msgid "OSD font:"
+msgstr "גופן תצוגה:"
+
+#. i18n: file: src/config/osd_configui.ui:135
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
+#: rc.cpp:521
+msgid "Show &OSD Message"
+msgstr "הצג הודעות על ה&מסך"
+
+#. i18n: file: src/config/osd_configui.ui:141
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowOwnNick)
+#: rc.cpp:524
+msgid "&If own nick appears in channel message"
+msgstr "&אם הכינוי שלי מופיע בהודעות חדר"
+
+#. i18n: file: src/config/osd_configui.ui:148
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowChannel)
+#: rc.cpp:527
+msgid "On an&y channel message"
+msgstr "ב&כל הודעה בחדר"
+
+#. i18n: file: src/config/osd_configui.ui:155
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowQuery)
+#: rc.cpp:530
+msgid "On &query activity"
+msgstr "בפעילות &שאילתה"
+
+#. i18n: file: src/config/osd_configui.ui:162
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowChannelEvent)
+#: rc.cpp:533
+msgid "On &Join/Part events"
+msgstr "כאשר אנשים עוזבים או &מצטרפים לחדר"
+
+#. i18n: file: src/config/osd_configui.ui:175
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_OSDUseCustomColors)
+#: rc.cpp:536
+msgid "Enable Custom Colors"
+msgstr "אפשר צבעים מותאמים אישית"
+
+#. i18n: file: src/config/osd_configui.ui:187
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: rc.cpp:539
+msgid "Te&xt color:"
+msgstr "צבע ה&טקסט:"
+
+#. i18n: file: src/config/osd_configui.ui:200
+#. i18n: ectx: property (text), widget (QLabel, textLabel3)
+#. i18n: file: src/viewer/irccolorchooserui.ui:122
+#. i18n: ectx: property (text), widget (QLabel, m_bgColorLbl)
+#: rc.cpp:542 rc.cpp:1775
+msgid "&Background color:"
+msgstr "צבע ה&רקע:"
+
+#. i18n: file: src/config/osd_configui.ui:249
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
+#: rc.cpp:545
+msgid "O&ther Settings"
+msgstr "&הגדרות אחרות"
+
+#. i18n: file: src/config/osd_configui.ui:255
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#: rc.cpp:548
+msgid "&Duration:"
+msgstr "&משך:"
+
+#. i18n: file: src/config/osd_configui.ui:268
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
+#: rc.cpp:551
+msgid "S&creen:"
+msgstr "&מסך:"
+
+#. i18n: file: src/config/osd_configui.ui:281
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_OSDDuration)
+#: rc.cpp:554
+msgid " ms"
+msgstr " מש"
+
+#. i18n: file: src/config/alias_configui.ui:36
+#. i18n: ectx: property (text), widget (QTreeWidget, aliasListView)
+#: rc.cpp:557
+msgid "Alias"
+msgstr ""
+
+#. i18n: file: src/config/alias_configui.ui:41
+#. i18n: ectx: property (text), widget (QTreeWidget, aliasListView)
+#: rc.cpp:560
+msgid "Replacement"
+msgstr "מיקום"
+
+#. i18n: file: src/config/alias_configui.ui:51
+#. i18n: ectx: property (text), widget (QPushButton, newButton)
+#. i18n: file: src/config/watchednicknames_configui.ui:251
+#. i18n: ectx: property (text), widget (KPushButton, newButton)
+#. i18n: file: src/config/ignore_configui.ui:123
+#. i18n: ectx: property (text), widget (KPushButton, newButton)
+#. i18n: file: src/config/highlight_configui.ui:162
+#. i18n: ectx: property (text), widget (KPushButton, newButton)
+#: rc.cpp:563 rc.cpp:666 rc.cpp:774 rc.cpp:936
+msgid "&New"
+msgstr "&חדש"
+
+#. i18n: file: src/config/alias_configui.ui:58
+#. i18n: ectx: property (text), widget (QPushButton, removeButton)
+#. i18n: file: src/config/watchednicknames_configui.ui:270
+#. i18n: ectx: property (text), widget (KPushButton, removeButton)
+#. i18n: file: src/config/ignore_configui.ui:130
+#. i18n: ectx: property (text), widget (KPushButton, removeButton)
+#. i18n: file: src/config/highlight_configui.ui:175
+#. i18n: ectx: property (text), widget (KPushButton, removeButton)
+#: rc.cpp:566 rc.cpp:672 rc.cpp:777 rc.cpp:939
+#, fuzzy
+msgid "&Remove"
+msgstr "הוסר"
+
+#. i18n: file: src/config/alias_configui.ui:88
+#. i18n: ectx: property (text), widget (QLabel, aliasLabel)
+#: rc.cpp:569
+msgid "Alias:"
+msgstr "כינוי:"
+
+#. i18n: file: src/config/alias_configui.ui:108
+#. i18n: ectx: property (text), widget (QLabel, replacementLabel)
+#: rc.cpp:572
+msgid "Replacement:"
+msgstr "מיקום מחדש:"
+
+#. i18n: file: src/config/warnings_configui.ui:29
+#. i18n: ectx: property (text), widget (QTreeWidget, dialogListView)
+#: rc.cpp:575
+msgid "Warning Dialogs to Show"
+msgstr "חלונות הזהרה להצגה"
+
+#. i18n: file: src/config/watchednicknames_configui.ui:24
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_UseNotify)
+#: rc.cpp:578
+msgid ""
+"<qt>\n"
+"<p>\n"
+"When the nickname watcher is turned on, you will be notified when the "
+"nicknames appearing in the <b>Watched Networks/Nicknames</b> list come "
+"online or go offline.</p>\n"
+"<p>You can also open the <b>Nicks Online</b> window to see the status of all "
+"the watched nicknames.</p>\n"
+"</qt>"
+msgstr ""
+
+#. i18n: file: src/config/watchednicknames_configui.ui:27
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseNotify)
+#: rc.cpp:585
+#, fuzzy
+msgid "Enable nic&kname watcher"
+msgstr "&השתמש בעוקב הכינויים"
+
+#. i18n: file: src/config/watchednicknames_configui.ui:37
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_OpenWatchedNicksAtStartup)
+#: rc.cpp:588
+msgid ""
+"<qt>When checked, the <b>Nicks Online</b> window will be automatically "
+"opened when starting Konversation.</qt>"
+msgstr ""
+
+#. i18n: file: src/config/watchednicknames_configui.ui:40
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_OpenWatchedNicksAtStartup)
+#: rc.cpp:591
+#, fuzzy
+msgid "Show watched nicks online tab on &application startup"
+msgstr "&הצג כינויים ברשימת התצפית בכרטיסייה בעת הפעלת היישום"
+
+#. i18n: file: src/config/watchednicknames_configui.ui:66
+#. i18n: ectx: property (whatsThis), widget (QLabel, notifyActionLabel)
+#: rc.cpp:595
+#, no-c-format
+msgid ""
+"<qt>\n"
+"<p>When you double click a nickname in the <b>Nicks Online</b> window, this\n"
+"command is placed in the <b>Input Line</b> on the server window.</p>\n"
+"<p>The following symbols can be used in the command:</p><ul>\n"
+"<li>%u: The nickname double clicked.</li>\n"
+"<li>%K: Server password.</li>\n"
+"<li>%n: Send command directly to the server instead of your input line.</li>"
+"\"\n"
+"</ul>\n"
+"</qt>"
+msgstr ""
+
+#. i18n: file: src/config/watchednicknames_configui.ui:69
+#. i18n: ectx: property (text), widget (QLabel, notifyActionLabel)
+#: rc.cpp:606
+msgid "Command e&xecuted when nickname is double clicked:"
+msgstr "פקודה ל&ביצוע כאשר בעת לחיצה כפולה על איש־קשר:"
+
+#. i18n: file: src/config/watchednicknames_configui.ui:99
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, kcfg_NotifyDoubleClickAction)
+#: rc.cpp:610
+#, no-c-format
+msgid ""
+"<qt>\n"
+"<p>When you double click a nickname in the <b>Nicks Online</b> window, this\n"
+" command is placed in the <b>Input Line</b> on the server window.</p>\n"
+"<p>The following symbols can be used in the command:</p><ul>\n"
+"<li>%u: The nickname double clicked.</li>\n"
+"<li>%K: Server password.</li>\n"
+"<li>%n: Send command directly to the server instead of your input line.</"
+"li>\n"
+"</ul>\n"
+"</qt>"
+msgstr ""
+
+#. i18n: file: src/config/watchednicknames_configui.ui:109
+#. i18n: ectx: property (whatsThis), widget (QLabel, notifyDelayLabel)
+#. i18n: file: src/config/watchednicknames_configui.ui:128
+#. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_NotifyDelay)
+#: rc.cpp:621 rc.cpp:627
+msgid ""
+"Konversation will check the status of the nicknames listed below at this "
+"interval."
+msgstr ""
+
+#. i18n: file: src/config/watchednicknames_configui.ui:112
+#. i18n: ectx: property (text), widget (QLabel, notifyDelayLabel)
+#: rc.cpp:624
+#, fuzzy
+msgid "&Update interval:"
+msgstr "תדירות עדכון:"
+
+#. i18n: file: src/config/watchednicknames_configui.ui:131
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_NotifyDelay)
+#. i18n: file: src/config/connectionbehavior_config.ui:85
+#. i18n: ectx: property (suffix), widget (KIntNumInput, kcfg_ReconnectDelay)
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:271
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_AutoWhoContinuousInterval)
+#: rc.cpp:630 rc.cpp:975 rc.cpp:1379
+msgid " seconds"
+msgstr "שניות"
+
+#. i18n: file: src/config/watchednicknames_configui.ui:158
+#. i18n: ectx: property (whatsThis), widget (QLabel, networkLabel)
+#. i18n: file: src/config/watchednicknames_configui.ui:174
+#. i18n: ectx: property (whatsThis), widget (QComboBox, networkDropdown)
+#: rc.cpp:636 rc.cpp:642
+msgid ""
+"The irc server network (such as 'freenode') that the selected user to watch "
+"is on."
+msgstr ""
+
+#. i18n: file: src/config/watchednicknames_configui.ui:161
+#. i18n: ectx: property (text), widget (QLabel, networkLabel)
+#: rc.cpp:639
+msgid "Network:"
+msgstr "רשת:"
+
+#. i18n: file: src/config/watchednicknames_configui.ui:184
+#. i18n: ectx: property (whatsThis), widget (QLabel, nicknameLabel)
+#. i18n: file: src/config/watchednicknames_configui.ui:200
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, nicknameInput)
+#: rc.cpp:645 rc.cpp:651
+msgid "The nick (username) of the selected person to watch"
+msgstr ""
+
+#. i18n: file: src/config/watchednicknames_configui.ui:187
+#. i18n: ectx: property (text), widget (QLabel, nicknameLabel)
+#: rc.cpp:648
+msgid "Nickname:"
+msgstr "כינוי:"
+
+#. i18n: file: src/config/watchednicknames_configui.ui:219
+#. i18n: ectx: property (whatsThis), widget (QTreeWidget, notifyListView)
+#: rc.cpp:654
+msgid ""
+"<qt>\n"
+"<p>\n"
+"When the nickname watcher is turned on, you will be notified when the "
+"nicknames appearing in the <b>Watched Networks/Nicknames</b> list come "
+"online or go offline.</p>\n"
+"<p>You can also open the <b>Nicks Online</b> window to see the status of all "
+"the watched nicknames.</p></qt>"
+msgstr ""
+
+#. i18n: file: src/config/watchednicknames_configui.ui:229
+#. i18n: ectx: property (text), widget (QTreeWidget, notifyListView)
+#: rc.cpp:660
+msgid "Watched Networks/Nicknames"
+msgstr "רשתות/כינויים בתצפית"
+
+#. i18n: file: src/config/watchednicknames_configui.ui:248
+#. i18n: ectx: property (whatsThis), widget (KPushButton, newButton)
+#: rc.cpp:663
+msgid "Click to add a nickname to the list."
+msgstr "לחץ בכדי להוסיף איש־קשר אל הרשימה."
+
+#. i18n: file: src/config/watchednicknames_configui.ui:267
+#. i18n: ectx: property (whatsThis), widget (KPushButton, removeButton)
+#: rc.cpp:669
+msgid "Click to remove the selected nickname from the list."
+msgstr "לחץ להסרת האיש־קשר הנבחר מהרשימה."
+
+#. i18n: file: src/config/tabs_configui.ui:17
+#. i18n: ectx: property (windowTitle), widget (QWidget, Tabs_PreferencesUI)
+#: rc.cpp:675
+msgid "TabBar_Config"
+msgstr ""
+
+#. i18n: file: src/config/tabs_configui.ui:26
+#. i18n: ectx: property (title), widget (QGroupBox, lookGBox)
+#. i18n: file: src/config/tabnotifications_config.ui:19
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
+#: rc.cpp:678 rc.cpp:1640
+msgid "Look"
+msgstr "מראה"
+
+#. i18n: file: src/config/tabs_configui.ui:34
+#. i18n: ectx: property (text), widget (QLabel, placementLabel)
+#: rc.cpp:681
+msgid "Placement:"
+msgstr "מיקום:"
+
+#. i18n: file: src/config/tabs_configui.ui:45
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
+#: rc.cpp:684
+#, fuzzy
+#| msgid "Topic"
+msgid "Top"
+msgstr "נושא"
+
+#. i18n: file: src/config/tabs_configui.ui:50
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
+#: rc.cpp:687
+#, fuzzy
+#| msgid "Both"
+msgid "Bottom"
+msgstr "שניהם"
+
+#. i18n: file: src/config/tabs_configui.ui:55
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabPlacement)
+#: rc.cpp:690
+msgid "Left"
+msgstr ""
+
+#. i18n: file: src/config/tabs_configui.ui:81
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CloseButtons)
+#: rc.cpp:693
+msgid "Show &close button on tabs"
+msgstr "הצג &כפתורי סגירה על הכרטיסיות"
+
+#. i18n: file: src/config/tabs_configui.ui:88
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTabBarCloseButton)
+#: rc.cpp:696
+msgid "Show a close button on the &right side of the tab bar"
+msgstr "מקם את כפתור הסגירה בצד &ימין של תצוגת הכרטיסיות"
+
+#. i18n: file: src/config/tabs_configui.ui:95
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseMaxSizedTabs)
+#: rc.cpp:699
+msgid "Limit the &size of the tab labels to fit all on screen"
+msgstr "הגבל את &גודל הכרטיסיות כדי שכולן יוצגו במסך"
+
+#. i18n: file: src/config/tabs_configui.ui:105
+#. i18n: ectx: property (title), widget (QGroupBox, focusGBox)
+#: rc.cpp:702
+msgid "Focus"
+msgstr "מקוד"
+
+#. i18n: file: src/config/tabs_configui.ui:111
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_BringToFront)
+#: rc.cpp:705
+msgid "&Focus new tabs"
+msgstr "העבר &התמקדות אל כרטיסיות חדשות"
+
+#. i18n: file: src/config/tabs_configui.ui:118
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_FocusNewQueries)
+#: rc.cpp:708
+msgid "Focus new &queries"
+msgstr "העבר התמקדות אל &שאילתות חדשות"
+
+#. i18n: file: src/config/tabs_configui.ui:128
+#. i18n: ectx: property (title), widget (QGroupBox, mouseGBox)
+#: rc.cpp:711
+msgid "Mouse"
+msgstr "עכבר"
+
+#. i18n: file: src/config/tabs_configui.ui:134
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_MiddleClickClose)
+#: rc.cpp:714
+msgid "&Middle-click on a tab to close it"
+msgstr ""
+
+#. i18n: file: src/config/autoreplace_configui.ui:43
+#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
+#. i18n: file: src/config/highlight_configui.ui:131
+#. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
+#: rc.cpp:717 rc.cpp:924
+msgid "RegEx"
+msgstr ""
+
+#. i18n: file: src/config/autoreplace_configui.ui:48
+#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
+#: rc.cpp:720
+msgid "Replace In"
+msgstr "החלף ב"
+
+#. i18n: file: src/config/autoreplace_configui.ui:53
+#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
+#: rc.cpp:723
+msgid "Find"
+msgstr "חפש"
+
+#. i18n: file: src/config/autoreplace_configui.ui:58
+#. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
+#: rc.cpp:726
+msgid "Replace With"
+msgstr "החלף בתוך"
+
+#. i18n: file: src/config/autoreplace_configui.ui:68
+#. i18n: ectx: property (text), widget (QPushButton, newButton)
+#: rc.cpp:729
+#, fuzzy
+msgid "Ne&w"
+msgstr "חדש"
+
+#. i18n: file: src/config/autoreplace_configui.ui:75
+#. i18n: ectx: property (text), widget (QPushButton, removeButton)
+#: rc.cpp:732
+#, fuzzy
+msgid "R&emove"
+msgstr "הוסר"
+
+#. i18n: file: src/config/autoreplace_configui.ui:111
+#. i18n: ectx: property (text), widget (QLabel, directionLabel)
+#: rc.cpp:735
+msgid "Replace in:"
+msgstr "החלף ב:"
+
+#. i18n: file: src/config/autoreplace_configui.ui:143
+#. i18n: ectx: property (text), widget (QLabel, patternLabel)
+#: rc.cpp:738
+msgid "Find:"
+msgstr "חפש:"
+
+#. i18n: file: src/config/autoreplace_configui.ui:177
+#. i18n: ectx: property (text), widget (QPushButton, regExpEditorButton)
+#. i18n: file: src/config/highlight_configui.ui:245
+#. i18n: ectx: property (text), widget (KPushButton, patternButton)
+#: rc.cpp:741 rc.cpp:948
+msgid "..."
+msgstr "..."
+
+#. i18n: file: src/config/autoreplace_configui.ui:198
+#. i18n: ectx: property (text), widget (QLabel, replacementLabel)
+#: rc.cpp:744
+msgid "Replace with:"
+msgstr "החלף עם:"
+
+#. i18n: file: src/config/ignore_configui.ui:45
+#. i18n: ectx: property (text), widget (QTreeWidget, ignoreListView)
+#: rc.cpp:747
+msgid "Pattern"
+msgstr "תבנית"
+
+#. i18n: file: src/config/ignore_configui.ui:50
+#. i18n: ectx: property (text), widget (QTreeWidget, ignoreListView)
+#: rc.cpp:750
+msgid "Type"
+msgstr "סוג"
+
+#. i18n: file: src/config/ignore_configui.ui:58
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: rc.cpp:753
+msgid "Pattern:"
+msgstr "תבנית:"
+
+#. i18n: file: src/config/ignore_configui.ui:77
+#. i18n: ectx: property (title), widget (QGroupBox, grpMessageTypes)
+#: rc.cpp:756
+msgid "Message Types"
+msgstr "סוגי הודעות"
+
+#. i18n: file: src/config/ignore_configui.ui:137
+#. i18n: ectx: property (text), widget (KPushButton, removeAllButton)
+#: rc.cpp:780
+msgid "Remove &All"
+msgstr "&הסר הכל"
+
+#. i18n: file: src/config/generalbehavior_config.ui:25
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowTrayIcon)
+#: rc.cpp:783
+msgid "Enable System Tray"
+msgstr "אפשר עגינה בלוח"
+
+#. i18n: file: src/config/generalbehavior_config.ui:37
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TrayNotify)
+#: rc.cpp:786
+msgid "&Use system tray for new message notification"
+msgstr "&השתמש במגש המערכת עבור הודעות חדשות"
+
+#. i18n: file: src/config/generalbehavior_config.ui:65
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TrayNotifyOnlyOwnNick)
+#: rc.cpp:789
+#, fuzzy
+msgid "Only &notify when a highlight is triggered or your current nick is used"
+msgstr "התרע רק כאשר מוקפצת הדגשה הכינוי שלך בשימוש"
+
+#. i18n: file: src/config/generalbehavior_config.ui:92
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TrayNotifyBlink)
+#: rc.cpp:792
+msgid "Blin&k the icon"
+msgstr ""
+
+#. i18n: file: src/config/generalbehavior_config.ui:101
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideToTrayOnStartup)
+#: rc.cpp:795
+msgid "Hide window on startup"
+msgstr ""
+
+#. i18n: file: src/config/generalbehavior_config.ui:111
+#. i18n: ectx: property (title), widget (QGroupBox, middleLabel)
+#: rc.cpp:798
+msgid "Nickname Completion"
+msgstr "השלמת כינויים"
+
+#. i18n: file: src/config/generalbehavior_config.ui:117
+#. i18n: ectx: property (text), widget (QLabel, modeLbl)
+#: rc.cpp:801
+msgid "Completion &mode:"
+msgstr "&שיטת השלמה:"
+
+#. i18n: file: src/config/generalbehavior_config.ui:131
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_NickCompletionMode)
+#: rc.cpp:804
+msgid "Cycle NickList"
+msgstr "עבור בין הכינויים בצורה מעגלית"
+
+#. i18n: file: src/config/generalbehavior_config.ui:136
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_NickCompletionMode)
+#: rc.cpp:807
+msgid "Shell-Like"
+msgstr "השלמת מסוף"
+
+#. i18n: file: src/config/generalbehavior_config.ui:141
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_NickCompletionMode)
+#: rc.cpp:810
+msgid "Shell-Like with Completion Box"
+msgstr "השלמת מסוף עם תיבת השלמות"
+
+#. i18n: file: src/config/generalbehavior_config.ui:152
+#. i18n: ectx: property (text), widget (QLabel, startOfLineLabel)
+#: rc.cpp:813
+msgid "Suffi&x at start of line:"
+msgstr "&רישא בתחילת השורה:"
+
+#. i18n: file: src/config/generalbehavior_config.ui:168
+#. i18n: ectx: property (text), widget (QLabel, textLabel3)
+#: rc.cpp:816
+msgid "&Elsewhere:"
+msgstr "&מקום אחר:"
+
+#. i18n: file: src/config/generalbehavior_config.ui:181
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_NickCompletionCaseSensitive)
+#: rc.cpp:819
+msgid "Case sensitive"
+msgstr "תלוי רישיות"
+
+#. i18n: file: src/config/generalbehavior_config.ui:194
+#. i18n: ectx: property (title), widget (QGroupBox, miscGBox)
+#: rc.cpp:822
+msgid "Miscellaneous"
+msgstr ""
+
+#. i18n: file: src/config/generalbehavior_config.ui:200
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DisableNotifyWhileAway)
+#: rc.cpp:825
+msgid "Disable notifications while &away"
+msgstr "בטל התראות כאשר במצב &מרוחק"
+
+#. i18n: file: src/config/generalbehavior_config.ui:207
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomVersionReplyEnabled)
+#: rc.cpp:828
+msgid "Use custom &version reply:"
+msgstr "השתמש בתגובת &גרסה מותאמת אישית:"
+
+#. i18n: file: src/config/generalbehavior_config.ui:217
+#. i18n: ectx: property (whatsThis), widget (KLineEdit, kcfg_CustomVersionReply)
+#: rc.cpp:831
+msgid ""
+"<qt>Here you can set a custom reply for <b>CTCP <i>VERSION</i></b> requests."
+"</qt>"
+msgstr ""
+
+#. i18n: file: src/config/generalbehavior_config.ui:237
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseMultiRowInputBox)
+#: rc.cpp:834
+msgid "Input box expands with text"
+msgstr "תיבת הקלט מתרחבת עם הטקסט"
+
+#. i18n: file: src/config/generalbehavior_config.ui:251
+#. i18n: ectx: property (text), widget (QLabel, commandCharLabel)
+#: rc.cpp:837
+msgid "Comman&d char:"
+msgstr "תו &פקודה:"
+
+#. i18n: file: src/config/generalbehavior_config.ui:264
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseCustomBrowser)
+#: rc.cpp:840
+msgid "Use custom web &browser:"
+msgstr "השתמש ב&דפדפן מותאם אישית:"
+
+#. i18n: file: src/config/dcc_configui.ui:17
+#. i18n: ectx: property (windowTitle), widget (QWidget, DCC_ConfigUI)
+#: rc.cpp:843
+msgid "DCC_Settings"
+msgstr "DCC_Settings"
+
+#. i18n: file: src/config/dcc_configui.ui:26
+#. i18n: ectx: property (text), widget (QLabel, dccPathLbl)
+#: rc.cpp:846
+msgid "Download &folder:"
+msgstr "&תיקיית הורדה:"
+
+#. i18n: file: src/config/dcc_configui.ui:49
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAddPartner)
+#: rc.cpp:849
+msgid "&Add sender to file name"
+msgstr "&הוסף שולח לשם הקובץ"
+
+#. i18n: file: src/config/dcc_configui.ui:56
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccCreateFolder)
+#: rc.cpp:852
+msgid "Cr&eate folder for sender"
+msgstr "&צור תיקייה עבור השולח"
+
+#. i18n: file: src/config/dcc_configui.ui:63
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpaceToUnderscore)
+#: rc.cpp:855
+msgid "Convert spaces in file names to underscores before sending"
+msgstr "המר רווחים בשמות הקבצים אל קוים תחתונים לפני השליחה"
+
+#. i18n: file: src/config/dcc_configui.ui:73
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAutoGet)
+#: rc.cpp:858
+msgid "Automaticall&y accept download offer"
+msgstr "קבל קבצים להורדה באופן א&וטומטי"
+
+#. i18n: file: src/config/dcc_configui.ui:80
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAutoResume)
+#: rc.cpp:861
+msgid "Au&tomatically resume download"
+msgstr "המשך הורדות באופן או&טומטי"
+
+#. i18n: file: src/config/dcc_configui.ui:87
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccFastSend)
+#: rc.cpp:864
+msgid "Enable fast DCC send (Might &not work with all clients)"
+msgstr "אפשר מצב העברה מהירה, Fast DCC (ייתכן כי &לא יעבוד עם כל הלקוחות)"
+
+#. i18n: file: src/config/dcc_configui.ui:110
+#. i18n: ectx: property (text), widget (QLabel, textLabel6)
+#: rc.cpp:867
+msgid "Buffer si&ze:"
+msgstr "&גודל החוצץ:"
+
+#. i18n: file: src/config/dcc_configui.ui:123
+#. i18n: ectx: property (text), widget (QLabel, textLabel7)
+#: rc.cpp:870
+msgid "DCC send t&imeout:"
+msgstr "מקסימום &זמן העברת DCC:"
+
+#. i18n: file: src/config/dcc_configui.ui:136
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DccIPv4Fallback)
+#: rc.cpp:873
+msgid ""
+"If this option enabled dcc transfers for IPv6 connections will be done over "
+"IPv4 interface set here"
+msgstr ""
+"אם אפשרות זו מופעלת עבור העברות בחיבורי IPv6 יעשו על ידי ממשק IPv4 הנקבע כאן"
+
+#. i18n: file: src/config/dcc_configui.ui:139
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccIPv4Fallback)
+#: rc.cpp:876
+msgid "Fallback to an IPv&4 interface for DCC send:"
+msgstr "עבור ל־&IPv4 לשליחות DCC:"
+
+#. i18n: file: src/config/dcc_configui.ui:146
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_DccBufferSize)
+#: rc.cpp:879
+msgid " bytes"
+msgstr "בתים"
+
+#. i18n: file: src/config/dcc_configui.ui:162
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_DccSendTimeout)
+#: rc.cpp:882
+msgid " sec"
+msgstr " שניות"
+
+#. i18n: file: src/config/dcc_configui.ui:182
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccPassiveSend)
+#: rc.cpp:885
+#, fuzzy
+msgid "Enable passive DCC send"
+msgstr "אפשר י&ציאות מסוימות עבור שליחות DCC:"
+
+#. i18n: file: src/config/dcc_configui.ui:240
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox1)
+#: rc.cpp:888
+msgid "IP"
+msgstr ""
+
+#. i18n: file: src/config/dcc_configui.ui:249
+#. i18n: ectx: property (text), widget (QLabel, textLabel4)
+#: rc.cpp:891
+msgid "&Method to get own IP:"
+msgstr "&שיטה לקבלת כתובת עצמית:"
+
+#. i18n: file: src/config/dcc_configui.ui:262
+#. i18n: ectx: property (text), widget (QLabel, ownIP)
+#: rc.cpp:894
+msgid "O&wn IP:"
+msgstr "כתובת &עצמית:"
+
+#. i18n: file: src/config/dcc_configui.ui:281
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
+#: rc.cpp:897
+msgid "Ports"
+msgstr "יציאות"
+
+#. i18n: file: src/config/dcc_configui.ui:287
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpecificChatPorts)
+#: rc.cpp:900
+msgid "Enable specific p&orts for DCC chat:"
+msgstr "אפשר &יציאות מסוימות עבור שיחות DCC:"
+
+#. i18n: file: src/config/dcc_configui.ui:326
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
+#. i18n: file: src/config/dcc_configui.ui:391
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#: rc.cpp:903 rc.cpp:909
+msgid "to"
+msgstr "אל"
+
+#. i18n: file: src/config/dcc_configui.ui:352
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpecificSendPorts)
+#: rc.cpp:906
+#, fuzzy
+msgid "Enable specific &ports for DCC transfer server:"
+msgstr "אפשר י&ציאות מסוימות עבור שליחות DCC:"
+
+#. i18n: file: src/config/highlight_configui.ui:20
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightSoundsEnabled)
+#: rc.cpp:912
+#, fuzzy
+msgid "Ena&ble sound for highlights"
+msgstr "&השמע צליל עבור פרטי רשימה מודגשים"
+
+#. i18n: file: src/config/highlight_configui.ui:47
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightNick)
+#: rc.cpp:915
+msgid "Alwa&ys highlight own current nick:"
+msgstr "הדגש &תמיד את הכינוי הנוכחי:"
+
+#. i18n: file: src/config/highlight_configui.ui:54
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightOwnLines)
+#: rc.cpp:918
+msgid "Always highlight own &lines:"
+msgstr "תמיד הדגש את ה&שורות שלי:"
+
+#. i18n: file: src/config/highlight_configui.ui:109
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox1)
+#: rc.cpp:921
+#, fuzzy
+msgid "Highlight List"
+msgstr "&רשימת סימון"
+
+#. i18n: file: src/config/highlight_configui.ui:136
+#. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
+#: rc.cpp:927
+msgid "Highlights"
+msgstr "הדגשות"
+
+#. i18n: file: src/config/highlight_configui.ui:141
+#. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
+#: rc.cpp:930
+msgid "Sound"
+msgstr "שמע"
+
+#. i18n: file: src/config/highlight_configui.ui:146
+#. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
+#: rc.cpp:933
+msgid "Auto Text"
+msgstr "טקסט אוטומטי"
+
+#. i18n: file: src/config/highlight_configui.ui:205
+#. i18n: ectx: property (text), widget (QLabel, patternLabel)
+#: rc.cpp:942
+msgid "&Pattern:"
+msgstr "&תבנית:"
+
+#. i18n: file: src/config/highlight_configui.ui:260
+#. i18n: ectx: property (text), widget (QLabel, colorLabel)
+#: rc.cpp:951
+#, fuzzy
+msgid "Color:"
+msgstr "צבעים"
+
+#. i18n: file: src/config/highlight_configui.ui:283
+#. i18n: ectx: property (text), widget (QLabel, soundLabel)
+#: rc.cpp:954
+msgid "&Sound:"
+msgstr "&צליל:"
+
+#. i18n: file: src/config/highlight_configui.ui:307
+#. i18n: ectx: property (filter), widget (KUrlRequester, soundURL)
+#: rc.cpp:957
+msgid "audio/x-wav audio/x-mp3 application/ogg audio/x-adpcm"
+msgstr "audio/x-wav audio/x-mp3 application/ogg audio/x-adpcm"
+
+#. i18n: file: src/config/highlight_configui.ui:323
+#. i18n: ectx: property (toolTip), widget (QToolButton, soundPlayBtn)
+#: rc.cpp:960
+msgid "Test sound"
+msgstr ""
+
+#. i18n: file: src/config/highlight_configui.ui:338
+#. i18n: ectx: property (text), widget (QLabel, autoTextLabel)
+#: rc.cpp:963
+msgid "&Auto text:"
+msgstr "&טקסט אוטומטי:"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:25
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoReconnect)
+#: rc.cpp:966
+msgid "Enable Automatic Reconnect"
+msgstr "אפשר התחברות מחדש אוטומטית"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:34
+#. i18n: ectx: property (text), widget (QLabel, reconnectDelayLabel)
+#: rc.cpp:969
+#, fuzzy
+msgid "Reconnect delay:"
+msgstr "זמן חיבור מחדש:"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:63
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: rc.cpp:972
+msgid "Reconnection attempts:"
+msgstr "מספר ניסיונות לחיבור מחדש:"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:98
+#. i18n: ectx: property (specialValueText), widget (KIntNumInput, kcfg_ReconnectCount)
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:104
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_ScrollbackMax)
+#: rc.cpp:978 rc.cpp:1349
+msgid "Unlimited"
+msgstr "ללא הגבלה"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:140
+#. i18n: ectx: property (title), widget (QGroupBox, debugGBox)
+#: rc.cpp:981
+msgid "Debug"
+msgstr "דיבאג"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:146
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_RawLog)
+#: rc.cpp:984
+msgid "Show raw &log window when connecting"
+msgstr "הצג חלון &יומן נקי בעת החיבור"
+
 #. i18n: file: src/config/konversation.kcfg:21
 #. i18n: ectx: label, entry, group (Appearance)
-#: rc.cpp:1363
+#: rc.cpp:989
 #, fuzzy
 #| msgid "Limit the size of the tab labels to fit all on screen"
 msgid "Limit the size of the tab labels to fit them all on screen"
@@ -7815,53 +7111,754 @@ msgstr "הגבל את גודל הכרטיסיות לתצוגה על המסך"
 
 #. i18n: file: src/config/konversation.kcfg:226
 #. i18n: ectx: label, entry, group (Appearance)
-#: rc.cpp:1432
+#: rc.cpp:1058
 msgid "Hide the scrollbar"
 msgstr ""
 
 #. i18n: file: src/config/konversation.kcfg:232
 #. i18n: ectx: whatsthis, entry, group (General Options)
-#: rc.cpp:1435
+#: rc.cpp:1061
 msgid ""
 "Enable if you want all the IRC input lines to check your spelling as you type"
 msgstr "אפשר אם אתה רוצה ששדה הקלט יבצע בדיקת איות אוטומטית תוך כדי כתיבה"
 
 #. i18n: file: src/config/konversation.kcfg:241
 #. i18n: ectx: whatsthis, entry, group (General Options)
-#: rc.cpp:1438
+#: rc.cpp:1064
 msgid ""
 "Enabling this will cause the input box to grow vertically when it fills up."
 msgstr "כאשר תפעיל את האפשרות הזאת שדה הקלט יגדל אנכית כאשר יתמלא."
 
 #. i18n: file: src/config/konversation.kcfg:275
 #. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:1453
+#: rc.cpp:1079
 msgid "Start with hidden main window"
 msgstr ""
 
 #. i18n: file: src/config/konversation.kcfg:329
 #. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:1476
+#: rc.cpp:1102
 msgid "&Show real names next to nicknames"
 msgstr "&הצג שמות אמתיים ליד הכינויים"
 
 #. i18n: file: src/config/konversation.kcfg:543
 #. i18n: ectx: label, entry (OpenWatchedNicksAtStartup), group (Notify List)
-#: rc.cpp:1560
+#: rc.cpp:1186
 msgid "Open Watched Nicks tab at application startup"
 msgstr "פתח כרטיסיית כינויים בתצפית בעת הפעלת היישום"
 
 #. i18n: file: src/config/konversation.kcfg:827
 #. i18n: ectx: label, entry, group (Themes)
-#: rc.cpp:1658
+#: rc.cpp:1284
 msgid "Enable emoticons"
 msgstr "אפשר סמלים"
 
 #. i18n: file: src/config/konversation.kcfg:831
 #. i18n: ectx: label, entry, group (Themes)
-#: rc.cpp:1661
+#: rc.cpp:1287
 msgid "Emoticons theme"
 msgstr "ערכת סמלים"
+
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:25
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_Beep)
+#: rc.cpp:1314
+msgid ""
+"Sounds the system bell when you receive an ASCII BEL (0x07) control character"
+msgstr "השמע את צליל המערכת כאשר מתקבל אצלך צלצול אסקיי (תו 0x07)"
+
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:28
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_Beep)
+#: rc.cpp:1317
+msgid "Enable s&ystem bell on incoming ASCII BEL"
+msgstr "השמע צפצוף &מערכת בעץ קבלת פעמון ASCII"
+
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:35
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideUnimportantEvents)
+#: rc.cpp:1320
+msgid "Hide &Join/Part/Nick events"
+msgstr "הסתר אירועים של &כניסה/יציאה/כינויים"
+
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:42
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DisableExpansion)
+#: rc.cpp:1324
+#, no-c-format
+msgid ""
+"Do not expand variables when sending text to the server. A variable starts "
+"with '%'; for example, %B will expand to the characters needed to make a "
+"text bold."
+msgstr ""
+
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:45
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DisableExpansion)
+#: rc.cpp:1328
+#, no-c-format
+msgid "Disable variable (e.g. %C, %B, %G...) e&xpansion"
+msgstr "בטל &הרחבת משתנים (למשל %C, %B, %G...) "
+
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:52
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_RedirectServerAndAppMsgToStatusPane)
+#: rc.cpp:1331
+msgid "&Redirect status messages to the server status window"
+msgstr "&נתב את כל הודעות המצב אל חלון מצב השרת"
+
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:59
+#. i18n: ectx: property (whatsThis), widget (QLabel, textLabel1)
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:101
+#. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_ScrollbackMax)
+#: rc.cpp:1334 rc.cpp:1346
+msgid "How many lines to keep in buffers, 0 = unlimited"
+msgstr "כמה שורות לשמור בחוצצים, 0 = ללא הגבלה"
+
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:62
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: rc.cpp:1337
+msgid "Scroll&back limit:"
+msgstr "הגדלת &גלילה:"
+
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:91
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_UseLiteralModes)
+#: rc.cpp:1340
+msgid ""
+"Keep channel mode string as a combination of characters instead of "
+"translating them into human readable words. E.g. '*** Channel modes: no "
+"messages from outside' will become '*** Channel modes: n'"
+msgstr ""
+
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:94
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseLiteralModes)
+#: rc.cpp:1343
+msgid "&Use raw modes for mode changes"
+msgstr "&השתמש במצג גולמי עבור הודעות מצב"
+
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:107
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_ScrollbackMax)
+#: rc.cpp:1352
+msgid " lines"
+msgstr " שורות"
+
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:136
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox3_2)
+#: rc.cpp:1355
+#, fuzzy
+msgid "Marker Lines"
+msgstr "רשימת שרתים"
+
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:142
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_AutomaticRememberLine)
+#: rc.cpp:1358
+msgid ""
+"Inserts a remember line into the chat window when you switch to another chat "
+"window or minimize the application."
+msgstr ""
+"מכניס שורת תזכורת אל חלון השיחה כאשר אתה עובר אל חלון שיחה אחת או מקטין את "
+"היישום."
+
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:145
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutomaticRememberLine)
+#: rc.cpp:1361
+msgid "Mark the last position in a chat window when it is hidden"
+msgstr ""
+
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:176
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutomaticRememberLineOnlyOnTextChange)
+#: rc.cpp:1364
+msgid "Move the line only when new text is about to be shown"
+msgstr ""
+
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:185
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_MarkerLineInAllViews)
+#: rc.cpp:1367
+#, fuzzy
+msgid "Show manually inserted lines in all chat windows"
+msgstr "הצג שורת תזכורת בכל החדרים והשאילתות"
+
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:195
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoWhoContinuousEnabled)
+#: rc.cpp:1370
+msgid "Enable Automatic User Information Look Up (/WHO)"
+msgstr "אפשר חיפוש מידע אוטומטי אודות משתמשים (/who)"
+
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:239
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: rc.cpp:1373
+msgid "Max. number of users in a channel:"
+msgstr "מספר המשתמשים המרבי בחדר:"
+
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:252
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_AutoWhoNicksLimit)
+#: rc.cpp:1376
+msgid " nicks"
+msgstr " כינויים"
+
+#. i18n: file: src/config/chatwindowbehaviour_config.ui:287
+#. i18n: ectx: property (text), widget (QLabel, whoIntervalLbl)
+#: rc.cpp:1382
+msgid "Update interval:"
+msgstr "תדירות עדכון:"
+
+#. i18n: file: src/config/nicklistbehavior_configui.ui:26
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#: rc.cpp:1385
+msgid "&Command to be executed on double click:"
+msgstr "&פקודה להפעלה בעת לחיצה כפולה על כינוי:"
+
+#. i18n: file: src/config/nicklistbehavior_configui.ui:39
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortCaseInsensitive)
+#: rc.cpp:1388
+msgid "Sort case &insensitive"
+msgstr "מיין ללא תלות באותיות &רישיות"
+
+#. i18n: file: src/config/nicklistbehavior_configui.ui:46
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortByActivity)
+#: rc.cpp:1391
+#, fuzzy
+msgid "Sort by &activity"
+msgstr "בפעילות &שאילתה"
+
+#. i18n: file: src/config/nicklistbehavior_configui.ui:59
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortByStatus)
+#: rc.cpp:1394
+msgid "Sort b&y user status"
+msgstr "מיין &לפי מצב משתמש"
+
+#. i18n: file: src/config/nicklistbehavior_configui.ui:72
+#. i18n: ectx: property (text), widget (QLabel, orderHintLabel)
+#: rc.cpp:1397
+msgid "(Reorder nick sorting order by drag and drop)"
+msgstr "(סדר כינויים מחדש על ידי גרירה)"
+
+#. i18n: file: src/config/nicklistbehavior_configui.ui:103
+#. i18n: ectx: property (text), widget (QTreeWidget, sortOrder)
+#: rc.cpp:1403
+msgid "Explanation"
+msgstr ""
+
+#. i18n: file: src/config/fontappearance_config.ui:25
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_FixedMOTD)
+#: rc.cpp:1406
+msgid "Show MOTD (Message Of The Day) message in fixed font"
+msgstr "הצג את הודעת היום (MOTD) בגופן ברוחב קבוע"
+
+#. i18n: file: src/config/fontappearance_config.ui:28
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_FixedMOTD)
+#: rc.cpp:1409
+msgid "Enable fi&xed font for MOTD messages"
+msgstr "אפשר גופן &קבוע רוחב עבור הודעות MOTD"
+
+#. i18n: file: src/config/fontappearance_config.ui:35
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseBoldNicks)
+#: rc.cpp:1412
+msgid "Show sender nicknames &bold in the chat view"
+msgstr "הפוך את כינויי השולחים ל&מודגשים בתצוגת השיחה"
+
+#. i18n: file: src/config/fontappearance_config.ui:61
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomTextFont)
+#: rc.cpp:1415
+msgid "Chat text:"
+msgstr "טקסט השיחה:"
+
+#. i18n: file: src/config/fontappearance_config.ui:92
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomListFont)
+#: rc.cpp:1418
+msgid "Nickname list:"
+msgstr "רשימת כינויים:"
+
+#. i18n: file: src/config/fontappearance_config.ui:102
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomTabFont)
+#: rc.cpp:1421
+msgid "Tab bar:"
+msgstr "תצוגת כרטיסיות:"
+
+#. i18n: file: src/config/theme_configui.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, Theme_ConfigUI)
+#: rc.cpp:1424
+msgid "Theme_Config"
+msgstr ""
+
+#. i18n: file: src/config/theme_configui.ui:28
+#. i18n: ectx: property (text), widget (QPushButton, installButton)
+#: rc.cpp:1427
+msgid "I&nstall Theme..."
+msgstr "&התקן ערכת נושא..."
+
+#. i18n: file: src/config/theme_configui.ui:38
+#. i18n: ectx: property (text), widget (QPushButton, removeButton)
+#: rc.cpp:1430
+msgid "&Remove Theme"
+msgstr "&הסר ערכה"
+
+#. i18n: file: src/config/theme_configui.ui:78
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel1)
+#: rc.cpp:1433
+msgid "Icon for normal users"
+msgstr "סמל עבור משתמשים רגילים"
+
+#. i18n: file: src/config/theme_configui.ui:97
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel2)
+#: rc.cpp:1436
+msgid "Icon for away users"
+msgstr "סמל עבור משתמשים \"מרוחקים\""
+
+#. i18n: file: src/config/theme_configui.ui:113
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel3)
+#: rc.cpp:1439
+msgid "Icon for users with voice"
+msgstr "סמל עבור אנשים עם קול"
+
+#. i18n: file: src/config/theme_configui.ui:129
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel4)
+#: rc.cpp:1442
+#, fuzzy
+msgid "Icon for users with half-operator privileges"
+msgstr "סמל עבור משתמשים עם הרשאות בעלות"
+
+#. i18n: file: src/config/theme_configui.ui:145
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel5)
+#: rc.cpp:1445
+#, fuzzy
+msgid "Icon for users with operator privileges"
+msgstr "סמל עבור משתמשים עם הרשאות בעלות"
+
+#. i18n: file: src/config/theme_configui.ui:161
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel6)
+#: rc.cpp:1448
+msgid "Icon for users with admin privileges"
+msgstr "סמל עבור משתמשים עם הרשאות ניהול"
+
+#. i18n: file: src/config/theme_configui.ui:177
+#. i18n: ectx: property (toolTip), widget (QLabel, previewLabel7)
+#: rc.cpp:1451
+msgid "Icon for users with owner privileges"
+msgstr "סמל עבור משתמשים עם הרשאות בעלות"
+
+#. i18n: file: src/config/theme_configui.ui:202
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: rc.cpp:1454
+msgid "Preview:"
+msgstr "תצוגה מקדימה:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:30
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox1)
+#: rc.cpp:1457
+msgid "Custom Colors"
+msgstr "צבעים מותאמים אישית"
+
+#. i18n: file: src/config/colorsappearance_config.ui:36
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_InputFieldsBackgroundColor)
+#: rc.cpp:1460
+msgid "&Use custom colors for input box, nickname list and tab list"
+msgstr "&השתמש בצבעים מותאמים אישית עבור שדה הקלט, שם הכינוי ורשימת הכרטיסיות"
+
+#. i18n: file: src/config/colorsappearance_config.ui:273
+#. i18n: ectx: property (text), widget (QLabel, textLabel3)
+#: rc.cpp:1463
+msgid "&Background:"
+msgstr "&רקע:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:286
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
+#: rc.cpp:1466
+msgid "&Server message:"
+msgstr "&הודעת השרת:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:299
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#: rc.cpp:1469
+msgid "H&yperlink:"
+msgstr "&קישור:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:312
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: rc.cpp:1472
+msgid "Channel &message:"
+msgstr "הודעת ה&חדר:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:325
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: rc.cpp:1475
+msgid "Actio&n:"
+msgstr "&פעולה:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:338
+#. i18n: ectx: property (text), widget (QLabel, textLabel4)
+#: rc.cpp:1478
+msgid "Bac&klog:"
+msgstr "יומן של שיחה &קודמת:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:351
+#. i18n: ectx: property (text), widget (QLabel, textLabel5)
+#: rc.cpp:1481
+msgid "Comman&d message:"
+msgstr "הודעת ה&פקודה:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:364
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_8)
+#: rc.cpp:1484
+msgid "&Query message:"
+msgstr "הודעת &שאילתה:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:377
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_9)
+#: rc.cpp:1487
+msgid "&Timestamp:"
+msgstr "&חותמת זמן:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:390
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_10)
+#: rc.cpp:1490
+msgid "A&lternate background:"
+msgstr "רקע &חלופי:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:409
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_UseColoredNicks)
+#: rc.cpp:1493
+msgid "Colored Nicks"
+msgstr "כינויים צבועים"
+
+#. i18n: file: src/config/colorsappearance_config.ui:424
+#. i18n: ectx: property (text), widget (QLabel, textLabel9)
+#. i18n: file: src/config/colorsappearance_config.ui:868
+#. i18n: ectx: property (text), widget (QLabel, textLabel12_6)
+#: rc.cpp:1496 rc.cpp:1547
+msgid "5:"
+msgstr "5:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:447
+#. i18n: ectx: property (text), widget (QLabel, textLabel8)
+#. i18n: file: src/config/colorsappearance_config.ui:878
+#. i18n: ectx: property (text), widget (QLabel, textLabel12_5)
+#: rc.cpp:1499 rc.cpp:1550
+msgid "4:"
+msgstr "4:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:470
+#. i18n: ectx: property (text), widget (QLabel, textLabel7)
+#. i18n: file: src/config/colorsappearance_config.ui:794
+#. i18n: ectx: property (text), widget (QLabel, textLabel12_4)
+#: rc.cpp:1502 rc.cpp:1535
+msgid "3:"
+msgstr "3:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:500
+#. i18n: ectx: property (text), widget (QLabel, textLabel6)
+#. i18n: file: src/config/colorsappearance_config.ui:778
+#. i18n: ectx: property (text), widget (QLabel, textLabel12_3)
+#: rc.cpp:1505 rc.cpp:1532
+msgid "2:"
+msgstr "2:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:587
+#. i18n: ectx: property (text), widget (QLabel, textLabel4_2)
+#. i18n: file: src/config/colorsappearance_config.ui:838
+#. i18n: ectx: property (text), widget (QLabel, textLabel12_14)
+#: rc.cpp:1508 rc.cpp:1538
+msgid "0:"
+msgstr "0:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:610
+#. i18n: ectx: property (text), widget (QLabel, textLabel5_2)
+#. i18n: file: src/config/colorsappearance_config.ui:762
+#. i18n: ectx: property (text), widget (QLabel, textLabel12_2)
+#: rc.cpp:1511 rc.cpp:1529
+msgid "1:"
+msgstr "1:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:672
+#. i18n: ectx: property (text), widget (QLabel, textLabel11)
+#. i18n: file: src/config/colorsappearance_config.ui:848
+#. i18n: ectx: property (text), widget (QLabel, textLabel12_8)
+#: rc.cpp:1514 rc.cpp:1541
+msgid "7:"
+msgstr "7:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:688
+#. i18n: ectx: property (text), widget (QLabel, textLabel10)
+#. i18n: file: src/config/colorsappearance_config.ui:858
+#. i18n: ectx: property (text), widget (QLabel, textLabel12_7)
+#: rc.cpp:1517 rc.cpp:1544
+msgid "6:"
+msgstr "6:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:700
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_3)
+#: rc.cpp:1520
+msgid "&Own nick color:"
+msgstr "צבע הכינוי ה&עצמי:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:744
+#. i18n: ectx: property (whatsThis), widget (QGroupBox, kcfg_AllowColorCodes)
+#: rc.cpp:1523
+msgid ""
+"By enabling this option, color codes added to IRC messages will be displayed "
+"in your chat window as colored text. You can add color codes to your "
+"messages, by selecting Insert -> IRC Color"
+msgstr ""
+
+#. i18n: file: src/config/colorsappearance_config.ui:747
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_AllowColorCodes)
+#: rc.cpp:1526
+msgid "&Allow Colored Text in IRC Messages"
+msgstr "&אפשר טקסט צבוע בהודעות IRC"
+
+#. i18n: file: src/config/colorsappearance_config.ui:1051
+#. i18n: ectx: property (text), widget (QLabel, textLabel12_12)
+#: rc.cpp:1553
+msgid "11:"
+msgstr "11:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:1082
+#. i18n: ectx: property (text), widget (QLabel, textLabel12_10)
+#: rc.cpp:1556
+msgid "9:"
+msgstr "9:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:1092
+#. i18n: ectx: property (text), widget (QLabel, textLabel12_9)
+#: rc.cpp:1559
+msgid "8:"
+msgstr "8:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:1102
+#. i18n: ectx: property (text), widget (QLabel, textLabel12_11)
+#: rc.cpp:1562
+msgid "10:"
+msgstr "10:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:1183
+#. i18n: ectx: property (text), widget (QLabel, textLabel12_13)
+#: rc.cpp:1565
+msgid "12:"
+msgstr "12:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:1200
+#. i18n: ectx: property (text), widget (QLabel, textLabel12_16)
+#: rc.cpp:1568
+msgid "15:"
+msgstr "15:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:1224
+#. i18n: ectx: property (text), widget (QLabel, textLabel12_15)
+#: rc.cpp:1571
+msgid "14:"
+msgstr "14:"
+
+#. i18n: file: src/config/colorsappearance_config.ui:1234
+#. i18n: ectx: property (text), widget (QLabel, textLabel12)
+#: rc.cpp:1574
+msgid "13:"
+msgstr "13:"
+
+#. i18n: file: src/config/log_config.ui:23
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_Log)
+#: rc.cpp:1577
+msgid "&Enable Logging"
+msgstr "&אפשר יומן"
+
+#. i18n: file: src/config/log_config.ui:32
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_LowerLog)
+#: rc.cpp:1580
+msgid "Enable &lower case logfile names"
+msgstr "אפשר קבצי־יומן באותיות &קטנות"
+
+#. i18n: file: src/config/log_config.ui:39
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AddHostnameToLog)
+#: rc.cpp:1583
+msgid "&Append hostname to logfile names"
+msgstr "&הוסף את שם המארח לשם קובץ היומן"
+
+#. i18n: file: src/config/log_config.ui:46
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: rc.cpp:1586
+msgid "Logfile &path:"
+msgstr "&נתיב קובץ היומן:"
+
+#. i18n: file: src/config/log_config.ui:69
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseExternalLogViewer)
+#: rc.cpp:1589
+msgid "Use system text editor to open logs"
+msgstr ""
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:23
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_Timestamping)
+#: rc.cpp:1592
+msgid "Enable &Timestamps"
+msgstr "אפשר חתימות &זמן"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:32
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowDate)
+#: rc.cpp:1595
+#, fuzzy
+msgid "Sho&w dates"
+msgstr "הצג &תאריכים"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:39
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: rc.cpp:1598
+msgid "&Format:"
+msgstr "&תבנית:"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:78
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowBacklog)
+#: rc.cpp:1601
+#, fuzzy
+msgid "Show &Backlog"
+msgstr "הצג יומן של שיחה קודמת"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:87
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#: rc.cpp:1604
+msgid "&Lines: "
+msgstr "&שורות: "
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:129
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
+#: rc.cpp:1607
+msgid "&Layout"
+msgstr "&מראה"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:135
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTopic)
+#: rc.cpp:1610
+msgid "&Show channel topic"
+msgstr "&הצג את נושא החדר"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:142
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowModeButtons)
+#: rc.cpp:1613
+msgid "Show channel &mode buttons"
+msgstr "הצג כפתורי &מצב החדר"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:149
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowNickList)
+#: rc.cpp:1616
+msgid "Show channel &nick list and quick buttons"
+msgstr "הצג &רשימת כינויים וכפתורים מהירים"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:177
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoUserhost)
+#: rc.cpp:1619
+msgid "Show hostmas&ks in nickname list"
+msgstr "הצג את שמות המתחמים &ברשימת הכינויים"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:207
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowRealNames)
+#: rc.cpp:1622
+#, fuzzy
+msgid "Show real names in nickname list"
+msgstr "&הצג שמות אמתיים ליד הכינויים"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:237
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowQuickButtons)
+#: rc.cpp:1625
+msgid "Show &quick buttons"
+msgstr "הצג &כפתורים מהירים"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:246
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowNicknameBox)
+#: rc.cpp:1628
+msgid "Show bo&x to change own nickname"
+msgstr "הצג &קופסה לשינוי הכינוי שלך"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:253
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowIRCViewScrollBar)
+#: rc.cpp:1631
+msgid "Show sc&rollbar"
+msgstr ""
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:266
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowBackgroundImage)
+#: rc.cpp:1634
+msgid "Enable Back&ground Image"
+msgstr "אפשר תמונת &רקע"
+
+#. i18n: file: src/config/chatwindowappearance_config.ui:275
+#. i18n: ectx: property (text), widget (QLabel, textLabel4)
+#: rc.cpp:1637
+msgid "P&ath:"
+msgstr "&נתיב:"
+
+#. i18n: file: src/config/tabnotifications_config.ui:25
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsText)
+#: rc.cpp:1643
+msgid "Use colored text"
+msgstr "השתמש בטקסט צבעוני"
+
+#. i18n: file: src/config/tabnotifications_config.ui:35
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsLeds)
+#: rc.cpp:1646
+msgid "Use colored LEDs"
+msgstr "השתמש בֵּלֶדִים צבעוניים"
+
+#. i18n: file: src/config/tabnotifications_config.ui:51
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsSystem)
+#: rc.cpp:1652
+msgid ""
+"Application events occur in Konsole tabs, the DCC Status tab and other "
+"application tabs not used directly for chatting."
+msgstr ""
+"אירועי יישום קוראים בכרטיסיות Konsole, כרטיסיות מצבי DCC או כרטיסיות יישום "
+"אחרות שלא קשורות ישירות לשיחות."
+
+#. i18n: file: src/config/tabnotifications_config.ui:54
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsSystem)
+#: rc.cpp:1655
+msgid "Application event"
+msgstr "אירוע יישום"
+
+#. i18n: file: src/config/tabnotifications_config.ui:87
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsMsgs)
+#: rc.cpp:1658
+msgid "Message"
+msgstr "הודעה"
+
+#. i18n: file: src/config/tabnotifications_config.ui:143
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsPrivate)
+#: rc.cpp:1661
+#, fuzzy
+msgid "Private message"
+msgstr "&הודעת השרת:"
+
+#. i18n: file: src/config/tabnotifications_config.ui:167
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsNick)
+#: rc.cpp:1664
+msgid "Current nick used"
+msgstr "הכינוי בשימוש כעת"
+
+#. i18n: file: src/config/tabnotifications_config.ui:223
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsEvents)
+#: rc.cpp:1667
+msgid "Channel events are mode changes or users joining/leaving a channel."
+msgstr "אירוע בחדר הם שינויי מצבים או משתמשים עוזבים (או מצטרפים) לחדר."
+
+#. i18n: file: src/config/tabnotifications_config.ui:226
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsEvents)
+#: rc.cpp:1670
+msgid "Channel event"
+msgstr "אירוע בחדר"
+
+#. i18n: file: src/config/tabnotifications_config.ui:275
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox10)
+#. i18n: file: src/viewer/searchbarbase.ui:92
+#. i18n: ectx: property (text), widget (QToolButton, m_optionsButton)
+#: rc.cpp:1676 rc.cpp:1715
+#, fuzzy
+#| msgid "Exception"
+msgid "Options"
+msgstr "יוצאים מן הכלל"
+
+#. i18n: file: src/config/tabnotifications_config.ui:281
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsOverride)
+#: rc.cpp:1679
+msgid ""
+"If you select this, the colors you chose in the Highlights preferences page "
+"will override the colors for \"Current nick used\" and \"Highlight\"."
+msgstr ""
+
+#. i18n: file: src/config/tabnotifications_config.ui:284
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsOverride)
+#: rc.cpp:1682
+msgid "Give precedence to chat window highlight colors"
+msgstr "תן קדימות לחלון שיחת הגדשת צבעים"
 
 #. i18n: file: src/linkaddressbook/linkaddressbookui_base.ui:41
 #. i18n: ectx: property (toolTip), widget (QPushButton, addAddresseeButton)
