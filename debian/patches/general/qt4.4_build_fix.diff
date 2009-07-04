@@ -1,0 +1,39 @@
+From: Modestas Vainius <modestas@vainius.eu>
+Subject: [PATCH] general/qt4.4_build_fix (r991115)
+
+Patch from upstream subversion repository to fix build with Qt 4.4
+
+Signed-off-by: Modestas Vainius <modestas@vainius.eu>
+
+---
+ src/config/ignore_config.cpp     |    2 ++
+ src/irc/channeloptionsdialog.cpp |    1 +
+ 2 files changed, 3 insertions(+), 0 deletions(-)
+
+diff --git a/src/config/ignore_config.cpp b/src/config/ignore_config.cpp
+index 34256bf..3907d52 100644
+--- a/src/config/ignore_config.cpp
++++ b/src/config/ignore_config.cpp
+@@ -10,6 +10,8 @@
+   Copyright (C) 2006 John Tapsell <johnflux@gmail.com>
+ */
+ 
++#include <QHeaderView>
++
+ #include "ignore_config.h"
+ #include "ignorelistviewitem.h"
+ #include "ignore.h"
+diff --git a/src/irc/channeloptionsdialog.cpp b/src/irc/channeloptionsdialog.cpp
+index 64c1ed6..55b78c3 100644
+--- a/src/irc/channeloptionsdialog.cpp
++++ b/src/irc/channeloptionsdialog.cpp
+@@ -22,6 +22,7 @@
+ #include <QToolButton>
+ #include <QKeyEvent>
+ #include <QItemSelectionModel>
++#include <QHeaderView>
+ 
+ #include <KTextEdit>
+ #include <KLineEdit>
+-- 
+tg: (cc79915..) general/qt4.4_build_fix (depends on: upstream)
