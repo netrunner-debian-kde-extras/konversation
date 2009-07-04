@@ -11,10 +11,10 @@ Signed-off-by: Modestas Vainius <modestas@vainius.eu>
  1 files changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/src/config/preferences.cpp b/src/config/preferences.cpp
-index fe4a4a2..cd71ee1 100644
+index f809202..dda420d 100644
 --- a/src/config/preferences.cpp
 +++ b/src/config/preferences.cpp
-@@ -69,14 +69,16 @@ Preferences::Preferences()
+@@ -62,14 +62,16 @@ Preferences::Preferences()
      mIdentity->setNicknameList(nickList);
  
      Konversation::ServerGroupSettingsPtr serverGroup(new Konversation::ServerGroupSettings);
@@ -34,6 +34,6 @@ index fe4a4a2..cd71ee1 100644
 +    channel.setName("#debian-kde");
      serverGroup->addChannel(channel);
      serverGroup->setExpanded(false);
-     mServerGroupList.append(serverGroup);
+     mServerGroupHash.insert(0, serverGroup);
 -- 
-tg: (27343f7..) debian/debian_channel (depends on: upstream)
+tg: (cc79915..) debian/debian_channel (depends on: upstream)
