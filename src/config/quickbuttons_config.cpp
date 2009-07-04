@@ -13,15 +13,8 @@
 #include "quickbuttons_config.h"
 #include "preferences.h"
 
-#include <qlabel.h>
-#include <qpushbutton.h>
-
-#include <kapplication.h>
-#include <kdebug.h>
-#include <kconfig.h>
-#include <klocale.h>
-#include <klineedit.h>
-#include <kglobal.h>
+#include <QLabel>
+#include <QPushButton>
 
 
 QuickButtons_Config::QuickButtons_Config(QWidget* parent, const char* name)

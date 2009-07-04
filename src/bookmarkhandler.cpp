@@ -15,17 +15,17 @@ Copyright (C) 2002 Carsten Pfeiffer <pfeiffer@kde.org>
 
 */
 
-#include "bookmarkhandler.h" ////// header renamed
-#include "application.h" ////// header renamed
-#include "mainwindow.h" ////// header renamed
+#include "bookmarkhandler.h"
+#include "application.h"
+#include "mainwindow.h"
 #include "connectionmanager.h"
 
-#include <kstandarddirs.h>
+#include <KStandardDirs>
 #include <KXMLGUIFactory>
-#include <kbookmarkmenu.h>
+#include <KBookmarkMenu>
 
 
-KonviBookmarkHandler::KonviBookmarkHandler(KMenu *menu, KonversationMainWindow* mainWindow)
+KonviBookmarkHandler::KonviBookmarkHandler(KMenu *menu, MainWindow* mainWindow)
 : QObject(mainWindow),
 KBookmarkOwner(),
 m_mainWindow(mainWindow)
@@ -53,7 +53,7 @@ void KonviBookmarkHandler::openBookmark(const KBookmark &bm, Qt::MouseButtons mb
 {
     Q_UNUSED(mb);
     Q_UNUSED(km);
-    KonversationApplication* konvApp = static_cast<KonversationApplication*>(kapp);
+    Application* konvApp = static_cast<Application*>(kapp);
     konvApp->getConnectionManager()->connectTo(Konversation::SilentlyReuseConnection, bm.url().url());
 }
 

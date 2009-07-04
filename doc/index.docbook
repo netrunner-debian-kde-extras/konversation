@@ -769,7 +769,7 @@ a password in order to join, enter it, otherwise leave blank.
 
 <para>To display a list of available channels, choose
 <menuchoice>
- <guisubmenu>Windows</guisubmenu>
+ <guisubmenu>Window</guisubmenu>
  <guisubmenu>Channel List</guisubmenu>
 </menuchoice> on the main menu.
   <action>After a warning screen, a new tab is created called the <guilabel>Channel List</guilabel>.</action>
@@ -1335,7 +1335,7 @@ In this case also, each &nickname; has an associated &irc; network.  See below.<
 
 <para>To activate the &nickname; watching feature, choose
 <menuchoice>
-	<guisubmenu>Windows</guisubmenu>
+	<guisubmenu>Window</guisubmenu>
 	<guisubmenu>Watched Nicks Online</guisubmenu>
 </menuchoice>
  on the main menu.  <action>The <guilabel>Watched Nicks Online</guilabel> screen will appear.</action>
@@ -1416,6 +1416,7 @@ The <guilabel>Watched Nicknames</guilabel> screen appears.
 				<area id="pt-notifylist-3" coords="1 1"/>
 				<area id="pt-notifylist-4" coords="1 1"/>
 				<area id="pt-notifylist-5" coords="1 1"/>
+				<area id="pt-notifylist-6" coords="1 1"/>
 			</areaspec>
 			<imageobject>
 				<imagedata fileref="notifylist_screen_co.png" format="PNG"/>
@@ -1443,7 +1444,7 @@ open &konversation;, check this box.</para></callout>
 
 <callout arearefs="pt-notifylist-5"><para>The <guilabel>Watched Nicks Online</guilabel> feature works by periodically polling the server.  This box sets how often that occurs.  Avoid numbers less than 20 seconds because it places excessive load on the server.</para></callout>
 
-<callout arearefs="pt-notifylist-5"><para>In the <guilabel>Watched Nicks Online</guilabel>
+<callout arearefs="pt-notifylist-6"><para>In the <guilabel>Watched Nicks Online</guilabel>
 screen above, you may double click on any &nickname; and this command will be sent to the
 server.  <userinput><command>%u</command></userinput> will be replaced with the
 &nickname;.  The <userinput><command>%n</command></userinput> is required at the
@@ -1742,7 +1743,7 @@ To customize the <interface>Quick Buttons</interface>, choose
 	<guisubmenu>Configure Konversation</guisubmenu>
 </menuchoice>
  on the main menu.  <action>The <guilabel>Edit Preferences</guilabel> screen will appear.</action>
- Click <guilabel>Behavior</guilabel> to expand it, then click <guilabel>Quick Buttons</guilabel>
+ Click <guilabel>Interface</guilabel> to expand it, then click <guilabel>Quick Buttons</guilabel>
  to display the <guilabel>Quick Buttons</guilabel> screen.
  </para>
 
@@ -2114,7 +2115,7 @@ For example, a &URL; beginning with
 If the &URL; scrolls off the screen, you might have trouble finding it
 again.  &konversation; can keep a convenient list of all &URL;s for you.  To activate this feature, choose
 <menuchoice>
-	<guisubmenu>Windows</guisubmenu>
+	<guisubmenu>Window</guisubmenu>
 	<guisubmenu>&url; Catcher</guisubmenu>
 </menuchoice> on the main menu.
 <action>A new tab called <guilabel>&url; Catcher</guilabel> is created.</action>
@@ -3339,7 +3340,7 @@ If you are behind a firewall, make sure the correct ports are enabled.  &konvers
 <para>
 The
 <menuchoice>
-<guisubmenu>Windows</guisubmenu>
+<guisubmenu>Window</guisubmenu>
 <guisubmenu>Channel List</guisubmenu>
 </menuchoice>  menu entry will be greyed-out if a non-channel tab, &eg; <guilabel>Watched Nicks Online</guilabel>, is currently being viewed.
 To make it selectable again go back to a channel tab or the server tab.

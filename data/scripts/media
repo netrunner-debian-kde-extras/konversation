@@ -270,7 +270,35 @@ class Amarok2Player(Player):
 
     def isRunning(self):
         qdbus_items=subprocess.Popen(['qdbus'], stdout=subprocess.PIPE).communicate()[0]
-        running=re.findall('^ org.mpris.amarok$', qdbus_items, re.M)
+        running=re.findall(r'^ org.mpris.amarok\r?$', qdbus_items, re.M)
+        if type(running) is list:
+            try:
+                running=running[0]
+            except IndexError:
+                running=''
+        self.running=bool(running.strip())
+        return self.running
+
+import socket
+
+class JukPlayer(Player):
+    def __init__(self):
+        Player.__init__(self, 'Juk', 'audio')
+        self.isRunning()
+
+    def getData(self):
+        playing=os.popen("qdbus org.kde.juk /Player playin").readline().strip() != "false"
+        if playing and self.isRunning():
+            title = os.popen("qdbus org.kde.juk /Player trackProperty Title").readline().strip()
+            artist = os.popen("qdbus org.kde.juk /Player trackProperty Artist").readline().strip()
+            album = os.popen("qdbus org.kde.juk /Player trackProperty Album").readline().strip()
+            return (title, artist, album)
+        else:
+            return ''
+
+    def isRunning(self):
+        qdbus_items=subprocess.Popen(['qdbus'], stdout=subprocess.PIPE).communicate()[0]
+        running=re.findall(r'^ org.kde.juk\r?$', qdbus_items, re.M)
         if type(running) is list:
             try:
                 running=running[0]
@@ -423,6 +451,7 @@ def run(kind):
                 sys.exit(0)
 
     if not playing(play, kind):
+        print play
         handleErrors(play, kind)
 
 
@@ -440,6 +469,7 @@ except OSError:
 
 PLAYERS = [
 AmarokPlayer(),
+JukPlayer(),
 DCOPPlayer("JuK","juk","Player trackProperty Title","Player trackProperty Artist","Player trackProperty Album"),
 DCOPPlayer("Noatun",'noatun',"Noatun title",playerType='audio, video'),
 DCOPPlayer("Kaffeine","kaffeine","KaffeineIface title","KaffeineIface artist","KaffeineIface album",playerType='video, audio'),

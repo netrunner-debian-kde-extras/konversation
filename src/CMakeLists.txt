@@ -1,7 +1,10 @@
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/config)
+include_directories(config dcc irc viewer linkaddressbook upnp)
 
-include_directories(blowfish config dcc irc viewer linkaddressbook)
+if (QCA2_FOUND)
+    include_directories(${QCA2_INCLUDE_DIR})
+endif (QCA2_FOUND)
 
 set(core_SRCS
     #====================================
@@ -37,13 +40,13 @@ set (irc_SRCS
 
     irc/query.cpp
     irc/channel.cpp
-    irc/channeldialog.cpp
     irc/channellistpanel.cpp
     irc/channellistviewitem.cpp
     irc/channeloptionsdialog.cpp
     irc/channelnick.cpp
     irc/modebutton.cpp
     irc/joinchanneldialog.cpp
+    irc/invitedialog.cpp
 
     irc/irccharsets.cpp
 
@@ -57,7 +60,6 @@ set (irc_SRCS
     irc/inputfilter.cpp
     irc/outputfilter.cpp
     irc/ircqueue.cpp
-    irc/serverdialog.cpp
     irc/servergroupdialog.cpp
     irc/servergroupsettings.cpp
     irc/serverison.cpp
@@ -67,10 +69,13 @@ set (irc_SRCS
 )
 
 kde4_add_ui_files(irc_SRCS
+    irc/channeldialogui.ui
     irc/channeloptionsui.ui
     irc/joinchannelui.ui
+    irc/serverdialogui.ui
     irc/servergroupdialogui.ui
     irc/serverlistdialogui.ui
+    irc/invitedialog.ui
 )
 
     #=== Configuration dialog pages
@@ -89,7 +94,6 @@ set(config_SRCS
     config/quickbuttons_config.cpp
     config/warnings_config.cpp
     config/watchednicknames_config.cpp
-    config/valuelistviewitem.cpp
 )
 
 kde4_add_ui_files(config_SRCS
@@ -121,15 +125,12 @@ set(viewer_SRCS
     viewer/ircview.cpp
     viewer/chatwindow.cpp
     viewer/rawlog.cpp
-
-    statuspanel.cpp
-
+    viewer/statuspanel.cpp
     viewer/ircviewbox.cpp
     viewer/viewcontainer.cpp
     viewer/viewtree.cpp
     viewer/viewtreeitem.cpp
     viewer/pasteeditor.cpp
-
     viewer/highlight.cpp
     viewer/highlightviewitem.cpp
     viewer/ignore.cpp
@@ -181,17 +182,19 @@ set(linkaddressbook_SRCS
 kde4_add_ui_files(linkaddressbook_SRCS
     linkaddressbook/linkaddressbookui_base.ui
 )
+if (QCA2_FOUND)
+    set(cipher_SRCS
+        cipher.cpp)
+endif (QCA2_FOUND)
 
-set(blowfish_SRCS
-    blowfish/b64stuff.cpp
-    blowfish/BlowfishCbc.cpp
-    blowfish/blowfish.cpp
-    blowfish/mc_blowfish.cpp
-    blowfish/newblowfish.cpp
-    blowfish/oldblowfish.cpp
+set(upnp_SRCS
+    upnp/soap.cpp
+    upnp/upnpdescriptionparser.cpp
+    upnp/upnpmcastsocket.cpp
+    upnp/upnprouter.cpp
 )
 
-set (completed_SRCS ${core_SRCS}  ${irc_SRCS} ${viewer_SRCS} ${config_SRCS} ${dcc_SRCS} ${linkaddressbook_SRCS} ${blowfish_SRCS})
+set (completed_SRCS ${core_SRCS}  ${irc_SRCS} ${viewer_SRCS} ${config_SRCS} ${dcc_SRCS} ${linkaddressbook_SRCS} ${cipher_SRCS} ${upnp_SRCS})
 set (konversation_SRCS ${completed_SRCS})
 
 kde4_add_ui_files(konversation_SRCS
@@ -201,6 +204,8 @@ kde4_add_ui_files(konversation_SRCS
 )
 
 kde4_add_kcfg_files(konversation_SRCS config/preferences_base.kcfgc)
+
+kde4_add_app_icon(konversation_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../data/images/icons/hi*-app-konversation.png")
 
 kde4_add_executable(konversation ${konversation_SRCS})
 
@@ -214,6 +219,10 @@ endif (X11_FOUND AND X11_Xutil_FOUND)
 if (X11_Xscreensaver_FOUND)
     target_link_libraries(konversation ${X11_Xscreensaver_LIB})
 endif (X11_Xscreensaver_FOUND)
+
+if (QCA2_FOUND)
+    target_link_libraries(konversation ${QCA2_LIBRARIES})
+endif (QCA2_FOUND)
 
 CHECK_INCLUDE_FILE(
   "stropts.h" HAVE_STROPTS_H)

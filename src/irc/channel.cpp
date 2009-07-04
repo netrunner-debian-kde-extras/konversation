@@ -12,9 +12,8 @@
 */
 
 #include "channel.h"
-#include "application.h" ////// header renamed
+#include "application.h"
 #include "server.h"
-#include "blowfish.h"
 #include "nick.h"
 #include "nicklistview.h"
 #include "quickbutton.h"
@@ -32,35 +31,32 @@
 #include "linkaddressbook/linkaddressbookui.h"
 #include "linkaddressbook/addressbook.h"
 
-#include <qlabel.h>
-#include <qevent.h>
-#include <q3grid.h>
-#include <q3dragobject.h>
-#include <qsizepolicy.h>
-#include <q3header.h>
-#include <qregexp.h>
-#include <qsplitter.h>
-#include <qcheckbox.h>
-#include <qtimer.h>
-#include <qtextcodec.h>
-#include <qtoolbutton.h>
-#include <qlayout.h>
+#include <QEvent>
+#include <QSizePolicy>
+#include <QRegExp>
+#include <QSplitter>
+#include <QCheckBox>
+#include <QTimer>
+#include <QTextCodec>
+#include <QToolButton>
+#include <QDropEvent>
 
+#include <Q3Grid>
+#include <Q3DragObject>
+#include <Q3Header>
 
-#include <klineedit.h>
-#include <kinputdialog.h>
-#include <kpassworddialog.h>
-#include <klocale.h>
-#include <kdebug.h>
-#include <kglobalsettings.h>
-#include <kdeversion.h>
-#include <kmessagebox.h>
-#include <kiconloader.h>
-#include <kwindowsystem.h>
+#include <KLineEdit>
+#include <KInputDialog>
+#include <KPasswordDialog>
+#include <KGlobalSettings>
+#include <KMessageBox>
+#include <KIconLoader>
+#include <KWindowSystem>
 #include <KColorScheme>
-#include <kvbox.h>
-#include <khbox.h>
-#include <kcombobox.h>
+#include <KVBox>
+#include <KHBox>
+#include <KComboBox>
+
 
 bool nickTimestampLessThan(const Nick* nick1, const Nick* nick2)
 {
@@ -210,6 +206,12 @@ Channel::Channel(QWidget* parent, QString _name) : ChatWindow(parent)
     setTextView(ircViewBox->ircView());
     connect(textView,SIGNAL(popupCommand(int)),this,SLOT(popupChannelCommand(int)));
 
+#if QT_VERSION >= 0x040500
+    topicLine->setAlignment(Qt::AlignTop);
+    QString stylesheet = QString("QLabel { margin-top:%1 }").arg(getTextView()->document()->documentMargin());
+    topicLine->setStyleSheet(stylesheet);
+#endif
+
     // The box that holds the Nick List and the quick action buttons
     nickListButtons = new KVBox(m_horizSplitter);
     m_horizSplitter->setStretchFactor(m_horizSplitter->indexOf(nickListButtons), 0);
@@ -251,9 +253,9 @@ Channel::Channel(QWidget* parent, QString _name) : ChatWindow(parent)
 
     awayLabel = new QLabel(i18n("(away)"), commandLineBox);
     awayLabel->hide();
-    blowfishLabel = new QLabel(commandLineBox);
-    blowfishLabel->hide();
-    blowfishLabel->setPixmap(KIconLoader::global()->loadIcon("document-encrypt", KIconLoader::Toolbar));
+    cipherLabel = new QLabel(commandLineBox);
+    cipherLabel->hide();
+    cipherLabel->setPixmap(KIconLoader::global()->loadIcon("document-encrypt", KIconLoader::Toolbar));
     channelInput = new IRCInput(commandLineBox);
 
     getTextView()->installEventFilter(channelInput);
@@ -329,6 +331,9 @@ Channel::Channel(QWidget* parent, QString _name) : ChatWindow(parent)
 
     updateAppearance();
 
+    #ifdef HAVE_QCA2
+    m_cipher = 0;
+    #endif
     //FIXME JOHNFLUX
     // connect( Konversation::Addressbook::self()->getAddressBook(), SIGNAL( addressBookChanged( AddressBook * ) ), this, SLOT( slotLoadAddressees() ) );
     // connect( Konversation::Addressbook::self(), SIGNAL(addresseesChanged()), this, SLOT(slotLoadAddressees()));
@@ -342,7 +347,7 @@ void Channel::setServer(Server* server)
                 SLOT(connectionStateChanged(Server*, Konversation::ConnectionState)));
     ChatWindow::setServer(server);
     if (!server->getKeyForRecipient(getName()).isEmpty())
-        blowfishLabel->show();
+        cipherLabel->show();
     topicLine->setServer(server);
     refreshModeButtons();
     nicknameCombobox->setModel(m_server->nickListModel());
@@ -358,15 +363,17 @@ void Channel::connectionStateChanged(Server* server, Konversation::ConnectionSta
 
             //HACK the way the notification priorities work sucks, this forces the tab text color to gray right now.
             if (m_currentTabNotify == Konversation::tnfNone || (!Preferences::self()->tabNotificationsEvents() && m_currentTabNotify == Konversation::tnfControl))
-                KonversationApplication::instance()->getMainWindow()->getViewContainer()->unsetViewNotification(this);
+                Application::instance()->getMainWindow()->getViewContainer()->unsetViewNotification(this);
         }
     }
 }
 
 void Channel::setEncryptedOutput(bool e)
 {
+
     if (e) {
-        blowfishLabel->show();
+    #ifdef HAVE_QCA2
+        cipherLabel->show();
         //scan the channel topic and decrypt it if necessary
         if (m_topicHistory.isEmpty())
             return;
@@ -375,15 +382,21 @@ void Channel::setEncryptedOutput(bool e)
         //prepend two colons to make it appear to be an irc message for decryption,
         // \r because it won't decrypt without it, even though the message did not have a \r
         // when encrypted. Bring on the QCA!
-        QByteArray cipher = "::" + topic.toUtf8() + '\x0d';
-        Konversation::decryptTopic(getName(), cipher, m_server);
-        topic=QString::fromUtf8(cipher.data()+2, cipher.length()-2);
+        //QByteArray cipher = "::" + topic.toUtf8() + '\x0d';
+        QByteArray cipherText = topic.toUtf8();
+        QByteArray key = m_server->getKeyForRecipient(getName());
+
+        if(getCipher()->setKey(key))
+            cipherText = getCipher()->decryptTopic(cipherText);
+
+        topic=QString::fromUtf8(cipherText.data()+2, cipherText.length()-2);
         m_topicHistory[0] = m_topicHistory[0].section(' ', 0, 1) + ' ' + topic;
         topicLine->setText(topic);
         emit topicHistoryChanged();
+    #endif
     }
     else
-        blowfishLabel->hide();
+        cipherLabel->hide();
 }
 
 Channel::~Channel()
@@ -730,7 +743,7 @@ void Channel::popupCommand(int id)
                 if (raw)
                     m_server->queue(command);
                 else
-                    sendChannelText(command);                
+                    sendChannelText(command);
             }
 
         }
@@ -1111,27 +1124,36 @@ void Channel::sendChannelText(const QString& sendLine)
             if(result.type == Konversation::Action) appendAction(m_server->getNickname(), result.output);
             else if(result.type == Konversation::Command) appendCommandMessage(result.typeString, result.output);
             else if(result.type == Konversation::Program) appendServerMessage(result.typeString, result.output);
-            else if(result.type == Konversation::PrivateMessage) appendQuery(result.typeString, result.output, true);
+            else if(result.type == Konversation::PrivateMessage) msgHelper(result.typeString, result.output);
             else append(m_server->getNickname(), result.output);
         }
         else if (result.outputList.count())
         {
-            Q_ASSERT(result.type==Konversation::Message);
-            for ( QStringList::Iterator it = result.outputList.begin(); it != result.outputList.end(); ++it )
+            if (result.type == Konversation::Message)
             {
-                append(m_server->getNickname(), *it);
+                QStringListIterator it(result.outputList);
+
+                while (it.hasNext())
+                    append(m_server->getNickname(), it.next());
+            }
+            else if (result.type == Konversation::Action)
+            {
+                for (int i = 0; i < result.outputList.count(); ++i)
+                {
+                    if (i == 0)
+                        appendAction(m_server->getNickname(), result.outputList.at(i));
+                    else
+                        append(m_server->getNickname(), result.outputList.at(i));
+                }
             }
         }
+
         // Send anything else to the server
-        if(!result.toServerList.empty())
-        {
+        if (!result.toServerList.empty())
             m_server->queueList(result.toServerList);
-        }
         else
-        {
             m_server->queue(result.toServer);
-        }
-    } // for
+    }
 }
 
 void Channel::setNickname(const QString& newNickname)
@@ -1319,9 +1341,9 @@ void Channel::joinNickname(ChannelNickPtr channelNick)
 
         //HACK the way the notification priorities work sucks, this forces the tab text color to ungray right now.
         if (m_currentTabNotify == Konversation::tnfNone || (!Preferences::self()->tabNotificationsEvents() && m_currentTabNotify == Konversation::tnfControl))
-            KonversationApplication::instance()->getMainWindow()->getViewContainer()->unsetViewNotification(this);
+            Application::instance()->getMainWindow()->getViewContainer()->unsetViewNotification(this);
 
-        KonversationApplication::instance()->notificationHandler()->channelJoin(this,getName());
+        Application::instance()->notificationHandler()->channelJoin(this,getName());
     }
     else
     {
@@ -1452,7 +1474,7 @@ void Channel::kickNick(ChannelNickPtr channelNick, const QString &kicker, const 
                                               "You have been kicked from channel %1 by %2 (%3).", getName(), kicker, displayReason), true);
             }
 
-            KonversationApplication::instance()->notificationHandler()->kick(this,getName(), kicker);
+            Application::instance()->notificationHandler()->kick(this,getName(), kicker);
         }
 
         m_joined=false;
@@ -1460,7 +1482,7 @@ void Channel::kickNick(ChannelNickPtr channelNick, const QString &kicker, const 
 
         //HACK the way the notification priorities work sucks, this forces the tab text color to gray right now.
         if (m_currentTabNotify == Konversation::tnfNone || (!Preferences::self()->tabNotificationsEvents() && m_currentTabNotify == Konversation::tnfControl))
-            KonversationApplication::instance()->getMainWindow()->getViewContainer()->unsetViewNotification(this);
+            Application::instance()->getMainWindow()->getViewContainer()->unsetViewNotification(this);
 
         return;
     }
@@ -2024,13 +2046,13 @@ void Channel::updateMode(const QString& sourceNick, char mode, bool plus, const 
         default:
 	    if(plus)
 	    {
-	        if(fromMe) message=i18n("You set channel mode +%1", mode);
-		else message=i18n("%1 sets channel mode +%2", sourceNick, mode);
+	        if(fromMe) message=i18n("You set channel mode +%1", QString(mode));
+		else message=i18n("%1 sets channel mode +%2", sourceNick, QString(mode));
 	    }
 	    else
 	    {
-	        if (fromMe) message=i18n("You set channel mode -%1", mode);
-		else message= i18n("%1 sets channel mode -%2", sourceNick, mode);
+	        if (fromMe) message=i18n("You set channel mode -%1", QString(mode));
+		else message= i18n("%1 sets channel mode -%2", sourceNick, QString(mode));
 	    }
     }
 
@@ -2708,11 +2730,16 @@ void Channel::processPendingNicks()
 
 void Channel::setChannelEncoding(const QString& encoding) // virtual
 {
-    Preferences::setChannelEncoding(m_server->getDisplayName(), getName(), encoding);
+    if(m_server->getServerGroup())
+        Preferences::setChannelEncoding(m_server->getServerGroup()->id(), getName(), encoding);
+    else
+        Preferences::setChannelEncoding(m_server->getDisplayName(), getName(), encoding);
 }
 
 QString Channel::getChannelEncoding() // virtual
 {
+    if(m_server->getServerGroup())
+        return Preferences::channelEncoding(m_server->getServerGroup()->id(), getName());
     return Preferences::channelEncoding(m_server->getDisplayName(), getName());
 }
 
@@ -2872,6 +2899,15 @@ void Channel::nickActive(const QString& nickname) //FIXME reported to crash, can
         sortNickList(); //FIXME: no need to completely resort, we can just see if this particular nick should move
     }
 }
+
+#ifdef HAVE_QCA2
+Konversation::Cipher* Channel::getCipher()
+{
+    if(!m_cipher)
+        m_cipher = new Konversation::Cipher();
+    return m_cipher;
+}
+#endif
 
 //
 // NickList

@@ -12,24 +12,19 @@
 
 #include "statuspanel.h"
 #include "channel.h"
-#include "application.h" ////// header renamed
+#include "application.h"
 #include "ircinput.h"
 #include "ircview.h"
 #include "ircviewbox.h"
 #include "server.h"
 
-#include <qpushbutton.h>
-#include <qlabel.h>
+#include <QTextCodec>
+#include <QLineEdit>
 
-#include <qtextcodec.h>
-#include <qlineedit.h>
-
-#include <kdebug.h>
-#include <klocale.h>
-#include <kmessagebox.h>
-#include <kvbox.h>
-#include <kcombobox.h>
-#include <klineedit.h>
+#include <KMessageBox>
+#include <KVBox>
+#include <KComboBox>
+#include <KLineEdit>
 
 
 StatusPanel::StatusPanel(QWidget* parent) : ChatWindow(parent)
@@ -123,7 +118,8 @@ void StatusPanel::sendStatusText(const QString& sendLine)
 
         if(!result.output.isEmpty())
         {
-            appendServerMessage(result.typeString, result.output);
+            if(result.type == Konversation::PrivateMessage) msgHelper(result.typeString, result.output);
+            else appendServerMessage(result.typeString, result.output);
         }
         m_server->queue(result.toServer);
     } // for
@@ -178,7 +174,7 @@ void StatusPanel::updateAppearance()
     statusInputPalette.setColor(QPalette::Base, bg);
     statusInput->setPalette(statusInputPalette);
 
-    getTextView()->setPalette(QPalette()); 
+    getTextView()->setPalette(QPalette());
 
     if(Preferences::self()->showBackgroundImage())
     {
@@ -346,11 +342,16 @@ void StatusPanel::appendInputText(const QString& text, bool fromCursor)
                                                   // virtual
 void StatusPanel::setChannelEncoding(const QString& encoding)
 {
-    Preferences::setChannelEncoding(m_server->getDisplayName(), ":server", encoding);
+    if(m_server->getServerGroup())
+        Preferences::setChannelEncoding(m_server->getServerGroup()->id(), ":server", encoding);
+    else
+        Preferences::setChannelEncoding(m_server->getDisplayName(), ":server", encoding);
 }
 
 QString StatusPanel::getChannelEncoding()         // virtual
 {
+    if(m_server->getServerGroup())
+        return Preferences::channelEncoding(m_server->getServerGroup()->id(), ":server");
     return Preferences::channelEncoding(m_server->getDisplayName(), ":server");
 }
 

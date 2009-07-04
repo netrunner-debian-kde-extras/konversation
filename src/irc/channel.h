@@ -19,8 +19,15 @@
 #include "channelnick.h"
 #include "nick.h"
 
-#include <qtimer.h>
-#include <qstring.h>
+#include <config-konversation.h>
+
+#ifdef HAVE_QCA2
+#include "cipher.h"
+#endif
+
+
+#include <QTimer>
+#include <QString>
 
 
 class QLabel;
@@ -75,7 +82,9 @@ class Channel : public ChatWindow
         virtual void append(const QString& nickname,const QString& message);
         virtual void appendAction(const QString& nickname,const QString& message);
         void nickActive(const QString& nickname);
-
+        #ifdef HAVE_QCA2
+        Konversation::Cipher* getCipher();
+        #endif
 //General administrative stuff
     public:
         void setName(const QString& newName);
@@ -328,7 +337,7 @@ class Channel : public ChatWindow
         KComboBox* nicknameCombobox;
         QString oldNick; ///< GUI
         QLabel* awayLabel;
-        QLabel* blowfishLabel;
+        QLabel* cipherLabel;
         IRCInput* channelInput;
 
         NickChangeDialog* nickChangeDialog;
@@ -362,5 +371,8 @@ class Channel : public ChatWindow
         int ops; ///< How many ops on the channel
 
         Konversation::ChannelOptionsDialog *m_optionsDialog;
+        #ifdef HAVE_QCA2
+        Konversation::Cipher *m_cipher;
+        #endif
 };
 #endif

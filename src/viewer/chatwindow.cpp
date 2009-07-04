@@ -12,23 +12,20 @@
 
 #include "chatwindow.h"
 #include "channel.h"
+#include "query.h"
 #include "ircview.h"
 #include "server.h"
-#include "application.h" ////// header renamed
+#include "application.h"
 #include "logfilereader.h"
 
-#include <qdatetime.h>
-#include <qdir.h>
-#include <qregexp.h>
-#include <qtextcodec.h>
-#include <qlayout.h>
+#include <QDateTime>
+#include <QDir>
+#include <QRegExp>
+#include <QTextCodec>
 #include <QKeyEvent>
 
-#include <klocale.h>
-#include <kdialog.h>
-#include <kdebug.h>
-#include <kactioncollection.h>
-#include <kaction.h>
+#include <KDialog>
+#include <KActionCollection>
 
 
 ChatWindow::ChatWindow(QWidget* parent) : KVBox(parent)
@@ -359,9 +356,9 @@ void ChatWindow::logText(const QString& text)
                 firstLog=false;
             }
 
-            QTime time=QTime::currentTime();
-            QString logLine(QString("[%1] [%2] %3\n").arg(QDate::currentDate().toString()).
-                arg(time.toString("hh:mm:ss")).arg(text));
+            QDateTime dateTime = QDateTime::currentDateTime();
+            QString logLine(QString("[%1] [%2] %3\n").arg(KGlobal::locale()->formatDate(dateTime.date(), KLocale::LongDate)).
+                arg(KGlobal::locale()->formatTime(dateTime.time(), true)).arg(text));
 
             logStream << logLine;
 
@@ -532,6 +529,62 @@ void ChatWindow::activateTabNotification(Konversation::TabNotifyType type)
 void ChatWindow::resetTabNotification()
 {
     m_currentTabNotify = Konversation::tnfNone;
+}
+
+void ChatWindow::msgHelper(const QString& recipient, const QString& message)
+    {
+    // A helper method for handling the 'msg' and 'query' (with a message
+    // payload) commands. When the user uses either, we show a visualiza-
+    // tion of what he/she has sent in the form of '<-> target> message>'
+    // in the chat view of the tab the command was issued in, as well as
+    // add the resulting message to the target view (if present), in that
+    // order. The order is especially important as the origin and target
+    // views may be the same, and the two messages may thus appear toge-
+    // ther and should be sensibly ordered.
+
+    if (recipient.isEmpty() || message.isEmpty())
+        return;
+
+    bool isAction = false;
+    QString result = message;
+    QString visualization;
+
+    if (result.startsWith(Preferences::self()->commandChar() + "me"))
+    {
+        isAction = true;
+
+        result = result.mid(4);
+        visualization = QString("* %1 %2").arg(m_server->getNickname()).arg(result);
+    }
+    else
+        visualization = result;
+
+    appendQuery(recipient, visualization, true);
+
+    if (!getServer())
+        return;
+
+    ::Query* query = m_server->getQueryByName(recipient);
+
+    if (query)
+    {
+        if (isAction)
+            query->appendAction(m_server->getNickname(), result);
+        else
+            query->appendQuery(m_server->getNickname(), result);
+
+        return;
+    }
+
+    ::Channel* channel = m_server->getChannelByName(recipient);
+
+    if (channel)
+    {
+        if (isAction)
+            channel->appendAction(m_server->getNickname(), result);
+        else
+            channel->append(m_server->getNickname(), result);
+    }
 }
 
 #include "chatwindow.moc"

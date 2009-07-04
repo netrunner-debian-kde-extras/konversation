@@ -13,28 +13,26 @@
 */
 
 #include "logfilereader.h"
-#include "application.h" ////// header renamed
+#include "application.h"
 #include "ircview.h"
 #include "ircviewbox.h"
 
-#include <qlayout.h>
-#include <qfile.h>
-#include <qpushbutton.h>
-#include <qlabel.h>
-#include <qregexp.h>
-#include <qspinbox.h>
+#include <QLayout>
+#include <QFile>
+#include <QPushButton>
+#include <QLabel>
+#include <QRegExp>
+#include <QSpinBox>
 #include <QTextCodec>
 #include <QKeyEvent>
 
-#include <kdialog.h>
-#include <ktoolbar.h>
-#include <kmessagebox.h>
-#include <kfiledialog.h>
-#include <klocale.h>
-#include <kdebug.h>
-#include <kio/copyjob.h>
-#include <kio/jobclasses.h>
+#include <KDialog>
+#include <KToolBar>
+#include <KMessageBox>
+#include <KFileDialog>
+#include <KLocale>
 #include <KJobUiDelegate>
+#include <KIO/CopyJob>
 
 
 LogfileReader::LogfileReader(QWidget* parent, const QString& log) : ChatWindow(parent)

@@ -15,19 +15,16 @@
 #include "urlcatcher.h"
 #include "channel.h"
 #include "server.h"
-#include "application.h" ////// header renamed
+#include "application.h"
 #include "viewcontainer.h"
 
-#include <qpushbutton.h>
-#include <qclipboard.h>
-#include <qlayout.h>
+#include <QPushButton>
+#include <QClipboard>
 #include <QTreeWidget>
+#include <QLayout>
 
-#include <kdebug.h>
-#include <krun.h>
-#include <kfiledialog.h>
-#include <kshell.h>
-#include <ktreewidgetsearchline.h>
+#include <KFileDialog>
+#include <KTreeWidgetSearchLine>
 
 
 UrlCatcher::UrlCatcher(QWidget* parent) : ChatWindow(parent)
@@ -133,24 +130,8 @@ void UrlCatcher::addUrl(const QString& who,const QString& url)
 void UrlCatcher::openUrl(QTreeWidgetItem* item)
 {
     QString url = item->text(1);
-    if (!Preferences::self()->useCustomBrowser() || url.toLower().startsWith(QLatin1String("mailto:")) )
-    {
-        new KRun(KUrl(url), KonversationApplication::instance()->getMainWindow());
-    }
-    else
-    {
-        QString cmd = Preferences::webBrowserCmd();
-        cmd.replace("%u", url);
-        KProcess *proc = new KProcess;
-        QStringList cmdAndArgs = KShell::splitArgs(cmd);
-        *proc << cmdAndArgs;
-        //    This code will also work, but starts an extra shell process.
-        //    kDebug() "cmd = " << cmd;
-        //    *proc << cmd;
-        //    proc->setUseShell(true);
-        proc->startDetached();
-        delete proc;
-    }
+
+    Application::openUrl(url);
 }
 
 void UrlCatcher::openUrlClicked()

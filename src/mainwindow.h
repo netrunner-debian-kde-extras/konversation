@@ -13,8 +13,8 @@
   Copyright (C) 2005-2008 Eike Hein <hein@kde.org>
 */
 
-#ifndef KONVERSATIONMAINWINDOW_H
-#define KONVERSATIONMAINWINDOW_H
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
 
 #include "channel.h"
 #include "preferences.h"
@@ -22,7 +22,7 @@
 #include "nickinfo.h"
 #include "server.h"
 
-#include <qstringlist.h>
+#include <QStringList>
 
 #include <kxmlguiwindow.h>
 #include <kaction.h>
@@ -32,21 +32,21 @@ class KToggleAction;
 
 class KonviSettingsDialog;
 class ViewContainer;
-class KonversationStatusBar;
 
 namespace Konversation
 {
     class ServerListDialog;
     class TrayIcon;
+    class StatusBar;
 }
 
-class KonversationMainWindow : public KXmlGuiWindow
+class MainWindow : public KXmlGuiWindow
 {
     Q_OBJECT
 
     public:
-        KonversationMainWindow();
-        ~KonversationMainWindow();
+        MainWindow();
+        ~MainWindow();
 
         ViewContainer* getViewContainer() { return m_viewContainer; }
         Konversation::TrayIcon* systemTrayIcon() const { return m_trayIcon; }
@@ -124,7 +124,7 @@ class KonversationMainWindow : public KXmlGuiWindow
         virtual bool event(QEvent* e);
 
         ViewContainer* m_viewContainer;
-        KonversationStatusBar* m_statusBar;
+        Konversation::StatusBar* m_statusBar;
         Konversation::TrayIcon* m_trayIcon;
 
         KToggleAction* hideMenuBarAction;
@@ -137,4 +137,4 @@ class KonversationMainWindow : public KXmlGuiWindow
         bool m_closeApp;
 };
 
-#endif /* KONVERSATIONMAINWINDOW_H */
+#endif /* MAINWINDOW_H */

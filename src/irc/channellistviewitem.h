@@ -15,9 +15,9 @@
 #ifndef CHANNELLISTVIEWITEM_H
 #define CHANNELLISTVIEWITEM_H
 
-#include <qstring.h>
+#include <QString>
 
-#include <k3listview.h>
+#include <K3ListView>
 
 
 class ChannelListViewItem : public K3ListViewItem

@@ -12,27 +12,26 @@
 
 #include "servergroupdialog.h"
 #include "identity.h"
-#include "application.h" ////// header renamed
+#include "application.h"
 #include "viewcontainer.h"
 #include "preferences.h"
 #include "serversettings.h"
-#include "serverdialog.h"
-#include "channeldialog.h"
 #include "identitydialog.h"
 #include "ui_servergroupdialogui.h"
+#include "ui_serverdialogui.h"
+#include "ui_channeldialogui.h"
 
-#include <qlayout.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qtoolbutton.h>
-#include <qcheckbox.h>
+#include <QLayout>
+#include <QLabel>
+#include <QPushButton>
+#include <QToolButton>
+#include <QCheckBox>
 
-#include <klocale.h>
-#include <kiconloader.h>
-#include <kmessagebox.h>
-#include <kcombobox.h>
-#include <kpushbutton.h>
-#include <klineedit.h>
+#include <KIconLoader>
+#include <KMessageBox>
+#include <KComboBox>
+#include <KPushButton>
+#include <KLineEdit>
 
 
 namespace Konversation
@@ -51,17 +50,12 @@ namespace Konversation
         m_mainWidget = new Ui::ServerGroupDialogUI();
         m_mainWidget->setupUi(mainWidget());
 
-        m_mainWidget->m_networkLabel->setBuddy(m_mainWidget->m_nameEdit);
-
-        m_mainWidget->m_identityLabel->setBuddy(m_mainWidget->m_identityCBox);
         connect(m_mainWidget->m_editIdentityButton, SIGNAL(clicked()), this, SLOT(editIdentity()));
 
         IdentityList identities = Preferences::identityList();
 
         for (IdentityList::ConstIterator it = identities.constBegin(); it != identities.constEnd(); ++it)
             m_mainWidget->m_identityCBox->addItem((*it)->getName());
-
-        m_mainWidget->m_commandsLabel->setBuddy(m_mainWidget->m_commandEdit);
 
         m_mainWidget->m_removeServerButton->setIcon(KIcon("list-remove"));
         m_mainWidget->m_upServerBtn->setIcon(KIcon("arrow-up"));
@@ -393,7 +387,7 @@ namespace Konversation
             }
 
             m_identitiesNeedsUpdate = true; // and what's this for?
-            ViewContainer* vc = KonversationApplication::instance()->getMainWindow()->getViewContainer();
+            ViewContainer* vc = Application::instance()->getMainWindow()->getViewContainer();
             vc->updateViewEncoding(vc->getFrontView());
         }
         delete dlg;
@@ -412,6 +406,112 @@ namespace Konversation
         else
         {
             KDialog::accept();
+        }
+    }
+
+    ServerDialog::ServerDialog(const QString& title, QWidget *parent)
+    : KDialog(parent)
+    {
+        setCaption(title);
+        setButtons(Ok|Cancel);
+
+        m_mainWidget = new Ui::ServerDialogUI();
+        m_mainWidget->setupUi(mainWidget());
+        m_mainWidget->m_serverEdit->setFocus();
+
+        connect(this, SIGNAL(okClicked()), this, SLOT(slotOk()));
+        connect( m_mainWidget->m_serverEdit, SIGNAL(textChanged(const QString &)),this,SLOT( slotServerNameChanged( const QString& ) ) );
+        slotServerNameChanged( m_mainWidget->m_serverEdit->text() );
+    }
+
+    ServerDialog::~ServerDialog()
+    {
+    }
+
+    void ServerDialog::slotServerNameChanged( const QString &text )
+    {
+        enableButtonOk( !text.isEmpty() );
+    }
+
+    void ServerDialog::setServerSettings(const ServerSettings& server)
+    {
+        m_mainWidget->m_serverEdit->setText(server.host());
+        m_mainWidget->m_portSBox->setValue(server.port());
+        m_mainWidget->m_passwordEdit->setText(server.password());
+        m_mainWidget->m_sslChBox->setChecked(server.SSLEnabled());
+    }
+
+    ServerSettings ServerDialog::serverSettings()
+    {
+        ServerSettings server;
+        server.setHost(m_mainWidget->m_serverEdit->text());
+        server.setPort(m_mainWidget->m_portSBox->value());
+        server.setPassword(m_mainWidget->m_passwordEdit->text());
+        server.setSSLEnabled(m_mainWidget->m_sslChBox->isChecked());
+
+        return server;
+    }
+
+    void ServerDialog::slotOk()
+    {
+        if (m_mainWidget->m_serverEdit->text().isEmpty())
+        {
+            KMessageBox::error(this, i18n("The server address is required."));
+        }
+        else
+        {
+            accept();
+        }
+    }
+
+    ChannelDialog::ChannelDialog(const QString& title, QWidget *parent)
+    : KDialog(parent)
+    {
+        setCaption(title);
+        setButtons(Ok|Cancel);
+
+        m_mainWidget = new Ui::ChannelDialogUI();
+        m_mainWidget->setupUi(mainWidget());
+
+        m_mainWidget->m_channelEdit->setFocus();
+        connect(this,SIGNAL(okClicked()),this,SLOT(slotOk()));
+        connect(m_mainWidget->m_channelEdit, SIGNAL(textChanged(const QString &)),this,SLOT( slotServerNameChanged( const QString& ) ) );
+        slotServerNameChanged( m_mainWidget->m_channelEdit->text() );
+    }
+
+    ChannelDialog::~ChannelDialog()
+    {
+    }
+
+    void ChannelDialog::slotServerNameChanged( const QString &text )
+    {
+        enableButtonOk( !text.isEmpty() );
+    }
+
+    void ChannelDialog::setChannelSettings(const ChannelSettings& channel)
+    {
+        m_mainWidget->m_channelEdit->setText(channel.name());
+        m_mainWidget->m_passwordEdit->setText(channel.password());
+    }
+
+    ChannelSettings ChannelDialog::channelSettings()
+    {
+        ChannelSettings channel;
+        channel.setName(m_mainWidget->m_channelEdit->text());
+        channel.setPassword(m_mainWidget->m_passwordEdit->text());
+
+        return channel;
+    }
+
+    void ChannelDialog::slotOk()
+    {
+        if (m_mainWidget->m_channelEdit->text().isEmpty())
+        {
+            KMessageBox::error(this, i18n("The channel name is required."));
+        }
+        else
+        {
+            accept();
         }
     }
 

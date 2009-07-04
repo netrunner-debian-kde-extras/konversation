@@ -14,30 +14,25 @@
 */
 
 #include "outputfilter.h"
-#include "application.h" ////// header renamed
-#include "mainwindow.h" ////// header renamed
+#include "application.h"
+#include "mainwindow.h"
 #include "awaymanager.h"
 #include "ignore.h"
 #include "server.h"
 #include "irccharsets.h"
 #include "linkaddressbook/addressbook.h"
 #include "query.h"
+#include <config-konversation.h>
 
-#include <qstringlist.h>
-#include <qfile.h>
-#include <qfileinfo.h>
-#include <qregexp.h>
-#include <qmap.h>
-#include <qtextcodec.h>
+#include <QStringList>
+#include <QFile>
+#include <QFileInfo>
+#include <QRegExp>
+#include <QTextCodec>
 #include <QByteArray>
 
-#include <klocale.h>
-#include <kdebug.h>
 #include <KIO/PasswordDialog>
-#include <kconfig.h>
-#include <kdeversion.h>
-#include <kshell.h>
-#include <kmessagebox.h>
+#include <KMessageBox>
 
 
 namespace Konversation
@@ -94,7 +89,7 @@ namespace Konversation
         return false;
     }
 
-    QStringList OutputFilter::splitForEncoding(const QString& inputLine, int max)
+    QStringList OutputFilter::splitForEncoding(const QString& inputLine, int max, int segments)
     {
         int sublen = 0; //The encoded length since the last split
         int charLength = 0; //the length of this char
@@ -121,7 +116,7 @@ namespace Konversation
         Q_ASSERT(codec);
         int index = 0;
 
-        while(text.length() > max)
+        while(text.length() > max && (segments == -1 || finals.size() < segments-1))
         {
             // The most important bit - turn the current char into a QCString so we can measure it
             QByteArray ch = codec->fromUnicode(QString(text[index]));
@@ -184,9 +179,9 @@ namespace Konversation
                     inputLine = testNickServ;
             }
         }
-        
+
         //perform variable expansion according to prefs
-        inputLine = Konversation::doVarExpansion(inputLine); 
+        inputLine = Konversation::doVarExpansion(inputLine);
 
         QString line=inputLine.toLower();
 
@@ -213,10 +208,10 @@ namespace Konversation
             else if(command == "notice")   result = parseNotice(parameter);
             else if(command == "j")        result = parseJoin(parameter);
             else if(command == "me")       result = parseMe(parameter, destination);
-            else if(command == "msg")      result = parseMsg(myNick,parameter, false);
-            else if(command == "m")        result = parseMsg(myNick,parameter, false);
+            else if(command == "msg")      result = parseMsg(parameter, false);
+            else if(command == "m")        result = parseMsg(parameter, false);
             else if(command == "smsg")     result = parseSMsg(parameter);
-            else if(command == "query")    result = parseMsg(myNick,parameter, true);
+            else if(command == "query")    result = parseMsg(parameter, true);
             else if(command == "op")       result = parseOp(parameter);
             else if(command == "deop")     result = parseDeop(myNick,parameter);
             else if(command == "hop")      result = parseHop(parameter);
@@ -247,9 +242,9 @@ namespace Konversation
             else if(command == "raw")      result = parseRaw(parameter);
             else if(command == "dcc")      result = parseDcc(parameter);
             else if(command == "konsole")  parseKonsole();
-            else if(command == "aaway")    KonversationApplication::instance()->getAwayManager()->requestAllAway(parameter);
-            else if(command == "aunaway")    KonversationApplication::instance()->getAwayManager()->requestAllUnaway();
-            else if(command == "aback")    KonversationApplication::instance()->getAwayManager()->requestAllUnaway();
+            else if(command == "aaway")    Application::instance()->getAwayManager()->requestAllAway(parameter);
+            else if(command == "aunaway")    Application::instance()->getAwayManager()->requestAllUnaway();
+            else if(command == "aback")    Application::instance()->getAwayManager()->requestAllUnaway();
             else if(command == "ame")      result = parseAme(parameter);
             else if(command == "amsg")     result = parseAmsg(parameter);
             else if(command == "omsg")     result = parseOmsg(parameter);
@@ -265,6 +260,7 @@ namespace Konversation
             else if(command == "dns")      result = parseDNS(parameter);
             else if(command == "kill")     result = parseKill(parameter);
             else if(command == "queuetuner") result = parseShowTuner(parameter);
+            else if(command == "keyx")     result = parseKeyX(parameter);
 
             // Forward unknown commands to server
             else
@@ -310,7 +306,7 @@ namespace Konversation
 
     OutputFilterResult OutputFilter::parseShowTuner(const QString &parameter)
     {
-        KonversationApplication *konvApp = static_cast<KonversationApplication*>(KApplication::kApplication());
+        Application *konvApp = static_cast<Application*>(KApplication::kApplication());
         OutputFilterResult result;
 
         if(parameter.isEmpty() || parameter == "on")
@@ -618,92 +614,107 @@ namespace Konversation
     {
         OutputFilterResult result;
 
-        if (!destination.isEmpty() && !parameter.isEmpty())
+        if (destination.isEmpty() || parameter.isEmpty())
         {
-            result.toServer = "PRIVMSG " + destination + " :" + '\x01' + "ACTION " + parameter + '\x01';
-            result.output = parameter;
-            result.type = Action;
+            result = usage(i18n("Usage: %1ME text", commandChar));
+
+            return result;
+        }
+
+        QString command("PRIVMSGACTION \x01\x01");
+
+        QStringList outputList = splitForEncoding(parameter, m_server->getPreLength(command, destination), 2);
+
+        if (outputList.count() > 1)
+        {
+            command = "PRIVMSG";
+
+            outputList += splitForEncoding(outputList.at(1), m_server->getPreLength(command, destination));
+
+            outputList.removeAt(1);
+
+            result.output.clear();
+            result.outputList = outputList;
+
+            for (int i = 0; i < outputList.count(); ++i)
+            {
+                if (i == 0)
+                    result.toServerList += "PRIVMSG " + destination + " :" + '\x01' + "ACTION " + outputList.at(i) + '\x01';
+                else
+                    result.toServerList += "PRIVMSG " + destination + " :" + outputList.at(i);
+            }
         }
         else
         {
-            result = usage(i18n("Usage: %1ME text", commandChar));
+            result.output = parameter;
+            result.toServer = "PRIVMSG " + destination + " :" + '\x01' + "ACTION " + parameter + '\x01';
         }
+
+        result.type = Action;
 
         return result;
     }
 
-    OutputFilterResult OutputFilter::parseMsg(const QString &myNick, const QString &parameter, bool isQuery)
+    OutputFilterResult OutputFilter::parseMsg(const QString &parameter, bool commandIsQuery)
     {
         OutputFilterResult result;
         QString recipient = parameter.section(' ', 0, 0, QString::SectionSkipEmpty);
         QString message = parameter.section(' ', 1);
         QString output;
 
+        bool recipientIsAChannel = false;
+
         if (recipient.isEmpty())
         {
-            result = error("Error: You need to specify a recipient.");
+            result = error(i18n("Error: You need to specify a recipient."));
             return result;
         }
+        else
+            recipientIsAChannel = m_server->isAChannel(recipient);
 
-        if (isQuery && m_server->isAChannel(recipient))
+        if (commandIsQuery && recipientIsAChannel)
         {
-            result = error("Error: You cannot open queries to channels.");
+            result = error(i18n("Error: You cannot open queries to channels."));
             return result;
         }
 
         if (message.trimmed().isEmpty())
         {
-            //empty result - we don't want to send any message to the server
-            if (!isQuery)
+            // Empty result - we don't want to send any message to the server.
+            if (!commandIsQuery)
             {
-                 result = error("Error: You need to specify a message.");
+                result = error(i18n("Error: You need to specify a message."));
                 return result;
             }
         }
-        else if (message.startsWith(commandChar+"me"))
-        {
-            result.toServer = "PRIVMSG " + recipient + " :" + '\x01' + "ACTION " + message.mid(4) + '\x01';
-            output = QString("* %1 %2").arg(myNick).arg(message.mid(4));
-        }
         else
         {
-            result.toServer = "PRIVMSG " + recipient + " :" + message;
             output = message;
+
+            if (message.startsWith(commandChar+"me"))
+                result.toServer = "PRIVMSG " + recipient + " :" + '\x01' + "ACTION " + message.mid(4) + '\x01';
+            else
+                result.toServer = "PRIVMSG " + recipient + " :" + message;
         }
 
-        ::Query *query;
-
-        if (isQuery || output.isEmpty())
+        // If this is a /query, always open a query window.
+        // Treat "/msg nick" as "/query nick".
+        if (commandIsQuery || output.isEmpty())
         {
-            //if this is a /query, always open a query window.
-            //treat "/msg nick" as "/query nick"
-
-            //Note we have to be a bit careful here.
-            //We only want to create ('obtain') a new nickinfo if we have done /query
-            //or "/msg nick".  Not "/msg nick message".
+            // Note we have to be a bit careful here.
+            // We only want to create ('obtain') a new nickinfo if we have done /query
+            // or "/msg nick".  Not "/msg nick message".
             NickInfoPtr nickInfo = m_server->obtainNickInfo(recipient);
-            query = m_server->addQuery(nickInfo, true /*we initiated*/);
-            //force focus if the user did not specify any message
+            ::Query* query = m_server->addQuery(nickInfo, true /*we initiated*/);
+
+            // Force focus if the user did not specify any message.
             if (output.isEmpty()) emit showView(query);
         }
-        else
-        {
-            //We have  "/msg nick message"
-            query = m_server->getQueryByName(recipient);
-        }
 
-        if (query && !output.isEmpty())
-        {
-            if (message.startsWith(commandChar+"me"))
-                                                  //log if and only if the query open
-                query->appendAction(m_server->getNickname(), message.mid(4));
-            else
-                                                  //log if and only if the query open
-                query->appendQuery(m_server->getNickname(), output);
-        }
+        // Result should be completely empty;
+        if (output.isEmpty()) return result;
 
-        if (output.isEmpty()) return result;       //result should be completely empty;
-        //FIXME - don't do below line if query is focused
+        //FIXME: Don't do below line if query is focused.
         result.output = output;
         result.typeString= recipient;
         result.type = PrivateMessage;
@@ -1065,8 +1076,6 @@ namespace Konversation
     {
         OutputFilterResult result;
 
-        QString groupName = m_server->getDisplayName();
-
         int serverGroupId = -1;
 
         if (m_server->getServerGroup())
@@ -1079,7 +1088,7 @@ namespace Konversation
             for(int index = 0; index < list.count(); index++)
             {
                 // Try to remove current pattern
-                if(!Preferences::removeNotify(groupName, list[index]))
+                if(!Preferences::removeNotify(serverGroupId, list[index]))
                 {
                     // If remove failed, try to add it instead
                     if(!Preferences::addNotify(serverGroupId, list[index]))
@@ -1093,7 +1102,7 @@ namespace Konversation
         // show (new) notify list to user
         //TODO FIXME uh, wtf? my brain has no room in it for this kind of fucking shit
 
-        QString list = Preferences::notifyStringByGroupName(groupName) + ' ' + Konversation::Addressbook::self()->allContactsNicksForServer(m_server->getServerName(), m_server->getDisplayName()).join(" ");
+        QString list = Preferences::notifyStringByGroupId(serverGroupId) + ' ' + Konversation::Addressbook::self()->allContactsNicksForServer(m_server->getServerName(), m_server->getDisplayName()).join(" ");
 
         result.typeString = i18n("Notify");
 
@@ -1601,13 +1610,13 @@ namespace Konversation
 
     OutputFilterResult OutputFilter::parseSetKey(const QString& parameter)
     {
-
         QStringList parms = parameter.split(' ', QString::SkipEmptyParts);
 
+        #ifdef HAVE_QCA2
         if (parms.count() == 1 && !destination.isEmpty())
             parms.prepend(destination);
         else if (parms.count() != 2)
-            return usage(i18n("Usage: %1setkey [<nick|channel>] <key> sets the encryption key for nick or channel. %2setkey <key> when in a channel or query tab to set the key for it.", commandChar, commandChar) );
+            return usage(i18n("Usage: %1setkey <nick|channel> <key> sets the encryption key for nick or channel. %1setkey <key> when in a channel or query tab sets the key for it. The key field recognizes \"cbc:\" and \"ecb:\" prefixes to set the block cipher mode of operation to either Cipher-Block Chaining or Electronic Codebook. The mode it defaults to when no prefix is given can be changed in the configuration dialog under Behavior -> Connection -> Encryption -> Default Encryption Type, with the default for that setting being Electronic Codebook (ECB).", commandChar) );
 
         m_server->setKeyForRecipient(parms[0], parms[1].toLocal8Bit());
 
@@ -1617,30 +1626,55 @@ namespace Konversation
             m_server->getQueryByName(parms[0])->setEncryptedOutput(true);
 
         return info(i18n("The key for %1 has been set.", parms[0]));
+        #else
+        return error(i18n("Setting an encryption key requires Konversation to have been built with support for the Qt Cryptographic Architecture (QCA) library. Contact your distributor about a Konversation package with QCA support, or rebuild Konversation with QCA present."));
+        #endif
+    }
+
+    OutputFilterResult OutputFilter::parseKeyX(const QString& parameter)
+    {
+        QStringList parms = parameter.split(' ', QString::SkipEmptyParts);
+
+        #ifdef HAVE_QCA2
+        if (parms.count() == 0 && !destination.isEmpty())
+            parms.prepend(destination);
+        else if (parms.count() !=1)
+            return usage(i18n("Usage: %1keyx <nick|channel> triggers DH1080 key exchange with the target.", commandChar));
+
+        m_server->initKeyExchange(parms[0]);
+
+        return info(i18n("Beginning DH1080 key exchange with %1.", parms[0]));
+        #else
+        return error(i18n("Setting an encryption key requires Konversation to have been built with support for the Qt Cryptographic Architecture (QCA) library. Contact your distributor about a Konversation package with QCA support, or rebuild Konversation with QCA present."));
+        #endif
     }
 
     OutputFilterResult OutputFilter::parseDelKey(const QString& prametr)
     {
         QString parameter(prametr.isEmpty()?destination:prametr);
-
         if(parameter.isEmpty() || parameter.contains(' '))
             return usage(i18n("Usage: %1delkey <nick> or <channel> deletes the encryption key for nick or channel", commandChar));
 
-        m_server->setKeyForRecipient(parameter, "");
+        if(!m_server->getKeyForRecipient(parameter).isEmpty())
+        {
+            m_server->setKeyForRecipient(parameter, "");
 
-        if (isAChannel(parameter) && m_server->getChannelByName(parameter))
-            m_server->getChannelByName(parameter)->setEncryptedOutput(false);
-        else if (m_server->getQueryByName(parameter))
-            m_server->getQueryByName(parameter)->setEncryptedOutput(false);
+            if (isAChannel(parameter) && m_server->getChannelByName(parameter))
+                m_server->getChannelByName(parameter)->setEncryptedOutput(false);
+            else if (m_server->getQueryByName(parameter))
+                m_server->getQueryByName(parameter)->setEncryptedOutput(false);
 
-        return info(i18n("The key for %1 has been deleted.", parameter));
+            return info(i18n("The key for %1 has been deleted.", parameter));
+        }
+        else
+            return error(i18n("No key has been set for %1.", parameter));
     }
 
     OutputFilterResult OutputFilter::parseShowKey(const QString& prametr)
     {
         QString parameter(prametr.isEmpty()?destination:prametr);
         QString key(m_server->getKeyForRecipient(parameter));
-        QWidget *mw=KonversationApplication::instance()->getMainWindow();
+        QWidget *mw=Application::instance()->getMainWindow();
         if (!key.isEmpty())
             KMessageBox::information(mw, i18n("The key for %1 is \"%2\".", parameter, key), i18n("Blowfish"));
         else

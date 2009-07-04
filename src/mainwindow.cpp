@@ -13,13 +13,13 @@
   Copyright (C) 2005-2008 Eike Hein <hein@kde.org>
 */
 
-#include "mainwindow.h" ////// header renamed
-#include "application.h" ////// header renamed
+#include "mainwindow.h"
+#include "application.h"
 #include "linkaddressbook/addressbook.h"
-#include "settingsdialog.h" ////// header renamed
+#include "settingsdialog.h"
 #include "viewcontainer.h"
-#include "statusbar.h" ////// header renamed
-#include "bookmarkhandler.h" ////// header renamed
+#include "statusbar.h"
+#include "bookmarkhandler.h"
 #include "trayicon.h"
 #include "serverlistdialog.h"
 #include "identitydialog.h"
@@ -27,10 +27,10 @@
 #include "irccharsets.h"
 #include "connectionmanager.h"
 #include "awaymanager.h"
-#include "transfermanager.h" ////// header renamed
+#include "transfermanager.h"
 
-#include <qnamespace.h>
-#include <qsignalmapper.h>
+
+#include <QSignalMapper>
 #include <QSplitter>
 
 #include <KActionCollection>
@@ -38,28 +38,25 @@
 #include <KToggleAction>
 #include <KSelectAction>
 #include <KAuthorized>
-#include <kacceleratormanager.h>
-#include <kstandardaction.h>
-#include <kaction.h>
-#include <kdebug.h>
-#include <klocale.h>
-#include <kmessagebox.h>
-#include <kmenubar.h>
+#include <KAcceleratorManager>
+#include <KStandardAction>
+#include <KMessageBox>
+#include <KMenuBar>
 #include <kdeversion.h>
-#include <kedittoolbar.h>
-#include <kmenu.h>
-#include <kwindowsystem.h>
-#include <kglobal.h>
-#include <kstandarddirs.h>
+#include <KEditToolBar>
+#include <KMenu>
+#include <KWindowSystem>
+#include <KGlobal>
+#include <KStandardDirs>
 #include <kabc/addressbook.h>
 #include <kabc/errorhandler.h>
 #include <KShortcutsDialog>
-#include <kstandardshortcut.h>
+#include <KStandardShortcut>
 #include <KActionMenu>
-#include <knotifyconfigwidget.h>
+#include <KNotifyConfigWidget>
 
 
-KonversationMainWindow::KonversationMainWindow() : KXmlGuiWindow(0)
+MainWindow::MainWindow() : KXmlGuiWindow(0)
 {
     m_hasDirtySettings = false;
     m_closeApp = false;
@@ -70,19 +67,19 @@ KonversationMainWindow::KonversationMainWindow() : KXmlGuiWindow(0)
     setCentralWidget(m_viewContainer->getWidget());
 
     //used for event compression. See header file for resetHasDirtySettings()
-    connect(KonversationApplication::instance(), SIGNAL(appearanceChanged()), this, SLOT(resetHasDirtySettings()));
-    connect(KonversationApplication::instance(), SIGNAL(appearanceChanged()), this, SLOT(updateTrayIcon()));
+    connect(Application::instance(), SIGNAL(appearanceChanged()), this, SLOT(resetHasDirtySettings()));
+    connect(Application::instance(), SIGNAL(appearanceChanged()), this, SLOT(updateTrayIcon()));
 
 
     // Set up view container
-    connect(KonversationApplication::instance(), SIGNAL(appearanceChanged()), m_viewContainer, SLOT(updateAppearance()));
+    connect(Application::instance(), SIGNAL(appearanceChanged()), m_viewContainer, SLOT(updateAppearance()));
     connect(KGlobalSettings::self(), SIGNAL(iconChanged(int)), m_viewContainer, SLOT(updateViewIcons()));
-    connect(KonversationApplication::instance(), SIGNAL(serverGroupsChanged(const Konversation::ServerGroupSettingsPtr)),
+    connect(Application::instance(), SIGNAL(serverGroupsChanged(const Konversation::ServerGroupSettingsPtr)),
             m_viewContainer, SLOT(updateViews(const Konversation::ServerGroupSettingsPtr)));
     connect(m_viewContainer, SIGNAL(autoJoinToggled(const Konversation::ServerGroupSettingsPtr)),
-            KonversationApplication::instance(), SIGNAL(serverGroupsChanged(const Konversation::ServerGroupSettingsPtr)));
+            Application::instance(), SIGNAL(serverGroupsChanged(const Konversation::ServerGroupSettingsPtr)));
     connect(m_viewContainer, SIGNAL(setWindowCaption(const QString&)), this, SLOT(setCaption(const QString&)));
-    connect(KonversationApplication::instance()->getConnectionManager(),
+    connect(Application::instance()->getConnectionManager(),
             SIGNAL(connectionChangedState(Server*, Konversation::ConnectionState)),
             m_viewContainer, SLOT(connectionStateChanged(Server*, Konversation::ConnectionState)));
     connect(this, SIGNAL(triggerRememberLine()), m_viewContainer, SLOT(insertRememberLine()));
@@ -91,8 +88,8 @@ KonversationMainWindow::KonversationMainWindow() : KXmlGuiWindow(0)
     connect(this, SIGNAL(insertMarkerLine()), m_viewContainer, SLOT(insertMarkerLine()));
 
     // Set up status bar
-    m_statusBar = new KonversationStatusBar(this);
-    connect(KonversationApplication::instance(), SIGNAL(appearanceChanged()), m_statusBar, SLOT(updateAppearance()));
+    m_statusBar = new Konversation::StatusBar(this);
+    connect(Application::instance(), SIGNAL(appearanceChanged()), m_statusBar, SLOT(updateAppearance()));
 
     createStandardStatusBarAction();
 
@@ -420,7 +417,7 @@ KonversationMainWindow::KonversationMainWindow() : KXmlGuiWindow(0)
     awayAction->setShortcut(KShortcut("Ctrl+Shift+A"));
     awayAction->setEnabled(false);
     awayAction->setIcon(KIcon("im-user-away"));
-    connect(awayAction, SIGNAL(triggered(bool)), KonversationApplication::instance()->getAwayManager(), SLOT(toggleGlobalAway(bool)));
+    connect(awayAction, SIGNAL(triggered(bool)), Application::instance()->getAwayManager(), SLOT(toggleGlobalAway(bool)));
     actionCollection()->addAction("toggle_away", awayAction);
 
     action=new KAction(this);
@@ -524,18 +521,18 @@ KonversationMainWindow::KonversationMainWindow() : KXmlGuiWindow(0)
 
 }
 
-KonversationMainWindow::~KonversationMainWindow()
+MainWindow::~MainWindow()
 {
 }
 
-QSize KonversationMainWindow::sizeHint() const
+QSize MainWindow::sizeHint() const
 {
     return QSize(700, 500); // Give the app a sane default size
 }
 
-int KonversationMainWindow::confirmQuit()
+int MainWindow::confirmQuit()
 {
-    KonversationApplication* konvApp = static_cast<KonversationApplication*>(kapp);
+    Application* konvApp = static_cast<Application*>(kapp);
 
     if (konvApp->getConnectionManager()->connectionCount() == 0)
         return KMessageBox::Continue;
@@ -567,7 +564,7 @@ int KonversationMainWindow::confirmQuit()
     return result;
 }
 
-void KonversationMainWindow::quitProgram()
+void MainWindow::quitProgram()
 {
     if (Preferences::self()->showTrayIcon() &&
         sender() != m_trayIcon &&
@@ -578,9 +575,9 @@ void KonversationMainWindow::quitProgram()
     close();
 }
 
-bool KonversationMainWindow::queryClose()
+bool MainWindow::queryClose()
 {
-    KonversationApplication* konvApp = static_cast<KonversationApplication*>(kapp);
+    Application* konvApp = static_cast<Application*>(kapp);
 
     if (!konvApp->sessionSaving())
     {
@@ -607,7 +604,7 @@ bool KonversationMainWindow::queryClose()
     return true;
 }
 
-void KonversationMainWindow::hideEvent(QHideEvent *e)
+void MainWindow::hideEvent(QHideEvent *e)
 {
     emit triggerRememberLine();
 
@@ -616,21 +613,21 @@ void KonversationMainWindow::hideEvent(QHideEvent *e)
     KXmlGuiWindow::hideEvent(e);
 }
 
-void KonversationMainWindow::showEvent(QShowEvent *e)
+void MainWindow::showEvent(QShowEvent *e)
 {
     emit cancelRememberLine();
 
     KXmlGuiWindow::showEvent(e);
 }
 
-void KonversationMainWindow::leaveEvent(QEvent* e)
+void MainWindow::leaveEvent(QEvent* e)
 {
     m_statusBar->clearMainLabelTempText();
 
     KXmlGuiWindow::leaveEvent(e);
 }
 
-bool KonversationMainWindow::event(QEvent* e)
+bool MainWindow::event(QEvent* e)
 {
     if (e->type() == QEvent::WindowActivate)
     {
@@ -648,7 +645,7 @@ bool KonversationMainWindow::event(QEvent* e)
     return KXmlGuiWindow::event(e);
 }
 
-void KonversationMainWindow::settingsChangedSlot()
+void MainWindow::settingsChangedSlot()
 {
     // This is for compressing the events. m_hasDirtySettings is set to true
     // when the settings have changed, then set to false when the app reacts to it
@@ -657,17 +654,17 @@ void KonversationMainWindow::settingsChangedSlot()
     // The appearanceChanged signal is connected to resetHasDirtySettings to reset this bool
     if (!m_hasDirtySettings)
     {
-        QTimer::singleShot(0, KonversationApplication::instance(), SIGNAL(appearanceChanged()));
+        QTimer::singleShot(0, Application::instance(), SIGNAL(appearanceChanged()));
         m_hasDirtySettings = true;
     }
 }
 
-void KonversationMainWindow::resetHasDirtySettings()
+void MainWindow::resetHasDirtySettings()
 {
     m_hasDirtySettings = false;
 }
 
-void KonversationMainWindow::updateTrayIcon()
+void MainWindow::updateTrayIcon()
 {
     m_trayIcon->setNotificationEnabled(Preferences::self()->trayNotify());
 
@@ -677,7 +674,7 @@ void KonversationMainWindow::updateTrayIcon()
         m_trayIcon->hide();
 }
 
-void KonversationMainWindow::toggleMenubar(bool dontShowWarning)
+void MainWindow::toggleMenubar(bool dontShowWarning)
 {
     if (hideMenuBarAction->isChecked())
         menuBar()->show();
@@ -696,7 +693,7 @@ void KonversationMainWindow::toggleMenubar(bool dontShowWarning)
     Preferences::self()->setShowMenuBar(hideMenuBarAction->isChecked());
 }
 
-void KonversationMainWindow::focusAndShowErrorMessage(const QString &errorMsg)
+void MainWindow::focusAndShowErrorMessage(const QString &errorMsg)
 {
     show();
     KWindowSystem::demandAttention(winId());
@@ -704,7 +701,7 @@ void KonversationMainWindow::focusAndShowErrorMessage(const QString &errorMsg)
     KMessageBox::error(this, errorMsg);
 }
 
-void KonversationMainWindow::openPrefsDialog()
+void MainWindow::openPrefsDialog()
 {
     //An instance of your dialog could be already created and could be cached,
     //in which case you want to display the cached dialog instead of creating
@@ -719,7 +716,7 @@ void KonversationMainWindow::openPrefsDialog()
     m_settingsDialog->show();
 }
 
-void KonversationMainWindow::openKeyBindings()
+void MainWindow::openKeyBindings()
 {
     // Change a number of action names to make them friendlier for the shortcut list.
     actionCollection()->action("tab_notifications")->setText(i18n("Toggle Notifications"));
@@ -745,12 +742,12 @@ void KonversationMainWindow::openKeyBindings()
     actionCollection()->action("open_logfile")->setText(openLogFileString);
 }
 
-void KonversationMainWindow::openServerList()
+void MainWindow::openServerList()
 {
     if (!m_serverListDialog)
     {
         m_serverListDialog = new Konversation::ServerListDialog(i18n("Server List"), this);
-        KonversationApplication* konvApp = static_cast<KonversationApplication*>(kapp);
+        Application* konvApp = static_cast<Application*>(kapp);
 
         connect(m_serverListDialog, SIGNAL(serverGroupsChanged(const Konversation::ServerGroupSettingsPtr)),
                 konvApp, SIGNAL(serverGroupsChanged(const Konversation::ServerGroupSettingsPtr)));
@@ -766,71 +763,75 @@ void KonversationMainWindow::openServerList()
     m_serverListDialog->show();
 }
 
-void KonversationMainWindow::openQuickConnectDialog()
+void MainWindow::openQuickConnectDialog()
 {
     emit showQuickConnectDialog();
 }
 
 // open the preferences dialog and show the watched nicknames page
-void KonversationMainWindow::openNotify()
+void MainWindow::openNotify()
 {
     openPrefsDialog();
     if (m_settingsDialog) m_settingsDialog->openWatchedNicknamesPage();
 }
 
-void KonversationMainWindow::openIdentitiesDialog()
+void MainWindow::openIdentitiesDialog()
 {
-    Konversation::IdentityDialog dlg(this);
-
-    if (dlg.exec() == KDialog::Accepted)
+    QPointer<Konversation::IdentityDialog> dlg = new Konversation::IdentityDialog(this);
+    if (dlg->exec() == KDialog::Accepted)
     {
         if (m_serverListDialog)
             m_serverListDialog->updateServerList();
         m_viewContainer->updateViewEncoding(m_viewContainer->getFrontView());
     }
+    delete dlg;
 }
 
-IdentityPtr KonversationMainWindow::editIdentity(IdentityPtr identity)
+IdentityPtr MainWindow::editIdentity(IdentityPtr identity)
 {
     IdentityPtr newIdentity;
 
-    Konversation::IdentityDialog dlg(this);
-    newIdentity = dlg.setCurrentIdentity(identity);
+    QPointer<Konversation::IdentityDialog> dlg = new Konversation::IdentityDialog(this);
+    newIdentity = dlg->setCurrentIdentity(identity);
 
-    if ((dlg.exec() == KDialog::Accepted) && m_serverListDialog)
+    if ((dlg->exec() == KDialog::Accepted) && m_serverListDialog)
     {
         m_serverListDialog->updateServerList();
+        delete dlg;
         return newIdentity;
     }
     else
+    {
+        delete dlg;
         return IdentityPtr();
+    }
 }
 
-void KonversationMainWindow::openNotifications()
+void MainWindow::openNotifications()
 {
     (void) KNotifyConfigWidget::configure(this);
 }
 
-void KonversationMainWindow::notifyAction(int connectionId, const QString& nick)
+void MainWindow::notifyAction(int connectionId, const QString& nick)
 {
-    KonversationApplication* konvApp = static_cast<KonversationApplication*>(kapp);
+    Application* konvApp = static_cast<Application*>(kapp);
     Server* server = konvApp->getConnectionManager()->getServerByConnectionId(connectionId);
     if (server) server->notifyAction(nick);
 }
 
 // TODO: Let an own class handle notify things
-void KonversationMainWindow::setOnlineList(Server* notifyServer,const QStringList& /*list*/, bool /*changed*/)
+void MainWindow::setOnlineList(Server* notifyServer,const QStringList& /*list*/, bool /*changed*/)
 {
     emit nicksNowOnline(notifyServer);
     // FIXME  if (changed && nicksOnlinePanel) newText(nicksOnlinePanel, QString::null, true);
 }
 
-QString KonversationMainWindow::currentURL(bool passNetwork)
+QString MainWindow::currentURL(bool passNetwork)
 {
     return m_viewContainer->currentViewURL(passNetwork);
 }
 
-QString KonversationMainWindow::currentTitle()
+QString MainWindow::currentTitle()
 {
     return m_viewContainer->currentViewTitle();
 }

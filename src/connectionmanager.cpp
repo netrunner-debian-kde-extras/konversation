@@ -14,14 +14,13 @@
 #include "serversettings.h"
 #include "servergroupsettings.h"
 #include "config/preferences.h"
-#include "application.h" ////// header renamed
-#include "mainwindow.h" ////// header renamed
+#include "application.h"
+#include "mainwindow.h"
 #include "statuspanel.h"
 
-#include <qregexp.h>
+#include <QRegExp>
 
-#include <klocale.h>
-#include <kmessagebox.h>
+#include <KMessageBox>
 
 
 ConnectionManager::ConnectionManager(QObject* parent) : QObject(parent)
@@ -103,8 +102,8 @@ void ConnectionManager::connectTo(Konversation::ConnectionFlag flag, ConnectionS
 
     if (!identity || !validateIdentity(identity)) return;
 
-    KonversationApplication* konvApp = static_cast<KonversationApplication *>(kapp);
-    KonversationMainWindow* mainWindow = konvApp->getMainWindow();
+    Application* konvApp = static_cast<Application *>(kapp);
+    MainWindow* mainWindow = konvApp->getMainWindow();
 
     Server* server = new Server(this, settings);
 
@@ -366,7 +365,7 @@ void ConnectionManager::decodeAddress(const QString& address, ConnectionSettings
     {
         // If host is found to be the name of a server group.
 
-        int serverGroupId = Preferences::serverGroupIdByName(host);
+        int serverGroupId = Preferences::serverGroupIdsByName(host).first();
 
         Konversation::ServerGroupSettingsPtr serverGroup;
 
@@ -379,13 +378,12 @@ void ConnectionManager::decodeAddress(const QString& address, ConnectionSettings
     }
     else
     {
-        if (Preferences::serverGroupByServer(host))
+        QList<Konversation::ServerGroupSettingsPtr> groups = Preferences::serverGroupsByServer(host);
+        if (!groups.isEmpty())
         {
             // If the host is found to be part of a server group's server list.
 
-            Konversation::ServerGroupSettingsPtr serverGroup;
-
-            serverGroup = Preferences::serverGroupByServer(host);
+            Konversation::ServerGroupSettingsPtr serverGroup = groups.first();
 
             settings.setServerGroup(serverGroup);
         }
@@ -405,8 +403,8 @@ bool ConnectionManager::reuseExistingConnection(ConnectionSettings& settings, bo
     ConnectionDupe dupeType;
     bool doReuse = true;
 
-    KonversationApplication* konvApp = static_cast<KonversationApplication *>(kapp);
-    KonversationMainWindow* mainWindow = konvApp->getMainWindow();
+    Application* konvApp = static_cast<Application *>(kapp);
+    MainWindow* mainWindow = konvApp->getMainWindow();
 
     QMap<int, Server*>::ConstIterator it;
 
@@ -499,8 +497,8 @@ bool ConnectionManager::reuseExistingConnection(ConnectionSettings& settings, bo
 
 bool ConnectionManager::validateIdentity(IdentityPtr identity, bool interactive)
 {
-    KonversationApplication* konvApp = static_cast<KonversationApplication *>(kapp);
-    KonversationMainWindow* mainWindow = konvApp->getMainWindow();
+    Application* konvApp = static_cast<Application *>(kapp);
+    MainWindow* mainWindow = konvApp->getMainWindow();
 
     QString errors;
 

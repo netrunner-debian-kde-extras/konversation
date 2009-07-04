@@ -28,39 +28,28 @@
 #include "emoticons.h"
 #include "notificationhandler.h"
 
-#include <qstringlist.h>
-#include <qregexp.h>
-#include <qclipboard.h>
-#include <qbrush.h>
-#include <qevent.h>
-#include <qmap.h>
-#include <qcolor.h>
-#include <qscrollbar.h>
-#include <qcursor.h>
+#include <QStringList>
+#include <QRegExp>
+#include <QClipboard>
+#include <QBrush>
+#include <QEvent>
+#include <QColor>
+#include <QScrollBar>
+#include <QCursor>
+#include <QMouseEvent>
 
-#include <kmessagebox.h>
-#include <klocale.h>
-#include <kurl.h>
+#include <KMessageBox>
+#include <KUrl>
+#include <KBookmarkManager>
 #include <kbookmarkdialog.h>
-#include <kbookmarkmanager.h>
-#include <kdeversion.h>
-#include <kstandarddirs.h>
-#include <krun.h>
-#include <kiconloader.h>
-#include <kshell.h>
-#include <kmenu.h>
-#include <kaction.h>
-#include <kglobalsettings.h>
-#include <kdebug.h>
-#include <kmenubar.h>
-#include <kfiledialog.h>
-#include <kio/job.h>
-#include <kglobal.h>
-#include <kauthorized.h>
+#include <KIconLoader>
+#include <KMenu>
+#include <KGlobalSettings>
+#include <KFileDialog>
+#include <KAuthorized>
 #include <KActionCollection>
-#include <KToolInvocation>
-#include <kio/copyjob.h>
 #include <KToggleAction>
+#include <KIO/CopyJob>
 
 class QPixmap;
 class QDropEvent;
@@ -87,6 +76,8 @@ IRCView::clear()
 //IRCView::hasLines()
 //IRCView::setupChannelPopupMenu()
 #endif
+
+using namespace Konversation;
 
 IRCView::IRCView(QWidget* parent, Server* newServer) : KTextBrowser(parent)
 {
@@ -127,6 +118,9 @@ IRCView::IRCView(QWidget* parent, Server* newServer) : KTextBrowser(parent)
 
     m_popup = new KMenu(this);
     m_popup->setObjectName("ircview_context_menu");
+
+    m_popup->addSeparator();
+
     m_copyUrlClipBoard =m_popup->addAction(KIcon("edit-copy"), i18n("Copy Link Address"), this, SLOT( copyUrl() )) ;
     m_copyUrlClipBoard->setVisible( false );
 
@@ -549,7 +543,7 @@ QString IRCView::createNickLine(const QString& nick, const QString& defaultColor
         }
         else if (m_chatWin->getType() == ChatWindow::DccChat)
         {
-            QString ownNick = static_cast<DccChat*>(m_chatWin)->getOwnNick();
+            QString ownNick = static_cast<DCC::Chat*>(m_chatWin)->getOwnNick();
 
             if (nick != ownNick)
                 nickColor = Preferences::self()->nickColor(Konversation::colorForNick(ownNick)).name();
@@ -593,7 +587,7 @@ QString IRCView::filter(const QString& line, const QString& defaultColor, const 
 bool doHighlight, bool parseURL, bool self)
 {
     QString filteredLine(line);
-    KonversationApplication* konvApp = static_cast<KonversationApplication*>(kapp);
+    Application* konvApp = static_cast<Application*>(kapp);
 
     //Since we can't turn off whitespace simplification withouteliminating text wrapping,
     //  if the line starts with a space turn it into a non-breaking space.
@@ -691,7 +685,7 @@ bool doHighlight, bool parseURL, bool self)
     }
     else if (m_chatWin->getType() == ChatWindow::DccChat)
     {
-        ownNick = static_cast<DccChat*>(m_chatWin)->getOwnNick();
+        ownNick = static_cast<DCC::Chat*>(m_chatWin)->getOwnNick();
     }
 
     if(doHighlight && (whoSent != ownNick) && !self)
@@ -1050,27 +1044,11 @@ void IRCView::openLink(const QString& url, bool)
     {
         if (link.startsWith(QLatin1String("irc://")))
         {
-            KonversationApplication* konvApp = KonversationApplication::instance();
+            Application* konvApp = Application::instance();
             konvApp->getConnectionManager()->connectTo(Konversation::SilentlyReuseConnection, link);
         }
-        else if (!Preferences::self()->useCustomBrowser() || link.startsWith(QLatin1String("mailto:")))
-        {
-            if (link.startsWith(QLatin1String("mailto:")))
-                KToolInvocation::invokeMailer(KUrl(link));
-            else
-                KToolInvocation::invokeBrowser(link);
-        }
         else
-        {
-            QString cmd = Preferences::self()->webBrowserCmd();
-            cmd.replace("%u", link);
-            QStringList cmdAndArgs = KShell::splitArgs(cmd);
-            //      This code will also work, but starts an extra shell process.
-            //      kdDebug() << "cmd = " << cmd;
-            //      *proc << cmd;
-            //      proc->setUseShell(true);
-            KProcess::startDetached(cmdAndArgs);
-        }
+            Application::openUrl(link);
     }
     //FIXME: Don't do channel links in DCC Chats to begin with since they don't have a server.
     else if (link.startsWith(QLatin1String("##")) && m_server && m_server->isConnected())
@@ -1235,19 +1213,22 @@ void IRCView::contextMenuEvent(QContextMenuEvent* ev)
     }
     else
     {
-        KActionCollection* actionCollection = KonversationApplication::instance()->getMainWindow()->actionCollection();
+        KActionCollection* actionCollection = Application::instance()->getMainWindow()->actionCollection();
         KToggleAction* toggleMenuBarAction = static_cast<KToggleAction*>(actionCollection->action("options_show_menubar"));
+        QAction* separator = NULL;
 
         if(toggleMenuBarAction && !toggleMenuBarAction->isChecked())
         {
             m_popup->insertAction(m_copyUrlClipBoard, toggleMenuBarAction);
+            separator = m_popup->insertSeparator(m_copyUrlClipBoard);
         }
 
         m_popup->exec(ev->globalPos());
 
-        if(toggleMenuBarAction && !toggleMenuBarAction->isChecked())
+        if(separator)
         {
             m_popup->removeAction(toggleMenuBarAction);
+            m_popup->removeAction(separator);
         }
     }
 }

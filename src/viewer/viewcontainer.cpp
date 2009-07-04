@@ -12,7 +12,7 @@
 #include "viewcontainer.h"
 #include "queuetuner.h"
 #include "viewtree.h"
-#include "application.h" ////// header renamed
+#include "application.h"
 #include "notificationhandler.h"
 #include "images.h"
 #include "irccharsets.h"
@@ -20,8 +20,8 @@
 #include "logfilereader.h"
 #include "konsolepanel.h"
 #include "urlcatcher.h"
-#include "transferpanel.h" ////// header renamed
-#include "transfermanager.h" ////// header renamed
+#include "transferpanel.h"
+#include "transfermanager.h"
 #include "chat.h"
 #include "statuspanel.h"
 #include "channel.h"
@@ -39,8 +39,6 @@
 #include <QSplitter>
 #include <QToolButton>
 
-#include <KDebug>
-#include <KLocale>
 #include <KTabWidget>
 #include <KMessageBox>
 #include <KGlobalSettings>
@@ -49,13 +47,14 @@
 #include <KRun>
 #include <KUrl>
 
-
 #include <KActionCollection>
 #include <KToggleAction>
 #include <KSelectAction>
 #include <KXMLGUIClient>
 
-ViewContainer::ViewContainer(KonversationMainWindow* window):
+using namespace Konversation;
+
+ViewContainer::ViewContainer(MainWindow* window):
         m_window(window)
         , m_tabWidget(0)
         , m_viewTree(0)
@@ -67,7 +66,7 @@ ViewContainer::ViewContainer(KonversationMainWindow* window):
         , m_queryViewCount(0)
 {
 
-    images = KonversationApplication::instance()->images();
+    images = Application::instance()->images();
 
     m_viewTreeSplitter = new QSplitter(m_window);
     m_viewTreeSplitter->setObjectName("view_tree_splitter");
@@ -82,7 +81,7 @@ ViewContainer::ViewContainer(KonversationMainWindow* window):
 
     initializeSplitterSizes();
 
-    m_dccPanel = new DccTransferPanel(m_tabWidget);
+    m_dccPanel = new DCC::TransferPanel(m_tabWidget);
     m_dccPanel->hide();
     m_dccPanelOpen = false;
     connect(m_dccPanel, SIGNAL(updateTabNotification(ChatWindow*,const Konversation::TabNotifyType&)), this, SLOT(setViewNotification(ChatWindow*,const Konversation::TabNotifyType&)));
@@ -184,7 +183,7 @@ void ViewContainer::setupViewTree()
     m_viewTreeSplitter->setStretchFactor(m_viewTreeSplitter->indexOf(m_viewTree), 0);
     m_viewTree->hide();
 
-    connect(KonversationApplication::instance(), SIGNAL(appearanceChanged()), m_viewTree, SLOT(updateAppearance()));
+    connect(Application::instance(), SIGNAL(appearanceChanged()), m_viewTree, SLOT(updateAppearance()));
     connect(this, SIGNAL(viewChanged(ChatWindow*)), m_viewTree, SLOT(selectView(ChatWindow*)));
     connect(this, SIGNAL(removeView(ChatWindow*)), m_viewTree, SLOT(removeView(ChatWindow*)));
     connect(this, SIGNAL(contextMenuClosed()), m_viewTree, SLOT(unHighlight()));
@@ -285,7 +284,7 @@ void ViewContainer::setViewTreeShown(bool show)
 
 void ViewContainer::removeViewTree()
 {
-    disconnect(KonversationApplication::instance(), SIGNAL(appearanceChanged()), m_viewTree, SLOT(updateAppearance()));
+    disconnect(Application::instance(), SIGNAL(appearanceChanged()), m_viewTree, SLOT(updateAppearance()));
     disconnect(this, SIGNAL(viewChanged(ChatWindow*)), m_viewTree, SLOT(selectView(ChatWindow*)));
     disconnect(this, SIGNAL(removeView(ChatWindow*)), m_viewTree, SLOT(removeView(ChatWindow*)));
     disconnect(this, SIGNAL(contextMenuClosed()), m_viewTree, SLOT(unHighlight()));
@@ -1188,7 +1187,7 @@ void ViewContainer::addView(ChatWindow* view, const QString& label, bool weiniti
     ChatWindow::WindowType wtype;
     QIcon iconSet;
 
-    connect(KonversationApplication::instance(), SIGNAL(appearanceChanged()), view, SLOT(updateAppearance()));
+    connect(Application::instance(), SIGNAL(appearanceChanged()), view, SLOT(updateAppearance()));
     connect(view, SIGNAL(setStatusBarTempText(const QString&)), this, SIGNAL(setStatusBarTempText(const QString&)));
     connect(view, SIGNAL(clearStatusBarTempText()), this, SIGNAL(clearStatusBarTempText()));
     connect(view, SIGNAL(closing(ChatWindow*)), this, SIGNAL(removeView(ChatWindow*)));
@@ -2019,7 +2018,7 @@ void ViewContainer::addUrlCatcher()
     {
         m_urlCatcherPanel=new UrlCatcher(m_tabWidget);
         addView(m_urlCatcherPanel, i18n("URL Catcher"));
-        KonversationApplication *konvApp=static_cast<KonversationApplication *>(KApplication::kApplication());
+        Application *konvApp=static_cast<Application *>(KApplication::kApplication());
         connect(konvApp,SIGNAL(catchUrl(const QString&,const QString&)),
             m_urlCatcherPanel, SLOT(addUrl(const QString&,const QString&)) );
         connect(m_urlCatcherPanel, SIGNAL(deleteUrl(const QString&,const QString&)),
@@ -2091,7 +2090,7 @@ void ViewContainer::deleteDccPanel()
     }
 }
 
-DccTransferPanel* ViewContainer::getDccPanel()
+DCC::TransferPanel* ViewContainer::getDccPanel()
 {
     return m_dccPanel;
 }
@@ -2100,15 +2099,15 @@ void ViewContainer::addDccChat(const QString& myNick,const QString& nick,const Q
 {
     if (!listen) // Someone else initiated dcc chat
     {
-        KonversationApplication* konv_app=static_cast<KonversationApplication*>(KApplication::kApplication());
+        Application* konv_app=static_cast<Application*>(KApplication::kApplication());
         konv_app->notificationHandler()->dccChat(m_frontView, nick);
     }
 
     if (m_frontServer)
     {
-        DccChat* dccChatPanel=listen
-            ? new DccChat(m_tabWidget, listen, m_frontServer, myNick, nick )
-            : new DccChat(m_tabWidget, listen, m_frontServer, myNick, nick, arguments[1], arguments[2].toInt() );
+        DCC::Chat* dccChatPanel=listen
+            ? new DCC::Chat(m_tabWidget, listen, m_frontServer, myNick, nick )
+            : new DCC::Chat(m_tabWidget, listen, m_frontServer, myNick, nick, arguments[1], arguments[2].toInt() );
 
         connect(dccChatPanel, SIGNAL(updateTabNotification(ChatWindow*,const Konversation::TabNotifyType&)), this, SLOT(setViewNotification(ChatWindow*,const Konversation::TabNotifyType&)));
 

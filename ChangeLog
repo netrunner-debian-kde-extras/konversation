@@ -1,3 +1,147 @@
+Changes from 1.2-alpha3 to 1.2-alpha4:
+Alpha 4 marks a significant milestone on the way to feature completeness
+for the v1.2 release of Konversation. New features in this release inclu-
+de UPnP NAT traversal support for DCC file transfers and chats, DH1080
+key exchange support for Blowfish encryption and the ability to automati-
+cally split very long actions (i.e. usage of the '/me' command) into mul-
+tiple messages conforming to the maximum length of an IRC message (this
+was already supported for regular messages for some time).
+
+Many bugs have also been addressed, including an important fix for invita-
+tion dialogs causing disconnects by timeout if they were not dealt with
+quickly enough - and not only is the rewritten dialog non-blocking, it also
+allows for handling multiple outstanding invitations in a single dialog,
+rather than a new dialog being displayed for every additional invitation
+received. Other fixes include further interface polish and robustness and
+correctness improvements to Blowfish encryption, the Watched Nicks Online
+system and the storage of per-tab encoding preferences in the configuration
+file.
+
+A closing note for packagers: In this release we have replaced our cus-
+tom implementation of the Blowfish encryption algorithm with an optional
+dependency on the Qt Cryptographic Architecture (QCA) library in version
+2 or higher. By implication, Blowfish encryption support is now optional:
+A QCA2-enabled build will have it; a build not using QCA2 will not.
+
+
+* Changed links to KDE's (and hence our) bug tracker throughout the code-
+  base to use https://bugs.kde.org/ rather than http://bugs.kde.org/
+* Fixed the "Show Menubar" item not getting removed from the chat view
+  context view after showing the menubar again. Also added a separator
+  after the item (only visible when it is present).
+* Switched the timestamps in log files to use KDE's locale settings for
+  formatting the date and time, as the equivalent Qt API used previously
+  seems to look at the value of LC_NUMERIC to detemine the format in Qt
+  4, which doesn't meet user expectations.
+* Fixed the "Date" column in the topic history of the Channel Options
+  Dialog not using KDE's locale settings to format the value.
+* Fixed the "Date" column in the Channel Settings dialog's topic history
+  sorting alphabetically rather than by date.
+* Improved Windows support in the bundled 'media' script.
+* Fixed the vertical alignment of the topic label when using Qt 4.5 (it's
+  now top-aligned rather than vertically centered, i.e. making the topic
+  area bigger than the topic by dragging the splitter down won't cause
+  the topic to move down to stay in the vertical center anymore -- Qt 4.5
+  is needed because a method to retrieve the document margin from the chat
+  view to use as the top margin for the topic label is new in that version).
+* Fixed various chat view messages containing date/time values (channel
+  created, topic set, online since, ban info) not using KDE's locale set-
+  tings for their display format.
+* Added support for using UPnP for NAT traversal for DCC file transfers
+  (both active send and passive receive) and DCC chat. When UPnP is ena-
+  bled in both Konversation and your router, Konversation now knows how
+  to ask your router to set up the necessary port forward, and also how
+  to to ask it to remove it later.
+* Added support for the KDE 4 version of JuK to the bundled 'media' script.
+* Fixed '/msg <channel> <message>' not displaying the resulting message in
+  the target channel when the user is attending that channel.
+* Made the appearance of the line informing about the message being sent
+  with '/msg <nick|channel> <message>' consistent between channel, query
+  and status tabs (it now looks like in the former in the latter two as
+  well).
+* Fixed the visualization of '/msg <nick|channel> <message>' (i.e. the
+  '<-> target> message' line) being shown only after adding the resul-
+  ting message to the target chat view (if present), causing an odd-look-
+  ing order if the origin view and the target view are the same.
+* Watched Nicknames Online now generally operates on networks by their
+  internal unique IDs rather than names, enabling it to handle multiple
+  configured networks with identical names properly.
+* Konversation's custom implementation of Blowfish encryption has been
+  replaced with an optional dependency on the Qt Cryptographic Architec-
+  ture (QCA) library version 2.
+* The '/setkey [nick|channel] <key>' command now recognizes 'cbc:' (ci-
+  pher-block chaining) and 'ecb:' (electronic codebook) prefixes in the
+  key field to set a particular Blowfish block cipher mode of operation,
+  defaulting to the value of a config dialog preference (Behavior -> Co-
+  nnection-> Encryption -> Default Encryption Type, the default is Elec-
+  tronic Codebook (ECB)) when no prefix is given.
+* Fixed crash when opening links with ' in them when the "Custom Browser"
+  preference is enabled in Konversation's config dialog.
+* Improved consistency of link opening behavior between the chat view, the
+  topic label and the URL catcher (all three now use the new-in-KDE-4 KTool-
+  Invocation API to invoke the KDE default browser, whereas the topic label
+  and the URL catcher were still using KRun until now).
+* Fixed a bug that could cause the state of the spell-checking setting for
+  the input line to be lost across application restarts.
+* Added support for considering square brackets ([]) part of URLs.
+* Fixed the code producing multiple JOIN commands for auto-join as neces-
+  sary to stay under the 512 byte limit for a single command to take the
+  length of the commas in the commands into account when calculating the
+  distribution of the channels among the multiple lines, as well as not
+  to list channels falling at the boundary twice, once in the current and
+  once in the following line. In English: Fixed auto-join with a massive
+  amount of channels possibly not joining all channels correctly.
+* Fixed a bug causing re-joining of password-protected channels to fail
+  on reconnects when those channels also had another mode with a parame-
+  ter set.
+* Fixed a bug that caused query lines written by the user that are so long
+  that they need to be split up into multiple messages not to display in
+  the query text color.
+* Fixed a bug causing query lines written by the user that are so long they
+  need to be split up into multiple messages for sending not to be displayed
+  in the configured query text color.
+* Fixed the status bar showing HTML data when hovering the contents of the
+  info label area at the top of query tabs. The data was actually supposed
+  to be displayed as a tooltip (just like the nickname list item tooltips
+  in channel tabs), and is now.
+* Fixed a bug causing the automatic away system to set the user away again
+  on the next periodic activity check when no further mouse/keyboard acti-
+  vity occurs after unlocking the screen/ending the screensaver.
+* Implemented splitting up of overly long actions (i.e. usage of the the
+  '/me' command) into multiple messages to stay under the 512 byte message
+  length limit (in raw format) imposed by the IRC protocol. As with the
+  normal message splitting, this is aware of how multi-byte/variable-width
+  text encodings and sender hostmask length (which is part of the message on
+  the receiving end) factor into the matter. Note that only the first message
+  is actually sent as an action, the other messages are sent as normal messa-
+  ges - intentionally, as this seemed to make the most sense formatting-wise.
+* Fixed the dialog box appearing upon receiving an invitation to join a chan-
+  nel causing a disconnect by timeout when not being dealt with by the user
+  swiftly enough.
+* Multiple invitations to join channels are now being handled by a single
+  dialog box per connection, so that receiving many invitations in short
+  order no longer means getting flooded with dialog boxes.
+* Implemented DH1080 key exchange support for Blowfish encryption. You can
+  use the '/keyx' command to initiate a key exchange.
+* The raw log now shows encrypted incoming and outgoing messages in their
+  encrypted form. Previously, incoming messages were being decrypted before
+  being shown, and outgoing messages were being shown before encryption
+  took place, thus not capturing what was actually coming from or going to
+  the network socket as is the intent of the raw log.
+* Fixed a bug causing unrecognized channel mode characters being shown as
+  their decimal value in the chat view messages announcing them having been
+  set or removed.
+* Per-tab encoding settings for tabs belonging to a connection to a configu-
+  red network (i.e. one found in the Server List dialog) now reference the
+  unique ID rather than the name of the network in the config file, making
+  things work reliably across restarts even when there are multiple identi-
+  cally named networks. Encoding config file entries for tabs belonging to
+  connections to servers that are not part of a configured network continue
+  to reference the server hostnames.
+* Fixed the "(away)" label in front of the input line, indicating away sta-
+  tus, not showing up in query tabs.
+
+
 Changes from 1.2-alpha2 to 1.2-alpha3:
 This third alpha fixes a fair amount of annoying bugs encountered in
 day-to-day usage, as well as a serious bug in handling NAMES messages

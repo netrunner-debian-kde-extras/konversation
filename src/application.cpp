@@ -13,18 +13,17 @@
   Copyright (C) 2005-2008 Eike Hein <hein@kde.org>
 */
 
-#include "application.h" ////// header renamed
+#include "application.h"
 #include "connectionmanager.h"
 #include "awaymanager.h"
-#include "transfermanager.h" ////// header renamed
+#include "transfermanager.h"
 #include "viewcontainer.h"
 #include "highlight.h"
 #include "server.h"
-#include "sound.h" ////// header renamed
+#include "sound.h"
 #include "quickconnectdialog.h"
 #include "dbus.h"
 #include "linkaddressbook/addressbook.h"
-
 #include "servergroupsettings.h"
 #include "serversettings.h"
 #include "channel.h"
@@ -33,23 +32,24 @@
 #include "commit.h"
 #include "version.h"
 
-#include <qtextcodec.h>
-#include <qregexp.h>
-#include <qfileinfo.h>
+#include <QTextCodec>
+#include <QRegExp>
+#include <QFileInfo>
 #include <QtDBus/QDBusConnection>
 
-#include <kdebug.h>
-#include <kcmdlineargs.h>
-#include <kconfig.h>
-#include <kdeversion.h>
-#include <kstandarddirs.h>
-#include <klocale.h>
-#include <kmessagebox.h>
-#include <kiconloader.h>
-#include <kglobal.h>
+#include <KCmdLineArgs>
+#include <KConfig>
+#include <KStandardDirs>
+#include <KMessageBox>
+#include <KIconLoader>
+#include <KShell>
+#include <KToolInvocation>
+#include <KCharMacroExpander>
 
 
-KonversationApplication::KonversationApplication()
+using namespace Konversation;
+
+Application::Application()
 : KUniqueApplication(true, true)
 {
     mainWindow = 0;
@@ -59,12 +59,16 @@ KonversationApplication::KonversationApplication()
     osd = 0;
 }
 
-KonversationApplication::~KonversationApplication()
+Application::~Application()
 {
     kDebug();
     Server::_stashRates();
     Preferences::self()->writeConfig();
     saveOptions(false);
+
+    // Delete m_dccTransferManager here as its destructor depends on the main loop being in tact which it
+    // won't be if if we wait till Qt starts deleting parent pointers.
+    delete m_dccTransferManager;
 
     delete m_images;
     //delete dbusObject;
@@ -74,7 +78,7 @@ KonversationApplication::~KonversationApplication()
     osd = 0;
 }
 
-int KonversationApplication::newInstance()
+int Application::newInstance()
 {
     KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
     QString url; //TODO FIXME: does this really have to be a QCString?
@@ -95,7 +99,7 @@ int KonversationApplication::newInstance()
         connect(m_connectionManager, SIGNAL(connectionChangedAwayState(bool)), m_awayManager, SLOT(updateGlobalAwayAction(bool)));
 
         // an instance of DccTransferManager needs to be created before GUI class instances' creation.
-        m_dccTransferManager = new DccTransferManager(this);
+        m_dccTransferManager = new DCC::TransferManager(this);
 
         // make sure all vars are initialized properly
         quickConnectDialog = 0;
@@ -133,7 +137,7 @@ int KonversationApplication::newInstance()
         connect(KGlobalSettings::self(), SIGNAL(appearanceChanged()), this, SIGNAL(appearanceChanged()));
 
         // open main window
-        mainWindow = new KonversationMainWindow();
+        mainWindow = new MainWindow();
         //setMainWidget(mainWindow); //TODO FIXME do we need any of the other semantics this use to gain us?
 
         connect(mainWindow, SIGNAL(showQuickConnectDialog()), this, SLOT(openQuickConnectDialog()) );
@@ -152,16 +156,18 @@ int KonversationApplication::newInstance()
         bool openServerList = Preferences::self()->showServerList();
 
         // handle autoconnect on startup
-        Konversation::ServerGroupList serverGroups = Preferences::serverGroupList();
+        Konversation::ServerGroupHash serverGroups = Preferences::serverGroupHash();
 
         if (url.isEmpty() && !args->isSet("server"))
         {
-            for (Konversation::ServerGroupList::iterator it = serverGroups.begin(); it != serverGroups.end(); ++it)
+            QHashIterator<int, Konversation::ServerGroupSettingsPtr> it(serverGroups);
+            while(it.hasNext())
             {
-                if ((*it)->autoConnectEnabled())
+                it.next();
+                if (it.value()->autoConnectEnabled())
                 {
                     openServerList = false;
-                    m_connectionManager->connectTo(Konversation::CreateNewConnection, (*it)->id());
+                    m_connectionManager->connectTo(Konversation::CreateNewConnection, it.key());
                 }
             }
         }
@@ -212,12 +218,12 @@ int KonversationApplication::newInstance()
     return KUniqueApplication::newInstance();
 }
 
-KonversationApplication* KonversationApplication::instance()
+Application* Application::instance()
 {
-    return static_cast<KonversationApplication*>(KApplication::kApplication());
+    return static_cast<Application*>(KApplication::kApplication());
 }
 
-void KonversationApplication::prepareShutdown()
+void Application::prepareShutdown()
 {
     if (mainWindow)
         mainWindow->getViewContainer()->prepareShutdown();
@@ -238,17 +244,17 @@ void KonversationApplication::prepareShutdown()
     }
 }
 
-void KonversationApplication::showQueueTuner(bool p)
+void Application::showQueueTuner(bool p)
 {
     getMainWindow()->getViewContainer()->showQueueTuner(p);
 }
 
-void KonversationApplication::dbusMultiServerRaw(const QString &command)
+void Application::dbusMultiServerRaw(const QString &command)
 {
     sendMultiServerCommand(command.section(' ', 0,0), command.section(' ', 1));
 }
 
-void KonversationApplication::dbusRaw(const QString& connection, const QString &command)
+void Application::dbusRaw(const QString& connection, const QString &command)
 {
     Server* server = 0;
 
@@ -263,7 +269,7 @@ void KonversationApplication::dbusRaw(const QString& connection, const QString &
 }
 
 
-void KonversationApplication::dbusSay(const QString& connection, const QString& target, const QString& command)
+void Application::dbusSay(const QString& connection, const QString& target, const QString& command)
 {
     Server* server = 0;
 
@@ -277,12 +283,12 @@ void KonversationApplication::dbusSay(const QString& connection, const QString& 
     if (server) server->dbusSay(target, command);
 }
 
-void KonversationApplication::dbusInfo(const QString& string)
+void Application::dbusInfo(const QString& string)
 {
     mainWindow->getViewContainer()->appendToFrontmost(i18n("D-Bus"), string, 0);
 }
 
-void KonversationApplication::readOptions()
+void Application::readOptions()
 {
     // get standard config file
 
@@ -369,10 +375,11 @@ void KonversationApplication::readOptions()
     // Read the new server settings
     QStringList groups = KGlobal::config()->groupList().filter(QRegExp("ServerGroup [0-9]+"));
     QMap<int,QStringList> notifyList;
+    QList<int> sgKeys;
 
     if(!groups.isEmpty())
     {
-        Konversation::ServerGroupList serverGroups;
+        Konversation::ServerGroupHash serverGroups;
         QStringList::iterator it;
         QStringList tmp1;
         QStringList::iterator it2;
@@ -438,10 +445,11 @@ void KonversationApplication::readOptions()
 
             serverGroup->setChannelHistory(channelHistory);
 
-            serverGroups.append(serverGroup);
+            serverGroups.insert(serverGroup->id(), serverGroup);
+            sgKeys.append(serverGroup->id());
         }
 
-        Preferences::setServerGroupList(serverGroups);
+        Preferences::setServerGroupHash(serverGroups);
     }
 
     // Notify Settings and lists.  Must follow Server List.
@@ -580,6 +588,8 @@ void KonversationApplication::readOptions()
         Preferences::self()->setAliasList(newList);
 
     // Channel Encodings
+
+    //Legacy channel encodings read in Jun. 29, 2009
     KConfigGroup cgChannelEncodings(KGlobal::config()->group("Channel Encodings"));
     QMap<QString,QString> channelEncodingEntries=cgChannelEncodings.entryMap();
     QRegExp re("^(.+) ([^\\s]+)$");
@@ -589,9 +599,24 @@ void KonversationApplication::readOptions()
     {
         if(re.indexIn(*itStr) > -1)
         {
-            int serverGroupId = Preferences::serverGroupIdByName(re.cap(1));
-            if(serverGroupId != -1)
-                Preferences::setChannelEncoding(serverGroupId,re.cap(2),channelEncodingEntries[*itStr]);
+                Preferences::setChannelEncoding(re.cap(1),re.cap(2),channelEncodingEntries[*itStr]);
+        }
+    }
+    //End legacy channel encodings read in Jun 29, 2009
+
+    KConfigGroup cgEncodings(KGlobal::config()->group("Encodings"));
+    QMap<QString,QString> encodingEntries=cgEncodings.entryMap();
+    QList<QString> encodingEntryKeys=encodingEntries.keys();
+    
+    QRegExp reg("^(.+) ([^\\s]+) ([^\\s]+)$");
+    for(QList<QString>::iterator itStr=encodingEntryKeys.begin(); itStr != encodingEntryKeys.end(); ++itStr)
+    {
+        if(reg.indexIn(*itStr) > -1)
+        {
+            if(reg.cap(1) == "ServerGroup" && reg.numCaptures() == 3)
+                Preferences::setChannelEncoding(sgKeys.at(reg.cap(2).toInt()), reg.cap(3), encodingEntries[*itStr]);
+            else
+                Preferences::setChannelEncoding(reg.cap(1), reg.cap(2), encodingEntries[*itStr]);
         }
     }
 
@@ -599,7 +624,7 @@ void KonversationApplication::readOptions()
     Server::_fetchRates();
 }
 
-void KonversationApplication::saveOptions(bool updateGUI)
+void Application::saveOptions(bool updateGUI)
 {
     // template:    KConfigGroup  (KGlobal::config()->group( ));
 
@@ -681,12 +706,16 @@ void KonversationApplication::saveOptions(bool updateGUI)
     }
 
     // Add the new servergroups to the config
-    Konversation::ServerGroupList serverGroupList = Preferences::serverGroupList();
-    Konversation::ServerGroupList::iterator it;
+    Konversation::ServerGroupHash serverGroupHash = Preferences::serverGroupHash();
+    QHashIterator<int, Konversation::ServerGroupSettingsPtr> it(serverGroupHash);
     index = 0;
     int index2 = 0;
     int index3 = 0;
-    int width = QString::number(serverGroupList.count()).length();
+    int width=0;
+    QList<int> keys = serverGroupHash.keys();
+    for(int i=0; i<keys.count(); i++)
+        if(width < keys.at(i)) width = keys.at(i);
+    width = QString(width).length();
     QString groupName;
     QStringList servers;
     Konversation::ServerList::iterator it2;
@@ -695,11 +724,15 @@ void KonversationApplication::saveOptions(bool updateGUI)
     Konversation::ChannelList::iterator it3;
     QStringList channels;
     QStringList channelHistory;
+    QList<int> sgKeys;
 
-    for(it = serverGroupList.begin(); it != serverGroupList.end(); ++it)
+    while(it.hasNext())
     {
-        serverlist = (*it)->serverList();
+        it.next();
+        serverlist = (it.value())->serverList();
         servers.clear();
+
+        sgKeys.append(it.key());
 
         for(it2 = serverlist.begin(); it2 != serverlist.end(); ++it2)
         {
@@ -713,7 +746,7 @@ void KonversationApplication::saveOptions(bool updateGUI)
             index2++;
         }
 
-        channelList = (*it)->channelList();
+        channelList = it.value()->channelList();
         channels.clear();
 
         for(it3 = channelList.begin(); it3 != channelList.end(); ++it3)
@@ -726,7 +759,7 @@ void KonversationApplication::saveOptions(bool updateGUI)
             index3++;
         }
 
-        channelList = (*it)->channelHistory();
+        channelList = it.value()->channelHistory();
         channelHistory.clear();
 
         for(it3 = channelList.begin(); it3 != channelList.end(); ++it3)
@@ -742,16 +775,16 @@ void KonversationApplication::saveOptions(bool updateGUI)
 
         QString sgn = QString("ServerGroup %1").arg(QString::number(index).rightJustified(width,'0'));
         KConfigGroup cgServerGroup(KGlobal::config()->group(sgn));
-        cgServerGroup.writeEntry("Name", (*it)->name());
-        cgServerGroup.writeEntry("Identity", (*it)->identity()->getName());
+        cgServerGroup.writeEntry("Name", it.value()->name());
+        cgServerGroup.writeEntry("Identity", it.value()->identity()->getName());
         cgServerGroup.writeEntry("ServerList", servers);
         cgServerGroup.writeEntry("AutoJoinChannels", channels);
-        cgServerGroup.writeEntry("ConnectCommands", (*it)->connectCommands());
-        cgServerGroup.writeEntry("AutoConnect", (*it)->autoConnectEnabled());
+        cgServerGroup.writeEntry("ConnectCommands", it.value()->connectCommands());
+        cgServerGroup.writeEntry("AutoConnect", it.value()->autoConnectEnabled());
         cgServerGroup.writeEntry("ChannelHistory", channelHistory);
-        cgServerGroup.writeEntry("EnableNotifications", (*it)->enableNotifications());
-        cgServerGroup.writeEntry("Expanded", (*it)->expanded());
-        cgServerGroup.writeEntry("NotifyList",Preferences::notifyStringByGroupName((*it)->name()));
+        cgServerGroup.writeEntry("EnableNotifications", it.value()->enableNotifications());
+        cgServerGroup.writeEntry("Expanded", it.value()->expanded());
+        cgServerGroup.writeEntry("NotifyList",Preferences::notifyStringByGroupId(it.key()));
         index++;
     }
 
@@ -767,14 +800,16 @@ void KonversationApplication::saveOptions(bool updateGUI)
 
     // Channel Encodings
     // remove all entries once
-    KGlobal::config()->deleteGroup("Channel Encodings");
-    KConfigGroup cgChanEncoding(KGlobal::config()->group("Channel Encodings"));
+    KGlobal::config()->deleteGroup("Channel Encodings"); // legacy Jun 29, 2009
+    KGlobal::config()->deleteGroup("Encodings");
+    KConfigGroup cgEncoding(KGlobal::config()->group("Encodings"));
     QList<int> encServers=Preferences::channelEncodingsServerGroupIdList();
     //i have no idea these would need to be sorted //encServers.sort();
     QList<int>::iterator encServer;
     for ( encServer = encServers.begin(); encServer != encServers.end(); ++encServer )
     {
         Konversation::ServerGroupSettingsPtr sgsp = Preferences::serverGroupById(*encServer);
+
         if ( sgsp )  // sgsp == 0 when the entry is of QuickConnect or something?
         {
             QStringList encChannels=Preferences::channelEncodingsChannelList(*encServer);
@@ -783,8 +818,12 @@ void KonversationApplication::saveOptions(bool updateGUI)
             for ( encChannel = encChannels.begin(); encChannel != encChannels.end(); ++encChannel )
             {
                 QString enc = Preferences::channelEncoding(*encServer, *encChannel);
-                QString key = sgsp->name() + ' ' + (*encChannel);
-                cgChanEncoding.writeEntry(key, enc);
+                QString key = ' ' + (*encChannel);
+                if(sgKeys.contains(*encServer))
+                    key.prepend("ServerGroup "+QString::number(sgKeys.indexOf(*encServer)));
+                else
+                    key.prepend(sgsp->name());
+                cgEncoding.writeEntry(key, enc);
             }
         }
     }
@@ -796,7 +835,7 @@ void KonversationApplication::saveOptions(bool updateGUI)
 }
 
 // FIXME: use KUrl maybe?
-void KonversationApplication::storeUrl(const QString& who,const QString& newUrl)
+void Application::storeUrl(const QString& who,const QString& newUrl)
 {
     QString url(newUrl);
     // clean up URL to help KRun() in URL catcher interface
@@ -811,22 +850,22 @@ void KonversationApplication::storeUrl(const QString& who,const QString& newUrl)
     emit catchUrl(who,url);
 }
 
-const QStringList& KonversationApplication::getUrlList()
+const QStringList& Application::getUrlList()
 {
     return urlList;
 }
 
-void KonversationApplication::deleteUrl(const QString& who,const QString& url)
+void Application::deleteUrl(const QString& who,const QString& url)
 {
     urlList.removeOne(who+' '+url);
 }
 
-void KonversationApplication::clearUrlList()
+void Application::clearUrlList()
 {
     urlList.clear();
 }
 
-void KonversationApplication::openQuickConnectDialog()
+void Application::openQuickConnectDialog()
 {
     quickConnectDialog = new QuickConnectDialog(mainWindow);
     connect(quickConnectDialog, SIGNAL(connectClicked(Konversation::ConnectionFlag, const QString&,
@@ -836,7 +875,7 @@ void KonversationApplication::openQuickConnectDialog()
     quickConnectDialog->show();
 }
 
-void KonversationApplication::sendMultiServerCommand(const QString& command, const QString& parameter)
+void Application::sendMultiServerCommand(const QString& command, const QString& parameter)
 {
     const QList<Server*> serverList = getConnectionManager()->getServerList();
 
@@ -844,7 +883,7 @@ void KonversationApplication::sendMultiServerCommand(const QString& command, con
         server->executeMultiServerCommand(command, parameter);
 }
 
-void KonversationApplication::splitNick_Server(const QString& nick_server, QString &ircnick, QString &serverOrGroup)
+void Application::splitNick_Server(const QString& nick_server, QString &ircnick, QString &serverOrGroup)
 {
     //kaddresbook uses the utf separator 0xE120, so treat that as a separator as well
     QString nickServer = nick_server;
@@ -853,7 +892,7 @@ void KonversationApplication::splitNick_Server(const QString& nick_server, QStri
     serverOrGroup = nickServer.section('@',1);
 }
 
-NickInfoPtr KonversationApplication::getNickInfo(const QString &ircnick, const QString &serverOrGroup)
+NickInfoPtr Application::getNickInfo(const QString &ircnick, const QString &serverOrGroup)
 {
     const QList<Server*> serverList = getConnectionManager()->getServerList();
     NickInfoPtr nickInfo;
@@ -873,7 +912,7 @@ NickInfoPtr KonversationApplication::getNickInfo(const QString &ircnick, const Q
 }
 
 // auto replace on input/output
-QString KonversationApplication::doAutoreplace(const QString& text,bool output)
+QString Application::doAutoreplace(const QString& text,bool output)
 {
     // get autoreplace list
     QList<QStringList> autoreplaceList=Preferences::autoreplaceList();
@@ -921,7 +960,7 @@ QString KonversationApplication::doAutoreplace(const QString& text,bool output)
                         }
                         replacement.remove(QRegExp("%[0-9]"));
                         // allow for var expansion in autoreplace
-                        replacement = Konversation::doVarExpansion(replacement); 
+                        replacement = Konversation::doVarExpansion(replacement);
                         // replace input with replacement
                         line.replace(index, captures[0].length(), replacement);
                         index += replacement.length();
@@ -934,7 +973,7 @@ QString KonversationApplication::doAutoreplace(const QString& text,bool output)
                 needleReg.setPatternSyntax(QRegExp::FixedString);
                 int index=line.indexOf(needleReg);
                 while (index>=0)
-                {   
+                {
                     int length,nextLength,patLen,repLen;
                     patLen=pattern.length();
                     repLen=replacement.length();
@@ -963,6 +1002,30 @@ QString KonversationApplication::doAutoreplace(const QString& text,bool output)
     }
 
   return line;
+}
+
+void Application::openUrl(const QString& url)
+{
+    if (!Preferences::self()->useCustomBrowser() || url.startsWith(QLatin1String("mailto:")))
+    {
+        if (url.startsWith(QLatin1String("mailto:")))
+            KToolInvocation::invokeMailer(KUrl(url));
+        else
+            KToolInvocation::invokeBrowser(url);
+    }
+    else
+    {
+        QHash<QChar,QString> map;
+        map.insert('u', url);
+        const QString cmd = KMacroExpander::expandMacrosShellQuote(Preferences::self()->webBrowserCmd(), map);
+        const QStringList args = KShell::splitArgs(cmd);
+
+        if (!args.isEmpty())
+        {
+            KProcess::startDetached(args);
+            return;
+        }
+    }
 }
 
 #include "application.moc"

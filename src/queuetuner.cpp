@@ -4,7 +4,7 @@
     published by the Free Software Foundation; either version 2 of
     the License or (at your option) version 3 or any later version
     accepted by the membership of KDE e.V. (or its successor approved
-    by the membership of KDE e.V.), which shall act as a proxy 
+    by the membership of KDE e.V.), which shall act as a proxy
     defined in Section 14 of version 3 of the license.
 */
 
@@ -20,19 +20,14 @@
 #include "ircqueue.h"
 #include "channel.h"
 #include "viewcontainer.h"
-#include "application.h" ////// header renamed
+#include "application.h"
 
-#include <qtoolbutton.h>
-#include <qspinbox.h>
-#include <qevent.h>
+#include <QEvent>
+#include <QContextMenuEvent>
 
-#include <kdebug.h>
-#include <kapplication.h>
-#include <kiconloader.h>
-#include <kmenu.h>
-#include <kmessagebox.h>
-#include <klocale.h>
-#include <kcombobox.h>
+#include <KIconLoader>
+#include <KMenu>
+#include <KMessageBox>
 
 
 QueueTuner::QueueTuner(QWidget* parent, ViewContainer *container)

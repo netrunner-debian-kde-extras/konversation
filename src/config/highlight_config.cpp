@@ -16,20 +16,15 @@
 #include "sound.h"
 #include "preferences.h"
 
-#include <qdir.h>
-#include <qlabel.h>
-#include <qtoolbutton.h>
+#include <QDir>
 
-#include <kglobal.h>
-#include <kstandarddirs.h>
-#include <kurlrequester.h>
-#include <kfiledialog.h>
-#include <klineedit.h>
-#include <kcolorbutton.h>
-#include <klocale.h>
+#include <KGlobal>
+#include <KStandardDirs>
+#include <KUrlRequester>
+#include <KFileDialog>
 #include <kparts/componentfactory.h>
 #include <kregexpeditorinterface.h>
-#include <kiconloader.h>
+#include <KIconLoader>
 
 
 Highlight_Config::Highlight_Config(QWidget* parent, const char* name)
@@ -306,7 +301,7 @@ QStringList Highlight_Config::currentHighlightList()
 
 void Highlight_Config::playSound()
 {
-  KonversationApplication *konvApp=static_cast<KonversationApplication *>(KApplication::kApplication());
+  Application *konvApp=static_cast<Application *>(KApplication::kApplication());
   konvApp->sound()->play(KUrl(soundURL->url()));
 }
 
