@@ -10,8 +10,8 @@
   Copyright (C) 2006 Eike Hein <hein@kde.org>
 */
 
-#include "settingsdialog.h" ////// header renamed
-#include "configdialog.h" ////// header renamed
+#include "settingsdialog.h"
+#include "configdialog.h"
 #include "preferences.h"
 #include "ui_chatwindowappearance_config.h"
 #include "ui_connectionbehavior_config.h"
@@ -33,13 +33,10 @@
 #include "ignore_config.h"
 #include "watchednicknames_config.h"
 #include "ui_tabnotifications_config.h"
+#include <config-konversation.h>
 
-#include <qsplitter.h>
-#include <qcombobox.h>
+#include <KIconLoader>
 
-#include <klocale.h>
-#include <kdebug.h>
-#include <kiconloader.h>
 
 KonviSettingsDialog::KonviSettingsDialog( QWidget *parent) :
     KonviConfigDialog( parent, "settings", Preferences::self(), KPageDialog::Tree)
@@ -106,6 +103,9 @@ KonviSettingsDialog::KonviSettingsDialog( QWidget *parent) :
   Ui::ConnectionBehavior_Config confConnectionBehavior;
   w = new QWidget();
   confConnectionBehavior.setupUi(w);
+  #ifndef HAVE_QCA2
+  confConnectionBehavior.kcfg_EncryptionType->setDisabled(true);
+  #endif
   addPage(w, behaviorGroup, "network-connect", i18n("Connection"));
 
   //Behaviour/Chat Window

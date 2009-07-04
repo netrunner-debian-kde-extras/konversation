@@ -14,8 +14,8 @@
 
 #include "channel.h"
 #include "server.h"
-#include "application.h" ////// header renamed
-#include "mainwindow.h" ////// header renamed
+#include "application.h"
+#include "mainwindow.h"
 #include "viewcontainer.h"
 #include "ircinput.h"
 #include "ircview.h"
@@ -23,24 +23,14 @@
 #include "common.h"
 #include "topiclabel.h"
 
-#include <qcheckbox.h>
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <qtextcodec.h>
-#include <qtextstream.h>
-#include <qsplitter.h>
+#include <QSplitter>
 
-#include <klocale.h>
-#include <kstandarddirs.h>
-#include <kdebug.h>
-#include <kmessagebox.h>
-#include <kiconloader.h>
-#include <kstringhandler.h>
-#include <kmenu.h>
-#include <kauthorized.h>
-#include <kvbox.h>
-#include <qactiongroup.h>
-
+#include <KMessageBox>
+#include <KStringHandler>
+#include <KStandardGuiItem>
+#include <KMenu>
+#include <KHBox>
+#include <KAuthorized>
 
 Query::Query(QWidget* parent, QString _name) : ChatWindow(parent)
 {
@@ -133,6 +123,10 @@ Query::Query(QWidget* parent, QString _name) : ChatWindow(parent)
     updateAppearance();
 
     setLog(Preferences::self()->log());
+
+    #ifdef HAVE_QCA2
+    m_cipher = 0;
+    #endif
 }
 
 Query::~Query()
@@ -159,13 +153,13 @@ void Query::connectionStateChanged(Server* server, Konversation::ConnectionState
         {
             //HACK the way the notification priorities work sucks, this forces the tab text color to ungray right now.
             if (m_currentTabNotify == Konversation::tnfNone || !Preferences::self()->tabNotificationsEvents())
-                KonversationApplication::instance()->getMainWindow()->getViewContainer()->unsetViewNotification(this);
+                Application::instance()->getMainWindow()->getViewContainer()->unsetViewNotification(this);
         }
         else
         {
             //HACK the way the notification priorities work sucks, this forces the tab text color to gray right now.
             if (m_currentTabNotify == Konversation::tnfNone || (!Preferences::self()->tabNotificationsEvents() && m_currentTabNotify == Konversation::tnfControl))
-                KonversationApplication::instance()->getMainWindow()->getViewContainer()->unsetViewNotification(this);
+                Application::instance()->getMainWindow()->getViewContainer()->unsetViewNotification(this);
         }
     }
 }
@@ -256,26 +250,36 @@ void Query::sendQueryText(const QString& sendLine)
             if(result.type == Konversation::Action) appendAction(m_server->getNickname(), result.output);
             else if(result.type == Konversation::Command) appendCommandMessage(result.typeString, result.output);
             else if(result.type == Konversation::Program) appendServerMessage(result.typeString, result.output);
+            else if(result.type == Konversation::PrivateMessage) msgHelper(result.typeString, result.output);
             else if(!result.typeString.isEmpty()) appendQuery(result.typeString, result.output);
             else appendQuery(m_server->getNickname(), result.output);
         }
         else if (result.outputList.count())
         {
-            Q_ASSERT(result.type==Konversation::Message);
-            for ( QStringList::ConstIterator it = result.outputList.constBegin(); it != result.outputList.constEnd(); ++it )
+            if (result.type == Konversation::Message)
             {
-                append(m_server->getNickname(), *it);
+                QStringListIterator it(result.outputList);
+
+                while (it.hasNext())
+                    appendQuery(m_server->getNickname(), it.next());
+            }
+            else if (result.type == Konversation::Action)
+            {
+                for (int i = 0; i < result.outputList.count(); ++i)
+                {
+                    if (i == 0)
+                        appendAction(m_server->getNickname(), result.outputList.at(i));
+                    else
+                        appendQuery(m_server->getNickname(), result.outputList.at(i));
+                }
             }
         }
 
+        // Send anything else to the server
         if (!result.toServerList.empty())
-        {
             m_server->queueList(result.toServerList);
-        }
         else
-        {
             m_server->queue(result.toServer);
-        }
     } // for
 }
 
@@ -553,8 +557,8 @@ void Query::nickInfoChanged()
         m_nickInfo->tooltipTableData(tooltip);
 
         tooltip << "</table></qt>";
-        queryHostmask->setStatusTip(strTooltip);
-        addresseeimage->setStatusTip(strTooltip);
+        queryHostmask->setToolTip(strTooltip);
+        addresseeimage->setToolTip(strTooltip);
         addresseelogoimage->setToolTip(strTooltip);
 
     }
@@ -595,11 +599,16 @@ void Query::appendInputText(const QString& s, bool fromCursor)
                                                   // virtual
 void Query::setChannelEncoding(const QString& encoding)
 {
-    Preferences::setChannelEncoding(m_server->getDisplayName(), getName(), encoding);
+    if(m_server->getServerGroup())
+        Preferences::setChannelEncoding(m_server->getServerGroup()->id(), getName(), encoding);
+    else
+        Preferences::setChannelEncoding(m_server->getDisplayName(), getName(), encoding);
 }
 
 QString Query::getChannelEncoding()               // virtual
 {
+    if(m_server->getServerGroup())
+        return Preferences::channelEncoding(m_server->getServerGroup()->id(), getName());
     return Preferences::channelEncoding(m_server->getDisplayName(), getName());
 }
 
@@ -703,3 +712,12 @@ void Query::slotActionTriggered(QAction* action)
 {
     popup(action->data().value<Konversation::PopupIDs>());
 }
+
+#ifdef HAVE_QCA2
+Konversation::Cipher* Query::getCipher()
+{
+    if(!m_cipher)
+        m_cipher = new Konversation::Cipher();
+    return m_cipher;
+}
+#endif

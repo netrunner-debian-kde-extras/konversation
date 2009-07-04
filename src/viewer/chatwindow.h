@@ -18,7 +18,7 @@
 
 #include <kvbox.h>
 
-#include <qfile.h>
+#include <QFile>
 
 
 class IRCView;
@@ -121,6 +121,8 @@ class ChatWindow : public KVBox
 
         Konversation::TabNotifyType currentTabNotification() { return m_currentTabNotify; }
         QColor highlightColor();
+
+        void msgHelper(const QString& recipient, const QString& message);
 
     signals:
         void nameChanged(ChatWindow* view, const QString& newName);

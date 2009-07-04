@@ -15,12 +15,10 @@
 #include "application.h"
 #include "server.h"
 
-#include <qstringlist.h>
-#include <qfileinfo.h>
-#include <qprocess.h>
+#include <QFileInfo>
+#include <QProcess>
 
-#include <kdebug.h>
-#include <kstandarddirs.h>
+#include <KStandardDirs>
 
 
 ScriptLauncher::ScriptLauncher(Server* server)

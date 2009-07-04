@@ -16,7 +16,7 @@
 #include "serversettings.h"
 #include "identity.h"
 
-#include <qstringlist.h>
+#include <QStringList>
 
 #include <ksharedptr.h>
 
@@ -54,7 +54,7 @@ namespace Konversation
 
     class ServerGroupSettings;
     typedef KSharedPtr<ServerGroupSettings> ServerGroupSettingsPtr;
-    typedef QList<ServerGroupSettingsPtr> ServerGroupList;
+    typedef QHash<int,ServerGroupSettingsPtr> ServerGroupHash;
     typedef QList<ServerSettings> ServerList;
     typedef QList<ChannelSettings> ChannelList;
 

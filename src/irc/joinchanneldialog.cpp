@@ -14,11 +14,7 @@
 #include "channel.h"
 #include "servergroupsettings.h"
 
-#include <qlabel.h>
-
-#include <klocale.h>
-#include <kcombobox.h>
-#include <klineedit.h>
+#include <QLabel>
 
 
 namespace Konversation

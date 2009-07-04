@@ -15,15 +15,14 @@
 
 #include "nick.h"
 #include "addressbook.h"
-
-#include <kdebug.h>
-#include <k3listview.h>
-#include <klocale.h>
-#include <kabc/phonenumber.h>
-
-#include "application.h" ////// header renamed
+#include "application.h"
 #include "images.h"
 #include "preferences.h"
+
+#include <kabc/phonenumber.h>
+
+#include <K3ListView>
+
 
 Nick::Nick(K3ListView *listView, const ChannelNickPtr& channelnick)
     : QObject (),
@@ -67,7 +66,7 @@ void Nick::refresh()
     if(away)
         flags=1;
 
-    Images* images = KonversationApplication::instance()->images();
+    Images* images = Application::instance()->images();
     QPixmap icon;
 
     if ( getChannelNick()->isOwner() )

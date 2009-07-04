@@ -18,32 +18,23 @@
 #include "common.h"
 #include "application.h"
 
-#include <qlabel.h>
-#include <qlayout.h>
+#include <QLabel>
+#include <QFileInfo>
+#include <QStringList>
+#include <QBitmap>
+#include <QPainter>
 
-#include <qpushbutton.h>
-
-#include <qfileinfo.h>
-#include <qstringlist.h>
-#include <qbitmap.h>
-#include <qpainter.h>
-
-#include <kurl.h>
-#include <kdebug.h>
-#include <kmessagebox.h>
-#include <kstandarddirs.h>
-#include <klocale.h>
-#include <kio/job.h>
-#include <kio/netaccess.h>
-#include <kio/deletejob.h>
-#include <kfiledialog.h>
-#include <ktar.h>
-#include <kdesktopfile.h>
-#include <kconfigdialog.h>
+#include <KUrl>
+#include <KMessageBox>
+#include <KStandardDirs>
+#include <KFileDialog>
+#include <KTar>
+#include <KDesktopFile>
+#include <KVBox>
+#include <KIO/DeleteJob>
+#include <KIO/NetAccess>
 
 #include <unistd.h> // unlink()
-#include <kglobal.h>
-#include <kvbox.h>
 
 
 using namespace Konversation;
@@ -154,7 +145,7 @@ void Theme_Config::saveSettings()
             // set in-memory theme to the saved theme
             Preferences::self()->setIconTheme(m_currentTheme);
             // update theme on runtime
-            KonversationApplication::instance()->images()->initializeNickIcons();
+            Application::instance()->images()->initializeNickIcons();
 
             // remember current theme for hasChanged()
             m_oldTheme = m_currentTheme;

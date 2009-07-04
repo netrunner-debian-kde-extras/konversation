@@ -13,84 +13,104 @@
 
 /*
   Copyright (C) 2007 Shintaro Matsuoka <shin@shoegazed.org>
+  Copyright (C) 2009 Michael Kreitzer <mrgrim@gr1m.org>
 */
 
-#ifndef DCCTRANSFERMANAGER_H
-#define DCCTRANSFERMANAGER_H
+#ifndef TRANSFERMANAGER_H
+#define TRANSFERMANAGER_H
 
-#include "transfer.h"
+#include <QObject>
 
-#include <qobject.h>
+#include <KUrl>
 
-
-class KUrl;
-
-class DccTransferRecv;
-class DccTransferSend;
-
-class DccTransferManager : public QObject
+namespace Konversation
 {
-    Q_OBJECT
+    namespace UPnP
+    {
+        class UPnPMCastSocket;
+        class UPnPRouter;
+    }
 
-    public:
-        DccTransferManager( QObject* parent = 0 );
-        ~DccTransferManager();
+    namespace DCC
+    {
+        class Transfer;
+        class TransferRecv;
+        class TransferSend;
 
-    signals:
-        /*
-         * The status of the item is DccTransfer::Configuring when this signal is emitted.
-         */
-        void newTransferAdded( DccTransfer* transfer );
-        /*
-         * The status of the item is DccTransfer::Queued when this signal is emitted.
-         */
-        void newTransferQueued( DccTransfer* transfer );
+        class TransferManager : public QObject
+        {
+            Q_OBJECT
 
-        void fileURLChanged( DccTransferRecv* transfer );
+            public:
+                TransferManager( QObject* parent = 0 );
+                ~TransferManager();
 
-    public:
-        DccTransferRecv* newDownload();
-        DccTransferSend* newUpload();
+            signals:
+                /*
+                 * The status of the item is DccTransfer::Configuring when this signal is emitted.
+                 */
+                void newTransferAdded( Konversation::DCC::Transfer* transfer );
+                /*
+                 * The status of the item is DccTransfer::Queued when this signal is emitted.
+                 */
+                void newDccTransferQueued( Konversation::DCC::Transfer* transfer );
 
-        DccTransferSend* rejectSend(int connectionId, const QString& partnerNick, const QString& fileName);
+                void fileURLChanged( Konversation::DCC::TransferRecv* transfer );
 
-        /**
-         * @return a DccTransferRecv item if applicable one found, otherwise 0.
-         */
-        DccTransferRecv* resumeDownload(int connectionId, const QString& partnerNick, const QString& fileName, uint ownPort, unsigned long position );
+            public:
+                TransferRecv* newDownload();
+                TransferSend* newUpload();
 
-        /**
-         * @return a DccTransferSend item if applicable one found, otherwise 0.
-         */
-        DccTransferSend* resumeUpload(int connectionId, const QString& partnerNick, const QString& fileName, uint ownPort, unsigned long position );
+                TransferSend* rejectSend(int connectionId, const QString& partnerNick, const QString& fileName);
 
-        DccTransferSend* startReverseSending(int connectionId, const QString& partnerNick, const QString& fileName, const QString& partnerHost, uint partnerPort, unsigned long fileSize, const QString& token );
+                /**
+                 * @return a DccTransferRecv item if applicable one found, otherwise 0.
+                 */
+                TransferRecv* resumeDownload(int connectionId, const QString& partnerNick, const QString& fileName, uint ownPort, unsigned long position );
 
-        bool isLocalFileInWritingProcess( const KUrl& localUrl ) const;
+                /**
+                 * @return a DccTransferSend item if applicable one found, otherwise 0.
+                 */
+                TransferSend* resumeUpload(int connectionId, const QString& partnerNick, const QString& fileName, uint ownPort, unsigned long position );
 
-        int generateReverseTokenNumber();
+                TransferSend* startReverseSending(int connectionId, const QString& partnerNick, const QString& fileName, const QString& partnerHost, uint partnerPort, unsigned long fileSize, const QString& token );
 
-        bool hasActiveTransfers();
+                bool isLocalFileInWritingProcess( const KUrl& localUrl ) const;
 
-    private:
-        /*
-         * initTransfer() does the common jobs for newDownload() and newUpload()
-         */
-        void initTransfer( DccTransfer* transfer );
+                int generateReverseTokenNumber();
 
-    private slots:
-        void slotTransferStatusChanged( DccTransfer* item, int newStatus, int oldStatus );
-        void removeSendItem( DccTransfer* item );
-        void removeRecvItem( DccTransfer* item );
+                bool hasActiveTransfers();
 
-        void slotSettingsChanged();
+                UPnP::UPnPRouter *getUPnPRouter() { return m_upnpRouter; }
+                void startupUPnP(void);
+                void shutdownUPnP(void);
 
-    private:
-        QList< DccTransferSend* > m_sendItems;
-        QList< DccTransferRecv* > m_recvItems;
+            private:
+                /*
+                 * initTransfer() does the common jobs for newDownload() and newUpload()
+                 */
+                void initTransfer( Transfer* transfer );
 
-        int m_nextReverseTokenNumber;
-        KUrl m_defaultIncomingFolder;  // store here to know if this settings is changed
-};
+            private slots:
+                void slotTransferStatusChanged( Konversation::DCC::Transfer* item, int newStatus, int oldStatus );
+                void removeSendItem( Konversation::DCC::Transfer* item );
+                void removeRecvItem( Konversation::DCC::Transfer* item );
 
-#endif  // DCCTRANSFERMANAGER_H
+                void slotSettingsChanged();
+
+                void upnpRouterDiscovered(Konversation::UPnP::UPnPRouter *router);
+
+            private:
+                QList< TransferSend* > m_sendItems;
+                QList< TransferRecv* > m_recvItems;
+
+                UPnP::UPnPMCastSocket *m_upnpSocket;
+                UPnP::UPnPRouter *m_upnpRouter;
+
+                int m_nextReverseTokenNumber;
+                KUrl m_defaultIncomingFolder;  // store here to know if this settings is changed
+        };
+    }
+}
+
+#endif  // TRANSFERMANAGER_H

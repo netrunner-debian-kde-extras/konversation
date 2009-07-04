@@ -11,7 +11,7 @@
 */
 
 #include "topiclabel.h"
-#include "application.h" ////// header renamed
+#include "application.h"
 #include "connectionmanager.h"
 #include "server.h"
 #include "common.h"
@@ -21,23 +21,18 @@
 #include <QContextMenuEvent>
 #include <QResizeEvent>
 #include <QMenu>
-#include <QEvent>
 #include <QTextDocument>
 
-#include <krun.h>
-#include <kprocess.h>
-#include <kshell.h>
-#include <kstringhandler.h>
-#include <kglobal.h>
-#include <kdebug.h>
-#include <kmenu.h>
-#include <kiconloader.h>
-#include <kbookmarkmanager.h>
+#include <KStringHandler>
+#include <KGlobal>
+#include <KMenu>
+#include <KIconLoader>
+#include <KBookmarkManager>
 #include <kbookmarkdialog.h>
-#include <klocale.h>
+#include <KShell>
 #include <KUrl>
-#include <kio/copyjob.h>
 #include <KFileDialog>
+#include <KIO/CopyJob>
 
 
 namespace Konversation
@@ -93,7 +88,7 @@ namespace Konversation
         {
             if (link.startsWith(QLatin1String("irc://")))
             {
-                KonversationApplication* konvApp = static_cast<KonversationApplication*>(kapp);
+                Application* konvApp = static_cast<Application*>(kapp);
                 konvApp->getConnectionManager()->connectTo(Konversation::SilentlyReuseConnection, link);
             }
             else if (link.startsWith('#') && m_server && m_server->isConnected())
@@ -103,20 +98,8 @@ namespace Konversation
                 m_server->sendJoinCommand(channel);
             }
             // Always use KDE default mailer.
-            else if (!Preferences::self()->useCustomBrowser() || link.toLower().startsWith(QLatin1String("mailto:")))
-            {
-                new KRun(KUrl(link), this);
-            }
             else
-            {
-                QString cmd = Preferences::webBrowserCmd();
-                cmd.replace("%u",KUrl(link).url());
-                KProcess *proc = new KProcess;
-                QStringList cmdAndArgs = KShell::splitArgs(cmd);
-                *proc << cmdAndArgs;
-                proc->startDetached();
-                delete proc;
-            }
+                Application::openUrl(link);
         }
     }
 

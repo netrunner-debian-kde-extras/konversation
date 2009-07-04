@@ -12,12 +12,12 @@
 #ifndef KONVERSATIONNOTIFICATIONHANDLER_H
 #define KONVERSATIONNOTIFICATIONHANDLER_H
 
-#include <qobject.h>
+#include <QObject>
 
 
 class ChatWindow;
-class KonversationApplication;
-class KonversationMainWindow;
+class Application;
+class MainWindow;
 
 namespace Konversation
 {
@@ -27,7 +27,7 @@ namespace Konversation
         Q_OBJECT
 
         public:
-            explicit NotificationHandler(KonversationApplication* parent = 0);
+            explicit NotificationHandler(Application* parent = 0);
             ~NotificationHandler();
 
         public slots:
@@ -56,7 +56,7 @@ namespace Konversation
             QString addLineBreaks(const QString& string);
 
         private:
-            KonversationMainWindow* m_mainWindow;
+            MainWindow* m_mainWindow;
     };
 
 }

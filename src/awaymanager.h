@@ -13,8 +13,8 @@
 #define AWAYMANAGER_H
 
 
-#include <qobject.h>
-#include <qdatetime.h>
+#include <QObject>
+#include <QDateTime>
 #include <QList>
 
 
@@ -34,6 +34,7 @@ class AwayManager : public QObject
         explicit AwayManager(QObject* parent = 0);
         ~AwayManager();
 
+        void screensaverDisabled() { resetIdle(); }
 
     public slots:
         void identitiesChanged();
@@ -56,6 +57,7 @@ class AwayManager : public QObject
 
 
     private:
+        void resetIdle();
         void toggleTimer();
         bool Xactivity();
 

@@ -19,12 +19,10 @@
 #include "channel.h"
 #include "application.h"
 
-#include <qstringlist.h>
+#include <QStringList>
 
-#include <klocale.h>
-#include <kmessagebox.h>
-#include <kapplication.h>
-#include <kwindowsystem.h>
+#include <KMessageBox>
+#include <KWindowSystem>
 
 
 namespace Konversation
@@ -158,7 +156,7 @@ namespace Konversation
     QPixmap Addressbook::icon(const QString &uid)
     {
 
-        Images* icons = KonversationApplication::instance()->images();
+        Images* icons = Application::instance()->images();
         QIcon currentIcon;
         if(!isPresent(uid))
             return QPixmap();

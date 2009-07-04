@@ -12,7 +12,7 @@
 #ifndef VIEWCONTAINER_H
 #define VIEWCONTAINER_H
 
-#include "mainwindow.h" ////// header renamed
+#include "mainwindow.h"
 #include "common.h"
 #include "server.h"
 
@@ -27,13 +27,12 @@ class KTabWidget;
 class KActionCollection;
 class KVBox;
 
-class KonversationMainWindow;
+class MainWindow;
 class ViewTree;
 class ChatWindow;
 class Server;
 class Images;
 class UrlCatcher;
-class DccTransferPanel;
 class NicksOnline;
 class QueueTuner;
 
@@ -41,6 +40,11 @@ namespace Konversation
 {
     class InsertCharDialog;
     class ServerGroupSettings;
+
+    namespace DCC
+    {
+        class TransferPanel;
+    }
 }
 
 class ViewContainer : public QObject
@@ -48,11 +52,11 @@ class ViewContainer : public QObject
     Q_OBJECT
 
     public:
-        explicit ViewContainer(KonversationMainWindow* window);
+        explicit ViewContainer(MainWindow* window);
         ~ViewContainer();
 
         QSplitter* getWidget() { return m_viewTreeSplitter; }
-        KonversationMainWindow* getWindow() { return m_window; }
+        MainWindow* getWindow() { return m_window; }
         KActionCollection* actionCollection() { return m_window->actionCollection(); }
 
         QPointer<ChatWindow> getFrontView() { return m_frontView; }
@@ -132,7 +136,7 @@ class ViewContainer : public QObject
         void addDccPanel();
         void closeDccPanel();
         void deleteDccPanel();
-        DccTransferPanel* getDccPanel();
+        Konversation::DCC::TransferPanel* getDccPanel();
 
         void addDccChat(const QString& myNick,const QString& nick,const QStringList& arguments,bool listen);
 
@@ -199,7 +203,7 @@ class ViewContainer : public QObject
         void initializeSplitterSizes();
         bool m_saveSplitterSizesLock;
 
-        KonversationMainWindow* m_window;
+        MainWindow* m_window;
 
         QSplitter* m_viewTreeSplitter;
         KTabWidget* m_tabWidget;
@@ -217,7 +221,7 @@ class ViewContainer : public QObject
         UrlCatcher* m_urlCatcherPanel;
         NicksOnline* m_nicksOnlinePanel;
 
-        DccTransferPanel* m_dccPanel;
+        Konversation::DCC::TransferPanel* m_dccPanel;
         bool m_dccPanelOpen;
 
         Konversation::InsertCharDialog* m_insertCharDialog;

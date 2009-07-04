@@ -13,22 +13,21 @@
 #include "notificationhandler.h"
 #include "common.h"
 #include "chatwindow.h"
-#include "application.h" ////// header renamed
-#include "mainwindow.h" ////// header renamed
+#include "application.h"
+#include "mainwindow.h"
 #include "viewcontainer.h"
 #include "trayicon.h"
 #include "server.h"
 
-#include <knotification.h>
-#include <kstringhandler.h>
-#include <klocale.h>
+#include <KNotification>
+#include <KStringHandler>
 #include <QTextDocument>
 
 
 namespace Konversation
 {
 
-    NotificationHandler::NotificationHandler(KonversationApplication* parent)
+    NotificationHandler::NotificationHandler(Application* parent)
         : QObject(parent)
     {
         m_mainWindow = parent->getMainWindow();
@@ -60,7 +59,7 @@ namespace Konversation
         if(Preferences::self()->oSDShowChannel() &&
             (!m_mainWindow->isActiveWindow() || (chatWin != m_mainWindow->getViewContainer()->getFrontView())))
         {
-            KonversationApplication* konvApp = static_cast<KonversationApplication*>(kapp);
+            Application* konvApp = static_cast<Application*>(kapp);
             konvApp->osd->show('(' + chatWin->getName() + ") <" + fromNick + "> " + cleanedMessage);
         }
 
@@ -81,7 +80,7 @@ namespace Konversation
 
         startTrayNotification(chatWin);
 
-        KonversationApplication* konvApp = static_cast<KonversationApplication*>(kapp);
+        Application* konvApp = static_cast<Application*>(kapp);
 
         if((Preferences::self()->oSDShowChannel() || Preferences::self()->oSDShowOwnNick()) &&
             (!m_mainWindow->isActiveWindow() ||
@@ -107,7 +106,7 @@ namespace Konversation
 
         startTrayNotification(chatWin);
 
-        KonversationApplication* konvApp = static_cast<KonversationApplication*>(kapp);
+        Application* konvApp = static_cast<Application*>(kapp);
 
         if(Preferences::self()->oSDShowQuery() && (!m_mainWindow->isActiveWindow() ||
            (chatWin != m_mainWindow->getViewContainer()->getFrontView())))
@@ -143,7 +142,7 @@ namespace Konversation
         if(Preferences::self()->oSDShowChannelEvent() &&
             (!m_mainWindow->isActiveWindow() || (chatWin != m_mainWindow->getViewContainer()->getFrontView())))
         {
-            KonversationApplication* konvApp = static_cast<KonversationApplication*>(kapp);
+            Application* konvApp = static_cast<Application*>(kapp);
             konvApp->osd->show(i18n("%1 joined %2",nick, chatWin->getName()));
         }
     }
@@ -162,7 +161,7 @@ namespace Konversation
         if(Preferences::self()->oSDShowChannelEvent() &&
             (!m_mainWindow->isActiveWindow() || (chatWin != m_mainWindow->getViewContainer()->getFrontView())))
         {
-            KonversationApplication* konvApp = static_cast<KonversationApplication*>(kapp);
+            Application* konvApp = static_cast<Application*>(kapp);
             konvApp->osd->show(i18n("%1 parted %2",nick, chatWin->getName()));
         }
     }
@@ -314,19 +313,19 @@ namespace Konversation
             return;
 
         startTrayNotification(chatWin);
-        
+
         QString cleanedMessage = Qt::escape(Konversation::removeIrcMarkup(message));
         QString cutup = addLineBreaks(cleanedMessage);
-        
+
         if(fromNick.isEmpty())
             KNotification::event(QString::fromLatin1("highlight"), QString("<qt>(%1) *** %2</qt>").arg(chatWin->getName()).arg(cutup), QPixmap(), m_mainWindow);
         else
             KNotification::event(QString::fromLatin1("highlight"), QString("<qt>(%1) &lt;%2&gt; %3</qt>").arg(chatWin->getName()).arg(fromNick).arg(cutup), QPixmap(), m_mainWindow);
-        
+
         if(Preferences::self()->oSDShowOwnNick() &&
             (!m_mainWindow->isActiveWindow() || (chatWin != m_mainWindow->getViewContainer()->getFrontView())))
         {
-            KonversationApplication* konvApp = static_cast<KonversationApplication*>(kapp);
+            Application* konvApp = static_cast<Application*>(kapp);
             // if there was no nick associated, this must be a command message, so don't try displaying
             // an empty nick in <>
             if(fromNick.isEmpty())

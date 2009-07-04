@@ -12,16 +12,13 @@
   email:     eisfuchs@tigress.com
 */
 
-#include <kapplication.h>
-#include <kcmdlineargs.h>
-#include <kaboutdata.h>
-#include <klocale.h>
-#include <kdebug.h>
 
-#include "application.h" ////// header renamed
+#include "application.h"
 #include "version.h"
 #include "commit.h"
 
+#include <KCmdLineArgs>
+#include <KAboutData>
 
 /*
   Don't use i18n() here, use ki18n() instead!
@@ -95,7 +92,7 @@ int main(int argc, char* argv[])
 
     if (!KUniqueApplication::start()) return 0;
 
-    KonversationApplication app;
+    Application app;
 
     return app.exec();
 }

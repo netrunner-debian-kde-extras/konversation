@@ -11,15 +11,14 @@
 */
 
 #include "common.h"
-#include "application.h" ////// header renamed
+#include "application.h"
 #include "config/preferences.h"
 
-#include <qstring.h>
-#include <qregexp.h>
-#include <qpixmap.h>
-#include <qbitmap.h>
-#include <qpainter.h>
-#include <klocale.h>
+#include <QString>
+#include <QRegExp>
+#include <QPixmap>
+#include <QBitmap>
+#include <QPainter>
 
 
 namespace Konversation
@@ -29,7 +28,7 @@ namespace Konversation
     #include "unicode.cpp"
 
     static QRegExp colorRegExp("((\003([0-9]|0[0-9]|1[0-5])(,([0-9]|0[0-9]|1[0-5])|)|\017)|\x02|\x09|\x13|\x16|\x1f)");
-    static QRegExp urlPattern("((www\\.(?!\\.)|(fish|irc|(f|sf|ht)tp(|s))://)(\\.?[\\d\\w/,\\':~\\?=;#@\\-\\+\\%\\*\\{\\}\\!\\(\\)]|&)+)|"
+    static QRegExp urlPattern("((www\\.(?!\\.)|(fish|irc|(f|sf|ht)tp(|s))://)(\\.?[\\d\\w/,\\':~\\?=;#@\\-\\+\\%\\*\\{\\}\\!\\(\\)\\[\\]]|&)+)|"
         "([-.\\d\\w]+@[-.\\d\\w]{2,}\\.[\\w]{2,})");
     static QRegExp tdlPattern("(.*)\\.(\\w+),$");
 
@@ -67,7 +66,7 @@ namespace Konversation
         }
         return line;
     }
-    
+
     QString tagURLs(const QString& text, const QString& fromNick, bool useCustomColor)
     {
         // QTime timer;
@@ -175,7 +174,7 @@ namespace Konversation
             insertText = link.arg(protocol, QString(href).replace('&', "\x0b"), href) + append;
             filteredLine.replace(pos, urlLen, insertText);
             pos += insertText.length();
-            KonversationApplication::instance()->storeUrl(fromNick, href);
+            Application::instance()->storeUrl(fromNick, href);
         }
 
         // Change & to &amp; to prevent html entities to do strange things to the text

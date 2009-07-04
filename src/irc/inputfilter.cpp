@@ -14,24 +14,23 @@
 #include "inputfilter.h"
 #include "server.h"
 #include "replycodes.h"
-#include "application.h" ////// header renamed
+#include "application.h"
 #include "version.h"
 #include "query.h"
-
 #include "channel.h"
 #include "statuspanel.h"
 #include "common.h"
 #include "notificationhandler.h"
+#include <config-konversation.h>
 
-#include <qdatastream.h>
-#include <qstringlist.h>
-#include <qdatetime.h>
-#include <qregexp.h>
+#include <QDataStream>
+#include <QStringList>
+#include <QDateTime>
+#include <QRegExp>
 
-#include <klocale.h>
-#include <kdeversion.h>
-#include <kstringhandler.h>
-#include <kdebug.h>
+#include <KLocale>
+#include <KStringHandler>
+
 
 InputFilter::InputFilter()
 {
@@ -143,7 +142,7 @@ void InputFilter::parseLine(const QString& line)
 
     Q_ASSERT(server); //how could we have gotten a line without a server?
 
-    
+
     // Server command, if no "!" was found in prefix
     if ((!prefix.contains('!')) && (prefix != server->getNickname()))
     {
@@ -172,7 +171,7 @@ bool _plHas(int count, int x)
 
 void InputFilter::parseClientCommand(const QString &prefix, const QString &command, QStringList &parameterList)
 {
-    KonversationApplication* konv_app = KonversationApplication::instance();
+    Application* konv_app = Application::instance();
     Q_ASSERT(konv_app);
     Q_ASSERT(server);
 
@@ -545,23 +544,43 @@ void InputFilter::parseClientCommand(const QString &prefix, const QString &comma
                 // No, so it was a normal notice
                 else
                 {
-                    // Nickserv
-                    if (trailing.startsWith(QLatin1String("If this is your nick")))
-                    {
-                        // Identify command if specified
-                        server->registerWithServices();
-                    }
-                    else if (server->identifyMsg())
-                        trailing = trailing.mid(1);
 
-                    if (trailing.toLower() == "password accepted - you are now recognized"
-                        || trailing.toLower() == "you have already identified")
+                    #ifdef HAVE_QCA2
+                    //Key exchange
+                    if (trailing.startsWith(QLatin1String("DH1080_INIT ")))
                     {
-                        NickInfoPtr nickInfo = server->getNickInfo(server->getNickname());
-                        if(nickInfo)
-                            nickInfo->setIdentified(true);
+                        server->appendMessageToFrontmost(i18n("Notice"), i18n("Received DH1080_INIT from %1", sourceNick));
+                        server->parseInitKeyX(sourceNick, trailing.mid(12));
                     }
-                    server->appendMessageToFrontmost(i18n("Notice"), i18n("-%1- %2", sourceNick, trailing));
+                    else if (trailing.startsWith(QLatin1String("DH1080_FINISH ")))
+                    {
+                        server->appendMessageToFrontmost(i18n("Notice"), i18n("Received DH1080_FINISH from %1", sourceNick));
+                        server->parseFinishKeyX(sourceNick, trailing.mid(14));
+                    }
+
+                    else
+                    {
+                    #endif
+                        // Nickserv
+                        if (trailing.startsWith(QLatin1String("If this is your nick")))
+                        {
+                            // Identify command if specified
+                            server->registerWithServices();
+                        }
+                        else if (server->identifyMsg())
+                            trailing = trailing.mid(1);
+
+                        if (trailing.toLower() == "password accepted - you are now recognized"
+                            || trailing.toLower() == "you have already identified")
+                        {
+                            NickInfoPtr nickInfo = server->getNickInfo(server->getNickname());
+                            if(nickInfo)
+                                nickInfo->setIdentified(true);
+                        }
+                        server->appendMessageToFrontmost(i18n("Notice"), i18n("-%1- %2", sourceNick, trailing));
+                    #ifdef HAVE_QCA2
+                    }
+                    #endif
                 }
             }
         }
@@ -881,11 +900,10 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
                     // This is the string the user will see
                     QString modesAre;
                     QString message = i18n("Channel modes: ") + modeString;
-
+                    int parameterCount=3;
                     for (int index=0;index<modeString.length();index++)
                     {
                         QString parameter;
-                        int parameterCount=3;
                         char mode(modeString[index].toAscii());
                         if(mode!='+')
                         {
@@ -958,7 +976,7 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
                     when.setTime_t(parameterList.value(2).toUInt());
                     server->appendCommandMessageToChannel(parameterList.value(1), i18n("Created"),
                         i18n("This channel was created on %1.",
-                            when.toString(Qt::LocalDate))
+                            KGlobal::locale()->formatDateTime(when, KLocale::ShortDate))
                         );
                 }
                 break;
@@ -1075,7 +1093,7 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
                     {
                         server->appendCommandMessageToChannel(parameterList.value(1), i18n("Topic"),
                             i18n("The topic was set by %1 on %2.",
-                                parameterList.value(2), when.toString(Qt::LocalDate)),
+                            parameterList.value(2), KGlobal::locale()->formatDateTime(when, KLocale::ShortDate)),
                             false);
                     }
                     else
@@ -1083,7 +1101,7 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
                         server->appendMessageToFrontmost(i18n("Topic"),i18n("The topic for %1 was set by %2 on %3.",
                             parameterList.value(1),
                             parameterList.value(2),
-                            when.toString(Qt::LocalDate))
+                            KGlobal::locale()->formatDateTime(when, KLocale::ShortDate))
                             );
                         setAutomaticRequest("TOPIC",parameterList.value(1), false);
                     }
@@ -1718,7 +1736,7 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
                         {
                             server->appendMessageToFrontmost(i18n("Whois"),
                                 i18n("%1 has been online since %2.",
-                                    parameterList.value(1), when.toString(Qt::LocalDate))
+                                    parameterList.value(1), KGlobal::locale()->formatDateTime(when, KLocale::ShortDate))
                                 );
                         }
                     }
@@ -1881,7 +1899,7 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
 
                         server->appendMessageToFrontmost(i18n("BanList:%1", parameterList.value(1)),
                                     i18nc("BanList message: e.g. *!*@aol.com set by MrGrim on <date>", "%1 set by %2 on %3",
-                                        parameterList.value(2), parameterList.value(3).section('!', 0, 0), when.toString(Qt::LocalDate))
+                                        parameterList.value(2), parameterList.value(3).section('!', 0, 0), KGlobal::locale()->formatDateTime(when, KLocale::ShortDate))
                                     );
                     }
                 }
@@ -2155,7 +2173,7 @@ void InputFilter::parsePrivMsg(const QString& prefix, QStringList& parameterList
         source = prefix;
     }
 
-    KonversationApplication* konv_app = static_cast<KonversationApplication*>(kapp);
+    Application* konv_app = static_cast<Application*>(kapp);
     message = konv_app->doAutoreplace(message, false);
 
     if(isAChannel(parameterList.value(0)))

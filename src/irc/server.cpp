@@ -40,25 +40,23 @@
 #include "serverison.h"
 #include "common.h"
 #include "notificationhandler.h"
-#include "blowfish.h"
+#include "awaymanager.h"
 
-#include <qregexp.h>
-#include <qhostaddress.h>
-#include <qtextcodec.h>
-#include <qdatetime.h>
+#include <QRegExp>
+#include <QHostAddress>
+#include <QTextCodec>
+#include <QDateTime>
 #include <QStringListModel>
 
-#include <kapplication.h>
-#include <klocale.h>
-#include <kdebug.h>
-#include <kfiledialog.h>
-#include <kinputdialog.h>
-#include <kmessagebox.h>
-#include <kaction.h>
-#include <kstringhandler.h>
-#include <kdeversion.h>
-#include <kwindowsystem.h>
+#include <KLocale>
+#include <KFileDialog>
+#include <KInputDialog>
+#include <KMessageBox>
+#include <KAction>
+#include <KStringHandler>
+#include <KWindowSystem>
 
+using namespace Konversation;
 
 int Server::m_availableConnectionId = 0;
 
@@ -278,13 +276,13 @@ void Server::connectSignals()
     connect(getOutputFilter(), SIGNAL(closeRawLog()), this, SLOT(closeRawLog()));
     connect(getOutputFilter(), SIGNAL(encodingChanged()), this, SLOT(updateEncoding()));
 
-    KonversationApplication* konvApp = static_cast<KonversationApplication*>(kapp);
+    Application* konvApp = static_cast<Application*>(kapp);
     connect(getOutputFilter(), SIGNAL(connectTo(Konversation::ConnectionFlag, const QString&,
                 const QString&, const QString&, const QString&, const QString&, bool)),
             konvApp->getConnectionManager(), SLOT(connectTo(Konversation::ConnectionFlag,
                 const QString&, const QString&, const QString&, const QString&, const QString&, bool)));
-    connect(konvApp->getDccTransferManager(), SIGNAL(newTransferQueued(DccTransfer*)),
-            this, SLOT(slotNewDccTransferItemQueued(DccTransfer*)));
+                connect(konvApp->getDccTransferManager(), SIGNAL(newDccTransferQueued(Konversation::DCC::Transfer*)),
+                        this, SLOT(slotNewDccTransferItemQueued(Konversation::DCC::Transfer*)));
 
     connect(konvApp, SIGNAL(appearanceChanged()), this, SLOT(startNotifyTimer()));
 
@@ -610,7 +608,7 @@ void Server::broken(QAbstractSocket::SocketError state)
 
     if (getConnectionState() != Konversation::SSDeliberatelyDisconnected)
     {
-        static_cast<KonversationApplication*>(kapp)->notificationHandler()->connectionFailure(getStatusView(), getServerName());
+        static_cast<Application*>(kapp)->notificationHandler()->connectionFailure(getStatusView(), getServerName());
 
         QString error = i18n("Connection to Server %1 lost: %2.",
             getConnectionSettings().server().host(),
@@ -647,7 +645,7 @@ void Server::sslVerifyError( const QSslError&  error)
 
     QString msg = i18n("The server (%1) certificate failed the authenticity test. %2", getConnectionSettings().server().host(), error.errorString());
 
-    KonversationApplication* konvApp = static_cast<KonversationApplication *>(kapp);
+    Application* konvApp = static_cast<Application *>(kapp);
 
     int result = KMessageBox::warningYesNo( konvApp->getMainWindow(),
                                             msg,
@@ -911,11 +909,6 @@ void Server::processIncomingData()
         m_processingIncoming = true;
         QString front(m_inputBuffer.front());
         m_inputBuffer.pop_front();
-        if (m_rawLog)
-        {
-            QString toRaw = front;
-            m_rawLog->appendRaw("&gt;&gt; " + toRaw.replace('&',"&amp;").replace('<',"&lt;").replace('>',"&gt;").replace(QRegExp("\\s"), "&nbsp;"));
-        }
         m_inputFilter.parseLine(front);
         m_processingIncoming = false;
 
@@ -1011,13 +1004,45 @@ void Server::incoming()
         }
         // END pre-parse to know where the message belongs to
         // Decrypt if necessary
-        if(command == "privmsg")
-            Konversation::decrypt(channelKey, first, this);
-        else if(command == "332" || command == "topic")
-        {
-            Konversation::decryptTopic(channelKey, first, this);
-        }
 
+        //send to raw log before decryption
+        if(m_rawLog)
+            m_rawLog->appendRaw("&gt;&gt; " + QString(first).remove(QChar(0xFDD0)).remove(QChar(0xFDD1)).replace('&',"&amp;").replace('<',"&lt;").replace('>',"&gt;").replace(QRegExp("\\s"), "&nbsp;"));
+
+        #ifdef HAVE_QCA2
+        QByteArray cKey = getKeyForRecipient(channelKey);
+        if(!cKey.isEmpty())
+        {
+            if(command == "privmsg")
+            {
+                //only send encrypted text to decrypter
+                int index = first.indexOf(":",first.indexOf(":")+1);
+                if(this->identifyMsgEnabled()) // Workaround braindead Freenode prefixing messages with +
+                    ++index;
+                QByteArray backup = first.mid(0,index+1);
+
+                if(getChannelByName(channelKey) && getChannelByName(channelKey)->getCipher()->setKey(cKey))
+                    first = getChannelByName(channelKey)->getCipher()->decrypt(first.mid(index+1));
+                else if(getQueryByName(channelKey) && getQueryByName(channelKey)->getCipher()->setKey(cKey))
+                    first = getQueryByName(channelKey)->getCipher()->decrypt(first.mid(index+1));
+
+                first.prepend(backup);
+            }
+            else if(command == "332" || command == "topic")
+            {
+                //only send encrypted text to decrypter
+                int index = first.indexOf(":",first.indexOf(":")+1);
+                QByteArray backup = first.mid(0,index+1);
+
+                if(getChannelByName(channelKey) && getChannelByName(channelKey)->getCipher()->setKey(cKey))
+                    first = getChannelByName(channelKey)->getCipher()->decryptTopic(first.mid(index+1));
+                else if(getQueryByName(channelKey) && getQueryByName(channelKey)->getCipher()->setKey(cKey))
+                    first = getQueryByName(channelKey)->getCipher()->decryptTopic(first.mid(index+1));
+
+                first.prepend(backup);
+            }
+        }
+        #endif
         bool isUtf8 = Konversation::isUtf8(first);
 
         if( isUtf8 )
@@ -1028,7 +1053,10 @@ void Server::incoming()
             QString channelEncoding;
             if( !channelKey.isEmpty() )
             {
-                channelEncoding = Preferences::channelEncoding(getDisplayName(), channelKey);
+                if(getServerGroup())
+                    channelEncoding = Preferences::channelEncoding(getServerGroup()->id(), channelKey);
+                else
+                    channelEncoding = Preferences::channelEncoding(getDisplayName(), channelKey);
             }
             // END set channel encoding if specified
 
@@ -1110,8 +1138,12 @@ int Server::_send_internal(QString outputLine)
 
     //[ PRIVMSG | NOTICE | KICK | PART | TOPIC ] target :message
     if (outputLineSplit.count() > 2 && outboundCommand > 1)
-        channelCodecName=Preferences::channelEncoding(getDisplayName(), outputLineSplit[1]);
-
+    {
+        if(getServerGroup()) // if we're connecting via a servergroup
+            channelCodecName=Preferences::channelEncoding(getServerGroup()->id(), outputLineSplit[1]);
+        else //if we're connecting to a server manually
+            channelCodecName=Preferences::channelEncoding(getDisplayName(), outputLineSplit[1]);
+    }
     QTextCodec* codec;
     if (channelCodecName.isEmpty())
         codec = getIdentity()->getCodec();
@@ -1124,11 +1156,11 @@ int Server::_send_internal(QString outputLine)
 
     //leaving this done twice for now, I'm uncertain of the implications of not encoding other commands
     QByteArray encoded = codec->fromUnicode(outputLine);
-
-    QString blowfishKey;
+    #ifdef HAVE_QCA2
+    QString cipherKey;
     if (outboundCommand > 1)
-        blowfishKey = getKeyForRecipient(outputLineSplit.at(1));
-    if (!blowfishKey.isEmpty())
+        cipherKey = getKeyForRecipient(outputLineSplit.at(1));
+    if (!cipherKey.isEmpty())
     {
         int colon = outputLine.indexOf(':');
         if (colon > -1)
@@ -1153,20 +1185,27 @@ int Server::_send_internal(QString outputLine)
                 }
                 if (doit)
                 {
-                    Konversation::encrypt(blowfishKey, payload);
+                    QString target = outputLineSplit.at(1);
+
+                    if(getChannelByName(target) && getChannelByName(target)->getCipher()->setKey(cipherKey.toLocal8Bit()))
+                        getChannelByName(target)->getCipher()->encrypt(payload);
+                    else if(getQueryByName(target) && getQueryByName(target)->getCipher()->setKey(cipherKey.toLocal8Bit()))
+                        getQueryByName(target)->getCipher()->encrypt(payload);
+
                     encoded = outputLineSplit.at(0).toAscii();
+                    kDebug() << payload << "\n" << payload.data();
                     //two lines because the compiler insists on using the wrong operator+
                     encoded += ' ' + dest + " :" + payload;
                 }
             }
         }
     }
-
+    #endif
     encoded += '\n';
     qint64 sout = m_socket->write(encoded, encoded.length());
 
     if (m_rawLog)
-        m_rawLog->appendRaw("&lt;&lt; " + outputLine.replace('&',"&amp;").replace('<',"&lt;").replace('>',"&gt;"));
+        m_rawLog->appendRaw("&lt;&lt; " + encoded.replace('&',"&amp;").replace('<',"&lt;").replace('>',"&gt;"));
 
     return sout;
 }
@@ -1479,6 +1518,8 @@ Query* Server::addQuery(const NickInfoPtr & nickInfo, bool weinitiated)
         QString lcNickname = nickname.toLower();
         query = getViewContainer()->addQuery(this, nickInfo, weinitiated);
 
+        query->indicateAway(m_away);
+
         connect(query, SIGNAL(sendFile(const QString&)),this, SLOT(requestDccSend(const QString&)));
         connect(this, SIGNAL(serverOnline(bool)), query, SLOT(serverOnline(bool)));
 
@@ -1488,7 +1529,7 @@ Query* Server::addQuery(const NickInfoPtr & nickInfo, bool weinitiated)
         m_queryNicks.insert(lcNickname, nickInfo);
 
         if (!weinitiated)
-            static_cast<KonversationApplication*>(kapp)->notificationHandler()->query(query, nickname);
+            static_cast<Application*>(kapp)->notificationHandler()->query(query, nickname);
     }
 
     // try to get hostmask if there's none yet
@@ -1649,7 +1690,7 @@ void Server::requestDccSend(const QString &a_recipient)
         }
         QStringListModel model;
         model.setStringList(nickList);
-        recipient = DccRecipientDialog::getNickname(getViewContainer()->getWindow(), &model);
+        recipient = DCC::RecipientDialog::getNickname(getViewContainer()->getWindow(), &model);
     }
     // do we have a recipient *now*?
     if(!recipient.isEmpty())
@@ -1668,20 +1709,20 @@ void Server::requestDccSend(const QString &a_recipient)
     }
 }
 
-void Server::slotNewDccTransferItemQueued(DccTransfer* transfer)
+void Server::slotNewDccTransferItemQueued(DCC::Transfer* transfer)
 {
     if (transfer->getConnectionId() == connectionId() )
     {
         kDebug() << "connecting slots for " << transfer->getFileName() << " [" << transfer->getType() << "]";
-        if ( transfer->getType() == DccTransfer::Receive )
+        if ( transfer->getType() == DCC::Transfer::Receive )
         {
-            connect( transfer, SIGNAL( done( DccTransfer* ) ), this, SLOT( dccGetDone( DccTransfer* ) ) );
-            connect( transfer, SIGNAL( statusChanged( DccTransfer*, int, int ) ), this, SLOT( dccStatusChanged( DccTransfer*, int, int ) ) );
+            connect( transfer, SIGNAL( done( Konversation::DCC::Transfer* ) ), this, SLOT( dccGetDone( Konversation::DCC::Transfer* ) ) );
+            connect( transfer, SIGNAL( statusChanged( Konversation::DCC::Transfer*, int, int ) ), this, SLOT( dccStatusChanged( Konversation::DCC::Transfer*, int, int ) ) );
         }
         else
         {
-            connect( transfer, SIGNAL( done( DccTransfer* ) ), this, SLOT( dccSendDone( DccTransfer* ) ) );
-            connect( transfer, SIGNAL( statusChanged( DccTransfer*, int, int ) ), this, SLOT( dccStatusChanged( DccTransfer*, int, int ) ) );
+            connect( transfer, SIGNAL( done( Konversation::DCC::Transfer* ) ), this, SLOT( dccSendDone( Konversation::DCC::Transfer* ) ) );
+            connect( transfer, SIGNAL( statusChanged( Konversation::DCC::Transfer*, int, int ) ), this, SLOT( dccStatusChanged( Konversation::DCC::Transfer*, int, int ) ) );
         }
     }
 }
@@ -1690,10 +1731,8 @@ void Server::addDccSend(const QString &recipient,KUrl fileURL, const QString &al
 {
     if (!fileURL.isValid()) return;
 
-    emit addDccPanel();
-
     // We already checked that the file exists in output filter / requestDccSend() resp.
-    DccTransferSend* newDcc = KonversationApplication::instance()->getDccTransferManager()->newUpload();
+    DCC::TransferSend* newDcc = Application::instance()->getDccTransferManager()->newUpload();
 
     newDcc->setConnectionId( connectionId() );
 
@@ -1703,6 +1742,8 @@ void Server::addDccSend(const QString &recipient,KUrl fileURL, const QString &al
         newDcc->setFileName( altFileName );
     if ( fileSize != 0 )
         newDcc->setFileSize( fileSize );
+
+    emit addDccPanel();
 
     if ( newDcc->queue() )
         newDcc->start();
@@ -1750,7 +1791,7 @@ QString Server::cleanDccFileName(const QString& filename) const
 
 void Server::addDccGet(const QString &sourceNick, const QStringList &dccArguments)
 {
-    DccTransferRecv* newDcc = KonversationApplication::instance()->getDccTransferManager()->newDownload();
+    DCC::TransferRecv* newDcc = Application::instance()->getDccTransferManager()->newDownload();
 
     newDcc->setConnectionId( connectionId() );
     newDcc->setPartnerNick( sourceNick );
@@ -1768,7 +1809,7 @@ void Server::addDccGet(const QString &sourceNick, const QStringList &dccArgument
     {
         //filename ip port(0) filesize token
         fileName = recoverDccFileName(dccArguments, 4); //ip port filesize token
-        ip = DccCommon::numericalIpToTextIp( dccArguments.at(argumentSize - 4) ); //-1 index, -1 token, -1 port, -1 filesize
+        ip = DCC::DccCommon::numericalIpToTextIp( dccArguments.at(argumentSize - 4) ); //-1 index, -1 token, -1 port, -1 filesize
         port = 0;
         fileSize = dccArguments.at(argumentSize - 2).toULong(); //-1 index, -1 token
         token = dccArguments.at(argumentSize - 1); //-1 index
@@ -1777,7 +1818,7 @@ void Server::addDccGet(const QString &sourceNick, const QStringList &dccArgument
         newDcc->setReverse( true, token );
     } else {
         //filename ip port filesize
-        ip = DccCommon::numericalIpToTextIp( dccArguments.at(argumentSize - 3) ); //-1 index, -1 filesize
+        ip = DCC::DccCommon::numericalIpToTextIp( dccArguments.at(argumentSize - 3) ); //-1 index, -1 filesize
         fileName = recoverDccFileName(dccArguments, 3); //ip port filesize
         fileSize = dccArguments.at(argumentSize - 1).toULong(); //-1 index
         port = dccArguments.at(argumentSize - 2).toUInt(); //-1 index, -1 filesize
@@ -1877,10 +1918,10 @@ void Server::dccRejectChat(const QString& partnerNick)
 void Server::startReverseDccSendTransfer(const QString& sourceNick,const QStringList& dccArguments)
 {
     kDebug();
-    DccTransferManager* dtm = KonversationApplication::instance()->getDccTransferManager();
+    DCC::TransferManager* dtm = Application::instance()->getDccTransferManager();
 
     const int argumentSize = dccArguments.size();
-    QString partnerIP = DccCommon::numericalIpToTextIp( dccArguments.at(argumentSize - 4) ); //dccArguments[1] ) );
+    QString partnerIP = DCC::DccCommon::numericalIpToTextIp( dccArguments.at(argumentSize - 4) ); //dccArguments[1] ) );
     uint port = dccArguments.at(argumentSize - 3).toUInt();
     QString token = dccArguments.at(argumentSize - 1);
     unsigned long fileSize = dccArguments.at(argumentSize - 2).toULong();
@@ -1913,7 +1954,7 @@ void Server::startReverseDccSendTransfer(const QString& sourceNick,const QString
 
 void Server::resumeDccGetTransfer(const QString &sourceNick, const QStringList &dccArguments)
 {
-    DccTransferManager* dtm = KonversationApplication::instance()->getDccTransferManager();
+    DCC::TransferManager* dtm = Application::instance()->getDccTransferManager();
 
     //filename port position [token]
     QString fileName;
@@ -1934,7 +1975,7 @@ void Server::resumeDccGetTransfer(const QString &sourceNick, const QStringList &
     }
     //do we need the token here?
 
-    DccTransferRecv* dccTransfer = dtm->resumeDownload( connectionId(), sourceNick, fileName, ownPort, position );
+    DCC::TransferRecv* dccTransfer = dtm->resumeDownload( connectionId(), sourceNick, fileName, ownPort, position );
 
     if ( dccTransfer )
     {
@@ -1958,7 +1999,7 @@ void Server::resumeDccGetTransfer(const QString &sourceNick, const QStringList &
 
 void Server::resumeDccSendTransfer(const QString &sourceNick, const QStringList &dccArguments)
 {
-    DccTransferManager* dtm = KonversationApplication::instance()->getDccTransferManager();
+    DCC::TransferManager* dtm = Application::instance()->getDccTransferManager();
 
     bool passiv = false;
     QString fileName;
@@ -1985,7 +2026,7 @@ void Server::resumeDccSendTransfer(const QString &sourceNick, const QStringList 
         fileName = recoverDccFileName(dccArguments, 2); //port filepos
     }
 
-    DccTransferSend* dccTransfer = dtm->resumeUpload( connectionId(), sourceNick, fileName, ownPort, position );
+    DCC::TransferSend* dccTransfer = dtm->resumeUpload( connectionId(), sourceNick, fileName, ownPort, position );
 
     if ( dccTransfer )
     {
@@ -2001,7 +2042,7 @@ void Server::resumeDccSendTransfer(const QString &sourceNick, const QStringList 
         if (fileName.contains(' '))
             fileName = '\"'+fileName+'\"';
 
-        // FIXME: this operation should be done by DccTransferManager
+        // FIXME: this operation should be done by TransferManager
         Konversation::OutputFilterResult result;
         if (passiv)
             result = getOutputFilter()->acceptPassiveResumeRequest( sourceNick, fileName, ownPort, position, token );
@@ -2022,12 +2063,12 @@ void Server::resumeDccSendTransfer(const QString &sourceNick, const QStringList 
 
 void Server::rejectDccSendTransfer(const QString &sourceNick, const QStringList &dccArguments)
 {
-    DccTransferManager* dtm = KonversationApplication::instance()->getDccTransferManager();
+    DCC::TransferManager* dtm = Application::instance()->getDccTransferManager();
 
     //filename
     QString fileName = recoverDccFileName(dccArguments,0);
 
-    DccTransferSend* dccTransfer = dtm->rejectSend( connectionId(), sourceNick, fileName );
+    DCC::TransferSend* dccTransfer = dtm->rejectSend( connectionId(), sourceNick, fileName );
 
     if ( !dccTransfer )
     {
@@ -2039,17 +2080,17 @@ void Server::rejectDccSendTransfer(const QString &sourceNick, const QStringList 
     }
 }
 
-void Server::dccGetDone(DccTransfer* item)
+void Server::dccGetDone(DCC::Transfer* item)
 {
     if (!item)
         return;
 
-    if(item->getStatus() == DccTransfer::Done)
+    if(item->getStatus() == DCC::Transfer::Done)
     {
         appendMessageToFrontmost(i18n("DCC"), i18nc("%1 = file name, %2 = nickname of sender",
             "Download of \"%1\" from %2 finished.", item->getFileName(), item->getPartnerNick()));
     }
-    else if(item->getStatus() == DccTransfer::Failed)
+    else if(item->getStatus() == DCC::Transfer::Failed)
     {
         appendMessageToFrontmost(i18n("DCC"), i18nc("%1 = file name, %2 = nickname of sender",
             "Download of \"%1\" from %2 failed. Reason: %3.", item->getFileName(),
@@ -2057,35 +2098,35 @@ void Server::dccGetDone(DccTransfer* item)
     }
 }
 
-void Server::dccSendDone(DccTransfer* item)
+void Server::dccSendDone(DCC::Transfer* item)
 {
     if (!item)
         return;
 
-    if(item->getStatus()==DccTransfer::Done)
+    if(item->getStatus() == DCC::Transfer::Done)
         appendMessageToFrontmost(i18n("DCC"), i18nc("%1 = file name, %2 = nickname of recipient",
             "Upload of \"%1\" to %2 finished.", item->getFileName(), item->getPartnerNick()));
-    else if(item->getStatus()==DccTransfer::Failed)
+    else if(item->getStatus() == DCC::Transfer::Failed)
         appendMessageToFrontmost(i18n("DCC"), i18nc("%1 = file name, %2 = nickname of recipient",
             "Upload of \"%1\" to %2 failed. Reason: %3.", item->getFileName(), item->getPartnerNick(),
             item->getStatusDetail()));
 }
 
-void Server::dccStatusChanged(DccTransfer *item, int newStatus, int oldStatus)
+void Server::dccStatusChanged(DCC::Transfer *item, int newStatus, int oldStatus)
 {
     if(!item)
         return;
 
-    if ( item->getType() == DccTransfer::Send )
+    if ( item->getType() == DCC::Transfer::Send )
     {
         // when resuming, a message about the receiver's acceptance has been shown already, so suppress this message
-        if ( newStatus == DccTransfer::Transferring && oldStatus == DccTransfer::WaitingRemote && !item->isResumed() )
+        if ( newStatus == DCC::Transfer::Transferring && oldStatus == DCC::Transfer::WaitingRemote && !item->isResumed() )
             appendMessageToFrontmost( i18n( "DCC" ), i18nc( "%1 = file name, %2 nickname of recipient",
                 "Sending \"%1\" to %2...", item->getFileName(), item->getPartnerNick() ) );
     }
     else  // type == Receive
     {
-        if ( newStatus == DccTransfer::Transferring && !item->isResumed() )
+        if ( newStatus == DCC::Transfer::Transferring && !item->isResumed() )
         {
             appendMessageToFrontmost( i18n( "DCC" ),
                                         i18nc( "%1 = file name, %2 = file size, %3 = nickname of sender", "Downloading \"%1\" (%2) from %3...",
@@ -2431,7 +2472,7 @@ NickInfoPtr Server::setWatchedNickOnline(const QString& nickname)
     appendMessageToFrontmost(i18n("Notify"),"<a class=\"nick\" href=\"#"+nickname+"\">"+
         i18n("%1 is online (%2).", nickname, getServerName())+"</a>", getStatusView());
 
-    static_cast<KonversationApplication*>(kapp)->notificationHandler()->nickOnline(getStatusView(), nickname);
+    static_cast<Application*>(kapp)->notificationHandler()->nickOnline(getStatusView(), nickname);
 
     nickInfo->setPrintedOnline(true);
     return nickInfo;
@@ -2448,7 +2489,7 @@ void Server::setWatchedNickOffline(const QString& nickname, const NickInfoPtr ni
 
     appendMessageToFrontmost(i18n("Notify"), i18n("%1 went offline (%2).", nickname, getServerName()), getStatusView());
 
-    static_cast<KonversationApplication*>(kapp)->notificationHandler()->nickOffline(getStatusView(), nickname);
+    static_cast<Application*>(kapp)->notificationHandler()->nickOffline(getStatusView(), nickname);
 
 }
 
@@ -2563,7 +2604,11 @@ void Server::removeChannelNick(const QString& channelName, const QString& nickna
 QStringList Server::getWatchList()
 {
     // no nickinfo ISON for the time being
-    return Preferences::notifyListByGroupName(getDisplayName());
+    if(getServerGroup())
+        return Preferences::notifyListByGroupId(getServerGroup()->id());
+    else
+        return QStringList();
+
     if (m_serverISON)
         return m_serverISON->getWatchList();
     else
@@ -2575,7 +2620,11 @@ QString Server::getWatchListString() { return getWatchList().join(" "); }
 QStringList Server::getISONList()
 {
     // no nickinfo ISON for the time being
-    return Preferences::notifyListByGroupName(getDisplayName());
+    if(getServerGroup())
+        return Preferences::notifyListByGroupId(getServerGroup()->id());
+    else
+        return QStringList();
+
     if (m_serverISON)
         return m_serverISON->getISONList();
     else
@@ -3037,16 +3086,17 @@ void Server::sendToAllChannels(const QString &text)
 
 void Server::invitation(const QString& nick,const QString& channel)
 {
-    if(KMessageBox::questionYesNo(getViewContainer()->getWindow(),
-        i18n("You were invited by %1 to join channel %2. "
-        "Do you accept the invitation?", nick, channel),
-        i18n("Invitation"),
-        KGuiItem(i18n("Join")),
-        KGuiItem(i18n("Ignore")),
-        "Invitation")==KMessageBox::Yes)
+    if(!m_inviteDialog)
     {
-        sendJoinCommand(channel);
+        m_inviteDialog = new InviteDialog (getViewContainer()->getWindow());
+        connect(m_inviteDialog, SIGNAL(joinChannelsRequested(const QString&)),
+                this, SLOT(sendJoinCommand(const QString&)));
     }
+
+    m_inviteDialog->show();
+    m_inviteDialog->raise();
+
+    m_inviteDialog->addInvite(nick, channel);
 }
 
 void Server::scriptNotFound(const QString& name)
@@ -3145,37 +3195,30 @@ void Server::updateAutoJoin(Konversation::ChannelSettings channel)
 
         for (it = tmpList.begin(); it != tmpList.end(); ++it)
         {
-            QString channel = (*it).name();;
+            QString channel = (*it).name();
             QString password = ((*it).password().isEmpty() ? "." : (*it).password());
 
-            length += getIdentity()->getCodec()->fromUnicode(channel).length();
-            length += getIdentity()->getCodec()->fromUnicode(password).length();
+            uint currentLength = getIdentity()->getCodec()->fromUnicode(channel).length();
+            currentLength += getIdentity()->getCodec()->fromUnicode(password).length();
 
-            if (length + 6 < 512) // 6: "JOIN " plus separating space between chans and pws.
+            //channels.count() and passwords.count() account for the commas
+            if (length + currentLength + 6 + channels.count() + passwords.count() >= 512) // 6: "JOIN " plus separating space between chans and pws.
             {
-                channels << channel;
-                passwords << password;
-            }
-            else
-            {
-                if (passwords.last() == ".") passwords.pop_back();
+                while (passwords.last() == ".") passwords.pop_back();
 
                 joinCommands << "JOIN " + channels.join(",") + ' ' + passwords.join(",");
 
                 channels.clear();
                 passwords.clear();
 
-                channels << channel;
-                passwords << password;
-
                 length = 0;
-
-                length += getIdentity()->getCodec()->fromUnicode(channel).length();
-                length += getIdentity()->getCodec()->fromUnicode(password).length();
             }
-        }
 
-        if (passwords.last() == ".") passwords.pop_back();
+            length += currentLength;
+
+            channels << channel;
+            passwords << password;
+        }
 
         joinCommands << "JOIN " + channels.join(",") + ' ' + passwords.join(",");
 
@@ -3187,7 +3230,7 @@ void Server::updateAutoJoin(Konversation::ChannelSettings channel)
 
 ViewContainer* Server::getViewContainer() const
 {
-    KonversationApplication* konvApp = static_cast<KonversationApplication *>(kapp);
+    Application* konvApp = static_cast<Application *>(kapp);
     return konvApp->getMainWindow()->getViewContainer();
 }
 
@@ -3476,6 +3519,89 @@ void Server::updateEncoding()
     if(getViewContainer() && getViewContainer()->getFrontView())
         getViewContainer()->updateViewEncoding(getViewContainer()->getFrontView());
 }
+
+#ifdef HAVE_QCA2
+void Server::initKeyExchange(const QString &receiver)
+{
+    Query* query;
+    if (getQueryByName(receiver))
+    {
+        query = getQueryByName(receiver);
+    }
+    else
+    {
+        NickInfoPtr nickinfo = obtainNickInfo(receiver);
+        query = addQuery(nickinfo, true);
+    }
+
+    Konversation::Cipher* cipher = query->getCipher();
+
+    QByteArray pubKey = cipher->initKeyExchange();
+    if(pubKey.isEmpty())
+    {
+        appendMessageToFrontmost(i18n("Error"), i18n("Failed to initiate key exchange with %1.", receiver));
+    }
+    else
+    {
+        queue("NOTICE "+receiver+" :DH1080_INIT "+pubKey);
+    }
+}
+
+void Server::parseInitKeyX(const QString &sender, const QString &remoteKey)
+{
+    //TODO ask the user to accept without blocking
+    Query* query;
+    if (getQueryByName(sender))
+    {
+        query = getQueryByName(sender);
+    }
+    else
+    {
+        NickInfoPtr nickinfo = obtainNickInfo(sender);
+        query = addQuery(nickinfo, false);
+    }
+
+    Konversation::Cipher* cipher = query->getCipher();
+
+    QByteArray pubKey = cipher->parseInitKeyX(remoteKey.toLocal8Bit());
+
+    if (pubKey.isEmpty())
+    {
+        appendMessageToFrontmost(i18n("Error"), i18n("Failed to parse the DH1080_INIT of %1. Key exchange failed.",sender));
+    }
+    else
+    {
+        setKeyForRecipient(sender, cipher->key());
+        query->setEncryptedOutput(true);
+        appendMessageToFrontmost(i18n("Notice"), i18n("Your key is set and your messages will now be encrypted, sending DH1080_FINISH to %1.", sender));
+        queue("NOTICE "+sender+" :DH1080_FINISH "+pubKey);
+    }
+}
+
+void Server::parseFinishKeyX(const QString &sender, const QString &remoteKey)
+{
+    Query* query;
+    if (getQueryByName(sender))
+    {
+        query = getQueryByName(sender);
+    }
+    else
+        return;
+
+    Konversation::Cipher* cipher = query->getCipher();
+
+    if (cipher->parseFinishKeyX(remoteKey.toLocal8Bit()))
+    {
+        setKeyForRecipient(sender,cipher->key());
+        query->setEncryptedOutput(true);
+        appendMessageToFrontmost(i18n("Notice"), i18n("Successfully parsed DH1080_FINISH sent by %1. Your key is set and your messages will now be encrypted.", sender));
+    }
+    else
+    {
+        appendMessageToFrontmost(i18n("Error"), i18n("Failed to parse DH1080_FINISH sent by %1. Key exchange failed.", sender));
+    }
+}
+#endif
 
 QAbstractItemModel* Server::nickListModel() const
 {

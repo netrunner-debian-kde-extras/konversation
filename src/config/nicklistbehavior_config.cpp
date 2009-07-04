@@ -12,11 +12,7 @@
 */
 
 #include "nicklistbehavior_config.h"
-#include "valuelistviewitem.h"
 #include "preferences.h"
-
-#include <kapplication.h>
-#include <klocale.h>
 
 
 NicklistBehavior_Config::NicklistBehavior_Config(QWidget *parent, const char *name)

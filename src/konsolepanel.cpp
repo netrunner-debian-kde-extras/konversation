@@ -13,11 +13,9 @@
 #include "common.h"
 #include "viewcontainer.h"
 
-#include <qlayout.h>
+#include <QLayout>
 
-#include <kdebug.h>
-#include <klibloader.h>
-#include <klocale.h>
+#include <KLibLoader>
 #include <kde_terminal_interface.h>
 
 

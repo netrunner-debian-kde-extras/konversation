@@ -13,17 +13,16 @@
 */
 
 #include "trayicon.h"
-#include "application.h" ////// header renamed
+#include "application.h"
 #include "channel.h"
 #include "server.h"
 #include "chatwindow.h"
 #include "config/preferences.h"
 
-#include <qtimer.h>
+#include <QTimer>
 
-#include <kglobal.h>
-#include <kiconloader.h>
-#include <klocale.h>
+#include <KGlobal>
+#include <KIconLoader>
 
 
 namespace Konversation
@@ -90,7 +89,6 @@ namespace Konversation
     void TrayIcon::updateAppearance()
     {
         m_nomessagePix = loadIcon("konversation");
-        //krazy:exclude=iconnames
         m_messagePix = loadIcon("konv_message");
         setIcon(m_nomessagePix);
     }

@@ -13,19 +13,17 @@
 */
 
 #include "dbus.h"
-#include "application.h" ////// header renamed
+#include "application.h"
 #include "connectionmanager.h"
 #include "awaymanager.h"
 #include "channel.h"
 #include "identity.h"
 #include "server.h"
 
-#include <kdebug.h>
-#include <klocale.h>
-
 #include <QDBusConnection>
 
 using namespace Konversation;
+
 
 DBus::DBus(QObject *parent) : QObject(parent)
 {
@@ -42,7 +40,7 @@ void DBus::raw(const QString& server,const QString& command)
 
 QStringList DBus::listServers()
 {
-    KonversationApplication* konvApp = static_cast<KonversationApplication*>(kapp);
+    Application* konvApp = static_cast<Application*>(kapp);
 
     QStringList hosts;
     const QList<Server*> serverList = konvApp->getConnectionManager()->getServerList();
@@ -55,7 +53,7 @@ QStringList DBus::listServers()
 
 QStringList DBus::listConnectedServers()
 {
-    KonversationApplication* konvApp = static_cast<KonversationApplication*>(kapp);
+    Application* konvApp = static_cast<Application*>(kapp);
 
     QStringList connectedHosts;
     const QList<Server*> serverList = konvApp->getConnectionManager()->getServerList();
@@ -68,12 +66,12 @@ QStringList DBus::listConnectedServers()
 
 void DBus::setAway(const QString& awaymessage)
 {
-    static_cast<KonversationApplication*>(kapp)->getAwayManager()->requestAllAway(awaymessage);
+    static_cast<Application*>(kapp)->getAwayManager()->requestAllAway(awaymessage);
 }
 
 void DBus::setBack()
 {
-    static_cast<KonversationApplication*>(kapp)->getAwayManager()->requestAllUnaway();
+    static_cast<Application*>(kapp)->getAwayManager()->requestAllUnaway();
 }
 
 void DBus::sayToAll(const QString &message)
@@ -138,7 +136,7 @@ void DBus::connectToServer(const QString& address, int port, const QString& chan
 
 QString DBus::getNickname(const QString& serverName)
 {
-    Server* server = KonversationApplication::instance()->getConnectionManager()->getServerByName(serverName);
+    Server* server = Application::instance()->getConnectionManager()->getServerByName(serverName);
 
     if (!server)
     {
@@ -151,7 +149,7 @@ QString DBus::getNickname(const QString& serverName)
 
 QString DBus::getAnyNickname()
 {
-    KonversationApplication* konvApp = static_cast<KonversationApplication*>(kapp);
+    Application* konvApp = static_cast<Application*>(kapp);
 
     Server* server = konvApp->getConnectionManager()->getAnyServer();
 
@@ -167,13 +165,16 @@ QString DBus::getChannelEncoding(const QString& server, const QString& channel)
 
 void DBus::changeAwayStatus(bool away)
 {
-    if(away)
+    Application* konvApp = static_cast<Application*>(kapp);
+    
+    if (away)
     {
-        static_cast<KonversationApplication*>(kapp)->getAwayManager()->setManagedIdentitiesAway();
+        konvApp->getAwayManager()->setManagedIdentitiesAway();
     }
     else
     {
-        static_cast<KonversationApplication*>(kapp)->getAwayManager()->setManagedIdentitiesUnaway();
+        konvApp->getAwayManager()->screensaverDisabled();
+        konvApp->getAwayManager()->setManagedIdentitiesUnaway();
     }
 }
 
@@ -239,7 +240,7 @@ void IdentDBus::setNickname(const QString &identity, int index,const QString& ni
 {
     const Identity *i = Preferences::identityByName(identity).data();
     const_cast<Identity *>(i)->setNickname(index, nick);
-    static_cast<KonversationApplication *>(kapp)->saveOptions(true);
+    static_cast<Application *>(kapp)->saveOptions(true);
 }
 
 QString IdentDBus::getNickname(const QString &identity, int index)
@@ -251,7 +252,7 @@ void IdentDBus::setBot(const QString &identity, const QString& bot)
 {
     const Identity *i = Preferences::identityByName(identity).data();
     const_cast<Identity *>(i)->setBot(bot);
-    static_cast<KonversationApplication *>(kapp)->saveOptions(true);
+    static_cast<Application *>(kapp)->saveOptions(true);
 }
 
 QString IdentDBus::getBot(const QString &identity)
@@ -263,7 +264,7 @@ void IdentDBus::setPassword(const QString &identity, const QString& password)
 {
     const Identity *i = Preferences::identityByName(identity).data();
     const_cast<Identity *>(i)->setPassword(password);
-    static_cast<KonversationApplication *>(kapp)->saveOptions(true);
+    static_cast<Application *>(kapp)->saveOptions(true);
 }
 
 QString IdentDBus::getPassword(const QString &identity)
@@ -275,7 +276,7 @@ void IdentDBus::setNicknameList(const QString &identity, const QStringList& newL
 {
     const Identity *i = Preferences::identityByName(identity).data();
     const_cast<Identity *>(i)->setNicknameList(newList);
-    static_cast<KonversationApplication *>(kapp)->saveOptions(true);
+    static_cast<Application *>(kapp)->saveOptions(true);
 }
 
 QStringList IdentDBus::getNicknameList(const QString &identity)
@@ -287,7 +288,7 @@ void IdentDBus::setQuitReason(const QString &identity, const QString& reason)
 {
     const Identity *i = Preferences::identityByName(identity).data();
     const_cast<Identity *>(i)->setQuitReason(reason);
-    static_cast<KonversationApplication *>(kapp)->saveOptions(true);
+    static_cast<Application *>(kapp)->saveOptions(true);
 }
 
 QString IdentDBus::getQuitReason(const QString &identity)
@@ -300,7 +301,7 @@ void IdentDBus::setPartReason(const QString &identity, const QString& reason)
 {
     const Identity *i = Preferences::identityByName(identity).data();
     const_cast<Identity *>(i)->setPartReason(reason);
-    static_cast<KonversationApplication *>(kapp)->saveOptions(true);
+    static_cast<Application *>(kapp)->saveOptions(true);
 }
 
 QString IdentDBus::getPartReason(const QString &identity)
@@ -312,7 +313,7 @@ void IdentDBus::setKickReason(const QString &identity, const QString& reason)
 {
     const Identity *i = Preferences::identityByName(identity).data();
     const_cast<Identity *>(i)->setKickReason(reason);
-    static_cast<KonversationApplication *>(kapp)->saveOptions(true);
+    static_cast<Application *>(kapp)->saveOptions(true);
 }
 
 QString IdentDBus::getKickReason(const QString &identity)
@@ -324,7 +325,7 @@ void IdentDBus::setShowAwayMessage(const QString &identity, bool state)
 {
     const Identity *i = Preferences::identityByName(identity).data();
     const_cast<Identity *>(i)->setShowAwayMessage(state);
-    static_cast<KonversationApplication *>(kapp)->saveOptions(true);
+    static_cast<Application *>(kapp)->saveOptions(true);
 }
 
 bool IdentDBus::getShowAwayMessage(const QString &identity)
@@ -336,7 +337,7 @@ void IdentDBus::setAwayMessage(const QString &identity, const QString& message)
 {
     const Identity *i = Preferences::identityByName(identity).data();
     const_cast<Identity *>(i)->setAwayMessage(message);
-    static_cast<KonversationApplication *>(kapp)->saveOptions(true);
+    static_cast<Application *>(kapp)->saveOptions(true);
 }
 
 QString IdentDBus::getAwayMessage(const QString &identity)
@@ -349,7 +350,7 @@ void IdentDBus::setReturnMessage(const QString &identity, const QString& message
 {
     const Identity *i = Preferences::identityByName(identity).data();
     const_cast<Identity *>(i)->setReturnMessage(message);
-    static_cast<KonversationApplication *>(kapp)->saveOptions(true);
+    static_cast<Application *>(kapp)->saveOptions(true);
 }
 
 QString IdentDBus::getReturnMessage(const QString &identity)

@@ -19,26 +19,25 @@
 #include "server.h"
 #include "common.h"
 
-#include <q3grid.h>
-#include <qlabel.h>
-#include <qspinbox.h>
-#include <qpushbutton.h>
-#include <q3hgroupbox.h>
-#include <qregexp.h>
-#include <qcheckbox.h>
-#include <qtimer.h>
+#include <QLabel>
+#include <QSpinBox>
+#include <QPushButton>
+#include <QRegExp>
+#include <QCheckBox>
+#include <QTimer>
 
-#include <krun.h>
-#include <k3listview.h>
-#include <klineedit.h>
-#include <klocale.h>
-#include <kdebug.h>
-#include <kfiledialog.h>
-#include <kmessagebox.h>
-#include <kmenu.h>
-#include <kdeversion.h>
+#include <Q3Grid>
+#include <Q3HGroupBox>
+
+#include <KRun>
+#include <KLineEdit>
+#include <KFileDialog>
+#include <KMessageBox>
 #include <KMenu>
-#include <kvbox.h>
+#include <KVBox>
+
+#include <K3ListView>
+
 
 ChannelListPanel::ChannelListPanel(QWidget* parent) : ChatWindow(parent)
 {

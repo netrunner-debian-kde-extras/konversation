@@ -12,20 +12,18 @@
 #define QT3_SUPPORT //TODO remove when porting away from K3ListView
 
 #include "viewtreeitem.h"
-#include "application.h" ////// header renamed
+#include "application.h"
 #include "chatwindow.h"
 #include "preferences.h"
 #include "images.h"
 
+#include <QPainter>
+#include <QPixmap>
+#include <QImage>
+#include <QTimer>
 
-#include <qpainter.h>
-#include <qpixmap.h>
-#include <qimage.h>
-#include <qtimer.h>
-
-#include <kdebug.h>
-#include <kglobalsettings.h>
-#include <kstringhandler.h>
+#include <KGlobalSettings>
+#include <KStringHandler>
 
 
 int ViewTreeItem::s_availableSortIndex = 0;
@@ -39,7 +37,7 @@ ViewTreeItem::ViewTreeItem(Q3ListView* parent, const QString& name, ChatWindow* 
     setView(view);
     setViewType(view->getType());
 
-    m_color = KonversationApplication::instance()->palette().color(QPalette::Active, QPalette::Text);//KGlobalSettings::textColor();
+    m_color = Application::instance()->palette().color(QPalette::Active, QPalette::Text);//KGlobalSettings::textColor();
     m_customColorSet = false;
 
     setOpen(true);
@@ -49,7 +47,7 @@ ViewTreeItem::ViewTreeItem(Q3ListView* parent, const QString& name, ChatWindow* 
     m_isHighlighted = false;
     m_isTruncated = false;
 
-    images = KonversationApplication::instance()->images();
+    images = Application::instance()->images();
     m_closeButtonShown = false;
     m_closeButtonEnabled = false;
 }
@@ -68,7 +66,7 @@ ViewTreeItem::ViewTreeItem(Q3ListViewItem* parent, const QString& name, ChatWind
     setView(view);
     setViewType(view->getType());
 
-    m_color = KonversationApplication::instance()->palette().color(QPalette::Active, QPalette::Text);//KGlobalSettings::textColor();
+    m_color = Application::instance()->palette().color(QPalette::Active, QPalette::Text);//KGlobalSettings::textColor();
     m_customColorSet = false;
 
     setOpen(true);
@@ -79,7 +77,7 @@ ViewTreeItem::ViewTreeItem(Q3ListViewItem* parent, const QString& name, ChatWind
     m_isTruncated = false;
     m_customColorSet = false;
 
-    images = KonversationApplication::instance()->images();
+    images = Application::instance()->images();
     m_closeButtonShown = false;
     m_closeButtonEnabled = false;
 }
@@ -93,7 +91,7 @@ ViewTreeItem::ViewTreeItem(Q3ListViewItem* parent, Q3ListViewItem* afterItem, co
     setView(view);
     setViewType(view->getType());
 
-    m_color = KonversationApplication::instance()->palette().color(QPalette::Active, QPalette::Text);//KGlobalSettings::textColor();
+    m_color = Application::instance()->palette().color(QPalette::Active, QPalette::Text);//KGlobalSettings::textColor();
     m_customColorSet = false;
 
     setOpen(true);
@@ -104,7 +102,7 @@ ViewTreeItem::ViewTreeItem(Q3ListViewItem* parent, Q3ListViewItem* afterItem, co
     m_isTruncated = false;
     m_customColorSet = false;
 
-    images = KonversationApplication::instance()->images();
+    images = Application::instance()->images();
     m_closeButtonShown = false;
     m_closeButtonEnabled = false;
 }
@@ -186,7 +184,7 @@ QColor ViewTreeItem::getColor() const
         if (Preferences::self()->inputFieldsBackgroundColor())
             return Preferences::self()->color(Preferences::ChannelMessage);
         else
-            return KonversationApplication::instance()->palette().color(QPalette::Active, QPalette::Text);//KGlobalSettings::textColor();
+            return Application::instance()->palette().color(QPalette::Active, QPalette::Text);//KGlobalSettings::textColor();
     }
     else
         return m_color;

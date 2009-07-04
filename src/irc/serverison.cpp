@@ -18,13 +18,10 @@
 #include "serverison.h"
 #include "server.h"
 #include "addressbook.h"
-#include "application.h" ////// header renamed
+#include "application.h"
 #include "nickinfo.h"
 #include "viewcontainer.h"
 
-#include <qmap.h>
-#include <qstring.h>
-#include <qstringlist.h>
 #include <kabc/addressbook.h>
 #include <kabc/stdaddressbook.h>
 
@@ -50,7 +47,7 @@ ServerISON::ServerISON(Server* server) : m_server(server)
         SIGNAL(channelJoinedOrUnjoined(Server*, const QString&, bool )),
         this,
         SLOT(slotChannelJoinedOrUnjoined(Server*, const QString&, bool )));
-    connect(KonversationApplication::instance(), SIGNAL(serverGroupsChanged(const Konversation::ServerGroupSettingsPtr)),
+    connect(Application::instance(), SIGNAL(serverGroupsChanged(const Konversation::ServerGroupSettingsPtr)),
         this, SLOT(slotServerGroupsChanged()));
 }
 
@@ -171,7 +168,7 @@ void ServerISON::recalculateAddressees()
         // TODO: Don't add nick on user watch list if nick is known to be online
         // under a different nickname?
         QStringList prefsWatchList =
-            Preferences::notifyListByGroupName(m_server->getDisplayName());
+            Preferences::notifyListByGroupId(m_server->getServerGroup()->id());
         QStringList::iterator itEnd = prefsWatchList.end();
 
         for(QStringList::iterator it = prefsWatchList.begin(); it != itEnd; ++it)

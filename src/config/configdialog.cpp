@@ -36,17 +36,16 @@
  *  email:     hein@kde.org
  */
 
-#include "configdialog.h" ////// header renamed
+#include "configdialog.h"
 
-#include <kconfigskeleton.h>
-#include <kconfigdialogmanager.h>
-#include <klocale.h>
-#include <kiconloader.h>
-#include <kdebug.h>
-#include <kvbox.h>
+#include <KConfigSkeleton>
+#include <KConfigDialogManager>
+#include <KIconLoader>
+#include <KVBox>
+#include <KLocale>
 
-#include <qlayout.h>
-#include <qmap.h>
+#include <QLayout>
+
 #include <Q3CString>
 
 

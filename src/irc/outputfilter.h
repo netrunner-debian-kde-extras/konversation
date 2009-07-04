@@ -19,14 +19,15 @@
 #include "identity.h"
 #include "common.h"
 
-#include <qobject.h>
-#include <qstring.h>
-#include <kurl.h>
-#include <kio/global.h>
+#include <QObject>
+#include <QString>
 
+#include <KUrl>
+#include <kio/global.h>
 
 class Server;
 class ChatWindow;
+
 
 namespace Konversation
 {
@@ -57,7 +58,7 @@ namespace Konversation
             explicit OutputFilter(Server* server);
             ~OutputFilter();
 
-            QStringList splitForEncoding(const QString& inputLine, int max);
+            QStringList splitForEncoding(const QString& inputLine, int max, int segments = -1);
             OutputFilterResult parse(const QString& myNick,const QString& line,const QString& name);
 
             // dcc send
@@ -116,7 +117,7 @@ namespace Konversation
             OutputFilterResult execUnban(const QString& mask,const QString& channels);
 
         protected:
-            OutputFilterResult parseMsg(const QString& myNick,const QString& parameter, bool focusQueryWindow);
+            OutputFilterResult parseMsg(const QString& parameter, bool commandIsQuery);
             OutputFilterResult parseSMsg(const QString& parameter);
             OutputFilterResult parseMe(const QString &parameter, const QString &destination);
             OutputFilterResult parseDescribe(const QString& parameter);
@@ -164,6 +165,7 @@ namespace Konversation
             OutputFilterResult parseCharset(const QString& charset);
             void parseCycle();
             OutputFilterResult parseSetKey(const QString& parameter);
+            OutputFilterResult parseKeyX(const QString& parameter);
             OutputFilterResult parseDelKey(const QString& parameter);
             OutputFilterResult parseShowKey(const QString& parameter);
             OutputFilterResult parseDNS(const QString& parameter);

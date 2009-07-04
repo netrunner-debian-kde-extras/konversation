@@ -13,8 +13,8 @@
   Copyright (C) 2005-2008 Eike Hein <hein@kde.org>
 */
 
-#ifndef KONVERSATIONAPPLICATION_H
-#define KONVERSATIONAPPLICATION_H
+#ifndef APPLICATION_H
+#define APPLICATION_H
 
 #include "preferences.h"
 #include "mainwindow.h"
@@ -26,7 +26,6 @@
 
 class ConnectionManager;
 class AwayManager;
-class DccTransferManager;
 class Server;
 class QuickConnectDialog;
 class Images;
@@ -38,6 +37,11 @@ namespace Konversation
     class IdentDBus;
     class Sound;
     class NotificationHandler;
+
+    namespace DCC
+    {
+        class TransferManager;
+    }
 
     // Shared between NickListView and IRCView
     enum PopupIDs
@@ -53,7 +57,7 @@ namespace Konversation
 
 }
 
-class KonversationApplication : public KUniqueApplication
+class Application : public KUniqueApplication
 {
     Q_OBJECT
 
@@ -66,11 +70,11 @@ class KonversationApplication : public KUniqueApplication
          *  Note to any MDI developer - get this to return any of the windows, or some
          *  'main' one.
          */
-        KonversationMainWindow* getMainWindow() { return mainWindow; }
+        MainWindow* getMainWindow() { return mainWindow; }
 
         ConnectionManager* getConnectionManager() { return m_connectionManager; }
         AwayManager* getAwayManager() { return m_awayManager; }
-        DccTransferManager* getDccTransferManager() { return m_dccTransferManager; }
+        Konversation::DCC::TransferManager* getDccTransferManager() { return m_dccTransferManager; }
 
         // HACK
         void showQueueTuner(bool);
@@ -79,10 +83,10 @@ class KonversationApplication : public KUniqueApplication
         void storeUrl(const QString& who,const QString& url);
         const QStringList& getUrlList();
 
-        KonversationApplication();
-        ~KonversationApplication();
+        Application();
+        ~Application();
 
-        static KonversationApplication* instance();
+        static Application* instance();
 
         /** For dcop and addressbook, a user can be specified as user@irc.server.net
          *  or user\@servergroup or using the unicode separator symbol 0xE120 instead
@@ -117,6 +121,7 @@ class KonversationApplication : public KUniqueApplication
 
         int newInstance();
 
+        static void openUrl(const QString& url);
 
     signals:
         void catchUrl(const QString& who,const QString& url);
@@ -145,11 +150,11 @@ class KonversationApplication : public KUniqueApplication
     private:
         ConnectionManager* m_connectionManager;
         AwayManager* m_awayManager;
-        DccTransferManager* m_dccTransferManager;
+        Konversation::DCC::TransferManager* m_dccTransferManager;
         QStringList urlList;
         Konversation::DBus* dbusObject;
         Konversation::IdentDBus* identDBus;
-        QPointer<KonversationMainWindow> mainWindow;
+        QPointer<MainWindow> mainWindow;
         Konversation::Sound* m_sound;
         QuickConnectDialog* quickConnectDialog;
         Images* m_images;
