@@ -2,9 +2,7 @@
 
 DEB_KDE_LINK_WITH_AS_NEEDED := yes
 
-DH = dh --with quilt
-
-include debian/debhelper/kde.mk
+include /usr/share/pkg-kde-tools/makefiles/1/debhelper/kde.mk
 
 ifneq (,$(shell which tg))
 QUILT_PATCH_DIR := debian/patches
@@ -18,3 +16,6 @@ override_dh_install:
 	if [ -d debian/konversation ]; then \
 	    cp -a data/scripts/README debian/konversation/usr/share/doc/konversation/README.scripts; \
 	fi
+
+%:
+	dh --with quilt $@
