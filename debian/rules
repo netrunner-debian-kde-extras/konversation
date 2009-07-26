@@ -18,4 +18,4 @@ override_dh_install:
 	fi
 
 %:
-	dh --with quilt $@
+	dh --with quilt --dbg-package=konversation-dbg $@
