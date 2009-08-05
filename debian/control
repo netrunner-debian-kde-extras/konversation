@@ -39,7 +39,7 @@ Package: konversation-dbg
 Section: debug
 Architecture: any
 Priority: extra
-Depends: konversation (= ${binary:Version})
+Depends: konversation (= ${binary:Version}), ${misc:Depends}
 Recommends: kdelibs5-dbg
 Description: debugging symbols for konversation
  This package contains the debugging symbols associated with konversation.
