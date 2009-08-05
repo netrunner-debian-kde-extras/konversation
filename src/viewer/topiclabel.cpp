@@ -75,6 +75,11 @@ namespace Konversation
         m_server = server;
     }
 
+    void TopicLabel::setChannelName(const QString& channel)
+    {
+        m_channelName = channel;
+    }
+
     void TopicLabel::leaveEvent(QEvent* e)
     {
        emit clearStatusBarTempText();
@@ -124,7 +129,12 @@ namespace Konversation
 
             if (!m_currentChannel.isEmpty())
             {
-                menu->addAction(i18n("&Join"), this, SLOT(joinChannel()));
+                QAction* action = menu->addAction(i18n("&Join Channel..."), this, SLOT(joinChannel()));
+                #if KDE_IS_VERSION(4,2,85)
+                action->setIcon(KIcon("irc-join-channel"));
+                #else
+                action->setIcon(KIcon("list-add"));
+                #endif
                 menu->addAction(i18n("Get &user list"), this, SLOT (getChannelUserList()));
                 menu->addAction(i18n("Get &topic"), this, SLOT(getChannelTopic()));
                 actionsAdded = true;
@@ -170,7 +180,8 @@ namespace Konversation
         // text.replace("&", "&amp;"). Not needed as we do it in tagURLs
         text.replace('<', "\x0blt;"). // tagUrls will replace \x0b with &
             replace('>', "\x0bgt;");
-        text = tagURLs(text, "", false);
+
+        text = tagURLs(text, m_channelName, false);
 
         if(height() < (fontMetrics().lineSpacing() * 2))
         {

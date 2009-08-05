@@ -301,9 +301,6 @@ void resetNickSelection();
          */
         const QList<Channel *>& getChannelList() const { return m_channelList; }
 
-        void emitChannelNickChanged(const ChannelNickPtr channelNick);
-        void emitNickInfoChanged(const NickInfoPtr nickInfo);
-
         /**
          * Returns a list of all the nicks on the user watch list plus nicks in the addressbook.
          */
@@ -347,12 +344,12 @@ void resetNickSelection();
         ChannelListPanel* addChannelListPanel();
 
         // invoked by DCC::TransferSend
-        void dccSendRequest(const QString& recipient,const QString& fileName,const QString& address,uint port,unsigned long size);
-        void dccPassiveSendRequest(const QString& recipient,const QString& fileName,const QString& address,unsigned long size,const QString& token);
+        void dccSendRequest(const QString& recipient,const QString& fileName,const QString& address,uint port,quint64 size);
+        void dccPassiveSendRequest(const QString& recipient,const QString& fileName,const QString& address,quint64 size,const QString& token);
         // invoked by DCC::TransferRecv
         void dccPassiveResumeGetRequest(const QString& sender,const QString& fileName,uint port,KIO::filesize_t startAt,const QString &token);
         void dccResumeGetRequest(const QString& sender,const QString& fileName,uint port,KIO::filesize_t startAt);
-        void dccReverseSendAck(const QString& partnerNick,const QString& fileName,const QString& ownAddress,uint ownPort,unsigned long size,const QString& reverseToken);
+        void dccReverseSendAck(const QString& partnerNick,const QString& fileName,const QString& ownAddress,uint ownPort,quint64 size,const QString& reverseToken);
         void dccRejectSend(const QString& partnerNick, const QString& fileName);
         // invoked by DccChat
         void dccRejectChat(const QString& partnerNick);
@@ -406,9 +403,10 @@ void resetNickSelection();
         //Note that these signals haven't been implemented yet.
         /// Fires when the information in a NickInfo object changes.
         void nickInfoChanged(Server* server, const NickInfoPtr nickInfo);
-
-        /// Fires when the mode of a nick in a channel changes.
-        void channelNickChanged(Server* server, const ChannelNickPtr channelNick);
+        /// Emitted once if one or more NickInfo has been changed.
+        void nickInfoChanged();
+        /// Emitted once if one or more ChannelNick has been changed in @p channel.
+        void channelNickChanged(const QString& channel);
 
         /// Fires when a nick leaves or joins a channel.  Based on joined flag, receiver could
         /// call getJoinedChannelMembers or getUnjoinedChannelMembers, or just
@@ -454,10 +452,11 @@ void resetNickSelection();
         void quitServer();
         void openDccChat(const QString& nickname);
         void requestDccChat(const QString& partnerNick, const QString& numericalOwnIp, uint ownPort);
+        void acceptDccGet(const QString& nick, const QString& file);
         void requestBan(const QStringList& users,const QString& channel,const QString& option);
         void requestUnban(const QString& mask,const QString& channel);
 
-        void addDccSend(const QString &recipient,KUrl fileURL, const QString &altFileName = QString(), uint fileSize = 0);
+        void addDccSend(const QString &recipient,KUrl fileURL, const QString &altFileName = QString(), quint64 fileSize = 0);
         void removeQuery(Query *query);
         void startNotifyTimer(int msec=0);
         void sendJoinCommand(const QString& channelName, const QString& password = QString());
@@ -493,6 +492,12 @@ void resetNickSelection();
         void parseInitKeyX(const QString &sender, const QString &pubKey);
         void parseFinishKeyX(const QString &sender, const QString &pubKey);
         #endif
+
+        /// Start the NickInfo changed timer if it isn't started already
+        void startNickInfoChangedTimer();
+        /// Start the ChannelNick changed timer if it isn't started already
+        void startChannelNickChangedTimer(const QString& channel);
+
     protected slots:
         void hostFound();
         void preShellCommandExited(int exitCode, QProcess::ExitStatus exitStatus);
@@ -543,6 +548,18 @@ void resetNickSelection();
 
         /// Update the encoding shown in the mainwindow's actions
         void updateEncoding();
+
+        /// Update the NickInfos from the address book
+        void updateNickInfoAddressees();
+
+        /** Called when the NickInfo changed timer times out.
+          * Emits the nickInfoChanged() signal for all changed NickInfos
+          */
+        void sendNickInfoChangedSignals();
+        /** Called when the ChannelNick changed timer times out.
+          * Emits the channelNickChanged() signal for each channel with changed nicks.
+          */
+        void sendChannelNickChangedSignals();
 
     private slots:
         void collectStats(int bytes, int encodedBytes);
@@ -756,6 +773,10 @@ void resetNickSelection();
         bool m_showSSLConfirmation;
 
         QPointer<InviteDialog> m_inviteDialog;
+
+        QTimer* m_nickInfoChangedTimer;
+        QTimer* m_channelNickChangedTimer;
+        QStringList m_changedChannels;
 };
 
 #endif

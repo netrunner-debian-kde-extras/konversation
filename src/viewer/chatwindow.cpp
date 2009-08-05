@@ -23,6 +23,7 @@
 #include <QRegExp>
 #include <QTextCodec>
 #include <QKeyEvent>
+#include <QScrollBar>
 
 #include <KDialog>
 #include <KActionCollection>
@@ -40,10 +41,6 @@ ChatWindow::ChatWindow(QWidget* parent) : KVBox(parent)
 
     setMargin(margin());
     setSpacing(spacing());
-
-    // The font size of the KTabWidget container may be inappropriately
-    // small due to the "Tab bar" font size setting.
-    setFont(KGlobalSettings::generalFont());
 }
 
 ChatWindow::~ChatWindow()
@@ -54,12 +51,11 @@ ChatWindow::~ChatWindow()
 
 void ChatWindow::updateAppearance()
 {
+    if (getTextView()) getTextView()->updateAppearance();
+
     // The font size of the KTabWidget container may be inappropriately
     // small due to the "Tab bar" font size setting.
     setFont(KGlobalSettings::generalFont());
-
-    if (textView)
-        textView->setVerticalScrollBarPolicy(Preferences::self()->showIRCViewScrollBar() ? Qt::ScrollBarAlwaysOn : Qt::ScrollBarAlwaysOff);
 }
 
 void ChatWindow::setName(const QString& newName)
@@ -267,13 +263,14 @@ void ChatWindow::setLogfileName(const QString& name)
                         backlog.seek( 0 );
                     }
 
-                    qint64 currentPacketHeadPosition = backlog.pos();
+                    // remember actual file position to check for deadlocks
+                    filePosition = backlog.pos();
+
+                    qint64 currentPacketHeadPosition = filePosition;
 
                     // Loop until end of file reached
-                    while(!backlog.atEnd() && backlog.pos() < lastPacketHeadPosition)
+                    while(!backlog.atEnd() && filePosition < lastPacketHeadPosition)
                     {
-                        // remember actual file position to check for deadlocks
-                        filePosition = backlog.pos();
                         backlogLine = backlog.readLine();
 
                         // check for deadlocks
@@ -294,6 +291,9 @@ void ChatWindow::setLogfileName(const QString& name)
                             firstColumnsInPacket << backlogFirst;
                             messagesInPacket << backlogLine;
                         }
+
+                        // remember actual file position to check for deadlocks
+                        filePosition = backlog.pos();
                     } // while
 
                     // remember the position not to read the same lines again

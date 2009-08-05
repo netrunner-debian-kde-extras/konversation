@@ -141,13 +141,6 @@ IRCView::IRCView(QWidget* parent, Server* newServer) : KTextBrowser(parent)
 
     setServer(newServer);
 
-    setViewBackground(Preferences::self()->color(Preferences::TextViewBackground),QString());
-
-    if (Preferences::self()->customTextFont())
-        setFont(Preferences::self()->textFont());
-    else
-        setFont(KGlobalSettings::generalFont());
-
     if (Preferences::self()->useParagraphSpacing()) enableParagraphSpacing();
 }
 
@@ -248,17 +241,35 @@ bool IRCView::hasLines() { return false; }
 */
 
 void IRCView::enableParagraphSpacing() {}
-void IRCView::setViewBackground(const QColor& backgroundColor, const KUrl& url)
+
+void IRCView::updateAppearance()
 {
-    QPalette pal = palette();
-    pal.setColor(QPalette::Base, backgroundColor);
-    if (!url.isEmpty())
+    if (Preferences::self()->customTextFont())
+        setFont(Preferences::self()->textFont());
+    else
+        setFont(KGlobalSettings::generalFont());
+
+    setVerticalScrollBarPolicy(Preferences::self()->showIRCViewScrollBar() ? Qt::ScrollBarAlwaysOn : Qt::ScrollBarAlwaysOff);
+
+    QPalette p;
+
+    p.setColor(QPalette::Base, Preferences::self()->color(Preferences::TextViewBackground));
+
+    if (Preferences::self()->showBackgroundImage())
     {
-        QBrush brush;
-        brush.setTexture(QPixmap(url.path()));
-        pal.setBrush(QPalette::Base, brush);
+        KUrl url = Preferences::self()->backgroundImage();
+
+        if (!url.isEmpty())
+        {
+            QBrush brush;
+
+            brush.setTexture(QPixmap(url.path()));
+
+            p.setBrush(QPalette::Base, brush);
+        }
     }
-    setPalette(pal);
+
+    setPalette(p);
 }
 
 // Data insertion
@@ -665,7 +676,10 @@ bool doHighlight, bool parseURL, bool self)
 
     if(parseURL)
     {
-        filteredLine = Konversation::tagURLs(filteredLine, whoSent);
+        if(whoSent.isEmpty())
+            filteredLine = Konversation::tagURLs(filteredLine, m_chatWin->getName());
+        else
+            filteredLine = Konversation::tagURLs(filteredLine, whoSent);
     }
     else
     {
@@ -924,8 +938,13 @@ void IRCView::setupChannelPopupMenu()
     m_channelPopup->setObjectName("channel_context_menu");
     m_channelPopup->setTitle(m_currentChannel);
 
-    QAction* action = m_channelPopup->addAction(i18n("&Join"), this, SLOT(handleContextActions()));
+    QAction* action = m_channelPopup->addAction(i18n("&Join Channel..."), this, SLOT(handleContextActions()));
     action->setData(Konversation::Join);
+    #if KDE_IS_VERSION(4,2,85)
+    action->setIcon(KIcon("irc-join-channel"));
+    #else
+    action->setIcon(KIcon("list-add"));
+    #endif
     action = m_channelPopup->addAction(i18n("Get &user list"), this, SLOT(handleContextActions()));
     action->setData(Konversation::Names);
     action = m_channelPopup->addAction(i18n("Get &topic"), this, SLOT(handleContextActions()));

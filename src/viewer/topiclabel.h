@@ -32,6 +32,7 @@ namespace Konversation
             QSize minimumSizeHint() const;
             QSize sizeHint() const;
             void setServer(Server* server);
+            void setChannelName(const QString& channel);
 
         public slots:
             virtual void openLink(const QString& link);
@@ -63,6 +64,7 @@ namespace Konversation
 
         private:
             Server* m_server;
+            QString m_channelName;
 
             QString m_fullText;
             QString m_lastStatusText;

@@ -385,14 +385,8 @@ void ViewContainer::updateTabWidgetAppearance()
     bool noTabBar = (Preferences::self()->tabPlacement()==Preferences::Left);
     m_tabWidget->setTabBarHidden(noTabBar);
 
-#if QT_VERSION >= 0x040500
+#if KDE_IS_VERSION(4, 2, 85)
     m_tabWidget->setDocumentMode(noTabBar);
-#if !KDE_IS_VERSION(4, 2, 85)
-    if (noTabBar)
-        m_tabWidget->setStyleSheet("QTabWidget::pane { border:none; }");
-    else
-        m_tabWidget->setStyleSheet(QString());
-#endif
 #endif
 
     if (Preferences::self()->customTabFont())
@@ -1187,6 +1181,9 @@ void ViewContainer::addView(ChatWindow* view, const QString& label, bool weiniti
     ChatWindow::WindowType wtype;
     QIcon iconSet;
 
+    if (Preferences::self()->closeButtons())
+        iconSet = KIcon("dialog-close");
+
     connect(Application::instance(), SIGNAL(appearanceChanged()), view, SLOT(updateAppearance()));
     connect(view, SIGNAL(setStatusBarTempText(const QString&)), this, SIGNAL(setStatusBarTempText(const QString&)));
     connect(view, SIGNAL(clearStatusBarTempText()), this, SIGNAL(clearStatusBarTempText()));
@@ -1897,7 +1894,8 @@ void ViewContainer::insertIRCColor()
 
     if (dlg->exec() == KDialog::Accepted)
     {
-        m_frontView->appendInputText(dlg->color(), true/*fromCursor*/);
+        if(m_frontView)
+            m_frontView->appendInputText(dlg->color(), true/*fromCursor*/);
     }
     delete dlg;
 }
@@ -2026,12 +2024,8 @@ void ViewContainer::addUrlCatcher()
         connect(m_urlCatcherPanel, SIGNAL(clearUrlList()),
             konvApp, SLOT(clearUrlList()));
 
-        QStringList urlList=konvApp->getUrlList();
-        for(int index=0;index<urlList.count();index++)
-        {
-            QString urlItem=urlList[index];
-            m_urlCatcherPanel->addUrl(urlItem.section(' ',0,0),urlItem.section(' ',1,1));
-        }                                         // for
+        m_urlCatcherPanel->setUrlList(konvApp->getUrlList());
+
         (dynamic_cast<KToggleAction*>(actionCollection()->action("open_url_catcher")))->setChecked(true);
     }
     else

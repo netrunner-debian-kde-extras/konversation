@@ -364,7 +364,7 @@ namespace Konversation
             m_sendSocket->connectToHost( partnerHost, partnerPort );
         }
                                                           // public
-        bool TransferSend::setResume( unsigned long position )
+        bool TransferSend::setResume( quint64 position )
         {
             kDebug() << "Position=" << position;
 
@@ -413,7 +413,7 @@ namespace Konversation
             stopConnectionTimer();
 
             if ( m_fastSend )
-                connect( m_sendSocket, SIGNAL( bytesWritten( qint64 ) ), this, SLOT( writeData() ) );
+                connect( m_sendSocket, SIGNAL( bytesWritten( qint64 ) ), this, SLOT( bytesWritten( qint64 ) ) );
             connect( m_sendSocket, SIGNAL( readyRead() ),  this, SLOT( getAck() ) );
 
             m_partnerIp = m_sendSocket->peerAddress().toString();
@@ -436,35 +436,33 @@ namespace Konversation
             }
         }
 
+        void TransferSend::bytesWritten(qint64 /*bytes*/)
+        {
+            //wait for all remaining bytes to be written
+            if (m_sendSocket && m_sendSocket->bytesToWrite() <= (qint64)m_bufferSize)
+            {
+                writeData();
+            }
+        }
+
         void TransferSend::writeData()                 // slot
         {
             //kDebug();
 
-            int actual = m_file.read( m_buffer, m_bufferSize );
+            qint64 actual = m_file.read( m_buffer, m_bufferSize );
             if ( actual > 0 )
             {
                 qint64 byteWritten = m_sendSocket->write( m_buffer, actual );
-                if (byteWritten == -1)
-                {
-                    failed ( m_sendSocket->errorString() );
-                    return;
-                }
 
-                //this "can" happen when resources are temporary unavailable
-                //NOTE: this is not fatal
-                if (byteWritten < actual)
+                if (byteWritten > 0)
                 {
-                    kWarning() << "byteWritten < actual : " << byteWritten << " < " << actual;
-                    kWarning() << "try to correct it with byteWritten += " << m_sendSocket->bytesToWrite();
-                    byteWritten += m_sendSocket->bytesToWrite();
-                }
-
-                m_transferringPosition += byteWritten;
-                //m_transferringPosition += actual;
-                if ( (KIO::fileoffset_t)m_fileSize <= m_transferringPosition )
-                {
-                    Q_ASSERT( (KIO::fileoffset_t)m_fileSize == m_transferringPosition );
-                    kDebug() << "Done.";
+                    m_transferringPosition += byteWritten;
+                    //m_transferringPosition += actual;
+                    if ( (KIO::fileoffset_t)m_fileSize <= m_transferringPosition )
+                    {
+                        Q_ASSERT( (KIO::fileoffset_t)m_fileSize == m_transferringPosition );
+                        kDebug() << "Done.";
+                    }
                 }
             }
         }
@@ -477,7 +475,7 @@ namespace Konversation
                 writeData();
             }
 
-            unsigned long pos;
+            quint32 pos;
             while ( m_sendSocket->bytesAvailable() >= 4 )
             {
                 m_sendSocket->read( (char*)&pos, 4 );

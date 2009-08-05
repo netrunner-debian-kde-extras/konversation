@@ -808,7 +808,18 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
                          parameterList.value(3),
                          parameterList.value(4))
                         );
-                server->setAllowedChannelModes(parameterList.value(4));
+
+                    QString allowed = server->allowedChannelModes();
+                    QString newModes = parameterList.value(4);
+                    if(!allowed.isEmpty()) //attempt to merge the two
+                    {
+                        for(int i=0; i < allowed.length(); i++)
+                        {
+                            if(!newModes.contains(allowed.at(i)))
+                                newModes.append(allowed.at(i));
+                        }
+                    }
+                    server->setAllowedChannelModes(newModes);
                 }
                 break;
             }
@@ -874,6 +885,23 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
                             // Disable as we don't use this for anything yet
                             //server->queue("CAPAB IDENTIFY-MSG");
                         }
+                        else if (property == "CHANMODES")
+                        {
+                            if(!value.isEmpty())
+                            {
+                                QString allowed = server->allowedChannelModes();
+                                QString newModes = value.remove(',');
+                                if(!allowed.isEmpty()) //attempt to merge the two
+                                {
+                                    for(int i=0; i < allowed.length(); i++)
+                                    {
+                                        if(!newModes.contains(allowed.at(i)))
+                                            newModes.append(allowed.at(i));
+                                    }
+                                }
+                                server->setAllowedChannelModes(newModes);
+                            }
+                        }
                         else
                         {
                             //kDebug() << "Ignored server-capability: " << property << " with value '" << value << "'";
@@ -901,6 +929,7 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
                     QString modesAre;
                     QString message = i18n("Channel modes: ") + modeString;
                     int parameterCount=3;
+                    QHash<QChar,QString> channelModesHash = Konversation::getChannelModesHash();
                     for (int index=0;index<modeString.length();index++)
                     {
                         QString parameter;
@@ -909,35 +938,22 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
                         {
                             if(!modesAre.isEmpty())
                                 modesAre+=", ";
-                            if(mode=='t')
-                                modesAre+=i18n("topic protection");
-                            else if(mode=='n')
-                                modesAre+=i18n("no messages from outside");
-                            else if(mode=='s')
-                                modesAre+=i18n("secret");
-                            else if(mode=='i')
-                                modesAre+=i18n("invite only");
-                            else if(mode=='p')
-                                modesAre+=i18n("private");
-                            else if(mode=='m')
-                                modesAre+=i18n("moderated");
-                            else if(mode=='k')
+
+                            if(mode=='k')
                             {
                                 parameter=parameterList.value(parameterCount++);
                                 message += ' ' + parameter;
                                 modesAre+=i18n("password protected");
                             }
-                            else if(mode=='a')
-                                modesAre+=i18n("anonymous");
-                            else if(mode=='r')
-                                modesAre+=i18n("server reop");
-                            else if(mode=='c')
-                                modesAre+=i18n("no colors allowed");
                             else if(mode=='l')
                             {
                                 parameter=parameterList.value(parameterCount++);
                                 message += ' ' + parameter;
                                 modesAre+=i18np("limited to %1 user", "limited to %1 users", parameter.toInt());
+                            }
+                            else if(channelModesHash.contains(mode))
+                            {
+                                modesAre+=channelModesHash.value(mode);
                             }
                             else
                             {
@@ -1667,10 +1683,27 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
                 if (plHas(3))
                 {
                     // get idle time in seconds
-                    long seconds = parameterList.value(2).toLong();
+                    bool ok = false;
+                    long seconds = parameterList.value(2).toLong(&ok);
+                    if (!ok) break;
+
                     long minutes = seconds/60;
                     long hours   = minutes/60;
                     long days    = hours/24;
+
+                    QDateTime signonTime;
+                    uint signonTimestamp = parameterList.value(3).toUInt(&ok);
+
+                    if (ok && parameterList.count() == 5)
+                        signonTime.setTime_t(signonTimestamp);
+
+                    if (!signonTime.isNull())
+                    {
+                        NickInfoPtr nickInfo = server->getNickInfo(parameterList.value(1));
+
+                        if (nickInfo)
+                            nickInfo->setOnlineSince(signonTime);
+                    }
 
                     // if idle time is longer than a day
                     // Display message only if this was not an automatic request.
@@ -1687,20 +1720,18 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
                                 i18nc("%1 = name of person, %2 = (x days), %3 = (x hours), %4 = (x minutes), %5 = (x seconds)",
                                     "%1 has been idle for %2, %3, %4, and %5.",
                                     parameterList.value(1),
-                                    daysString, hoursString, minutesString, secondsString)
-                                );
+                                    daysString, hoursString, minutesString, secondsString));
                             // or longer than an hour
                         }
                         else if (hours)
                         {
-                        const QString hoursString = i18np("1 hour", "%1 hours", hours);
+                            const QString hoursString = i18np("1 hour", "%1 hours", hours);
                             const QString minutesString = i18np("1 minute", "%1 minutes", (minutes % 60));
                             const QString secondsString = i18np("1 second", "%1 seconds", (seconds % 60));
                             server->appendMessageToFrontmost(i18n("Whois"),
                                 i18nc("%1 = name of person, %2 = (x hours), %3 = (x minutes), %4 = (x seconds)",
                                     "%1 has been idle for %2, %3, and %4.", parameterList.value(1), hoursString,
-                                    minutesString, secondsString)
-                                );
+                                    minutesString, secondsString));
                             // or longer than a minute
                         }
                         else if (minutes)
@@ -1709,35 +1740,20 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
                             const QString secondsString = i18np("1 second", "%1 seconds", (seconds % 60));
                             server->appendMessageToFrontmost(i18n("Whois"),
                                 i18nc("%1 = name of person, %2 = (x minutes), %3 = (x seconds)",
-                                    "%1 has been idle for %2 and %3.", parameterList.value(1), minutesString, secondsString)
-                                );
+                                    "%1 has been idle for %2 and %3.", parameterList.value(1), minutesString, secondsString));
                             // or just some seconds
                         }
                         else
                         {
                             server->appendMessageToFrontmost(i18n("Whois"),
-                            i18np("%2 has been idle for 1 second.", "%2 has been idle for %1 seconds.", seconds, parameterList.value(1))
-                                );
+                            i18np("%2 has been idle for 1 second.", "%2 has been idle for %1 seconds.", seconds, parameterList.value(1)));
                         }
-                    }
 
-                    // FIXME this one will fail if we pop the nick off
-                    if (parameterList.count()==4)
-                    {
-                        QDateTime when;
-                        when.setTime_t(parameterList.value(3).toUInt());
-                        NickInfoPtr nickInfo = server->getNickInfo(parameterList.value(1));
-                        if (nickInfo)
-                        {
-                            nickInfo->setOnlineSince(when);
-                        }
-                        // Display message only if this was not an automatic request.
-                        if (getAutomaticRequest("WHOIS", parameterList.value(1)) == 0)
+                        if (!signonTime.isNull())
                         {
                             server->appendMessageToFrontmost(i18n("Whois"),
                                 i18n("%1 has been online since %2.",
-                                    parameterList.value(1), KGlobal::locale()->formatDateTime(when, KLocale::ShortDate))
-                                );
+                                parameterList.value(1), KGlobal::locale()->formatDateTime(signonTime, KLocale::ShortDate, true)));
                         }
                     }
                 }
@@ -1849,6 +1865,7 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
                     }
                     else
                     {
+                        emit endOfChannelList();
                         setAutomaticRequest("LIST",QString(),false);
                     }
                 }
@@ -2107,7 +2124,7 @@ bool InputFilter::isAChannel(const QString &check)
         return false;
     Q_ASSERT(server);
     // if we ever see the assert, we need the ternary
-    return server? server->isAChannel(check) : QString("#&").contains(check.at(0));
+    return server? server->isAChannel(check) : bool(QString("#&").contains(check.at(0)));
 }
 
 bool InputFilter::isIgnore(const QString &sender, Ignore::Type type)

@@ -17,39 +17,49 @@
 
 #include "channelnick.h"
 
-#include <K3ListView>
+#include <QTreeWidgetItem>
 
+class NickListView;
+class Channel;
 
-class Nick : public QObject, public K3ListViewItem
+class Nick : public QTreeWidgetItem
 {
-    Q_OBJECT
     public:
-        Nick(K3ListView *listView,
+        Nick(NickListView *listView, Channel* channel,
             const ChannelNickPtr& channelnick);
         ~Nick();
 
         ChannelNickPtr getChannelNick() const;
-        int getSortingValue() const;
 
-        virtual void paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int align);
-        virtual int compare(Q3ListViewItem* item,int col,bool ascending) const;
+        virtual QVariant data(int column, int role) const;
+        virtual bool operator<(const QTreeWidgetItem& other) const;
 
-    public slots:
         void refresh();
-
-    signals:
-        void refreshed();
+        void repositionMe();
+        // Compatibility with Qt 4.4 + make it public for >= Qt 4.5
+        void emitDataChanged();
 
     protected:
         QString calculateLabel1();
         QString calculateLabel2();
 
+        int getSortingValue() const;
+
     protected:
         ChannelNickPtr m_channelnickptr;
+        Channel* m_channel;
 
-        QString label;
-        int m_height;
         int m_flags;
-        bool m_away;
+
+    public:
+        enum Columns {
+            NicknameColumn = 0,
+            HostmaskColumn = 1
+        };
+
+    private:
+#if (QT_VERSION < QT_VERSION_CHECK(4, 5, 0))
+        bool m_emitDataChanged;
+#endif
 };
 #endif

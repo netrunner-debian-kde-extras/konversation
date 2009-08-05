@@ -11,37 +11,34 @@
   email:     eisfuchs@tigress.com
 */
 
-#define QT3_SUPPORT //TODO remove when porting away from K3ListView
-
 #include "nick.h"
 #include "addressbook.h"
 #include "application.h"
 #include "images.h"
 #include "preferences.h"
+#include "nicklistview.h"
+
+#include <QHeaderView>
 
 #include <kabc/phonenumber.h>
 
-#include <K3ListView>
-
-
-Nick::Nick(K3ListView *listView, const ChannelNickPtr& channelnick)
-    : QObject (),
-    K3ListViewItem (listView, listView->lastItem(), QString(),
-                   channelnick->getNickname(), channelnick->getHostmask())
+Nick::Nick(NickListView *listView, Channel* channel, const ChannelNickPtr& channelnick)
+    : QTreeWidgetItem (listView)
 {
     m_channelnickptr = channelnick;
+    m_channel = channel;
 
     Q_ASSERT(channelnick);
-    if(!channelnick) return;
+    Q_ASSERT(m_channel);
 
     m_flags = 0;
-    m_height = height();
+#if (QT_VERSION < QT_VERSION_CHECK(4, 5, 0))
+    m_emitDataChanged = 0;
+#endif
 
     refresh();
 
-    connect(this, SIGNAL(refreshed()), listView, SLOT(startResortTimer()));
-    connect(getChannelNick().data(), SIGNAL(channelNickChanged()), SLOT(refresh()));
-    connect(getChannelNick()->getNickInfo().data(), SIGNAL(nickInfoChanged()), SLOT(refresh()));
+    setFlags((flags() & ~Qt::ItemIsDragEnabled) | Qt::ItemIsDropEnabled);
 }
 
 Nick::~Nick()
@@ -59,77 +56,111 @@ void Nick::refresh()
     int flags = 0;
     NickInfoPtr nickInfo(getChannelNick()->getNickInfo());
     bool away = false;
+    int textChangedFlags = 0;
 
-    if ( nickInfo )
-        away = nickInfo->isAway();
+    { // NOTE: this scoping is for NoSorting below. Do not remove it
+        // Disable auto-sorting while updating data
+        NickListView::NoSorting noSorting(qobject_cast<NickListView*>(treeWidget()));
+        if ( nickInfo )
+            away = nickInfo->isAway();
 
-    if(away)
-        flags=1;
+        if (away)
+        {
+            // Brush of the first column will be used for all columns
+            setForeground(NicknameColumn,
+                qApp->palette(treeWidget()).brush(QPalette::Disabled, QPalette::WindowText));
 
-    Images* images = Application::instance()->images();
-    QPixmap icon;
+            flags = 1;
+        }
+        else
+        {
+            // Brush of the first column will be used for all columns
+            setForeground(NicknameColumn,
+                treeWidget()->palette().brush(QPalette::Normal, QPalette::WindowText));
+        }
 
-    if ( getChannelNick()->isOwner() )
-    {
-        flags += 64;
-        icon = images->getNickIcon( Images::Owner, away );
+        Images* images = Application::instance()->images();
+        QPixmap icon;
+
+        if ( getChannelNick()->isOwner() )
+        {
+            flags += 64;
+            icon = images->getNickIcon( Images::Owner, away );
+        }
+        else if ( getChannelNick()->isAdmin() )
+        {
+            flags += 128;
+            icon = images->getNickIcon( Images::Admin, away );
+        }
+        else if ( getChannelNick()->isOp() )
+        {
+            flags += 32;
+            icon = images->getNickIcon( Images::Op, away );
+        }
+        else if ( getChannelNick()->isHalfOp() )
+        {
+            flags += 16;
+            icon = images->getNickIcon( Images::HalfOp, away );
+        }
+        else if ( getChannelNick()->hasVoice() )
+        {
+            flags += 8;
+            icon = images->getNickIcon( Images::Voice, away );
+        }
+        else
+        {
+            flags += 4;
+            icon = images->getNickIcon( Images::Normal, away );
+        }
+
+        setIcon( NicknameColumn, icon );
+
+        QString newtext = calculateLabel1();
+        if(newtext != text(NicknameColumn))
+        {
+            setText(NicknameColumn, newtext);
+            textChangedFlags |= 1 << NicknameColumn;
+        }
+
+        newtext = calculateLabel2();
+        if(newtext != text(HostmaskColumn))
+        {
+            setText(HostmaskColumn, newtext);
+            textChangedFlags |= 1 << HostmaskColumn;
+        }
     }
-    else if ( getChannelNick()->isAdmin() )
-    {
-        flags += 128;
-        icon = images->getNickIcon( Images::Admin, away );
-    }
-    else if ( getChannelNick()->isOp() )
-    {
-        flags += 32;
-        icon = images->getNickIcon( Images::Op, away );
-    }
-    else if ( getChannelNick()->isHalfOp() )
-    {
-        flags += 16;
-        icon = images->getNickIcon( Images::HalfOp, away );
-    }
-    else if ( getChannelNick()->hasVoice() )
-    {
-        flags += 8;
-        icon = images->getNickIcon( Images::Voice, away );
-    }
-    else
-    {
-        flags += 4;
-        icon = images->getNickIcon( Images::Normal, away );
-    }
 
-    setPixmap( 0, icon );
-
-    /*KABC::Picture pic = nickInfo->getAddressee().photo();
-
-    if(!pic.isIntern())
-    {
-        pic = nickInfo->getAddressee().logo();
-    }
-
-    if(pic.isIntern())
-    {
-        QPixmap qpixmap(pic.data().scaleHeight(m_height));
-        setPixmap(1,qpixmap);
-    }*/
-
-    QString newtext1 = calculateLabel1();
-    if(newtext1 != text(1))
-    {
-        setText(1, newtext1);
-        flags += 2;
-    }
-
-    setText(2, calculateLabel2());
-    repaint();
-
-    if(m_flags != flags)
+    if(m_flags != flags || textChangedFlags)
     {
         m_flags = flags;
-        emit refreshed();                         // Resort nick list
+        // Announce about nick update (and reposition the nick in the nick list as needed).
+        emitDataChanged();
+        m_channel->nicknameListViewTextChanged(textChangedFlags);
+
+        treeWidget()->repaint();
     }
+}
+
+#if (QT_VERSION < QT_VERSION_CHECK(4, 5, 0))
+static QVariant emitDataChangedQVariants[] = { QVariant(0), QVariant(1) };
+#endif
+
+void Nick::emitDataChanged()
+{
+#if (QT_VERSION < QT_VERSION_CHECK(4, 5, 0))
+    m_emitDataChanged = !m_emitDataChanged;
+    int sortCol = treeWidget()->header()->sortIndicatorSection();
+    setData((sortCol > 0) ? sortCol : 0, Qt::UserRole, emitDataChangedQVariants[m_emitDataChanged]);
+#else
+    QTreeWidgetItem::emitDataChanged();
+#endif
+}
+
+// Triggers reposition of this nick (QTreeWidgetItem) in the nick list
+void Nick::repositionMe()
+{
+    if (treeWidget()->isSortingEnabled())
+        emitDataChanged();
 }
 
 QString Nick::calculateLabel1()
@@ -154,93 +185,90 @@ QString Nick::calculateLabel2()
     return getChannelNick()->getNickInfo()->getHostmask();
 }
 
-int Nick::compare(Q3ListViewItem* item,int col,bool ascending) const
+bool Nick::operator<(const QTreeWidgetItem& other) const
 {
-    Nick* otherItem = static_cast<Nick*>(item);
+    const Nick& otherNick = static_cast<const Nick&>(other);
 
     if(Preferences::self()->sortByActivity())
     {
         uint thisRecentActivity = getChannelNick()->recentActivity();
-        uint otherRecentActivity = otherItem->getChannelNick()->recentActivity();
+        uint otherRecentActivity = otherNick.getChannelNick()->recentActivity();
         if(thisRecentActivity > otherRecentActivity)
         {
-            return -1;
+            return true;
         }
         if(thisRecentActivity < otherRecentActivity)
         {
-            return 1;
+            return false;
         }
         uint thisTimestamp = getChannelNick()->timeStamp();
-        uint otherTimestamp = otherItem->getChannelNick()->timeStamp();
+        uint otherTimestamp = otherNick.getChannelNick()->timeStamp();
         if(thisTimestamp > otherTimestamp)
         {
-            return -1;
+            return true;
         }
         if(thisTimestamp < otherTimestamp)
         {
-            return 1;
+            return false;
         }
     }
 
     if(Preferences::self()->sortByStatus())
     {
         int thisFlags = getSortingValue();
-        int otherFlags = otherItem->getSortingValue();
+        int otherFlags = otherNick.getSortingValue();
 
         if(thisFlags > otherFlags)
         {
-            return 1;
+            return false;
         }
         if(thisFlags < otherFlags)
         {
-            return -1;
+            return true;
         }
     }
 
     QString thisKey;
     QString otherKey;
+    int col = treeWidget()->sortColumn();
 
-    if(col > 1) //the reason we need this: enabling hostnames adds another column
-    {
-        if(Preferences::self()->sortCaseInsensitive())
-        {
-            thisKey = thisKey.toLower();
-            otherKey = otherKey.toLower();
-        }
-        else
-        {
-            thisKey = key(col, ascending);
-            otherKey = otherItem->key(col, ascending);
-        }
-    }
-    else if(col == 1)
+    if(col == NicknameColumn)
     {
         if(Preferences::self()->sortCaseInsensitive())
         {
             thisKey = getChannelNick()->loweredNickname();
-            otherKey = otherItem->getChannelNick()->loweredNickname();
+            otherKey = otherNick.getChannelNick()->loweredNickname();
         }
         else
         {
-            thisKey = key(col, ascending);
-            otherKey = otherItem->key(col, ascending);
+            thisKey = text(col);
+            otherKey = otherNick.text(col);
+        }
+    }
+    else if (col > 0) //the reason we need this: enabling hostnames adds another column
+    {
+        if(Preferences::self()->sortCaseInsensitive())
+        {
+            thisKey = text(col).toLower();
+            otherKey = otherNick.text(col).toLower();
+        }
+        else
+        {
+            thisKey = text(col);
+            otherKey = otherNick.text(col);
         }
     }
 
-    return thisKey.compare(otherKey);
+    return thisKey < otherKey;
 }
 
-void Nick::paintCell(QPainter * p, const QColorGroup & cg, int column, int width, int align )
+QVariant Nick::data(int column, int role) const
 {
-    QColorGroup cg2 = cg;
-    NickInfoPtr nickInfo(getChannelNick()->getNickInfo());
-
-    if(nickInfo->isAway())
-    {
-        cg2.setColor(QPalette::Text, qApp->palette(listView()).color(QPalette::Disabled, QPalette::Text));
+    if (role == Qt::ForegroundRole && column > 0) {
+        // Use brush of the first column for all columns
+        return data(NicknameColumn, role);
     }
-
-    K3ListViewItem::paintCell(p,cg2,column,width,align);
+    return QTreeWidgetItem::data(column, role);
 }
 
 int Nick::getSortingValue() const
@@ -257,5 +285,3 @@ int Nick::getSortingValue() const
 
     return flags;
 }
-
-#include "nick.moc"

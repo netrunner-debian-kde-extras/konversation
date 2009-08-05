@@ -21,18 +21,19 @@
 #include "server.h"
 
 
-ChannelNick::ChannelNick(const NickInfoPtr& nickInfo, const bool& isop, const bool& isadmin,
-			 const bool& isowner, const bool& ishalfop, const bool& hasvoice)
+ChannelNick::ChannelNick(const NickInfoPtr& nickInfo, const QString& channel)
 : KShared()
 {
-    this->nickInfo = nickInfo;
-    this->isop = isop;
-    this->isadmin = isadmin;
-    this->isowner = isowner;
-    this->ishalfop = ishalfop;
-    this->hasvoice = hasvoice;
+    m_nickInfo = nickInfo;
+    m_isop = false;
+    m_isadmin = false;
+    m_isowner = false;
+    m_ishalfop = false;
+    m_hasvoice = false;
     m_timeStamp = 0;
     m_recentActivity = 0;
+    m_channel = channel;
+    m_isChanged = false;
 }
 
 ChannelNick::~ChannelNick()
@@ -41,37 +42,37 @@ ChannelNick::~ChannelNick()
 
 bool ChannelNick::isOp() const
 {
-  return isop;
+  return m_isop;
 }
 
 bool ChannelNick::isAdmin() const
 {
-  return isadmin;
+  return m_isadmin;
 }
 
 bool ChannelNick::isOwner() const
 {
-  return isowner;
+  return m_isowner;
 }
 
 bool ChannelNick::isHalfOp() const
 {
-  return ishalfop;
+  return m_ishalfop;
 }
 
 bool ChannelNick::hasVoice() const
 {
-  return hasvoice;
+  return m_hasvoice;
 }
 
 bool ChannelNick::isAnyTypeOfOp() const
 {
-  return isop || isadmin || isowner || ishalfop;
+  return m_isop || m_isadmin || m_isowner || m_ishalfop;
 }
 
 NickInfoPtr ChannelNick::getNickInfo() const
 {
-  return nickInfo;
+  return m_nickInfo;
 }
 
 /** @param mode 'v' to set voice, 'a' to set admin, 'h' to set halfop, 'o' to set op.
@@ -115,15 +116,14 @@ bool ChannelNick::setMode(int mode)
 
 bool ChannelNick::setMode(bool admin,bool owner,bool op,bool halfop,bool voice)
 {
-    if(isadmin==admin && isowner==owner && isop==op && ishalfop==halfop && hasvoice==voice)
+    if(m_isadmin==admin && m_isowner==owner && m_isop==op && m_ishalfop==halfop && m_hasvoice==voice)
         return false;
-    isadmin=admin;
-    isowner=owner;
-    isop=op;
-    ishalfop=halfop;
-    hasvoice=voice;
-    //nickInfo->getServer()->emitChannelNickChanged(this); //TODO FIXME can't use self anymore, have to have the item which is of course allocated externally and so we can't fucking know it inside this code
-    emit channelNickChanged();
+    m_isadmin=admin;
+    m_isowner=owner;
+    m_isop=op;
+    m_ishalfop=halfop;
+    m_hasvoice=voice;
+    markAsChanged();
     return true;
 }
 
@@ -132,46 +132,41 @@ bool ChannelNick::setMode(bool admin,bool owner,bool op,bool halfop,bool voice)
  */
 bool ChannelNick::setVoice(bool state)
 {
-    if(hasvoice==state) return false;
-    hasvoice=state;
-    //nickInfo->getServer()->emitChannelNickChanged(this); //TODO FIXME can't use self anymore, have to have the item which is of course allocated externally and so we can't fucking know it inside this code
-    emit channelNickChanged();
+    if(m_hasvoice==state) return false;
+    m_hasvoice=state;
+    markAsChanged();
     return true;
 }
 
 bool ChannelNick::setOwner(bool state)
 {
-    if(isowner==state) return false;
-    isowner=state;
-    //nickInfo->getServer()->emitChannelNickChanged(this); //TODO FIXME can't use self anymore, have to have the item which is of course allocated externally and so we can't fucking know it inside this code
-    emit channelNickChanged();
+    if(m_isowner==state) return false;
+    m_isowner=state;
+    markAsChanged();
     return true;
 }
 
 bool ChannelNick::setAdmin(bool state)
 {
-    if(isadmin==state) return false;
-    isadmin=state;
-    //nickInfo->getServer()->emitChannelNickChanged(this);  //TODO FIXME can't use self anymore, have to have the item which is of course allocated externally and so we can't fucking know it inside this code
-    emit channelNickChanged();
+    if(m_isadmin==state) return false;
+    m_isadmin=state;
+    markAsChanged();
     return true;
 }
 
 bool ChannelNick::setHalfOp(bool state)
 {
-    if(ishalfop==state) return false;
-    ishalfop=state;
-    //nickInfo->getServer()->emitChannelNickChanged(this); //TODO FIXME can't use self anymore, have to have the item which is of course allocated externally and so we can't fucking know it inside this code
-    emit channelNickChanged();
+    if(m_ishalfop==state) return false;
+    m_ishalfop=state;
+    markAsChanged();
     return true;
 }
 
 bool ChannelNick::setOp(bool state)
 {
-    if(isop==state) return false;
-    isop=state;
-    //nickInfo->getServer()->emitChannelNickChanged(this); //TODO FIXME can't use self anymore, have to have the item which is of course allocated externally and so we can't fucking know it inside this code
-    emit channelNickChanged();
+    if(m_isop==state) return false;
+    m_isop=state;
+    markAsChanged();
     return true;
 }
 
@@ -179,21 +174,15 @@ bool ChannelNick::setOp(bool state)
 //Just calls nickInfo->getNickname() etc
 QString ChannelNick::getNickname() const
 {
-    if ( this )
-        return nickInfo->getNickname();
-    else
-        return QString();
+    return m_nickInfo->getNickname();
 }
 
 QString ChannelNick::getHostmask() const
 {
-    if ( this )
-        return nickInfo->getHostmask();
-    else
-        return QString();
+    return m_nickInfo->getHostmask();
 }
 
-QString ChannelNick::tooltip()
+QString ChannelNick::tooltip() const
 {
     //  if(addressee.isEmpty()) return QString();
     //KABC::Addressee addressee = nickInfo->getAddressee();
@@ -204,7 +193,7 @@ QString ChannelNick::tooltip()
 
     tooltip << "<table cellspacing=\"0\" cellpadding=\"0\">";
 
-    nickInfo->tooltipTableData(tooltip);
+    m_nickInfo->tooltipTableData(tooltip);
 
     QStringList modes;
     if(isOp()) modes << i18n("Operator");
@@ -226,7 +215,7 @@ QString ChannelNick::tooltip()
 
 QString ChannelNick::loweredNickname() const
 {
-    return nickInfo->loweredNickname();
+    return m_nickInfo->loweredNickname();
 }
 
 uint ChannelNick::timeStamp() const
@@ -254,4 +243,8 @@ void ChannelNick::setTimeStamp(uint stamp)
   m_timeStamp = stamp;
 }
 
-#include "channelnick.moc"
+void ChannelNick::markAsChanged()
+{
+    setChanged(true);
+    m_nickInfo->getServer()->startChannelNickChangedTimer(m_channel);
+}

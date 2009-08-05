@@ -50,7 +50,7 @@ namespace Konversation
                 // OPTIONAL
                 void setReverse( bool reverse );
 
-                bool setResume( unsigned long position );
+                bool setResume( quint64 position );
 
                 // send got rejected
                 void reject();
@@ -68,6 +68,7 @@ namespace Konversation
                 // it must be invoked when m_sendSocket is ready
                 void startSending();
                 void writeData();
+                void bytesWritten(qint64 bytes);
                 void getAck();
                 void slotGotSocketError( QAbstractSocket::SocketError errorCode );
                 void slotConnectionTimeout();

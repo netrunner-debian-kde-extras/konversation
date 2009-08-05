@@ -111,7 +111,7 @@ namespace Konversation
             return transfer;
         }
 
-        TransferRecv* TransferManager::resumeDownload( int connectionId, const QString& partnerNick, const QString& fileName, uint ownPort, unsigned long position )
+        TransferRecv* TransferManager::resumeDownload( int connectionId, const QString& partnerNick, const QString& fileName, uint ownPort, quint64 position )
         {
             TransferRecv* transfer = 0;
 
@@ -140,7 +140,7 @@ namespace Konversation
             return transfer;
         }
 
-        TransferSend* TransferManager::resumeUpload( int connectionId, const QString& partnerNick, const QString& fileName, uint ownPort, unsigned long position )
+        TransferSend* TransferManager::resumeUpload( int connectionId, const QString& partnerNick, const QString& fileName, uint ownPort, quint64 position )
         {
             TransferSend* transfer = 0;
 
@@ -169,7 +169,7 @@ namespace Konversation
             return transfer;
         }
 
-        TransferSend* TransferManager::startReverseSending( int connectionId, const QString& partnerNick, const QString& fileName, const QString& partnerHost, uint partnerPort, unsigned long fileSize, const QString& token )
+        TransferSend* TransferManager::startReverseSending( int connectionId, const QString& partnerNick, const QString& fileName, const QString& partnerHost, uint partnerPort, quint64 fileSize, const QString& token )
         {
             kDebug() << "Server group ID: " << connectionId << ", partner: " << partnerNick << ", filename: " << fileName << ", partner IP: " << partnerHost << ", parnter port: " << partnerPort << ", filesize: " << fileSize << ", token: " << token;
             TransferSend* transfer = 0;
@@ -195,6 +195,27 @@ namespace Konversation
                 transfer->connectToReceiver( partnerHost, partnerPort );
 
             return transfer;
+        }
+
+        void TransferManager::acceptDccGet(int connectionId, const QString& partnerNick, const QString& fileName)
+        {
+            kDebug() << "Server group ID: " << connectionId << ", partner: " << partnerNick << ", filename: " << fileName;
+
+            bool nickEmpty = partnerNick.isEmpty();
+            bool fileEmpty = fileName.isEmpty();
+
+            foreach ( TransferRecv* it, m_recvItems )
+            {
+                if (
+                    it->getStatus() == Transfer::Queued &&
+                    it->getConnectionId() == connectionId &&
+                    (nickEmpty || it->getPartnerNick() == partnerNick) &&
+                    (fileEmpty || it->getFileName() == fileName)
+                )
+                {
+                    it->start();
+                }
+            }
         }
 
         void TransferManager::initTransfer( Transfer* transfer )

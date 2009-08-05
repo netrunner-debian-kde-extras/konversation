@@ -1,3 +1,150 @@
+Changes from 1.2-alpha4 to 1.2-alpha5:
+Konversation 1.2-alpha5 features significant performance and memory usage
+improvements in several areas of the application, such as channel nickname
+lists, backlog loading, Channel List tabs and the URL Catcher - the latter
+two have also seen a fair number of interface refinements, making them much
+more enjoyable to use. The DCC subsystem has seen the addition of IPv6 sup-
+port and a '/dcc get' command to accept an incoming file transfer from the
+input line. Various smaller additions and improvements have been made as
+well, including the usual share of bug fixes.
+
+
+* Added back "Do not ask again" checkbox missing in the rewritten invita-
+  tion dialog that appeared in v1.2-alpha4. By implication, the dialog now
+  also observes the "Automatically join channel on invite" option from the
+  "Warning Dialogs" page in the configuration dialog again.
+* Fixed problems reconnecting an SSL-enabled connection using a self-sign-
+  ed certificate.
+* Fixed a build problem with KDE trunk (i.e. what will one day be KDE 4.4).
+* Fixed loading and saving of the settings toggling the invitation and mul-
+  ti-line paste warning dialogs in the "Warning Dialogs" page of the con-
+  figuration dialog.
+* Improved wording of the description of the invitation dialog setting in
+  the "Warning Dialogs" page of the configuration dialog to reflect that
+  the dialog being disabled doesn't imply that the channel the user was
+  invited to will be joined automatically, as the user might have rejec-
+  ted the invitation when he got the dialog along with checking "Don't
+  ask again".
+* Decreased memory usage (the objects created for every IRC user encounter-
+  ed are lighter now).
+* Initializing Phonon is now delayed until it is actually needed, resulting
+  in less memory usage for those not using highlight sound notifications
+  and less work being done during application startup.
+* Fixed DCC file transfer problems with files larger than 4 GB on 32bit sys-
+  tems, along with some other correctness improvements to the file transfer
+  code.
+* Backlog loading is now more efficient.
+* Added IPv6 support for DCC file transfers.
+* The fallback default file name for unnamed files received via DCC now con-
+  tains the date of when the file was received in ISO format.
+* Fixed a crash when trying to perform a tab completion with an empty nick-
+  list (i.e. shortly after joining a big channel, before its nicklist has
+  been filled in).
+* Channel nickname list updating is now more efficient and pleasant to look
+  at. Rather than resorting the entire list after the addition of a new nick-
+  name, the nickname is now inserted directly at the correct position (using
+  a binary search), avoiding a lot of CPU-intensive comparisons between nick-
+  names. The same optimization is also done for nickname and user status (as
+  relevant in case "Sort by status" is enabled) changes - rather than trigger-
+  ing full resorts, items are moved directly to new positions as necessary.
+  Resorting after both new additions and changes was previously done only
+  after a delay of one second (as part of a scheme to throttle the update rate
+  to a maximum of once per second given how CPU-intensive it was), which meant
+  that new nicknames would initially appear at the end of the list and move to
+  the correct position only after one second, and that nickname and status
+  changes were similarly reflected in the sorting only after one second - this
+  delay has now been eliminated, making the nickname list much snappier in re-
+  acting to what's going on.
+  Note however that when more than ten events requiring an update to sorting
+  occur within one second, a fallback to the old scheme of doing a full resort
+  at a maximum rate of once per second, after an initial delay of one second,
+  occurs, as this is believed to be more efficient in situations of very high
+  activity (such as merges after netsplits). Thus the new scheme described
+  above should be seen as an additional optimization for the common case.
+* In addition to the broad strokes optimization described above, other minor
+  optimization work has been done on the nickname list updating code, impro-
+  ving the efficiency of updates further.
+* Fixed topic label text color not reacting to system color scheme changes.
+* Added a '/dcc get [nick [file]]' command to accept an incoming DCC file
+  transfer request.
+* Fixed a crash when using the 'Insert -> IRC Color...' menu item without
+  there being any tabs.
+* Nickname changes of the discussion partner are now announced in query tabs,
+  provided the information is available (i.e. when one shares a channel with
+  the discussion parther, so the server informs Konversation of the nickname
+  change).
+* Fixed building on OpenSolaris.
+* The channel item context menu in Channel List tabs now has a "Join Channel"
+  action, and the list of URLs extracted from the channel topic has been mo-
+  ved to a sub-menu.
+* Increased use of the IRC icons found in recent versions of the Oxygen icon
+  set.
+* Fixed a bug causing the time a user went online not to be displayed in
+  WHOIS information (provided the server reports it).
+* Fixed close button icons not immediately appearing on newly-added tabs when
+  enabled (a preferences change would cause them to appear).
+* A significant revamp of the Channel List code, especially around the way the
+  list data received from the server is being moved into the UI, has brought
+  about significantly improved behavior. The application should now no longer
+  be bogged down for extended periods of time while the list is being process-
+  ed - in extreme cases, this could even lead to disconnects by timeout.
+* The "Apply Filter" button has been removed from the Channel List interface.
+  Instead, the filter is (re)applied automatically as its settings are chang-
+  ed, i.e. briefly after stopping to type into the "Filter pattern" field or
+  after changing one of the spin- or checkboxes.
+* Fixed the display of human-readable mode descriptions in place of traditio-
+  nal mode characters (toggled by the "Show raw mode characters" preference
+  and only applicable when Konversation knows a description for a given mode
+  char) being inconsistent between '/mode <channel> and '/mode <channel>/<user>
+  +/-<mode>' - separate, unequal lists of mode descriptions were being used;
+  this has been unified now.
+* Fixed the "Modes" tab of the Channel Settings dialog not using human-readable
+  mode descriptions in place of traditional mode characters when the "Show raw
+  mode characters" preference is disabled (as it is by default) and a descrip-
+  tion for a given mode char is available.
+* Fixed the mode list shown by "Show Advanced Modes" in the "Modes" tab of the
+  Channel Settings dialog not showing all modes announced as supported by the
+  server.
+* The Channel List, when hovering a list item with the mouse pointer, now shows
+  a tooltip with the entire topic of the channel when it doesn't fit the topic
+  column's width.
+* Konversation will now display a warning dialog box when the user is trying
+  to send a character not supported by the chosen encoding.
+* When a message containing characters not supported by the chosen encoding
+  is sent, the chat view will now display the '?' replacements for those cha-
+  racters that are sent to the IRC server and thus seen by other users. Pre-
+  viously, the chat view would display the version of the message before
+  this encoding step, and thus usually show the characters, as the Unicode
+  character set normally used by KDE/Qt is considerably broader than many
+  of the encodings that can be selected in Konversation. In other words, the
+  chat view now accurately portrays what is sent to other users when a mes-
+  sage contains characters not supported by the active encoding.
+* The URL Catcher should now open considerably faster with long lists of
+  caught URLs and mail addresses.
+* The list items in the URL Catcher now have the same context menu as links
+  in the chat view. Previously there was no context menu.
+* Caught mails and mail addresses not coming from an IRC user (an example
+  would be links contained in a server's Message of the Day text) now have
+  their "From" field filled in with the tab name instead of it being left
+  blank in the URL Catcher.
+* Fixed a bug causing the DCC Status tab to sometimes prematurely claim a
+  transfer status of 100%, as well as an unrealistic transfer speed, when
+  sending a file to another user. The transfer would go on until actually
+  finished; merely the information shown in the interface was defective.
+* Fixed log viewer tabs not observing the chat window background image setting.
+* Fixed log viewer tabs not reacting to changes to the chat window background
+  color or font settings.
+* Fixed raw log tabs only applying the chat view background image setting on
+  configuration changes, not when initially being opened.
+* The removal of the frame around the tab widget is now exclusive to KDE 4.3.
+  We do it by way of enabling document mode for the tab widget (which is new
+  in Qt 4.5), which renders badly in versions of the Oxygen style found in
+  KDE versions earlier than 4.3, and the workaround we previously applied to
+  make it work even with those older Oxygen versions had the unwelcome side-
+  effect of breaking the application of color preferences to the input bar
+  and nickname list.
+
+
 Changes from 1.2-alpha3 to 1.2-alpha4:
 Alpha 4 marks a significant milestone on the way to feature completeness
 for the v1.2 release of Konversation. New features in this release inclu-

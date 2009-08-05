@@ -7,30 +7,77 @@
 
 /*
   Shows the list of channels
-  begin:     Die Apr 29 2003
-  copyright: (C) 2003 by Dario Abatianni
-  email:     eisfuchs@tigress.com
+
+  Copyright (C) 2003 Dario Abatianni <eisfuchs@tigress.com>
+  Copyright (C) 2009 Travis McHenry <wordsizzle@gmail.com>
 */
 
 #ifndef CHANNELLISTPANEL_H
 #define CHANNELLISTPANEL_H
 
 #include "chatwindow.h"
+#include "ui_channellistpanelui.h"
 
-#include <QTimer>
+#include <QAbstractListModel>
+#include <QSortFilterProxyModel>
 
+struct ChannelItem
+{
+    QString name;
+    int users;
+    QString topic;
+};
 
-class QCheckBox;
-class QStringList;
-class QTimer;
-class Q3ListView;
-class Q3ListViewItem;
-class QPushButton;
+class ChannelListProxyModel : public QSortFilterProxyModel
+{
+    Q_OBJECT
 
-class K3ListView;
-class KLineEdit;
+    public:
+        ChannelListProxyModel(QObject *parent = 0);
 
-class ChannelListPanel : public ChatWindow
+        int filterMinimumUsers() { return m_minUsers; }
+        int filterMaximumUsers() { return m_maxUsers; }
+        bool filterTopic() { return m_filterTopic; }
+        bool filterChannel() { return m_filterChannel; }
+
+    public slots:
+        void setFilterMinimumUsers(int users);
+        void setFilterMaximumUsers(int users);
+
+        void setFilterTopic(bool filter);
+        void setFilterChannel(bool filter);
+
+    protected:
+        bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const;
+
+    private:
+        bool usersInRange(int users) const;
+        int m_minUsers;
+        int m_maxUsers;
+        bool m_filterTopic;
+        bool m_filterChannel;
+};
+
+class ChannelListModel : public QAbstractListModel
+{
+    Q_OBJECT
+
+    public:
+        ChannelListModel(QObject* parent);
+
+        void append(const ChannelItem& item);
+
+        int columnCount(const QModelIndex& parent = QModelIndex()) const;
+        int rowCount(const QModelIndex& parent = QModelIndex()) const;
+
+        QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+        QVariant headerData (int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+
+    private:
+        QList<ChannelItem> m_channelList;
+};
+
+class ChannelListPanel : public ChatWindow, private Ui::ChannelListWidgetUI
 {
     Q_OBJECT
 
@@ -45,104 +92,53 @@ class ChannelListPanel : public ChatWindow
     signals:
         void refreshChannelList();
         void joinChannel(const QString& channelName);
-        void adjustMinValue(int num);
-        void adjustMaxValue(int num);
-        void updateNumUsers(const QString& num);
-        void updateNumChannels(const QString& num);
 
     public slots:
         void addToChannelList(const QString& channel,int users,const QString& topic);
+        void endOfChannelList();
+        void applyFilterClicked();
 
         virtual void appendInputText(const QString&, bool fromCursor);
         void setFilter(const QString& filter);
 
-        void applyFilterClicked();
-
     protected slots:
         void refreshList();
-        void updateDisplay();                     // will be called by a timer to update regularly
         void saveList();
+
+        void filterChanged();
+        void updateFilter();
+
+        void updateUsersChannels();
+
+        void setProgress();
+
         void joinChannelClicked();
-
-        void setMinUsers(int num);
-        void setMaxUsers(int num);
-
-        void filterTextChanged(const QString& newText);
-        void channelTargetClicked();
-        void topicTargetClicked();
-        void regExpClicked();
-
-        void contextMenu (K3ListView* l, Q3ListViewItem* i, const QPoint& p);
+        void contextMenu(const QPoint& pos);
         void openURL();
-
         //Used to disable functions when not connected
         virtual void serverOnline(bool online);
 
     protected:
 
         /** Called from ChatWindow adjustFocus */
-        virtual void childAdjustFocus();
-
+        virtual void childAdjustFocus(){};
         virtual bool isInsertCharacterSupported() { return true; }
 
-        int getNumChannels();
-        int getNumUsers();
-        int getVisibleChannels();
-        int getVisibleUsers();
+        void countUsers(const QModelIndex& index, int pos);
 
-        void setNumChannels(int num);
-        void setNumUsers(int num);
-        void setVisibleChannels(int num);
-        void setVisibleUsers(int num);
+        int m_numChannels;
+        int m_numUsers;
+        int m_visibleChannels;
+        int m_visibleUsers;
+        bool m_firstRun;
+        bool m_regexState;
 
-        void setChannelTarget(bool state);
-        bool getChannelTarget();
+        QTimer* m_progressTimer;
+        QTimer* m_filterTimer;
+        QTimer* m_tempTimer;
 
-        void setTopicTarget(bool state);
-        bool getTopicTarget();
-
-        void setRegExp(bool state);
-        bool getRegExp();
-
-        int getMinUsers();
-        int getMaxUsers();
-
-        const QString& getFilterText();
-        void  applyFilterToItem(Q3ListViewItem* item);
-
-        void updateUsersChannels();
-
-        int numChannels;
-        int numUsers;
-        int visibleChannels;
-        int visibleUsers;
-
-        int minUsers;
-        int maxUsers;
-
-        bool channelTarget;
-        bool topicTarget;
-
-        bool regExp;
-
-        // store channels to be inserted in ListView here first
-        QStringList pendingChannels;
-        QTimer updateTimer;
-
-        QCheckBox* channelFilter;
-        QCheckBox* topicFilter;
-        QCheckBox* regexpCheck;
-
-        QPushButton* applyFilter;
-        QPushButton* refreshListButton;
-        QPushButton* joinChannelButton;
-
-        K3ListView* channelListView;
-
-        KLineEdit* filterInput;
-
-        QString filterText;
-
-        int m_oldSortColumn;
+        ChannelListModel* m_channelListModel;
+        ChannelListProxyModel* m_proxyModel;
 };
+
 #endif

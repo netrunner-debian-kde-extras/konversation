@@ -7,172 +7,185 @@
 
 /*
   Shows the list of channels
-  begin:     Die Apr 29 2003
-  copyright: (C) 2003 by Dario Abatianni
-  email:     eisfuchs@tigress.com
+
+  Copyright (C) 2003 Dario Abatianni <eisfuchs@tigress.com>
+  Copyright (C) 2009 Travis McHenry <wordsizzle@gmail.com>
 */
 
 #include "channellistpanel.h"
-#include <QGridLayout>
 #include "channel.h"
-#include "channellistviewitem.h"
 #include "server.h"
 #include "common.h"
 
-#include <QLabel>
-#include <QSpinBox>
-#include <QPushButton>
-#include <QRegExp>
-#include <QCheckBox>
-#include <QTimer>
-
-#include <Q3Grid>
-#include <Q3HGroupBox>
+#include <QTextDocument>
+#include <QHeaderView>
 
 #include <KRun>
-#include <KLineEdit>
 #include <KFileDialog>
 #include <KMessageBox>
 #include <KMenu>
-#include <KVBox>
 
-#include <K3ListView>
 
+ChannelListModel::ChannelListModel(QObject* parent) : QAbstractListModel(parent)
+{
+}
+
+void ChannelListModel::append(const ChannelItem& item)
+{
+    m_channelList.append(item);
+    reset();
+}
+
+int ChannelListModel::columnCount(const QModelIndex& /*parent*/) const
+{
+    return 3;
+}
+
+int ChannelListModel::rowCount(const QModelIndex& /*parent*/) const
+{
+    return m_channelList.count();
+}
+
+QVariant ChannelListModel::data(const QModelIndex& index, int role) const
+{
+    if(!index.isValid() || index.row() >= m_channelList.count ())
+        return QVariant();
+
+    const ChannelItem& item = m_channelList[index.row()];
+
+    if(role == Qt::DisplayRole)
+    {
+        switch(index.column())
+        {
+            case 0:
+                return item.name;
+            case 1:
+                return item.users;
+            case 2:
+                return item.topic;
+            default:
+                return QVariant();
+        }
+    }
+    else if(role == Qt::ToolTipRole)
+    {
+        return "<qt>" + Qt::escape(item.topic) + "</qt>";
+    }
+    return QVariant();
+}
+
+QVariant ChannelListModel::headerData (int section, Qt::Orientation orientation, int role) const
+{
+    if(orientation == Qt::Vertical || role != Qt::DisplayRole)
+        return QVariant();
+
+    switch(section)
+    {
+        case 0:
+            return i18n("Channel Name");
+        case 1:
+            return i18n("Users");
+        case 2:
+            return i18n("Channel Topic");
+        default:
+            return QVariant();
+    }
+}
+
+ChannelListProxyModel::ChannelListProxyModel(QObject* parent) : QSortFilterProxyModel(parent)
+{
+    m_minUsers = 0;
+    m_maxUsers = 0;
+    m_filterChannel = true;
+    m_filterTopic = false;
+}
+
+bool ChannelListProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
+{
+    QModelIndex index0 = sourceModel()->index(sourceRow, 0, sourceParent);
+    QModelIndex index1 = sourceModel()->index(sourceRow, 1, sourceParent);
+    QModelIndex index2 = sourceModel()->index(sourceRow, 2, sourceParent);
+
+    return (((m_filterChannel && sourceModel()->data(index0).toString().contains(filterRegExp()))
+        || (m_filterTopic && sourceModel()->data(index2).toString().contains(filterRegExp()))
+        || (!m_filterChannel && !m_filterTopic))
+        && usersInRange(sourceModel()->data(index1).toInt()));
+}
+
+bool ChannelListProxyModel::usersInRange(int users) const
+{
+    return (!m_minUsers || users >= m_minUsers)
+    && (!m_maxUsers || users <= m_maxUsers);
+}
+
+void ChannelListProxyModel::setFilterMinimumUsers(int users)
+{
+    m_minUsers = users;
+}
+
+void ChannelListProxyModel::setFilterMaximumUsers(int users)
+{
+    m_maxUsers = users;
+}
+
+void ChannelListProxyModel::setFilterTopic(bool filter)
+{
+    m_filterTopic = filter;
+}
+
+void ChannelListProxyModel::setFilterChannel(bool filter)
+{
+    m_filterChannel = filter;
+}
 
 ChannelListPanel::ChannelListPanel(QWidget* parent) : ChatWindow(parent)
 {
     setType(ChatWindow::ChannelList);
     setName(i18n("Channel List"));
 
-    m_oldSortColumn = 0;
+    m_firstRun = true;
+    m_regexState = false;
+    m_numUsers = 0;
+    m_numChannels = 0;
+    m_visibleUsers = 0;
+    m_visibleChannels = 0;
+    m_progressTimer = new QTimer(this);
+    m_filterTimer = new QTimer(this);
+    m_filterTimer->setSingleShot(true);
+    m_tempTimer = new QTimer(this);
+    m_tempTimer->setSingleShot(true);
 
-    setNumChannels(0);
-    setNumUsers(0);
-    setVisibleChannels(0);
-    setVisibleUsers(0);
+    //UI Setup
+    setupUi(this);
 
-    setMinUsers(0);
-    setMaxUsers(0);
+    m_channelListModel = new ChannelListModel(this);
 
-    setChannelTarget(true);
-    setTopicTarget(false);
-    setRegExp(false);
-
-    filterTextChanged(QString());
-
-    QGroupBox* filterGroup=new QGroupBox(i18n("Filter Settings"),this);
-    QGridLayout* mainGrid=new QGridLayout( filterGroup );
-    mainGrid->setSpacing(spacing());
-
-    QLabel* minLabel=new QLabel(i18n("Minimum users:"));
-    mainGrid->addWidget(minLabel,  0, 0 );
-    QLabel* maxLabel=new QLabel(i18n("Maximum users:"));
-    mainGrid->addWidget( maxLabel, 1, 0 );
-    QSpinBox* minUsersSpin = new QSpinBox;
-    minUsersSpin->setMinimum(0);
-    minUsersSpin->setMaximum(9999);
-    minUsersSpin->setObjectName("min_users_spin");
-    minUsersSpin->setWhatsThis(i18n("You can limit the channel list to those channels with a minimum number of users here. Choosing 0 disables this criterion."));
-    mainGrid->addWidget( minUsersSpin, 0, 1 );
-    QSpinBox* maxUsersSpin = new QSpinBox;
-    mainGrid->addWidget( maxUsersSpin, 1, 1 );
-    maxUsersSpin->setMinimum(0);
-    maxUsersSpin->setMaximum(9999);
-    maxUsersSpin->setObjectName("max_users_spin");
-    maxUsersSpin->setWhatsThis(i18n("You can limit the channel list to those channels with a maximum number of users here. Choosing 0 disables this criterion."));
-    minUsersSpin->setValue(getMinUsers());
-    maxUsersSpin->setValue(getMaxUsers());
-    minLabel->setBuddy(minUsersSpin);
-    maxLabel->setBuddy(maxUsersSpin);
-
-    QLabel* patternLabel=new QLabel(i18n("Filter pattern:"));
-    new QLabel(i18n("Filter target:" ));
-    mainGrid->addWidget( patternLabel, 0, 2 );
-    filterInput=new KLineEdit;
-    filterInput->setObjectName("channel_list_filter_input");
-    filterInput->setWhatsThis(i18n("Enter a filter string here."));
-    filterInput->setText(getFilterText());
-    mainGrid->addWidget( filterInput, 0, 3 );
-
-
-    KHBox* targetBox=new KHBox;
-    targetBox->setSpacing(spacing());
-
-    channelFilter = new QCheckBox(i18n("Channel"), targetBox);
-    channelFilter->setObjectName("filter_target_channel_check");
-    topicFilter = new QCheckBox(i18n("Topic"), targetBox);
-    topicFilter->setObjectName("filter_target_topic_check");
-    regexpCheck = new QCheckBox(i18n("Regular expression"), targetBox);
-    regexpCheck->setObjectName("regexp_check");
-    applyFilter = new QPushButton(i18n("Apply Filter"), targetBox);
-    applyFilter->setObjectName("apply_filter_button");
-    applyFilter->setWhatsThis(i18n("Click here to retrieve the list of channels from the server and apply the filter."));
-    mainGrid->addWidget( targetBox, 1, 3 );
-    channelFilter->setChecked(getChannelTarget());
-    topicFilter->setChecked(getTopicTarget());
-    regexpCheck->setChecked(getRegExp());
-
-    targetBox->setStretchFactor(topicFilter,10);
-
-    channelListView=new K3ListView(this);
-    channelListView->setObjectName("channel_list_view");
-
-    channelListView->setWhatsThis(i18n("The filtered list of channels is displayed here. Notice that if you do not use regular expressions, Konversation lists any channel whose name contains the filter string you entered. The channel name does not have to start with the string you entered.\n\nSelect a channel you want to join by clicking on it. Right click on the channel to get a list of all web addresses mentioned in the channel's topic."));
-    channelListView->addColumn(i18n("Channel Name"));
-    channelListView->addColumn(i18n("Users"));
-    channelListView->addColumn(i18n("Channel Topic"));
-    channelListView->setAllColumnsShowFocus(true);
-    channelListView->setResizeMode( K3ListView::LastColumn );
-    channelListView->setSortColumn(-1); //Disable sorting
-
-    KHBox* statsBox=new KHBox(this);
-    statsBox->setSpacing(spacing());
-
-    QLabel* channelsLabel=new QLabel(statsBox);
-    QLabel* usersLabel=new QLabel(statsBox);
-
-    statsBox->setStretchFactor(usersLabel,10);
-
-    KHBox* actionBox=new KHBox(this);
-    actionBox->setSpacing(spacing());
-
-    refreshListButton = new QPushButton(i18n("Refresh List"), actionBox);
-    refreshListButton->setObjectName("refresh_list_button");
-    QPushButton* saveListButton=new QPushButton(i18n("Save List..."), actionBox);
-    saveListButton->setObjectName("save_list_button");
-    joinChannelButton = new QPushButton(i18n("Join Channel"), actionBox);
-    joinChannelButton->setObjectName("join_channel_button");
-    joinChannelButton->setWhatsThis(i18n("Click here to join the channel. A new tab is created for the channel."));
-
-    connect(&updateTimer,SIGNAL (timeout()),this,SLOT (updateDisplay()));
-
+    m_proxyModel = new ChannelListProxyModel(this);
+    m_proxyModel->setSourceModel(m_channelListModel);
+    m_channelListView->setModel(m_proxyModel);
+    m_channelListView->header()->resizeSection(1,75); // resize users section to be smaller
     // double click on channel entry joins the channel
-    connect(channelListView,SIGNAL (doubleClicked(Q3ListViewItem*)),
-        this,SLOT (joinChannelClicked()) );
+    connect(m_channelListView, SIGNAL(doubleClicked(const QModelIndex&)),
+            this, SLOT(joinChannelClicked()) );
+    connect(m_channelListView, SIGNAL(customContextMenuRequested(const QPoint&)),
+            this, SLOT(contextMenu(const QPoint&)) );
 
-    connect(channelListView,SIGNAL (contextMenu (K3ListView*, Q3ListViewItem*, const QPoint&) ),
-        this, SLOT (contextMenu (K3ListView*, Q3ListViewItem*, const QPoint&)) );
+    connect(m_regexBox, SIGNAL(stateChanged(int)), this, SLOT(filterChanged()));
+    connect(m_topicBox, SIGNAL(stateChanged(int)), this, SLOT(filterChanged()));
+    connect(m_channelBox, SIGNAL(stateChanged(int)), this, SLOT(filterChanged()));
+    connect(m_minUser, SIGNAL(valueChanged(int)), this, SLOT(filterChanged()));
+    connect(m_maxUser, SIGNAL(valueChanged(int)), this, SLOT(filterChanged()));
 
-    connect(minUsersSpin,SIGNAL (valueChanged(int)),this,SLOT(setMinUsers(int)) );
-    connect(maxUsersSpin,SIGNAL (valueChanged(int)),this,SLOT(setMaxUsers(int)) );
-    connect(this,SIGNAL (adjustMinValue(int)),minUsersSpin,SLOT (setValue(int)) );
-    connect(this,SIGNAL (adjustMaxValue(int)),maxUsersSpin,SLOT (setValue(int)) );
+    connect(m_refreshListBtn, SIGNAL(clicked()), this, SLOT(refreshList()) );
+    connect(m_saveListBtn, SIGNAL(clicked()), this, SLOT(saveList()) );
+    connect(m_joinChanBtn, SIGNAL(clicked()), this, SLOT(joinChannelClicked()) );
 
-    connect(filterInput,SIGNAL (textChanged(const QString&)),this,SLOT (filterTextChanged(const QString&)) );
-    connect(filterInput,SIGNAL (returnPressed()),this,SLOT (applyFilterClicked()) );
+    connect(m_filterLine, SIGNAL(returnPressed()), this, SLOT(applyFilterClicked()) );
+    connect(m_filterLine, SIGNAL(textChanged(const QString&)), this, SLOT(filterChanged()));
 
-    connect(channelFilter,SIGNAL (clicked()),this,SLOT (channelTargetClicked()) );
-    connect(topicFilter,SIGNAL (clicked()),this,SLOT (topicTargetClicked()) );
-    connect(regexpCheck,SIGNAL (clicked()),this,SLOT (regExpClicked()) );
-
-    connect(applyFilter,SIGNAL (clicked()),this,SLOT (applyFilterClicked()) );
-
-    connect(refreshListButton,SIGNAL (clicked()),this,SLOT (refreshList()) );
-    connect(saveListButton,SIGNAL (clicked()),this,SLOT (saveList()) );
-    connect(joinChannelButton,SIGNAL (clicked()),this,SLOT (joinChannelClicked()) );
-
-    connect(this,SIGNAL (updateNumUsers(const QString&)),usersLabel,SLOT (setText(const QString&)) );
-    connect(this,SIGNAL (updateNumChannels(const QString&)),channelsLabel,SLOT (setText(const QString&)) );
+    connect(m_filterTimer, SIGNAL(timeout()), this, SLOT(updateFilter()));
+    connect(m_progressTimer, SIGNAL(timeout()), this, SLOT(setProgress()));
+    connect(m_tempTimer, SIGNAL(timeout()), this, SLOT(endOfChannelList()));
 
     updateUsersChannels();
 }
@@ -183,20 +196,139 @@ ChannelListPanel::~ChannelListPanel()
 
 void ChannelListPanel::refreshList()
 {
-    channelListView->clear();
+    m_numUsers = 0;
+    m_numChannels = 0;
+    m_visibleUsers = 0;
+    m_visibleChannels = 0;
 
-    setNumChannels(0);
-    setNumUsers(0);
-    setVisibleChannels(0);
-    setVisibleUsers(0);
-
-    updateUsersChannels();
-
-    /* No good idea: If the server is "temporary loaded" they stay disabled :-(
-      applyFilter->setEnabled(false);
-      refreshListButton->setEnabled(false); */
+    //hide temporarily to prevent multiple refreshes, but renable if it doesn't start in
+    //3 seconds in case we got a 'server busy' error. It doesn't matter if it's slower than
+    //that because addToChannelList's first run handles this anyway
+    m_refreshListBtn->setEnabled(false);
+    m_tempTimer->start(3000);
 
     emit refreshChannelList();
+}
+
+void ChannelListPanel::addToChannelList(const QString& channel,int users,const QString& topic)
+{
+    if (m_firstRun)
+    {
+        if(m_tempTimer->isActive())
+            m_tempTimer->stop();
+
+        m_refreshListBtn->setEnabled(false);
+
+        m_statsLabel->setText("Refreshing.");
+        m_progressTimer->start(500);
+
+        m_firstRun = false;
+        m_channelListModel = new ChannelListModel(this);
+    }
+
+    ChannelItem item;
+    item.name = channel;
+    item.users = users;
+    item.topic = Konversation::removeIrcMarkup(topic);
+    m_channelListModel->append(item);
+
+    ++m_numChannels;
+    m_numUsers += users;
+}
+
+void ChannelListPanel::endOfChannelList()
+{
+    m_progressTimer->stop();
+
+    m_proxyModel->setSourceModel(m_channelListModel);
+    m_proxyModel->invalidate();
+    m_refreshListBtn->setEnabled(true);
+    m_firstRun = true;
+    updateUsersChannels();
+}
+
+void ChannelListPanel::filterChanged()
+{
+    m_filterTimer->start(300);
+}
+
+void ChannelListPanel::updateFilter()
+{
+    QString text = m_filterLine->text();
+    int max = m_maxUser->value();
+    int min = m_minUser->value();
+    bool topic = (m_topicBox->checkState()) ? true : false;
+    bool channel = (m_channelBox->checkState()) ? true : false;
+    bool regex = (m_regexBox->checkState()) ? true : false;
+    bool regexChanged = (regex != m_regexState);
+    if (regexChanged) m_regexState = regex;
+
+    bool change = false;
+
+    //this invalidates the filter on it's own so no need to set change=true;
+    if (m_proxyModel->filterRegExp().pattern() != text || regexChanged)
+    {
+        if(m_regexState)
+            m_proxyModel->setFilterRegExp(text);
+        else
+            m_proxyModel->setFilterWildcard(text);
+    }
+
+    if (m_proxyModel->filterMinimumUsers() != min)
+    {
+        change = true;
+        m_proxyModel->setFilterMinimumUsers(min);
+    }
+
+    if (m_proxyModel->filterMaximumUsers() != max)
+    {
+        change = true;
+        m_proxyModel->setFilterMaximumUsers(max);
+    }
+
+    if (m_proxyModel->filterTopic() != topic)
+    {
+        change = true;
+        m_proxyModel->setFilterTopic(topic);
+    }
+
+    if (m_proxyModel->filterChannel() != channel)
+    {
+        change = true;
+        m_proxyModel->setFilterChannel(channel);
+    }
+
+    if (change)
+        m_proxyModel->invalidate();
+
+    updateUsersChannels();
+}
+
+void ChannelListPanel::setProgress()
+{
+    QString text = m_statsLabel->text();
+    if(text.length() < 13)
+        m_statsLabel->setText(text + '.');
+    else
+        m_statsLabel->setText("Refreshing.");
+}
+
+
+void ChannelListPanel::countUsers(const QModelIndex& index, int pos)
+{
+    m_visibleUsers += index.data().toInt();
+    ++pos;
+    if (pos < m_proxyModel->rowCount())
+        countUsers(index.sibling(pos,1), pos);
+}
+
+void ChannelListPanel::updateUsersChannels()
+{
+    m_visibleUsers = 0;
+    countUsers(m_proxyModel->index(0,1,QModelIndex()),0);
+    m_visibleChannels = m_proxyModel->rowCount();
+    m_statsLabel->setText(i18n("Channels: %1 (%2 shown)", m_numChannels, m_visibleChannels) +
+                          i18n(" Non-unique users: %1 (%2 shown)", m_numUsers, m_visibleUsers));
 }
 
 void ChannelListPanel::saveList()
@@ -208,29 +340,28 @@ void ChannelListPanel::saveList()
         this,
         i18n("Save Channel List"));
 
-    if(!fileName.isEmpty())
+    if (!fileName.isEmpty())
     {
         // first find the longest channel name and nick number for clean table layouting
         int maxChannelWidth=0;
-        int maxNicksWidth=0;
+        int maxUsersWidth=0;
 
-        Q3ListViewItem* item = channelListView->firstChild();
-        while(item)
+        int rows = m_proxyModel->rowCount();
+        QModelIndex index = m_proxyModel->index(0,0,QModelIndex());
+        for (int r = 0; r < rows; r++)
         {
-            if(item->isVisible())
-            {
-                if(item->text(0).length()>maxChannelWidth)
-                {
-                    maxChannelWidth = item->text(0).length();
-                }
+            QString channel = index.sibling(r,0).data().toString();
+            QString users = index.sibling(r,1).data().toString();
 
-                if(item->text(1).length()>maxNicksWidth)
-                {
-                    maxNicksWidth = item->text(1).length();
-                }
+            if (channel.length()>maxChannelWidth)
+            {
+                maxChannelWidth = channel.length();
             }
 
-            item = item->nextSibling();
+            if (users.length()>maxUsersWidth)
+            {
+                maxUsersWidth = users.length();
+            }
         }
 
         // now save the list to disk
@@ -246,28 +377,23 @@ void ChannelListPanel::saveList()
         // send header to stream
         stream << header;
 
-        item = channelListView->firstChild();
-
-        while(item)
+        for (int r = 0; r < rows; r++)
         {
-            if(item->isVisible())
-            {
-                QString channelName;
-                channelName.fill(' ',maxChannelWidth);
-                channelName.replace(0,item->text(0).length(),item->text(0));
+            QString channel = index.sibling(r,0).data().toString();
+            QString users = index.sibling(r,1).data().toString();
+            QString topic = index.sibling(r,2).data().toString();
 
-                QString nicksPad;
-                nicksPad.fill(' ',maxNicksWidth);
-                QString nicksNum(nicksPad+item->text(1));
-                nicksNum=nicksNum.right(maxNicksWidth);
+            QString channelName;
+            channelName.fill(' ', maxChannelWidth);
+            channelName.replace(0, channel.length(), channel);
 
-                QString line(channelName+' '+nicksNum+' '+item->text(2)+'\n');
+            QString usersPad;
+            usersPad.fill(' ',maxUsersWidth);
+            QString usersNum(usersPad+users);
+            usersNum = usersNum.right(maxUsersWidth);
 
-                // send final line to stream
-                stream << line;
-            }
-
-            item = item->nextSibling();
+            QString line(channelName+' '+usersNum+' '+topic+'\n');
+            stream << line;
         }
 
         listFile.close();
@@ -276,253 +402,54 @@ void ChannelListPanel::saveList()
 
 void ChannelListPanel::joinChannelClicked()
 {
-    Q3ListViewItem* item=channelListView->selectedItem();
-    if(item)
+    QModelIndex item = m_channelListView->currentIndex();
+    if(item.isValid())
     {
-        emit joinChannel(item->text(0));
-    }
-}
-
-void ChannelListPanel::addToChannelList(const QString& channel,int users,const QString& topic)
-{
-    pendingChannels.append(channel + ' ' + QString::number(users)
-            + ' ' + Konversation::removeIrcMarkup(topic));
-
-    // set internal numbers of channels and users, display will be updated by a timer
-    setNumChannels(getNumChannels()+1);
-    setNumUsers(getNumUsers()+users);
-
-    if(!updateTimer.isActive())
-    {
-        updateTimer.start(10);
-
-        if(channelListView->sortColumn() != -1)
-            m_oldSortColumn = channelListView->sortColumn();
-
-        channelListView->setSortColumn(-1); //Disable sorting
-    }
-}
-
-void ChannelListPanel::updateDisplay()
-{
-    if(!pendingChannels.isEmpty())
-    {
-        // fetch next channel line
-        QString channelLine = pendingChannels.first();
-        // split it up into the single parts we need
-        QString channel = channelLine.section(' ',0,0);
-        QString users = channelLine.section(' ',1,1);
-        QString topic = channelLine.section(' ',2);
-        ChannelListViewItem* item = new ChannelListViewItem(channelListView, channel, users, topic);
-        applyFilterToItem(item);
-        pendingChannels.pop_front();
-    }
-
-    if(pendingChannels.isEmpty())
-    {
-        updateTimer.stop();
-        updateUsersChannels();
-        channelListView->setSortColumn(m_oldSortColumn); //Disable sorting
-        applyFilter->setEnabled(true);
-        refreshListButton->setEnabled(true);
-    }
-}
-
-void ChannelListPanel::filterTextChanged(const QString& newText)
-{
-    filterText=newText;
-}
-
-int ChannelListPanel::getNumChannels()
-{
-  return numChannels;
-}
-
-int ChannelListPanel::getNumUsers()
-{
-  return numUsers;
-}
-
-void ChannelListPanel::setNumChannels(int num)
-{
-  numChannels=num;
-}
-
-void ChannelListPanel::setNumUsers(int num)
-{
-  numUsers=num;
-}
-
-int ChannelListPanel::getVisibleChannels()
-{
-  return visibleChannels;
-}
-
-int ChannelListPanel::getVisibleUsers()
-{
-  return visibleUsers;
-}
-
-void ChannelListPanel::setVisibleChannels(int num)
-{
-  visibleChannels=num;
-}
-
-void ChannelListPanel::setVisibleUsers(int num)
-{
-  visibleUsers=num;
-}
-
-int ChannelListPanel::getMinUsers()
-{
-  return minUsers;
-}
-
-int ChannelListPanel::getMaxUsers()
-{
-  return maxUsers;
-}
-
-bool ChannelListPanel::getChannelTarget()
-{
-  return channelTarget;
-}
-
-bool ChannelListPanel::getTopicTarget()
-{
-  return topicTarget;
-}
-
-bool ChannelListPanel::getRegExp()
-{
-  return regExp;
-}
-
-const QString& ChannelListPanel::getFilterText()
-{
-  return filterText;
-}
-
-void ChannelListPanel::setMinUsers(int num)
-{
-    minUsers=num;
-}
-
-void ChannelListPanel::setMaxUsers(int num)
-{
-    maxUsers=num;
-}
-
-void ChannelListPanel::setChannelTarget(bool state)
-{
-  channelTarget=state;
-}
-
-void ChannelListPanel::setTopicTarget(bool state)
-{
-  topicTarget=state;
-}
-
-void ChannelListPanel::setRegExp(bool state)
-{
-  regExp=state;
-}
-
-void ChannelListPanel::channelTargetClicked()
-{
-  setChannelTarget(channelFilter->checkState()==Qt::Checked);
-}
-
-void ChannelListPanel::topicTargetClicked()
-{
-  setTopicTarget(topicFilter->checkState()==Qt::Checked);
-}
-
-void ChannelListPanel::regExpClicked()
-{
-  setRegExp(regexpCheck->checkState()==Qt::Checked);
-}
-
-void ChannelListPanel::applyFilterToItem(Q3ListViewItem* item)
-{
-    bool visible=true;
-
-    if(getMinUsers() || getMaxUsers())
-    {
-        if(item->text(1).toInt()<getMinUsers() || (getMaxUsers()>=getMinUsers() &&
-            item->text(1).toInt()>getMaxUsers()))
-            visible=false;
-    }
-
-    if(!getFilterText().isEmpty())
-    {
-        if(getChannelTarget())
-        {
-            if(!item->text(0).contains(QRegExp(getFilterText(), Qt::CaseInsensitive, (getRegExp()) ? QRegExp::FixedString : QRegExp::Wildcard))) visible=false;
-        }
-
-        if(getTopicTarget())
-        {
-            if(!item->text(2).contains(QRegExp(getFilterText(), Qt::CaseInsensitive, (getRegExp()) ? QRegExp::FixedString : QRegExp::Wildcard))) visible=false;
-        }
-    }
-
-    item->setVisible(visible);
-    if(visible)
-    {
-        setVisibleUsers(getVisibleUsers()+item->text(1).toInt());
-        setVisibleChannels(getVisibleChannels()+1);
+        if(item.column() != 0)
+            item = item.sibling(item.row(),0);
+        emit joinChannel(item.data().toString());
     }
 }
 
 void ChannelListPanel::applyFilterClicked()
 {
-    if(!getNumChannels())
+    //Don't run if they pressed return when the button was disabled
+    if (!m_refreshListBtn->isEnabled()) return;
+
+    if (!m_numChannels)
     {
         refreshList();
         return;
     }
-    else
-    {
-        Q3ListViewItem* item = channelListView->firstChild();
-
-        setVisibleChannels(0);
-        setVisibleUsers(0);
-
-        while(item)
-        {
-            applyFilterToItem(item);
-            item = item->nextSibling();
-        }
-
-        updateUsersChannels();
-    }
 }
 
-void ChannelListPanel::updateUsersChannels()
+void ChannelListPanel::contextMenu(const QPoint& p)
 {
-    emit updateNumChannels(i18n("Channels: %1 (%2 shown)", getNumChannels(), getVisibleChannels()));
-    emit updateNumUsers(i18n("Non-unique users: %1 (%2 shown)", getNumUsers(), getVisibleUsers()));
-}
+    QModelIndex item = m_channelListView->indexAt(p);
+    if(!item.isValid()) return;
 
-bool ChannelListPanel::closeYourself()
-{
-    // make the server delete us so server can reset the pointer to us
-    m_server->closeChannelListPanel();
-    return true;
-}
+    if(item.column() != 2)
+        item = item.sibling(item.row(),2);
 
-void ChannelListPanel::childAdjustFocus()
-{
-}
+    QString filteredLine = item.data().toString();
+    KMenu* menu = new KMenu(this);
 
-void ChannelListPanel::contextMenu (K3ListView* /* l */, Q3ListViewItem* i, const QPoint& p)
-{
-    if(!i) return;
+    // Join Channel Action
+    QAction *joinAction = new QAction(menu);
+    joinAction->setText(i18n("Join Channel"));
+    #if KDE_IS_VERSION(4,2,85)
+    joinAction->setIcon(KIcon("irc-join-channel"));
+    #else
+    joinAction->setIcon(KIcon("list-add"));
+    #endif
+    menu->addAction(joinAction);
+    connect(joinAction, SIGNAL(triggered()), this, SLOT(joinChannelClicked()));
 
-    KMenu* showURLmenu = new KMenu(this);
-    showURLmenu->addTitle( i18n("Open URL") );
-    QString filteredLine(i->text(2));
+    // Adds a separator between the Join action and the URL(s) submenu
+    menu->addSeparator();
+
+    // open URL submenu
+    KMenu *showURLmenu = new KMenu("Open URL", menu);
 
     QRegExp pattern("((http://|https://|ftp://|nntp://|news://|gopher://|www\\.|ftp\\.)"
     // IP Address
@@ -538,13 +465,13 @@ void ChannelListPanel::contextMenu (K3ListView* /* l */, Q3ListViewItem* i, cons
 
     pattern.setCaseSensitivity(Qt::CaseInsensitive);
 
-    int pos=0;
-    while(static_cast<int>(pos) < filteredLine.length())
+    int index=0;
+    while (static_cast<int>(index) < filteredLine.length())
     {
-        if (pattern.indexIn(filteredLine, pos) != -1)
+        if (pattern.indexIn(filteredLine, index) != -1)
         {
             // Remember where we found the url
-            pos=pattern.pos();
+            index=pattern.pos();
 
             // Extract url
             QString url=pattern.capturedTexts()[0];
@@ -559,7 +486,7 @@ void ChannelListPanel::contextMenu (K3ListView* /* l */, Q3ListViewItem* i, cons
             href.replace('&', "&&");
 
             // next search begins right after the link
-            pos+=url.length();
+            index += url.length();
 
             // tell the program that we have found a new url
             QAction* action = new QAction(showURLmenu);
@@ -569,18 +496,19 @@ void ChannelListPanel::contextMenu (K3ListView* /* l */, Q3ListViewItem* i, cons
         }
         else
         {
-            pos++;
+            index++;
         }
     }
 
-    if (showURLmenu->actions().count()==1)
+    if (showURLmenu->actions().count()==0)
     {
-        showURLmenu->addAction(i18n("<<No URL found>>"))->setEnabled(false);
+        showURLmenu->setEnabled(false);
     }
 
-    showURLmenu->exec(p);
+    menu->addMenu(showURLmenu);
+    menu->exec(QCursor::pos());
 
-    delete showURLmenu;
+    delete menu;
 }
 
 void ChannelListPanel::openURL()
@@ -591,18 +519,24 @@ void ChannelListPanel::openURL()
         new KRun(KUrl(action->text().replace("&&","&")), this);
 }
 
+bool ChannelListPanel::closeYourself()
+{
+    // make the server delete us so server can reset the pointer to us
+    m_server->closeChannelListPanel();
+    return true;
+}
+
 void ChannelListPanel::appendInputText(const QString& text, bool fromCursor)
 {
     Q_UNUSED(fromCursor);
-    filterInput->setText(filterInput->text() + text);
+    m_filterLine->setText(m_filterLine->text() + text);
 }
 
 //Used to disable functions when not connected
 void ChannelListPanel::serverOnline(bool online)
 {
-    refreshListButton->setEnabled(online);
-    applyFilter->setEnabled(online);
-    joinChannelButton->setEnabled(online);
+    m_refreshListBtn->setEnabled(online);
+    m_joinChanBtn->setEnabled(online);
 }
 
 void ChannelListPanel::emitUpdateInfo()
@@ -614,7 +548,7 @@ void ChannelListPanel::emitUpdateInfo()
 
 void ChannelListPanel::setFilter(const QString& filter)
 {
-    filterInput->setText(filter);
+    m_filterLine->setText(filter);
 }
 
 #include "channellistpanel.moc"

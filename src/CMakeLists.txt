@@ -34,6 +34,10 @@ set(core_SRCS
     quickconnectdialog.cpp
 )
 
+kde4_add_ui_files(core_SRCS
+    urlcatcherui.ui
+)
+
 set (irc_SRCS
     #== IRC
     irc/server.cpp
@@ -41,7 +45,6 @@ set (irc_SRCS
     irc/query.cpp
     irc/channel.cpp
     irc/channellistpanel.cpp
-    irc/channellistviewitem.cpp
     irc/channeloptionsdialog.cpp
     irc/channelnick.cpp
     irc/modebutton.cpp
@@ -69,6 +72,7 @@ set (irc_SRCS
 )
 
 kde4_add_ui_files(irc_SRCS
+    irc/channellistpanelui.ui
     irc/channeldialogui.ui
     irc/channeloptionsui.ui
     irc/joinchannelui.ui

@@ -15,6 +15,8 @@
 #include "ignore.h"
 #include "preferences.h"
 
+#include <QHeaderView>
+
 
 Ignore_Config::Ignore_Config( QWidget* parent, const char* name, Qt::WFlags fl )
     : QWidget( parent, fl )
