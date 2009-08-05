@@ -11,7 +11,10 @@
   Copyright (C) 2006-2008 Eike Hein <hein@kde.org>
 */
 
+#define QT3_SUPPORT //TODO remove when porting away from Q3*
+
 #include "channel.h"
+#include "channeloptionsdialog.h"
 #include "application.h"
 #include "server.h"
 #include "nick.h"
@@ -25,7 +28,6 @@
 #include <kabc/stdaddressbook.h>
 #include "common.h"
 #include "topiclabel.h"
-#include "channeloptionsdialog.h"
 #include "notificationhandler.h"
 #include "viewcontainer.h"
 #include "linkaddressbook/linkaddressbookui.h"
@@ -40,6 +42,7 @@
 #include <QTextCodec>
 #include <QToolButton>
 #include <QDropEvent>
+#include <QHeaderView>
 
 #include <Q3Grid>
 #include <Q3DragObject>
@@ -56,6 +59,9 @@
 #include <KVBox>
 #include <KHBox>
 #include <KComboBox>
+
+
+#define DELAYED_SORT_TRIGGER    10
 
 
 bool nickTimestampLessThan(const Nick* nick1, const Nick* nick2)
@@ -85,8 +91,9 @@ Channel::Channel(QWidget* parent, QString _name) : ChatWindow(parent)
     //     This effectively assigns the name twice, but none of the other logic has been moved or updated.
     name=_name;
     m_processingTimer = 0;
-    m_delayedSortTimer = 0;
     m_optionsDialog = NULL;
+    m_delayedSortTimer = 0;
+    m_delayedSortTrigger = 0;
     m_pendingChannelNickLists.clear();
     m_currentIndex = 0;
     m_opsToAdd = 0;
@@ -95,6 +102,7 @@ Channel::Channel(QWidget* parent, QString _name) : ChatWindow(parent)
     completionPosition = 0;
     nickChangeDialog = 0;
     channelCommand = false;
+    m_nicknameListViewTextChanged = 0;
 
     m_joined = false;
 
@@ -144,6 +152,7 @@ Channel::Channel(QWidget* parent, QString _name) : ChatWindow(parent)
     connect(m_topicButton, SIGNAL(clicked()), this, SLOT(showOptionsDialog()));
 
     topicLine = new Konversation::TopicLabel(topicWidget);
+    topicLine->setChannelName(getName());
     topicLine->setWordWrap(true);
     topicLine->setWhatsThis(i18n("<qt><p>Every channel on IRC has a topic associated with it.  This is simply a message that everybody can see.</p><p>If you are an operator, or the channel mode <em>'T'</em> has not been set, then you can change the topic by clicking the Edit Channel Properties button to the left of the topic.  You can also view the history of topics there.</p></qt>"));
     connect(topicLine, SIGNAL(setStatusBarTempText(const QString&)), this, SIGNAL(setStatusBarTempText(const QString&)));
@@ -218,22 +227,12 @@ Channel::Channel(QWidget* parent, QString _name) : ChatWindow(parent)
     nickListButtons->setSpacing(spacing());
 
     nicknameListView=new NickListView(nickListButtons, this);
-    nicknameListView->setHScrollBarMode(Q3ScrollView::AlwaysOff);
-    nicknameListView->setSelectionModeExt(K3ListView::Extended);
+    nicknameListView->setSelectionMode(QAbstractItemView::ExtendedSelection);
     nicknameListView->setAllColumnsShowFocus(true);
-    nicknameListView->setSorting(1,true);
-    nicknameListView->addColumn(QString());
-    nicknameListView->addColumn(QString());
-    nicknameListView->setColumnWidthMode(1,K3ListView::Maximum);
 
     nicknameListView->header()->hide();
 
-    // setResizeMode must be called after all the columns are added
-    nicknameListView->setResizeMode(K3ListView::LastColumn);
-
-    // separate LED from Text a little more
-    nicknameListView->setColumnWidth(0, 10);
-    nicknameListView->setColumnAlignment(0, Qt::AlignHCenter);
+    nicknameListView->header()->setStretchLastSection(false);
 
     nicknameListView->installEventFilter(this);
 
@@ -303,8 +302,7 @@ Channel::Channel(QWidget* parent, QString _name) : ChatWindow(parent)
     connect(getTextView(),SIGNAL (autoText(const QString&)),this,SLOT (sendChannelText(const QString&)) );
 
     connect(nicknameListView,SIGNAL (popupCommand(int)),this,SLOT (popupCommand(int)) );
-    connect(nicknameListView,SIGNAL (doubleClicked(Q3ListViewItem*)),this,SLOT (doubleClickCommand(Q3ListViewItem*)) );
-    connect(nicknameListView,SIGNAL (dropped(QDropEvent*,Q3ListViewItem*)),this,SLOT (filesDropped(QDropEvent*)) );
+    connect(nicknameListView,SIGNAL (itemDoubleClicked(QTreeWidgetItem*,int)),this,SLOT (doubleClickCommand(QTreeWidgetItem*,int)) );
     connect(nicknameCombobox,SIGNAL (activated(int)),this,SLOT(nicknameComboboxChanged()));
 
     if(nicknameCombobox->lineEdit())
@@ -337,14 +335,26 @@ Channel::Channel(QWidget* parent, QString _name) : ChatWindow(parent)
     //FIXME JOHNFLUX
     // connect( Konversation::Addressbook::self()->getAddressBook(), SIGNAL( addressBookChanged( AddressBook * ) ), this, SLOT( slotLoadAddressees() ) );
     // connect( Konversation::Addressbook::self(), SIGNAL(addresseesChanged()), this, SLOT(slotLoadAddressees()));
+
+    // Setup delayed sort timer
+    m_delayedSortTimer = new QTimer(this);
+    m_delayedSortTimer->setSingleShot(true);
+    connect(m_delayedSortTimer, SIGNAL(timeout()), this, SLOT(delayedSortNickList()));
 }
 
 //FIXME there is some logic in setLogfileName that needs to be split out and called here if the server display name gets changed
 void Channel::setServer(Server* server)
 {
     if (m_server != server)
+    {
         connect(server, SIGNAL(connectionStateChanged(Server*, Konversation::ConnectionState)),
                 SLOT(connectionStateChanged(Server*, Konversation::ConnectionState)));
+        connect(server, SIGNAL(nickInfoChanged()),
+                this, SLOT(updateNickInfos()));
+        connect(server, SIGNAL(channelNickChanged(const QString&)),
+                this, SLOT(updateChannelNicks(const QString&)));
+    }
+
     ChatWindow::setServer(server);
     if (!server->getKeyForRecipient(getName()).isEmpty())
         cipherLabel->show();
@@ -443,6 +453,10 @@ void Channel::purgeNicks()
     qDeleteAll(nicknameList);
     nicknameList.clear();
 
+    // Execute this otherwise it may crash trying to access
+    // deleted nicks
+    nicknameListView->executeDelayedItemsLayout();
+
     // clear stats counter
     nicks=0;
     ops=0;
@@ -453,19 +467,10 @@ void Channel::showOptionsDialog()
     if(!m_optionsDialog)
         m_optionsDialog = new Konversation::ChannelOptionsDialog(this);
 
+    m_optionsDialog->refreshAllowedChannelModes();
     m_optionsDialog->refreshModes();
     m_optionsDialog->refreshTopicHistory();
     m_optionsDialog->show();
-}
-
-void Channel::filesDropped(QDropEvent* e)
-{
-    QPoint p(nicknameListView->contentsToViewport(e->pos()));
-    Nick* it = dynamic_cast<Nick*>(nicknameListView->itemAt(p));
-    if (!it) return;
-
-    const KUrl::List uris = KUrl::List::fromMimeData(e->mimeData());
-    m_server->sendURIs(uris, it->getChannelNick()->getNickname());
 }
 
 void Channel::textPasted(const QString& text)
@@ -511,7 +516,10 @@ void Channel::popupCommand(int id)
             ChannelNickList nickList=getSelectedChannelNicks();
             for(ChannelNickList::ConstIterator it=nickList.constBegin();it!=nickList.constEnd();++it)
             {
-                if(!(*it)->getNickInfo()->editAddressee()) break;;
+                KABC::Addressee addressee = (*it)->getNickInfo()->getAddressee();
+                if(addressee.isEmpty()) break;
+
+                Konversation::Addressbook::self()->editAddressee(addressee.uid());
             }
             break;
         }
@@ -552,7 +560,9 @@ void Channel::popupCommand(int id)
             ChannelNickList nickList=getSelectedChannelNicks();
             for(ChannelNickList::ConstIterator it=nickList.constBegin();it!=nickList.constEnd();++it)
             {
-                (*it)->getNickInfo()->showLinkAddressbookUI();
+                LinkAddressbookUI *linkaddressbookui = new LinkAddressbookUI(this, (*it)->getNickInfo()->getNickname(), m_server->getServerName(),
+                                                                             m_server->getDisplayName(), (*it)->getNickInfo()->getRealName());
+                linkaddressbookui->show();
             }
             break;
         }
@@ -769,12 +779,13 @@ void Channel::popupCommand(int id)
 }
 
 // Will be connected to NickListView::doubleClicked()
-void Channel::doubleClickCommand(Q3ListViewItem* item)
+void Channel::doubleClickCommand(QTreeWidgetItem *item, int column)
 {
+    Q_UNUSED(column)
     if(item)
     {
         nicknameListView->clearSelection();
-        nicknameListView->setSelected(item, true);
+        item->setSelected(true);
         // TODO: put the quick button code in another function to make reusal more legitimate
         quickButtonClicked(Preferences::self()->channelDoubleClickAction());
     }
@@ -853,7 +864,7 @@ void Channel::completeNick()
                     }
                 }
             } // Cycle completion
-            else if(Preferences::self()->nickCompletionMode() == 0)
+            else if(Preferences::self()->nickCompletionMode() == 0 && !nicknameList.isEmpty())
             {
                 if(mode == '\0') {
                     uint timeStamp = 0;
@@ -1263,7 +1274,6 @@ void Channel::quickButtonClicked(const QString &buttonText)
 
 void Channel::addNickname(ChannelNickPtr channelnick)
 {
-
     QString nickname = channelnick->loweredNickname();
 
     Nick* nick=0;
@@ -1277,7 +1287,7 @@ void Channel::addNickname(ChannelNickPtr channelnick)
         }
     }
 
-    if(nick == 0)
+    if (nick == 0)
     {
         fastAddNickname(channelnick);
 
@@ -1290,19 +1300,56 @@ void Channel::addNickname(ChannelNickPtr channelnick)
         requestNickListSort();
     }
     else
-    {
-        Q_ASSERT(false); // We shouldn't be adding someone that is already in the channel.
-    }
+        kWarning() << "Nickname " << channelnick->getNickname() << " has not been added as it is already in the nickname list."<< endl;
 }
 
-// Use with caution! Does not sort or check for duplicates!
-void Channel::fastAddNickname(ChannelNickPtr channelnick)
+// Use with caution! Does not check for duplicates or may not
+// sort if delayed sorting is in effect.
+void Channel::fastAddNickname(ChannelNickPtr channelnick, Nick *nick)
 {
     Q_ASSERT(channelnick);
     if(!channelnick) return;
-    Nick* nick = new Nick(nicknameListView, channelnick);
-    // nicks get sorted later
-    nicknameList.append(nick);
+
+    if (!nick || !nick->treeWidget())
+    {
+        // Deal with nicknameListView now (creating nick if necessary)
+        NickListView::NoSorting noSorting(nicknameListView);
+        int index = nicknameListView->topLevelItemCount();
+
+        // Append nick to the lists
+        if (nick)
+        {
+            nicknameListView->addTopLevelItem(nick);
+        }
+        else
+        {
+            nick = new Nick(nicknameListView, this, channelnick);
+            m_nicknameListViewTextChanged |= 0xFF; // new nick, text changed.
+        }
+
+        if (!m_delayedSortTimer->isActive()) {
+            // Find its right place and insert where it belongs
+            int newindex = nicknameListView->findLowerBound(*nick);
+            if (newindex != index) {
+                if (newindex >= index)
+                    newindex--;
+                nicknameListView->takeTopLevelItem(index);
+                nicknameListView->insertTopLevelItem(newindex, nick);
+            }
+        }
+        // Otherwise it will be sorted by delayed sort.
+    }
+
+    // Now deal with nicknameList
+    if (m_delayedSortTimer->isActive())
+    {
+        // nicks get sorted later
+        nicknameList.append(nick);
+    } else {
+        NickList::iterator it = qLowerBound(nicknameList.begin(), nicknameList.end(), nick, nickLessThan);
+        nicknameList.insert(it, nick);
+    }
+
 }
 
 void Channel::nickRenamed(const QString &oldNick, const NickInfo& nickInfo)
@@ -1322,8 +1369,11 @@ void Channel::nickRenamed(const QString &oldNick, const NickInfo& nickInfo)
         appendCommandMessage(i18n("Nick"),i18n("%1 is now known as %2.", oldNick, newNick),false);
     }
 
-    nicknameListView->sort();
-
+    Nick *nick = getNickByName(newNick);
+    if (nick)
+    {
+        repositionNick(nick);
+    }
 }
 
 void Channel::joinNickname(ChannelNickPtr channelNick)
@@ -1335,7 +1385,6 @@ void Channel::joinNickname(ChannelNickPtr channelNick)
         appendCommandMessage(i18n("Join"), i18nc("%1 is the channel and %2 is our hostmask",
                              "You have joined the channel %1 (%2).", getName(), channelNick->getHostmask()),false, false, true);
         m_ownChannelNick = channelNick;
-        connect(m_ownChannelNick.data(), SIGNAL(channelNickChanged()), SLOT(refreshModeButtons()));
         refreshModeButtons();
         setActive(true);
 
@@ -1419,6 +1468,8 @@ void Channel::removeNick(ChannelNickPtr channelNick, const QString &reason, bool
         {
             nicknameList.removeOne(nick);
             delete nick;
+            // Execute this otherwise it may crash trying to access deleted nick
+            nicknameListView->executeDelayedItemsLayout();
         }
         else
         {
@@ -1648,6 +1699,9 @@ void Channel::updateMode(const QString& sourceNick, char mode, bool plus, const 
     //Note for future expansion: doing m_server->getChannelNick(getName(), sourceNick);  may not return a valid channelNickPtr if the
     //mode is updated by the server.
 
+    // Note: nick repositioning in the nicknameListView should be triggered by
+    // nickinfo / channelnick signals
+
     QString message;
     ChannelNickPtr parameterChannelNick=m_server->getChannelNick(getName(), parameter);
 
@@ -1705,7 +1759,6 @@ void Channel::updateMode(const QString& sourceNick, char mode, bool plus, const 
             {
                 parameterChannelNick->setOwner(plus);
                 emitUpdateInfo();
-                nicknameListView->sort();
             }
             break;
 
@@ -1748,7 +1801,6 @@ void Channel::updateMode(const QString& sourceNick, char mode, bool plus, const 
             {
                 parameterChannelNick->setOwner(plus);
                 emitUpdateInfo();
-                nicknameListView->sort();
             }
             break;
 
@@ -1791,7 +1843,6 @@ void Channel::updateMode(const QString& sourceNick, char mode, bool plus, const 
             {
                 parameterChannelNick->setOp(plus);
                 emitUpdateInfo();
-                nicknameListView->sort();
             }
             break;
 
@@ -1834,7 +1885,6 @@ void Channel::updateMode(const QString& sourceNick, char mode, bool plus, const 
             {
                 parameterChannelNick->setHalfOp(plus);
                 emitUpdateInfo();
-                nicknameListView->sort();
             }
             break;
 
@@ -1870,7 +1920,6 @@ void Channel::updateMode(const QString& sourceNick, char mode, bool plus, const 
             if(parameterChannelNick)
             {
                 parameterChannelNick->setVoice(plus);
-                nicknameListView->sort();
             }
             break;
 
@@ -2044,15 +2093,31 @@ void Channel::updateMode(const QString& sourceNick, char mode, bool plus, const 
             }
             break;
         default:
-	    if(plus)
-	    {
-	        if(fromMe) message=i18n("You set channel mode +%1", QString(mode));
-		else message=i18n("%1 sets channel mode +%2", sourceNick, QString(mode));
+        if(plus)
+        {
+            if(Konversation::getChannelModesHash().contains(mode))
+            {
+                if (fromMe) message=i18n("You set the channel mode '%1'.", Konversation::getChannelModesHash().value(mode));
+                else message= i18n("%1 sets the channel mode '%2'.", sourceNick, Konversation::getChannelModesHash().value(mode));
+            }
+            else
+            {
+                if(fromMe) message=i18n("You set channel mode +%1", QString(mode));
+		        else message=i18n("%1 sets channel mode +%2", sourceNick, QString(mode));
+            }
 	    }
 	    else
-	    {
-	        if (fromMe) message=i18n("You set channel mode -%1", QString(mode));
-		else message= i18n("%1 sets channel mode -%2", sourceNick, QString(mode));
+        {
+            if(Konversation::getChannelModesHash().contains(mode))
+            {
+                if (fromMe) message=i18n("You remove the channel mode '%1'.", Konversation::getChannelModesHash().value(mode));
+                else message= i18n("%1 removes the channel mode '%2'.", sourceNick, Konversation::getChannelModesHash().value(mode));
+            }
+            else
+            {
+	            if (fromMe) message=i18n("You set channel mode -%1", QString(mode));
+		        else message= i18n("%1 sets channel mode -%2", sourceNick, QString(mode));
+            }
 	    }
     }
 
@@ -2326,34 +2391,18 @@ void Channel::updateAppearance()
         abg = palette().alternateBase().color();
     }
 
-    QPalette channelInputPalette;
-    channelInputPalette.setColor(QPalette::WindowText, fg);
-    channelInputPalette.setColor(QPalette::Text, fg);
-    channelInputPalette.setColor(QPalette::Base, bg);
-    channelInput->setPalette(channelInputPalette);
+    QPalette newPalette;
+    newPalette.setColor(QPalette::WindowText, fg);
+    newPalette.setColor(QPalette::Text, fg);
+    newPalette.setColor(QPalette::Base, bg);
+    newPalette.setColor(QPalette::AlternateBase, abg);
 
-    QPalette limitPalette;
-    limitPalette.setColor(QPalette::WindowText, fg);
-    limitPalette.setColor(QPalette::Text, fg);
-    limitPalette.setColor(QPalette::Base, bg);
-    limit->setPalette(limitPalette);
-
-    getTextView()->setPalette(QPalette());
-
-    if(Preferences::self()->showBackgroundImage())
-    {
-        getTextView()->setViewBackground(Preferences::self()->color(Preferences::TextViewBackground),
-            Preferences::self()->backgroundImage());
-    }
-    else
-    {
-        getTextView()->setViewBackground(Preferences::self()->color(Preferences::TextViewBackground),
-            QString());
-    }
+    channelInput->setPalette(newPalette);
+    limit->setPalette(newPalette);
+    topicLine->setPalette(QPalette());
 
     if (Preferences::self()->customTextFont())
     {
-        getTextView()->setFont(Preferences::self()->textFont());
         topicLine->setFont(Preferences::self()->textFont());
         channelInput->setFont(Preferences::self()->textFont());
         nicknameCombobox->setFont(Preferences::self()->textFont());
@@ -2361,21 +2410,14 @@ void Channel::updateAppearance()
     }
     else
     {
-        getTextView()->setFont(KGlobalSettings::generalFont());
         topicLine->setFont(KGlobalSettings::generalFont());
         channelInput->setFont(KGlobalSettings::generalFont());
         nicknameCombobox->setFont(KGlobalSettings::generalFont());
         limit->setFont(KGlobalSettings::generalFont());
     }
 
-    QPalette nicknameListViewPalette;
-    nicknameListViewPalette.setColor(QPalette::WindowText, fg);
-    nicknameListViewPalette.setColor(QPalette::Text, fg);
-    nicknameListViewPalette.setColor(QPalette::Base, bg);
-    nicknameListViewPalette.setColor(QPalette::AlternateBase, abg);
     nicknameListView->resort();
-    nicknameListView->setPalette(nicknameListViewPalette);
-    nicknameListView->setAlternateBackground(abg);
+    nicknameListView->setPalette(newPalette);
 
     if (Preferences::self()->customListFont())
         nicknameListView->setFont(Preferences::self()->listFont());
@@ -2391,6 +2433,13 @@ void Channel::updateAppearance()
     setAutoUserhost(Preferences::self()->autoUserhost());
 
     updateQuickButtons(Preferences::quickButtonList());
+
+    // Nick sorting settings might have changed. Trigger timer
+    if (m_delayedSortTimer)
+    {
+        m_delayedSortTrigger = DELAYED_SORT_TRIGGER + 1;
+        m_delayedSortTimer->start(500 + qrand()/2000);
+    }
 
     ChatWindow::updateAppearance();
 }
@@ -2485,6 +2534,11 @@ void Channel::cycleChannel()
     m_server->sendJoinCommand(getName(), getPassword());
 }
 
+void Channel::nicknameListViewTextChanged(int textChangedFlags)
+{
+    m_nicknameListViewTextChanged |= textChangedFlags;
+}
+
 void Channel::autoUserhost()
 {
     if(Preferences::self()->autoUserhost() && !Preferences::self()->autoWhoContinuousEnabled())
@@ -2504,42 +2558,35 @@ void Channel::autoUserhost()
 
         if(!nickString.isEmpty()) m_server->requestUserhost(nickString);
     }
+
+    // Resize columns if needed (on regular basis)
+    if (m_nicknameListViewTextChanged & (1 << Nick::NicknameColumn))
+        nicknameListView->resizeColumnToContents(Nick::NicknameColumn);
+    if (m_nicknameListViewTextChanged & (1 << Nick::HostmaskColumn))
+        nicknameListView->resizeColumnToContents(Nick::HostmaskColumn);
+    m_nicknameListViewTextChanged = 0;
 }
 
 void Channel::setAutoUserhost(bool state)
 {
-    if(state)
+    nicknameListView->setColumnHidden(Nick::HostmaskColumn, !state);
+    if (state)
     {
-        // we can't have automatic resizing with three columns; the hostname column is too wide
-        nicknameListView->setHScrollBarMode(Q3ScrollView::Auto);
-
-        // restart userhost timer
+        nicknameListView->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        // Cannot use QHeaderView::ResizeToContents here because it is slow
+        // and it gets triggered by setSortingEnabled(). Using timed resize
+        // instead, see Channel::autoUserhost() above.
+        nicknameListView->header()->setResizeMode(Nick::NicknameColumn, QHeaderView::Fixed);
+        nicknameListView->header()->setResizeMode(Nick::HostmaskColumn, QHeaderView::Fixed);
         userhostTimer.start(10000);
-        // if the column was actually gone (just to be sure) ...
-        if(nicknameListView->columns()==2)
-        {
-            // re-add the hostmask column
-            nicknameListView->addColumn(QString());
-            nicknameListView->setColumnWidthMode(2,K3ListView::Maximum);
-            nicknameListView->setResizeMode(Q3ListView::NoColumn);
-
-            // re-add already known hostmasks
-            Q3ListViewItem* item=nicknameListView->itemAtIndex(0);
-            while(item)
-            {
-                Nick* lookNick=getNickByName(item->text(1));
-                if(lookNick) item->setText(2,lookNick->getChannelNick()->getHostmask());
-                item=item->itemBelow();
-            }
-        }
+        m_nicknameListViewTextChanged |= 0xFF; // ResizeColumnsToContents
+        QTimer::singleShot(0, this, SLOT(autoUserhost())); // resize columns ASAP
     }
     else
     {
+        nicknameListView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        nicknameListView->header()->setResizeMode(Nick::NicknameColumn, QHeaderView::Stretch);
         userhostTimer.stop();
-        if(nicknameListView->columns()==3) nicknameListView->removeColumn(2);
-        nicknameListView->setHScrollBarMode(Q3ScrollView::AlwaysOff);
-        // make the nick column resize itself automatically to prevent horizontal scrollbar
-        nicknameListView->setResizeMode(Q3ListView::LastColumn);
     }
 }
 
@@ -2617,7 +2664,6 @@ bool Channel::closeYourself(bool confirm)
     {
         m_server->closeChannel(getName());
         m_server->removeChannel(this);
-        Preferences::self()->setSpellChecking(channelInput->checkSpellingEnabled());
         deleteLater();
         return true;
     }
@@ -2721,10 +2767,8 @@ void Channel::processPendingNicks()
     if (m_pendingChannelNickLists.isEmpty())
     {
         m_processingTimer->stop();
-        nicknameListView->sort();
         sortNickList();
         nicknameListView->setUpdatesEnabled(true);
-        nicknameListView->triggerUpdate();
     }
 }
 
@@ -2776,27 +2820,45 @@ void Channel::showNicknameList(bool show)
 
 void Channel::requestNickListSort()
 {
-    if(!m_delayedSortTimer)
+    m_delayedSortTrigger++;
+    if (m_delayedSortTrigger == DELAYED_SORT_TRIGGER &&
+        !m_delayedSortTimer->isActive())
     {
-        m_delayedSortTimer = new QTimer(this);
-        m_delayedSortTimer->setSingleShot(true);
-        connect(m_delayedSortTimer, SIGNAL(timeout()), this, SLOT(sortNickList()));
-    }
-
-    if(!m_delayedSortTimer->isActive())
-    {
+        nicknameListView->fastSetSortingEnabled(false);
         m_delayedSortTimer->start(1000);
     }
 }
 
-void Channel::sortNickList()
+void Channel::delayedSortNickList()
 {
-    qSort(nicknameList.begin(), nicknameList.end(), nickLessThan);
-    nicknameListView->resort();
+    sortNickList(true);
+}
 
-    if(m_delayedSortTimer)
-    {
-        m_delayedSortTimer->stop();
+void Channel::sortNickList(bool delayed)
+{
+    if (!delayed || m_delayedSortTrigger > DELAYED_SORT_TRIGGER) {
+        qSort(nicknameList.begin(), nicknameList.end(), nickLessThan);
+        nicknameListView->resort();
+    }
+    if (!nicknameListView->isSortingEnabled())
+        nicknameListView->fastSetSortingEnabled(true);
+    m_delayedSortTrigger = 0;
+    m_delayedSortTimer->stop();
+}
+
+void Channel::repositionNick(Nick *nick)
+{
+    int index = nicknameList.indexOf(nick);
+
+    if (index > -1) {
+        // Trigger nick reposition in the nicklist including
+        // field updates
+        nick->refresh();
+        // Readd nick to the nicknameList
+        nicknameList.removeAt(index);
+        fastAddNickname(nick->getChannelNick(), nick);
+    } else {
+        kWarning() << "Nickname " << nick->getChannelNick()->getNickname() << " not found!"<< endl;
     }
 }
 
@@ -2892,11 +2954,14 @@ void Channel::appendAction(const QString& nickname, const QString& message)
 
 void Channel::nickActive(const QString& nickname) //FIXME reported to crash, can't reproduce
 {
-    ChannelNickPtr nick=getChannelNick(nickname);
+    ChannelNickPtr channelnick=getChannelNick(nickname);
     //XXX Would be nice to know why it can be null here...
-    if (nick) {
-        nick->moreActive();
-        sortNickList(); //FIXME: no need to completely resort, we can just see if this particular nick should move
+    if (channelnick) {
+        channelnick->moreActive();
+        Nick* nick = getNickByName(nickname); // FIXME: begs for map lookup
+        if (nick) {
+            nick->repositionMe();
+        }
     }
 }
 
@@ -2908,6 +2973,36 @@ Konversation::Cipher* Channel::getCipher()
     return m_cipher;
 }
 #endif
+
+void Channel::updateNickInfos()
+{
+    foreach(Nick* nick, nicknameList)
+    {
+        if(nick->getChannelNick()->getNickInfo()->isChanged())
+        {
+            nick->refresh();
+        }
+    }
+}
+
+void Channel::updateChannelNicks(const QString& channel)
+{
+    if(channel != name.toLower())
+        return;
+
+    foreach(Nick* nick, nicknameList)
+    {
+        if(nick->getChannelNick()->isChanged())
+        {
+            nick->refresh();
+
+            if(nick->getChannelNick() == m_ownChannelNick)
+            {
+                refreshModeButtons();
+            }
+        }
+    }
+}
 
 //
 // NickList

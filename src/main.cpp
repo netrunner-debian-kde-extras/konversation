@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
 
     aboutData.addAuthor(ki18n("Dario Abatianni"),ki18n("Original Author, Project Founder"),"eisfuchs@tigress.com");
     aboutData.addAuthor(ki18n("Peter Simonsson"),ki18n("Maintainer"),"psn@linux.se");
-    aboutData.addAuthor(ki18n("Eike Hein"),ki18n("Maintainer, Release Manager, User interface, Protocol handling"),"hein@kde.org");
+    aboutData.addAuthor(ki18n("Eike Hein"),ki18n("Maintainer, Release Manager, User interface, Connection management, Protocol handling, Auto-away"),"hein@kde.org");
     aboutData.addAuthor(ki18n("Shintaro Matsuoka"),ki18n("DCC, Encoding handling, OSD positioning"),"shin@shoegazed.org");
     aboutData.addAuthor(ki18n("Eli MacKenzie"),ki18n("Protocol handling, Input line"),"argonel@gmail.com");
     aboutData.addAuthor(ki18n("İsmail Dönmez"),ki18n("Blowfish, SSL support, KNetwork port, Colored nicks, Nicklist themes"),"ismail@kde.org");
@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
     aboutData.addCredit(ki18n("Emil Obermayr"),ki18n("Sysinfo script"),"nobs@tigress.com");
     aboutData.addCredit(ki18n("Stanislav Nikolov"),ki18n("Bug fixes"),"valsinats@gmail.com");
     aboutData.addCredit(ki18n("Juan Carlos Torres"),ki18n("Auto-join context menu"),"carlosdgtorres@gmail.com");
-    aboutData.addCredit(ki18n("Travis McHenry"),ki18n("Newlines remove button in multi-line paste editor, auto-replace fixes"),"tmchenryaz@cox.net");
+    aboutData.addCredit(ki18n("Travis McHenry"),ki18n("Various fixes, ported encryption to QCA2, added DH1080 key exchange support."),"tmchenryaz@cox.net");
 
     KCmdLineArgs::init(argc, argv, &aboutData);
     KCmdLineOptions options;

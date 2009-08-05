@@ -23,7 +23,6 @@
 #include "linkaddressbook/addressbook.h"
 #include "linkaddressbook/linkaddressbookui.h"
 #include "mainwindow.h"
-#include "viewcontainer.h"
 #include "server.h"
 
 #include <Q3MimeSourceFactory>
@@ -39,16 +38,10 @@ NickInfo::NickInfo(const QString& nick, Server* server): KShared()
     m_notified = false;
     m_identified = false;
     m_printedOnline = true;
+    m_changed = false;
 
     if(!m_addressee.isEmpty())
         Konversation::Addressbook::self()->emitContactPresenceChanged(m_addressee.uid(), 4);
-
-    connect( Konversation::Addressbook::self()->getAddressBook(), SIGNAL( addressBookChanged( AddressBook * ) ), this, SLOT( refreshAddressee() ) );
-    connect( Konversation::Addressbook::self(), SIGNAL(addresseesChanged()), this, SLOT(refreshAddressee()));
-
-    m_changedTimer = new QTimer( this);
-    m_changedTimer->setSingleShot( true );
-    connect(m_changedTimer, SIGNAL( timeout()), SLOT(emitNickInfoChanged()));
 
     // reset nick color
     m_nickColor = 0;
@@ -137,15 +130,7 @@ bool NickInfo::isIdentified() const
 
 QString NickInfo::getPrettyOnlineSince() const
 {
-    QString prettyOnlineSince;
-    int daysto = m_onlineSince.date().daysTo( QDate::currentDate());
-    if(daysto == 0) prettyOnlineSince = i18n("Today");
-    else if(daysto == 1) prettyOnlineSince = i18n("Yesterday");
-    else prettyOnlineSince = m_onlineSince.toString("ddd d MMMM yyyy");
-    //TODO - we should use KLocale for this
-    prettyOnlineSince += ", " + m_onlineSince.toString("h:mm ap");
-
-    return prettyOnlineSince;
+    return KGlobal::locale()->formatDateTime(m_onlineSince, KLocale::FancyLongDate, false);
 }
 
 // Return the Server object that owns this NickInfo object.
@@ -183,16 +168,10 @@ void NickInfo::setNickname(const QString& newNickname)
     startNickInfoChangedTimer();
 }
 
-void NickInfo::emitNickInfoChanged()
-{
-    //m_owningServer->emitNickInfoChanged(this); //TODO FIXME can't use self anymore, have to have the item which is of course allocated externally and so we can't fucking know it inside this code
-    emit nickInfoChanged();
-}
-
 void NickInfo::startNickInfoChangedTimer()
 {
-    if(!m_changedTimer->isActive())
-    m_changedTimer->start(3000);
+    setChanged(true);
+    m_owningServer->startNickInfoChangedTimer();
 }
 
 void NickInfo::setHostmask(const QString& newMask)
@@ -456,26 +435,6 @@ void NickInfo::tooltipTableData(QTextStream &tooltip) const
 
 }
 
-void NickInfo::showLinkAddressbookUI()
-{
-    LinkAddressbookUI *linkaddressbookui = new LinkAddressbookUI(m_owningServer->getViewContainer()->getWindow(), m_nickname, m_owningServer->getServerName(), m_owningServer->getDisplayName(), m_realName);
-    linkaddressbookui->show();
-
-}
-
-bool NickInfo::editAddressee() const
-{
-    if(m_addressee.isEmpty()) return false;
-
-    Konversation::Addressbook::self()->editAddressee(m_addressee.uid());
-    return true;
-}
-
-bool NickInfo::sendEmail() const
-{
-    return Konversation::Addressbook::self()->sendEmail(m_addressee);
-}
-
 void NickInfo::setPrintedOnline(bool printed)
 {
     m_printedOnline=printed;
@@ -483,10 +442,5 @@ void NickInfo::setPrintedOnline(bool printed)
 
 bool NickInfo::getPrintedOnline()
 {
-    if(this)
-        return m_printedOnline;
-    else
-        return false;
+    return m_printedOnline;
 }
-
-#include "nickinfo.moc"

@@ -136,8 +136,12 @@ Query::~Query()
 void Query::setServer(Server* newServer)
 {
     if (m_server != newServer)
+    {
         connect(newServer, SIGNAL(connectionStateChanged(Server*, Konversation::ConnectionState)),
                 SLOT(connectionStateChanged(Server*, Konversation::ConnectionState)));
+        connect(newServer, SIGNAL(nickInfoChanged(Server*, NickInfoPtr)),
+                this, SLOT(updateNickInfo(Server*, NickInfoPtr)));
+    }
 
     ChatWindow::setServer(newServer);
 
@@ -167,6 +171,13 @@ void Query::connectionStateChanged(Server* server, Konversation::ConnectionState
 void Query::setName(const QString& newName)
 {
     //if(ChatWindow::getName() == newName) return;  // no change, so return
+
+
+    if(ChatWindow::getName() != newName)
+    {
+        appendCommandMessage(i18n("Nick"),i18n("%1 is now known as %2.", getName(), newName),false);
+    }
+
 
     ChatWindow::setName(newName);
 
@@ -285,48 +296,31 @@ void Query::sendQueryText(const QString& sendLine)
 
 void Query::updateAppearance()
 {
-    QColor fg;
-    QColor bg;
+    QColor fg, bg;
 
-    if(Preferences::self()->inputFieldsBackgroundColor())
+    if (Preferences::self()->inputFieldsBackgroundColor())
     {
-        fg=Preferences::self()->color(Preferences::ChannelMessage);
-        bg=Preferences::self()->color(Preferences::TextViewBackground);
+        fg = Preferences::self()->color(Preferences::ChannelMessage);
+        bg = Preferences::self()->color(Preferences::TextViewBackground);
     }
     else
     {
         fg = palette().windowText().color();
         bg = palette().base().color();
     }
+
     QPalette queryInputPalette(queryInput->palette());
     queryInputPalette.setColor(QPalette::WindowText, fg);
     queryInputPalette.setColor(QPalette::Text, fg);
     queryInputPalette.setColor(QPalette::Base, bg);
+
     queryInput->setPalette(queryInputPalette);
 
-    getTextView()->setPalette(QPalette());
-
-    if (Preferences::self()->showBackgroundImage())
-    {
-        getTextView()->setViewBackground(Preferences::self()->color(Preferences::TextViewBackground),
-            Preferences::self()->backgroundImage());
-    }
-    else
-    {
-        getTextView()->setViewBackground(Preferences::self()->color(Preferences::TextViewBackground),
-            QString());
-    }
 
     if (Preferences::self()->customTextFont())
-    {
-        getTextView()->setFont(Preferences::self()->textFont());
         queryInput->setFont(Preferences::self()->textFont());
-    }
     else
-    {
-        getTextView()->setFont(KGlobalSettings::generalFont());
         queryInput->setFont(KGlobalSettings::generalFont());
-    }
 
     ChatWindow::updateAppearance();
 }
@@ -487,13 +481,16 @@ void Query::childAdjustFocus()
 
 void Query::setNickInfo(const NickInfoPtr & nickInfo)
 {
-    if(m_nickInfo)
-        disconnect(m_nickInfo.data(), SIGNAL(nickInfoChanged()),  this,  SLOT(nickInfoChanged()));
-
     m_nickInfo = nickInfo;
     Q_ASSERT(m_nickInfo); if(!m_nickInfo) return;
-    setName(m_nickInfo->getNickname());
-    connect(m_nickInfo.data(), SIGNAL(nickInfoChanged()), this, SLOT(nickInfoChanged()));
+    nickInfoChanged();
+}
+
+void Query::updateNickInfo(Server* server, NickInfoPtr nickInfo)
+{
+    if (!m_nickInfo || server != m_server || nickInfo != m_nickInfo)
+        return;
+
     nickInfoChanged();
 }
 

@@ -134,6 +134,19 @@ Server::Server(QObject* parent, ConnectionSettings& settings) : QObject(parent)
         connectSignals();
     // TODO FIXME this disappeared in a merge, ensure it should have
     updateConnectionState(Konversation::SSNeverConnected);
+
+    connect(Konversation::Addressbook::self()->getAddressBook(), SIGNAL(addressBookChanged(AddressBook *)), this, SLOT(updateNickInfoAddressees()));
+    connect(Konversation::Addressbook::self(), SIGNAL(addresseesChanged()), this, SLOT(updateNickInfoAddressees()));
+
+    m_nickInfoChangedTimer = new QTimer(this);
+    m_nickInfoChangedTimer->setSingleShot(true);
+    m_nickInfoChangedTimer->setInterval(3000);
+    connect(m_nickInfoChangedTimer, SIGNAL(timeout()), this, SLOT(sendNickInfoChangedSignals()));
+
+    m_channelNickChangedTimer = new QTimer(this);
+    m_channelNickChangedTimer->setSingleShot(true);
+    m_channelNickChangedTimer->setInterval(1000);
+    connect(m_channelNickChangedTimer, SIGNAL(timeout()), this, SLOT(sendChannelNickChangedSignals()));
 }
 
 Server::~Server()
@@ -267,6 +280,8 @@ void Server::connectSignals()
     connect(getOutputFilter(), SIGNAL(disconnectServer()), this, SLOT(disconnect()));
     connect(getOutputFilter(), SIGNAL(openDccSend(const QString &, KUrl)), this, SLOT(addDccSend(const QString &, KUrl)));
     connect(getOutputFilter(), SIGNAL(openDccChat(const QString &)), this, SLOT(openDccChat(const QString &)));
+    connect(getOutputFilter(), SIGNAL(acceptDccGet(const QString&, const QString&)),
+        this, SLOT(acceptDccGet(const QString&, const QString&)));
     connect(getOutputFilter(), SIGNAL(sendToAllChannels(const QString&)), this, SLOT(sendToAllChannels(const QString&)));
     connect(getOutputFilter(), SIGNAL(banUsers(const QStringList&,const QString&,const QString&)),
         this, SLOT(requestBan(const QStringList&,const QString&,const QString&)));
@@ -411,6 +426,9 @@ void Server::connectToIRCServer()
             connect(m_socket, SIGNAL(encrypted()), SLOT (ircServerConnectionSuccess()));
             connect(m_socket, SIGNAL(peerVerifyError(const QSslError&)), SLOT(sslVerifyError(const QSslError&)));
             connect(m_socket, SIGNAL(sslErrors(const QList<QSslError>&)), SLOT(sslError(const QList<QSslError>&)));
+
+            // Ensure that the SSL confirmation dialog is shown if needed on reconnect
+            m_showSSLConfirmation = true;
 
             m_socket->connectToHostEncrypted(getConnectionSettings().server().host(), getConnectionSettings().server().port());
         }
@@ -1727,7 +1745,7 @@ void Server::slotNewDccTransferItemQueued(DCC::Transfer* transfer)
     }
 }
 
-void Server::addDccSend(const QString &recipient,KUrl fileURL, const QString &altFileName, uint fileSize)
+void Server::addDccSend(const QString &recipient,KUrl fileURL, const QString &altFileName, quint64 fileSize)
 {
     if (!fileURL.isValid()) return;
 
@@ -1796,31 +1814,32 @@ void Server::addDccGet(const QString &sourceNick, const QStringList &dccArgument
     newDcc->setConnectionId( connectionId() );
     newDcc->setPartnerNick( sourceNick );
 
-    //watch out for missing '"' around the filenames with spaces
     //filename ip port filesize [token]
     QString ip;
     uint port;
     QString fileName;
-    unsigned long fileSize;
-    QString token = "";
+    quint64 fileSize;
+    QString token;
     const int argumentSize = dccArguments.count();
 
-    if (dccArguments.at(argumentSize - 3) == "0") //port==0, for passive send, filesize can't be 0
+    if (dccArguments.at(argumentSize - 3) == "0") //port==0, for passive send, ip can't be 0
     {
         //filename ip port(0) filesize token
         fileName = recoverDccFileName(dccArguments, 4); //ip port filesize token
         ip = DCC::DccCommon::numericalIpToTextIp( dccArguments.at(argumentSize - 4) ); //-1 index, -1 token, -1 port, -1 filesize
         port = 0;
-        fileSize = dccArguments.at(argumentSize - 2).toULong(); //-1 index, -1 token
+        fileSize = dccArguments.at(argumentSize - 2).toULongLong(); //-1 index, -1 token
         token = dccArguments.at(argumentSize - 1); //-1 index
 
         // Reverse DCC
         newDcc->setReverse( true, token );
-    } else {
+    }
+    else
+    {
         //filename ip port filesize
         ip = DCC::DccCommon::numericalIpToTextIp( dccArguments.at(argumentSize - 3) ); //-1 index, -1 filesize
         fileName = recoverDccFileName(dccArguments, 3); //ip port filesize
-        fileSize = dccArguments.at(argumentSize - 1).toULong(); //-1 index
+        fileSize = dccArguments.at(argumentSize - 1).toULongLong(); //-1 index
         port = dccArguments.at(argumentSize - 2).toUInt(); //-1 index, -1 filesize
     }
 
@@ -1861,7 +1880,12 @@ void Server::requestDccChat(const QString& partnerNick, const QString& numerical
     queue(QString("PRIVMSG %1 :\001DCC CHAT chat %2 %3\001").arg(partnerNick).arg(numericalOwnIp).arg(QString::number(ownPort)));
 }
 
-void Server::dccSendRequest(const QString &partner, const QString &fileName, const QString &address, uint port, unsigned long size)
+void Server::acceptDccGet(const QString& nick, const QString& file)
+{
+    Application::instance()->getDccTransferManager()->acceptDccGet(m_connectionId, nick, file);
+}
+
+void Server::dccSendRequest(const QString &partner, const QString &fileName, const QString &address, uint port, quint64 size)
 {
     Konversation::OutputFilterResult result = getOutputFilter()->sendRequest(partner,fileName,address,port,size);
     queue(result.toServer);
@@ -1873,7 +1897,7 @@ void Server::dccSendRequest(const QString &partner, const QString &fileName, con
                                     ( size == 0 ) ? i18n( "unknown size" ) : KIO::convertSize( size ) ) );
 }
 
-void Server::dccPassiveSendRequest(const QString& recipient,const QString& fileName,const QString& address,unsigned long size,const QString& token)
+void Server::dccPassiveSendRequest(const QString& recipient,const QString& fileName,const QString& address,quint64 size,const QString& token)
 {
     Konversation::OutputFilterResult result = getOutputFilter()->passiveSendRequest(recipient,fileName,address,size,token);
     queue(result.toServer);
@@ -1897,7 +1921,7 @@ void Server::dccResumeGetRequest(const QString &sender, const QString &fileName,
     queue(result.toServer);
 }
 
-void Server::dccReverseSendAck(const QString& partnerNick,const QString& fileName,const QString& ownAddress,uint ownPort,unsigned long size,const QString& reverseToken)
+void Server::dccReverseSendAck(const QString& partnerNick,const QString& fileName,const QString& ownAddress,uint ownPort,quint64 size,const QString& reverseToken)
 {
     Konversation::OutputFilterResult result = getOutputFilter()->acceptPassiveSendRequest(partnerNick,fileName,ownAddress,ownPort,size,reverseToken);
     queue(result.toServer);
@@ -1924,7 +1948,7 @@ void Server::startReverseDccSendTransfer(const QString& sourceNick,const QString
     QString partnerIP = DCC::DccCommon::numericalIpToTextIp( dccArguments.at(argumentSize - 4) ); //dccArguments[1] ) );
     uint port = dccArguments.at(argumentSize - 3).toUInt();
     QString token = dccArguments.at(argumentSize - 1);
-    unsigned long fileSize = dccArguments.at(argumentSize - 2).toULong();
+    quint64 fileSize = dccArguments.at(argumentSize - 2).toULongLong();
 
     QString fileName = recoverDccFileName(dccArguments, 4); //ip port filesize token
 
@@ -1948,7 +1972,6 @@ void Server::startReverseDccSendTransfer(const QString& sourceNick,const QString
                                         "Received invalid passive DCC send acceptance message for \"%1\" from %2.",
                                         fileName,
                                         sourceNick ) );
-
     }
 }
 
@@ -1958,20 +1981,20 @@ void Server::resumeDccGetTransfer(const QString &sourceNick, const QStringList &
 
     //filename port position [token]
     QString fileName;
-    unsigned long position;
+    quint64 position;
     uint ownPort;
     const int argumentSize = dccArguments.count();
     if (dccArguments.at(argumentSize - 3) == "0") //-1 index, -1 token, -1 pos
     {
         fileName = recoverDccFileName(dccArguments, 3); //port position token
         ownPort = 0;
-        position = dccArguments.at(argumentSize - 2).toULong(); //-1 index, -1 token
+        position = dccArguments.at(argumentSize - 2).toULongLong(); //-1 index, -1 token
     }
     else
     {
         fileName = recoverDccFileName(dccArguments, 2); //port position
         ownPort = dccArguments.at(argumentSize - 1).toUInt(); //-1 index, -1 pos
-        position = dccArguments.at(argumentSize - 1).toULong(); //-1 index
+        position = dccArguments.at(argumentSize - 1).toULongLong(); //-1 index
     }
     //do we need the token here?
 
@@ -2003,8 +2026,8 @@ void Server::resumeDccSendTransfer(const QString &sourceNick, const QStringList 
 
     bool passiv = false;
     QString fileName;
-    unsigned long position;
-    QString token = "";
+    quint64 position;
+    QString token;
     uint ownPort;
     const int argumentSize = dccArguments.count();
 
@@ -2015,14 +2038,14 @@ void Server::resumeDccSendTransfer(const QString &sourceNick, const QStringList 
         passiv = true;
         ownPort = 0;
         token = dccArguments.at( argumentSize - 1); // -1 index
-        position = dccArguments.at( argumentSize - 2).toULong(); // -1 index, -1 token
+        position = dccArguments.at( argumentSize - 2).toULongLong(); // -1 index, -1 token
         fileName = recoverDccFileName(dccArguments, 3); //port filepos token
     }
     else
     {
         //filename port filepos
         ownPort = dccArguments.at( argumentSize - 2).toUInt(); //-1 index, -1 filesize
-        position = dccArguments.at( argumentSize - 1).toULong(); // -1 index
+        position = dccArguments.at( argumentSize - 1).toULongLong(); // -1 index
         fileName = recoverDccFileName(dccArguments, 2); //port filepos
     }
 
@@ -2038,7 +2061,7 @@ void Server::resumeDccSendTransfer(const QString &sourceNick, const QStringList 
                                         QString::number(dccTransfer->getProgress()),
                                         ( dccTransfer->getFileSize() == 0 ) ? i18n( "unknown size" ) : KIO::convertSize( dccTransfer->getFileSize() ) ) );
 
-        // fileName cant have " here
+        // fileName can't have " here
         if (fileName.contains(' '))
             fileName = '\"'+fileName+'\"';
 
@@ -2358,7 +2381,7 @@ ChannelNickPtr Server::addNickToJoinedChannelsList(const QString& channelName, c
     ChannelNickPtr channelNick;
     if (!channel->contains(lcNickname))
     {
-        channelNick = new ChannelNick(nickInfo, false, false, false, false, false);
+        channelNick = new ChannelNick(nickInfo, lcChannelName);
         Q_ASSERT(channelNick);
         channel->insert(lcNickname, channelNick);
         doChannelMembersChangedSignal = true;
@@ -2369,26 +2392,6 @@ ChannelNickPtr Server::addNickToJoinedChannelsList(const QString& channelName, c
     if (doChannelJoinedSignal) emit channelJoinedOrUnjoined(this, channelName, true);
     if (doChannelMembersChangedSignal) emit channelMembersChanged(this, channelName, true, false, nickname);
     return channelNick;
-}
-
-/** This function should _only_ be called from the ChannelNick class.
- *  This function should also be the only one to emit this signal.
- *  In this class, when channelNick is changed, it emits its own signal, and
- *  calls this function itself.
- */
-void Server::emitChannelNickChanged(const ChannelNickPtr channelNick)
-{
-    emit channelNickChanged(this, channelNick);
-}
-
-/** This function should _only_ be called from the NickInfo class.
- *  This function should also be the only one to emit this signal.
- *  In this class, when nickInfo is changed, it emits its own signal, and
- *  calls this function itself.
- */
-void Server::emitNickInfoChanged(const NickInfoPtr nickInfo)
-{
-    emit nickInfoChanged(this, nickInfo);
 }
 
 // Adds a nickname to the unjoinedChannels list.
@@ -2436,7 +2439,7 @@ ChannelNickPtr Server::addNickToUnjoinedChannelsList(const QString& channelName,
     ChannelNickPtr channelNick;
     if (!channel->contains(lcNickname))
     {
-        channelNick = new ChannelNick(nickInfo, false, false, false, false, false);
+        channelNick = new ChannelNick(nickInfo, lcChannelName);
         channel->insert(lcNickname, channelNick);
         doChannelMembersChangedSignal = true;
     }
@@ -3088,6 +3091,16 @@ void Server::invitation(const QString& nick,const QString& channel)
 {
     if(!m_inviteDialog)
     {
+        KDialog::ButtonCode buttonCode = KDialog::Cancel;
+
+        if(!InviteDialog::shouldBeShown(buttonCode))
+        {
+            if (buttonCode == KDialog::Ok)
+                sendJoinCommand(channel);
+
+            return;
+        }
+
         m_inviteDialog = new InviteDialog (getViewContainer()->getWindow());
         connect(m_inviteDialog, SIGNAL(joinChannelsRequested(const QString&)),
                 this, SLOT(sendJoinCommand(const QString&)));
@@ -3135,6 +3148,7 @@ ChannelListPanel* Server::addChannelListPanel()
     {
         m_channelListPanel = getViewContainer()->addChannelListPanel(this);
 
+        connect(&m_inputFilter, SIGNAL(endOfChannelList()), m_channelListPanel, SLOT(endOfChannelList()));
         connect(m_channelListPanel, SIGNAL(refreshChannelList()), this, SLOT(requestChannelList()));
         connect(m_channelListPanel, SIGNAL(joinChannel(const QString&)), this, SLOT(sendJoinCommand(const QString&)));
         connect(this, SIGNAL(serverOnline(bool)), m_channelListPanel, SLOT(serverOnline(bool)));
@@ -3204,7 +3218,7 @@ void Server::updateAutoJoin(Konversation::ChannelSettings channel)
             //channels.count() and passwords.count() account for the commas
             if (length + currentLength + 6 + channels.count() + passwords.count() >= 512) // 6: "JOIN " plus separating space between chans and pws.
             {
-                while (passwords.last() == ".") passwords.pop_back();
+                while (!passwords.isEmpty() && passwords.last() == ".") passwords.pop_back();
 
                 joinCommands << "JOIN " + channels.join(",") + ' ' + passwords.join(",");
 
@@ -3606,6 +3620,63 @@ void Server::parseFinishKeyX(const QString &sender, const QString &remoteKey)
 QAbstractItemModel* Server::nickListModel() const
 {
     return m_nickListModel;
+}
+
+void Server::updateNickInfoAddressees()
+{
+    foreach(NickInfoPtr nickInfo, m_allNicks)
+    {
+        nickInfo->refreshAddressee();
+    }
+}
+
+void Server::startNickInfoChangedTimer()
+{
+    if(!m_nickInfoChangedTimer->isActive())
+        m_nickInfoChangedTimer->start();
+}
+
+void Server::sendNickInfoChangedSignals()
+{
+    emit nickInfoChanged();
+
+    foreach(NickInfoPtr nickInfo, m_allNicks)
+    {
+        if(nickInfo->isChanged())
+        {
+            emit nickInfoChanged(this, nickInfo);
+            nickInfo->setChanged(false);
+        }
+    }
+}
+
+void Server::startChannelNickChangedTimer(const QString& channel)
+{
+    if(!m_channelNickChangedTimer->isActive())
+        m_channelNickChangedTimer->start();
+
+    m_changedChannels.append(channel);
+}
+
+void Server::sendChannelNickChangedSignals()
+{
+    foreach(const QString& channel, m_changedChannels)
+    {
+        if (m_joinedChannels.contains (channel))
+        {
+            emit channelNickChanged(channel);
+
+            foreach(ChannelNickPtr nick, (*m_joinedChannels[channel]))
+            {
+                if(nick->isChanged())
+                {
+                    nick->setChanged(false);
+                }
+            }
+        }
+    }
+
+    m_changedChannels.clear();
 }
 
 #include "server.moc"

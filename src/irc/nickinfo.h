@@ -26,7 +26,6 @@
 
 
 class Server;
-class QTimer;
 
 /**
   The NickInfo object is a data container for information about a single nickname.
@@ -36,11 +35,9 @@ class QTimer;
   Offline (but watched or in addressbook) nicks are stored in the Server object.
 
 */
-class NickInfo : public QObject, public KShared
+class NickInfo : public KShared
 {
-    Q_OBJECT
-
-        public:
+    public:
         NickInfo(const QString& nick, Server* server);
         ~NickInfo();
 
@@ -122,18 +119,14 @@ class NickInfo : public QObject, public KShared
          */
         QString getBestAddresseeName();
 
-        /** Open this contact up in a "edit addresee association" window
-         */
-        void showLinkAddressbookUI();
-        /** Edit the contact in kaddressbook
-         */
-        bool editAddressee() const;
-        /** Run kmail for this contact
-         */
-        bool sendEmail() const;
-
         void setPrintedOnline(bool printed);
         bool getPrintedOnline();
+
+        /// Refresh the addressee object connected to this nick.
+        void refreshAddressee();
+
+        bool isChanged() const { return m_changed; }
+        void setChanged(bool c) { m_changed = c; }
 
     private:
         /** After calling, emitNickInfoChanged is guaranteed to be called _within_ 1 second.
@@ -159,21 +152,13 @@ class NickInfo : public QObject, public KShared
          *  Found only by doing /whois nick
          */
         bool m_identified;
-        QTimer *m_changedTimer;
         /* True if "foo is online" message is printed */
         bool m_printedOnline;
         /* The color index for lookup on Preferences::NickColor(index).name()
            Internally stored as index-1 to allow checking for 0 */
         uint m_nickColor;
 
-    private slots:
-        void refreshAddressee();
-        /** emits NickInfoChanged for this object, and calls the server emitNickInfoChanged.
-         *  Called when the m_changedTimer activates.
-         */
-        void emitNickInfoChanged();
-        signals:
-        void nickInfoChanged(void);
+        bool m_changed;
 };
 
 /** A NickInfoPtr is a pointer to a NickInfo object.  Since it is a KSharedPtr, the NickInfo

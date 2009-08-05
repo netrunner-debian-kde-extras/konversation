@@ -23,6 +23,7 @@
 #include "server.h"
 #include "upnprouter.h"
 
+#include <QDateTime>
 #include <QTcpServer>
 #include <QTcpSocket>
 
@@ -119,7 +120,7 @@ namespace Konversation
                 m_partnerPort = port;
         }
 
-        void TransferRecv::setFileSize( unsigned long fileSize )
+        void TransferRecv::setFileSize( quint64 fileSize )
         {
             if ( getStatus() == Configuring )
                 m_fileSize = fileSize;
@@ -199,7 +200,7 @@ namespace Konversation
 
             if ( m_fileName.isEmpty() )
             {
-                m_fileName = "unnamed_file";
+                m_fileName = "unnamed_file_" + QDateTime::currentDateTime().toString( Qt::ISODate ).remove(':');
                 m_saveFileName = m_fileName;
             }
 
@@ -548,13 +549,13 @@ namespace Konversation
         }
 
                                                           // public slot
-        void TransferRecv::startResume( unsigned long position )
+        void TransferRecv::startResume( quint64 position )
         {
             kDebug() << "Position:" << position;
 
             stopConnectionTimer();
 
-            if ( (unsigned long)m_transferringPosition != position )
+            if ( (quint64)m_transferringPosition != position )
             {
                 kDebug() << "TransferRecv::startResume(): remote responsed an unexpected position"<< endl
                     << "TransferRecv::startResume(): expected: " << m_transferringPosition << endl
@@ -662,7 +663,7 @@ namespace Konversation
         void TransferRecv::readData()                  // slot
         {
             //kDebug();
-            int actual = m_recvSocket->read( m_buffer, m_bufferSize );
+            qint64 actual = m_recvSocket->read( m_buffer, m_bufferSize );
             if ( actual > 0 )
             {
                 //actual is the size we read in, and is guaranteed to be less than m_bufferSize
@@ -684,7 +685,13 @@ namespace Konversation
         void TransferRecv::sendAck()                   // slot
         {
             //kDebug() << m_transferringPosition << "/" << (KIO::fileoffset_t)m_fileSize;
-            KIO::fileoffset_t pos = intel( m_transferringPosition );
+
+            //It is bound to be 32bit according to dcc specs, -> 4GB limit.
+            //But luckily no client ever reads this value,
+            //except for old mIRC versions, but they couldn't send or receive files over 4GB anyway.
+            //Note: The resume and filesize are set via dcc send command and can be over 4GB
+
+            quint32 pos = intel( (quint32)m_transferringPosition );
 
             m_recvSocket->write( (char*)&pos, 4 );
             if ( m_transferringPosition == (KIO::fileoffset_t)m_fileSize )

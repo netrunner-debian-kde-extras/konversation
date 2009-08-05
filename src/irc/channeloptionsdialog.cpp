@@ -22,6 +22,7 @@
 #include <QToolButton>
 #include <QKeyEvent>
 #include <QItemSelectionModel>
+#include <QHeaderView>
 
 #include <KTextEdit>
 #include <KLineEdit>
@@ -42,8 +43,6 @@ namespace Konversation
         m_ui.setupUi(mainWidget());
 
         QStandardItemModel *modesModel = new QStandardItemModel(m_ui.otherModesList);
-        modesModel->setHorizontalHeaderLabels(
-            QStringList() << i18n("Mode") << i18n("Parameter"));
         m_ui.otherModesList->setModel(modesModel);
         m_ui.otherModesList->hide();
 
@@ -65,7 +64,7 @@ namespace Konversation
         connect(m_channel, SIGNAL(topicHistoryChanged()), this, SLOT(refreshTopicHistory()));
 
         connect(m_channel, SIGNAL(modesChanged()), this, SLOT(refreshModes()));
-        connect(m_channel->getOwnChannelNick().data(), SIGNAL(channelNickChanged()), this, SLOT(refreshEnableModes()));
+        connect(m_channel->getServer(), SIGNAL(channelNickChanged(const QString&)), this, SLOT(refreshEnableModes()));
 
         connect(this, SIGNAL(cancelClicked()), this, SLOT(cancelClicked()));
         connect(this, SIGNAL(okClicked()), this, SLOT(changeOptions()));
@@ -217,23 +216,26 @@ namespace Konversation
 
     void ChannelOptionsDialog::refreshEnableModes()
     {
-        bool enable = m_channel->getOwnChannelNick()->isAnyTypeOfOp();
-        m_ui.otherModesList->setEnabled(enable);
-        m_ui.topicEdit->setReadOnly(!enable && m_ui.topicModeChBox->isChecked());
+        if(m_channel->getOwnChannelNick()->isChanged())
+        {
+            bool enable = m_channel->getOwnChannelNick()->isAnyTypeOfOp();
+            m_ui.otherModesList->setEnabled(enable);
+            m_ui.topicEdit->setReadOnly(!enable && m_ui.topicModeChBox->isChecked());
 
-        m_ui.topicModeChBox->setEnabled(enable);
-        m_ui.messageModeChBox->setEnabled(enable);
-        m_ui.userLimitChBox->setEnabled(enable);
-        m_ui.userLimitEdit->setEnabled(enable);
-        m_ui.inviteModeChBox->setEnabled(enable);
-        m_ui.moderatedModeChBox->setEnabled(enable);
-        m_ui.secretModeChBox->setEnabled(enable);
-        m_ui.keyModeChBox->setEnabled(enable);
-        m_ui.keyModeEdit->setEnabled(enable);
+            m_ui.topicModeChBox->setEnabled(enable);
+            m_ui.messageModeChBox->setEnabled(enable);
+            m_ui.userLimitChBox->setEnabled(enable);
+            m_ui.userLimitEdit->setEnabled(enable);
+            m_ui.inviteModeChBox->setEnabled(enable);
+            m_ui.moderatedModeChBox->setEnabled(enable);
+            m_ui.secretModeChBox->setEnabled(enable);
+            m_ui.keyModeChBox->setEnabled(enable);
+            m_ui.keyModeEdit->setEnabled(enable);
 
-        m_ui.banList->setItemsRenameable(enable);
-        m_ui.addBan->setEnabled(enable);
-        m_ui.removeBan->setEnabled(enable);
+            m_ui.banList->setItemsRenameable(enable);
+            m_ui.addBan->setEnabled(enable);
+            m_ui.removeBan->setEnabled(enable);
+        }
     }
 
     void ChannelOptionsDialog::refreshAllowedChannelModes()
@@ -255,11 +257,21 @@ namespace Konversation
         modeString.remove('v');
 
         QStandardItemModel *modesModel = qobject_cast<QStandardItemModel *>(m_ui.otherModesList->model());
+
+        modesModel->clear();
+        modesModel->setHorizontalHeaderLabels(QStringList() << i18n("Mode") << i18n("Parameter"));
+
         for(int i = 0; i < modeString.length(); i++)
         {
             QList<QStandardItem *> newRow;
             QStandardItem *item = 0;
-            item = new QStandardItem(QString(modeString[i]));
+
+            if(!Preferences::self()->useLiteralModes() && getChannelModesHash().contains(modeString[i]))
+                item = new QStandardItem(getChannelModesHash().value(modeString[i]));
+            else
+                item = new QStandardItem(QString(modeString[i]));
+
+            item->setData(QString(modeString[i]));
             item->setCheckable(true);
             item->setEditable(false);
             newRow.append(item);
@@ -329,7 +341,7 @@ namespace Konversation
                     for (int i = 0; !found && i < modesModel->rowCount(); ++i)
                     {
                         QStandardItem *item = modesModel->item(i, 0);
-                        if (item->text() == modeString)
+                        if (item->data().toString() == modeString)
                         {
                             found = true;
                             item->setCheckState(Qt::Checked);
@@ -386,7 +398,7 @@ namespace Konversation
         for (int i = 0; i < modesModel->rowCount(); ++i)
         {
             mode = (modesModel->item(i, 0)->checkState() == Qt::Checked ? "+" : "-");
-            mode += modesModel->item(i, 0)->text() + modesModel->item(i, 1)->text();
+            mode += modesModel->item(i, 0)->data().toString() + modesModel->item(i, 1)->text();
             modes.append(mode);
         }
 
