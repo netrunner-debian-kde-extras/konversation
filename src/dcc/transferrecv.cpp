@@ -4,10 +4,12 @@
   copyright: (C) 2002 by Dario Abatianni
   email:     eisfuchs@tigress.com
 */
-// Copyright (C) 2004-2007 Shintaro Matsuoka <shin@shoegazed.org>
-// Copyright (C) 2004,2005 John Tapsell <john@geola.co.uk>
-// Copyright (C) 2009 Michael Kreitzer <mrgrim@gr1m.org>
-
+/*
+  Copyright (C) 2004-2007 Shintaro Matsuoka <shin@shoegazed.org>
+  Copyright (C) 2004,2005 John Tapsell <john@geola.co.uk>
+  Copyright (C) 2009 Michael Kreitzer <mrgrim@gr1m.org>
+  Copyright (C) 2009 Bernd Buschinski <b.buschinski@web.de>
+*/
 /*
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -75,6 +77,7 @@ namespace Konversation
 
         TransferRecv::~TransferRecv()
         {
+            kDebug();
             cleanUp();
         }
 
@@ -83,6 +86,8 @@ namespace Konversation
             kDebug();
 
             stopConnectionTimer();
+            disconnect(m_connectionTimer, 0, 0, 0);
+
             finishTransferLogger();
             if ( m_serverSocket )
             {
@@ -97,6 +102,7 @@ namespace Konversation
             }
             if ( m_recvSocket )
             {
+                disconnect(m_recvSocket, 0, 0, 0);
                 m_recvSocket->close();
                 m_recvSocket = 0;                         // the instance will be deleted automatically by its parent
             }
@@ -106,6 +112,7 @@ namespace Konversation
                 m_writeCacheHandler->deleteLater();
                 m_writeCacheHandler = 0;
             }
+            Transfer::cleanUp();
         }
 
         void TransferRecv::setPartnerIp( const QString& ip )
