@@ -1,8 +1,6 @@
 #!/usr/bin/make -f
 
-DEB_KDE_LINK_WITH_AS_NEEDED := yes
-
-include /usr/share/pkg-kde-tools/makefiles/1/debhelper/kde.mk
+#DEB_KDE_LINK_WITH_AS_NEEDED := yes
 
 ifneq (,$(shell which tg))
 QUILT_PATCH_DIR := debian/patches
@@ -18,4 +16,4 @@ override_dh_install:
 	fi
 
 %:
-	dh --with quilt --dbg-package=konversation-dbg $@
+	dh --with kde,quilt --dbg-package=konversation-dbg $@
