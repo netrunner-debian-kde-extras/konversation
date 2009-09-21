@@ -34,15 +34,16 @@
 #include <QBrush>
 #include <QEvent>
 #include <QColor>
-#include <QScrollBar>
-#include <QCursor>
 #include <QMouseEvent>
+#include <QScrollBar>
+#include <QTextBlock>
+#include <QAbstractTextDocumentLayout>
+#include <QPainter>
+#include <QTextObjectInterface>
 
-#include <KMessageBox>
 #include <KUrl>
 #include <KBookmarkManager>
 #include <kbookmarkdialog.h>
-#include <KIconLoader>
 #include <KMenu>
 #include <KGlobalSettings>
 #include <KFileDialog>
@@ -79,9 +80,8 @@ IRCView::clear()
 
 using namespace Konversation;
 
-IRCView::IRCView(QWidget* parent, Server* newServer) : KTextBrowser(parent)
+IRCView::IRCView(QWidget* parent, Server* newServer) : KTextBrowser(parent), m_nextCullIsMarker(false), m_rememberLinePosition(-1), m_rememberLineDirtyBit(false), markerFormatObject(this)
 {
-
     m_copyUrlMenu = false;
     m_resetScrollbar = true;
     m_offset = 0;
@@ -92,8 +92,23 @@ IRCView::IRCView(QWidget* parent, Server* newServer) : KTextBrowser(parent)
     m_nickPopup = 0;
     m_channelPopup = 0;
 
-    m_rememberLineParagraph = -1;
-    m_rememberLineDirtyBit = false;
+
+    //// Marker lines
+    connect(document(), SIGNAL(contentsChange(int, int, int)), SLOT(cullMarkedLine(int, int, int)));
+
+    //This assert is here because a bad build environment can cause this to fail. There is a note
+    // in the Qt source that indicates an error should be output, but there is no such output.
+    QTextObjectInterface *iface = qobject_cast<QTextObjectInterface *>(&markerFormatObject);
+    if (!iface)
+    {
+        Q_ASSERT(iface);
+    }
+
+    document()->documentLayout()->registerHandler(IRCView::MarkerLine, &markerFormatObject);
+    document()->documentLayout()->registerHandler(IRCView::RememberLine, &markerFormatObject);
+
+
+    //// Other Stuff
 
     //m_disableEnsureCursorVisible = false;
     //m_wasPainted = false;
@@ -225,20 +240,233 @@ bool IRCView::searchNext(bool reversed)
     return find(m_pattern, m_searchFlags);
 }
 
-void IRCView::insertRememberLine(){}
-void IRCView::cancelRememberLine(){}
-void IRCView::insertMarkerLine(){}
-void IRCView::clearLines(){}
-bool IRCView::hasLines() { return false; }
+//// Marker lines
 
-// TODO FIXME can't do this anymore, need to find another way
-/* void IRCView::clear()
+#define _S(x) #x << (x)
+void dump_doc(QTextDocument* document)
 {
-    m_buffer = QString();
-    KTextBrowser::setText("");
-    wipeLineParagraphs();
+    QTextBlock b(document->firstBlock());
+    while (b.isValid())
+    {
+        kDebug()    << _S(b.position())
+                    << _S(b.length())
+                    << _S(b.userState())
+                    ;
+                    b=b.next();
+    };
 }
-*/
+
+QDebug operator<<(QDebug dbg, QList<QTextBlock> &l)
+{
+    dbg.space() << _S(l.count()) << endl;
+        for (int i=0; i< l.count(); ++i)
+        {
+            QTextBlock b=l[i];
+            dbg.space() << _S(i) << _S(b.blockNumber()) << _S(b.length()) << _S(b.userState()) << endl;
+        }
+
+    return dbg.space();
+}
+
+void IrcViewMarkerLine::drawObject(QPainter *painter, const QRectF &r, QTextDocument *doc, int posInDocument, const QTextFormat &format)
+{
+    Q_UNUSED(format);
+
+    QTextBlock block=doc->findBlock(posInDocument);
+    QPen pen;
+    switch (block.userState())
+    {
+        case IRCView::BlockIsMarker:
+            pen.setColor(Preferences::self()->color(Preferences::ActionMessage));
+            break;
+
+        case IRCView::BlockIsRemember:
+            pen.setColor(Preferences::self()->color(Preferences::CommandMessage));
+            // pen.setStyle(Qt::DashDotDotLine);
+            break;
+
+        default:
+            //nice color, eh?
+            pen.setColor(Qt::cyan);
+    }
+
+    pen.setWidth(2); // FIXME this is a hardcoded value...
+    painter->setPen(pen);
+
+    qreal y = (r.top() + r.height() / 2);
+    QLineF line(r.left(), y, r.right(), y);
+    painter->drawLine(line);
+}
+
+QSizeF IrcViewMarkerLine::intrinsicSize(QTextDocument *doc, int posInDocument, const QTextFormat &format)
+{
+    Q_UNUSED(posInDocument); Q_UNUSED(format);
+
+    QTextFrameFormat f=doc->rootFrame()->frameFormat();
+    qreal width = doc->pageSize().width()-(f.leftMargin()+f.rightMargin());
+    return QSizeF(width, 6); // FIXME this is a hardcoded value...
+}
+
+void IRCView::cullMarkedLine(int where, int rem, int add) //slot
+{
+    if (where == 0 && add == 0 && rem !=0)
+    {
+        if (document()->blockCount() == 1 && document()->firstBlock().length() == 1)
+        {
+            wipeLineParagraphs();
+        }
+        else
+        {
+            if (m_nextCullIsMarker)
+            {
+                //move the remember line up.. if the cull removed it, this will forget its position
+                if (m_rememberLinePosition >= 0)
+                    --m_rememberLinePosition;
+                m_markers.takeFirst();
+            }
+            int s = document()->firstBlock().userState();
+            m_nextCullIsMarker = (s == BlockIsMarker || s == BlockIsRemember);
+        }
+    }
+}
+
+void IRCView::insertMarkerLine() //slot
+{
+    //if the last line is already a marker of any kind, skip out
+    if (lastBlockIsLine())
+        return;
+
+    //the code used to preserve the dirty bit status, but that was never affected by appendLine...
+    //maybe i missed something
+    appendLine(IRCView::MarkerLine);
+}
+
+void IRCView::insertRememberLine() //slot
+{
+    m_rememberLineDirtyBit = true; // means we're going to append a remember line if some text gets inserted
+
+    if (!Preferences::self()->automaticRememberLineOnlyOnTextChange())
+        appendRememberLine();
+}
+
+void IRCView::cancelRememberLine() //slot
+{
+    m_rememberLineDirtyBit = false;
+}
+
+bool IRCView::lastBlockIsLine(int select)
+{
+    int state = document()->lastBlock().userState();
+
+    if (select == -1)
+        return (state == BlockIsRemember || state == BlockIsMarker);
+
+    return state == select;
+}
+
+void IRCView::appendRememberLine()
+{
+    //clear this now, so that doAppend doesn't double insert
+    m_rememberLineDirtyBit = false;
+
+    //if the last line is already the remember line, do nothing
+    if (lastBlockIsLine(BlockIsRemember))
+        return;
+
+    // if we already have a rememberline, remove the previous one
+    if (m_rememberLinePosition > -1)
+    {
+        //get the block that is the remember line
+        QTextBlock rem = m_markers[m_rememberLinePosition];
+        m_markers.removeAt(m_rememberLinePosition); //probably will be in there only once
+        m_rememberLinePosition=-1;
+        voidLineBlock(rem);
+    }
+
+    //tell the control we did stuff
+    //FIXME do we still do something like this?
+    //repaintChanged();
+
+    //actually insert a line
+    appendLine(IRCView::RememberLine);
+
+    //store the index of the remember line
+    m_rememberLinePosition = m_markers.count() - 1;
+}
+
+void IRCView::voidLineBlock(QTextBlock rem)
+{
+    if (rem.blockNumber() == 0)
+    {
+        Q_ASSERT(m_nextCullIsMarker);
+        m_nextCullIsMarker = false;
+    }
+    QTextCursor c(rem);
+    //FIXME make sure this doesn't flicker
+    c.select(QTextCursor::BlockUnderCursor);
+    c.removeSelectedText();
+}
+
+void IRCView::clearLines()
+{
+    //if we have a remember line, put it in the list
+        //its already in the list
+
+    kDebug() << _S(m_nextCullIsMarker) << _S(m_rememberLinePosition) << _S(textCursor().position()) << m_markers;
+    dump_doc(document());
+
+    //are there any markers?
+    if (hasLines() > 0)
+    {
+        for (int i=0; i < m_markers.count(); ++i)
+            voidLineBlock(m_markers[i]);
+
+        wipeLineParagraphs();
+
+        //FIXME do we have this? //repaintChanged();
+    }
+
+}
+
+void IRCView::wipeLineParagraphs()
+{
+    m_nextCullIsMarker = false;
+    m_rememberLinePosition = -1;
+    m_markers.clear();
+}
+
+bool IRCView::hasLines()
+{
+    return m_markers.count() > 0;
+}
+
+QTextCharFormat IRCView::getFormat(ObjectFormats x)
+{
+    QTextCharFormat f;
+    f.setObjectType(x);
+    return f;
+}
+
+void IRCView::appendLine(IRCView::ObjectFormats type)
+{
+    QScrollBar *vbar = verticalScrollBar();
+    bool atBottom = (vbar->value() == vbar->maximum());
+
+    QTextCursor cursor(document());
+    cursor.movePosition(QTextCursor::End);
+
+    cursor.insertBlock();
+    cursor.insertText(QString(QChar::ObjectReplacementCharacter), getFormat(type));
+    cursor.block().setUserState(type == MarkerLine? BlockIsMarker : BlockIsRemember);
+
+    m_markers.append(cursor.block());
+
+    if (atBottom)
+        vbar->setValue(vbar->maximum());
+}
+
+
+//// Other stuff
 
 void IRCView::enableParagraphSpacing() {}
 
@@ -283,12 +511,27 @@ void IRCView::append(const QString& nick, const QString& message)
     QString nickLine = createNickLine(nick, channelColor);
 
     QString line;
-    line = "<font color=\"" + channelColor + "\">%1" + nickLine + " %3</font>";
+    bool rtl = (basicDirection(message) == QChar::DirR);
+
+    if(rtl)
+    {
+        line = RLE;
+        line += LRE;
+        line += "<font color=\"" + channelColor + "\">" + nickLine +" %1" + PDF + RLM + " %3</font>";
+    }
+    else
+    {
+        if (!QApplication::isLeftToRight())
+            line += LRE;
+
+        line += "<font color=\"" + channelColor + "\">%1" + nickLine + " %3</font>";
+    }
+
     line = line.arg(timeStamp(), nick, filter(message, channelColor, nick, true));
 
     emit textToLog(QString("<%1>\t%2").arg(nick).arg(message));
 
-    doAppend(line);
+    doAppend(line, rtl);
 }
 
 void IRCView::appendRaw(const QString& message, bool suppressTimestamps, bool self)
@@ -302,7 +545,7 @@ void IRCView::appendRaw(const QString& message, bool suppressTimestamps, bool se
     else
         line = QString(timeStamp() + " <font color=\"" + channelColor.name() + "\">" + message + "</font>");
 
-    doAppend(line, self);
+    doAppend(line, false, self);
 }
 
 void IRCView::appendLog(const QString & message)
@@ -312,7 +555,7 @@ void IRCView::appendLog(const QString & message)
 
     QString line("<font color=\"" + channelColor.name() + "\">" + message + "</font>");
 
-    doRawAppend(line);
+    doRawAppend(line, !QApplication::isLeftToRight());
 }
 
 void IRCView::appendQuery(const QString& nick, const QString& message, bool inChannel)
@@ -324,12 +567,27 @@ void IRCView::appendQuery(const QString& nick, const QString& message, bool inCh
     QString nickLine = createNickLine(nick, queryColor, true, inChannel);
 
     QString line;
-    line = "<font color=\"" + queryColor + "\">%1 " + nickLine + " %3</font>";
+    bool rtl = (basicDirection(message) == QChar::DirR);
+
+    if(rtl)
+    {
+        line = RLE;
+        line += LRE;
+        line += "<font color=\"" + queryColor + "\">" + nickLine + " %1" + PDF + RLM + " %3</font>";
+    }
+    else
+    {
+        if (!QApplication::isLeftToRight())
+            line += LRE;
+
+        line += "<font color=\"" + queryColor + "\">%1 " + nickLine + " %3</font>";
+    }
+
     line = line.arg(timeStamp(), nick, filter(message, queryColor, nick, true));
 
     emit textToLog(QString("<%1>\t%2").arg(nick).arg(message));
 
-    doAppend(line);
+    doAppend(line, rtl);
 }
 
 void IRCView::appendChannelAction(const QString& nick, const QString& message)
@@ -351,12 +609,27 @@ void IRCView::appendAction(const QString& nick, const QString& message)
     QString nickLine = createNickLine(nick, actionColor, false);
 
     QString line;
-    line = "<font color=\"" + actionColor + "\">%1 * " + nickLine + " %3</font>";
+    bool rtl = (basicDirection(message) == QChar::DirR);
+
+    if(rtl)
+    {
+        line = RLE;
+        line += LRE;
+        line += "<font color=\"" + actionColor + "\">" + nickLine + " * %1" + PDF + " %3</font>";
+    }
+    else
+    {
+        if (!QApplication::isLeftToRight())
+            line += LRE;
+
+        line += "<font color=\"" + actionColor + "\">%1 * " + nickLine + " %3</font>";
+    }
+
     line = line.arg(timeStamp(), nick, filter(message, actionColor, nick, true));
 
     emit textToLog(QString("\t * %1 %2").arg(nick).arg(message));
 
-    doAppend(line);
+    doAppend(line, rtl);
 }
 
 void IRCView::appendServerMessage(const QString& type, const QString& message, bool parseURL)
@@ -373,7 +646,22 @@ void IRCView::appendServerMessage(const QString& type, const QString& message, b
     }
 
     QString line;
-    line = "<font color=\"" + serverColor + "\"" + fixed + ">%1 <b>[</b>%2<b>]</b> %3</font>";
+    bool rtl = (basicDirection(message) == QChar::DirR);
+
+    if(rtl)
+    {
+        line = RLE;
+        line += LRE;
+        line += "<font color=\"" + serverColor + "\"" + fixed + "><b>[</b>%2<b>]</b> %1" + PDF + " %3</font>";
+    }
+    else
+    {
+        if (!QApplication::isLeftToRight())
+            line += LRE;
+
+        line += "<font color=\"" + serverColor + "\"" + fixed + ">%1 <b>[</b>%2<b>]</b> %3</font>";
+    }
+
     if(type != i18n("Notify"))
         line = line.arg(timeStamp(), type, filter(message, serverColor, 0 , true, parseURL));
     else
@@ -381,7 +669,7 @@ void IRCView::appendServerMessage(const QString& type, const QString& message, b
 
     emit textToLog(QString("%1\t%2").arg(type).arg(message));
 
-    doAppend(line);
+    doAppend(line, rtl);
 }
 
 void IRCView::appendCommandMessage(const QString& type,const QString& message, bool important, bool parseURL, bool self)
@@ -406,13 +694,27 @@ void IRCView::appendCommandMessage(const QString& type,const QString& message, b
     prefix=Qt::escape(prefix);
 
     QString line;
-    line = "<font color=\"" + commandColor + "\">%1 %2 %3</font>";
+    bool rtl = (basicDirection(message) == QChar::DirR);
+
+    if(rtl)
+    {
+        line = RLE;
+        line += LRE;
+        line += "<font color=\"" + commandColor + "\">%2 %1" + PDF + " %3</font>";
+    }
+    else
+    {
+        if (!QApplication::isLeftToRight())
+            line += LRE;
+
+        line += "<font color=\"" + commandColor + "\">%1 %2 %3</font>";
+    }
 
     line = line.arg(timeStamp(), prefix, filter(message, commandColor, 0, true, parseURL, self));
 
     emit textToLog(QString("%1\t%2").arg(type).arg(message));
 
-    doAppend(line, self);
+    doAppend(line, rtl, self);
 }
 
 void IRCView::appendBacklogMessage(const QString& firstColumn,const QString& rawMessage)
@@ -436,15 +738,32 @@ void IRCView::appendBacklogMessage(const QString& firstColumn,const QString& raw
     nick.replace('>',"&gt;");
 
     QString line;
+    bool rtl = (basicDirection(message) == QChar::DirR);
 
-    line = "<font color=\"" + backlogColor + "\">%1 %2 %3</font>";
+    if(rtl)
+    {
+        line = RLE;
+        line += LRE;
+        line += "<font color=\"" + backlogColor + "\">%2 %1" + PDF + " %3</font>";
+    }
+    else
+    {
+        if (!QApplication::isLeftToRight())
+            line += LRE;
+
+        line += "<font color=\"" + backlogColor + "\">%1 %2 %3</font>";
+    }
+
     line = line.arg(time, nick, filter(message, backlogColor, NULL, false, false));
 
-    doAppend(line);
+    doAppend(line, rtl);
 }
 
-void IRCView::doAppend(const QString& newLine, bool self)
+void IRCView::doAppend(const QString& newLine, bool rtl, bool self)
 {
+    if (m_rememberLineDirtyBit)
+        appendRememberLine();
+
     if (!self && m_chatWin)
         m_chatWin->activateTabNotification(m_tabNotification);
 
@@ -457,7 +776,7 @@ void IRCView::doAppend(const QString& newLine, bool self)
         //setMaximumBlockCount(atBottom ? scrollMax : maximumBlockCount() + 1);
     }
 
-    doRawAppend(newLine);
+    doRawAppend(newLine, rtl);
 
     //appendHtml(line);
 
@@ -481,7 +800,7 @@ void IRCView::doAppend(const QString& newLine, bool self)
         emit clearStatusBarTempText();
 }
 
-void IRCView::doRawAppend(const QString& newLine)
+void IRCView::doRawAppend(const QString& newLine, bool rtl)
 {
     QString line(newLine);
 
@@ -501,6 +820,15 @@ void IRCView::doRawAppend(const QString& newLine)
     }
 
     KTextBrowser::append(line);
+
+    QTextCursor formatCursor(document()->lastBlock());
+    QTextBlockFormat format = formatCursor.blockFormat();
+
+    if(!QApplication::isLeftToRight())
+        rtl = !rtl;
+
+    format.setAlignment(rtl ? Qt::AlignRight : Qt::AlignLeft);
+    formatCursor.setBlockFormat(format);
 
     if (checkSelection && selectionLength < (cursor.selectionEnd() - cursor.selectionStart()))
     {
@@ -677,9 +1005,9 @@ bool doHighlight, bool parseURL, bool self)
     if(parseURL)
     {
         if(whoSent.isEmpty())
-            filteredLine = Konversation::tagURLs(filteredLine, m_chatWin->getName());
+            filteredLine = Konversation::tagUrls(filteredLine, m_chatWin->getName());
         else
-            filteredLine = Konversation::tagURLs(filteredLine, whoSent);
+            filteredLine = Konversation::tagUrls(filteredLine, whoSent);
     }
     else
     {
@@ -951,73 +1279,61 @@ void IRCView::setupChannelPopupMenu()
     action->setData(Konversation::Topic);
 }
 
-
-// Mouse tracking
-
-// HACK -- QPlainTextEdit doesn't provide an implementation of hitTest that QAbstractTextDocumentLayout::anchorAt can call, nor does it override QTextControl::mouseMoveEvent in a useful way, so lets track the mouse cursor
-
-/* //Version from konvi3 for reference
-void IRCView::contentsMouseMoveEvent(QMouseEvent* ev)
+void IRCView::mouseMoveEvent(QMouseEvent* ev)
 {
-    if (m_mousePressed && (m_pressPosition - ev->pos()).manhattanLength() > QApplication::startDragDistance()) {
+    if (m_mousePressed && (m_pressPosition - ev->pos()).manhattanLength() > KApplication::startDragDistance())
+    {
         m_mousePressed = false;
-        removeSelection();
-        KURL ux = KURL::fromPathOrURL(m_urlToDrag);
 
-        if (m_server && m_urlToDrag.startsWith("##")) {
-            //FIXME consistent IRC URL serialization
-            ux = QString("irc://%1:%2/%3").arg(m_server->getServerName()).arg(m_server->getPort()).arg(m_urlToDrag.mid(2));
-        }
-        else if (m_urlToDrag.startsWith("#"))
-            ux = m_urlToDrag.mid(1);
-        KURLDrag* u = new KURLDrag(ux, viewport());
-        u->drag();
+        QTextCursor textCursor = this->textCursor();
+        textCursor.clearSelection();
+        setTextCursor(textCursor);
+
+
+        QPointer<QDrag> drag = new QDrag(this);
+        QMimeData* mimeData = new QMimeData;
+
+        QList<QUrl> urlList;
+        QUrl url(m_urlToDrag);
+        urlList << url;
+        mimeData->setUrls(urlList);
+
+        drag->setMimeData(mimeData);
+
+        QPixmap pixmap = KIO::pixmapForUrl(url, 0, KIconLoader::Desktop, KIconLoader::SizeMedium);
+        drag->setPixmap(pixmap);
+
+        drag->exec();
+
         return;
     }
-    KTextBrowser::contentsMouseMoveEvent(ev);
-}
-*/
-void IRCView::mouseMoveEvent(QMouseEvent *e)
-{/*
-    const QPoint pos = e->pos();
-    QTextCharFormat fmt=cursorForPosition(pos).charFormat();
-    if (m_fmtUnderMouse != fmt)
-    {
-        m_fmtUnderMouse = fmt;
-        if (fmt.isAnchor()) {
-            viewport()->setCursor(Qt::PointingHandCursor);
-            m_highlightedURL = fmt.anchorHref();
-        }
-        else {
-            m_highlightedURL.clear();
-            viewport()->setCursor(Qt::ArrowCursor);
-        }
-    }
-    highlightedSlot(m_highlightedURL);*/
-    //it doesn't seem to do anything we're overly concerned about
-    KTextBrowser::mouseMoveEvent(e);
+
+    KTextBrowser::mouseMoveEvent(ev);
 }
 
 void IRCView::mousePressEvent(QMouseEvent* ev)
-{/*
+{
     if (ev->button() == Qt::LeftButton)
     {
-        m_urlToDrag = m_highlightedURL;
+        m_urlToDrag = anchorAt(ev->pos());
 
-        if (!m_urlToDrag.isNull())
+        if (!m_urlToDrag.isEmpty() && Konversation::isUrl(m_urlToDrag))
         {
             m_mousePressed = true;
             m_pressPosition = ev->pos();
-            return;
         }
-    }*/
+    }
 
     KTextBrowser::mousePressEvent(ev);
 }
 
 void IRCView::mouseReleaseEvent(QMouseEvent *ev)
 {
-    if (ev->button() == Qt::MidButton)
+    if (ev->button() == Qt::LeftButton)
+    {
+        m_mousePressed = false;
+    }
+    else if (ev->button() == Qt::MidButton)
     {
         if (m_copyUrlMenu)
         {
@@ -1029,21 +1345,8 @@ void IRCView::mouseReleaseEvent(QMouseEvent *ev)
             emit textPasted(true);
             return;
         }
-    }/*
-    if (ev->button() == Qt::LeftButton)
-    {
-        if (m_mousePressed && !m_highlightedURL.isNull())
-        {
-            if (ev->modifiers() == Qt::ShiftModifier)
-                saveLinkAs(m_highlightedURL);
-            else
-                openLink(m_highlightedURL);
-
-            m_mousePressed = false;
-            return;
-        }
     }
-*/
+
     KTextBrowser::mouseReleaseEvent(ev);
 }
 
@@ -1257,6 +1560,67 @@ void IRCView::handleContextActions()
     QAction* action = qobject_cast<QAction*>(sender());
 
     emit popupCommand(action->data().toInt());
+}
+
+// for more information about these RTFM
+//    http://www.unicode.org/reports/tr9/
+//    http://www.w3.org/TR/unicode-xml/
+QChar IRCView::LRM = (ushort)0x200e; // Right-to-Left Mark
+QChar IRCView::RLM = (ushort)0x200f; // Left-to-Right Mark
+QChar IRCView::LRE = (ushort)0x202a; // Left-to-Right Embedding
+QChar IRCView::RLE = (ushort)0x202b; // Right-to-Left Embedding
+QChar IRCView::RLO = (ushort)0x202e; // Right-to-Left Override
+QChar IRCView::LRO = (ushort)0x202d; // Left-to-Right Override
+QChar IRCView::PDF = (ushort)0x202c; // Previously Defined Format
+
+QChar::Direction IRCView::basicDirection(const QString& string)
+{
+    // The following code decides between LTR or RTL direction for
+    // a line based on the amount of each type of characters pre-
+    // sent. It does so by counting, but stops when one of the two
+    // counters becomes higher than half of the string length to
+    // avoid unnecessary work.
+
+    unsigned int pos = 0;
+    unsigned int rtl_chars = 0;
+    unsigned int ltr_chars = 0;
+    unsigned int str_len = string.length();
+    unsigned int str_half_len = str_len/2;
+
+    for(pos=0; pos < str_len; ++pos)
+    {
+        if (!(string[pos].isNumber() || string[pos].isSymbol() ||
+            string[pos].isSpace()  || string[pos].isPunct()  ||
+            string[pos].isMark()))
+        {
+            switch(string[pos].direction())
+            {
+                case QChar::DirL:
+                case QChar::DirLRO:
+                case QChar::DirLRE:
+                    ltr_chars++;
+                    break;
+                case QChar::DirR:
+                case QChar::DirAL:
+                case QChar::DirRLO:
+                case QChar::DirRLE:
+                    rtl_chars++;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        if (ltr_chars > str_half_len)
+            return QChar::DirL;
+        else if (rtl_chars > str_half_len)
+            return QChar::DirR;
+    }
+
+    if (rtl_chars > ltr_chars)
+        return QChar::DirR;
+    else
+        return QChar::DirL;
 }
 
 // **WARNING** the selectionChange signal comes BEFORE the selection has actually been changed, hook cursorPositionChanged too

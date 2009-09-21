@@ -16,6 +16,9 @@
 
 #include <kparts/part.h>
 
+class QSplitter;
+class QToolButton;
+class QLabel;
 
 class KonsolePanel : public ChatWindow
 {
@@ -34,6 +37,7 @@ class KonsolePanel : public ChatWindow
 
     public slots:
         void partDestroyed();
+        void manageKonsoleProfiles();
 
         /** Called from ChatWindow adjustFocus */
         virtual void childAdjustFocus();
@@ -42,6 +46,9 @@ class KonsolePanel : public ChatWindow
         void konsoleChanged(const QString& data);
 
     private:
+        QSplitter* m_headerSplitter;
+        QToolButton* m_profileButton;
+        QLabel* m_konsoleLabel;
         KParts::ReadOnlyPart *k_part;
 };
 #endif                                            /* KONSOLE_PANEL_H */

@@ -34,17 +34,15 @@
 
 #include <QTextCodec>
 #include <QRegExp>
-#include <QFileInfo>
 #include <QtDBus/QDBusConnection>
+#include <QNetworkProxy>
 
 #include <KCmdLineArgs>
 #include <KConfig>
-#include <KStandardDirs>
-#include <KMessageBox>
-#include <KIconLoader>
 #include <KShell>
 #include <KToolInvocation>
 #include <KCharMacroExpander>
+#include <kwallet.h>
 
 
 using namespace Konversation;
@@ -57,13 +55,21 @@ Application::Application()
     m_awayManager = 0;
     quickConnectDialog = 0;
     osd = 0;
+    m_wallet = NULL;
+    m_images = 0;
+    m_dccTransferManager = 0;
+    m_notificationHandler = 0;
 }
 
 Application::~Application()
 {
     kDebug();
-    Server::_stashRates();
-    Preferences::self()->writeConfig();
+
+    if (!m_images)
+        return; // Nothing to do, newInstance() has never been called.
+
+    stashQueueRates();
+    Preferences::self()->writeConfig(); // FIXME i can't figure out why this isn't in saveOptions --argonel
     saveOptions(false);
 
     // Delete m_dccTransferManager here as its destructor depends on the main loop being in tact which it
@@ -76,12 +82,13 @@ Application::~Application()
     //delete identDBus;
     delete osd;
     osd = 0;
+    closeWallet();
 }
 
 int Application::newInstance()
 {
     KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
-    QString url; //TODO FIXME: does this really have to be a QCString?
+    QString url;
     if (args->count() > 0)
         url = args->arg(0);
 
@@ -200,6 +207,8 @@ int Application::newInstance()
         }
 
         m_notificationHandler = new Konversation::NotificationHandler(this);
+
+        connect(this, SIGNAL(appearanceChanged()), this, SLOT(updateProxySettings()));
     }
 
     if (!url.isEmpty())
@@ -595,7 +604,7 @@ void Application::readOptions()
     QRegExp re("^(.+) ([^\\s]+)$");
     QList<QString> channelEncodingEntryKeys=channelEncodingEntries.keys();
 
-    for(QList<QString>::iterator itStr=channelEncodingEntryKeys.begin(); itStr != channelEncodingEntryKeys.end(); ++itStr)
+    for(QList<QString>::const_iterator itStr=channelEncodingEntryKeys.constBegin(); itStr != channelEncodingEntryKeys.constEnd(); ++itStr)
     {
         if(re.indexIn(*itStr) > -1)
         {
@@ -607,9 +616,9 @@ void Application::readOptions()
     KConfigGroup cgEncodings(KGlobal::config()->group("Encodings"));
     QMap<QString,QString> encodingEntries=cgEncodings.entryMap();
     QList<QString> encodingEntryKeys=encodingEntries.keys();
-    
+
     QRegExp reg("^(.+) ([^\\s]+) ([^\\s]+)$");
-    for(QList<QString>::iterator itStr=encodingEntryKeys.begin(); itStr != encodingEntryKeys.end(); ++itStr)
+    for(QList<QString>::const_iterator itStr=encodingEntryKeys.constBegin(); itStr != encodingEntryKeys.constEnd(); ++itStr)
     {
         if(reg.indexIn(*itStr) > -1)
         {
@@ -620,8 +629,9 @@ void Application::readOptions()
         }
     }
 
-    // O, what a tangled web
-    Server::_fetchRates();
+    fetchQueueRates();
+
+    updateProxySettings();
 }
 
 void Application::saveOptions(bool updateGUI)
@@ -834,6 +844,47 @@ void Application::saveOptions(bool updateGUI)
         emit appearanceChanged();
 }
 
+void Application::fetchQueueRates()
+{
+    //The following rate was found in the rc for all queues, which were deliberately bad numbers chosen for debugging.
+    //Its possible that the static array was constructed or deconstructed at the wrong time, and so those values saved
+    //in the rc. When reading the values out of the rc, we must check to see if they're this specific value,
+    //and if so, reset to defaults. --argonel
+    IRCQueue::EmptyingRate shit(6, 50000, IRCQueue::EmptyingRate::Lines);
+    int bad = 0;
+    for (int i=0; i <= countOfQueues(); i++)
+    {
+        QList<int> r = Preferences::self()->queueRate(i);
+        staticrates[i] = IRCQueue::EmptyingRate(r[0], r[1]*1000, IRCQueue::EmptyingRate::RateType(r[2]));
+        if (staticrates[i] == shit)
+            bad++;
+    }
+    if (bad == 3)
+        resetQueueRates();
+}
+
+void Application::stashQueueRates()
+{
+    for (int i=0; i <= countOfQueues(); i++)
+    {
+        QList<int> r;
+        r.append(staticrates[i].m_rate);
+        r.append(staticrates[i].m_interval / 1000);
+        r.append(int(staticrates[i].m_type));
+        Preferences::self()->setQueueRate(i, r);
+    }
+}
+
+void Application::resetQueueRates()
+{
+    for (int i=0; i <= countOfQueues(); i++)
+    {
+        Preferences::self()->queueRateItem(i)->setDefault();
+        QList<int> r=Preferences::self()->queueRate(i);
+        staticrates[i]=IRCQueue::EmptyingRate(r[0], r[1]*1000, IRCQueue::EmptyingRate::RateType(r[2]));
+    }
+}
+
 // FIXME: use KUrl maybe?
 void Application::storeUrl(const QString& who,const QString& newUrl)
 {
@@ -1034,6 +1085,88 @@ Konversation::Sound* Application::sound()
         m_sound = new Konversation::Sound(this);
 
     return m_sound;
+}
+
+void Application::updateProxySettings()
+{
+    if (Preferences::self()->proxyEnabled())
+    {
+        QNetworkProxy proxy;
+
+        if (Preferences::self()->proxyType() == Preferences::Socksv5Proxy)
+        {
+            proxy.setType(QNetworkProxy::Socks5Proxy);
+        }
+        else
+        {
+            proxy.setType(QNetworkProxy::HttpProxy);
+        }
+
+        proxy.setHostName(Preferences::self()->proxyAddress());
+        proxy.setPort(Preferences::self()->proxyPort());
+        proxy.setUser(Preferences::self()->proxyUsername());
+        QString password;
+
+        if(wallet())
+        {
+            int ret = wallet()->readPassword("ProxyPassword", password);
+
+            if(ret != 0)
+            {
+                kError() << "Failed to read the proxy password from the wallet, error code:" << ret;
+            }
+        }
+
+        proxy.setPassword(password);
+        QNetworkProxy::setApplicationProxy(proxy);
+    }
+    else
+    {
+        QNetworkProxy::setApplicationProxy(QNetworkProxy::DefaultProxy);
+    }
+}
+
+KWallet::Wallet* Application::wallet()
+{
+    if(!m_wallet)
+    {
+        WId winid = 0;
+
+        if(mainWindow)
+            winid = mainWindow->winId();
+
+        m_wallet = KWallet::Wallet::openWallet(KWallet::Wallet::NetworkWallet(), winid);
+
+        if(!m_wallet)
+            return NULL;
+
+        connect(m_wallet, SIGNAL(walletClosed()), this, SLOT(closeWallet()));
+
+        if(!m_wallet->hasFolder("Konversation"))
+        {
+            if(!m_wallet->createFolder("Konversation"))
+            {
+                kError() << "Failed to create folder Konversation in the network wallet.";
+                closeWallet();
+                return NULL;
+            }
+        }
+
+        if(!m_wallet->setFolder("Konversation"))
+        {
+            kError() << "Failed to set active folder to Konversation in the network wallet.";
+            closeWallet();
+            return NULL;
+        }
+    }
+
+    return m_wallet;
+}
+
+void Application::closeWallet()
+{
+    delete m_wallet;
+    m_wallet = NULL;
 }
 
 #include "application.moc"

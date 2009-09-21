@@ -17,6 +17,7 @@
 #include "chatwindow.h"
 #include "ircview.h"
 #include "pasteeditor.h"
+#include "viewcontainer.h"
 
 #include <QClipboard>
 #include <QKeyEvent>
@@ -24,6 +25,7 @@
 #include <KMessageBox>
 #include <KCompletionBox>
 #include <KStandardShortcut>
+#include <KActionCollection>
 
 #define MAXHISTORY 100
 
@@ -301,19 +303,19 @@ bool IRCInput::event(QEvent* e)
 {
     if (e->type() == QEvent::ShortcutOverride)
     {
-        // Make sure KTextEdit doesn't eat the find shortcuts
+        // Make sure KTextEdit doesn't eat actionCollection shortcuts
         QKeyEvent* event = static_cast<QKeyEvent*>(e);
         const int key = event->key() | event->modifiers();
 
-        if(KStandardShortcut::find().contains(key))
+        foreach(QAction* action, Application::instance()->getMainWindow()->actionCollection()->actions())
         {
-            event->ignore();
-            return false;
-        }
-        else if(KStandardShortcut::findNext().contains(key))
-        {
-            event->ignore();
-            return false;
+            KAction* kAction = qobject_cast<KAction*>(action);
+
+            if(kAction->shortcut().contains(key))
+            {
+                event->ignore();
+                return false;
+            }
         }
     }
 

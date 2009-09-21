@@ -93,7 +93,7 @@ namespace Konversation
         return line;
     }
 
-    QString tagURLs(const QString& text, const QString& fromNick, bool useCustomColor)
+    QString tagUrls(const QString& text, const QString& fromNick, bool useCustomColor)
     {
         // QTime timer;
         // timer.start();
@@ -210,6 +210,11 @@ namespace Konversation
         // kDebug() << "Took (msecs) : " << timer.elapsed() << " for " << filteredLine;
 
         return filteredLine;
+    }
+
+    bool isUrl(const QString& text)
+    {
+        return urlPattern.exactMatch(text);
     }
 
     //TODO: there's room for optimization as pahlibar said. (strm)

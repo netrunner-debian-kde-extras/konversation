@@ -22,10 +22,8 @@
 #include "viewcontainer.h"
 #include "application.h"
 
-#include <QEvent>
 #include <QContextMenuEvent>
 
-#include <KIconLoader>
 #include <KMenu>
 #include <KMessageBox>
 
@@ -249,7 +247,7 @@ void QueueTuner::contextMenuEvent(QContextMenuEvent* e)
         int x = KMessageBox::warningContinueCancel(this, question, i18n("Reset Values"), KStandardGuiItem::reset(), KGuiItem(), QString(), KMessageBox::Dangerous);
         if ( x == KMessageBox::Continue)
         {
-            Server::_resetRates();
+            Application::instance()->resetQueueRates();
             getRates();
         }
     }

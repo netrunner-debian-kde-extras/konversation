@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-08-08 06:49+0200\n"
+"POT-Creation-Date: 2009-09-21 06:08+0200\n"
 "PO-Revision-Date: 2008-07-06 21:43+0900\n"
 "Last-Translator: Yukiko Bando <ybando@k6.dion.ne.jp>\n"
 "Language-Team: Japanese <Kdeveloper@kde.gr.jp>\n"
@@ -17,50 +17,58 @@ msgstr ""
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
 
-#: src/dcc/transferdetailedinfopanel.cpp:120
+#: src/dcc/transferdetailedinfopanel.cpp:34 src/dcc/transferlistmodel.cpp:46
+msgid "Status"
+msgstr "ステータス"
+
+#: src/dcc/transferdetailedinfopanel.cpp:37
+msgid "Details"
+msgstr "詳細"
+
+#: src/dcc/transferdetailedinfopanel.cpp:128
 msgid "DCC Send"
 msgstr "DCC 送信"
 
-#: src/dcc/transferdetailedinfopanel.cpp:120
+#: src/dcc/transferdetailedinfopanel.cpp:128
 msgid "DCC Receive"
 msgstr "DCC 受信"
 
-#: src/dcc/transferdetailedinfopanel.cpp:123
+#: src/dcc/transferdetailedinfopanel.cpp:131
 msgid " (Reverse DCC)"
 msgstr ""
 
-#: src/dcc/transferdetailedinfopanel.cpp:140
-#: src/dcc/transferdetailedinfopanel.cpp:144
+#: src/dcc/transferdetailedinfopanel.cpp:148
+#: src/dcc/transferdetailedinfopanel.cpp:152
 msgid "Unknown server"
 msgstr "不明なサーバ"
 
-#: src/dcc/transferdetailedinfopanel.cpp:145
+#: src/dcc/transferdetailedinfopanel.cpp:153
 #, kde-format
 msgid "%1 on %2"
 msgstr "%2 の %1"
 
-#: src/dcc/transferdetailedinfopanel.cpp:149
+#: src/dcc/transferdetailedinfopanel.cpp:157
 #, kde-format
 msgid ", %1 (port %2)"
 msgstr ", %1 (ポート %2)"
 
-#: src/dcc/transferdetailedinfopanel.cpp:154
+#: src/dcc/transferdetailedinfopanel.cpp:162
 #, kde-format
 msgid "%1 (port %2)"
 msgstr "%1 (ポート %2)"
 
-#: src/dcc/transferdetailedinfopanel.cpp:161
+#: src/dcc/transferdetailedinfopanel.cpp:169
 #, kde-format
 msgid "Yes, %1"
 msgstr "はい、%1"
 
-#: src/dcc/transferdetailedinfopanel.cpp:163
+#: src/dcc/transferdetailedinfopanel.cpp:171
 #, fuzzy
 #| msgid "None"
 msgid "No"
 msgstr "なし"
 
-#: src/dcc/transferdetailedinfopanel.cpp:229
+#: src/dcc/transferdetailedinfopanel.cpp:237
 msgid "< 1sec"
 msgstr "< 1 秒"
 
@@ -68,8 +76,8 @@ msgstr "< 1 秒"
 msgid "Select Recipient"
 msgstr "送る相手を選択"
 
-#: src/dcc/recipientdialog.cpp:64 src/irc/servergroupdialog.cpp:82
-#: src/identitydialog.cpp:70 src/viewer/editnotifydialog.cpp:68
+#: src/dcc/recipientdialog.cpp:64 src/irc/servergroupdialog.cpp:76
+#: src/identitydialog.cpp:70 src/viewer/editnotifydialog.cpp:67
 msgid "&OK"
 msgstr ""
 
@@ -77,9 +85,9 @@ msgstr ""
 msgid "Select nickname and close the window"
 msgstr "ニックネームを選んでウィンドウを閉じる"
 
-#: src/dcc/recipientdialog.cpp:65 src/irc/servergroupdialog.cpp:83
+#: src/dcc/recipientdialog.cpp:65 src/irc/servergroupdialog.cpp:77
 #: src/identitydialog.cpp:71 src/linkaddressbook/addressbook_base.cpp:501
-#: src/viewer/editnotifydialog.cpp:69
+#: src/viewer/editnotifydialog.cpp:68
 #, fuzzy
 #| msgid "Channel"
 msgid "&Cancel"
@@ -99,133 +107,153 @@ msgstr "ソケットを開けませんでした"
 
 #. i18n: file: src/config/ignore_configui.ui:97
 #. i18n: ectx: property (text), widget (QCheckBox, chkDCC)
-#: src/dcc/chat.cpp:181 src/dcc/chat.cpp:191 src/dcc/chat.cpp:204
-#: src/dcc/chat.cpp:222 src/dcc/chat.cpp:227 src/dcc/chat.cpp:232
-#: src/dcc/chat.cpp:376 src/dcc/chat.cpp:381 src/irc/inputfilter.cpp:370
-#: src/irc/inputfilter.cpp:385 src/irc/inputfilter.cpp:400
-#: src/irc/inputfilter.cpp:416 src/irc/inputfilter.cpp:424
-#: src/irc/server.cpp:1860 src/irc/server.cpp:1891 src/irc/server.cpp:1903
-#: src/irc/server.cpp:2003 src/irc/server.cpp:2054 src/irc/server.cpp:2111
-#: src/irc/server.cpp:2116 src/irc/server.cpp:2128 src/irc/server.cpp:2131
-#: src/irc/server.cpp:2145 src/irc/server.cpp:2152
-#: src/config/settingsdialog.cpp:149 src/viewer/ignorelistviewitem.cpp:46
+#: src/dcc/chat.cpp:161 src/dcc/chat.cpp:191 src/dcc/chat.cpp:201
+#: src/dcc/chat.cpp:214 src/dcc/chat.cpp:232 src/dcc/chat.cpp:237
+#: src/dcc/chat.cpp:242 src/dcc/chat.cpp:386 src/dcc/chat.cpp:391
+#: src/irc/inputfilter.cpp:368 src/irc/inputfilter.cpp:383
+#: src/irc/inputfilter.cpp:398 src/irc/inputfilter.cpp:414
+#: src/irc/inputfilter.cpp:422 src/irc/server.cpp:1846 src/irc/server.cpp:1877
+#: src/irc/server.cpp:1889 src/irc/server.cpp:1989 src/irc/server.cpp:2040
+#: src/irc/server.cpp:2097 src/irc/server.cpp:2102 src/irc/server.cpp:2114
+#: src/irc/server.cpp:2117 src/irc/server.cpp:2131 src/irc/server.cpp:2138
+#: src/config/settingsdialog.cpp:143 src/viewer/ignorelistviewitem.cpp:46
 #: rc.cpp:883
 msgid "DCC"
 msgstr "DCC"
 
-#: src/dcc/chat.cpp:181
+#: src/dcc/chat.cpp:161 src/dcc/transferrecv.cpp:481
+#: src/dcc/transferrecv.cpp:513
+#, fuzzy
+msgid ""
+"Could not send Reverse DCC SEND acknowledgement to the partner via the IRC "
+"server."
+msgstr "IRC サーバを介して DCC SEND リクエストを相手に送信できませんでした。"
+
+#: src/dcc/chat.cpp:172 src/dcc/transfersend.cpp:350
+#: src/dcc/transferrecv.cpp:526
+msgctxt "Universal Plug and Play"
+msgid "UPnP"
+msgstr ""
+
+#: src/dcc/chat.cpp:172 src/dcc/transfersend.cpp:350
+#: src/dcc/transferrecv.cpp:526
+#, kde-format
+msgid ""
+"Failed to forward port %1. Sending DCC request to remote user regardless."
+msgstr ""
+
+#: src/dcc/chat.cpp:191
 #, kde-format
 msgid "Could not open a socket for listening: %1"
 msgstr "待ち受けソケットを開けませんでした: %1"
 
-#: src/dcc/chat.cpp:191
+#: src/dcc/chat.cpp:201
 #, kde-format
 msgid "Offering DCC Chat connection to %1 on port %2..."
 msgstr "%1 へ DCC チャット接続を提案しています (ポート %2)..."
 
-#: src/dcc/chat.cpp:193
+#: src/dcc/chat.cpp:203
 #, kde-format
 msgid "DCC chat with %1 on port %2."
 msgstr "%1 と DCC チャット (ポート %2)。"
 
-#: src/dcc/chat.cpp:205
+#: src/dcc/chat.cpp:215
 #, kde-format
 msgctxt "%1 = nickname, %2 = IP, %3 = port"
 msgid "Establishing DCC Chat connection to %1 (%2:%3)..."
 msgstr "%1 (%2:%3) への DCC チャット接続を確立しています..."
 
-#: src/dcc/chat.cpp:207
+#: src/dcc/chat.cpp:217
 #, kde-format
 msgctxt "%1 = nickname, %2 = IP, %3 = port"
 msgid "DCC chat with %1 on %2:%3."
 msgstr "%1 と DCC チャット (%2:%3)。"
 
-#: src/dcc/chat.cpp:222
+#: src/dcc/chat.cpp:232
 #, fuzzy, kde-format
 #| msgid "Looking for server %1:%2..."
 msgid "Looking for host %1..."
 msgstr "サーバ %1:%2 を探しています..."
 
-#: src/dcc/chat.cpp:227
+#: src/dcc/chat.cpp:237
 #, fuzzy
 #| msgid "Server found, connecting..."
 msgid "Host found, connecting..."
 msgstr "サーバ検出完了。接続中..."
 
-#: src/dcc/chat.cpp:232 src/dcc/chat.cpp:376
+#: src/dcc/chat.cpp:242 src/dcc/chat.cpp:386
 #, kde-format
 msgid "Established DCC Chat connection to %1."
 msgstr "%1 への DCC チャット接続を確立しました。"
 
-#: src/dcc/chat.cpp:238 src/dcc/chat.cpp:355 src/irc/outputfilter.cpp:1349
-#: src/irc/outputfilter.cpp:1662 src/irc/inputfilter.cpp:1150
-#: src/irc/inputfilter.cpp:1154 src/irc/inputfilter.cpp:1167
-#: src/irc/inputfilter.cpp:1238 src/irc/inputfilter.cpp:1409
-#: src/irc/inputfilter.cpp:1974 src/irc/inputfilter.cpp:1995
-#: src/irc/inputfilter.cpp:2003 src/irc/inputfilter.cpp:2011
-#: src/irc/server.cpp:633 src/irc/server.cpp:1968 src/irc/server.cpp:2013
-#: src/irc/server.cpp:2077 src/irc/server.cpp:2096 src/irc/server.cpp:3554
-#: src/irc/server.cpp:3582 src/irc/server.cpp:3613
-#: src/connectionmanager.cpp:225 src/linkaddressbook/addressbook.cpp:114
+#: src/dcc/chat.cpp:248 src/dcc/chat.cpp:365 src/irc/outputfilter.cpp:1512
+#: src/irc/outputfilter.cpp:1876 src/irc/inputfilter.cpp:1148
+#: src/irc/inputfilter.cpp:1152 src/irc/inputfilter.cpp:1165
+#: src/irc/inputfilter.cpp:1236 src/irc/inputfilter.cpp:1407
+#: src/irc/inputfilter.cpp:1972 src/irc/inputfilter.cpp:1993
+#: src/irc/inputfilter.cpp:2001 src/irc/inputfilter.cpp:2009
+#: src/irc/server.cpp:600 src/irc/server.cpp:1954 src/irc/server.cpp:1999
+#: src/irc/server.cpp:2063 src/irc/server.cpp:2082 src/irc/server.cpp:3540
+#: src/irc/server.cpp:3568 src/irc/server.cpp:3599
+#: src/connectionmanager.cpp:227 src/linkaddressbook/addressbook.cpp:113
 msgid "Error"
 msgstr ""
 
-#: src/dcc/chat.cpp:238
-#, fuzzy, kde-format
-#| msgid "Connection broken, error code %1."
-msgid "Connection broken, error (%1) %2."
-msgstr "接続が絶たれました (エラーコード %1)。"
+#: src/dcc/chat.cpp:248 src/dcc/transfersend.cpp:515
+#, kde-format
+msgid "Socket error: %1"
+msgstr "ソケットのエラー: %1"
 
 #. i18n: file: src/config/ignore_configui.ui:83
 #. i18n: ectx: property (text), widget (QCheckBox, chkCTCP)
-#: src/dcc/chat.cpp:276 src/irc/outputfilter.cpp:759
-#: src/irc/inputfilter.cpp:271 src/irc/inputfilter.cpp:278
-#: src/irc/inputfilter.cpp:294 src/irc/inputfilter.cpp:301
-#: src/irc/inputfilter.cpp:433 src/irc/inputfilter.cpp:441
-#: src/irc/inputfilter.cpp:461 src/irc/inputfilter.cpp:512
-#: src/irc/inputfilter.cpp:540 src/viewer/ignorelistviewitem.cpp:45 rc.cpp:877
+#: src/dcc/chat.cpp:286 src/irc/outputfilter.cpp:829
+#: src/irc/inputfilter.cpp:269 src/irc/inputfilter.cpp:276
+#: src/irc/inputfilter.cpp:292 src/irc/inputfilter.cpp:299
+#: src/irc/inputfilter.cpp:431 src/irc/inputfilter.cpp:439
+#: src/irc/inputfilter.cpp:459 src/irc/inputfilter.cpp:510
+#: src/irc/inputfilter.cpp:538 src/viewer/ignorelistviewitem.cpp:45 rc.cpp:877
 msgid "CTCP"
 msgstr "CTCP"
 
-#: src/dcc/chat.cpp:276
+#: src/dcc/chat.cpp:286
 #, kde-format
 msgid "Received unknown CTCP-%1 request from %2"
 msgstr "未知の CTCP-%1 リクエストを %2 から受け取りました"
 
-#: src/dcc/chat.cpp:355
+#: src/dcc/chat.cpp:365
 msgid "Could not accept the client."
 msgstr "クライアントを受け付けられませんでした。"
 
-#: src/dcc/chat.cpp:381
+#: src/dcc/chat.cpp:391
 #, fuzzy
 #| msgid "Connection"
 msgid "Connection closed."
 msgstr "接続"
 
-#: src/dcc/chat.cpp:451
+#: src/dcc/chat.cpp:461
 #, kde-format
 msgid "Default ( %1 )"
 msgstr "デフォルト ( %1 )"
 
-#: src/dcc/transfersend.cpp:161
+#: src/dcc/transfersend.cpp:160
 msgid "The admin has restricted the right to send files"
 msgstr "管理者がファイルを送信する権限を制限しました"
 
-#: src/dcc/transfersend.cpp:194
+#: src/dcc/transfersend.cpp:197
 #, kde-format
 msgid "The url \"%1\" does not exist"
 msgstr "URL \"%1\" は存在しません。"
 
-#: src/dcc/transfersend.cpp:202
+#: src/dcc/transfersend.cpp:205
 #, kde-format
 msgid "Could not retrieve \"%1\""
 msgstr "\"%1\" を受信できませんでした。"
 
-#: src/dcc/transfersend.cpp:211
+#: src/dcc/transfersend.cpp:214
 msgid "Enter Filename"
 msgstr "ファイル名入力"
 
-#: src/dcc/transfersend.cpp:211
+#: src/dcc/transfersend.cpp:214
 #, kde-format
 msgid ""
 "<qt>The file that you are sending to <i>%1</i> does not have a filename."
@@ -235,80 +263,75 @@ msgstr ""
 "<qt><i>%1</i> へ送ろうとしているファイルには名前がありません。<br>ファイル名"
 "を入力するか、DCC 転送をキャンセルしてください。</qt>"
 
-#: src/dcc/transfersend.cpp:215
+#: src/dcc/transfersend.cpp:218
 msgid "No filename was given"
 msgstr "ファイル名が与えられませんでした"
 
-#: src/dcc/transfersend.cpp:233
+#: src/dcc/transfersend.cpp:236
 msgid "Unable to send a 0 byte file."
 msgstr ""
 
-#: src/dcc/transfersend.cpp:243
+#: src/dcc/transfersend.cpp:246
 msgid "DCC SEND request was rejected"
 msgstr ""
 
-#: src/dcc/transfersend.cpp:268 src/dcc/transfersend.cpp:336
+#: src/dcc/transfersend.cpp:271 src/dcc/transfersend.cpp:339
 msgid "Could not send a DCC SEND request to the partner via the IRC server."
 msgstr "IRC サーバを介して DCC SEND リクエストを相手に送信できませんでした。"
 
-#: src/dcc/transfersend.cpp:327
+#: src/dcc/transfersend.cpp:330
 #, fuzzy
 #| msgid "Waiting remote user's acceptance"
 msgid "Awaiting remote user's acceptance"
 msgstr "リモートユーザの承諾を待っています"
 
-#: src/dcc/transfersend.cpp:398 src/dcc/transferrecv.cpp:625
+#: src/dcc/transfersend.cpp:404 src/dcc/transferrecv.cpp:625
 #, fuzzy
 #| msgid "Could not accept the connection. (Socket Error)"
 msgid "Could not accept the connection (socket error.)"
 msgstr "接続を受け付けられませんでした。(ソケットのエラー)"
 
-#: src/dcc/transfersend.cpp:505
-#, kde-format
-msgid "Socket error: %1"
-msgstr "ソケットのエラー: %1"
-
-#: src/dcc/transfersend.cpp:527 src/dcc/transferrecv.cpp:750
+#: src/dcc/transfersend.cpp:537 src/dcc/transferrecv.cpp:750
 msgid "Timed out"
 msgstr "タイムアウト"
 
-#: src/dcc/transfersend.cpp:537
+#: src/dcc/transfersend.cpp:547
 msgid "The operation was successful. Should never happen in an error dialog."
 msgstr ""
 "オペレーションは成功しました。エラーダイアログでは何も起きていないはずです。"
 
-#: src/dcc/transfersend.cpp:540
+#: src/dcc/transfersend.cpp:550
 #, kde-format
 msgid "Could not read from file \"%1\"."
 msgstr "ファイル \"%1\" を読めませんでした。"
 
-#: src/dcc/transfersend.cpp:543
+#: src/dcc/transfersend.cpp:553
 #, kde-format
 msgid "Could not write to file \"%1\"."
 msgstr "ファイル \"%1\" へ書き込めませんでした。"
 
-#: src/dcc/transfersend.cpp:546
+#: src/dcc/transfersend.cpp:556
 msgid "A fatal unrecoverable error occurred."
 msgstr "修復不可能なエラーが発生しました。"
 
-#: src/dcc/transfersend.cpp:549
+#: src/dcc/transfersend.cpp:559
 #, kde-format
 msgid "Could not open file \"%1\"."
 msgstr "ファイル \"%1\" を開けません。"
 
-#: src/dcc/transfersend.cpp:558
+#: src/dcc/transfersend.cpp:568
 msgid "The operation was unexpectedly aborted."
 msgstr "オペレーションは予期せずに中止されました。"
 
-#: src/dcc/transfersend.cpp:561
+#: src/dcc/transfersend.cpp:571
 msgid "The operation timed out."
 msgstr "タイムアウトしました。"
 
-#: src/dcc/transfersend.cpp:564
+#: src/dcc/transfersend.cpp:574
 msgid "An unspecified error happened on close."
 msgstr "閉じる際に不特定のエラーが発生しました。"
 
-#: src/dcc/transfersend.cpp:567
+#: src/dcc/transfersend.cpp:577
 #, kde-format
 msgid "Unknown error. Code %1"
 msgstr "未知のエラー。コード %1"
@@ -345,10 +368,6 @@ msgstr "スピード"
 msgid "Sender Address"
 msgstr "送信者のアドレス"
 
-#: src/dcc/transferlistmodel.cpp:46
-msgid "Status"
-msgstr "ステータス"
-
 #: src/dcc/transferlistmodel.cpp:48
 msgid "Remaining"
 msgstr "残り"
@@ -359,95 +378,140 @@ msgstr "残り"
 msgid "Type"
 msgstr "タイプ"
 
-#: src/dcc/transferlistmodel.cpp:178
-#, fuzzy
-#| msgid "Incoming"
-msgid "Incoming Transfers"
-msgstr "受信"
-
-#: src/dcc/transferlistmodel.cpp:182
-#, fuzzy
-#| msgid "Outgoing"
-msgid "Outgoing Transfers"
-msgstr "送信"
-
-#: src/dcc/transferlistmodel.cpp:323
+#: src/dcc/transferlistmodel.cpp:396
 #, kde-format
 msgid "%1/sec"
 msgstr "%1/秒"
 
-#: src/dcc/transferlistmodel.cpp:378
+#: src/dcc/transferlistmodel.cpp:451
 msgid "Queued"
 msgstr "キュー"
 
-#: src/dcc/transferlistmodel.cpp:380
+#: src/dcc/transferlistmodel.cpp:453
 msgid "Preparing"
 msgstr "準備中"
 
-#: src/dcc/transferlistmodel.cpp:382
+#: src/dcc/transferlistmodel.cpp:455
 #, fuzzy
 #| msgid "Sending"
 msgid "Pending"
 msgstr "送信中"
 
-#: src/dcc/transferlistmodel.cpp:384 src/linkaddressbook/addressbook.cpp:108
+#: src/dcc/transferlistmodel.cpp:457 src/linkaddressbook/addressbook.cpp:107
 msgid "Connecting"
 msgstr "接続中"
 
-#: src/dcc/transferlistmodel.cpp:389
+#: src/dcc/transferlistmodel.cpp:462
 msgid "Receiving"
 msgstr "受信中"
 
-#: src/dcc/transferlistmodel.cpp:391
+#: src/dcc/transferlistmodel.cpp:464
 msgid "Sending"
 msgstr "送信中"
 
-#: src/dcc/transferlistmodel.cpp:397
+#: src/dcc/transferlistmodel.cpp:470
 msgid "Done"
 msgstr "完了"
 
-#: src/dcc/transferlistmodel.cpp:399
+#: src/dcc/transferlistmodel.cpp:472
 msgid "Failed"
 msgstr "失敗"
 
-#: src/dcc/transferlistmodel.cpp:401
+#: src/dcc/transferlistmodel.cpp:474
 msgid "Aborted"
 msgstr "中止"
 
-#: src/dcc/transferview.cpp:263
+#: src/dcc/transferlistmodel.cpp:486
+msgid "Queued - Transfer is waiting for you to accept or reject it"
+msgstr ""
+
+#: src/dcc/transferlistmodel.cpp:491
+msgid "Preparing - Transfer is checking for resumable files"
+msgstr ""
+
+#: src/dcc/transferlistmodel.cpp:493
+msgid "Preparing - Transfer is acquiring the data to send"
+msgstr ""
+
+#: src/dcc/transferlistmodel.cpp:499
+msgid "Pending - Transfer is waiting for the partner to accept or reject it"
+msgstr ""
+
+#: src/dcc/transferlistmodel.cpp:501
+msgid "Connecting - Transfer is connecting to the partner"
+msgstr ""
+
+#: src/dcc/transferlistmodel.cpp:506
+msgid "Receiving - Transfer is receiving data from the partner"
+msgstr ""
+
+#: src/dcc/transferlistmodel.cpp:508
+msgid "Sending - Transfer is sending data to partner"
+msgstr ""
+
+#: src/dcc/transferlistmodel.cpp:514
+msgid "Done - Transfer has completed successfully"
+msgstr ""
+
+#: src/dcc/transferlistmodel.cpp:518
+msgid "Failed - Transfer failed with 'unknown reason'"
+msgstr ""
+
+#: src/dcc/transferlistmodel.cpp:522
+#, kde-format
+msgid "Failed - Transfer failed with reason '%1'"
+msgstr ""
+
+#: src/dcc/transferlistmodel.cpp:525
+msgid "Aborted - Transfer was aborted by the User"
+msgstr ""
+
+#: src/dcc/transferlistmodel.cpp:618
+#, fuzzy
+#| msgid "Incoming"
+msgid "Incoming Transfers"
+msgstr "受信"
+
+#: src/dcc/transferlistmodel.cpp:622
+#, fuzzy
+#| msgid "Outgoing"
+msgid "Outgoing Transfers"
+msgstr "送信"
+
+#: src/dcc/transferview.cpp:275
 #, fuzzy
 #| msgid "Commands:"
 msgid "Columns"
 msgstr "コマンド:"
 
-#: src/dcc/transferrecv.cpp:190
+#: src/dcc/transferrecv.cpp:185
 msgid "The admin has restricted the right to receive files"
 msgstr "管理者がファイルを受信する権限を制限しました"
 
-#: src/dcc/transferrecv.cpp:197
+#: src/dcc/transferrecv.cpp:192
 #, kde-format
 msgid "Invalid sender address (%1)"
 msgstr "無効な送信者アドレス (%1)"
 
-#: src/dcc/transferrecv.cpp:204
+#: src/dcc/transferrecv.cpp:199
 msgid "Unsupported negotiation (filesize=0)"
 msgstr "サポートしていないネゴシエーション (ファイルサイズ=0)"
 
-#: src/dcc/transferrecv.cpp:303
+#: src/dcc/transferrecv.cpp:298
 #, kde-format
 msgid "<b>Cannot create the folder.</b><br>Folder: %1<br>"
 msgstr "フォルダを作成できませんでした。<br>フォルダ: %1<br>"
 
-#: src/dcc/transferrecv.cpp:323
+#: src/dcc/transferrecv.cpp:318
 msgid "Could not create a KIO instance"
 msgstr "KIO のインスタンスを作成できませんでした"
 
-#: src/dcc/transferrecv.cpp:392
+#: src/dcc/transferrecv.cpp:380
 #, kde-format
 msgid "<b>The file is used by another transfer.</b><br>%1<br>"
 msgstr "<qt>ファイルは他の転送に使用されています。<br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:405
+#: src/dcc/transferrecv.cpp:402
 #, fuzzy, kde-format
 #| msgid ""
 #| "<b>A partial file exists.</b><br>%1<br>Size of the partial file: %2 "
@@ -465,22 +529,15 @@ msgstr[1] ""
 "不完全なファイルが存在しています。<br>%1<br>不完全なファイルのサイズ: %2 バイ"
 "ト<br>"
 
-#: src/dcc/transferrecv.cpp:436
+#: src/dcc/transferrecv.cpp:433
 #, kde-format
 msgid "<b>The file already exists.</b><br>%1<br>"
 msgstr "ファイルは既に存在しています。<br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:443
+#: src/dcc/transferrecv.cpp:440
 #, kde-format
 msgid "<b>Could not open the file.<br>Error: %1</b><br>%2<br>"
 msgstr "ファイルを開けませんでした。<br>エラー: %1<br>%2<br>"
-
-#: src/dcc/transferrecv.cpp:484 src/dcc/transferrecv.cpp:516
-#, fuzzy
-msgid ""
-"Could not send Reverse DCC SEND acknowledgement to the partner via the IRC "
-"server."
-msgstr "IRC サーバを介して DCC SEND リクエストを相手に送信できませんでした。"
 
 #: src/dcc/transferrecv.cpp:529
 msgid "Waiting for connection"
@@ -512,101 +569,93 @@ msgstr "転送エラー"
 msgid "KIO error: %1"
 msgstr "KIO エラー: %1"
 
-#: src/dcc/transferpanel.cpp:48 src/viewer/viewcontainer.cpp:2103
+#: src/dcc/transferpanel.cpp:44 src/viewer/viewcontainer.cpp:2115
 msgid "DCC Status"
 msgstr "DCC ステータス"
 
-#: src/dcc/transferpanel.cpp:77
-msgid "Accept"
-msgstr "受信"
-
-#: src/dcc/transferpanel.cpp:79
-msgid "Abort"
-msgstr "中止"
+#: src/dcc/transferpanel.cpp:80
+msgid "&Select All Items"
+msgstr "すべてのアイテムを選択(&S)"
 
 #: src/dcc/transferpanel.cpp:81
-#, fuzzy
-#| msgid "&Clear"
-msgid "Clear"
-msgstr "クリア(&C)"
+msgid "S&elect All Completed Items"
+msgstr "すべての完了したアイテムを選択(&E)"
 
 #: src/dcc/transferpanel.cpp:83
-msgid "Open File"
-msgstr "ファイルを開く"
+msgid "&Accept"
+msgstr "受信(&A)"
 
-#: src/dcc/transferpanel.cpp:85 src/dcc/transferpanel.cpp:118
+#: src/dcc/transferpanel.cpp:84
+msgid "Start receiving"
+msgstr "受信を開始"
+
+#: src/dcc/transferpanel.cpp:85
+msgid "A&bort"
+msgstr "中止(&B)"
+
+#: src/dcc/transferpanel.cpp:86
+msgid "Abort the transfer(s)"
+msgstr "転送を中止"
+
+#: src/dcc/transferpanel.cpp:88
+msgid "Resend"
+msgstr "再送"
+
+#: src/dcc/transferpanel.cpp:89
+msgid "&Clear"
+msgstr "クリア(&C)"
+
+#: src/dcc/transferpanel.cpp:90
+#, fuzzy
+#| msgid "S&elect All Completed Items"
+msgid "Clear all selected Items"
+msgstr "すべての完了したアイテムを選択(&E)"
+
+#: src/dcc/transferpanel.cpp:91
+#, fuzzy
+#| msgid "Clear Logfile"
+msgid "Clear Completed"
+msgstr "ログファイルをクリア"
+
+#: src/dcc/transferpanel.cpp:92
+#, fuzzy
+#| msgid "S&elect All Completed Items"
+msgid "Clear Completed Items"
+msgstr "すべての完了したアイテムを選択(&E)"
+
+#: src/dcc/transferpanel.cpp:94
+msgid "&Open File"
+msgstr "ファイルを開く(&O)"
+
+#: src/dcc/transferpanel.cpp:95
+msgid "Run the file"
+msgstr "ファイルを実行"
+
+#: src/dcc/transferpanel.cpp:96
 #, fuzzy
 #| msgid "Location:"
 msgid "Open Location"
 msgstr "場所:"
 
-#: src/dcc/transferpanel.cpp:87
-msgid "Details"
-msgstr "詳細"
-
-#: src/dcc/transferpanel.cpp:91
-msgid "Start receiving"
-msgstr "受信を開始"
-
-#: src/dcc/transferpanel.cpp:92
-msgid "Abort the transfer(s)"
-msgstr "転送を中止"
-
-#: src/dcc/transferpanel.cpp:93
-msgid "Run the file"
-msgstr "ファイルを実行"
-
-#: src/dcc/transferpanel.cpp:94
+#: src/dcc/transferpanel.cpp:97
 msgid "Open the file location"
 msgstr ""
 
-#: src/dcc/transferpanel.cpp:95
-msgid "View DCC transfer details"
-msgstr "DCC 転送の詳細を表示"
-
-#: src/dcc/transferpanel.cpp:107
-msgid "&Select All Items"
-msgstr "すべてのアイテムを選択(&S)"
-
-#: src/dcc/transferpanel.cpp:108
-msgid "S&elect All Completed Items"
-msgstr "すべての完了したアイテムを選択(&E)"
-
-#: src/dcc/transferpanel.cpp:110
-msgid "&Accept"
-msgstr "受信(&A)"
-
-#: src/dcc/transferpanel.cpp:111
-msgid "A&bort"
-msgstr "中止(&B)"
-
-#: src/dcc/transferpanel.cpp:114
-msgid "Resend"
-msgstr "再送"
-
-#: src/dcc/transferpanel.cpp:115
-msgid "&Clear"
-msgstr "クリア(&C)"
-
-#: src/dcc/transferpanel.cpp:117
-msgid "&Open File"
-msgstr "ファイルを開く(&O)"
-
-#: src/dcc/transferpanel.cpp:119
+#: src/dcc/transferpanel.cpp:98
 msgid "File &Information"
 msgstr "ファイル情報(&I)"
 
-#: src/dcc/transferpanel.cpp:530
+#: src/dcc/transferpanel.cpp:537
 #, kde-format
 msgid "Available information for file %1:"
 msgstr "%1 の情報:"
 
-#: src/dcc/transferpanel.cpp:532 src/dcc/transferpanel.cpp:538
-#: src/dcc/transferpanel.cpp:545
+#: src/dcc/transferpanel.cpp:539 src/dcc/transferpanel.cpp:545
+#: src/dcc/transferpanel.cpp:552
 msgid "File Information"
 msgstr "ファイル情報"
 
-#: src/dcc/transferpanel.cpp:545
+#: src/dcc/transferpanel.cpp:552
 msgid "No detailed information for this file found."
 msgstr "このファイルに関する詳細情報はありません。"
 
@@ -634,18 +683,18 @@ msgstr "上書き(&O)"
 msgid "R&ename"
 msgstr "名前を変更(&E)"
 
-#: src/irc/channeloptionsdialog.cpp:38
+#: src/irc/channeloptionsdialog.cpp:33
 #, kde-format
 msgid "Channel Settings for %1"
 msgstr "%1 のチャンネル設定"
 
-#: src/irc/channeloptionsdialog.cpp:159
+#: src/irc/channeloptionsdialog.cpp:154
 #, fuzzy
 #| msgid "&Hide Advanced Modes <<"
 msgid "&Hide Advanced Modes &lt;&lt;"
 msgstr "詳細モードを隠す(&H) <<"
 
-#: src/irc/channeloptionsdialog.cpp:163
+#: src/irc/channeloptionsdialog.cpp:158
 #, fuzzy
 #| msgid "&Show Advanced Modes >>"
 msgid "&Show Advanced Modes &gt;&gt;"
@@ -653,30 +702,30 @@ msgstr "詳細モードを表示(&S) >>"
 
 #. i18n: file: src/config/nicklistbehavior_configui.ui:98
 #. i18n: ectx: property (text), widget (QTreeWidget, sortOrder)
-#: src/irc/channeloptionsdialog.cpp:262 src/irc/inputfilter.cpp:969
-#: src/irc/inputfilter.cpp:973 src/irc/inputfilter.cpp:2067
-#: src/irc/inputfilter.cpp:2121 src/irc/channelnick.cpp:208
-#: src/irc/channel.cpp:2131 rc.cpp:1533
+#: src/irc/channeloptionsdialog.cpp:257 src/irc/inputfilter.cpp:967
+#: src/irc/inputfilter.cpp:971 src/irc/inputfilter.cpp:2065
+#: src/irc/inputfilter.cpp:2119 src/irc/channelnick.cpp:208
+#: src/irc/channel.cpp:2128 rc.cpp:1557
 msgid "Mode"
 msgstr "モード"
 
-#: src/irc/channeloptionsdialog.cpp:262
+#: src/irc/channeloptionsdialog.cpp:257
 msgid "Parameter"
 msgstr "パラメータ"
 
-#: src/irc/channeloptionsdialog.cpp:626
+#: src/irc/channeloptionsdialog.cpp:621
 #, fuzzy
 #| msgid "&Timestamp:"
 msgid "Timestamp"
 msgstr "タイムスタンプ(&T):"
 
-#: src/irc/channeloptionsdialog.cpp:628
+#: src/irc/channeloptionsdialog.cpp:623
 #, fuzzy
 #| msgid "Artwork"
 msgid "Author"
 msgstr "アートワーク"
 
-#: src/irc/channeloptionsdialog.cpp:689
+#: src/irc/channeloptionsdialog.cpp:684
 #, fuzzy
 #| msgid ""
 #| "<qt>These control the <em>mode</em> of the channel.  Only an operator can "
@@ -691,7 +740,7 @@ msgstr ""
 "けが変更できます。<p><b>T</b> (トピック保護) モードでは、オペレータだけがチャ"
 "ンネルトピックを変更できます。</qt>"
 
-#: src/irc/channeloptionsdialog.cpp:691
+#: src/irc/channeloptionsdialog.cpp:686
 #, fuzzy
 #| msgid ""
 #| "<qt>These control the <em>mode</em> of the channel.  Only an operator can "
@@ -710,7 +759,7 @@ msgstr ""
 "ん。迷惑メッセージを防ぐために、ほとんどすべてのチャンネルはこのモードを有効"
 "にしています。</qt>"
 
-#: src/irc/channeloptionsdialog.cpp:693
+#: src/irc/channeloptionsdialog.cpp:688
 #, fuzzy
 #| msgid ""
 #| "<qt>These control the <em>mode</em> of the channel.  Only an operator can "
@@ -733,7 +782,7 @@ msgstr ""
 "あなたがこのチャンネルにいることは分かりません。このチャンネルにいる人のみが"
 "あなたがこのチャンネルにいることを知ることができます。</qt>"
 
-#: src/irc/channeloptionsdialog.cpp:695
+#: src/irc/channeloptionsdialog.cpp:690
 #, fuzzy
 #| msgid ""
 #| "<qt>These control the <em>mode</em> of the channel.  Only an operator can "
@@ -753,7 +802,7 @@ msgstr ""
 "みが入ることができます。誰かを招待するにはオペレータがチャンネル内でコマンド"
 "「/invite ニックネーム」を実行してください。</qt>"
 
-#: src/irc/channeloptionsdialog.cpp:697
+#: src/irc/channeloptionsdialog.cpp:692
 #, fuzzy
 #| msgid ""
 #| "<qt>These control the <em>mode</em> of the channel.  Only an operator can "
@@ -773,7 +822,7 @@ msgstr ""
 "ストに表示されますが、トピックは公開されません。WHOIS コマンドによって表示さ"
 "れるかどうかは IRC サーバによって異なります。</qt>"
 
-#: src/irc/channeloptionsdialog.cpp:699
+#: src/irc/channeloptionsdialog.cpp:694
 #, fuzzy
 #| msgid ""
 #| "<qt>These control the <em>mode</em> of the channel.  Only an operator can "
@@ -788,7 +837,7 @@ msgstr ""
 "けが変更できます。<p><b>M</b> (モデレート) モードのチャンネルではオペレータ、"
 "サブオペレータ、発言権を持っている人のみが発言できます。</qt>"
 
-#: src/irc/channeloptionsdialog.cpp:701
+#: src/irc/channeloptionsdialog.cpp:696
 #, fuzzy
 #| msgid ""
 #| "<qt>These control the <em>mode</em> of the channel.  Only an operator can "
@@ -803,7 +852,7 @@ msgstr ""
 "けが変更できます。<p><b>K</b> (パスワード保護) モードのチャンネルに入るにはパ"
 "スワードを入力する必要があります。</qt>"
 
-#: src/irc/channeloptionsdialog.cpp:703
+#: src/irc/channeloptionsdialog.cpp:698
 #, fuzzy
 #| msgid ""
 #| "<qt>These control the <em>mode</em> of the channel.  Only an operator can "
@@ -823,26 +872,27 @@ msgstr ""
 "を制限します。チャンネルの混み具合によって自動的にこの値を変更するボットが常"
 "駐しているチャンネルもあります。</qt>"
 
-#: src/irc/nicklistview.cpp:114 src/irc/nicksonline.cpp:915
-#: src/irc/nicksonline.cpp:933 src/irc/query.cpp:81 src/viewer/ircview.cpp:826
+#: src/irc/nicklistview.cpp:114 src/irc/nicksonline.cpp:912
+#: src/irc/nicksonline.cpp:930 src/irc/query.cpp:81
+#: src/viewer/ircview.cpp:1151
 msgid "&Whois"
 msgstr "ユーザ情報 (&Whois)"
 
 #: src/irc/nicklistview.cpp:115 src/irc/query.cpp:82
-#: src/viewer/ircview.cpp:828
+#: src/viewer/ircview.cpp:1153
 msgid "&Version"
 msgstr "バージョン情報 (CTCP &Version)"
 
 #: src/irc/nicklistview.cpp:116 src/irc/query.cpp:83
-#: src/viewer/ircview.cpp:830
+#: src/viewer/ircview.cpp:1155
 msgid "&Ping"
 msgstr "ラグ測定 (CTCP &Ping)"
 
-#: src/irc/nicklistview.cpp:122 src/viewer/ircview.cpp:838
+#: src/irc/nicklistview.cpp:122 src/viewer/ircview.cpp:1163
 msgid "Give Op"
 msgstr "オペレータ権限を与える (Mode +o)"
 
-#: src/irc/nicklistview.cpp:126 src/viewer/ircview.cpp:843
+#: src/irc/nicklistview.cpp:126 src/viewer/ircview.cpp:1168
 msgid "Take Op"
 msgstr "オペレータ権限を奪う (Mode -o)"
 
@@ -854,85 +904,85 @@ msgstr "サブオペレータ権限を与える (Mode +h)"
 msgid "Take HalfOp"
 msgstr "サブオペレータ権限を奪う (Mode -h)"
 
-#: src/irc/nicklistview.cpp:132 src/viewer/ircview.cpp:848
+#: src/irc/nicklistview.cpp:132 src/viewer/ircview.cpp:1173
 msgid "Give Voice"
 msgstr "発言権を与える (Mode +v)"
 
-#: src/irc/nicklistview.cpp:136 src/viewer/ircview.cpp:853
+#: src/irc/nicklistview.cpp:136 src/viewer/ircview.cpp:1178
 msgid "Take Voice"
 msgstr "発言権を奪う (Mode -v)"
 
-#: src/irc/nicklistview.cpp:140 src/viewer/ircview.cpp:837
+#: src/irc/nicklistview.cpp:140 src/viewer/ircview.cpp:1162
 msgid "Modes"
 msgstr "モード (Mode)"
 
-#: src/irc/nicklistview.cpp:147 src/irc/channel.cpp:1506
-#: src/irc/channel.cpp:1508 src/irc/channel.cpp:1515 src/irc/channel.cpp:1520
-#: src/irc/channel.cpp:1541 src/irc/channel.cpp:1543 src/irc/channel.cpp:1550
-#: src/irc/channel.cpp:1555 src/viewer/ircview.cpp:860
+#: src/irc/nicklistview.cpp:147 src/irc/channel.cpp:1503
+#: src/irc/channel.cpp:1505 src/irc/channel.cpp:1512 src/irc/channel.cpp:1517
+#: src/irc/channel.cpp:1538 src/irc/channel.cpp:1540 src/irc/channel.cpp:1547
+#: src/irc/channel.cpp:1552 src/viewer/ircview.cpp:1185
 msgid "Kick"
 msgstr "追い出す (Kick)"
 
-#: src/irc/nicklistview.cpp:148 src/viewer/ircview.cpp:862
+#: src/irc/nicklistview.cpp:148 src/viewer/ircview.cpp:1187
 msgid "Kickban"
 msgstr "追い出して締め出す (Kickban)"
 
-#: src/irc/nicklistview.cpp:149 src/viewer/ircview.cpp:864
+#: src/irc/nicklistview.cpp:149 src/viewer/ircview.cpp:1189
 msgid "Ban Nickname"
 msgstr "締め出す (Ban)"
 
-#: src/irc/nicklistview.cpp:151 src/viewer/ircview.cpp:867
+#: src/irc/nicklistview.cpp:151 src/viewer/ircview.cpp:1192
 msgid "Ban *!*@*.host"
 msgstr "Ban *!*@*.ホスト"
 
-#: src/irc/nicklistview.cpp:152 src/viewer/ircview.cpp:869
+#: src/irc/nicklistview.cpp:152 src/viewer/ircview.cpp:1194
 msgid "Ban *!*@domain"
 msgstr "Ban *!*@ドメイン"
 
-#: src/irc/nicklistview.cpp:153 src/viewer/ircview.cpp:871
+#: src/irc/nicklistview.cpp:153 src/viewer/ircview.cpp:1196
 msgid "Ban *!user@*.host"
 msgstr "Ban *!ユーザ名@*.ホスト"
 
-#: src/irc/nicklistview.cpp:154 src/viewer/ircview.cpp:873
+#: src/irc/nicklistview.cpp:154 src/viewer/ircview.cpp:1198
 msgid "Ban *!user@domain"
 msgstr "Ban *!ユーザ名@ドメイン"
 
-#: src/irc/nicklistview.cpp:156 src/viewer/ircview.cpp:876
+#: src/irc/nicklistview.cpp:156 src/viewer/ircview.cpp:1201
 msgid "Kickban *!*@*.host"
 msgstr "Kickban *!*@*.ホスト"
 
-#: src/irc/nicklistview.cpp:157 src/viewer/ircview.cpp:878
+#: src/irc/nicklistview.cpp:157 src/viewer/ircview.cpp:1203
 msgid "Kickban *!*@domain"
 msgstr "Kickban *!*@ドメイン"
 
-#: src/irc/nicklistview.cpp:158 src/viewer/ircview.cpp:880
+#: src/irc/nicklistview.cpp:158 src/viewer/ircview.cpp:1205
 msgid "Kickban *!user@*.host"
 msgstr "Kickban *!ユーザ名@*.ホスト"
 
-#: src/irc/nicklistview.cpp:159 src/viewer/ircview.cpp:882
+#: src/irc/nicklistview.cpp:159 src/viewer/ircview.cpp:1207
 msgid "Kickban *!user@domain"
 msgstr "Kickban *!ユーザ名@ドメイン"
 
-#: src/irc/nicklistview.cpp:160 src/viewer/ircview.cpp:859
+#: src/irc/nicklistview.cpp:160 src/viewer/ircview.cpp:1184
 msgid "Kick / Ban"
 msgstr "追放 (Kick / Ban)"
 
-#: src/irc/nicklistview.cpp:165 src/irc/outputfilter.cpp:1277
-#: src/irc/outputfilter.cpp:1342 src/irc/query.cpp:86 src/irc/query.cpp:394
-#: src/irc/query.cpp:395 src/irc/channel.cpp:673 src/irc/channel.cpp:674
-#: src/config/settingsdialog.cpp:137 src/config/warnings_config.cpp:118
-#: src/viewer/ircview.cpp:886
+#: src/irc/nicklistview.cpp:165 src/irc/outputfilter.cpp:1433
+#: src/irc/outputfilter.cpp:1504 src/irc/query.cpp:86 src/irc/query.cpp:394
+#: src/irc/query.cpp:395 src/irc/channel.cpp:670 src/irc/channel.cpp:671
+#: src/config/settingsdialog.cpp:131 src/config/warnings_config.cpp:118
+#: src/viewer/ircview.cpp:1211
 msgid "Ignore"
 msgstr "無視 (Ignore)"
 
 #: src/irc/nicklistview.cpp:166 src/irc/query.cpp:87 src/irc/query.cpp:420
-#: src/irc/query.cpp:421 src/irc/channel.cpp:698 src/irc/channel.cpp:699
-#: src/config/warnings_config.cpp:119 src/viewer/ircview.cpp:887
+#: src/irc/query.cpp:421 src/irc/channel.cpp:695 src/irc/channel.cpp:696
+#: src/config/warnings_config.cpp:119 src/viewer/ircview.cpp:1212
 msgid "Unignore"
 msgstr "無視を解除 (Unignore)"
 
-#: src/irc/nicklistview.cpp:170 src/irc/nicksonline.cpp:916
-#: src/irc/nicksonline.cpp:934
+#: src/irc/nicklistview.cpp:170 src/irc/nicksonline.cpp:913
+#: src/irc/nicksonline.cpp:931
 msgid "Open &Query"
 msgstr "クエリー (1対1で会話) (&Q)"
 
@@ -960,7 +1010,7 @@ msgid ""
 msgstr ""
 
 #: src/irc/nicklistview.cpp:176 src/irc/query.cpp:91
-#: src/viewer/ircview.cpp:901
+#: src/viewer/ircview.cpp:1226
 msgid "Send &File..."
 msgstr "ファイルを送信 (DCC Send) (&F)..."
 
@@ -971,7 +1021,7 @@ msgid ""
 "page.</qt>"
 msgstr ""
 
-#: src/irc/nicklistview.cpp:180 src/irc/nicksonline.cpp:924
+#: src/irc/nicklistview.cpp:180 src/irc/nicksonline.cpp:921
 #: src/linkaddressbook/addressbook_base.cpp:501
 msgid "&Send Email..."
 msgstr "Eメールを送信(&S)..."
@@ -983,7 +1033,7 @@ msgid "Address Book Associations"
 msgstr "アドレス帳関連付け"
 
 #: src/irc/nicklistview.cpp:191 src/irc/query.cpp:95
-#: src/viewer/ircview.cpp:907
+#: src/viewer/ircview.cpp:1232
 msgid "Add to Watched Nicks"
 msgstr "監視するニックに追加"
 
@@ -1089,7 +1139,7 @@ msgstr " (認証済み)"
 #. i18n: file: src/linkaddressbook/linkaddressbookui_base.ui:99
 #. i18n: ectx: property (text), widget (K3ListView, addresseeListView)
 #: src/irc/nickinfo.cpp:388 src/linkaddressbook/linkaddressbookui.cpp:64
-#: rc.cpp:1833
+#: rc.cpp:1857
 msgid "Email"
 msgstr "Eメール"
 
@@ -1109,16 +1159,16 @@ msgstr "(不明)"
 msgid "Online Since:"
 msgstr "接続開始:"
 
-#: src/irc/joinchanneldialog.cpp:26
+#: src/irc/joinchanneldialog.cpp:25
 #, kde-format
 msgid "Join Channel on %1"
 msgstr "%1 のチャンネルに入る"
 
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:84
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:83
 msgid "C&onnect"
 msgstr "接続(&O)"
 
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:84
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:83
 msgid "Connect to the server"
 msgstr "サーバに接続"
 
@@ -1178,37 +1228,37 @@ msgstr "本当に選択したエントリを削除しますか？"
 msgid "Do you really want to delete %1?"
 msgstr "本当に %1 を削除しますか？"
 
-#: src/irc/outputfilter.cpp:204
+#: src/irc/outputfilter.cpp:208
 msgid ""
 "The message you're sending includes characters that do not exist in your "
 "current encoding. If you choose to continue anyway those characters will be "
 "replaced by a '?'."
 msgstr ""
 
-#: src/irc/outputfilter.cpp:208
+#: src/irc/outputfilter.cpp:212
 msgid "Encoding Conflict Warning"
 msgstr ""
 
-#: src/irc/outputfilter.cpp:306
+#: src/irc/outputfilter.cpp:316
 msgid "Raw"
 msgstr "Raw"
 
-#: src/irc/outputfilter.cpp:358
+#: src/irc/outputfilter.cpp:373
 #, kde-format
 msgid "Usage: %1JOIN <channel> [password]"
 msgstr "使い方: %1JOIN <チャンネル名> [パスワード]"
 
-#: src/irc/outputfilter.cpp:393
+#: src/irc/outputfilter.cpp:412
 #, kde-format
 msgid "Usage: %1KICK <nick> [reason]"
 msgstr "使い方: %1KICK <ニック> [理由]"
 
-#: src/irc/outputfilter.cpp:407
+#: src/irc/outputfilter.cpp:426
 #, kde-format
 msgid "%1KICK only works from within channels."
 msgstr "%1KICK はチャンネルの中でのみ使用できます。"
 
-#: src/irc/outputfilter.cpp:421
+#: src/irc/outputfilter.cpp:446
 #, fuzzy, kde-format
 #| msgid ""
 #| "%1PART without parameters only works from within a channel or a query."
@@ -1218,22 +1268,22 @@ msgid ""
 msgstr ""
 "%1PART はチャンネルまたはクエリーの中でのみパラメータなしに使用できます。"
 
-#: src/irc/outputfilter.cpp:445
+#: src/irc/outputfilter.cpp:471
 #, kde-format
 msgid "%1PART without channel name only works from within a channel."
 msgstr "%1PART はチャンネルの中でのみチャンネル名なしに使用できます。"
 
-#: src/irc/outputfilter.cpp:464
+#: src/irc/outputfilter.cpp:495
 #, kde-format
 msgid "%1TOPIC without parameters only works from within a channel."
 msgstr "%1TOPIC はチャンネルの中でのみパラメータなしに使用できます。"
 
-#: src/irc/outputfilter.cpp:500
+#: src/irc/outputfilter.cpp:532
 #, kde-format
 msgid "%1TOPIC without channel name only works from within a channel."
 msgstr "%1TOPIC はチャンネルの中でのみチャンネル名なしに使用できます。"
 
-#: src/irc/outputfilter.cpp:543
+#: src/irc/outputfilter.cpp:590
 #, kde-format
 msgid ""
 "%1NAMES with no target may disconnect you from the server. Specify '*' if "
@@ -1242,7 +1292,7 @@ msgstr ""
 "ターゲットを指定しない %1NAMES コマンドを使うと、おそらくサーバから切断されま"
 "す。これを本当に実行する場合は '*' を指定してください。"
 
-#: src/irc/outputfilter.cpp:560
+#: src/irc/outputfilter.cpp:613
 #, c-format, kde-format
 msgid ""
 "Usage: %1close [window] closes the named channel or query tab, or the "
@@ -1251,181 +1301,181 @@ msgstr ""
 "使い方: %1close [ウィンドウ名] で、指定した名前のチャンネルまたはクエリータブ"
 "を閉じます。指定がなければ現在のタブを閉じます。"
 
-#: src/irc/outputfilter.cpp:579
+#: src/irc/outputfilter.cpp:642
 #, kde-format
 msgid "Usage: %1NOTICE <recipient> <message>"
 msgstr "使い方: %1NOTICE <送信先> <メッセージ>"
 
 #. i18n: file: src/config/ignore_configui.ui:104
 #. i18n: ectx: property (text), widget (QCheckBox, chkNotice)
-#: src/irc/outputfilter.cpp:582 src/irc/outputfilter.cpp:792
-#: src/irc/inputfilter.cpp:486 src/irc/inputfilter.cpp:554
-#: src/irc/inputfilter.cpp:559 src/irc/inputfilter.cpp:582
-#: src/irc/inputfilter.cpp:750 src/irc/inputfilter.cpp:1291
-#: src/irc/server.cpp:3588 src/irc/server.cpp:3609
+#: src/irc/outputfilter.cpp:646 src/irc/outputfilter.cpp:874
+#: src/irc/inputfilter.cpp:484 src/irc/inputfilter.cpp:552
+#: src/irc/inputfilter.cpp:557 src/irc/inputfilter.cpp:580
+#: src/irc/inputfilter.cpp:748 src/irc/inputfilter.cpp:1289
+#: src/irc/server.cpp:3574 src/irc/server.cpp:3595
 #: src/viewer/ignorelistviewitem.cpp:44 rc.cpp:886
 msgid "Notice"
 msgstr "Notice"
 
-#: src/irc/outputfilter.cpp:584
+#: src/irc/outputfilter.cpp:649
 #, fuzzy, kde-format
 #| msgid "Sending notice \"%1\" to %2."
 msgctxt "%1 is the message, %2 the recipient nickname"
 msgid "Sending notice \"%1\" to %2."
 msgstr "Notice \"%1\" を %2 に送信しています。"
 
-#: src/irc/outputfilter.cpp:593
+#: src/irc/outputfilter.cpp:661
 #, kde-format
 msgid "Usage: %1ME text"
 msgstr "使い方: %1ME テキスト"
 
-#: src/irc/outputfilter.cpp:655
+#: src/irc/outputfilter.cpp:727
 msgid "Error: You need to specify a recipient."
 msgstr ""
 
-#: src/irc/outputfilter.cpp:664
+#: src/irc/outputfilter.cpp:732
 msgid "Error: You cannot open queries to channels."
 msgstr ""
 
-#: src/irc/outputfilter.cpp:674
+#: src/irc/outputfilter.cpp:738
 msgid "Error: You need to specify a message."
 msgstr ""
 
-#: src/irc/outputfilter.cpp:751 src/irc/outputfilter.cpp:756
+#: src/irc/outputfilter.cpp:821 src/irc/outputfilter.cpp:826
 #, kde-format
 msgid "Sending CTCP-%1 request to %2."
 msgstr "CTCP-%1 リクエストを %2 に送信しています。"
 
-#: src/irc/outputfilter.cpp:766
+#: src/irc/outputfilter.cpp:838
 #, c-format, kde-format
 msgid "Usage: %1AME text"
 msgstr "使い方: %1AME テキスト"
 
-#: src/irc/outputfilter.cpp:774
+#: src/irc/outputfilter.cpp:848
 #, c-format, kde-format
 msgid "Usage: %1AMSG text"
 msgstr "使い方: %1AMSG テキスト"
 
-#: src/irc/outputfilter.cpp:784
+#: src/irc/outputfilter.cpp:858
 #, kde-format
 msgid "Usage: %1OMSG text"
 msgstr "使い方: %1OMSG テキスト"
 
-#: src/irc/outputfilter.cpp:794
+#: src/irc/outputfilter.cpp:876
 #, kde-format
 msgid "Sending notice \"%1\" to %2."
 msgstr "Notice \"%1\" を %2 に送信しています。"
 
-#: src/irc/outputfilter.cpp:797
+#: src/irc/outputfilter.cpp:879
 #, kde-format
 msgid "Usage: %1ONOTICE text"
 msgstr "使い方: %1ONOTICE テキスト"
 
-#: src/irc/outputfilter.cpp:803
+#: src/irc/outputfilter.cpp:889
 #, kde-format
 msgid "Usage: %1QUOTE command list"
 msgstr "使い方: %1QUOTE コマンドリスト"
 
-#: src/irc/outputfilter.cpp:811
+#: src/irc/outputfilter.cpp:901
 #, c-format, kde-format
 msgid "Usage: %1SAY text"
 msgstr "使い方: %1SAY テキスト"
 
-#: src/irc/outputfilter.cpp:855
+#: src/irc/outputfilter.cpp:946
 #, kde-format
 msgid "File \"%1\" does not exist."
 msgstr "ファイル \"%1\" は存在しません。"
 
-#: src/irc/outputfilter.cpp:858
+#: src/irc/outputfilter.cpp:949
 #, kde-format
 msgid "Usage: %1DCC [SEND nickname filename]"
 msgstr "使い方: %1DCC [SEND ニックネーム ファイル名]"
 
-#: src/irc/outputfilter.cpp:875
+#: src/irc/outputfilter.cpp:967
 #, fuzzy, kde-format
 #| msgid "Usage: %1DCC [SEND nickname filename]"
 msgid "Usage: %1DCC [GET [nickname [filename]]]"
 msgstr "使い方: %1DCC [SEND ニックネーム ファイル名]"
 
-#: src/irc/outputfilter.cpp:884
+#: src/irc/outputfilter.cpp:977
 #, kde-format
 msgid "Usage: %1DCC [CHAT nickname]"
 msgstr "使い方: %1DCC [CHAT ニックネーム]"
 
-#: src/irc/outputfilter.cpp:887
+#: src/irc/outputfilter.cpp:981
 #, kde-format
 msgid "Unrecognized command %1DCC %2. Possible commands are SEND, CHAT, CLOSE."
 msgstr ""
 "コマンド %1DCC %2 を認識できません。使用できるコマンドは SEND, CHAT, CLOSE で"
 "す。"
 
-#: src/irc/outputfilter.cpp:984
+#: src/irc/outputfilter.cpp:1101
 #, kde-format
 msgid "Usage: %1INVITE <nick> [channel]"
 msgstr "使い方: %1INVITE <ニック> [チャンネル名]"
 
-#: src/irc/outputfilter.cpp:995
+#: src/irc/outputfilter.cpp:1112
 #, kde-format
 msgid "%1INVITE without channel name works only from within channels."
 msgstr "%1INVITE はチャンネルにいるときのみチャンネル名なしに使用できます。"
 
-#: src/irc/outputfilter.cpp:1003
+#: src/irc/outputfilter.cpp:1121
 #, kde-format
 msgid "%1 is not a channel."
 msgstr "%1 はチャンネルではありません。"
 
-#: src/irc/outputfilter.cpp:1011
+#: src/irc/outputfilter.cpp:1133
 #, c-format, kde-format
 msgid "Usage: %1EXEC <script> [parameter list]"
 msgstr "使い方: %1EXEC <スクリプト> [パラメータリスト]"
 
-#: src/irc/outputfilter.cpp:1019
+#: src/irc/outputfilter.cpp:1142
 #, fuzzy
 #| msgid "Script name may not contain \"../\"!"
 msgid "Script name may not contain \"../\"."
 msgstr "スクリプト名に \"../\" を含めることはできません。"
 
-#: src/irc/outputfilter.cpp:1030
+#: src/irc/outputfilter.cpp:1157
 #, kde-format
 msgid "Usage: %1RAW [OPEN | CLOSE]"
 msgstr "使い方: %1RAW [OPEN | CLOSE]"
 
-#: src/irc/outputfilter.cpp:1061 src/irc/server.cpp:2473
-#: src/irc/server.cpp:2491 src/viewer/ircview.cpp:377
+#: src/irc/outputfilter.cpp:1195 src/irc/server.cpp:2459
+#: src/irc/server.cpp:2477 src/viewer/ircview.cpp:662
 msgid "Notify"
 msgstr "通知"
 
-#: src/irc/outputfilter.cpp:1064
+#: src/irc/outputfilter.cpp:1198
 msgid "Current notify list is empty."
 msgstr "現在の通知リストは空です。"
 
-#: src/irc/outputfilter.cpp:1066
+#: src/irc/outputfilter.cpp:1200
 #, kde-format
 msgid "Current notify list: %1"
 msgstr "現在の通知リスト: %1"
 
-#: src/irc/outputfilter.cpp:1086
+#: src/irc/outputfilter.cpp:1224
 #, fuzzy
 #| msgid "Enter user name and password for IRC operator privileges:"
 msgid "Enter username and password for IRC operator privileges:"
 msgstr "IRC オペレータ権限用のユーザ名とパスワードを入力してください:"
 
-#: src/irc/outputfilter.cpp:1088
+#: src/irc/outputfilter.cpp:1226
 msgid "IRC Operator Password"
 msgstr "IRC オペレータパスワード"
 
-#: src/irc/outputfilter.cpp:1148
+#: src/irc/outputfilter.cpp:1290
 #, kde-format
 msgid "%1BAN without channel name works only from inside a channel."
 msgstr "%1BAN はチャンネルの中にいるときのみチャンネル名なしに使用できます。"
 
-#: src/irc/outputfilter.cpp:1150
+#: src/irc/outputfilter.cpp:1293
 #, kde-format
 msgid "%1KICKBAN without channel name works only from inside a channel."
 msgstr ""
 "%1KICKBAN はチャンネルの中にいるときのみチャンネル名なしに使用できます。"
 
-#: src/irc/outputfilter.cpp:1181
+#: src/irc/outputfilter.cpp:1325
 #, kde-format
 msgid ""
 "Usage: %1BAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [channel] <user|"
@@ -1434,7 +1484,7 @@ msgstr ""
 "使い方: %1BAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [チャンネル名] <"
 "ユーザ名|マスク>"
 
-#: src/irc/outputfilter.cpp:1183
+#: src/irc/outputfilter.cpp:1328
 #, kde-format
 msgid ""
 "Usage: %1KICKBAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [channel] <user|"
@@ -1443,37 +1493,37 @@ msgstr ""
 "使い方: %1KICKBAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [チャンネル名] "
 "<ユーザ名|マスク> [理由]"
 
-#: src/irc/outputfilter.cpp:1220
+#: src/irc/outputfilter.cpp:1371
 #, kde-format
 msgid "%1UNBAN without channel name works only from inside a channel."
 msgstr "%1UNBAN はチャンネルの中にいるときのみチャンネル名なしに使用できます。"
 
-#: src/irc/outputfilter.cpp:1234
+#: src/irc/outputfilter.cpp:1386
 #, kde-format
 msgid "Usage: %1UNBAN [channel] pattern"
 msgstr "使い方: %1UNBAN [チャンネル名] パターン"
 
-#: src/irc/outputfilter.cpp:1276
+#: src/irc/outputfilter.cpp:1432
 #, kde-format
 msgid "Added %1 to your ignore list."
 msgstr "%1 を無視リストに追加しました。"
 
-#: src/irc/outputfilter.cpp:1286
+#: src/irc/outputfilter.cpp:1442
 #, kde-format
 msgid "Usage: %1IGNORE [ -ALL ] <user 1> <user 2> ... <user n>"
 msgstr "使い方: %1IGNORE [ -ALL ] <ユーザ 1> <ユーザ 2> ... <ユーザ n>"
 
-#: src/irc/outputfilter.cpp:1292
+#: src/irc/outputfilter.cpp:1453
 #, kde-format
 msgid "Usage: %1UNIGNORE <user 1> <user 2> ... <user n>"
 msgstr "使い方: %1UNIGNORE <ユーザ 1> <ユーザ 2> ... <ユーザ n>"
 
-#: src/irc/outputfilter.cpp:1342
+#: src/irc/outputfilter.cpp:1504
 #, kde-format
 msgid "Removed %1 from your ignore list."
 msgstr "%1 を無視リストから削除しました。"
 
-#: src/irc/outputfilter.cpp:1349
+#: src/irc/outputfilter.cpp:1512
 #, fuzzy, kde-format
 #| msgid "No such ignore: %1"
 msgid "No such ignore: %2"
@@ -1481,22 +1531,22 @@ msgid_plural "No such ignores: %2"
 msgstr[0] "%1: 無視リストにありません。"
 msgstr[1] "%1: 無視リストにありません。"
 
-#: src/irc/outputfilter.cpp:1392
+#: src/irc/outputfilter.cpp:1564
 #, kde-format
 msgid "Current encoding is: %1"
 msgstr "現在のエンコーディング: %1"
 
-#: src/irc/outputfilter.cpp:1403
+#: src/irc/outputfilter.cpp:1575
 #, kde-format
 msgid "Switched to %1 encoding."
 msgstr "エンコーディング %1 に切り替えました。"
 
-#: src/irc/outputfilter.cpp:1406
+#: src/irc/outputfilter.cpp:1578
 #, kde-format
 msgid "%1 is not a valid encoding."
 msgstr "%1 は有効なエンコーディングではありません。"
 
-#: src/irc/outputfilter.cpp:1423
+#: src/irc/outputfilter.cpp:1598
 #, c-format, kde-format
 msgid ""
 "Usage: %1setkey <nick|channel> <key> sets the encryption key for nick or "
@@ -1509,12 +1559,12 @@ msgid ""
 "Codebook (ECB)."
 msgstr ""
 
-#: src/irc/outputfilter.cpp:1435
+#: src/irc/outputfilter.cpp:1616
 #, kde-format
 msgid "The key for %1 has been set."
 msgstr "%1 の鍵を設定しました。"
 
-#: src/irc/outputfilter.cpp:1437 src/irc/outputfilter.cpp:1459
+#: src/irc/outputfilter.cpp:1618 src/irc/outputfilter.cpp:1644
 msgid ""
 "Setting an encryption key requires Konversation to have been built with "
 "support for the Qt Cryptographic Architecture (QCA) library. Contact your "
@@ -1522,18 +1572,18 @@ msgid ""
 "Konversation with QCA present."
 msgstr ""
 
-#: src/irc/outputfilter.cpp:1450
+#: src/irc/outputfilter.cpp:1637
 #, kde-format
 msgid ""
 "Usage: %1keyx <nick|channel> triggers DH1080 key exchange with the target."
 msgstr ""
 
-#: src/irc/outputfilter.cpp:1457
+#: src/irc/outputfilter.cpp:1642
 #, kde-format
 msgid "Beginning DH1080 key exchange with %1."
 msgstr ""
 
-#: src/irc/outputfilter.cpp:1469
+#: src/irc/outputfilter.cpp:1662
 #, c-format, kde-format
 msgid ""
 "Usage: %1delkey <nick> or <channel> deletes the encryption key for nick or "
@@ -1542,454 +1592,454 @@ msgstr ""
 "使い方: %1delkey <ニック> または <チャンネル> で、ニックまたはチャンネルの暗"
 "号化鍵を削除します。"
 
-#: src/irc/outputfilter.cpp:1483
+#: src/irc/outputfilter.cpp:1674
 #, kde-format
 msgid "The key for %1 has been deleted."
 msgstr "%1 の鍵を削除しました。"
 
-#: src/irc/outputfilter.cpp:1486 src/irc/outputfilter.cpp:1500
+#: src/irc/outputfilter.cpp:1677 src/irc/outputfilter.cpp:1697
 #, kde-format
 msgid "No key has been set for %1."
 msgstr "%1 には鍵が設定されていません。"
 
-#: src/irc/outputfilter.cpp:1498
+#: src/irc/outputfilter.cpp:1694
 #, kde-format
 msgid "The key for %1 is \"%2\"."
 msgstr "%1 の鍵は \"%2\" です。"
 
-#: src/irc/outputfilter.cpp:1498
+#: src/irc/outputfilter.cpp:1695
 msgid "Blowfish"
 msgstr "Blowfish"
 
-#: src/irc/outputfilter.cpp:1506
+#: src/irc/outputfilter.cpp:1707
 #, kde-format
 msgid "Usage: %1KILL <nick> [comment]"
 msgstr "使い方: %1KILL <ニック> [コメント]"
 
-#: src/irc/outputfilter.cpp:1518
+#: src/irc/outputfilter.cpp:1723
 #, kde-format
 msgid "Usage: %1DNS <nick>"
 msgstr "使い方: %1DNS <ニック>"
 
-#: src/irc/outputfilter.cpp:1533 src/irc/outputfilter.cpp:1552
-#: src/irc/inputfilter.cpp:1400
+#: src/irc/outputfilter.cpp:1738 src/irc/outputfilter.cpp:1757
+#: src/irc/inputfilter.cpp:1398
 msgid "DNS"
 msgstr "DNS"
 
-#: src/irc/outputfilter.cpp:1534 src/irc/outputfilter.cpp:1553
+#: src/irc/outputfilter.cpp:1739 src/irc/outputfilter.cpp:1758
 #, kde-format
 msgid "Resolved %1 to: %2"
 msgstr "%1 を次に解決しました: %2"
 
-#: src/irc/outputfilter.cpp:1538 src/irc/outputfilter.cpp:1557
+#: src/irc/outputfilter.cpp:1743 src/irc/outputfilter.cpp:1762
 #, kde-format
 msgid "Unable to resolve %1"
 msgstr "%1 を解決できません"
 
-#: src/irc/outputfilter.cpp:1585
+#: src/irc/outputfilter.cpp:1796
 #, c-format, kde-format
 msgid "Usage: %1queuetuner [on | off]"
 msgstr "使い方: %1queuetuner [on | off]"
 
-#: src/irc/outputfilter.cpp:1644
+#: src/irc/outputfilter.cpp:1858
 msgid "Usage"
 msgstr "使い方"
 
-#: src/irc/outputfilter.cpp:1653 src/irc/server.cpp:214 src/irc/server.cpp:381
-#: src/irc/server.cpp:436 src/irc/server.cpp:567 src/irc/server.cpp:578
-#: src/irc/server.cpp:761 src/connectionmanager.cpp:203
-#: src/connectionmanager.cpp:212
+#: src/irc/outputfilter.cpp:1867 src/irc/server.cpp:211 src/irc/server.cpp:347
+#: src/irc/server.cpp:402 src/irc/server.cpp:533 src/irc/server.cpp:544
+#: src/irc/server.cpp:728 src/connectionmanager.cpp:203
+#: src/connectionmanager.cpp:213
 msgid "Info"
 msgstr "情報"
 
-#: src/irc/inputfilter.cpp:272
+#: src/irc/inputfilter.cpp:270
 #, kde-format
 msgid "Received CTCP-PING request from %1 to channel %2, sending answer."
 msgstr ""
 "%1 からチャンネル %2 に対する CTCP-PING リクエストを受け取りました。応答して"
 "います。"
 
-#: src/irc/inputfilter.cpp:279 src/irc/inputfilter.cpp:434
-#: src/irc/inputfilter.cpp:442
+#: src/irc/inputfilter.cpp:277 src/irc/inputfilter.cpp:432
+#: src/irc/inputfilter.cpp:440
 #, kde-format
 msgid "Received CTCP-%1 request from %2, sending answer."
 msgstr "%2 から CTCP-%1 リクエストを受け取りました。応答しています。"
 
-#: src/irc/inputfilter.cpp:295
+#: src/irc/inputfilter.cpp:293
 #, kde-format
 msgid "Received Version request from %1 to channel %2."
 msgstr "%1 からチャンネル %2 に対する Version リクエストを受け取りました。"
 
-#: src/irc/inputfilter.cpp:302
+#: src/irc/inputfilter.cpp:300
 #, kde-format
 msgid "Received Version request from %1."
 msgstr "%1 から Version リクエストを受け取りました。"
 
-#: src/irc/inputfilter.cpp:371
+#: src/irc/inputfilter.cpp:369
 #, kde-format
 msgid "Received invalid DCC SEND request from %1."
 msgstr "%1 から無効な DCC SEND リクエストを受け取りました。"
 
-#: src/irc/inputfilter.cpp:386
+#: src/irc/inputfilter.cpp:384
 #, kde-format
 msgid "Received invalid DCC ACCEPT request from %1."
 msgstr "%1 から無効な DCC ACCEPT リクエストを受け取りました。"
 
-#: src/irc/inputfilter.cpp:401
+#: src/irc/inputfilter.cpp:399
 #, kde-format
 msgid "Received invalid DCC RESUME request from %1."
 msgstr "%1 から無効な DCC RESUME リクエストを受け取りました。"
 
-#: src/irc/inputfilter.cpp:417
+#: src/irc/inputfilter.cpp:415
 #, kde-format
 msgid "Received invalid DCC CHAT request from %1."
 msgstr "%1 から無効な DCC CHAT リクエストを受け取りました。"
 
-#: src/irc/inputfilter.cpp:425
+#: src/irc/inputfilter.cpp:423
 #, kde-format
 msgid "Unknown DCC command %1 received from %2."
 msgstr "%2 から未知の DCC コマンド %1 を受け取りました。"
 
-#: src/irc/inputfilter.cpp:457
+#: src/irc/inputfilter.cpp:455
 #, kde-format
 msgid "Received unknown CTCP-%1 request from %2 to Channel %3."
 msgstr ""
 "%2 からチャンネル %3 に対する未知の CTCP-%1 リクエストを受け取りました。"
 
-#: src/irc/inputfilter.cpp:462
+#: src/irc/inputfilter.cpp:460
 #, kde-format
 msgid "Received unknown CTCP-%1 request from %2."
 msgstr "%2 から未知の CTCP-%1 リクエストを受け取りました。"
 
-#: src/irc/inputfilter.cpp:487
+#: src/irc/inputfilter.cpp:485
 #, kde-format
 msgid "-%1 to %2- %3"
 msgstr "-%1 -> %2- %3"
 
-#: src/irc/inputfilter.cpp:513
+#: src/irc/inputfilter.cpp:511
 #, kde-format
 msgid "Received CTCP-PING reply from %1: %2 %3."
 msgstr "%1 から CTCP-PING リクエストに対する応答を受け取りました: %2 %3"
 
-#: src/irc/inputfilter.cpp:541
+#: src/irc/inputfilter.cpp:539
 #, kde-format
 msgid "Received CTCP-%1 reply from %2: %3."
 msgstr "%2 から CTCP-%1 リクエストに対する応答を受け取りました: %3"
 
-#: src/irc/inputfilter.cpp:554
+#: src/irc/inputfilter.cpp:552
 #, kde-format
 msgid "Received DH1080_INIT from %1"
 msgstr ""
 
-#: src/irc/inputfilter.cpp:559
+#: src/irc/inputfilter.cpp:557
 #, kde-format
 msgid "Received DH1080_FINISH from %1"
 msgstr ""
 
-#: src/irc/inputfilter.cpp:582 src/irc/inputfilter.cpp:750
+#: src/irc/inputfilter.cpp:580 src/irc/inputfilter.cpp:748
 #, kde-format
 msgid "-%1- %2"
 msgstr "-%1- %2"
 
-#: src/irc/inputfilter.cpp:689 src/irc/inputfilter.cpp:1352
+#: src/irc/inputfilter.cpp:687 src/irc/inputfilter.cpp:1350
 msgid "Invite"
 msgstr "招待"
 
-#: src/irc/inputfilter.cpp:690
+#: src/irc/inputfilter.cpp:688
 #, kde-format
 msgid "%1 invited you to channel %2."
 msgstr "%1 があなたをチャンネル %2 へ招待しました。"
 
-#: src/irc/inputfilter.cpp:798 src/irc/inputfilter.cpp:806
+#: src/irc/inputfilter.cpp:796 src/irc/inputfilter.cpp:804
 msgid "Welcome"
 msgstr "ようこそ"
 
-#: src/irc/inputfilter.cpp:807
+#: src/irc/inputfilter.cpp:805
 #, kde-format
 msgid "Server %1 (Version %2), User modes: %3, Channel modes: %4"
 msgstr "サーバ %1 (バージョン %2), ユーザモード: %3, チャンネルモード: %4"
 
-#: src/irc/inputfilter.cpp:833
+#: src/irc/inputfilter.cpp:831
 msgid "Support"
 msgstr "サポート"
 
-#: src/irc/inputfilter.cpp:920
+#: src/irc/inputfilter.cpp:918
 msgid "Your personal modes are:"
 msgstr "あなたのパーソナルモード:"
 
-#: src/irc/inputfilter.cpp:932 src/irc/inputfilter.cpp:974
+#: src/irc/inputfilter.cpp:930 src/irc/inputfilter.cpp:972
 msgid "Channel modes: "
 msgstr "チャンネルモード: "
 
-#: src/irc/inputfilter.cpp:948 src/common.cpp:45
+#: src/irc/inputfilter.cpp:946 src/common.cpp:45
 msgid "password protected"
 msgstr "パスワード保護"
 
-#: src/irc/inputfilter.cpp:954
+#: src/irc/inputfilter.cpp:952
 #, fuzzy, kde-format
 msgid "limited to %1 user"
 msgid_plural "limited to %1 users"
 msgstr[0] "%1 人に制限"
 msgstr[1] "%1 人に制限"
 
-#: src/irc/inputfilter.cpp:984 src/urlcatcher.cpp:120
+#: src/irc/inputfilter.cpp:982 src/urlcatcher.cpp:120
 msgid "URL"
 msgstr "URL"
 
-#: src/irc/inputfilter.cpp:985
+#: src/irc/inputfilter.cpp:983
 #, kde-format
 msgid "Channel URL: %1"
 msgstr "チャンネルの URL: %1"
 
-#: src/irc/inputfilter.cpp:995
+#: src/irc/inputfilter.cpp:993
 msgid "Created"
 msgstr "作成"
 
-#: src/irc/inputfilter.cpp:996
+#: src/irc/inputfilter.cpp:994
 #, kde-format
 msgid "This channel was created on %1."
 msgstr "このチャンネルは%1に作成されました。"
 
-#: src/irc/inputfilter.cpp:1009 src/irc/inputfilter.cpp:1137
-#: src/irc/inputfilter.cpp:1384 src/irc/inputfilter.cpp:1440
-#: src/irc/inputfilter.cpp:1583 src/irc/inputfilter.cpp:1591
-#: src/irc/inputfilter.cpp:1598 src/irc/inputfilter.cpp:1605
-#: src/irc/inputfilter.cpp:1612 src/irc/inputfilter.cpp:1619
-#: src/irc/inputfilter.cpp:1645 src/irc/inputfilter.cpp:1660
-#: src/irc/inputfilter.cpp:1676 src/irc/inputfilter.cpp:1678
-#: src/irc/inputfilter.cpp:1721 src/irc/inputfilter.cpp:1733
-#: src/irc/inputfilter.cpp:1743 src/irc/inputfilter.cpp:1750
-#: src/irc/inputfilter.cpp:1756 src/irc/inputfilter.cpp:1774
+#: src/irc/inputfilter.cpp:1007 src/irc/inputfilter.cpp:1135
+#: src/irc/inputfilter.cpp:1382 src/irc/inputfilter.cpp:1438
+#: src/irc/inputfilter.cpp:1581 src/irc/inputfilter.cpp:1589
+#: src/irc/inputfilter.cpp:1596 src/irc/inputfilter.cpp:1603
+#: src/irc/inputfilter.cpp:1610 src/irc/inputfilter.cpp:1617
+#: src/irc/inputfilter.cpp:1643 src/irc/inputfilter.cpp:1658
+#: src/irc/inputfilter.cpp:1674 src/irc/inputfilter.cpp:1676
+#: src/irc/inputfilter.cpp:1719 src/irc/inputfilter.cpp:1731
+#: src/irc/inputfilter.cpp:1741 src/irc/inputfilter.cpp:1748
+#: src/irc/inputfilter.cpp:1754 src/irc/inputfilter.cpp:1772
 msgid "Whois"
 msgstr "ユーザ情報 (Whois)"
 
-#: src/irc/inputfilter.cpp:1009
+#: src/irc/inputfilter.cpp:1007
 #, kde-format
 msgid "%1 is logged in as %2."
 msgstr "%1 が %2 としてログインしています。"
 
-#: src/irc/inputfilter.cpp:1042 src/irc/inputfilter.cpp:1064
+#: src/irc/inputfilter.cpp:1040 src/irc/inputfilter.cpp:1062
 msgid "Names"
 msgstr "Names"
 
-#: src/irc/inputfilter.cpp:1064
+#: src/irc/inputfilter.cpp:1062
 msgid "End of NAMES list."
 msgstr "NAMES リスト 終わり"
 
-#: src/irc/inputfilter.cpp:1075
+#: src/irc/inputfilter.cpp:1073
 msgid "TOPIC"
 msgstr "TOPIC"
 
-#: src/irc/inputfilter.cpp:1075
+#: src/irc/inputfilter.cpp:1073
 #, kde-format
 msgid "The channel %1 has no topic set."
 msgstr "チャンネル %1 にはトピックが設定されていません。"
 
-#: src/irc/inputfilter.cpp:1096 src/irc/inputfilter.cpp:1112
-#: src/irc/inputfilter.cpp:1119 src/irc/channel.cpp:1636
-#: src/irc/channel.cpp:1655 src/irc/channel.cpp:1659
+#: src/irc/inputfilter.cpp:1094 src/irc/inputfilter.cpp:1110
+#: src/irc/inputfilter.cpp:1117 src/irc/channel.cpp:1633
+#: src/irc/channel.cpp:1652 src/irc/channel.cpp:1656
 msgid "Topic"
 msgstr "トピック"
 
-#: src/irc/inputfilter.cpp:1096
+#: src/irc/inputfilter.cpp:1094
 #, kde-format
 msgid "The channel topic for %1 is: \"%2\""
 msgstr "%1 のチャンネルトピック: \"%2\""
 
-#: src/irc/inputfilter.cpp:1113
+#: src/irc/inputfilter.cpp:1111
 #, kde-format
 msgid "The topic was set by %1 on %2."
 msgstr "トピックは %1 が %2 に設定したものです。"
 
-#: src/irc/inputfilter.cpp:1119
+#: src/irc/inputfilter.cpp:1117
 #, kde-format
 msgid "The topic for %1 was set by %2 on %3."
 msgstr "%1 のトピックは %2 が %3 に設定したものです。"
 
-#: src/irc/inputfilter.cpp:1137
+#: src/irc/inputfilter.cpp:1135
 #, kde-format
 msgid "%1 is actually using the host %2."
 msgstr "%1 は実際にはホスト %2 を使用しています。"
 
-#: src/irc/inputfilter.cpp:1150
+#: src/irc/inputfilter.cpp:1148
 #, kde-format
 msgid "%1: No such nick/channel."
 msgstr "%1: そのようなニック/チャンネルは存在しません。"
 
-#: src/irc/inputfilter.cpp:1154
+#: src/irc/inputfilter.cpp:1152
 #, kde-format
 msgid "No such nick: %1."
 msgstr "%1: そのようなニックは存在しません。"
 
-#: src/irc/inputfilter.cpp:1167
+#: src/irc/inputfilter.cpp:1165
 #, kde-format
 msgid "%1: No such channel."
 msgstr "%1: そのようなチャンネルは存在しません。"
 
-#: src/irc/inputfilter.cpp:1180 src/irc/inputfilter.cpp:1198
-#: src/irc/inputfilter.cpp:1212 src/irc/inputfilter.cpp:1227
-#: src/irc/query.cpp:178 src/irc/channel.cpp:1360 src/irc/channel.cpp:1365
+#: src/irc/inputfilter.cpp:1178 src/irc/inputfilter.cpp:1196
+#: src/irc/inputfilter.cpp:1210 src/irc/inputfilter.cpp:1225
+#: src/irc/query.cpp:178 src/irc/channel.cpp:1357 src/irc/channel.cpp:1362
 msgid "Nick"
 msgstr "Nick"
 
-#: src/irc/inputfilter.cpp:1180
+#: src/irc/inputfilter.cpp:1178
 msgid "Nickname already in use, try a different one."
 msgstr "ニックネームは既に使われています。他のニックネームを試してください。"
 
-#: src/irc/inputfilter.cpp:1198
+#: src/irc/inputfilter.cpp:1196
 #, kde-format
 msgid "Nickname already in use. Trying %1."
 msgstr "ニックネームは既に使われています。%1 を使います。"
 
-#: src/irc/inputfilter.cpp:1227
+#: src/irc/inputfilter.cpp:1225
 #, kde-format
 msgid "Erroneus nickname. Changing nick to %1."
 msgstr "ニックネームが間違っています。%1 を使います。"
 
-#: src/irc/inputfilter.cpp:1238
+#: src/irc/inputfilter.cpp:1236
 #, kde-format
 msgid "You are not on %1."
 msgstr "あなたは %1 にいません。"
 
-#: src/irc/inputfilter.cpp:1249 src/irc/inputfilter.cpp:1258
-#: src/irc/inputfilter.cpp:1267 src/viewer/ircview.cpp:371
+#: src/irc/inputfilter.cpp:1247 src/irc/inputfilter.cpp:1256
+#: src/irc/inputfilter.cpp:1265 src/viewer/ircview.cpp:641
 msgid "MOTD"
 msgstr "MOTD"
 
-#: src/irc/inputfilter.cpp:1249
+#: src/irc/inputfilter.cpp:1247
 msgid "Message of the day:"
 msgstr "MOTD (今日のメッセージ):"
 
-#: src/irc/inputfilter.cpp:1267
+#: src/irc/inputfilter.cpp:1265
 msgid "End of message of the day"
 msgstr "MOTD 終わり"
 
-#: src/irc/inputfilter.cpp:1291
+#: src/irc/inputfilter.cpp:1289
 msgid "You are now an IRC operator on this server."
 msgstr "このサーバの IRC オペレータになりました。"
 
-#: src/irc/inputfilter.cpp:1301 src/irc/inputfilter.cpp:1311
-#: src/irc/inputfilter.cpp:1987 src/irc/channellistpanel.cpp:87
+#: src/irc/inputfilter.cpp:1299 src/irc/inputfilter.cpp:1309
+#: src/irc/inputfilter.cpp:1985 src/irc/channellistpanel.cpp:86
 msgid "Users"
 msgstr "ユーザ"
 
-#: src/irc/inputfilter.cpp:1301
+#: src/irc/inputfilter.cpp:1299
 #, kde-format
 msgid "Current users on the network: %1"
 msgstr "ネットワーク上のユーザ: %1"
 
-#: src/irc/inputfilter.cpp:1311
+#: src/irc/inputfilter.cpp:1309
 #, kde-format
 msgid "Current users on %1: %2."
 msgstr "%1 上のユーザ: %2"
 
 #. i18n: file: src/identitydialog.ui:262
 #. i18n: ectx: attribute (title), widget (QWidget, awayWidget)
-#: src/irc/inputfilter.cpp:1341 src/irc/server.cpp:3373
-#: src/irc/server.cpp:3398 src/irc/server.cpp:3407 src/irc/nicksonline.cpp:264
-#: src/linkaddressbook/addressbook.cpp:110 rc.cpp:503
+#: src/irc/inputfilter.cpp:1339 src/irc/server.cpp:3359
+#: src/irc/server.cpp:3384 src/irc/server.cpp:3393 src/irc/nicksonline.cpp:261
+#: src/linkaddressbook/addressbook.cpp:109 rc.cpp:503
 msgid "Away"
 msgstr "離席"
 
-#: src/irc/inputfilter.cpp:1342
+#: src/irc/inputfilter.cpp:1340
 #, kde-format
 msgid "%1 is away: %2"
 msgstr "%1 は離席しています: %2"
 
-#: src/irc/inputfilter.cpp:1353
+#: src/irc/inputfilter.cpp:1351
 #, kde-format
 msgid "You invited %1 to channel %2."
 msgstr "%1 をチャンネル %2 へ招待しました。"
 
-#: src/irc/inputfilter.cpp:1375 src/irc/inputfilter.cpp:1458
+#: src/irc/inputfilter.cpp:1373 src/irc/inputfilter.cpp:1456
 #, kde-format
 msgid "%1@%2"
 msgstr "%1@%2"
 
-#: src/irc/inputfilter.cpp:1385
+#: src/irc/inputfilter.cpp:1383
 #, kde-format
 msgid "%1 is %2@%3 (%4)"
 msgstr "%1 は %2@%3 (%4)"
 
-#: src/irc/inputfilter.cpp:1401
+#: src/irc/inputfilter.cpp:1399
 #, kde-format
 msgid "Resolved %1 (%2) to address: %3"
 msgstr "%1 (%2) を次のアドレスに解決: %3"
 
-#: src/irc/inputfilter.cpp:1410
+#: src/irc/inputfilter.cpp:1408
 #, kde-format
 msgid "Unable to resolve address for %1 (%2)"
 msgstr "%1 (%2) のアドレスを解決できません"
 
-#: src/irc/inputfilter.cpp:1440
+#: src/irc/inputfilter.cpp:1438
 #, kde-format
 msgid "%1 is an identified user."
 msgstr "%1 は認証されているユーザです。"
 
-#: src/irc/inputfilter.cpp:1472 src/irc/inputfilter.cpp:1497
+#: src/irc/inputfilter.cpp:1470 src/irc/inputfilter.cpp:1495
 msgid "Who"
 msgstr "Who"
 
-#: src/irc/inputfilter.cpp:1477
+#: src/irc/inputfilter.cpp:1475
 msgid " (Away)"
 msgstr " (離席中)"
 
-#: src/irc/inputfilter.cpp:1473
+#: src/irc/inputfilter.cpp:1471
 #, kde-format
 msgid "%1 is %2@%3 (%4)%5"
 msgstr "%1 は %2@%3 (%4)%5"
 
-#: src/irc/inputfilter.cpp:1498
+#: src/irc/inputfilter.cpp:1496
 #, kde-format
 msgid "End of /WHO list for %1"
 msgstr "%1 の /WHO リスト 終わり"
 
-#: src/irc/inputfilter.cpp:1584
+#: src/irc/inputfilter.cpp:1582
 #, kde-format
 msgid "%1 is a user on channels: %2"
 msgstr "%1 がユーザであるチャンネル: %2"
 
-#: src/irc/inputfilter.cpp:1592
+#: src/irc/inputfilter.cpp:1590
 #, kde-format
 msgid "%1 has voice on channels: %2"
 msgstr "%1 が発言権を持っているチャンネル: %2"
 
-#: src/irc/inputfilter.cpp:1599
+#: src/irc/inputfilter.cpp:1597
 #, kde-format
 msgid "%1 is a halfop on channels: %2"
 msgstr "%1 がサブオペレータであるチャンネル: %2"
 
-#: src/irc/inputfilter.cpp:1606
+#: src/irc/inputfilter.cpp:1604
 #, kde-format
 msgid "%1 is an operator on channels: %2"
 msgstr "%1 がオペレータであるチャンネル: %2"
 
-#: src/irc/inputfilter.cpp:1613
+#: src/irc/inputfilter.cpp:1611
 #, kde-format
 msgid "%1 is owner of channels: %2"
 msgstr "%1 が所有者であるチャンネル: %2"
 
-#: src/irc/inputfilter.cpp:1620
+#: src/irc/inputfilter.cpp:1618
 #, kde-format
 msgid "%1 is admin on channels: %2"
 msgstr "%1 が管理者であるチャンネル: %2"
 
-#: src/irc/inputfilter.cpp:1646
+#: src/irc/inputfilter.cpp:1644
 #, kde-format
 msgid "%1 is online via %2 (%3)."
 msgstr "%1 は %2 (%3) 経由で接続しています。"
 
-#: src/irc/inputfilter.cpp:1661
+#: src/irc/inputfilter.cpp:1659
 #, kde-format
 msgid "%1 is available for help."
 msgstr "%1 がサポートできます。"
 
-#: src/irc/inputfilter.cpp:1676
+#: src/irc/inputfilter.cpp:1674
 #, kde-format
 msgid "%1 is an IRC Operator."
 msgstr "%1 は IRC オペレータです。"
 
-#: src/irc/inputfilter.cpp:1716 src/statusbar.cpp:182
+#: src/irc/inputfilter.cpp:1714 src/statusbar.cpp:181
 #, fuzzy, kde-format
 #| msgid "1 day"
 #| msgid_plural "%1 days"
@@ -1998,8 +2048,8 @@ msgid_plural "%1 days"
 msgstr[0] "%1日"
 msgstr[1] ""
 
-#: src/irc/inputfilter.cpp:1717 src/irc/inputfilter.cpp:1730
-#: src/statusbar.cpp:183 src/statusbar.cpp:191
+#: src/irc/inputfilter.cpp:1715 src/irc/inputfilter.cpp:1728
+#: src/statusbar.cpp:182 src/statusbar.cpp:190
 #, fuzzy, kde-format
 #| msgid "1 hour"
 #| msgid_plural "%1 hours"
@@ -2008,9 +2058,9 @@ msgid_plural "%1 hours"
 msgstr[0] "%1時"
 msgstr[1] ""
 
-#: src/irc/inputfilter.cpp:1718 src/irc/inputfilter.cpp:1731
-#: src/irc/inputfilter.cpp:1741 src/statusbar.cpp:184 src/statusbar.cpp:192
-#: src/statusbar.cpp:199
+#: src/irc/inputfilter.cpp:1716 src/irc/inputfilter.cpp:1729
+#: src/irc/inputfilter.cpp:1739 src/statusbar.cpp:183 src/statusbar.cpp:191
+#: src/statusbar.cpp:198
 #, fuzzy, kde-format
 #| msgid "1 minute"
 #| msgid_plural "%1 minutes"
@@ -2019,9 +2069,9 @@ msgid_plural "%1 minutes"
 msgstr[0] "%1分"
 msgstr[1] ""
 
-#: src/irc/inputfilter.cpp:1719 src/irc/inputfilter.cpp:1732
-#: src/irc/inputfilter.cpp:1742 src/statusbar.cpp:185 src/statusbar.cpp:193
-#: src/statusbar.cpp:200
+#: src/irc/inputfilter.cpp:1717 src/irc/inputfilter.cpp:1730
+#: src/irc/inputfilter.cpp:1740 src/statusbar.cpp:184 src/statusbar.cpp:192
+#: src/statusbar.cpp:199
 #, fuzzy, kde-format
 #| msgid "1 second"
 #| msgid_plural "%1 seconds"
@@ -2030,7 +2080,7 @@ msgid_plural "%1 seconds"
 msgstr[0] "%1秒"
 msgstr[1] ""
 
-#: src/irc/inputfilter.cpp:1723
+#: src/irc/inputfilter.cpp:1721
 #, kde-format
 msgctxt ""
 "%1 = name of person, %2 = (x days), %3 = (x hours), %4 = (x minutes), %5 = "
@@ -2038,20 +2088,20 @@ msgctxt ""
 msgid "%1 has been idle for %2, %3, %4, and %5."
 msgstr "%1 は%2%3%4%5間アイドル状態です。"
 
-#: src/irc/inputfilter.cpp:1735
+#: src/irc/inputfilter.cpp:1733
 #, kde-format
 msgctxt ""
 "%1 = name of person, %2 = (x hours), %3 = (x minutes), %4 = (x seconds)"
 msgid "%1 has been idle for %2, %3, and %4."
 msgstr "%1 は%2%3%4間アイドル状態です。"
 
-#: src/irc/inputfilter.cpp:1745
+#: src/irc/inputfilter.cpp:1743
 #, kde-format
 msgctxt "%1 = name of person, %2 = (x minutes), %3 = (x seconds)"
 msgid "%1 has been idle for %2 and %3."
 msgstr "%1 は%2%3間アイドル状態です。"
 
-#: src/irc/inputfilter.cpp:1751
+#: src/irc/inputfilter.cpp:1749
 #, fuzzy, kde-format
 #| msgid "%2 has been idle for 1 second."
 #| msgid_plural "%2 has been idle for %1 seconds."
@@ -2060,43 +2110,43 @@ msgid_plural "%2 has been idle for %1 seconds."
 msgstr[0] "%2 は%1秒間アイドル状態です。"
 msgstr[1] ""
 
-#: src/irc/inputfilter.cpp:1757
+#: src/irc/inputfilter.cpp:1755
 #, kde-format
 msgid "%1 has been online since %2."
 msgstr "%1 は%2からオンラインです。"
 
-#: src/irc/inputfilter.cpp:1774
+#: src/irc/inputfilter.cpp:1772
 msgid "End of WHOIS list."
 msgstr "WHOIS リスト 終わり"
 
-#: src/irc/inputfilter.cpp:1814
+#: src/irc/inputfilter.cpp:1812
 msgid "Userhost"
 msgstr "Userhost"
 
-#: src/irc/inputfilter.cpp:1817
+#: src/irc/inputfilter.cpp:1815
 msgid " (IRC Operator)"
 msgstr " (IRC オペレータ)"
 
-#: src/irc/inputfilter.cpp:1819
+#: src/irc/inputfilter.cpp:1817
 msgid " (away)"
 msgstr " (離席中)"
 
-#: src/irc/inputfilter.cpp:1815
+#: src/irc/inputfilter.cpp:1813
 #, kde-format
 msgctxt "%1 = nick, %2 = shows if nick is op, %3 = hostmask, %4 = shows away"
 msgid "%1%2 is %3%4."
 msgstr "%1%2 は %3%4 です。"
 
-#: src/irc/inputfilter.cpp:1837 src/irc/inputfilter.cpp:1850
-#: src/irc/inputfilter.cpp:1866
+#: src/irc/inputfilter.cpp:1835 src/irc/inputfilter.cpp:1848
+#: src/irc/inputfilter.cpp:1864
 msgid "List"
 msgstr "リスト"
 
-#: src/irc/inputfilter.cpp:1837
+#: src/irc/inputfilter.cpp:1835
 msgid "List of channels:"
 msgstr "チャンネルリスト:"
 
-#: src/irc/inputfilter.cpp:1849
+#: src/irc/inputfilter.cpp:1847
 #, fuzzy, kde-format
 #| msgid "%2 (%1 user): %3"
 #| msgid_plural "%2 (%1 users): %3"
@@ -2105,126 +2155,129 @@ msgid_plural "%2 (%1 users): %3"
 msgstr[0] "%2 (%1人): %3"
 msgstr[1] ""
 
-#: src/irc/inputfilter.cpp:1866
+#: src/irc/inputfilter.cpp:1864
 msgid "End of channel list."
 msgstr "チャンネルリスト 終わり"
 
-#: src/irc/inputfilter.cpp:1919 src/irc/inputfilter.cpp:1937
+#: src/irc/inputfilter.cpp:1917 src/irc/inputfilter.cpp:1935
 #, kde-format
 msgid "BanList:%1"
 msgstr "Ban リスト:%1"
 
-#: src/irc/inputfilter.cpp:1920
+#: src/irc/inputfilter.cpp:1918
 #, kde-format
 msgctxt "BanList message: e.g. *!*@aol.com set by MrGrim on <date>"
 msgid "%1 set by %2 on %3"
 msgstr "%1 は%3に %2 によって設定されました"
 
-#: src/irc/inputfilter.cpp:1937
+#: src/irc/inputfilter.cpp:1935
 msgid "End of Ban List."
 msgstr "Ban リスト 終わり"
 
 #. i18n: file: src/config/ignore_configui.ui:90
 #. i18n: ectx: property (text), widget (QCheckBox, chkChannel)
-#: src/irc/inputfilter.cpp:1949 src/irc/inputfilter.cpp:1953
-#: src/irc/invitedialog.cpp:171 src/viewer/ignorelistviewitem.cpp:42
+#: src/irc/inputfilter.cpp:1947 src/irc/inputfilter.cpp:1951
+#: src/irc/invitedialog.cpp:169 src/viewer/ignorelistviewitem.cpp:42
 #: rc.cpp:880
 msgid "Channel"
 msgstr "チャンネル"
 
-#: src/irc/inputfilter.cpp:1974
+#: src/irc/inputfilter.cpp:1972
 #, kde-format
 msgid "%1 is currently unavailable."
 msgstr "%1 は現在利用できません。"
 
-#: src/irc/inputfilter.cpp:1995
+#: src/irc/inputfilter.cpp:1993
 #, kde-format
 msgid "%1: Unknown command."
 msgstr "%1: 未知のコマンド"
 
-#: src/irc/inputfilter.cpp:2003
+#: src/irc/inputfilter.cpp:2001
 msgid "Not registered."
 msgstr "登録されていません。"
 
-#: src/irc/inputfilter.cpp:2011
+#: src/irc/inputfilter.cpp:2009
 #, kde-format
 msgid "%1: This command requires more parameters."
 msgstr "%1: このコマンドにはもっとパラメータが必要です。"
 
-#: src/irc/inputfilter.cpp:2059
+#: src/irc/inputfilter.cpp:2057
 #, fuzzy, kde-format
 #| msgid "You have set personal modes: "
 msgid "You have set personal modes: %1"
 msgstr "パーソナルモードを設定しました: "
 
-#: src/irc/inputfilter.cpp:2063
+#: src/irc/inputfilter.cpp:2061
 #, fuzzy, kde-format
 #| msgid "has changed your personal modes:"
 msgid "%1 has changed your personal modes: %2"
 msgstr "があなたのパーソナルモードを変更しました:"
 
-#: src/irc/inputfilter.cpp:2082
+#: src/irc/inputfilter.cpp:2080
 #, fuzzy, kde-format
 #| msgid " sets mode: "
 msgid "%1 sets mode: %2"
 msgstr " モードを設定: "
 
-#: src/irc/server.cpp:383
+#: src/irc/server.cpp:349
 #, fuzzy
 #| msgid "Warning Dialogs"
 msgid "Warning"
 msgstr "警告ダイアログ"
 
-#: src/irc/server.cpp:436
-#, kde-format
-msgid "Looking for server %1:%2..."
+#: src/irc/server.cpp:402
+#, fuzzy, kde-format
+#| msgid "Looking for server %1:%2..."
+msgid "Looking for server %1 (port %2) ..."
 msgstr "サーバ %1:%2 を探しています..."
 
-#: src/irc/server.cpp:567
+#: src/irc/server.cpp:533
 msgid "Server found, connecting..."
 msgstr "サーバ検出完了。接続中..."
 
-#: src/irc/server.cpp:578
+#: src/irc/server.cpp:544
 msgid "Connected; logging in..."
 msgstr "接続完了。ログイン中..."
 
-#: src/irc/server.cpp:629
-#, kde-format
-msgid "Connection to Server %1 lost: %2."
+#: src/irc/server.cpp:595
+#, fuzzy, kde-format
+#| msgid "Connection to Server %1 lost: %2."
+msgid "Connection to server %1 (port %2) lost: %3."
 msgstr "サーバ %1 への接続が失われました: %2"
 
-#: src/irc/server.cpp:649
+#: src/irc/server.cpp:616
 #, fuzzy, kde-format
 #| msgid ""
 #| "Could not connect to %1:%2 using SSL encryption.Maybe the server does not "
 #| "support SSL, or perhaps you have the wrong port? %3"
 msgid ""
-"Could not connect to %1:%2 using SSL encryption. Maybe the server does not "
-"support SSL, or perhaps you have the wrong port? %3"
+"Could not connect to %1 (port %2) using SSL encryption. Maybe the server "
+"does not support SSL, or perhaps you have the wrong port? %3"
 msgstr ""
 "SSL 暗号化を使って %1:%2 に接続できません。おそらくサーバが SSL をサポートし"
 "ていないか、あるいはポートが間違っていませんか？ %3"
 
-#: src/irc/server.cpp:653
+#: src/irc/server.cpp:620
 msgid "SSL Connection Error"
 msgstr "SSL 接続エラー"
 
-#: src/irc/server.cpp:662
+#: src/irc/server.cpp:629
 #, fuzzy, kde-format
 #| msgid "The server (%1) certificate failed the authenticity test."
 msgid "The server (%1) certificate failed the authenticity test. %2"
 msgstr "サーバ (%1) の証明書は認証テストに合格しませんでした。"
 
-#: src/irc/server.cpp:668
+#: src/irc/server.cpp:635
 msgid "Server Authentication"
 msgstr "サーバ認証"
 
-#: src/irc/server.cpp:761
-#, kde-format
-msgid "Disconnected from %1."
+#: src/irc/server.cpp:728
+#, fuzzy, kde-format
+#| msgid "Disconnected from %1."
+msgid "Disconnected from %1 (port %2)."
 msgstr "サーバ %1 から切断しました。"
 
-#: src/irc/server.cpp:912
+#: src/irc/server.cpp:881
 #, kde-format
 msgid ""
 "No nicknames from the \"%1\" identity were accepted by the connection \"%2"
@@ -2235,42 +2288,42 @@ msgstr ""
 "した。\n"
 "新しいものを入力するか、接続を切断する場合は「キャンセル」を押しください:"
 
-#: src/irc/server.cpp:913
+#: src/irc/server.cpp:882
 msgid "Nickname error"
 msgstr "ニックネームエラー"
 
-#: src/irc/server.cpp:1355 src/irc/server.cpp:3115 src/irc/server.cpp:3120
-#: src/application.cpp:288
+#: src/irc/server.cpp:1341 src/irc/server.cpp:3101 src/irc/server.cpp:3106
+#: src/application.cpp:290
 msgid "D-Bus"
 msgstr ""
 
-#: src/irc/server.cpp:1718
+#: src/irc/server.cpp:1704
 #, kde-format
 msgid "Select File(s) to Send to %1"
 msgstr "%1 へ送るファイルを選択"
 
-#: src/irc/server.cpp:1864 src/irc/server.cpp:1895 src/irc/server.cpp:1907
-#: src/irc/server.cpp:2009 src/irc/server.cpp:2060 src/irc/server.cpp:2155
+#: src/irc/server.cpp:1850 src/irc/server.cpp:1881 src/irc/server.cpp:1893
+#: src/irc/server.cpp:1995 src/irc/server.cpp:2046 src/irc/server.cpp:2141
 msgid "unknown size"
 msgstr "不明なサイズ"
 
-#: src/irc/server.cpp:1861
+#: src/irc/server.cpp:1847
 #, kde-format
 msgid "%1 offers to send you \"%2\" (%3)..."
 msgstr "%1 が \"%2\" (%3) の送信を提案しています..."
 
-#: src/irc/server.cpp:1892
+#: src/irc/server.cpp:1878
 #, kde-format
 msgid "Asking %1 to accept upload of \"%2\" (%3)..."
 msgstr "%1 に \"%2\" (%3) のアップロードの受け入れを依頼しています..."
 
-#: src/irc/server.cpp:1904
+#: src/irc/server.cpp:1890
 #, fuzzy, kde-format
 #| msgid "Asking %1 to accept upload of \"%2\" (%3)..."
 msgid "Asking %1 to accept passive upload of \"%2\" (%3)..."
 msgstr "%1 に \"%2\" (%3) のアップロードの受け入れを依頼しています..."
 
-#: src/irc/server.cpp:1970
+#: src/irc/server.cpp:1956
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname"
 msgid ""
@@ -2279,7 +2332,7 @@ msgstr ""
 "%2 から \"%1\" に対する無効なパッシブ DCC 送信承諾メッセージを受け取りまし"
 "た。"
 
-#: src/irc/server.cpp:2005
+#: src/irc/server.cpp:1991
 #, kde-format
 msgctxt ""
 "%1 = file name, %2 = nickname of sender, %3 = percentage of file size, %4 = "
@@ -2287,14 +2340,14 @@ msgctxt ""
 msgid "Resuming download of \"%1\" from %2 starting at %3% of %4..."
 msgstr "%2 からの \"%1\" のダウンロードを %3% (%4) からレジュームします..."
 
-#: src/irc/server.cpp:2015
+#: src/irc/server.cpp:2001
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname"
 msgid "Received invalid resume acceptance message for \"%1\" from %2."
 msgstr ""
 "%2 から \"%1\" に対する無効なレジューム承諾メッセージを受け取りました。"
 
-#: src/irc/server.cpp:2056
+#: src/irc/server.cpp:2042
 #, kde-format
 msgctxt ""
 "%1 = file name, %2 = nickname of recipient, %3 = percentage of file size, %4 "
@@ -2302,13 +2355,13 @@ msgctxt ""
 msgid "Resuming upload of \"%1\" to %2 starting at %3% of %4..."
 msgstr "%2 への \"%1\" のアップロードを %3% (%4) からレジュームします..."
 
-#: src/irc/server.cpp:2079
+#: src/irc/server.cpp:2065
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname"
 msgid "Received invalid resume request for \"%1\" from %2."
 msgstr "%2 から \"%1\" に対する無効なレジュームリクエストを受け取りました。"
 
-#: src/irc/server.cpp:2098
+#: src/irc/server.cpp:2084
 #, fuzzy, kde-format
 #| msgctxt "%1 = file name, %2 = nickname"
 #| msgid "Received invalid resume request for \"%1\" from %2."
@@ -2316,139 +2369,139 @@ msgctxt "%1 = file name, %2 = nickname"
 msgid "Received invalid reject request for \"%1\" from %2."
 msgstr "%2 から \"%1\" に対する無効なレジュームリクエストを受け取りました。"
 
-#: src/irc/server.cpp:2112
+#: src/irc/server.cpp:2098
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of sender"
 msgid "Download of \"%1\" from %2 finished."
 msgstr "%2 からの \"%1\" のダウンロードが完了しました。"
 
-#: src/irc/server.cpp:2117
+#: src/irc/server.cpp:2103
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of sender"
 msgid "Download of \"%1\" from %2 failed. Reason: %3."
 msgstr "%2 からの \"%1\" のダウンロードに失敗しました。理由: %3"
 
-#: src/irc/server.cpp:2129
+#: src/irc/server.cpp:2115
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of recipient"
 msgid "Upload of \"%1\" to %2 finished."
 msgstr "%2 への \"%1\" のアップロードが完了しました。"
 
-#: src/irc/server.cpp:2132
+#: src/irc/server.cpp:2118
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of recipient"
 msgid "Upload of \"%1\" to %2 failed. Reason: %3."
 msgstr "%2 への \"%1\" のアップロードに失敗しました。理由: %3"
 
-#: src/irc/server.cpp:2146
+#: src/irc/server.cpp:2132
 #, kde-format
 msgctxt "%1 = file name, %2 nickname of recipient"
 msgid "Sending \"%1\" to %2..."
 msgstr "%2 に \"%1\" を送信しています..."
 
-#: src/irc/server.cpp:2153
+#: src/irc/server.cpp:2139
 #, kde-format
 msgctxt "%1 = file name, %2 = file size, %3 = nickname of sender"
 msgid "Downloading \"%1\" (%2) from %3..."
 msgstr "%3 から \"%1\" (%2) をダウンロードしています..."
 
-#: src/irc/server.cpp:2474 src/notificationhandler.cpp:260
+#: src/irc/server.cpp:2460 src/notificationhandler.cpp:260
 #, kde-format
 msgid "%1 is online (%2)."
 msgstr "%1 はオンラインです (%2)。"
 
-#: src/irc/server.cpp:2491 src/notificationhandler.cpp:274
+#: src/irc/server.cpp:2477 src/notificationhandler.cpp:274
 #, kde-format
 msgid "%1 went offline (%2)."
 msgstr "%1 はオフラインになりました (%2)。"
 
-#: src/irc/server.cpp:3115
+#: src/irc/server.cpp:3101
 #, kde-format
 msgid "Error: Could not find script \"%1\"."
 msgstr "エラー: スクリプト \"%1\" が見つかりません。"
 
-#: src/irc/server.cpp:3120
+#: src/irc/server.cpp:3106
 #, kde-format
 msgid "Error: Could not execute script \"%1\". Check file permissions."
 msgstr ""
 "エラー: スクリプト \"%1\" を実行できません。ファイルの許可情報をチェックして"
 "ください。"
 
-#: src/irc/server.cpp:3343
+#: src/irc/server.cpp:3329
 msgid "Gone away for now"
 msgstr ""
 
-#: src/irc/server.cpp:3373
+#: src/irc/server.cpp:3359
 msgid "You are now marked as being away."
 msgstr "離席状態に設定しました。"
 
-#: src/irc/server.cpp:3398
+#: src/irc/server.cpp:3384
 msgid "You are no longer marked as being away."
 msgstr "離席状態を解除しました。"
 
-#: src/irc/server.cpp:3407
+#: src/irc/server.cpp:3393
 msgid "You are not marked as being away."
 msgstr "離席状態に設定していません。"
 
-#: src/irc/server.cpp:3554
+#: src/irc/server.cpp:3540
 #, kde-format
 msgid "Failed to initiate key exchange with %1."
 msgstr ""
 
-#: src/irc/server.cpp:3582
+#: src/irc/server.cpp:3568
 #, kde-format
 msgid "Failed to parse the DH1080_INIT of %1. Key exchange failed."
 msgstr ""
 
-#: src/irc/server.cpp:3588
+#: src/irc/server.cpp:3574
 #, kde-format
 msgid ""
 "Your key is set and your messages will now be encrypted, sending "
 "DH1080_FINISH to %1."
 msgstr ""
 
-#: src/irc/server.cpp:3609
+#: src/irc/server.cpp:3595
 #, kde-format
 msgid ""
 "Successfully parsed DH1080_FINISH sent by %1. Your key is set and your "
 "messages will now be encrypted."
 msgstr ""
 
-#: src/irc/server.cpp:3613
+#: src/irc/server.cpp:3599
 #, kde-format
 msgid "Failed to parse DH1080_FINISH sent by %1. Key exchange failed."
 msgstr ""
 
-#: src/irc/invitedialog.cpp:33
+#: src/irc/invitedialog.cpp:31
 #, fuzzy
 #| msgid "Channel List"
 msgid "Channel Invites"
 msgstr "チャンネルリスト"
 
-#: src/irc/invitedialog.cpp:169 src/irc/channel.cpp:1381
-#: src/irc/channel.cpp:1397 src/viewer/ircview.cpp:396
+#: src/irc/invitedialog.cpp:167 src/irc/channel.cpp:1378
+#: src/irc/channel.cpp:1394 src/viewer/ircview.cpp:681
 msgid "Join"
 msgstr "参加"
 
 #. i18n: file: src/identitydialog.ui:211
 #. i18n: ectx: property (title), widget (KEditListBox, m_nicknameLBox)
-#: src/irc/invitedialog.cpp:173 rc.cpp:488
+#: src/irc/invitedialog.cpp:171 rc.cpp:488
 msgid "Nickname"
 msgstr "ニックネーム"
 
-#: src/irc/nicksonline.cpp:43 src/viewer/viewcontainer.cpp:2474
+#: src/irc/nicksonline.cpp:40 src/viewer/viewcontainer.cpp:2486
 msgid "Watched Nicks Online"
 msgstr "ニックのオンライン状況"
 
-#: src/irc/nicksonline.cpp:52
+#: src/irc/nicksonline.cpp:49
 msgid "Network/Nickname/Channel"
 msgstr "ネットワーク/ニックネーム/チャンネル"
 
-#: src/irc/nicksonline.cpp:54
+#: src/irc/nicksonline.cpp:51
 msgid "Additional Information"
 msgstr "追加情報"
 
-#: src/irc/nicksonline.cpp:62
+#: src/irc/nicksonline.cpp:59
 msgid ""
 "<p>These are all the nicknames on your Nickname Watch list, listed under the "
 "server network they are connected to.  The list also includes the nicknames "
@@ -2467,19 +2520,19 @@ msgstr ""
 "ネームは「オフライン」の下に表示されます。</p><p>ニックネームを右クリックする"
 "と追加機能を実行できます。</p>"
 
-#: src/irc/nicksonline.cpp:78
+#: src/irc/nicksonline.cpp:75
 msgid "&Edit Watch List..."
 msgstr "監視リストを編集(&E)..."
 
-#: src/irc/nicksonline.cpp:81
+#: src/irc/nicksonline.cpp:78
 msgid "Click to edit the list of nicknames that appear on this screen."
 msgstr "この画面上のニックネームのリストを編集するにはクリックしてください。"
 
-#: src/irc/nicksonline.cpp:88
+#: src/irc/nicksonline.cpp:85
 msgid "Address book:"
 msgstr "アドレス帳:"
 
-#: src/irc/nicksonline.cpp:91
+#: src/irc/nicksonline.cpp:88
 msgid ""
 "When you select a nickname in the list above, the buttons here are used to "
 "associate the nickname with an entry in KAddressBook."
@@ -2487,12 +2540,12 @@ msgstr ""
 "これらのボタンは上のリストで選択したニックネームとアドレス帳のエントリを関連"
 "付けるために使います。"
 
-#: src/irc/nicksonline.cpp:95 src/irc/nicksonline.cpp:851
-#: src/irc/nicksonline.cpp:926
+#: src/irc/nicksonline.cpp:92 src/irc/nicksonline.cpp:848
+#: src/irc/nicksonline.cpp:923
 msgid "Edit C&ontact..."
 msgstr "コンタクトを編集(&O)..."
 
-#: src/irc/nicksonline.cpp:98
+#: src/irc/nicksonline.cpp:95
 msgid ""
 "Click to create, view, or edit the KAddressBook entry associated with the "
 "nickname selected above."
@@ -2500,22 +2553,22 @@ msgstr ""
 "クリックすると上で選択したニックネームと関連付けられたアドレス帳のエントリを"
 "作成、表示、編集します。"
 
-#: src/irc/nicksonline.cpp:102 src/irc/nicksonline.cpp:853
-#: src/irc/nicksonline.cpp:928
+#: src/irc/nicksonline.cpp:99 src/irc/nicksonline.cpp:850
+#: src/irc/nicksonline.cpp:925
 msgid "&Change Association..."
 msgstr "関連付けを変更(&C)..."
 
-#: src/irc/nicksonline.cpp:105
+#: src/irc/nicksonline.cpp:102
 msgid ""
 "Click to associate the nickname selected above with an entry in KAddressBook."
 msgstr ""
 "クリックすると上で選択したニックネームをアドレス帳のエントリと関連付けます。"
 
-#: src/irc/nicksonline.cpp:108 src/irc/nicksonline.cpp:929
+#: src/irc/nicksonline.cpp:105 src/irc/nicksonline.cpp:926
 msgid "&Delete Association"
 msgstr "関連付けを削除(&D)"
 
-#: src/irc/nicksonline.cpp:111
+#: src/irc/nicksonline.cpp:108
 msgid ""
 "Click to remove the association between the nickname selected above and a "
 "KAddressBook entry."
@@ -2523,83 +2576,83 @@ msgstr ""
 "クリックすると上で選択したニックネームとアドレス帳のエントリとの関連付けを解"
 "除します。"
 
-#: src/irc/nicksonline.cpp:274
+#: src/irc/nicksonline.cpp:271
 #, kde-format
 msgid " online via %1"
 msgstr " %1 経由でオンライン"
 
-#: src/irc/nicksonline.cpp:279
+#: src/irc/nicksonline.cpp:276
 #, kde-format
 msgid " since %1"
 msgstr " %1 より"
 
-#: src/irc/nicksonline.cpp:315 src/linkaddressbook/addressbook.cpp:106
+#: src/irc/nicksonline.cpp:312 src/linkaddressbook/addressbook.cpp:105
 msgid "Offline"
 msgstr "オフライン"
 
-#: src/irc/nicksonline.cpp:385
+#: src/irc/nicksonline.cpp:382
 msgid " Voice"
 msgstr " 発言権所有者"
 
-#: src/irc/nicksonline.cpp:386
+#: src/irc/nicksonline.cpp:383
 msgid " HalfOp"
 msgstr " サブオペレータ"
 
-#: src/irc/nicksonline.cpp:387
+#: src/irc/nicksonline.cpp:384
 msgid " Operator"
 msgstr " オペレータ"
 
-#: src/irc/nicksonline.cpp:388
+#: src/irc/nicksonline.cpp:385
 msgid " Owner"
 msgstr " 所有者"
 
-#: src/irc/nicksonline.cpp:389
+#: src/irc/nicksonline.cpp:386
 msgid " Admin"
 msgstr " 管理者"
 
-#: src/irc/nicksonline.cpp:842 src/irc/nicksonline.cpp:911
+#: src/irc/nicksonline.cpp:839 src/irc/nicksonline.cpp:908
 msgid "Create New C&ontact..."
 msgstr "新しいコンタクトを作成(&O)..."
 
-#: src/irc/nicksonline.cpp:844 src/irc/nicksonline.cpp:910
+#: src/irc/nicksonline.cpp:841 src/irc/nicksonline.cpp:907
 msgid "&Choose Association..."
 msgstr "関連付けを選択(&C)..."
 
-#: src/irc/nicksonline.cpp:918 src/irc/nicksonline.cpp:936
+#: src/irc/nicksonline.cpp:915 src/irc/nicksonline.cpp:933
 msgid "&Join Channel"
 msgstr "チャンネルに入る(&J)"
 
-#: src/irc/channellistpanel.cpp:85
+#: src/irc/channellistpanel.cpp:84
 msgid "Channel Name"
 msgstr "チャンネル名"
 
-#: src/irc/channellistpanel.cpp:89
+#: src/irc/channellistpanel.cpp:88
 msgid "Channel Topic"
 msgstr "チャンネルトピック"
 
 #. i18n: file: src/irc/channellistpanelui.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, ChannelListWidgetUI)
-#: src/irc/channellistpanel.cpp:144 src/viewer/viewcontainer.cpp:2411
-#: src/viewer/viewcontainer.cpp:2464 rc.cpp:56
+#: src/irc/channellistpanel.cpp:143 src/viewer/viewcontainer.cpp:2423
+#: src/viewer/viewcontainer.cpp:2476 rc.cpp:56
 msgid "Channel List"
 msgstr "チャンネルリスト"
 
-#: src/irc/channellistpanel.cpp:330
+#: src/irc/channellistpanel.cpp:329
 #, kde-format
 msgid "Channels: %1 (%2 shown)"
 msgstr "チャンネル数: %1 (%2 表示中)"
 
-#: src/irc/channellistpanel.cpp:331
+#: src/irc/channellistpanel.cpp:330
 #, fuzzy, kde-format
 #| msgid "Non-unique users: %1 (%2 shown)"
 msgid " Non-unique users: %1 (%2 shown)"
 msgstr "延べユーザ数: %1 (%2 表示中)"
 
-#: src/irc/channellistpanel.cpp:341
+#: src/irc/channellistpanel.cpp:340
 msgid "Save Channel List"
 msgstr "チャンネルリストを保存"
 
-#: src/irc/channellistpanel.cpp:373
+#: src/irc/channellistpanel.cpp:372
 #, kde-format
 msgid ""
 "Konversation Channel List: %1 - %2\n"
@@ -2608,53 +2661,53 @@ msgstr ""
 "Konversation チャンネルリスト: %1 - %2\n"
 "\n"
 
-#: src/irc/channellistpanel.cpp:439
+#: src/irc/channellistpanel.cpp:438
 msgid "Join Channel"
 msgstr "チャンネルに入る"
 
-#: src/irc/channellistpanel.cpp:545
+#: src/irc/channellistpanel.cpp:544
 #, kde-format
 msgid "Channel List for %1"
 msgstr "%1 のチャンネルリスト"
 
-#: src/irc/servergroupdialog.cpp:82
+#: src/irc/servergroupdialog.cpp:76
 msgid "Change network information"
 msgstr "ネットワーク情報を変更"
 
-#: src/irc/servergroupdialog.cpp:83 src/identitydialog.cpp:71
-#: src/viewer/editnotifydialog.cpp:69
+#: src/irc/servergroupdialog.cpp:77 src/identitydialog.cpp:71
+#: src/viewer/editnotifydialog.cpp:68
 msgid "Discards all changes made"
 msgstr "すべての変更を破棄する"
 
-#: src/irc/servergroupdialog.cpp:166
+#: src/irc/servergroupdialog.cpp:160
 msgid "Add Server"
 msgstr "サーバを追加"
 
-#: src/irc/servergroupdialog.cpp:184
+#: src/irc/servergroupdialog.cpp:178
 msgid "Edit Server"
 msgstr "サーバを編集"
 
-#: src/irc/servergroupdialog.cpp:278
+#: src/irc/servergroupdialog.cpp:272
 msgid "Add Channel"
 msgstr "チャンネルを追加"
 
-#: src/irc/servergroupdialog.cpp:296
+#: src/irc/servergroupdialog.cpp:290
 msgid "Edit Channel"
 msgstr "チャンネルを編集"
 
-#: src/irc/servergroupdialog.cpp:400
+#: src/irc/servergroupdialog.cpp:394
 msgid "The network name is required."
 msgstr "ネットワーク名が必要です。"
 
-#: src/irc/servergroupdialog.cpp:404
+#: src/irc/servergroupdialog.cpp:398
 msgid "You need to add at least one server to the network."
 msgstr "少なくとも一つのサーバをネットワークに加える必要があります。"
 
-#: src/irc/servergroupdialog.cpp:459
+#: src/irc/servergroupdialog.cpp:453
 msgid "The server address is required."
 msgstr "サーバのアドレスが必要です。"
 
-#: src/irc/servergroupdialog.cpp:510
+#: src/irc/servergroupdialog.cpp:504
 msgid "The channel name is required."
 msgstr "チャンネル名が必要です。"
 
@@ -2680,16 +2733,16 @@ msgstr ""
 "が表示されます。<p>ニックとアドレス帳のコンタクトの関連付け、およびホストマス"
 "クの説明については「Konversation ハンドブック」を参照してください。</qt>"
 
-#: src/irc/query.cpp:102 src/irc/channel.cpp:249 src/viewer/statuspanel.cpp:54
+#: src/irc/query.cpp:102 src/irc/channel.cpp:246 src/viewer/statuspanel.cpp:51
 msgid "(away)"
 msgstr "(離席中)"
 
-#: src/irc/query.cpp:178 src/irc/channel.cpp:1365
+#: src/irc/query.cpp:178 src/irc/channel.cpp:1362
 #, kde-format
 msgid "%1 is now known as %2."
 msgstr "%1 がニックネームを %2 に変更しました。"
 
-#: src/irc/query.cpp:393 src/irc/channel.cpp:667
+#: src/irc/query.cpp:393 src/irc/channel.cpp:664
 #, kde-format
 msgid "Do you want to ignore %1?"
 msgstr "%1 を無視しますか？"
@@ -2706,7 +2759,7 @@ msgstr "このクエリーを閉じる"
 #. i18n: ectx: property (toolTip), widget (QToolButton, m_closeButton)
 #. i18n: file: src/viewer/searchbarbase.ui:21
 #. i18n: ectx: property (toolTip), widget (QToolButton, m_closeButton)
-#: src/irc/query.cpp:405 rc.cpp:290 rc.cpp:1839
+#: src/irc/query.cpp:405 rc.cpp:290 rc.cpp:1863
 #, fuzzy
 #| msgid "Colors"
 msgid "Close"
@@ -2716,13 +2769,13 @@ msgstr "色"
 msgid "Keep Open"
 msgstr "開いておく"
 
-#: src/irc/query.cpp:419 src/irc/channel.cpp:692
+#: src/irc/query.cpp:419 src/irc/channel.cpp:689
 #, kde-format
 msgid "Do you want to stop ignoring %1?"
 msgstr "%1 を無視するのを止めますか？"
 
-#: src/irc/query.cpp:614 src/irc/channel.cpp:2795
-#: src/viewer/statuspanel.cpp:347
+#: src/irc/query.cpp:614 src/irc/channel.cpp:2794
+#: src/viewer/statuspanel.cpp:344
 #, kde-format
 msgid "Identity Default ( %1 )"
 msgstr "個人情報のデフォルト ( %1 )"
@@ -2740,13 +2793,13 @@ msgstr "クエリーを閉じる"
 msgid "Talking to yourself"
 msgstr "自分自身と会話する"
 
-#: src/irc/query.cpp:686 src/irc/query.cpp:693 src/irc/channel.cpp:1420
-#: src/irc/channel.cpp:1422 src/irc/channel.cpp:1441 src/irc/channel.cpp:1443
-#: src/viewer/ircview.cpp:401
+#: src/irc/query.cpp:686 src/irc/query.cpp:693 src/irc/channel.cpp:1417
+#: src/irc/channel.cpp:1419 src/irc/channel.cpp:1438 src/irc/channel.cpp:1440
+#: src/viewer/ircview.cpp:686
 msgid "Quit"
 msgstr ""
 
-#: src/irc/query.cpp:686 src/irc/channel.cpp:1441
+#: src/irc/query.cpp:686 src/irc/channel.cpp:1438
 #, kde-format
 msgid "%1 has left this server."
 msgstr "%1 がこのサーバから退出しました。"
@@ -2776,11 +2829,11 @@ msgstr "サブオペレータ"
 msgid "Has voice"
 msgstr "発言権所有"
 
-#: src/irc/channel.cpp:146
+#: src/irc/channel.cpp:143
 msgid "Edit Channel Settings"
 msgstr "チャンネル設定を編集"
 
-#: src/irc/channel.cpp:153
+#: src/irc/channel.cpp:150
 #, fuzzy
 #| msgid ""
 #| "<qt>Every channel on IRC has a topic associated with it.  This is simply "
@@ -2801,11 +2854,11 @@ msgstr ""
 "「チャンネルのプロパティを編集」ボタンをクリックするとトピックを変更できま"
 "す。そこで過去のトピックを見ることもできます。</qt>"
 
-#: src/irc/channel.cpp:191
+#: src/irc/channel.cpp:188
 msgid "Maximum users allowed in channel"
 msgstr "チャンネルの人数制限"
 
-#: src/irc/channel.cpp:192
+#: src/irc/channel.cpp:189
 #, fuzzy
 #| msgid ""
 #| "<qt>This is the channel user limit - the maximum number of users that can "
@@ -2822,7 +2875,7 @@ msgstr ""
 "あなたがオペレータであれば、L モードをクリックすると値を設定できます。これを"
 "設定すると左の <b>T</b> (トピック保護) モードも自動的に設定されます。</qt>"
 
-#: src/irc/channel.cpp:247 src/viewer/statuspanel.cpp:52
+#: src/irc/channel.cpp:244 src/viewer/statuspanel.cpp:49
 #, fuzzy
 #| msgid ""
 #| "<qt>This shows your current nick, and any alternatives you have set up.  "
@@ -2847,511 +2900,511 @@ msgstr ""
 "<p>「ファイル」メニューの「個人情報」オプションで代替ニックネームを変更できま"
 "す。</qt>"
 
-#: src/irc/channel.cpp:669
+#: src/irc/channel.cpp:666
 msgid "Do you want to ignore the selected users?"
 msgstr "選択したユーザを無視しますか？"
 
-#: src/irc/channel.cpp:694
+#: src/irc/channel.cpp:691
 msgid "Do you want to stop ignoring the selected users?"
 msgstr "選択したユーザを無視するのを止めますか？"
 
-#: src/irc/channel.cpp:855
+#: src/irc/channel.cpp:852
 msgid "Completion"
 msgstr "補完"
 
-#: src/irc/channel.cpp:855
+#: src/irc/channel.cpp:852
 #, kde-format
 msgid "Possible completions: %1."
 msgstr "補完候補: %1"
 
-#: src/irc/channel.cpp:1228
+#: src/irc/channel.cpp:1225
 msgid "Channel Password"
 msgstr "チャンネルパスワード"
 
-#: src/irc/channel.cpp:1243
+#: src/irc/channel.cpp:1240
 msgid "Nick Limit"
 msgstr "人数制限"
 
-#: src/irc/channel.cpp:1244
+#: src/irc/channel.cpp:1241
 msgid "Enter the new nick limit:"
 msgstr "人数の上限を入力してください:"
 
-#: src/irc/channel.cpp:1360
+#: src/irc/channel.cpp:1357
 #, kde-format
 msgid "You are now known as %1."
 msgstr "ニックネームを %1 に変更しました。"
 
-#: src/irc/channel.cpp:1382
+#: src/irc/channel.cpp:1379
 #, kde-format
 msgctxt "%1 is the channel and %2 is our hostmask"
 msgid "You have joined the channel %1 (%2)."
 msgstr "チャンネル %1 に入りました (%2)。"
 
-#: src/irc/channel.cpp:1398
+#: src/irc/channel.cpp:1395
 #, kde-format
 msgctxt "%1 is the nick joining and %2 the hostmask of that nick"
 msgid "%1 has joined this channel (%2)."
 msgstr "%1 がこのチャンネルに入りました (%2)。"
 
-#: src/irc/channel.cpp:1420
+#: src/irc/channel.cpp:1417
 msgid "You have left this server."
 msgstr "このサーバから退出しました。"
 
-#: src/irc/channel.cpp:1422
+#: src/irc/channel.cpp:1419
 #, kde-format
 msgctxt "%1 adds the reason"
 msgid "You have left this server (%1)."
 msgstr "このサーバから退出しました (%1)。"
 
-#: src/irc/channel.cpp:1427 src/irc/channel.cpp:1429 src/irc/channel.cpp:1449
-#: src/irc/channel.cpp:1451 src/viewer/ircview.cpp:401
+#: src/irc/channel.cpp:1424 src/irc/channel.cpp:1426 src/irc/channel.cpp:1446
+#: src/irc/channel.cpp:1448 src/viewer/ircview.cpp:686
 msgid "Part"
 msgstr "退出"
 
-#: src/irc/channel.cpp:1427
+#: src/irc/channel.cpp:1424
 #, kde-format
 msgid "You have left channel %1."
 msgstr "チャンネル %1 から退出しました。"
 
-#: src/irc/channel.cpp:1430
+#: src/irc/channel.cpp:1427
 #, kde-format
 msgctxt "%1 adds the channel and %2 the reason"
 msgid "You have left channel %1 (%2)."
 msgstr "チャンネル %1 から退出しました (%2)。"
 
-#: src/irc/channel.cpp:1444
+#: src/irc/channel.cpp:1441
 #, kde-format
 msgctxt "%1 adds the nick and %2 the reason"
 msgid "%1 has left this server (%2)."
 msgstr "%1 がこのサーバから退出しました (%2)。"
 
-#: src/irc/channel.cpp:1449
+#: src/irc/channel.cpp:1446
 #, kde-format
 msgid "%1 has left this channel."
 msgstr "%1 がこのチャンネルから退出しました。"
 
-#: src/irc/channel.cpp:1452
+#: src/irc/channel.cpp:1449
 #, kde-format
 msgctxt "%1 adds the nick and %2 the reason"
 msgid "%1 has left this channel (%2)."
 msgstr "%1 がこのチャンネルから退出しました (%2)。"
 
-#: src/irc/channel.cpp:1506
+#: src/irc/channel.cpp:1503
 #, kde-format
 msgid "You have kicked yourself from channel %1."
 msgstr "自分自身をチャンネル %1 から追い出しました。"
 
-#: src/irc/channel.cpp:1509
+#: src/irc/channel.cpp:1506
 #, kde-format
 msgctxt "%1 adds the channel and %2 the reason"
 msgid "You have kicked yourself from channel %1 (%2)."
 msgstr "自分自身をチャンネル %1 から追い出しました (%2)。"
 
-#: src/irc/channel.cpp:1516
+#: src/irc/channel.cpp:1513
 #, kde-format
 msgctxt "%1 adds the channel, %2 adds the kicker"
 msgid "You have been kicked from channel %1 by %2."
 msgstr "%2 にチャンネル %1 から追い出されました。"
 
-#: src/irc/channel.cpp:1521
+#: src/irc/channel.cpp:1518
 #, kde-format
 msgctxt "%1 adds the channel, %2 the kicker and %3 the reason"
 msgid "You have been kicked from channel %1 by %2 (%3)."
 msgstr "%2 にチャンネル %1 から追い出されました (%3)。"
 
-#: src/irc/channel.cpp:1541
+#: src/irc/channel.cpp:1538
 #, kde-format
 msgid "You have kicked %1 from the channel."
 msgstr "%1 をチャンネルから追い出しました。"
 
-#: src/irc/channel.cpp:1544
+#: src/irc/channel.cpp:1541
 #, kde-format
 msgctxt "%1 adds the kicked nick and %2 the reason"
 msgid "You have kicked %1 from the channel (%2)."
 msgstr "%1 をチャンネルから追い出しました (%2)。"
 
-#: src/irc/channel.cpp:1551
+#: src/irc/channel.cpp:1548
 #, kde-format
 msgctxt "%1 adds the kicked nick, %2 adds the kicker"
 msgid "%1 has been kicked from the channel by %2."
 msgstr "%1 が %2 にチャンネルから追い出されました。"
 
-#: src/irc/channel.cpp:1556
+#: src/irc/channel.cpp:1553
 #, kde-format
 msgctxt "%1 adds the kicked nick, %2 the kicker and %3 the reason"
 msgid "%1 has been kicked from the channel by %2 (%3)."
 msgstr "%1 が %2 にチャンネルから追い出されました (%3)。"
 
-#: src/irc/channel.cpp:1628
+#: src/irc/channel.cpp:1625
 #, fuzzy, kde-format
 msgid "%1 nick"
 msgid_plural "%1 nicks"
 msgstr[0] "%1人"
 msgstr[1] "%1人"
 
-#: src/irc/channel.cpp:1629
+#: src/irc/channel.cpp:1626
 #, fuzzy, kde-format
 msgid " (%1 op)"
 msgid_plural " (%1 ops)"
 msgstr[0] " (op %1人)"
 msgstr[1] " (op %1人)"
 
-#: src/irc/channel.cpp:1636
+#: src/irc/channel.cpp:1633
 #, kde-format
 msgid "The channel topic is \"%1\"."
 msgstr "チャンネルトピックは \"%1\" です。"
 
-#: src/irc/channel.cpp:1646
+#: src/irc/channel.cpp:1643
 msgid "unknown"
 msgstr "不明"
 
-#: src/irc/channel.cpp:1655
+#: src/irc/channel.cpp:1652
 #, kde-format
 msgid "You set the channel topic to \"%1\"."
 msgstr "チャンネルトピックを \"%1\" に設定しました。"
 
-#: src/irc/channel.cpp:1659
+#: src/irc/channel.cpp:1656
 #, kde-format
 msgid "%1 sets the channel topic to \"%2\"."
 msgstr "%1 がチャンネルトピックを \"%2\" に設定しました。"
 
-#: src/irc/channel.cpp:1725
+#: src/irc/channel.cpp:1722
 msgid "You give channel owner privileges to yourself."
 msgstr "自分自身に所有者権限を与えました。"
 
-#: src/irc/channel.cpp:1727
+#: src/irc/channel.cpp:1724
 #, kde-format
 msgid "You give channel owner privileges to %1."
 msgstr "%1 に所有者権限を与えました。"
 
-#: src/irc/channel.cpp:1732
+#: src/irc/channel.cpp:1729
 #, kde-format
 msgid "%1 gives channel owner privileges to you."
 msgstr "%1 から所有者権限を受け取りました。"
 
-#: src/irc/channel.cpp:1734
+#: src/irc/channel.cpp:1731
 #, kde-format
 msgid "%1 gives channel owner privileges to %2."
 msgstr "%1 が %2 に所有者権限を与えました。"
 
-#: src/irc/channel.cpp:1742
+#: src/irc/channel.cpp:1739
 msgid "You take channel owner privileges from yourself."
 msgstr "自分自身から所有者権限を奪いました。"
 
-#: src/irc/channel.cpp:1744
+#: src/irc/channel.cpp:1741
 #, kde-format
 msgid "You take channel owner privileges from %1."
 msgstr "%1 から所有者権限を奪いました。"
 
-#: src/irc/channel.cpp:1749
+#: src/irc/channel.cpp:1746
 #, kde-format
 msgid "%1 takes channel owner privileges from you."
 msgstr "%1 に所有者権限を奪われました。"
 
-#: src/irc/channel.cpp:1751
+#: src/irc/channel.cpp:1748
 #, kde-format
 msgid "%1 takes channel owner privileges from %2."
 msgstr "%1 が %2 から所有者権限を奪いました。"
 
-#: src/irc/channel.cpp:1767
+#: src/irc/channel.cpp:1764
 msgid "You give channel admin privileges to yourself."
 msgstr "自分自身にチャンネル管理者権限を与えました。"
 
-#: src/irc/channel.cpp:1769
+#: src/irc/channel.cpp:1766
 #, kde-format
 msgid "You give channel admin privileges to %1."
 msgstr "%1 にチャンネル管理者権限を与えました。"
 
-#: src/irc/channel.cpp:1774
+#: src/irc/channel.cpp:1771
 #, kde-format
 msgid "%1 gives channel admin privileges to you."
 msgstr "%1 からチャンネル管理者権限を受け取りました。"
 
-#: src/irc/channel.cpp:1776
+#: src/irc/channel.cpp:1773
 #, kde-format
 msgid "%1 gives channel admin privileges to %2."
 msgstr "%1 が %2 にチャンネル管理者権限を与えました。"
 
-#: src/irc/channel.cpp:1784
+#: src/irc/channel.cpp:1781
 msgid "You take channel admin privileges from yourself."
 msgstr "自分自身からチャンネル管理者権限を奪いました。"
 
-#: src/irc/channel.cpp:1786
+#: src/irc/channel.cpp:1783
 #, kde-format
 msgid "You take channel admin privileges from %1."
 msgstr "%1 からチャンネル管理者権限を奪いました。"
 
-#: src/irc/channel.cpp:1791
+#: src/irc/channel.cpp:1788
 #, kde-format
 msgid "%1 takes channel admin privileges from you."
 msgstr "%1 にチャンネル管理者権限を奪われました。"
 
-#: src/irc/channel.cpp:1793
+#: src/irc/channel.cpp:1790
 #, kde-format
 msgid "%1 takes channel admin privileges from %2."
 msgstr "%1 が %2 からチャンネル管理者権限を奪いました。"
 
-#: src/irc/channel.cpp:1809
+#: src/irc/channel.cpp:1806
 msgid "You give channel operator privileges to yourself."
 msgstr "自分自身にオペレータ権限を与えました。"
 
-#: src/irc/channel.cpp:1811
+#: src/irc/channel.cpp:1808
 #, kde-format
 msgid "You give channel operator privileges to %1."
 msgstr "%1 にオペレータ権限を与えました。"
 
-#: src/irc/channel.cpp:1816
+#: src/irc/channel.cpp:1813
 #, kde-format
 msgid "%1 gives channel operator privileges to you."
 msgstr "%1 からオペレータ権限を受け取りました。"
 
-#: src/irc/channel.cpp:1818
+#: src/irc/channel.cpp:1815
 #, kde-format
 msgid "%1 gives channel operator privileges to %2."
 msgstr "%1 が %2 にオペレータ権限を与えました。"
 
-#: src/irc/channel.cpp:1826
+#: src/irc/channel.cpp:1823
 msgid "You take channel operator privileges from yourself."
 msgstr "自分自身からオペレータ権限を奪いました。"
 
-#: src/irc/channel.cpp:1828
+#: src/irc/channel.cpp:1825
 #, kde-format
 msgid "You take channel operator privileges from %1."
 msgstr "%1 からオペレータ権限を奪いました。"
 
-#: src/irc/channel.cpp:1833
+#: src/irc/channel.cpp:1830
 #, kde-format
 msgid "%1 takes channel operator privileges from you."
 msgstr "%1 にオペレータ権限を奪われました。"
 
-#: src/irc/channel.cpp:1835
+#: src/irc/channel.cpp:1832
 #, kde-format
 msgid "%1 takes channel operator privileges from %2."
 msgstr "%1 が %2 からオペレータ権限を奪いました。"
 
-#: src/irc/channel.cpp:1851
+#: src/irc/channel.cpp:1848
 msgid "You give channel halfop privileges to yourself."
 msgstr "自分自身にサブオペレータ権限を与えました。"
 
-#: src/irc/channel.cpp:1853
+#: src/irc/channel.cpp:1850
 #, kde-format
 msgid "You give channel halfop privileges to %1."
 msgstr "%1 にサブオペレータ権限を与えました。"
 
-#: src/irc/channel.cpp:1858
+#: src/irc/channel.cpp:1855
 #, kde-format
 msgid "%1 gives channel halfop privileges to you."
 msgstr "%1 からサブオペレータ権限を受け取りました。"
 
-#: src/irc/channel.cpp:1860
+#: src/irc/channel.cpp:1857
 #, kde-format
 msgid "%1 gives channel halfop privileges to %2."
 msgstr "%1 が %2サブオペレータ権限を与えました。"
 
-#: src/irc/channel.cpp:1868
+#: src/irc/channel.cpp:1865
 msgid "You take channel halfop privileges from yourself."
 msgstr "自分自身からサブオペレータ権限を奪いました。"
 
-#: src/irc/channel.cpp:1870
+#: src/irc/channel.cpp:1867
 #, kde-format
 msgid "You take channel halfop privileges from %1."
 msgstr "%1 からサブオペレータ権限を奪いました。"
 
-#: src/irc/channel.cpp:1875
+#: src/irc/channel.cpp:1872
 #, kde-format
 msgid "%1 takes channel halfop privileges from you."
 msgstr "%1 にサブオペレータ権限を奪われました。"
 
-#: src/irc/channel.cpp:1877
+#: src/irc/channel.cpp:1874
 #, kde-format
 msgid "%1 takes channel halfop privileges from %2."
 msgstr "%1 が %2 からサブオペレータ権限を奪いました。"
 
-#: src/irc/channel.cpp:1894
+#: src/irc/channel.cpp:1891
 msgid "You give yourself permission to talk."
 msgstr "自分自身に発言権を与えました。"
 
-#: src/irc/channel.cpp:1895
+#: src/irc/channel.cpp:1892
 #, fuzzy, kde-format
 #| msgid "You give %1  permission to talk."
 msgid "You give %1 permission to talk."
 msgstr "%1 に発言権を与えました。"
 
-#: src/irc/channel.cpp:1899
+#: src/irc/channel.cpp:1896
 #, kde-format
 msgid "%1 gives you permission to talk."
 msgstr "%1 から発言権を受け取りました。"
 
-#: src/irc/channel.cpp:1900
+#: src/irc/channel.cpp:1897
 #, kde-format
 msgid "%1 gives %2 permission to talk."
 msgstr "%1 が %2 に発言権を与えました。"
 
-#: src/irc/channel.cpp:1907
+#: src/irc/channel.cpp:1904
 msgid "You take the permission to talk from yourself."
 msgstr "自分自身から発言権を奪いました。"
 
-#: src/irc/channel.cpp:1908
+#: src/irc/channel.cpp:1905
 #, kde-format
 msgid "You take the permission to talk from %1."
 msgstr "%1 から発言権を奪いました。"
 
-#: src/irc/channel.cpp:1912
+#: src/irc/channel.cpp:1909
 #, kde-format
 msgid "%1 takes the permission to talk from you."
 msgstr "%1 に発言権を奪われました。"
 
-#: src/irc/channel.cpp:1913
+#: src/irc/channel.cpp:1910
 #, kde-format
 msgid "%1 takes the permission to talk from %2."
 msgstr "%1 が %2 から発言権を奪いました。"
 
-#: src/irc/channel.cpp:1925
+#: src/irc/channel.cpp:1922
 msgid "You set the channel mode to 'no colors allowed'."
 msgstr "カラーコードを禁止に設定しました。"
 
-#: src/irc/channel.cpp:1926
+#: src/irc/channel.cpp:1923
 #, kde-format
 msgid "%1 sets the channel mode to 'no colors allowed'."
 msgstr "%1 がカラーコードを禁止に設定しました。"
 
-#: src/irc/channel.cpp:1930
+#: src/irc/channel.cpp:1927
 msgid "You set the channel mode to 'allow color codes'."
 msgstr "カラーコードを許可に設定しました。"
 
-#: src/irc/channel.cpp:1931
+#: src/irc/channel.cpp:1928
 #, kde-format
 msgid "%1 sets the channel mode to 'allow color codes'."
 msgstr "%1 がカラーコードを許可に設定しました。"
 
-#: src/irc/channel.cpp:1938
+#: src/irc/channel.cpp:1935
 msgid "You set the channel mode to 'invite only'."
 msgstr "チャンネルを招待のみに設定しました。"
 
-#: src/irc/channel.cpp:1939
+#: src/irc/channel.cpp:1936
 #, kde-format
 msgid "%1 sets the channel mode to 'invite only'."
 msgstr "%1 がチャンネルを招待のみに設定しました。"
 
-#: src/irc/channel.cpp:1943
+#: src/irc/channel.cpp:1940
 msgid "You remove the 'invite only' mode from the channel."
 msgstr "招待のみを解除しました。"
 
-#: src/irc/channel.cpp:1944
+#: src/irc/channel.cpp:1941
 #, kde-format
 msgid "%1 removes the 'invite only' mode from the channel."
 msgstr "%1 が招待のみを解除しました。"
 
-#: src/irc/channel.cpp:1952
+#: src/irc/channel.cpp:1949
 msgid "You set the channel mode to 'moderated'."
 msgstr "チャンネルをモデレートに設定しました。"
 
-#: src/irc/channel.cpp:1953
+#: src/irc/channel.cpp:1950
 #, kde-format
 msgid "%1 sets the channel mode to 'moderated'."
 msgstr "%1 がチャンネルをモデレートに設定しました。"
 
-#: src/irc/channel.cpp:1957
+#: src/irc/channel.cpp:1954
 msgid "You set the channel mode to 'unmoderated'."
 msgstr "チャンネルのモデレート設定を解除しました。"
 
-#: src/irc/channel.cpp:1958
+#: src/irc/channel.cpp:1955
 #, kde-format
 msgid "%1 sets the channel mode to 'unmoderated'."
 msgstr "%1 がチャンネルのモデレート設定を解除しました。"
 
-#: src/irc/channel.cpp:1966
+#: src/irc/channel.cpp:1963
 msgid "You set the channel mode to 'no messages from outside'."
 msgstr "チャンネル外部からのメッセージを禁止に設定しました。"
 
-#: src/irc/channel.cpp:1967
+#: src/irc/channel.cpp:1964
 #, kde-format
 msgid "%1 sets the channel mode to 'no messages from outside'."
 msgstr "%1 がチャンネル外部からのメッセージを禁止に設定しました。"
 
-#: src/irc/channel.cpp:1971
+#: src/irc/channel.cpp:1968
 msgid "You set the channel mode to 'allow messages from outside'."
 msgstr "チャンネル外部からのメッセージを許可に設定しました。"
 
-#: src/irc/channel.cpp:1972
+#: src/irc/channel.cpp:1969
 #, kde-format
 msgid "%1 sets the channel mode to 'allow messages from outside'."
 msgstr "%1 がチャンネル外部からのメッセージを許可に設定しました。"
 
-#: src/irc/channel.cpp:1980
+#: src/irc/channel.cpp:1977
 msgid "You set the channel mode to 'private'."
 msgstr "チャンネルをプライベートに設定しました。"
 
-#: src/irc/channel.cpp:1981
+#: src/irc/channel.cpp:1978
 #, kde-format
 msgid "%1 sets the channel mode to 'private'."
 msgstr "%1 がチャンネルをプライベートに設定しました。"
 
-#: src/irc/channel.cpp:1985
+#: src/irc/channel.cpp:1982
 msgid "You set the channel mode to 'public'."
 msgstr "チャンネルをパブリックに設定しました。"
 
-#: src/irc/channel.cpp:1986
+#: src/irc/channel.cpp:1983
 #, kde-format
 msgid "%1 sets the channel mode to 'public'."
 msgstr "%1 がチャンネルをパブリックに設定しました。"
 
-#: src/irc/channel.cpp:1995
+#: src/irc/channel.cpp:1992
 msgid "You set the channel mode to 'secret'."
 msgstr "チャンネルをシークレットに設定しました。"
 
-#: src/irc/channel.cpp:1996
+#: src/irc/channel.cpp:1993
 #, kde-format
 msgid "%1 sets the channel mode to 'secret'."
 msgstr "%1 がチャンネルをシークレットに設定しました。"
 
-#: src/irc/channel.cpp:2000
+#: src/irc/channel.cpp:1997
 msgid "You set the channel mode to 'visible'."
 msgstr "チャンネルを可視に設定しました。"
 
-#: src/irc/channel.cpp:2001
+#: src/irc/channel.cpp:1998
 #, kde-format
 msgid "%1 sets the channel mode to 'visible'."
 msgstr "%1 がチャンネルを可視に設定しました。"
 
-#: src/irc/channel.cpp:2012
+#: src/irc/channel.cpp:2009
 msgid "You switch on 'topic protection'."
 msgstr "トピック保護を有効にしました。"
 
-#: src/irc/channel.cpp:2013
+#: src/irc/channel.cpp:2010
 #, kde-format
 msgid "%1 switches on 'topic protection'."
 msgstr "%1 がトピック保護を有効にしました。"
 
-#: src/irc/channel.cpp:2017
+#: src/irc/channel.cpp:2014
 msgid "You switch off 'topic protection'."
 msgstr "トピック保護を解除しました。"
 
-#: src/irc/channel.cpp:2018
+#: src/irc/channel.cpp:2015
 #, kde-format
 msgid "%1 switches off 'topic protection'."
 msgstr "%1 がトピック保護を解除しました。"
 
-#: src/irc/channel.cpp:2026
+#: src/irc/channel.cpp:2023
 #, kde-format
 msgid "You set the channel key to '%1'."
 msgstr "チャンネルキーを \"%1\" に設定しました。"
 
-#: src/irc/channel.cpp:2027
+#: src/irc/channel.cpp:2024
 #, kde-format
 msgid "%1 sets the channel key to '%2'."
 msgstr "%1 がチャンネルキーを \"%2\" に設定しました。"
 
-#: src/irc/channel.cpp:2031
+#: src/irc/channel.cpp:2028
 msgid "You remove the channel key."
 msgstr "チャンネルキーを削除しました。"
 
-#: src/irc/channel.cpp:2032
+#: src/irc/channel.cpp:2029
 #, kde-format
 msgid "%1 removes the channel key."
 msgstr "%1 がチャンネルキーを削除しました。"
 
-#: src/irc/channel.cpp:2040
+#: src/irc/channel.cpp:2037
 #, fuzzy, kde-format
 #| msgid "You set the channel limit to %1 nicks."
 msgid "You set the channel limit to 1 nick."
@@ -3359,7 +3412,7 @@ msgid_plural "You set the channel limit to %1 nicks."
 msgstr[0] "チャンネルの人数制限を %1 人に設定しました。"
 msgstr[1] "チャンネルの人数制限を %1 人に設定しました。"
 
-#: src/irc/channel.cpp:2041
+#: src/irc/channel.cpp:2038
 #, fuzzy, kde-format
 #| msgid "%1 sets the channel limit to %2 nicks."
 msgid "%2 sets the channel limit to 1 nick."
@@ -3367,219 +3420,219 @@ msgid_plural "%2 sets the channel limit to %1 nicks."
 msgstr[0] "%1 がチャンネルの人数制限を %2 人に設定しました。"
 msgstr[1] "%1 がチャンネルの人数制限を %2 人に設定しました。"
 
-#: src/irc/channel.cpp:2045
+#: src/irc/channel.cpp:2042
 msgid "You remove the channel limit."
 msgstr "チャンネルの人数制限を解除しました。"
 
-#: src/irc/channel.cpp:2046
+#: src/irc/channel.cpp:2043
 #, kde-format
 msgid "%1 removes the channel limit."
 msgstr "%1 がチャンネルの人数制限を解除しました。"
 
-#: src/irc/channel.cpp:2056
+#: src/irc/channel.cpp:2053
 #, kde-format
 msgid "You set a ban on %1."
 msgstr "%1 に対する Ban を設定しました。"
 
-#: src/irc/channel.cpp:2057
+#: src/irc/channel.cpp:2054
 #, kde-format
 msgid "%1 sets a ban on %2."
 msgstr "%1 が %2 に対する Ban を設定しました。"
 
-#: src/irc/channel.cpp:2061
+#: src/irc/channel.cpp:2058
 #, kde-format
 msgid "You remove the ban on %1."
 msgstr "%1 に対する Ban を解除しました。"
 
-#: src/irc/channel.cpp:2062
+#: src/irc/channel.cpp:2059
 #, kde-format
 msgid "%1 removes the ban on %2."
 msgstr "%1 が %2 に対する Ban を解除しました。"
 
-#: src/irc/channel.cpp:2069
+#: src/irc/channel.cpp:2066
 #, kde-format
 msgid "You set a ban exception on %1."
 msgstr "%1 に対する Ban 例外を設定しました。"
 
-#: src/irc/channel.cpp:2070
+#: src/irc/channel.cpp:2067
 #, kde-format
 msgid "%1 sets a ban exception on %2."
 msgstr "%1 が %2 に対する Ban 例外を設定しました。"
 
-#: src/irc/channel.cpp:2074
+#: src/irc/channel.cpp:2071
 #, kde-format
 msgid "You remove the ban exception on %1."
 msgstr "%1 に対する Ban 例外を解除しました。"
 
-#: src/irc/channel.cpp:2075
+#: src/irc/channel.cpp:2072
 #, kde-format
 msgid "%1 removes the ban exception on %2."
 msgstr "%1 が %2 に対する Ban 例外を解除しました。"
 
-#: src/irc/channel.cpp:2082
+#: src/irc/channel.cpp:2079
 #, kde-format
 msgid "You set invitation mask %1."
 msgstr "招待マスク %1 を設定しました。"
 
-#: src/irc/channel.cpp:2083
+#: src/irc/channel.cpp:2080
 #, kde-format
 msgid "%1 sets invitation mask %2."
 msgstr "%1 が招待マスク %2 を設定しました。"
 
-#: src/irc/channel.cpp:2087
+#: src/irc/channel.cpp:2084
 #, kde-format
 msgid "You remove the invitation mask %1."
 msgstr "招待マスク %1 を解除しました。"
 
-#: src/irc/channel.cpp:2088
+#: src/irc/channel.cpp:2085
 #, kde-format
 msgid "%1 removes the invitation mask %2."
 msgstr "%1 が招待マスク %2 を解除しました。"
 
-#: src/irc/channel.cpp:2096
+#: src/irc/channel.cpp:2093
 #, fuzzy, kde-format
 #| msgid "You set the channel key to '%1'."
 msgid "You set the channel mode '%1'."
 msgstr "チャンネルキーを \"%1\" に設定しました。"
 
-#: src/irc/channel.cpp:2097
+#: src/irc/channel.cpp:2094
 #, fuzzy, kde-format
 #| msgid "%1 sets the channel key to '%2'."
 msgid "%1 sets the channel mode '%2'."
 msgstr "%1 がチャンネルキーを \"%2\" に設定しました。"
 
-#: src/irc/channel.cpp:2101
+#: src/irc/channel.cpp:2098
 #, kde-format
 msgid "You set channel mode +%1"
 msgstr "チャンネルモードを +%1 に設定しました。"
 
-#: src/irc/channel.cpp:2102
+#: src/irc/channel.cpp:2099
 #, kde-format
 msgid "%1 sets channel mode +%2"
 msgstr "%1 がチャンネルモードを +%2 に設定しました。"
 
-#: src/irc/channel.cpp:2109
+#: src/irc/channel.cpp:2106
 #, fuzzy, kde-format
 #| msgid "You remove the channel key."
 msgid "You remove the channel mode '%1'."
 msgstr "チャンネルキーを削除しました。"
 
-#: src/irc/channel.cpp:2110
+#: src/irc/channel.cpp:2107
 #, fuzzy, kde-format
 #| msgid "%1 removes the channel key."
 msgid "%1 removes the channel mode '%2'."
 msgstr "%1 がチャンネルキーを削除しました。"
 
-#: src/irc/channel.cpp:2114
+#: src/irc/channel.cpp:2111
 #, kde-format
 msgid "You set channel mode -%1"
 msgstr "チャンネルモードを -%1 に設定しました。"
 
-#: src/irc/channel.cpp:2115
+#: src/irc/channel.cpp:2112
 #, kde-format
 msgid "%1 sets channel mode -%2"
 msgstr "%1 がチャンネルモードを -%2 に設定しました。"
 
-#: src/irc/channel.cpp:2521
+#: src/irc/channel.cpp:2520
 msgid "You have to be an operator to change this."
 msgstr "オペレータのみが変更可能"
 
-#: src/irc/channel.cpp:2523
+#: src/irc/channel.cpp:2522
 #, kde-format
 msgid "Topic can be changed by channel operator only.  %1"
 msgstr "トピック保護 (%1)"
 
-#: src/irc/channel.cpp:2524
+#: src/irc/channel.cpp:2523
 #, kde-format
 msgid "No messages to channel from clients on the outside.  %1"
 msgstr "チャンネル外部からのメッセージ禁止 (%1)"
 
-#: src/irc/channel.cpp:2525
+#: src/irc/channel.cpp:2524
 #, kde-format
 msgid "Secret channel.  %1"
 msgstr "シークレットチャンネル (%1)"
 
-#: src/irc/channel.cpp:2526
+#: src/irc/channel.cpp:2525
 #, kde-format
 msgid "Invite only channel.  %1"
 msgstr "招待のみのチャンネル (%1)"
 
-#: src/irc/channel.cpp:2527
+#: src/irc/channel.cpp:2526
 #, kde-format
 msgid "Private channel.  %1"
 msgstr "プライベートチャンネル (%1)"
 
-#: src/irc/channel.cpp:2528
+#: src/irc/channel.cpp:2527
 #, kde-format
 msgid "Moderated channel.  %1"
 msgstr "モデレートチャンネル (%1)"
 
-#: src/irc/channel.cpp:2529
+#: src/irc/channel.cpp:2528
 msgid "Protect channel with a password."
 msgstr "パスワード保護"
 
-#: src/irc/channel.cpp:2530
+#: src/irc/channel.cpp:2529
 msgid "Set user limit to channel."
 msgstr "人数制限"
 
-#: src/irc/channel.cpp:2660
+#: src/irc/channel.cpp:2659
 #, kde-format
 msgid "Do you want to leave %1?"
 msgstr "'%1' から退出しますか？"
 
-#: src/irc/channel.cpp:2661
+#: src/irc/channel.cpp:2660
 msgid "Leave Channel"
 msgstr "チャンネルから退出"
 
-#: src/irc/channel.cpp:2662
+#: src/irc/channel.cpp:2661
 msgid "Leave"
 msgstr "退出"
 
-#: src/upnp/upnprouter.cpp:139
+#: src/upnp/upnprouter.cpp:134
 #, fuzzy, kde-format
 #| msgid "Failed to Download Theme"
 msgid "Failed to download %1 : %2"
 msgstr "テーマのダウンロードに失敗"
 
-#: src/upnp/upnprouter.cpp:150
+#: src/upnp/upnprouter.cpp:145
 msgid "Error parsing router description."
 msgstr ""
 
-#: src/quickconnectdialog.cpp:30
+#: src/quickconnectdialog.cpp:29
 msgid "Quick Connect"
 msgstr "クイック接続"
 
-#: src/quickconnectdialog.cpp:37
+#: src/quickconnectdialog.cpp:36
 msgid "&Server host:"
 msgstr "サーバホスト(&S):"
 
-#: src/quickconnectdialog.cpp:38
+#: src/quickconnectdialog.cpp:37
 msgid "Enter the host of the network here."
 msgstr "ネットワークのホスト"
 
 #. i18n: file: src/irc/serverdialogui.ui:40
 #. i18n: ectx: property (text), widget (QLabel, portLbl)
-#: src/quickconnectdialog.cpp:44 rc.cpp:266
+#: src/quickconnectdialog.cpp:43 rc.cpp:266
 msgid "&Port:"
 msgstr "ポート(&P):"
 
-#: src/quickconnectdialog.cpp:45
+#: src/quickconnectdialog.cpp:44
 msgid "The port that the IRC server is using."
 msgstr "IRC サーバが使用しているポート"
 
-#: src/quickconnectdialog.cpp:51
+#: src/quickconnectdialog.cpp:50
 msgid "&Nick:"
 msgstr "ニック(&N):"
 
-#: src/quickconnectdialog.cpp:52
+#: src/quickconnectdialog.cpp:51
 msgid "The nick you want to use."
 msgstr "使用するニック"
 
-#: src/quickconnectdialog.cpp:58
+#: src/quickconnectdialog.cpp:57
 msgid "P&assword:"
 msgstr "パスワード(&A):"
 
-#: src/quickconnectdialog.cpp:59
+#: src/quickconnectdialog.cpp:58
 msgid ""
 "If the IRC server requires a password, enter it here (most servers do not "
 "require a password.)"
@@ -3587,46 +3640,46 @@ msgstr ""
 "IRC サーバがパスワードを要求する場合は、それをここに入力してください。ほとん"
 "どのサーバではパスワードは必要ありません。"
 
-#: src/quickconnectdialog.cpp:68
+#: src/quickconnectdialog.cpp:67
 msgid "&Use SSL"
 msgstr "SSL を使う(&U)"
 
 #: src/connectionmanager.cpp:205
 #, fuzzy, kde-format
 #| msgid "Trying to connect to %1 in %2 seconds."
-msgid "Trying to connect to %2 in 1 second."
-msgid_plural "Trying to connect to %2 in %1 seconds."
+msgid "Trying to connect to %2 (port %3) in 1 second."
+msgid_plural "Trying to connect to %2 (port %3) in %1 seconds."
 msgstr[0] "%2 秒後に %1 に接続を試みます。"
 msgstr[1] "%2 秒後に %1 に接続を試みます。"
 
-#: src/connectionmanager.cpp:214
+#: src/connectionmanager.cpp:215
 #, fuzzy, kde-format
 #| msgid "Trying to reconnect to %1 in %2 seconds."
-msgid "Trying to reconnect to %2 in 1 second."
-msgid_plural "Trying to reconnect to %2 in %1 seconds."
+msgid "Trying to reconnect to %2 (port %3) in 1 second."
+msgid_plural "Trying to reconnect to %2 (port %3) in %1 seconds."
 msgstr[0] "%2 秒後に %1 に再接続を試みます。"
 msgstr[1] "%2 秒後に %1 に再接続を試みます。"
 
-#: src/connectionmanager.cpp:225
+#: src/connectionmanager.cpp:227
 msgid "Reconnection attempts exceeded."
 msgstr "再接続の最大試行回数に達しました。"
 
-#: src/connectionmanager.cpp:441
+#: src/connectionmanager.cpp:443
 #, kde-format
 msgid ""
 "You are already connected to %1. Do you want to open another connection?"
 msgstr "既に %1 に接続しています。別の接続を確立しますか？"
 
-#: src/connectionmanager.cpp:442 src/connectionmanager.cpp:464
+#: src/connectionmanager.cpp:444 src/connectionmanager.cpp:466
 #, kde-format
 msgid "Already connected to %1"
 msgstr "既に %1 に接続しています"
 
-#: src/connectionmanager.cpp:443
+#: src/connectionmanager.cpp:445
 msgid "Create connection"
 msgstr "接続を確立"
 
-#: src/connectionmanager.cpp:458
+#: src/connectionmanager.cpp:460
 #, kde-format
 msgid ""
 "You are presently connected to %1 via '%2' (port %3). Do you want to switch "
@@ -3635,39 +3688,39 @@ msgstr ""
 "現在 %2 (ポート %3) を介して %1 に接続しています。%4 (ポート %5) に切り替えま"
 "すか？"
 
-#: src/connectionmanager.cpp:465
+#: src/connectionmanager.cpp:467
 msgid "Switch Server"
 msgstr "サーバを切り替え"
 
-#: src/connectionmanager.cpp:506
+#: src/connectionmanager.cpp:508
 #, fuzzy
 #| msgid "Please fill in your <b>Ident</b>.<br>"
 msgid "Please fill in your <b>Ident</b>.<br/>"
 msgstr "「個人情報」を入力してください。<br>"
 
-#: src/connectionmanager.cpp:509
+#: src/connectionmanager.cpp:511
 #, fuzzy
 #| msgid "Please fill in your <b>Real name</b>.<br>"
 msgid "Please fill in your <b>Real name</b>.<br/>"
 msgstr "「本名」を入力してください。<br>"
 
-#: src/connectionmanager.cpp:512
+#: src/connectionmanager.cpp:514
 #, fuzzy
 #| msgid "Please provide at least one <b>Nickname</b>.<br>"
 msgid "Please provide at least one <b>Nickname</b>.<br/>"
 msgstr "少なくとも一つの「ニックネーム」を入力してください。<br>"
 
-#: src/connectionmanager.cpp:520
+#: src/connectionmanager.cpp:522
 #, fuzzy, kde-format
 #| msgid "<qt>Your identity \"%1\" is not set up correctly:<br>%2</qt>"
 msgid "<qt>Your identity \"%1\" is not set up correctly:<br/>%2</qt>"
 msgstr "<qt>個人情報 \"%1\" は正しく設定されていません:<br>%2</qt>"
 
-#: src/connectionmanager.cpp:521
+#: src/connectionmanager.cpp:523
 msgid "Identity Settings"
 msgstr "個人情報の設定"
 
-#: src/connectionmanager.cpp:522
+#: src/connectionmanager.cpp:524
 msgid "Edit Identity..."
 msgstr "個人情報を編集..."
 
@@ -4095,7 +4148,7 @@ msgstr "接続に SSL を使う"
 #. i18n: file: src/config/quickbuttons_configui.ui:48
 #. i18n: ectx: property (text), widget (QPushButton, newButton)
 #: src/config/watchednicknames_config.cpp:216
-#: src/config/quickbuttons_config.cpp:204 src/config/alias_config.cpp:162
+#: src/config/quickbuttons_config.cpp:203 src/config/alias_config.cpp:162
 #: src/config/highlight_config.cpp:246 rc.cpp:603
 msgid "New"
 msgstr "新規"
@@ -4166,74 +4219,74 @@ msgstr "チャンネル管理者 (+p)"
 msgid "Channel Owners (+q)"
 msgstr "チャンネル所有者 (+q)"
 
-#: src/config/theme_config.cpp:165
+#: src/config/theme_config.cpp:160
 msgid "*.tar.gz *.tar.bz2 *.tar *.zip|Konversation Themes"
 msgstr "*.tar.gz *.tar.bz2 *.tar *.zip|Konversation テーマ"
 
-#: src/config/theme_config.cpp:167
+#: src/config/theme_config.cpp:162
 msgid "Select Theme Package"
 msgstr "テーマパッケージを選択"
 
-#: src/config/theme_config.cpp:180
+#: src/config/theme_config.cpp:175
 msgid "Failed to Download Theme"
 msgstr "テーマのダウンロードに失敗"
 
-#: src/config/theme_config.cpp:195 src/config/theme_config.cpp:216
+#: src/config/theme_config.cpp:190 src/config/theme_config.cpp:211
 msgid "Theme archive is invalid."
 msgstr "テーマアーカイブが不正です"
 
-#: src/config/theme_config.cpp:196 src/config/theme_config.cpp:217
+#: src/config/theme_config.cpp:191 src/config/theme_config.cpp:212
 msgid "Cannot Install Theme"
 msgstr "テーマをインストールできません"
 
-#: src/config/theme_config.cpp:242
+#: src/config/theme_config.cpp:237
 #, fuzzy, kde-format
 #| msgid "Do you want to remove %1 ?"
 msgid "Do you want to remove %1?"
 msgstr "%1 を削除しますか？"
 
-#: src/config/theme_config.cpp:243
+#: src/config/theme_config.cpp:238
 msgid "Remove Theme"
 msgstr "テーマを削除"
 
-#: src/config/settingsdialog.cpp:47
+#: src/config/settingsdialog.cpp:44
 msgid "Interface"
 msgstr "インターフェース"
 
-#: src/config/settingsdialog.cpp:51
+#: src/config/settingsdialog.cpp:48
 msgid "Behavior"
 msgstr "動作"
 
 #. i18n: file: src/config/tabnotifications_config.ui:45
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox5)
-#: src/config/settingsdialog.cpp:55 rc.cpp:1782
+#: src/config/settingsdialog.cpp:52 rc.cpp:1806
 msgid "Notifications"
 msgstr "通知"
 
-#: src/config/settingsdialog.cpp:66 src/config/settingsdialog.cpp:115
+#: src/config/settingsdialog.cpp:63 src/config/settingsdialog.cpp:109
 msgid "Chat Window"
 msgstr "チャットウィンドウ"
 
-#: src/config/settingsdialog.cpp:70
+#: src/config/settingsdialog.cpp:67
 msgid "Nicklist Themes"
 msgstr "ニックリストのテーマ"
 
-#: src/config/settingsdialog.cpp:78
+#: src/config/settingsdialog.cpp:75
 msgid "Colors"
 msgstr "色"
 
-#: src/config/settingsdialog.cpp:84
+#: src/config/settingsdialog.cpp:81
 #, fuzzy
 #| msgid "Focus"
 msgid "Fonts"
 msgstr "フォーカス"
 
-#: src/config/settingsdialog.cpp:88
+#: src/config/settingsdialog.cpp:85
 msgid "Quick Buttons"
 msgstr "クイックボタン"
 
-#: src/config/settingsdialog.cpp:94 src/config/settingsdialog.cpp:155
-#: src/viewer/viewtree.cpp:39
+#: src/config/settingsdialog.cpp:91 src/config/settingsdialog.cpp:149
+#: src/viewer/viewtree.cpp:38
 msgid "Tabs"
 msgstr "タブ"
 
@@ -4241,47 +4294,47 @@ msgstr "タブ"
 #. i18n: ectx: attribute (title), widget (QWidget, generalWidget)
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:19
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
-#: src/config/settingsdialog.cpp:100 rc.cpp:474 rc.cpp:1444
+#: src/config/settingsdialog.cpp:97 rc.cpp:474 rc.cpp:1468
 msgid "General"
 msgstr "全般"
 
-#: src/config/settingsdialog.cpp:109
+#: src/config/settingsdialog.cpp:102
 msgid "Connection"
 msgstr "接続"
 
-#: src/config/settingsdialog.cpp:119
+#: src/config/settingsdialog.cpp:113
 msgid "Nickname List"
 msgstr "ニックネームリスト"
 
-#: src/config/settingsdialog.cpp:125
+#: src/config/settingsdialog.cpp:119
 msgid "Command Aliases"
 msgstr "コマンドエイリアス"
 
-#: src/config/settingsdialog.cpp:131
+#: src/config/settingsdialog.cpp:125
 msgid "Auto Replace"
 msgstr "自動置換"
 
-#: src/config/settingsdialog.cpp:146
+#: src/config/settingsdialog.cpp:140
 msgid "Logging"
 msgstr "ログ"
 
 #. i18n: file: src/config/tabnotifications_config.ui:236
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsHighlights)
-#: src/config/settingsdialog.cpp:159 rc.cpp:1806
+#: src/config/settingsdialog.cpp:153 rc.cpp:1830
 msgid "Highlight"
 msgstr "強調表示"
 
 #. i18n: file: src/config/watchednicknames_configui.ui:149
 #. i18n: ectx: property (title), widget (QGroupBox, listGroupBox)
-#: src/config/settingsdialog.cpp:166 rc.cpp:751
+#: src/config/settingsdialog.cpp:160 rc.cpp:751
 msgid "Watched Nicknames"
 msgstr "監視するニックネーム"
 
-#: src/config/settingsdialog.cpp:172
+#: src/config/settingsdialog.cpp:166
 msgid "On Screen Display"
 msgstr "オンスクリーンディスプレイ (OSD)"
 
-#: src/config/settingsdialog.cpp:178
+#: src/config/settingsdialog.cpp:172
 msgid "Warning Dialogs"
 msgstr "警告ダイアログ"
 
@@ -4351,7 +4404,7 @@ msgstr "終了するときに実行中の DCC ファイル転送があれば警�
 msgid "Warn when sending characters incompatible with your current encoding"
 msgstr ""
 
-#: src/config/configdialog.cpp:75
+#: src/config/configdialog.cpp:72
 msgid "Configure"
 msgstr ""
 
@@ -4371,7 +4424,7 @@ msgstr "手動設定"
 msgid "Select Sound File"
 msgstr "サウンドファイルを選択"
 
-#: src/config/preferences.cpp:51
+#: src/config/preferences.cpp:48
 msgid "Default Identity"
 msgstr "デフォルトの個人情報"
 
@@ -4453,26 +4506,26 @@ msgstr "%1 への接続に失敗しました"
 msgid "You have joined %1."
 msgstr "%1 に入りました。"
 
-#: src/queuetuner.cpp:243
+#: src/queuetuner.cpp:241
 #, fuzzy
 #| msgid "Save List..."
 msgid "Reset..."
 msgstr "リストを保存..."
 
-#: src/queuetuner.cpp:248
+#: src/queuetuner.cpp:246
 msgid ""
 "This cannot be undone, are you sure you wish to reset to default values?"
 msgstr "これは元に戻せません。本当に標準の値にリセットしますか？"
 
-#: src/queuetuner.cpp:249
+#: src/queuetuner.cpp:247
 msgid "Reset Values"
 msgstr "値をリセット"
 
-#: src/statusbar.cpp:36 src/statusbar.cpp:80 src/statusbar.cpp:148
+#: src/statusbar.cpp:35 src/statusbar.cpp:79 src/statusbar.cpp:147
 msgid "Ready."
 msgstr "準備完了"
 
-#: src/statusbar.cpp:47
+#: src/statusbar.cpp:46
 #, fuzzy
 #| msgid ""
 #| "<qt>This shows the number of users in the channel, and the number of "
@@ -4490,11 +4543,11 @@ msgstr ""
 "め出したり、チャンネルのモードを変更したり、他のユーザにオペレータ権限を与え"
 "たりする権限を持っています。</qt>"
 
-#: src/statusbar.cpp:49 src/statusbar.cpp:153 src/statusbar.cpp:167
+#: src/statusbar.cpp:48 src/statusbar.cpp:152 src/statusbar.cpp:166
 msgid "Lag: Unknown"
 msgstr "ラグ: 不明"
 
-#: src/statusbar.cpp:57
+#: src/statusbar.cpp:56
 msgid ""
 "All communication with the server is encrypted.  This makes it harder for "
 "someone to listen in on your communications."
@@ -4502,7 +4555,7 @@ msgstr ""
 "サーバとのすべてのやりとりを暗号化します。これは他人が盗聴するのを困難にしま"
 "す。"
 
-#: src/statusbar.cpp:64
+#: src/statusbar.cpp:63
 msgid ""
 "<qt>The status bar shows various messages, including any problems connecting "
 "to the server.  On the far right the current delay to the server is shown.  "
@@ -4514,17 +4567,17 @@ msgstr ""
 "メッセージがサーバにたどり着くのにかかる時間、サーバからのメッセージがあなた"
 "に届くのにかかる時間を意味します。</qt>"
 
-#: src/statusbar.cpp:155
+#: src/statusbar.cpp:154
 #, kde-format
 msgid "Lag: %1 ms"
 msgstr "ラグ: %1 ミリ秒"
 
-#: src/statusbar.cpp:157 src/statusbar.cpp:215
+#: src/statusbar.cpp:156 src/statusbar.cpp:214
 #, kde-format
 msgid "Lag: %1 s"
 msgstr "ラグ: %1 秒"
 
-#: src/statusbar.cpp:186
+#: src/statusbar.cpp:185
 #, kde-format
 msgctxt ""
 "%1 = name of server, %2 = (x days), %3 = (x hours), %4 = (x minutes), %5 = "
@@ -4532,20 +4585,20 @@ msgctxt ""
 msgid "No answer from server %1 for more than %2, %3, %4, and %5."
 msgstr "サーバ %1 から%2%3%4%5間以上応答がありません。"
 
-#: src/statusbar.cpp:194
+#: src/statusbar.cpp:193
 #, kde-format
 msgctxt ""
 "%1 = name of server, %2 = (x hours), %3 = (x minutes), %4 = (x seconds)"
 msgid "No answer from server %1 for more than %2, %3, and %4."
 msgstr "サーバ %1 から%2%3%4間以上応答がありません。"
 
-#: src/statusbar.cpp:201
+#: src/statusbar.cpp:200
 #, kde-format
 msgctxt "%1 = name of server, %2 = (x minutes), %3 = (x seconds)"
 msgid "No answer from server %1 for more than %2 and %3."
 msgstr "サーバ %1 から%2%3間以上応答がありません。"
 
-#: src/statusbar.cpp:206
+#: src/statusbar.cpp:205
 #, fuzzy, kde-format
 #| msgid "No answer from server %2 for more than 1 second."
 #| msgid_plural "No answer from server %2 for more than %1 seconds."
@@ -4554,18 +4607,22 @@ msgid_plural "No answer from server %2 for more than %1 seconds."
 msgstr[0] "サーバ %2 から%1秒間以上応答がありません。"
 msgstr[1] ""
 
-#: src/konsolepanel.cpp:24 src/viewer/viewcontainer.cpp:2051
-#: src/viewer/viewcontainer.cpp:2052
+#: src/konsolepanel.cpp:27 src/viewer/viewcontainer.cpp:2063
+#: src/viewer/viewcontainer.cpp:2064
 msgid "Konsole"
 msgstr "Konsole"
 
-#: src/linkaddressbook/addressbook.cpp:112
+#: src/konsolepanel.cpp:39
+msgid "Manage Konsole Profiles"
+msgstr ""
+
+#: src/linkaddressbook/addressbook.cpp:111
 msgid "Online"
 msgstr "オンライン"
 
-#: src/linkaddressbook/addressbook.cpp:215
-#: src/linkaddressbook/addressbook.cpp:243
-#: src/linkaddressbook/addressbook.cpp:258
+#: src/linkaddressbook/addressbook.cpp:214
+#: src/linkaddressbook/addressbook.cpp:242
+#: src/linkaddressbook/addressbook.cpp:257
 msgid ""
 "Another KDE application tried to use Konversation for instant messaging, but "
 "did not specify any contact to send the message to.  This is probably a bug "
@@ -4575,7 +4632,7 @@ msgstr ""
 "うとしましたが、送り先のコンタクトが指定されていませんでした。おそらくそのア"
 "プリケーションのバグです。"
 
-#: src/linkaddressbook/addressbook.cpp:221
+#: src/linkaddressbook/addressbook.cpp:220
 msgid ""
 "Another KDE application tried to use Konversation for instant messaging, but "
 "Konversation could not find the specified contact in the KDE address book."
@@ -4583,7 +4640,7 @@ msgstr ""
 "他の KDE アプリケーションが Konversation を用いてインスタントメッセージを送ろ"
 "うとしましたが、指定されたコンタクトがアドレス帳に見つかりません。"
 
-#: src/linkaddressbook/addressbook.cpp:229
+#: src/linkaddressbook/addressbook.cpp:228
 #, fuzzy, kde-format
 #| msgid ""
 #| "Another KDE application tried to use Konversation for instant messaging, "
@@ -4595,7 +4652,7 @@ msgstr ""
 "他の KDE アプリケーションが Konversation を用いてインスタントメッセージを送ろ"
 "うとしましたが、送り先ユーザ %1 はオンラインではありません。"
 
-#: src/linkaddressbook/addressbook.cpp:275
+#: src/linkaddressbook/addressbook.cpp:274
 msgid ""
 "Another KDE application tried to use Konversation to send a file to a "
 "contact, but did not specify any contact to send the file to.  This is "
@@ -4605,7 +4662,7 @@ msgstr ""
 "としましたが、送り先のコンタクトが指定されていませんでした。おそらくそのアプ"
 "リケーションのバグです。"
 
-#: src/linkaddressbook/addressbook.cpp:281
+#: src/linkaddressbook/addressbook.cpp:280
 msgid ""
 "Another KDE application tried to use Konversation to send a file to a "
 "contact, but Konversation could not find the specified contact in the KDE "
@@ -4614,7 +4671,7 @@ msgstr ""
 "他の KDE アプリケーションが Konversation を用いてコンタクトへファイルを送ろう"
 "としましたが、指定されたコンタクトがアドレス帳に見つかりません。"
 
-#: src/linkaddressbook/addressbook.cpp:289
+#: src/linkaddressbook/addressbook.cpp:288
 #, fuzzy, kde-format
 #| msgid ""
 #| "Another KDE application tried to use Konversation to send a file to a "
@@ -4626,7 +4683,7 @@ msgstr ""
 "他の KDE アプリケーションが Konversation を用いてコンタクトへファイルを送ろう"
 "としましたが、送り先ユーザ %1 はオンラインではありません。"
 
-#: src/linkaddressbook/addressbook.cpp:308
+#: src/linkaddressbook/addressbook.cpp:307
 msgid ""
 "Another KDE application tried to use Konversation to add a contact.  "
 "Konversation does support this."
@@ -4862,7 +4919,7 @@ msgstr "フォーマット(&F):"
 
 #. i18n: file: src/urlcatcherui.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, URLCatcherUI)
-#: src/urlcatcher.cpp:128 src/viewer/viewcontainer.cpp:2063 rc.cpp:419
+#: src/urlcatcher.cpp:128 src/viewer/viewcontainer.cpp:2075 rc.cpp:419
 msgid "URL Catcher"
 msgstr "URL キャッチャー"
 
@@ -4882,23 +4939,23 @@ msgstr ""
 "Konversation チャンネルリスト: %1 - %2\n"
 "\n"
 
-#: src/urlcatcher.cpp:381 src/viewer/ircview.cpp:124
-#: src/viewer/topiclabel.cpp:147
+#: src/urlcatcher.cpp:381 src/viewer/ircview.cpp:136
+#: src/viewer/topiclabel.cpp:143
 msgid "Copy Link Address"
 msgstr ""
 
-#: src/urlcatcher.cpp:382 src/viewer/ircview.cpp:128
-#: src/viewer/topiclabel.cpp:148
+#: src/urlcatcher.cpp:382 src/viewer/ircview.cpp:140
+#: src/viewer/topiclabel.cpp:144
 msgid "Add to Bookmarks"
 msgstr "ブックマークに追加"
 
-#: src/urlcatcher.cpp:383 src/viewer/ircview.cpp:130
-#: src/viewer/topiclabel.cpp:149
+#: src/urlcatcher.cpp:383 src/viewer/ircview.cpp:142
+#: src/viewer/topiclabel.cpp:145
 msgid "Save Link As..."
 msgstr "リンクを保存..."
 
-#: src/urlcatcher.cpp:412 src/viewer/ircview.cpp:1095
-#: src/viewer/topiclabel.cpp:336
+#: src/urlcatcher.cpp:412 src/viewer/ircview.cpp:1395
+#: src/viewer/topiclabel.cpp:332
 #, fuzzy
 #| msgid "Save Link As"
 msgid "Save link as"
@@ -4914,27 +4971,27 @@ msgstr "クエリー (1対1で会話)"
 msgid "Exception"
 msgstr "例外"
 
-#: src/viewer/logfilereader.cpp:46
+#: src/viewer/logfilereader.cpp:44
 #, fuzzy
 #| msgid "Save List..."
 msgid "Save As..."
 msgstr "リストを保存..."
 
-#: src/viewer/logfilereader.cpp:47
+#: src/viewer/logfilereader.cpp:45
 #, fuzzy
 #| msgid "Ready."
 msgid "Reload"
 msgstr "準備完了"
 
-#: src/viewer/logfilereader.cpp:48 src/viewer/logfilereader.cpp:144
+#: src/viewer/logfilereader.cpp:46 src/viewer/logfilereader.cpp:142
 msgid "Clear Logfile"
 msgstr "ログファイルをクリア"
 
-#: src/viewer/logfilereader.cpp:50
+#: src/viewer/logfilereader.cpp:48
 msgid "Show last:"
 msgstr "表示するサイズ:"
 
-#: src/viewer/logfilereader.cpp:56
+#: src/viewer/logfilereader.cpp:54
 msgid ""
 "Use this box to set the maximum size of the log file. This setting does not "
 "take effect until you restart Konversation. Each log file may have a "
@@ -4944,11 +5001,11 @@ msgstr ""
 "を再起動するまで有効になりません。それぞれのログファイルに対して個別に設定す"
 "ることができます。"
 
-#: src/viewer/logfilereader.cpp:58
+#: src/viewer/logfilereader.cpp:56
 msgid " KB"
 msgstr " KB"
 
-#: src/viewer/logfilereader.cpp:64
+#: src/viewer/logfilereader.cpp:62
 msgid ""
 "The messages in the log file are displayed here. The oldest messages are at "
 "the top and the most recent are at the bottom."
@@ -4956,12 +5013,12 @@ msgstr ""
 "ログファイルのメッセージがここに表示されます。上が古いメッセージ、下が最近の"
 "メッセージです。"
 
-#: src/viewer/logfilereader.cpp:143
+#: src/viewer/logfilereader.cpp:141
 msgid ""
 "Do you really want to permanently discard all log information of this file?"
 msgstr "本当にこのファイルのすべてのログ情報を完全に破棄しますか？"
 
-#: src/viewer/logfilereader.cpp:157
+#: src/viewer/logfilereader.cpp:155
 msgid ""
 "Note: By saving the logfile you will save all data in the file, not only the "
 "part you can see in this viewer."
@@ -4969,11 +5026,11 @@ msgstr ""
 "注意: ログファイルを保存すると、このビューアに表示されている部分だけではな"
 "く、すべてのデータがファイルに保存されます。"
 
-#: src/viewer/logfilereader.cpp:158
+#: src/viewer/logfilereader.cpp:156
 msgid "Save Logfile"
 msgstr "ログファイルを保存"
 
-#: src/viewer/logfilereader.cpp:164
+#: src/viewer/logfilereader.cpp:162
 msgid "Choose Destination Folder"
 msgstr "保存先フォルダを選択"
 
@@ -4983,7 +5040,7 @@ msgstr "文字を挿入"
 
 #. i18n: file: data/konversationui.rc:23
 #. i18n: ectx: Menu (insert)
-#: src/viewer/insertchardialog.cpp:30 rc.cpp:1911
+#: src/viewer/insertchardialog.cpp:30 rc.cpp:1935
 #, fuzzy
 #| msgid "secret"
 msgid "&Insert"
@@ -4993,50 +5050,50 @@ msgstr "シークレット"
 msgid "Insert a character"
 msgstr "文字を挿入する"
 
-#: src/viewer/ircview.cpp:136
+#: src/viewer/ircview.cpp:148
 #, fuzzy
 #| msgid "&Copy URL"
 msgid "&Copy"
 msgstr "URL をコピー(&C)"
 
-#: src/viewer/ircview.cpp:139
+#: src/viewer/ircview.cpp:151
 #, fuzzy
 #| msgid "&Select All Items"
 msgid "Select All"
 msgstr "すべてのアイテムを選択(&S)"
 
-#: src/viewer/ircview.cpp:140 src/viewer/viewcontainer.cpp:539
+#: src/viewer/ircview.cpp:152 src/viewer/viewcontainer.cpp:550
 msgid "Find Text..."
 msgstr "検索..."
 
-#: src/viewer/ircview.cpp:894
+#: src/viewer/ircview.cpp:1219
 msgid "Open Query"
 msgstr "クエリー (1対1で会話)"
 
-#: src/viewer/ircview.cpp:941 src/viewer/topiclabel.cpp:132
-#: src/mainwindow.cpp:424
+#: src/viewer/ircview.cpp:1266 src/viewer/topiclabel.cpp:128
+#: src/mainwindow.cpp:421
 msgid "&Join Channel..."
 msgstr "チャンネルに入る(&J)..."
 
-#: src/viewer/ircview.cpp:948 src/viewer/topiclabel.cpp:138
+#: src/viewer/ircview.cpp:1273 src/viewer/topiclabel.cpp:134
 msgid "Get &user list"
 msgstr "ユーザリストを取得(&U)"
 
-#: src/viewer/ircview.cpp:950 src/viewer/topiclabel.cpp:139
+#: src/viewer/ircview.cpp:1275 src/viewer/topiclabel.cpp:135
 msgid "Get &topic"
 msgstr "トピックを取得(&T)"
 
-#: src/viewer/ircview.cpp:1170
+#: src/viewer/ircview.cpp:1470
 #, kde-format
 msgid "Open a query with %1"
 msgstr "%1 とクエリー (1対1で会話)"
 
-#: src/viewer/ircview.cpp:1191 src/viewer/topiclabel.cpp:281
+#: src/viewer/ircview.cpp:1491 src/viewer/topiclabel.cpp:277
 #, kde-format
 msgid "Join the channel %1"
 msgstr "チャンネル %1 に入る"
 
-#: src/viewer/ircinput.cpp:61
+#: src/viewer/ircinput.cpp:63
 #, fuzzy
 #| msgid ""
 #| "<qt>The input line is where you type messages to be sent the channel, "
@@ -5078,7 +5135,7 @@ msgstr ""
 "マンドについては「Konversation ハンドブック」をご覧ください。<p>複数の行を一"
 "度に送ることはできません。</qt>"
 
-#: src/viewer/ircinput.cpp:482
+#: src/viewer/ircinput.cpp:484
 #, fuzzy, kde-format
 #| msgid " bytes"
 msgid "1 byte"
@@ -5086,7 +5143,7 @@ msgid_plural "%1 bytes"
 msgstr[0] " バイト"
 msgstr[1] " バイト"
 
-#: src/viewer/ircinput.cpp:483
+#: src/viewer/ircinput.cpp:485
 #, fuzzy, kde-format
 #| msgid " lines"
 msgid "1 line"
@@ -5094,7 +5151,7 @@ msgid_plural "%1 lines"
 msgstr[0] " 行"
 msgstr[1] " 行"
 
-#: src/viewer/ircinput.cpp:489
+#: src/viewer/ircinput.cpp:491
 #, fuzzy, kde-format
 #| msgid ""
 #| "<qt>You are attempting to paste a large portion of text (%1 bytes or %2 "
@@ -5111,11 +5168,11 @@ msgstr ""
 "<qt>チャットに長いテキスト (%1 バイト %2 行) を貼り付けようとしています。これ"
 "によって接続を切られるか無視される可能性があります。続行しますか？</qt>"
 
-#: src/viewer/ircinput.cpp:492
+#: src/viewer/ircinput.cpp:494
 msgid "Large Paste Warning"
 msgstr "長いテキスト貼り付けの警告"
 
-#: src/viewer/ircinput.cpp:493
+#: src/viewer/ircinput.cpp:495
 #, fuzzy
 #| msgid "Part"
 msgid "Paste"
@@ -5125,59 +5182,59 @@ msgstr "退出"
 #. i18n: ectx: property (text), widget (KPushButton, m_editIdentityButton)
 #. i18n: file: src/irc/serverlistdialogui.ui:162
 #. i18n: ectx: property (text), widget (QPushButton, m_editButton)
-#: src/viewer/ircinput.cpp:494 rc.cpp:116 rc.cpp:257
+#: src/viewer/ircinput.cpp:496 rc.cpp:116 rc.cpp:257
 msgid "&Edit..."
 msgstr "編集(&E)..."
 
-#: src/viewer/editnotifydialog.cpp:31
+#: src/viewer/editnotifydialog.cpp:30
 msgid "Edit Watched Nickname"
 msgstr "監視するニックネームを編集"
 
-#: src/viewer/editnotifydialog.cpp:39
+#: src/viewer/editnotifydialog.cpp:38
 msgid "&Network name:"
 msgstr "ネットワーク名(&N):"
 
-#: src/viewer/editnotifydialog.cpp:41
+#: src/viewer/editnotifydialog.cpp:40
 msgid "Pick the server network you will connect to here."
 msgstr "ここで接続するサーバネットワークを選んでください。"
 
-#: src/viewer/editnotifydialog.cpp:47
+#: src/viewer/editnotifydialog.cpp:46
 msgid "N&ickname:"
 msgstr "ニックネーム(&I):"
 
-#: src/viewer/editnotifydialog.cpp:49
+#: src/viewer/editnotifydialog.cpp:48
 msgid ""
 "<qt>The nickname to watch for when connected to a server in the network.</qt>"
 msgstr ""
 "<qt>指定したネットワークのサーバに接続しているときに監視するニックネーム。</"
 "qt>"
 
-#: src/viewer/editnotifydialog.cpp:68
+#: src/viewer/editnotifydialog.cpp:67
 msgid "Change notify information"
 msgstr "通知情報を変更"
 
-#: src/viewer/ircviewbox.cpp:97 src/viewer/ircviewbox.cpp:116
-#: src/viewer/ircviewbox.cpp:142
+#: src/viewer/ircviewbox.cpp:96 src/viewer/ircviewbox.cpp:115
+#: src/viewer/ircviewbox.cpp:141
 msgid "Phrase not found"
 msgstr "フレーズが見つかりません"
 
-#: src/viewer/ircviewbox.cpp:122
+#: src/viewer/ircviewbox.cpp:121
 msgid "Wrapped search"
 msgstr "検索折り返し"
 
-#: src/viewer/irccolorchooser.cpp:29
+#: src/viewer/irccolorchooser.cpp:28
 msgid "IRC Color Chooser"
 msgstr "IRC カラー選択"
 
-#: src/viewer/irccolorchooser.cpp:34
+#: src/viewer/irccolorchooser.cpp:33
 msgid "None"
 msgstr "なし"
 
-#: src/viewer/pasteeditor.cpp:31
+#: src/viewer/pasteeditor.cpp:29
 msgid "Edit Multiline Paste"
 msgstr "複数行貼り付けの編集"
 
-#: src/viewer/chatwindow.cpp:354
+#: src/viewer/chatwindow.cpp:356
 #, kde-format
 msgid ""
 "\n"
@@ -5190,98 +5247,98 @@ msgstr ""
 "*** 日時: %1\n"
 "\n"
 
-#: src/viewer/rawlog.cpp:25 src/viewer/viewcontainer.cpp:2196
+#: src/viewer/rawlog.cpp:25 src/viewer/viewcontainer.cpp:2208
 msgid "Raw Log"
 msgstr "生ログ"
 
-#: src/viewer/viewcontainer.cpp:204 src/mainwindow.cpp:283
+#: src/viewer/viewcontainer.cpp:213 src/mainwindow.cpp:280
 msgid "Move Tab Up"
 msgstr "タブを上に移動"
 
-#: src/viewer/viewcontainer.cpp:212 src/mainwindow.cpp:294
+#: src/viewer/viewcontainer.cpp:221 src/mainwindow.cpp:291
 msgid "Move Tab Down"
 msgstr "タブを下に移動"
 
-#: src/viewer/viewcontainer.cpp:305 src/mainwindow.cpp:314
-#: src/mainwindow.cpp:326
+#: src/viewer/viewcontainer.cpp:314 src/mainwindow.cpp:311
+#: src/mainwindow.cpp:323
 msgid "Move Tab Left"
 msgstr "タブを左に移動"
 
-#: src/viewer/viewcontainer.cpp:313 src/mainwindow.cpp:305
-#: src/mainwindow.cpp:335
+#: src/viewer/viewcontainer.cpp:322 src/mainwindow.cpp:302
+#: src/mainwindow.cpp:332
 msgid "Move Tab Right"
 msgstr "タブを右に移動"
 
-#: src/viewer/viewcontainer.cpp:541
+#: src/viewer/viewcontainer.cpp:552
 msgid "Search for text in the current tab"
 msgstr "現在のタブでテキストを検索"
 
-#: src/viewer/viewcontainer.cpp:559
+#: src/viewer/viewcontainer.cpp:570
 #, kde-format
 msgid "Channel &List for %1"
 msgstr "%1 のチャンネルリスト(&L)"
 
-#: src/viewer/viewcontainer.cpp:565 src/mainwindow.cpp:203
+#: src/viewer/viewcontainer.cpp:576 src/mainwindow.cpp:200
 msgid "Channel &List"
 msgstr "チャンネルリスト(&L)"
 
-#: src/viewer/viewcontainer.cpp:574 src/mainwindow.cpp:186
-#: src/mainwindow.cpp:730
+#: src/viewer/viewcontainer.cpp:585 src/mainwindow.cpp:183
+#: src/mainwindow.cpp:727
 msgid "&Open Logfile"
 msgstr "ログファイルを開く(&O)"
 
-#: src/viewer/viewcontainer.cpp:579
+#: src/viewer/viewcontainer.cpp:590
 #, kde-format
 msgid "&Open Logfile for %1"
 msgstr "%1 のログファイルを開く(&O)"
 
-#: src/viewer/viewcontainer.cpp:590
+#: src/viewer/viewcontainer.cpp:601
 #, kde-format
 msgid "&Channel Settings for %1..."
 msgstr "%1 のチャンネル設定(&C)..."
 
-#: src/viewer/viewcontainer.cpp:595 src/mainwindow.cpp:195
+#: src/viewer/viewcontainer.cpp:606 src/mainwindow.cpp:192
 msgid "&Channel Settings..."
 msgstr "チャンネルの設定(&C)..."
 
-#: src/viewer/viewcontainer.cpp:1597
+#: src/viewer/viewcontainer.cpp:1609
 #, fuzzy
 #| msgid "Rename"
 msgid "Rename Tab"
 msgstr "名前変更"
 
-#: src/viewer/viewcontainer.cpp:1598
+#: src/viewer/viewcontainer.cpp:1610
 #, fuzzy
 #| msgid "Enter Filename"
 msgid "Enter new tab name:"
 msgstr "ファイル名入力"
 
-#: src/viewer/viewcontainer.cpp:1670
+#: src/viewer/viewcontainer.cpp:1682
 #, kde-format
 msgctxt "Default encoding"
 msgid "Default ( %1 )"
 msgstr "標準 ( %1 )"
 
-#: src/viewer/viewcontainer.cpp:1704
+#: src/viewer/viewcontainer.cpp:1716
 #, fuzzy
 #| msgid "Rename"
 msgid "&Rename Tab..."
 msgstr "名前変更"
 
-#: src/viewer/viewcontainer.cpp:1847
+#: src/viewer/viewcontainer.cpp:1859
 msgid "You can only search in text fields."
 msgstr "検索はテキスト領域でのみ可能です。"
 
-#: src/viewer/viewcontainer.cpp:1848
+#: src/viewer/viewcontainer.cpp:1860
 msgid "Find Text Information"
 msgstr "テキスト検索情報"
 
-#: src/viewer/viewcontainer.cpp:2042
+#: src/viewer/viewcontainer.cpp:2054
 #, kde-format
 msgid "Logfile of %1"
 msgstr "%1 のログファイル"
 
-#: src/viewer/viewcontainer.cpp:2437
+#: src/viewer/viewcontainer.cpp:2449
 msgid ""
 "Using this function may result in a lot of network traffic. If your "
 "connection is not fast enough, it is possible that your client will be "
@@ -5290,11 +5347,11 @@ msgstr ""
 "この機能はネットワークに多大なトラフィックを生じさせることがあります。接続速"
 "度が十分に速くない場合は、サーバから切断される可能性があります。"
 
-#: src/viewer/viewcontainer.cpp:2441
+#: src/viewer/viewcontainer.cpp:2453
 msgid "Channel List Warning"
 msgstr "チャンネルリスト警告"
 
-#: src/viewer/viewcontainer.cpp:2460
+#: src/viewer/viewcontainer.cpp:2472
 #, fuzzy
 #| msgid ""
 #| "The channel list can only be opened from a query, channel or status "
@@ -5306,7 +5363,7 @@ msgstr ""
 "チャンネルリストはクエリー、チャンネル、ステータスのタブからのみ開くことがで"
 "きます。そのタブのサーバのリストが取得されます。"
 
-#: src/viewer/trayicon.cpp:39
+#: src/viewer/trayicon.cpp:37
 msgid "Konversation - IRC Client"
 msgstr "Konversation - IRC クライアント"
 
@@ -5330,7 +5387,7 @@ msgstr "完全な単語のみ"
 msgid "From Cursor"
 msgstr "カーソル以降"
 
-#: src/viewer/statuspanel.cpp:263
+#: src/viewer/statuspanel.cpp:260
 #, kde-format
 msgid ""
 "Do you really want to close '%1'?\n"
@@ -5341,11 +5398,11 @@ msgstr ""
 "\n"
 "関連する他のすべてのタブも閉じられます。"
 
-#: src/viewer/statuspanel.cpp:264
+#: src/viewer/statuspanel.cpp:261
 msgid "Close Tab"
 msgstr "タブを閉じる"
 
-#: src/viewer/statuspanel.cpp:273
+#: src/viewer/statuspanel.cpp:270
 #, kde-format
 msgid ""
 "Do you want to disconnect from '%1'?\n"
@@ -5356,200 +5413,200 @@ msgstr ""
 "\n"
 "関連するすべてのタブも閉じられます。"
 
-#: src/viewer/statuspanel.cpp:274
+#: src/viewer/statuspanel.cpp:271
 msgid "Disconnect From Server"
 msgstr "サーバから切断"
 
-#: src/viewer/statuspanel.cpp:275
+#: src/viewer/statuspanel.cpp:272
 msgid "Disconnect"
 msgstr "切断"
 
-#: src/mainwindow.cpp:128
+#: src/mainwindow.cpp:125
 msgid "&Server List..."
 msgstr "サーバリスト(&S)..."
 
-#: src/mainwindow.cpp:131
+#: src/mainwindow.cpp:128
 msgid "Manage networks and servers"
 msgstr "ネットワークとサーバの管理"
 
-#: src/mainwindow.cpp:136
+#: src/mainwindow.cpp:133
 msgid "Quick &Connect..."
 msgstr "クイック接続(&C)..."
 
-#: src/mainwindow.cpp:139
+#: src/mainwindow.cpp:136
 msgid "Type in the address of a new IRC server to connect to"
 msgstr "接続する新しい IRC サーバのアドレスを入力"
 
-#: src/mainwindow.cpp:144
+#: src/mainwindow.cpp:141
 msgid "&Reconnect"
 msgstr "再接続(&R)"
 
-#: src/mainwindow.cpp:147
+#: src/mainwindow.cpp:144
 msgid "Reconnect to the current server."
 msgstr "現在のサーバに再接続します。"
 
-#: src/mainwindow.cpp:153
+#: src/mainwindow.cpp:150
 msgid "&Disconnect"
 msgstr "切断(&D)"
 
-#: src/mainwindow.cpp:156
+#: src/mainwindow.cpp:153
 msgid "Disconnect from the current server."
 msgstr "現在のサーバから切断します。"
 
-#: src/mainwindow.cpp:161
+#: src/mainwindow.cpp:158
 msgid "&Identities..."
 msgstr "個人情報(&I)..."
 
-#: src/mainwindow.cpp:164
+#: src/mainwindow.cpp:161
 msgid "Manage your nick, away and other identity settings"
 msgstr "自分のニック、離席その他の個人情報を設定"
 
-#: src/mainwindow.cpp:169
+#: src/mainwindow.cpp:166
 msgid "&Watched Nicks Online"
 msgstr "ニックのオンライン状況(&W)"
 
-#: src/mainwindow.cpp:177
+#: src/mainwindow.cpp:174
 msgid "&DCC Status"
 msgstr "DCC ステータス(&D)"
 
-#: src/mainwindow.cpp:190
+#: src/mainwindow.cpp:187
 msgid "Open the known history for this channel in a new tab"
 msgstr "このチャンネルの既知の履歴を新しいタブに表示"
 
-#: src/mainwindow.cpp:198
+#: src/mainwindow.cpp:195
 msgid "Open the channel settings dialog for this tab"
 msgstr "このタブのチャンネル設定ダイアログを開く"
 
-#: src/mainwindow.cpp:207
+#: src/mainwindow.cpp:204
 msgid "Show a list of all the known channels on this server"
 msgstr "このサーバの既知のチャンネルのリストを表示"
 
-#: src/mainwindow.cpp:212
+#: src/mainwindow.cpp:209
 msgid "&URL Catcher"
 msgstr "URL キャッチャー(&U)"
 
-#: src/mainwindow.cpp:215
+#: src/mainwindow.cpp:212
 msgid "List all URLs that have been mentioned recently in a new tab"
 msgstr "最近言及されたすべての URL を新しいタブに表示"
 
-#: src/mainwindow.cpp:222
+#: src/mainwindow.cpp:219
 msgid "New &Konsole"
 msgstr "新規 Konsole(&K)"
 
-#: src/mainwindow.cpp:224
+#: src/mainwindow.cpp:221
 msgid "Open a terminal in a new tab"
 msgstr "新しいタブにターミナルを開く"
 
-#: src/mainwindow.cpp:250
+#: src/mainwindow.cpp:247
 msgid "&Next Tab"
 msgstr "次のタブ(&N)"
 
-#: src/mainwindow.cpp:258
+#: src/mainwindow.cpp:255
 msgid "&Previous Tab"
 msgstr "前のタブ(&P)"
 
-#: src/mainwindow.cpp:266
+#: src/mainwindow.cpp:263
 msgid "Close &Tab"
 msgstr "タブを閉じる(&T)"
 
-#: src/mainwindow.cpp:274
+#: src/mainwindow.cpp:271
 msgid "Next Active Tab"
 msgstr "次のアクティブなタブ"
 
-#: src/mainwindow.cpp:349
+#: src/mainwindow.cpp:346
 msgid "Rejoin Channel"
 msgstr "再びチャンネルに入る"
 
-#: src/mainwindow.cpp:355 src/mainwindow.cpp:736
+#: src/mainwindow.cpp:352 src/mainwindow.cpp:733
 msgid "Enable Notifications"
 msgstr "通知を有効にする"
 
-#: src/mainwindow.cpp:361
+#: src/mainwindow.cpp:358
 msgid "Join on Connect"
 msgstr "接続と同時にチャンネルに入る"
 
-#: src/mainwindow.cpp:366
+#: src/mainwindow.cpp:363
 #, fuzzy
 #| msgid "Default ( %1 )"
 msgid "Default"
 msgstr "デフォルト ( %1 )"
 
-#: src/mainwindow.cpp:371
+#: src/mainwindow.cpp:368
 msgid "Set Encoding"
 msgstr "エンコーディングを設定"
 
-#: src/mainwindow.cpp:383
+#: src/mainwindow.cpp:380
 #, kde-format
 msgid "Go to Tab %1"
 msgstr "タブ %1 へ移動"
 
-#: src/mainwindow.cpp:392
+#: src/mainwindow.cpp:389
 msgid "Clear &Marker Lines"
 msgstr "しおりをクリア(&M)"
 
-#: src/mainwindow.cpp:395
+#: src/mainwindow.cpp:392
 msgid "Clear marker lines in the current tab"
 msgstr "現在のタブのしおりをクリア"
 
-#: src/mainwindow.cpp:400
+#: src/mainwindow.cpp:397
 msgid "&Clear Window"
 msgstr "ウィンドウをクリア(&C)"
 
-#: src/mainwindow.cpp:403
+#: src/mainwindow.cpp:400
 msgid "Clear the contents of the current tab"
 msgstr "現在のタブの内容をクリア"
 
-#: src/mainwindow.cpp:408
+#: src/mainwindow.cpp:405
 msgid "Clear &All Windows"
 msgstr "すべてのウィンドウをクリア(&A)"
 
-#: src/mainwindow.cpp:411
+#: src/mainwindow.cpp:408
 msgid "Clear the contents of all open tabs"
 msgstr "開いているすべてのタブの内容をクリア"
 
-#: src/mainwindow.cpp:416
+#: src/mainwindow.cpp:413
 msgid "Global Away"
 msgstr "すべて離席"
 
-#: src/mainwindow.cpp:444 src/mainwindow.cpp:738
+#: src/mainwindow.cpp:441 src/mainwindow.cpp:735
 msgid "&IRC Color..."
 msgstr "IRC カラー(&I)..."
 
-#: src/mainwindow.cpp:448
+#: src/mainwindow.cpp:445
 msgid "Set the color of your current IRC message"
 msgstr "IRC メッセージカラーを設定"
 
-#: src/mainwindow.cpp:453 src/mainwindow.cpp:740
+#: src/mainwindow.cpp:450 src/mainwindow.cpp:737
 msgid "&Marker Line"
 msgstr "しおり(&M)"
 
-#: src/mainwindow.cpp:456
+#: src/mainwindow.cpp:453
 msgid "Insert a horizontal line into the current tab that only you can see"
 msgstr "現在のタブにしおりを挿入"
 
-#: src/mainwindow.cpp:461 src/mainwindow.cpp:739
+#: src/mainwindow.cpp:458 src/mainwindow.cpp:736
 msgid "Special &Character..."
 msgstr "特殊文字(&C)..."
 
-#: src/mainwindow.cpp:465
+#: src/mainwindow.cpp:462
 msgid "Insert any character into your current IRC message"
 msgstr "IRC メッセージに特殊な文字を挿入"
 
-#: src/mainwindow.cpp:470
+#: src/mainwindow.cpp:467
 msgid "Close &All Open Queries"
 msgstr "すべてのクエリーを閉じる(&A)"
 
-#: src/mainwindow.cpp:479
+#: src/mainwindow.cpp:476
 msgid "Hide Nicklist"
 msgstr "ニックネームリストを隠す"
 
-#: src/mainwindow.cpp:496
+#: src/mainwindow.cpp:493
 #, fuzzy
 #| msgid "Add to Bookmarks"
 msgid "Bookmarks"
 msgstr "ブックマークに追加"
 
-#: src/mainwindow.cpp:547
+#: src/mainwindow.cpp:544
 msgid ""
 "<qt>You have active DCC file transfers. Are you sure you want to quit "
 "<b>Konversation</b>?</qt>"
@@ -5557,15 +5614,15 @@ msgstr ""
 "<qt>実行中の DCC ファイル転送があります。本当に <b>Konversation</b> を終了し"
 "ますか？</qt>"
 
-#: src/mainwindow.cpp:548 src/mainwindow.cpp:558
+#: src/mainwindow.cpp:545 src/mainwindow.cpp:555
 msgid "Confirm Quit"
 msgstr "終了の確認"
 
-#: src/mainwindow.cpp:557
+#: src/mainwindow.cpp:554
 msgid "<qt>Are you sure you want to quit <b>Konversation</b>?</qt>"
 msgstr "<qt>本当に <b>Konversation</b> を終了しますか？</qt>"
 
-#: src/mainwindow.cpp:590
+#: src/mainwindow.cpp:587
 msgid ""
 "<p>Closing the main window will keep Konversation running in the system "
 "tray. Use <b>Quit</b> from the <b>Konversation</b> menu to quit the "
@@ -5574,11 +5631,11 @@ msgstr ""
 "<p>メインウィンドウを閉じても Konversation はシステムトレイで実行し続けます。"
 "終了するには Konversation メニューから「終了」を選択してください。</p>"
 
-#: src/mainwindow.cpp:592
+#: src/mainwindow.cpp:589
 msgid "Docking in System Tray"
 msgstr "システムトレイにドック"
 
-#: src/mainwindow.cpp:687
+#: src/mainwindow.cpp:684
 #, kde-format
 msgid ""
 "<qt>This will hide the menu bar completely. You can show it again by typing %"
@@ -5586,35 +5643,35 @@ msgid ""
 msgstr ""
 "<qt>メニューバーを完全に隠します。再び表示するには %1 を押してください。</qt>"
 
-#: src/mainwindow.cpp:722
+#: src/mainwindow.cpp:719
 msgid "Toggle Notifications"
 msgstr "通知を切り替え"
 
-#: src/mainwindow.cpp:723
+#: src/mainwindow.cpp:720
 msgid "Toggle Away Globally"
 msgstr "すべてのサーバで離席中に切り替え"
 
-#: src/mainwindow.cpp:724
+#: src/mainwindow.cpp:721
 msgid "Insert &IRC Color..."
 msgstr "IRC カラーを挿入(&I)..."
 
-#: src/mainwindow.cpp:725
+#: src/mainwindow.cpp:722
 msgid "Insert Special &Character..."
 msgstr "特殊文字を挿入(&C)..."
 
-#: src/mainwindow.cpp:726
+#: src/mainwindow.cpp:723
 msgid "Insert &Marker Line"
 msgstr "しおりを挿入(&M)"
 
-#: src/mainwindow.cpp:728
+#: src/mainwindow.cpp:725
 msgid "&Channel List"
 msgstr "チャンネルリスト(&C)"
 
-#: src/mainwindow.cpp:737
+#: src/mainwindow.cpp:734
 msgid "Set &Away Globally"
 msgstr "すべてのサーバで離席中に切り替え(&A)"
 
-#: src/mainwindow.cpp:749
+#: src/mainwindow.cpp:746
 msgid "Server List"
 msgstr "サーバリスト"
 
@@ -5660,7 +5717,7 @@ msgstr "カラー禁止"
 msgid "user throttling"
 msgstr "ウェブサイトのホスティング"
 
-#: src/bookmarkhandler.cpp:41
+#: src/bookmarkhandler.cpp:40
 msgid "Konversation Bookmarks Editor"
 msgstr "Konversation ブックマークエディタ"
 
@@ -5674,119 +5731,121 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "shin@shoegazed.org,ybando@k6.dion.ne.jp"
 
-#. i18n: file: src/dcc/transferdetailedinfopanelui.ui:39
-#. i18n: ectx: property (text), widget (QLabel, textLabel4)
-#: rc.cpp:5
-msgid "Filename:"
-msgstr "ファイル名:"
-
-#. i18n: file: src/dcc/transferdetailedinfopanelui.ui:49
-#. i18n: ectx: property (text), widget (QLabel, textLabel1_3)
-#: rc.cpp:8
-msgid "Self:"
-msgstr "自身:"
-
-#. i18n: file: src/dcc/transferdetailedinfopanelui.ui:59
-#. i18n: ectx: property (text), widget (QLabel, textLabel12)
-#: rc.cpp:11
-msgid "Type:"
-msgstr "タイプ:"
-
-#. i18n: file: src/dcc/transferdetailedinfopanelui.ui:69
-#. i18n: ectx: property (text), widget (QLabel, textLabel10)
-#: rc.cpp:14
-msgid "Status:"
-msgstr "ステータス:"
-
-#. i18n: file: src/dcc/transferdetailedinfopanelui.ui:79
-#. i18n: ectx: property (text), widget (QLabel, textLabel3)
-#: rc.cpp:17
-msgid "Location:"
-msgstr "場所:"
-
-#. i18n: file: src/dcc/transferdetailedinfopanelui.ui:89
-#. i18n: ectx: property (text), widget (QLabel, textLabel18)
-#: rc.cpp:20
-msgid "Progress:"
-msgstr "進捗:"
-
-#. i18n: file: src/dcc/transferdetailedinfopanelui.ui:116
-#. i18n: ectx: property (text), widget (QLabel, textLabel23)
-#: rc.cpp:23
-msgid "Partner:"
-msgstr "相手:"
-
-#. i18n: file: src/dcc/transferdetailedinfopanelui.ui:182
-#. i18n: ectx: property (text), widget (QLabel, textLabel21)
-#: rc.cpp:26
-#, fuzzy
-#| msgid "File Size:"
-msgid "File size:"
-msgstr "ファイルサイズ:"
-
-#. i18n: file: src/dcc/transferdetailedinfopanelui.ui:236
-#. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:29
-#, fuzzy
-#| msgid "Average Speed:"
-msgid "Average speed:"
-msgstr "平均速度:"
-
-#. i18n: file: src/dcc/transferdetailedinfopanelui.ui:246
-#. i18n: ectx: property (text), widget (QLabel, textLabel14)
-#: rc.cpp:32
-msgid "Resumed:"
-msgstr "レジューム:"
-
-#. i18n: file: src/dcc/transferdetailedinfopanelui.ui:278
-#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:35
-#, fuzzy
-#| msgid "Current Speed:"
-msgid "Current speed:"
-msgstr "現在の速度:"
-
-#. i18n: file: src/dcc/transferdetailedinfopanelui.ui:288
+#. i18n: file: src/dcc/transferdetailedtimeinfopanelui.ui:28
 #. i18n: ectx: property (text), widget (QLabel, textLabel19)
-#: rc.cpp:38
+#: rc.cpp:5
 #, fuzzy
 #| msgid "Current Position:"
 msgid "Current position:"
 msgstr "現在の位置:"
 
-#. i18n: file: src/dcc/transferdetailedinfopanelui.ui:334
+#. i18n: file: src/dcc/transferdetailedtimeinfopanelui.ui:48
+#. i18n: ectx: property (text), widget (QLabel, textLabel21)
+#: rc.cpp:8
+#, fuzzy
+#| msgid "File Size:"
+msgid "File size:"
+msgstr "ファイルサイズ:"
+
+#. i18n: file: src/dcc/transferdetailedtimeinfopanelui.ui:68
+#. i18n: ectx: property (text), widget (QLabel, textLabel14)
+#: rc.cpp:11
+msgid "Resumed:"
+msgstr "レジューム:"
+
+#. i18n: file: src/dcc/transferdetailedtimeinfopanelui.ui:88
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#: rc.cpp:14
+#, fuzzy
+#| msgid "Current Speed:"
+msgid "Current speed:"
+msgstr "現在の速度:"
+
+#. i18n: file: src/dcc/transferdetailedtimeinfopanelui.ui:108
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: rc.cpp:17
+#, fuzzy
+#| msgid "Average Speed:"
+msgid "Average speed:"
+msgstr "平均速度:"
+
+#. i18n: file: src/dcc/transferdetailedtimeinfopanelui.ui:145
+#. i18n: ectx: property (text), widget (QLabel, textLabel6)
+#: rc.cpp:20
+#, fuzzy
+#| msgid "Transferring Time:"
+msgid "Transferring time:"
+msgstr "転送時間:"
+
+#. i18n: file: src/dcc/transferdetailedtimeinfopanelui.ui:165
 #. i18n: ectx: property (text), widget (QLabel, textLabel8)
-#: rc.cpp:41
+#: rc.cpp:23
 #, fuzzy
 #| msgid "Estimated Time Left:"
 msgid "Estimated time left:"
 msgstr "推定残り時間:"
 
-#. i18n: file: src/dcc/transferdetailedinfopanelui.ui:344
+#. i18n: file: src/dcc/transferdetailedtimeinfopanelui.ui:185
 #. i18n: ectx: property (text), widget (QLabel, textLabel5)
-#: rc.cpp:44
+#: rc.cpp:26
 msgid "Offered at:"
 msgstr "提案:"
 
-#. i18n: file: src/dcc/transferdetailedinfopanelui.ui:386
-#. i18n: ectx: property (text), widget (QLabel, textLabel7)
-#: rc.cpp:47
-msgid "Finished at:"
-msgstr "終了:"
-
-#. i18n: file: src/dcc/transferdetailedinfopanelui.ui:396
+#. i18n: file: src/dcc/transferdetailedtimeinfopanelui.ui:205
 #. i18n: ectx: property (text), widget (QLabel, textLabel6_2)
-#: rc.cpp:50
+#: rc.cpp:29
 msgid "Started at:"
 msgstr "開始:"
 
-#. i18n: file: src/dcc/transferdetailedinfopanelui.ui:438
-#. i18n: ectx: property (text), widget (QLabel, textLabel6)
+#. i18n: file: src/dcc/transferdetailedtimeinfopanelui.ui:225
+#. i18n: ectx: property (text), widget (QLabel, textLabel7)
+#: rc.cpp:32
+msgid "Finished at:"
+msgstr "終了:"
+
+#. i18n: file: src/dcc/transferdetailedinfopanelui.ui:23
+#. i18n: ectx: property (text), widget (QLabel, textLabel12)
+#. i18n: file: src/config/connectionbehavior_config.ui:260
+#. i18n: ectx: property (text), widget (QLabel, typeLabel)
+#: rc.cpp:35 rc.cpp:1140
+msgid "Type:"
+msgstr "タイプ:"
+
+#. i18n: file: src/dcc/transferdetailedinfopanelui.ui:40
+#. i18n: ectx: property (text), widget (QLabel, textLabel4)
+#: rc.cpp:38
+msgid "Filename:"
+msgstr "ファイル名:"
+
+#. i18n: file: src/dcc/transferdetailedinfopanelui.ui:57
+#. i18n: ectx: property (text), widget (QLabel, textLabel23)
+#: rc.cpp:41
+msgid "Partner:"
+msgstr "相手:"
+
+#. i18n: file: src/dcc/transferdetailedinfopanelui.ui:74
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_3)
+#: rc.cpp:44
+msgid "Self:"
+msgstr "自身:"
+
+#. i18n: file: src/dcc/transferdetailedinfopanelui.ui:91
+#. i18n: ectx: property (text), widget (QLabel, textLabel10)
+#: rc.cpp:47
+msgid "Status:"
+msgstr "ステータス:"
+
+#. i18n: file: src/dcc/transferdetailedinfopanelui.ui:108
+#. i18n: ectx: property (text), widget (QLabel, textLabel18)
+#: rc.cpp:50
+msgid "Progress:"
+msgstr "進捗:"
+
+#. i18n: file: src/dcc/transferdetailedinfopanelui.ui:121
+#. i18n: ectx: property (text), widget (QLabel, textLabel3)
 #: rc.cpp:53
-#, fuzzy
-#| msgid "Transferring Time:"
-msgid "Transferring time:"
-msgstr "転送時間:"
+msgid "Location:"
+msgstr "場所:"
 
 #. i18n: file: src/irc/channellistpanelui.ui:35
 #. i18n: ectx: property (text), widget (QLabel, m_lblMaxUser)
@@ -7080,7 +7139,7 @@ msgstr "テキストの色(&X):"
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
 #. i18n: file: src/viewer/irccolorchooserui.ui:122
 #. i18n: ectx: property (text), widget (QLabel, m_bgColorLbl)
-#: rc.cpp:660 rc.cpp:1908
+#: rc.cpp:660 rc.cpp:1932
 msgid "&Background color:"
 msgstr "背景色(&B):"
 
@@ -7286,11 +7345,11 @@ msgstr "更新間隔(&U):"
 
 #. i18n: file: src/config/watchednicknames_configui.ui:131
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_NotifyDelay)
-#. i18n: file: src/config/connectionbehavior_config.ui:86
+#. i18n: file: src/config/connectionbehavior_config.ui:83
 #. i18n: ectx: property (suffix), widget (KIntNumInput, kcfg_ReconnectDelay)
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:271
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_AutoWhoContinuousInterval)
-#: rc.cpp:748 rc.cpp:1096 rc.cpp:1512
+#: rc.cpp:748 rc.cpp:1096 rc.cpp:1536
 msgid " seconds"
 msgstr " 秒"
 
@@ -7371,7 +7430,7 @@ msgstr "タブバーの設定"
 #. i18n: ectx: property (title), widget (QGroupBox, lookGBox)
 #. i18n: file: src/config/tabnotifications_config.ui:19
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
-#: rc.cpp:796 rc.cpp:1773
+#: rc.cpp:796 rc.cpp:1797
 msgid "Look"
 msgstr "外観"
 
@@ -7885,45 +7944,45 @@ msgid "&Auto text:"
 msgstr "自動応答(&A):"
 
 # ACCELERATOR added by translator
-#. i18n: file: src/config/connectionbehavior_config.ui:26
+#. i18n: file: src/config/connectionbehavior_config.ui:23
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoReconnect)
 #: rc.cpp:1087
 msgid "Enable Automatic Reconnect"
 msgstr "自動的に再接続する(&E)"
 
-#. i18n: file: src/config/connectionbehavior_config.ui:35
+#. i18n: file: src/config/connectionbehavior_config.ui:32
 #. i18n: ectx: property (text), widget (QLabel, reconnectDelayLabel)
 #: rc.cpp:1090
 msgid "Reconnect delay:"
 msgstr "再接続までの遅延:"
 
-#. i18n: file: src/config/connectionbehavior_config.ui:64
+#. i18n: file: src/config/connectionbehavior_config.ui:61
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: rc.cpp:1093
 msgid "Reconnection attempts:"
 msgstr "再接続の試行回数:"
 
-#. i18n: file: src/config/connectionbehavior_config.ui:99
+#. i18n: file: src/config/connectionbehavior_config.ui:96
 #. i18n: ectx: property (specialValueText), widget (KIntNumInput, kcfg_ReconnectCount)
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:104
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_ScrollbackMax)
-#: rc.cpp:1099 rc.cpp:1482
+#: rc.cpp:1099 rc.cpp:1506
 msgid "Unlimited"
 msgstr "無制限"
 
-#. i18n: file: src/config/connectionbehavior_config.ui:125
+#. i18n: file: src/config/connectionbehavior_config.ui:122
 #. i18n: ectx: property (title), widget (QGroupBox, debugGBox)
 #: rc.cpp:1102
 msgid "Debug"
 msgstr "デバッグ"
 
-#. i18n: file: src/config/connectionbehavior_config.ui:131
+#. i18n: file: src/config/connectionbehavior_config.ui:128
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_RawLog)
 #: rc.cpp:1105
 msgid "Show raw &log window when connecting"
 msgstr "接続時に生ログウィンドウを表示する(&L)"
 
-#. i18n: file: src/config/connectionbehavior_config.ui:141
+#. i18n: file: src/config/connectionbehavior_config.ui:138
 #. i18n: ectx: property (title), widget (QGroupBox, encryptionGBox)
 #: rc.cpp:1108
 #, fuzzy
@@ -7931,7 +7990,7 @@ msgstr "接続時に生ログウィンドウを表示する(&L)"
 msgid "Encryption"
 msgstr "例外"
 
-#. i18n: file: src/config/connectionbehavior_config.ui:147
+#. i18n: file: src/config/connectionbehavior_config.ui:144
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: rc.cpp:1111
 #, fuzzy
@@ -7939,7 +7998,7 @@ msgstr "例外"
 msgid "Default encryption type:"
 msgstr "デフォルトの個人情報"
 
-#. i18n: file: src/config/connectionbehavior_config.ui:156
+#. i18n: file: src/config/connectionbehavior_config.ui:153
 #. i18n: ectx: property (whatsThis), widget (KComboBox, kcfg_EncryptionType)
 #: rc.cpp:1114
 msgid ""
@@ -7953,102 +8012,152 @@ msgid ""
 "saying."
 msgstr ""
 
-#. i18n: file: src/config/connectionbehavior_config.ui:160
+#. i18n: file: src/config/connectionbehavior_config.ui:157
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_EncryptionType)
 #: rc.cpp:1119
 msgid "Electronic Codebook (ECB)"
 msgstr ""
 
-#. i18n: file: src/config/connectionbehavior_config.ui:165
+#. i18n: file: src/config/connectionbehavior_config.ui:162
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_EncryptionType)
 #: rc.cpp:1122
 msgid "Cipher-Block Chaining (CBC)"
 msgstr ""
 
-#. i18n: file: src/config/konversation.kcfg:21
+#. i18n: file: src/config/connectionbehavior_config.ui:186
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ProxyEnabled)
+#: rc.cpp:1125
+msgid "Proxy"
+msgstr ""
+
+#. i18n: file: src/config/connectionbehavior_config.ui:198
+#. i18n: ectx: property (text), widget (QLabel, addressLabel)
+#: rc.cpp:1128
+#, fuzzy
+#| msgid "Address book:"
+msgid "Address:"
+msgstr "アドレス帳:"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:212
+#. i18n: ectx: property (text), widget (QLabel, portLabel)
+#: rc.cpp:1131
+#, fuzzy
+#| msgid "&Port:"
+msgid "Port:"
+msgstr "ポート(&P):"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:226
+#. i18n: ectx: property (text), widget (QLabel, usernameLabel)
+#: rc.cpp:1134
+#, fuzzy
+#| msgid "Filename:"
+msgid "Username:"
+msgstr "ファイル名:"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:240
+#. i18n: ectx: property (text), widget (QLabel, passwordLabel)
+#: rc.cpp:1137
+#, fuzzy
+#| msgid "P&assword:"
+msgid "Password:"
+msgstr "パスワード(&A):"
+
+#. i18n: file: src/config/connectionbehavior_config.ui:271
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_ProxyType)
+#: rc.cpp:1143
+msgid "Socks v5"
+msgstr ""
+
+#. i18n: file: src/config/connectionbehavior_config.ui:276
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_ProxyType)
+#: rc.cpp:1146
+msgid "HTTP"
+msgstr ""
+
+#. i18n: file: src/config/konversation.kcfg:22
 #. i18n: ectx: label, entry, group (Appearance)
-#: rc.cpp:1127
+#: rc.cpp:1151
 #, fuzzy
 #| msgid "Limit the size of the tab labels to fit all on screen"
 msgid "Limit the size of the tab labels to fit them all on screen"
 msgstr "すべてのタブが表示されるようにタブラベルのサイズを制限する"
 
-#. i18n: file: src/config/konversation.kcfg:226
+#. i18n: file: src/config/konversation.kcfg:227
 #. i18n: ectx: label, entry, group (Appearance)
-#: rc.cpp:1196
+#: rc.cpp:1220
 msgid "Hide the scrollbar"
 msgstr "スクロールバーを隠す"
 
-#. i18n: file: src/config/konversation.kcfg:232
+#. i18n: file: src/config/konversation.kcfg:233
 #. i18n: ectx: whatsthis, entry, group (General Options)
-#: rc.cpp:1199
+#: rc.cpp:1223
 msgid ""
 "Enable if you want all the IRC input lines to check your spelling as you type"
 msgstr "IRC の入力行で逐次スペルチェックを使用する場合は有効にしてください。"
 
-#. i18n: file: src/config/konversation.kcfg:241
+#. i18n: file: src/config/konversation.kcfg:242
 #. i18n: ectx: whatsthis, entry, group (General Options)
-#: rc.cpp:1202
+#: rc.cpp:1226
 msgid ""
 "Enabling this will cause the input box to grow vertically when it fills up."
 msgstr ""
 "これを有効にすると、テキストが幅いっぱいまで入力されると、入力ボックスが縦に"
 "広がります。"
 
-#. i18n: file: src/config/konversation.kcfg:275
+#. i18n: file: src/config/konversation.kcfg:276
 #. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:1217
+#: rc.cpp:1241
 #, fuzzy
 #| msgid "Start with hidden mainwindow"
 msgid "Start with hidden main window"
 msgstr "メインウィンドウを表示せずに起動する"
 
-#. i18n: file: src/config/konversation.kcfg:319
+#. i18n: file: src/config/konversation.kcfg:320
 #. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:1236
+#: rc.cpp:1260
 msgid "&Show real names next to nicknames"
 msgstr "ニックネームの横に本名を表示する(&S)"
 
-#. i18n: file: src/config/konversation.kcfg:533
+#. i18n: file: src/config/konversation.kcfg:534
 #. i18n: ectx: label, entry (OpenWatchedNicksAtStartup), group (Notify List)
-#: rc.cpp:1320
+#: rc.cpp:1344
 msgid "Open Watched Nicks tab at application startup"
 msgstr "起動時にニックのオンライン状況タブを表示する"
 
-#. i18n: file: src/config/konversation.kcfg:835
+#. i18n: file: src/config/konversation.kcfg:836
 #. i18n: ectx: label, entry, group (Themes)
-#: rc.cpp:1418
+#: rc.cpp:1442
 msgid "Enable emoticons"
 msgstr "感情アイコンを有効にする"
 
-#. i18n: file: src/config/konversation.kcfg:839
+#. i18n: file: src/config/konversation.kcfg:840
 #. i18n: ectx: label, entry, group (Themes)
-#: rc.cpp:1421
+#: rc.cpp:1445
 msgid "Emoticons theme"
 msgstr "感情アイコンテーマ"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:25
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_Beep)
-#: rc.cpp:1447
+#: rc.cpp:1471
 msgid ""
 "Sounds the system bell when you receive an ASCII BEL (0x07) control character"
 msgstr "ASCII BEL (0x07) 制御文字を受信したときにシステムベルを鳴らします。"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:28
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_Beep)
-#: rc.cpp:1450
+#: rc.cpp:1474
 msgid "Enable s&ystem bell on incoming ASCII BEL"
 msgstr "ASCII BEL を受信したらシステムベルを鳴らす(&Y)"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:35
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideUnimportantEvents)
-#: rc.cpp:1453
+#: rc.cpp:1477
 msgid "Hide &Join/Part/Nick events"
 msgstr "参加/退出/ニックイベントを隠す(&J)"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:42
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DisableExpansion)
-#: rc.cpp:1457
+#: rc.cpp:1481
 #, no-c-format
 msgid ""
 "Do not expand variables when sending text to the server. A variable starts "
@@ -8060,14 +8169,14 @@ msgstr ""
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:45
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DisableExpansion)
-#: rc.cpp:1461
+#: rc.cpp:1485
 #, no-c-format
 msgid "Disable variable (e.g. %C, %B, %G...) e&xpansion"
 msgstr "%C, %B, %G などの変数を展開しない(&X)"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:52
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_RedirectServerAndAppMsgToStatusPane)
-#: rc.cpp:1464
+#: rc.cpp:1488
 msgid "&Redirect status messages to the server status window"
 msgstr "ステータスメッセージをサーバステータスウィンドウにも表示する(&R)"
 
@@ -8075,19 +8184,19 @@ msgstr "ステータスメッセージをサーバステータスウィンドウ
 #. i18n: ectx: property (whatsThis), widget (QLabel, textLabel1)
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:101
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_ScrollbackMax)
-#: rc.cpp:1467 rc.cpp:1479
+#: rc.cpp:1491 rc.cpp:1503
 msgid "How many lines to keep in buffers, 0 = unlimited"
 msgstr "バッファに保持する行数。0 は無制限。"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:62
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:1470
+#: rc.cpp:1494
 msgid "Scroll&back limit:"
 msgstr "スクロールバック制限(&B):"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:91
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_UseLiteralModes)
-#: rc.cpp:1473
+#: rc.cpp:1497
 msgid ""
 "Keep channel mode string as a combination of characters instead of "
 "translating them into human readable words. E.g. '*** Channel modes: no "
@@ -8099,25 +8208,25 @@ msgstr ""
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:94
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseLiteralModes)
-#: rc.cpp:1476
+#: rc.cpp:1500
 msgid "Show raw mode characters"
 msgstr ""
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:107
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_ScrollbackMax)
-#: rc.cpp:1485
+#: rc.cpp:1509
 msgid " lines"
 msgstr " 行"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:136
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox3_2)
-#: rc.cpp:1488
+#: rc.cpp:1512
 msgid "Marker Lines"
 msgstr "しおり"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:142
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_AutomaticRememberLine)
-#: rc.cpp:1491
+#: rc.cpp:1515
 msgid ""
 "Inserts a remember line into the chat window when you switch to another chat "
 "window or minimize the application."
@@ -8127,261 +8236,261 @@ msgstr ""
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:145
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutomaticRememberLine)
-#: rc.cpp:1494
+#: rc.cpp:1518
 msgid "Mark the last position in a chat window when it is hidden"
 msgstr "非表示になったチャットウィンドウにしおりを挿入する"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:176
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutomaticRememberLineOnlyOnTextChange)
-#: rc.cpp:1497
+#: rc.cpp:1521
 msgid "Move the line only when new text is about to be shown"
 msgstr "新しいテキストが表示される直前に行を移動する"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:185
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MarkerLineInAllViews)
-#: rc.cpp:1500
+#: rc.cpp:1524
 msgid "Show manually inserted lines in all chat windows"
 msgstr "すべてのチャットウィンドウにしおりを表示する"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:195
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoWhoContinuousEnabled)
-#: rc.cpp:1503
+#: rc.cpp:1527
 msgid "Enable Automatic User Information Look Up (/WHO)"
 msgstr "自動ユーザ情報取得 (/WHO) を有効にする"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:239
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:1506
+#: rc.cpp:1530
 msgid "Max. number of users in a channel:"
 msgstr "チャンネルの最大人数:"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:252
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_AutoWhoNicksLimit)
-#: rc.cpp:1509
+#: rc.cpp:1533
 msgid " nicks"
 msgstr " 人"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:287
 #. i18n: ectx: property (text), widget (QLabel, whoIntervalLbl)
-#: rc.cpp:1515
+#: rc.cpp:1539
 msgid "Update interval:"
 msgstr "更新間隔:"
 
 # ACCELERATOR changed by translator
 #. i18n: file: src/config/nicklistbehavior_configui.ui:26
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:1518
+#: rc.cpp:1542
 msgid "&Command to be executed on double click:"
 msgstr "ダブルクリックしたときに実行するコマンド(&T):"
 
 #. i18n: file: src/config/nicklistbehavior_configui.ui:39
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortCaseInsensitive)
-#: rc.cpp:1521
+#: rc.cpp:1545
 msgid "Sort case &insensitive"
 msgstr "大文字小文字を区別せずにソートする(&I)"
 
 #. i18n: file: src/config/nicklistbehavior_configui.ui:46
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortByActivity)
-#: rc.cpp:1524
+#: rc.cpp:1548
 msgid "Sort by &activity"
 msgstr "活発さでソートする(&A)"
 
 #. i18n: file: src/config/nicklistbehavior_configui.ui:59
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortByStatus)
-#: rc.cpp:1527
+#: rc.cpp:1551
 msgid "Sort b&y user status"
 msgstr "ユーザの状態でソートする(&Y)"
 
 #. i18n: file: src/config/nicklistbehavior_configui.ui:72
 #. i18n: ectx: property (text), widget (QLabel, orderHintLabel)
-#: rc.cpp:1530
+#: rc.cpp:1554
 msgid "(Reorder nick sorting order by drag and drop)"
 msgstr "(ドラッグ&ドロップでソート順を変更できます)"
 
 #. i18n: file: src/config/nicklistbehavior_configui.ui:103
 #. i18n: ectx: property (text), widget (QTreeWidget, sortOrder)
-#: rc.cpp:1536
+#: rc.cpp:1560
 msgid "Explanation"
 msgstr "説明"
 
 #. i18n: file: src/config/fontappearance_config.ui:25
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_FixedMOTD)
-#: rc.cpp:1539
+#: rc.cpp:1563
 msgid "Show MOTD (Message Of The Day) message in fixed font"
 msgstr "MOTD (今日のメッセージ) を固定幅フォントで表示します。"
 
 #. i18n: file: src/config/fontappearance_config.ui:28
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_FixedMOTD)
-#: rc.cpp:1542
+#: rc.cpp:1566
 msgid "Enable fi&xed font for MOTD messages"
 msgstr "MOTD メッセージに固定幅フォントを使う(&X)"
 
 #. i18n: file: src/config/fontappearance_config.ui:35
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseBoldNicks)
-#: rc.cpp:1545
+#: rc.cpp:1569
 msgid "Show sender nicknames &bold in the chat view"
 msgstr "チャットビューで送信者のニックネームをボールド体で表示する(&B)"
 
 #. i18n: file: src/config/fontappearance_config.ui:61
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomTextFont)
-#: rc.cpp:1548
+#: rc.cpp:1572
 msgid "Chat text:"
 msgstr "チャット:"
 
 #. i18n: file: src/config/fontappearance_config.ui:92
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomListFont)
-#: rc.cpp:1551
+#: rc.cpp:1575
 msgid "Nickname list:"
 msgstr "ニックネームリスト:"
 
 #. i18n: file: src/config/fontappearance_config.ui:102
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomTabFont)
-#: rc.cpp:1554
+#: rc.cpp:1578
 msgid "Tab bar:"
 msgstr "タブバー:"
 
 #. i18n: file: src/config/theme_configui.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, Theme_ConfigUI)
-#: rc.cpp:1557
+#: rc.cpp:1581
 msgid "Theme_Config"
 msgstr "テーマ設定"
 
 #. i18n: file: src/config/theme_configui.ui:28
 #. i18n: ectx: property (text), widget (QPushButton, installButton)
-#: rc.cpp:1560
+#: rc.cpp:1584
 msgid "I&nstall Theme..."
 msgstr "テーマをインストール(&N)..."
 
 #. i18n: file: src/config/theme_configui.ui:38
 #. i18n: ectx: property (text), widget (QPushButton, removeButton)
-#: rc.cpp:1563
+#: rc.cpp:1587
 msgid "&Remove Theme"
 msgstr "テーマを削除(&R)"
 
 #. i18n: file: src/config/theme_configui.ui:78
 #. i18n: ectx: property (toolTip), widget (QLabel, previewLabel1)
-#: rc.cpp:1566
+#: rc.cpp:1590
 msgid "Icon for normal users"
 msgstr "通常ユーザのアイコン"
 
 #. i18n: file: src/config/theme_configui.ui:97
 #. i18n: ectx: property (toolTip), widget (QLabel, previewLabel2)
-#: rc.cpp:1569
+#: rc.cpp:1593
 msgid "Icon for away users"
 msgstr "離席中のユーザのアイコン"
 
 #. i18n: file: src/config/theme_configui.ui:113
 #. i18n: ectx: property (toolTip), widget (QLabel, previewLabel3)
-#: rc.cpp:1572
+#: rc.cpp:1596
 msgid "Icon for users with voice"
 msgstr "発言権のあるユーザのアイコン"
 
 #. i18n: file: src/config/theme_configui.ui:129
 #. i18n: ectx: property (toolTip), widget (QLabel, previewLabel4)
-#: rc.cpp:1575
+#: rc.cpp:1599
 msgid "Icon for users with half-operator privileges"
 msgstr "サブオペレータ権限のあるユーザのアイコン"
 
 #. i18n: file: src/config/theme_configui.ui:145
 #. i18n: ectx: property (toolTip), widget (QLabel, previewLabel5)
-#: rc.cpp:1578
+#: rc.cpp:1602
 msgid "Icon for users with operator privileges"
 msgstr "オペレータ権限のあるユーザのアイコン"
 
 #. i18n: file: src/config/theme_configui.ui:161
 #. i18n: ectx: property (toolTip), widget (QLabel, previewLabel6)
-#: rc.cpp:1581
+#: rc.cpp:1605
 msgid "Icon for users with admin privileges"
 msgstr "管理者権限のあるユーザのアイコン"
 
 #. i18n: file: src/config/theme_configui.ui:177
 #. i18n: ectx: property (toolTip), widget (QLabel, previewLabel7)
-#: rc.cpp:1584
+#: rc.cpp:1608
 msgid "Icon for users with owner privileges"
 msgstr "所有者権限のあるユーザのアイコン"
 
 #. i18n: file: src/config/theme_configui.ui:202
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:1587
+#: rc.cpp:1611
 msgid "Preview:"
 msgstr "プレビュー:"
 
 #. i18n: file: src/config/colorsappearance_config.ui:30
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox1)
-#: rc.cpp:1590
+#: rc.cpp:1614
 msgid "Custom Colors"
 msgstr "カスタムカラー"
 
 #. i18n: file: src/config/colorsappearance_config.ui:36
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_InputFieldsBackgroundColor)
-#: rc.cpp:1593
+#: rc.cpp:1617
 msgid "&Use custom colors for input box, nickname list and tab list"
 msgstr "入力ボックス、ニックネームリスト、タブリストに指定した色を使う(&U)"
 
 #. i18n: file: src/config/colorsappearance_config.ui:273
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
-#: rc.cpp:1596
+#: rc.cpp:1620
 msgid "&Background:"
 msgstr "背景色(&B):"
 
 #. i18n: file: src/config/colorsappearance_config.ui:286
 #. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
-#: rc.cpp:1599
+#: rc.cpp:1623
 msgid "&Server message:"
 msgstr "サーバメッセージ(&S):"
 
 #. i18n: file: src/config/colorsappearance_config.ui:299
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:1602
+#: rc.cpp:1626
 msgid "H&yperlink:"
 msgstr "ハイパーリンク(&Y):"
 
 #. i18n: file: src/config/colorsappearance_config.ui:312
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: rc.cpp:1605
+#: rc.cpp:1629
 msgid "Channel &message:"
 msgstr "チャンネルメッセージ(&M):"
 
 #. i18n: file: src/config/colorsappearance_config.ui:325
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:1608
+#: rc.cpp:1632
 msgid "Actio&n:"
 msgstr "アクション(&N):"
 
 #. i18n: file: src/config/colorsappearance_config.ui:338
 #. i18n: ectx: property (text), widget (QLabel, textLabel4)
-#: rc.cpp:1611
+#: rc.cpp:1635
 msgid "Bac&klog:"
 msgstr "バックログ(&K):"
 
 # ACCELERATOR changed by translator
 #. i18n: file: src/config/colorsappearance_config.ui:351
 #. i18n: ectx: property (text), widget (QLabel, textLabel5)
-#: rc.cpp:1614
+#: rc.cpp:1638
 msgid "Comman&d message:"
 msgstr "コマンドメッセージ(&E):"
 
 #. i18n: file: src/config/colorsappearance_config.ui:364
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_8)
-#: rc.cpp:1617
+#: rc.cpp:1641
 msgid "&Query message:"
 msgstr "クエリーメッセージ(&Q):"
 
 #. i18n: file: src/config/colorsappearance_config.ui:377
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_9)
-#: rc.cpp:1620
+#: rc.cpp:1644
 msgid "&Timestamp:"
 msgstr "タイムスタンプ(&T):"
 
 #. i18n: file: src/config/colorsappearance_config.ui:390
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_10)
-#: rc.cpp:1623
+#: rc.cpp:1647
 msgid "A&lternate background:"
 msgstr "もう一つの背景色(&L):"
 
 #. i18n: file: src/config/colorsappearance_config.ui:409
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_UseColoredNicks)
-#: rc.cpp:1626
+#: rc.cpp:1650
 msgid "Colored Nicks"
 msgstr "カラーニック"
 
@@ -8389,7 +8498,7 @@ msgstr "カラーニック"
 #. i18n: ectx: property (text), widget (QLabel, textLabel9)
 #. i18n: file: src/config/colorsappearance_config.ui:868
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_6)
-#: rc.cpp:1629 rc.cpp:1680
+#: rc.cpp:1653 rc.cpp:1704
 msgid "5:"
 msgstr "5:"
 
@@ -8397,7 +8506,7 @@ msgstr "5:"
 #. i18n: ectx: property (text), widget (QLabel, textLabel8)
 #. i18n: file: src/config/colorsappearance_config.ui:878
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_5)
-#: rc.cpp:1632 rc.cpp:1683
+#: rc.cpp:1656 rc.cpp:1707
 msgid "4:"
 msgstr "4:"
 
@@ -8405,7 +8514,7 @@ msgstr "4:"
 #. i18n: ectx: property (text), widget (QLabel, textLabel7)
 #. i18n: file: src/config/colorsappearance_config.ui:794
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_4)
-#: rc.cpp:1635 rc.cpp:1668
+#: rc.cpp:1659 rc.cpp:1692
 msgid "3:"
 msgstr "3:"
 
@@ -8413,7 +8522,7 @@ msgstr "3:"
 #. i18n: ectx: property (text), widget (QLabel, textLabel6)
 #. i18n: file: src/config/colorsappearance_config.ui:778
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_3)
-#: rc.cpp:1638 rc.cpp:1665
+#: rc.cpp:1662 rc.cpp:1689
 msgid "2:"
 msgstr "2:"
 
@@ -8421,7 +8530,7 @@ msgstr "2:"
 #. i18n: ectx: property (text), widget (QLabel, textLabel4_2)
 #. i18n: file: src/config/colorsappearance_config.ui:838
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_14)
-#: rc.cpp:1641 rc.cpp:1671
+#: rc.cpp:1665 rc.cpp:1695
 msgid "0:"
 msgstr "0:"
 
@@ -8429,7 +8538,7 @@ msgstr "0:"
 #. i18n: ectx: property (text), widget (QLabel, textLabel5_2)
 #. i18n: file: src/config/colorsappearance_config.ui:762
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_2)
-#: rc.cpp:1644 rc.cpp:1662
+#: rc.cpp:1668 rc.cpp:1686
 msgid "1:"
 msgstr "1:"
 
@@ -8437,7 +8546,7 @@ msgstr "1:"
 #. i18n: ectx: property (text), widget (QLabel, textLabel11)
 #. i18n: file: src/config/colorsappearance_config.ui:848
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_8)
-#: rc.cpp:1647 rc.cpp:1674
+#: rc.cpp:1671 rc.cpp:1698
 msgid "7:"
 msgstr "7:"
 
@@ -8445,19 +8554,19 @@ msgstr "7:"
 #. i18n: ectx: property (text), widget (QLabel, textLabel10)
 #. i18n: file: src/config/colorsappearance_config.ui:858
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_7)
-#: rc.cpp:1650 rc.cpp:1677
+#: rc.cpp:1674 rc.cpp:1701
 msgid "6:"
 msgstr "6:"
 
 #. i18n: file: src/config/colorsappearance_config.ui:700
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_3)
-#: rc.cpp:1653
+#: rc.cpp:1677
 msgid "&Own nick color:"
 msgstr "自分のニックカラー(&O):"
 
 #. i18n: file: src/config/colorsappearance_config.ui:744
 #. i18n: ectx: property (whatsThis), widget (QGroupBox, kcfg_AllowColorCodes)
-#: rc.cpp:1656
+#: rc.cpp:1680
 msgid ""
 "By enabling this option, color codes added to IRC messages will be displayed "
 "in your chat window as colored text. You can add color codes to your "
@@ -8470,200 +8579,200 @@ msgstr ""
 # ACCELERATOR changed by translator
 #. i18n: file: src/config/colorsappearance_config.ui:747
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_AllowColorCodes)
-#: rc.cpp:1659
+#: rc.cpp:1683
 msgid "&Allow Colored Text in IRC Messages"
 msgstr "IRC メッセージ中のカラーテキストを許可する(&I)"
 
 #. i18n: file: src/config/colorsappearance_config.ui:1051
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_12)
-#: rc.cpp:1686
+#: rc.cpp:1710
 msgid "11:"
 msgstr "11:"
 
 #. i18n: file: src/config/colorsappearance_config.ui:1082
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_10)
-#: rc.cpp:1689
+#: rc.cpp:1713
 msgid "9:"
 msgstr "9:"
 
 #. i18n: file: src/config/colorsappearance_config.ui:1092
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_9)
-#: rc.cpp:1692
+#: rc.cpp:1716
 msgid "8:"
 msgstr "8:"
 
 #. i18n: file: src/config/colorsappearance_config.ui:1102
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_11)
-#: rc.cpp:1695
+#: rc.cpp:1719
 msgid "10:"
 msgstr "10:"
 
 #. i18n: file: src/config/colorsappearance_config.ui:1183
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_13)
-#: rc.cpp:1698
+#: rc.cpp:1722
 msgid "12:"
 msgstr "12:"
 
 #. i18n: file: src/config/colorsappearance_config.ui:1200
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_16)
-#: rc.cpp:1701
+#: rc.cpp:1725
 msgid "15:"
 msgstr "15:"
 
 #. i18n: file: src/config/colorsappearance_config.ui:1224
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_15)
-#: rc.cpp:1704
+#: rc.cpp:1728
 msgid "14:"
 msgstr "14:"
 
 #. i18n: file: src/config/colorsappearance_config.ui:1234
 #. i18n: ectx: property (text), widget (QLabel, textLabel12)
-#: rc.cpp:1707
+#: rc.cpp:1731
 msgid "13:"
 msgstr "13:"
 
 #. i18n: file: src/config/log_config.ui:23
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_Log)
-#: rc.cpp:1710
+#: rc.cpp:1734
 msgid "&Enable Logging"
 msgstr "ログを保存する(&E)"
 
 #. i18n: file: src/config/log_config.ui:32
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_LowerLog)
-#: rc.cpp:1713
+#: rc.cpp:1737
 msgid "Enable &lower case logfile names"
 msgstr "ログファイル名に小文字を使う(&L)"
 
 # ACCELERATOR changed by translator
 #. i18n: file: src/config/log_config.ui:39
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AddHostnameToLog)
-#: rc.cpp:1716
+#: rc.cpp:1740
 msgid "&Append hostname to logfile names"
 msgstr "ログファイル名にホスト名を追加する(&T)"
 
 #. i18n: file: src/config/log_config.ui:46
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:1719
+#: rc.cpp:1743
 msgid "Logfile &path:"
 msgstr "ログファイルのパス(&P):"
 
 #. i18n: file: src/config/log_config.ui:69
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseExternalLogViewer)
-#: rc.cpp:1722
+#: rc.cpp:1746
 msgid "Use system text editor to open logs"
 msgstr ""
 
 #. i18n: file: src/config/chatwindowappearance_config.ui:24
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_Timestamping)
-#: rc.cpp:1725
+#: rc.cpp:1749
 msgid "Enable &Timestamps"
 msgstr "タイムスタンプを有効にする(&T)"
 
 #. i18n: file: src/config/chatwindowappearance_config.ui:33
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowDate)
-#: rc.cpp:1728
+#: rc.cpp:1752
 msgid "Sho&w dates"
 msgstr "日付を表示する(&W)"
 
 #. i18n: file: src/config/chatwindowappearance_config.ui:40
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: rc.cpp:1731
+#: rc.cpp:1755
 msgid "&Format:"
 msgstr "フォーマット(&F):"
 
 #. i18n: file: src/config/chatwindowappearance_config.ui:79
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowBacklog)
-#: rc.cpp:1734
+#: rc.cpp:1758
 msgid "Show &Backlog"
 msgstr "バックログを表示する(&B)"
 
 #. i18n: file: src/config/chatwindowappearance_config.ui:88
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:1737
+#: rc.cpp:1761
 msgid "&Lines: "
 msgstr "行(&L):"
 
 #. i18n: file: src/config/chatwindowappearance_config.ui:130
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
-#: rc.cpp:1740
+#: rc.cpp:1764
 msgid "&Layout"
 msgstr "レイアウト(&L)"
 
 #. i18n: file: src/config/chatwindowappearance_config.ui:136
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTopic)
-#: rc.cpp:1743
+#: rc.cpp:1767
 msgid "&Show channel topic"
 msgstr "チャンネルトピックを表示する(&S)"
 
 #. i18n: file: src/config/chatwindowappearance_config.ui:143
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowModeButtons)
-#: rc.cpp:1746
+#: rc.cpp:1770
 msgid "Show channel &mode buttons"
 msgstr "チャンネルモードボタンを表示する(&M)"
 
 #. i18n: file: src/config/chatwindowappearance_config.ui:150
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowNickList)
-#: rc.cpp:1749
+#: rc.cpp:1773
 msgid "Show channel &nick list and quick buttons"
 msgstr "チャンネルニックリストとクイックボタンを表示する(&N)"
 
 #. i18n: file: src/config/chatwindowappearance_config.ui:178
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoUserhost)
-#: rc.cpp:1752
+#: rc.cpp:1776
 msgid "Show hostmas&ks in nickname list"
 msgstr "ニックネームリストにホストマスクを表示する(&K)"
 
 #. i18n: file: src/config/chatwindowappearance_config.ui:208
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowRealNames)
-#: rc.cpp:1755
+#: rc.cpp:1779
 msgid "Show real names in nickname list"
 msgstr "ニックネームリストに本名を表示する(&S)"
 
 #. i18n: file: src/config/chatwindowappearance_config.ui:238
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowQuickButtons)
-#: rc.cpp:1758
+#: rc.cpp:1782
 msgid "Show &quick buttons"
 msgstr "クイックボタンを表示する(&Q)"
 
 #. i18n: file: src/config/chatwindowappearance_config.ui:247
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowNicknameBox)
-#: rc.cpp:1761
+#: rc.cpp:1785
 msgid "Show bo&x to change own nickname"
 msgstr "ニックネーム変更ボックスを表示する(&X)"
 
 #. i18n: file: src/config/chatwindowappearance_config.ui:254
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowIRCViewScrollBar)
-#: rc.cpp:1764
+#: rc.cpp:1788
 msgid "Show sc&rollbar"
 msgstr "スクロールバーを表示する(&R)"
 
 #. i18n: file: src/config/chatwindowappearance_config.ui:267
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowBackgroundImage)
-#: rc.cpp:1767
+#: rc.cpp:1791
 msgid "Enable Back&ground Image"
 msgstr "背景画像を使う(&G)"
 
 #. i18n: file: src/config/chatwindowappearance_config.ui:276
 #. i18n: ectx: property (text), widget (QLabel, textLabel4)
-#: rc.cpp:1770
+#: rc.cpp:1794
 msgid "P&ath:"
 msgstr "パス(&A):"
 
 #. i18n: file: src/config/tabnotifications_config.ui:25
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsText)
-#: rc.cpp:1776
+#: rc.cpp:1800
 msgid "Use colored text"
 msgstr "カラーテキストを使う"
 
 #. i18n: file: src/config/tabnotifications_config.ui:35
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsLeds)
-#: rc.cpp:1779
+#: rc.cpp:1803
 msgid "Use colored LEDs"
 msgstr "カラー LED を使う"
 
 #. i18n: file: src/config/tabnotifications_config.ui:51
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsSystem)
-#: rc.cpp:1785
+#: rc.cpp:1809
 msgid ""
 "Application events occur in Konsole tabs, the DCC Status tab and other "
 "application tabs not used directly for chatting."
@@ -8673,38 +8782,38 @@ msgstr ""
 
 #. i18n: file: src/config/tabnotifications_config.ui:54
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsSystem)
-#: rc.cpp:1788
+#: rc.cpp:1812
 msgid "Application event"
 msgstr "アプリケーションイベント"
 
 #. i18n: file: src/config/tabnotifications_config.ui:87
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsMsgs)
-#: rc.cpp:1791
+#: rc.cpp:1815
 msgid "Message"
 msgstr "メッセージ"
 
 #. i18n: file: src/config/tabnotifications_config.ui:143
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsPrivate)
-#: rc.cpp:1794
+#: rc.cpp:1818
 msgid "Private message"
 msgstr "プライベートメッセージ"
 
 #. i18n: file: src/config/tabnotifications_config.ui:167
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsNick)
-#: rc.cpp:1797
+#: rc.cpp:1821
 msgid "Current nick used"
 msgstr "現在のニックが使用されたとき"
 
 #. i18n: file: src/config/tabnotifications_config.ui:223
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsEvents)
-#: rc.cpp:1800
+#: rc.cpp:1824
 msgid "Channel events are mode changes or users joining/leaving a channel."
 msgstr ""
 "チャンネルのモード変更またはユーザの参加/退出がチャンネルイベントです。"
 
 #. i18n: file: src/config/tabnotifications_config.ui:226
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsEvents)
-#: rc.cpp:1803
+#: rc.cpp:1827
 msgid "Channel event"
 msgstr "チャンネルイベント"
 
@@ -8712,7 +8821,7 @@ msgstr "チャンネルイベント"
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox10)
 #. i18n: file: src/viewer/searchbarbase.ui:92
 #. i18n: ectx: property (text), widget (QToolButton, m_optionsButton)
-#: rc.cpp:1809 rc.cpp:1848
+#: rc.cpp:1833 rc.cpp:1872
 #, fuzzy
 #| msgid "Exception"
 msgid "Options"
@@ -8720,7 +8829,7 @@ msgstr "例外"
 
 #. i18n: file: src/config/tabnotifications_config.ui:281
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsOverride)
-#: rc.cpp:1812
+#: rc.cpp:1836
 msgid ""
 "If you select this, the colors you chose in the Highlights preferences page "
 "will override the colors for \"Current nick used\" and \"Highlight\"."
@@ -8730,67 +8839,67 @@ msgstr ""
 
 #. i18n: file: src/config/tabnotifications_config.ui:284
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsOverride)
-#: rc.cpp:1815
+#: rc.cpp:1839
 msgid "Give precedence to chat window highlight colors"
 msgstr "チャットウィンドウの強調表示色を優先する"
 
 #. i18n: file: src/linkaddressbook/linkaddressbookui_base.ui:41
 #. i18n: ectx: property (toolTip), widget (QPushButton, addAddresseeButton)
-#: rc.cpp:1818
+#: rc.cpp:1842
 msgid "Create a new entry in your address book"
 msgstr "アドレス帳に新規エントリを作成します。"
 
 #. i18n: file: src/linkaddressbook/linkaddressbookui_base.ui:44
 #. i18n: ectx: property (text), widget (QPushButton, addAddresseeButton)
-#: rc.cpp:1821
+#: rc.cpp:1845
 msgid "Create New &Entry..."
 msgstr "新規エントリを作成(&E)..."
 
 #. i18n: file: src/linkaddressbook/linkaddressbookui_base.ui:67
 #. i18n: ectx: property (toolTip), widget (K3ListView, addresseeListView)
-#: rc.cpp:1824
+#: rc.cpp:1848
 msgid "Select the contact you want to communicate with via Instant Messaging"
 msgstr "インスタントメッセージで通信するコンタクトを選択してください"
 
 #. i18n: file: src/linkaddressbook/linkaddressbookui_base.ui:77
 #. i18n: ectx: property (text), widget (K3ListView, addresseeListView)
-#: rc.cpp:1827
+#: rc.cpp:1851
 msgid "Photo"
 msgstr "写真"
 
 #. i18n: file: src/linkaddressbook/linkaddressbookui_base.ui:88
 #. i18n: ectx: property (text), widget (K3ListView, addresseeListView)
-#: rc.cpp:1830
+#: rc.cpp:1854
 msgid "Name"
 msgstr "名前"
 
 #. i18n: file: src/linkaddressbook/linkaddressbookui_base.ui:121
 #. i18n: ectx: property (text), widget (QLabel, lblSearch)
-#: rc.cpp:1836
+#: rc.cpp:1860
 msgid "S&earch:"
 msgstr "検索(&E):"
 
 #. i18n: file: src/viewer/searchbarbase.ui:72
 #. i18n: ectx: property (text), widget (KPushButton, m_findNextButton)
-#: rc.cpp:1842
+#: rc.cpp:1866
 msgid "Find Ne&xt"
 msgstr "次を検索(&X)"
 
 #. i18n: file: src/viewer/searchbarbase.ui:82
 #. i18n: ectx: property (text), widget (KPushButton, m_findPreviousButton)
-#: rc.cpp:1845
+#: rc.cpp:1869
 msgid "Find Previous"
 msgstr "前を検索"
 
 #. i18n: file: src/viewer/pasteeditor.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, PasteEditor)
-#: rc.cpp:1851
+#: rc.cpp:1875
 msgid "Paste Editor"
 msgstr ""
 
 #. i18n: file: src/viewer/pasteeditor.ui:20
 #. i18n: ectx: property (text), widget (KPushButton, m_removeNewlinesButton)
-#: rc.cpp:1854
+#: rc.cpp:1878
 #, fuzzy
 #| msgid "&Remove Theme"
 msgid "&Remove Newlines"
@@ -8798,19 +8907,19 @@ msgstr "テーマを削除(&R)"
 
 #. i18n: file: src/viewer/pasteeditor.ui:27
 #. i18n: ectx: property (text), widget (KPushButton, m_addQuotesButton)
-#: rc.cpp:1857
+#: rc.cpp:1881
 msgid "Add &Quotation Indicators"
 msgstr "引用符を追加(&Q)"
 
 #. i18n: file: src/viewer/irccolorchooserui.ui:19
 #. i18n: ectx: property (toolTip), widget (QLabel, m_previewLbl)
-#: rc.cpp:1860
+#: rc.cpp:1884
 msgid "This is how your message will look with these colors"
 msgstr "選択した色を使ったときのメッセージのプレビューです。"
 
 #. i18n: file: src/viewer/irccolorchooserui.ui:24
 #. i18n: ectx: property (whatsThis), widget (QLabel, m_previewLbl)
-#: rc.cpp:1863
+#: rc.cpp:1887
 msgid ""
 "<qt>This is a preview of how your readers may see view your message if you "
 "select these colors.<br>\n"
@@ -8826,7 +8935,7 @@ msgstr ""
 
 #. i18n: file: src/viewer/irccolorchooserui.ui:33
 #. i18n: ectx: property (text), widget (QLabel, m_previewLbl)
-#: rc.cpp:1868
+#: rc.cpp:1892
 msgid "Preview"
 msgstr "プレビュー"
 
@@ -8834,7 +8943,7 @@ msgstr "プレビュー"
 #. i18n: ectx: property (toolTip), widget (KComboBox, m_fgColorCBox)
 #. i18n: file: src/viewer/irccolorchooserui.ui:69
 #. i18n: ectx: property (toolTip), widget (QLabel, m_fgColorLbl)
-#: rc.cpp:1871 rc.cpp:1878
+#: rc.cpp:1895 rc.cpp:1902
 msgid "The chosen text color is added to the input line."
 msgstr "選択したテキストカラーを入力行へ追加します。"
 
@@ -8842,7 +8951,7 @@ msgstr "選択したテキストカラーを入力行へ追加します。"
 #. i18n: ectx: property (whatsThis), widget (KComboBox, m_fgColorCBox)
 #. i18n: file: src/viewer/irccolorchooserui.ui:73
 #. i18n: ectx: property (whatsThis), widget (QLabel, m_fgColorLbl)
-#: rc.cpp:1874 rc.cpp:1881
+#: rc.cpp:1898 rc.cpp:1905
 msgid ""
 "<qt>Here you choose what color you want you the text in the next message you "
 "send to be.  If you choose a color and click Ok, the chosen color is added "
@@ -8858,7 +8967,7 @@ msgstr ""
 
 #. i18n: file: src/viewer/irccolorchooserui.ui:76
 #. i18n: ectx: property (text), widget (QLabel, m_fgColorLbl)
-#: rc.cpp:1885
+#: rc.cpp:1909
 msgid "&Foreground color:"
 msgstr "前景色(&F):"
 
@@ -8866,7 +8975,7 @@ msgstr "前景色(&F):"
 #. i18n: ectx: property (toolTip), widget (KComboBox, m_bgColorCBox)
 #. i18n: file: src/viewer/irccolorchooserui.ui:112
 #. i18n: ectx: property (toolTip), widget (QLabel, m_bgColorLbl)
-#: rc.cpp:1888 rc.cpp:1898
+#: rc.cpp:1912 rc.cpp:1922
 msgid "The chosen text-background color is added to the input line."
 msgstr "選択した背景カラーを入力行へ追加します。"
 
@@ -8874,7 +8983,7 @@ msgstr "選択した背景カラーを入力行へ追加します。"
 #. i18n: ectx: property (whatsThis), widget (KComboBox, m_bgColorCBox)
 #. i18n: file: src/viewer/irccolorchooserui.ui:119
 #. i18n: ectx: property (whatsThis), widget (QLabel, m_bgColorLbl)
-#: rc.cpp:1891 rc.cpp:1901
+#: rc.cpp:1915 rc.cpp:1925
 msgid ""
 "<qt>Here you choose what color you want you background for the text in the "
 "next message you send to be.\n"
@@ -8899,9 +9008,36 @@ msgstr ""
 
 #. i18n: file: data/konversationui.rc:35
 #. i18n: ectx: Menu (windows)
-#: rc.cpp:1914
+#: rc.cpp:1938
 msgid "&Window"
 msgstr "ウィンドウ(&W)"
+
+#, fuzzy
+#~| msgid "&Format:"
+#~ msgid "Form"
+#~ msgstr "フォーマット(&F):"
+
+#, fuzzy
+#~| msgid "Connection broken, error code %1."
+#~ msgid "Connection broken, error (%1) %2."
+#~ msgstr "接続が絶たれました (エラーコード %1)。"
+
+#~ msgid "Accept"
+#~ msgstr "受信"
+
+#~ msgid "Abort"
+#~ msgstr "中止"
+
+#, fuzzy
+#~| msgid "&Clear"
+#~ msgid "Clear"
+#~ msgstr "クリア(&C)"
+
+#~ msgid "Open File"
+#~ msgstr "ファイルを開く"
+
+#~ msgid "View DCC transfer details"
+#~ msgstr "DCC 転送の詳細を表示"
 
 #~ msgid "Send"
 #~ msgstr "送信"

@@ -23,10 +23,6 @@
 #include <QMenu>
 #include <QTextDocument>
 
-#include <KStringHandler>
-#include <KGlobal>
-#include <KMenu>
-#include <KIconLoader>
 #include <KBookmarkManager>
 #include <kbookmarkdialog.h>
 #include <KShell>
@@ -177,11 +173,11 @@ namespace Konversation
         }
 
         QString text = m_fullText;
-        // text.replace("&", "&amp;"). Not needed as we do it in tagURLs
+        // text.replace("&", "&amp;"). Not needed as we do it in tagUrls
         text.replace('<', "\x0blt;"). // tagUrls will replace \x0b with &
             replace('>', "\x0bgt;");
 
-        text = tagURLs(text, m_channelName, false);
+        text = tagUrls(text, m_channelName, false);
 
         if(height() < (fontMetrics().lineSpacing() * 2))
         {

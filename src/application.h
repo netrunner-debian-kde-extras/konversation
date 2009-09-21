@@ -21,6 +21,7 @@
 #include "osd.h"
 #include "identity.h"
 #include "nickinfo.h"
+#include "ircqueue.h"
 
 #include <kuniqueapplication.h>
 
@@ -56,6 +57,12 @@ namespace Konversation
     };
 
 }
+
+namespace KWallet
+{
+    class Wallet;
+}
+
 
 class Application : public KUniqueApplication
 {
@@ -112,6 +119,8 @@ class Application : public KUniqueApplication
 
         Konversation::Sound* sound();
 
+        IRCQueue::EmptyingRate staticrates[Server::_QueueListSize];
+
         Images* images() { return m_images; }
 
         Konversation::NotificationHandler* notificationHandler() const { return m_notificationHandler; }
@@ -123,6 +132,9 @@ class Application : public KUniqueApplication
 
         static void openUrl(const QString& url);
 
+        /// The wallet used to store passwords. Opens the wallet if it's closed.
+        KWallet::Wallet* wallet();
+
     signals:
         void catchUrl(const QString& who,const QString& url);
         void serverGroupsChanged(const Konversation::ServerGroupSettingsPtr serverGroup);
@@ -131,6 +143,11 @@ class Application : public KUniqueApplication
     public slots:
         void readOptions();
         void saveOptions(bool updateGUI=true);
+
+        void fetchQueueRates(); ///< on Application::readOptions()
+        void stashQueueRates(); ///< on application exit
+        void resetQueueRates(); ///< when QueueTuner says to
+        int countOfQueues() { return Server::_QueueListSize-1; }
 
         void deleteUrl(const QString& who,const QString& url);
         void clearUrlList();
@@ -146,6 +163,9 @@ class Application : public KUniqueApplication
         void dbusInfo(const QString& string);
         void sendMultiServerCommand(const QString& command, const QString& parameter);
 
+        void updateProxySettings();
+
+        void closeWallet();
 
     private:
         ConnectionManager* m_connectionManager;
@@ -162,6 +182,8 @@ class Application : public KUniqueApplication
         Konversation::NotificationHandler* m_notificationHandler;
 
         QStringList colorList;
+
+        KWallet::Wallet* m_wallet;
 };
 
 #endif

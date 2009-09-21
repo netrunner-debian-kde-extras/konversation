@@ -15,12 +15,13 @@
 
 #include "transferview.h"
 
-#include <QHeaderView>
 
 #include <KDebug>
 #include <KMenu>
 #include <KCategoryDrawer>
 #include <klocalizedstring.h>
+
+#include <QHeaderView>
 
 #include <preferences.h>
 
@@ -71,11 +72,22 @@ namespace Konversation
 
         TransferView::~TransferView()
         {
+            kDebug();
             disconnect(m_updateTimer, 0, 0, 0);
 
             saveColumns();
+            clear();
 
             delete m_categoryDrawer;
+        }
+
+        void TransferView::clear()
+        {
+            if (rowCount() > 0)
+            {
+                removeItems(TransferItemData::SendItem);
+                removeItems(TransferItemData::ReceiveItem);
+            }
         }
 
         void TransferView::drawRow (QPainter *painter, const QStyleOptionViewItem &option,
@@ -387,7 +399,7 @@ namespace Konversation
                 int headerType = m_dccModel->headerData(i, Qt::Horizontal, TransferListModel::HeaderType).toInt();
                 if (headerType == TransferHeaderData::Progress)
                 {
-                    setItemDelegateForColumn (i, new TransferProgressBarDelete());
+                    setItemDelegateForColumn (i, new TransferProgressBarDelete(this));
                     return;
                 }
             }
@@ -509,6 +521,23 @@ namespace Konversation
                 return;
             }
             selectionModel()->select(m_proxyModel->index(row, 0), QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows);
+        }
+
+        void TransferView::selectRows(QList<int> rows)
+        {
+            QItemSelection selection;
+            foreach (const QModelIndex &index, rowIndexes())
+            {
+                foreach (int row, rows)
+                {
+                    if (row == index.row())
+                    {
+                        selection.append(QItemSelectionRange(index));
+                        break;
+                    }
+                }
+            }
+            selectionModel()->select(selection, QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows);
         }
 
         void TransferView::update()
