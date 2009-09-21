@@ -30,7 +30,6 @@
 #include <QTcpSocket>
 #include <QTcpServer>
 
-#include <KFileItem>
 #include <KIO/NetAccess>
 
 // TODO: remove the dependence
@@ -179,7 +178,11 @@ namespace Konversation
                     strncpy( ifr.ifr_name, address, IF_NAMESIZE );
                     ifr.ifr_addr.sa_family = AF_INET;
                     if ( ioctl( sock, SIOCGIFADDR, &ifr ) >= 0 )
-                        m_ownIp =  inet_ntoa( ( (struct sockaddr_in *)&ifr.ifr_addr )->sin_addr );
+                    {
+                        struct sockaddr_in sock;
+                        memcpy(&sock, &ifr.ifr_addr, sizeof(ifr.ifr_addr));
+                        m_ownIp = inet_ntoa(sock.sin_addr);
+                    }
                     kDebug() << "Falling back to IPv4 address " << m_ownIp;
         #endif
                 }
@@ -327,7 +330,7 @@ namespace Konversation
             setStatus( WaitingRemote, i18n( "Awaiting remote user's acceptance" ) );
         }
 
-        void TransferSend::sendRequest(bool /* error */, quint16 port)
+        void TransferSend::sendRequest(bool error, quint16 port)
         {
             Server* server = Application::instance()->getConnectionManager()->getServerByConnectionId( m_connectionId );
             if ( !server )
@@ -342,6 +345,9 @@ namespace Konversation
                 if (port != m_ownPort) return; // Somebody elses forward succeeded
 
                 disconnect (this->sender(), SIGNAL( forwardComplete(bool, quint16 ) ), this, SLOT ( sendRequest(bool, quint16) ) );
+
+                if (error)
+                    server->appendMessageToFrontmost(i18nc("Universal Plug and Play", "UPnP"), i18n("Failed to forward port %1. Sending DCC request to remote user regardless.", QString::number(m_ownPort)), false);
             }
 
             startConnectionTimer( Preferences::self()->dccSendTimeout() );
@@ -418,7 +424,9 @@ namespace Konversation
             stopConnectionTimer();
 
             if ( m_fastSend )
+            {
                 connect( m_sendSocket, SIGNAL( bytesWritten( qint64 ) ), this, SLOT( bytesWritten( qint64 ) ) );
+            }
             connect( m_sendSocket, SIGNAL( readyRead() ),  this, SLOT( getAck() ) );
 
             m_partnerIp = m_sendSocket->peerAddress().toString();
@@ -441,8 +449,20 @@ namespace Konversation
             }
         }
 
-        void TransferSend::bytesWritten(qint64 /*bytes*/)
+        void TransferSend::bytesWritten(qint64 bytes)
         {
+            if (bytes > 0)
+            {
+                m_transferringPosition += bytes;
+                if ( (KIO::fileoffset_t)m_fileSize <= m_transferringPosition )
+                {
+                    Q_ASSERT( (KIO::fileoffset_t)m_fileSize == m_transferringPosition );
+                    kDebug() << "Done.";
+                }
+            }
+
+//             kDebug() << "bytes written:" << bytes;
+//             kDebug() << "m_sendSocket->bytesToWrite():" << m_sendSocket->bytesToWrite() << "<= m_bufferSize:" << m_bufferSize;
             //wait for all remaining bytes to be written
             if (m_sendSocket && m_sendSocket->bytesToWrite() <= (qint64)m_bufferSize)
             {
@@ -457,18 +477,7 @@ namespace Konversation
             qint64 actual = m_file.read( m_buffer, m_bufferSize );
             if ( actual > 0 )
             {
-                qint64 byteWritten = m_sendSocket->write( m_buffer, actual );
-
-                if (byteWritten > 0)
-                {
-                    m_transferringPosition += byteWritten;
-                    //m_transferringPosition += actual;
-                    if ( (KIO::fileoffset_t)m_fileSize <= m_transferringPosition )
-                    {
-                        Q_ASSERT( (KIO::fileoffset_t)m_fileSize == m_transferringPosition );
-                        kDebug() << "Done.";
-                    }
-                }
+                m_sendSocket->write(m_buffer, actual);
             }
         }
 
@@ -477,7 +486,8 @@ namespace Konversation
             //kDebug();
             if ( m_transferringPosition < (KIO::fileoffset_t)m_fileSize )
             {
-                writeData();
+                //don't write data directly, in case we get spammed with ACK we try so send too fast
+                bytesWritten(0);
             }
 
             quint32 pos;

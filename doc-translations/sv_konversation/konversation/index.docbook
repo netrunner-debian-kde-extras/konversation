@@ -114,9 +114,9 @@ Please respect the format of the date (YYYY-MM-DD) and of the version
 Do NOT change these in the translation. -->
 
 <date
->2005-05-23</date>
+>2009-09-13</date>
 <releaseinfo
->0.18</releaseinfo>
+>1.2</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
@@ -4738,6 +4738,11 @@ mozilla -remote "openURL($@, new-tab)" || exec mozilla "$@";
 > till det. Det skickar din &Linux;-versionssträng till kanalen.</para>
 
 <para
+>För att ta reda på mer om skripten som installeras med &konversation;, se <link linkend="scripts_ref"
+>Referensguide för skript</link
+></para>
+
+<para
 >För att få en lista över alla tillgängliga skript, skriv in följande kommando i en terminal:</para>
 
 <para
@@ -4748,18 +4753,9 @@ mozilla -remote "openURL($@, new-tab)" || exec mozilla "$@";
 ></para>
 
 <para
->Du kan skriva dina egna skript. Skript är skalskript och kan skrivas med vilket skalspråk som helst, som bash, perl eller python. När &konversation; kör ett skript, är de första tre parametrarna som skickas till skriptet:</para>
+>Du kan skriva dina egna skript. Skript är skalskript och kan skrivas med vilket skalspråk som helst, som bash, perl eller python. När &konversation; kör ett skript, är de första två parametrarna som skickas till skriptet:</para>
 
 <itemizedlist>
-
-<listitem
-><para
->Portnumret för &irc;-servern under fliken där kommandot <userinput
-><command
->/exec</command
-></userinput
-> skrevs in.</para>
-</listitem>
 
 <listitem
 ><para
@@ -4782,17 +4778,16 @@ mozilla -remote "openURL($@, new-tab)" || exec mozilla "$@";
 
 # Kör ett kommando och skriver ut resultatet i Konversation.
 
-PORT=$1;
-SERVER=$2;
-TARGET=$3;
+SERVER=$1;
+TARGET=$2;
 shift;shift;shift;
 
-$@ | while read line; do dcop $PORT Konversation say $SERVER "$TARGET" "$@: $line"; done
+$@ | while read line; do qdbus org.kde.konversation /irc say $SERVER "$TARGET" "$@: $line"; done
 </programlisting>
 </para>
 
 <para
->Observera att skriptet använder DCOP för att kommunicera med &konversation;. Kommandot <computeroutput
+>Observera att skriptet använder qdbus för att kommunicera med &konversation;. Kommandot <computeroutput
 >/say</computeroutput
 > gör att utmatningen skickas till kanalen som ett normal meddelande. För att visa något under fliken utan att skicka det till andra användare, använd <computeroutput
 >info</computeroutput
@@ -4805,6 +4800,358 @@ $@ | while read line; do dcop $PORT Konversation say $SERVER "$TARGET" "$@: $lin
 ></userinput
 >.</para>
 
+</sect1>
+
+<sect1 id="scripts_ref">
+<title
+>Referensguide för skript</title>
+
+<para
+>&konversation; levereras med flera skript som normalt installeras. Läs den här guiden för att ta reda på hur de används.</para>
+
+<variablelist>
+<varlistentry>
+<term
+><userinput
+><command
+>/exec </command
+> <replaceable
+>bug</replaceable
+> [<replaceable
+>felnummer|söksträng</replaceable
+>]</userinput
+></term>
+<listitem>
+<para
+>Skriptet används för att starta en sökning efter en given sträng eller ett givet felnummer på KDE:s Bugzilla i en webbläsare.</para>
+<para
+>Exempel: För att starta en webbläsare och söka efter fel nummer 123456</para>
+<para
+><userinput
+><command
+>/exec </command
+> <replaceable
+>bug 123456</replaceable
+></userinput
+></para>
+<para
+>Exempel på åtgärd: <replaceable
+>Standardwebbläsaren i KDE:s systeminställningar ska visa http://bugs.kde.org/show_bug.cgi?id=123456</replaceable
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>/exec </command
+> <replaceable
+>cmd</replaceable
+> [<replaceable
+>kommandorad</replaceable
+>]</userinput>
+</term>
+<listitem>
+<para
+>Skriptet används för att låta utmatning från kommandoraden skrivas in i aktuell kanal.</para>
+<para
+>Exempel: För att visa för alla i aktuell kanal vilken version av &konversation; som är installerad.</para>
+<para
+><userinput
+><command
+>/exec </command
+> <replaceable
+>cmd konversation --version | grep Konversation</replaceable
+></userinput
+></para>
+<para
+>Exempel på utmatning: <replaceable
+>Konversation: 1.2</replaceable
+></para>
+<para
+>Varning! Utmatning från hela kommandot skickas till alla under den aktuella kanalfliken. Använd med försiktighet.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>/exec </command
+> <replaceable
+>fortune</replaceable
+></userinput>
+</term>
+<listitem>
+<para
+>Skriptet skriver ut en slumpmässig lyckokaka när det körs.</para>
+<para
+>Exempel: För att skriva ut en slumpmässig lyckokaka under den aktuella kanalfliken</para>
+<para
+><userinput
+><command
+>/exec </command
+> <replaceable
+>fortune</replaceable
+></userinput
+></para>
+<para
+>Exempel på utmatning: <replaceable
+>Random Fortune: Never make any mistaeks. -- Anonymous, in a mail discussion about to a kernel bug report</replaceable
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>/exec </command
+> <replaceable
+>gauge</replaceable
+> [<replaceable
+>procentvärde</replaceable
+>]</userinput>
+</term>
+<listitem>
+<para
+>Skriptet visar en enkel textbaserad förloppsrad för det givna procentvärdet.</para>
+<para
+>Exempel: För att visa en förloppsrad med 50 % färdigt under den aktuella kanalfliken</para>
+<para
+><userinput
+><command
+>/exec </command
+> <replaceable
+>gauge 50</replaceable
+></userinput
+></para>
+<para
+>Exempel på utmatning: <replaceable
+>Ölintag [ | ] 50%</replaceable
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>/exec </command
+> <replaceable
+>kdeversion</replaceable
+></userinput>
+</term>
+<listitem>
+<para
+>Skriptet används för att visa resultatet av kommandot kde4-config --version"</para>
+<para
+>Exempel: För att skriva ut nuvarande version av KDE </para>
+<para
+><userinput
+><command
+>/exec </command
+> <replaceable
+>kdeversion</replaceable
+></userinput
+></para>
+<para
+>Exempel på utmatning: <replaceable
+>Qt: 4.5.1 KDE: 4.2.85 (KDE 4.2.85 (KDE 4.3 Beta1)) kde4-config: 1.0</replaceable
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>/exec </command
+> <replaceable
+>mail</replaceable
+> [<replaceable
+>E-postkorg i Kmail</replaceable
+>]</userinput>
+</term>
+<listitem>
+<para
+>Skriptet används för att visa aktuellt antal olästa brev och totalt antal brev i Kmail.</para>
+<para
+>Exempel: För att visa aktuellt antal olästa brev i din inkorg</para>
+<para
+><userinput
+><command
+>/exec </command
+> <replaceable
+>mail inbox</replaceable
+></userinput
+></para>
+<para
+>Exempel på utmatning: <replaceable
+>Email folder inbox has 30 unread messages, out of 800</replaceable
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>/exec </command
+> <replaceable
+>media</replaceable
+> [<replaceable
+>audio|video|{spelare}</replaceable
+>]</userinput>
+</term>
+<listitem>
+<para
+>Det här är ett Nu spelas-skript för diverse mediaspelare. Det har också ett sätt att bara visa Nu spelas-information för ljudspelare, eller bara för videospelare, via det valfria kommandoväljarna <replaceable
+>audio</replaceable
+> och <replaceable
+>video</replaceable
+>. Dessutom är det möjligt att ange mediaspelare du vill kontrollera.</para>
+<para
+>Följande mediaspelare stöds: Amarok (ljud), JuK (ljud), Noatun (ljud, video), Kaffeine (video, ljud), KMPlayer (video, ljud), KPlayer (video, ljud), KsCD (ljud), kdetv (video), Amarok2 (ljud), Yammi (ljud), Audacious (ljud), MPD (ljud).</para>
+<para
+>Exempel: För att visa låten som för närvarande spelas i Amarok2</para>
+<para
+><userinput
+><command
+>/exec </command
+> <replaceable
+>media amarok2</replaceable
+></userinput
+></para>
+<para
+>Exempel på utmatning: <replaceable
+>* user is listening to You Give Love A Bad Name by Bon Jovi on Slippery When Wet [Amarok2]</replaceable
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>/exec </command
+> <replaceable
+>sayclip</replaceable
+> [<replaceable
+>Valfri fördröjning</replaceable
+>]</userinput>
+</term>
+<listitem>
+<para
+>Skriptet visar innehållet på klippbordet under aktuell kanalflik, med en fördröjning för att tillhandahålla överfyllnadskydd.</para>
+<para
+>Exempel: För att visa innehållet på klippbordet med en 1 sekunders fördröjning.</para>
+<para
+><userinput
+><command
+>/exec </command
+> <replaceable
+>sayclip 1s</replaceable
+></userinput
+></para>
+<para
+>Exempel på utmatning: <replaceable
+>Konversation är verkligen underbart!</replaceable
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>/exec </command
+> <replaceable
+>sysinfo</replaceable
+></userinput>
+</term>
+<listitem>
+<para
+>Skriptet skriver ut en del detaljerad information om systemet genom att kombinera utmatning från flera kommandon och formatera den på lämpligt sätt.</para>
+<para
+>Exempel: För att visa en del information om systemet under den aktuella kanalfliken</para>
+<para
+><userinput
+><command
+>/exec </command
+> <replaceable
+>sysinfo</replaceable
+></userinput
+></para>
+<para
+>Exempel på utmatning: <replaceable
+>Sysinfo for 'user-desktop': Linux 2.6.28-12-generic running KDE 4.2.85 (KDE 4.2.85 (KDE 4.3 Beta1)), CPU: Intel(R) Core 2 Quad CPU Q9450 @ 2.66GHz at 2666 MHz (5333 bogomips), HD: 370/445GB, RAM: 1965/2012MB, 232 proc's, 98.15d up</replaceable
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>/exec </command
+> <replaceable
+>tinyurl</replaceable
+> [<replaceable
+>länkadress</replaceable
+>]</userinput>
+</term>
+<listitem>
+<para
+>Skriptet använder programmeringsgränssnittet för Tinyurl för att omvandla den givna länken till en kort webbadress som sedan skickas till aktuell kanalflik.</para>
+<para
+>Exempel: För att ge någon en kort länk till http://konversation.kde.org</para>
+<para
+><userinput
+><command
+>/exec </command
+> <replaceable
+>tinyurl http://konversation.kde.org</replaceable
+></userinput
+></para>
+<para
+>Exempel på utmatning: <replaceable
+>http://tinyurl.com/n3pdum</replaceable
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>/exec </command
+> <replaceable
+>uptime</replaceable
+></userinput>
+</term>
+<listitem>
+<para
+>Skriptet matar ut resultatet av kommandot "uptime" och formaterar det på lämpligt sätt.</para>
+<para
+>Exempel: För att glänsa med de gedigna 98 dagar din dator varit igång</para>
+<para
+><userinput
+><command
+>/exec </command
+> <replaceable
+>uptime</replaceable
+></userinput
+></para>
+<para
+>Exempel på utmatning: <replaceable
+>Uptime: 98 days, 15 hours and 2 minutes</replaceable
+></para>
+</listitem>
+</varlistentry>
+
+</variablelist>
 </sect1>
 
 </chapter>

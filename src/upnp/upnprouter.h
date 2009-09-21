@@ -14,13 +14,10 @@
 #define KTUPNPROUTER_H
 
 #include <QHostAddress>
-#include <QNetworkAccessManager>
 
 #include <kurl.h>
 #include <kjob.h>
-
-class QNetworkReply;
-
+#include <kio/jobclasses.h>
 
 namespace Konversation
 {
@@ -110,13 +107,15 @@ namespace Konversation
             UPnPService service;
             QList<Forwarding*> forwards;
 
-            QHash<QNetworkReply*, UPnPService> pending_services;
-            QHash<QNetworkReply*, Forwarding*> pending_forwards;
-            QHash<QNetworkReply*, Forwarding*> pending_unforwards;
+            QHash<KJob*, UPnPService> pending_services;
+            QHash<KJob*, Forwarding*> pending_forwards;
+            QHash<KJob*, Forwarding*> pending_unforwards;
+
+            QHash<KJob*, QByteArray>  soap_data_in;
+            QHash<KJob*, QByteArray>  soap_data_out;
 
             QString error;
-
-            QNetworkAccessManager http_service;
+            
         public:
             /**
             * Construct a router.
@@ -173,11 +172,12 @@ namespace Konversation
             QString getError() const {return error;}
 
         private slots:
-            void onRequestFinished(QNetworkReply *reply);
+            void onRequestFinished(KJob *reply);
             void downloadFinished(KJob* j);
-
-
-
+            
+            void sendSoapData(KIO::Job *job, QByteArray &data);
+            void recvSoapData(KIO::Job *job, const QByteArray &data);
+            
         signals:
             /**
             * Signal which indicates that the XML was downloaded successfully or not.
@@ -191,8 +191,8 @@ namespace Konversation
 
         private:
 
-            QNetworkReply *sendSoapQuery(const QString & query,const QString & soapact,const QString & controlurl);
-            QNetworkReply *getStatusInfo(UPnPService s);
+            KJob *sendSoapQuery(const QString & query,const QString & soapact,const QString & controlurl);
+            KJob *getStatusInfo(UPnPService s);
         };
     }
 }

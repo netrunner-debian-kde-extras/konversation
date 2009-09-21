@@ -74,6 +74,8 @@ namespace Konversation
         class TransferProgressBarDelete : public QStyledItemDelegate
         {
         public:
+            TransferProgressBarDelete(QObject *parent = 0);
+
             virtual void paint (QPainter *painter, const QStyleOptionViewItem & option,
                                 const QModelIndex &index) const;
         };
@@ -105,7 +107,8 @@ namespace Konversation
                 TransferType,
                 TransferStatus,
                 TransferPointer,
-                TransferProgress
+                TransferProgress,
+                TransferOfferDate //to get the QDateTime, not just a time string
             };
 
             TransferListModel(QObject *parent);
@@ -145,12 +148,14 @@ namespace Konversation
 
         private:
             inline int columnToHeaderType(int column) const;
+            inline QString displayTypeToString(int type) const;
 
             inline QString getPositionPrettyText(KIO::fileoffset_t position,
                                                  KIO::filesize_t filesize) const;
             inline QString getSenderAddressPrettyText(Transfer *transfer) const;
             inline QPixmap getStatusIcon(Transfer::Status status) const;
             inline QPixmap getTypeIcon(Transfer::Type type) const;
+            inline QString getStatusDescription(Transfer::Status status, Transfer::Type type, const QString& errorMessage = QString()) const;
 
             QList<TransferItemData> m_transferList;
             QList<TransferHeaderData> m_headerList;

@@ -114,9 +114,9 @@ Please respect the format of the date (YYYY-MM-DD) and of the version
 Do NOT change these in the translation. -->
 
 <date
->2005-05-23</date>
+>2009-09-13</date>
 <releaseinfo
->0.18</releaseinfo>
+>1.2</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
@@ -1311,9 +1311,7 @@ Limits on Real Name and Ident?
  -->
 
  <para
->На багатьох серверах, згідно до неписаної угоди, перед повідомленнями, адресованими певному користувачеві, слід вказувати його псевдонім. У &konversation; передбачено зручну можливість автоматичного доповнення псевдонімів. Почніть вводити псевдонім користувача, а потім натисніть клавішу <keycap
->Tab</keycap
->. &konversation; доповнить решту псевдоніма і поставить за текстом псевдоніма двокрапку. Налаштувати можливість автоматичного доповнення можна за допомогою пункту головного меню програми <menuchoice
+>На багатьох серверах, згідно до неписаної угоди, перед повідомленнями, адресованими певному користувачеві, слід вказувати його псевдонім. У &konversation; передбачено зручну можливість автоматичного доповнення псевдонімів. Почніть вводити псевдонім користувача, а потім натисніть клавішу &Tab;. &konversation; доповнить решту псевдоніма і поставить за текстом псевдоніма двокрапку. Налаштувати можливість автоматичного доповнення можна за допомогою пункту головного меню програми <menuchoice
 > <guisubmenu
 >Параметри</guisubmenu
 > <guisubmenu
@@ -2947,7 +2945,7 @@ Limits on Real Name and Ident?
 		</term>
 		<listitem>
 			<para
->Ви натисли кнопку <guibutton
+>Ви натиснули кнопку <guibutton
 >Перервати</guibutton
 > або передавання було перервано адресатом. </para>
 		</listitem>
@@ -4703,6 +4701,11 @@ firefox -remote "openURL($@, new-tab)" || exec firefox "$@";
 >. Таким чином ви можете надіслати ваш рядок версії &Linux; на канал.</para>
 
 <para
+>Щоб дізнатися більше про встановлені разом з &konversation; скрипти, будь ласка, зверніться до <link linkend="scripts_ref"
+>Довідника зі скриптів</link
+></para>
+
+<para
 >Щоб отримати список всіх доступних скриптів, введіть таку команду у вікні &konsole;:</para>
 
 <para
@@ -4713,18 +4716,9 @@ firefox -remote "openURL($@, new-tab)" || exec firefox "$@";
 ></para>
 
 <para
->Ви можете створювати власні скрипти. Скрипти виконуються командною оболонкою, їх можна писати будь-якою мовою, яку розуміє командна оболонка, зокрема на bash, perl або python. Під час запуску скрипту у &konversation; першими трьома параметрами, які буде передано скрипту, будуть:</para>
+>Ви можете створювати власні скрипти. Скрипти виконуються командною оболонкою, їх можна писати будь-якою мовою, яку розуміє командна оболонка, зокрема на bash, perl або python. Під час запуску скрипту у &konversation; першими двома параметрами, які буде передано скрипту, будуть:</para>
 
 <itemizedlist>
-
-<listitem
-><para
->Номер порту сервера &irc; вкладки, у якій було введено команду <userinput
-><command
->/exec</command
-></userinput
->.</para>
-</listitem>
 
 <listitem
 ><para
@@ -4747,17 +4741,16 @@ firefox -remote "openURL($@, new-tab)" || exec firefox "$@";
 
 # Виконує команду і надсилає виведені дані до Konversation.
 
-PORT=$1;
-SERVER=$2;
-TARGET=$3;
+SERVER=$1;
+TARGET=$2;
 shift;shift;shift;
 
-$@ | while read line; do dcop $PORT Konversation say $SERVER "$TARGET" "$@: $line"; done
+$@ | while read line; do qdbus org.kde.konversation /irc say $SERVER "$TARGET" "$@: $line"; done
 </programlisting>
 </para>
 
 <para
->Зауважте, що скрипт використовує &DCOP; для обміну даними з &konversation;. Команда <computeroutput
+>Зауважте, що скрипт використовує qdbus для обміну даними з &konversation;. Команда <computeroutput
 >say</computeroutput
 > надає змогу надіслати виведені дані на канал як звичайне повідомлення. Для показу повідомлення у вкладці без надсилання його іншим користувачам, скористайтеся командою <computeroutput
 >info</computeroutput
@@ -4770,6 +4763,358 @@ $@ | while read line; do dcop $PORT Konversation say $SERVER "$TARGET" "$@: $lin
 ></userinput
 >.</para>
 
+</sect1>
+
+<sect1 id="scripts_ref">
+<title
+>Довідник зі скриптів</title>
+
+<para
+>Типово, разом з &konversation; встановлюється декілька скриптів. За допомогою цього довідника ви зможете ознайомитися з тим, як користуватися цими скриптами.</para>
+
+<variablelist>
+<varlistentry>
+<term
+><userinput
+><command
+>/exec </command
+> <replaceable
+>bug</replaceable
+> [<replaceable
+>Номер вади|Рядок пошуку</replaceable
+>]</userinput
+></term>
+<listitem>
+<para
+>За допомогою цього скрипту можна відкрити ваш переглядач інтернету на сторінці пошуку за вказаним рядком або сторінці повідомлення про ваду з вказаним номером у Bugzilla &kde;.</para>
+<para
+>Приклад: відкрити переглядач на сторінці вади 123456.</para>
+<para
+><userinput
+><command
+>/exec </command
+> <replaceable
+>bug 123456</replaceable
+></userinput
+></para>
+<para
+>Приклад дії: <replaceable
+>типовий переглядач інтернету, встановлений за допомогою Системних параметрів KDE, має бути відкрито на сторінці http://bugs.kde.org/show_bug.cgi?id=123456</replaceable
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>/exec </command
+> <replaceable
+>cmd</replaceable
+> [<replaceable
+>параметри командного рядка</replaceable
+>]</userinput>
+</term>
+<listitem>
+<para
+>Цим скриптом можна скористатися для виводу результатів виконання параметра командного рядка до поточного каналу.</para>
+<para
+>Приклад: показати всіх на поточному каналі, яку версію &konversation; встановлено на вашому комп’ютері.</para>
+<para
+><userinput
+><command
+>/exec </command
+> <replaceable
+>cmd konversation --version | grep Konversation</replaceable
+></userinput
+></para>
+<para
+>Приклад виведених даних: <replaceable
+>Konversation: 1.2</replaceable
+></para>
+<para
+>УВАГА! Дані, виведені командою, буде надіслано всіх учасникам каналу поточної вкладки! Будь ласка, будьте обачнішими з використанням цього скрипту.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>/exec </command
+> <replaceable
+>fortune</replaceable
+></userinput>
+</term>
+<listitem>
+<para
+>Виконання цього скрипту виведе випадкове висловлювання з Fortune.</para>
+<para
+>Приклад: вивести випадкову фразу з fortune у вкладку вашого поточного каналу.</para>
+<para
+><userinput
+><command
+>/exec </command
+> <replaceable
+>fortune</replaceable
+></userinput
+></para>
+<para
+>Приклад виведених даних: <replaceable
+>Random Fortune: Never make any mistaeks. -- Anonymous, in a mail discussion about to a kernel bug report</replaceable
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>/exec </command
+> <replaceable
+>gauge</replaceable
+> [<replaceable
+>значення у відсотках</replaceable
+>]</userinput>
+</term>
+<listitem>
+<para
+>За допомогою цього скрипту можна вивести просту текстову смужку поступу з вказаним значенням виконання у відсотках.</para>
+<para
+>Приклад: вивести смужку поступу з 50% рівнем виконання на поточну вкладку каналу.</para>
+<para
+><userinput
+><command
+>/exec </command
+> <replaceable
+>gauge 50</replaceable
+></userinput
+></para>
+<para
+>Приклад виведених даних: <replaceable
+>Beer load [ | ] 50%</replaceable
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>/exec </command
+> <replaceable
+>kdeversion</replaceable
+></userinput>
+</term>
+<listitem>
+<para
+>Цей скрипт використовується для виводу на канал результатів виконання команди "kde4-config --version"</para>
+<para
+>Приклад: вивести дані про поточну версію &kde;. </para>
+<para
+><userinput
+><command
+>/exec </command
+> <replaceable
+>kdeversion</replaceable
+></userinput
+></para>
+<para
+>Приклад виведених даних: <replaceable
+>Qt: 4.5.1 KDE: 4.2.85 (KDE 4.2.85 (KDE 4.3 Beta1)) kde4-config: 1.0</replaceable
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>/exec </command
+> <replaceable
+>mail</replaceable
+> [<replaceable
+>Тека пошти KMail</replaceable
+>]</userinput>
+</term>
+<listitem>
+<para
+>Цей скрипт використовується для показу поточних даних про непрочитані поштові повідомлення та про загальну кількість повідомлень у KMail.</para>
+<para
+>Приклад: вивести поточну кількість непрочитаних повідомлень у вашій теці «вхідні».</para>
+<para
+><userinput
+><command
+>/exec </command
+> <replaceable
+>mail вхідні</replaceable
+></userinput
+></para>
+<para
+>Зразок виведених даних: <replaceable
+>Email folder Локальні теки/вхідні has 204 unread messages, out of 449</replaceable
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>/exec </command
+> <replaceable
+>media</replaceable
+> [<replaceable
+>audio|video|{програвач}</replaceable
+>]</userinput>
+</term>
+<listitem>
+<para
+>Це скрипт «Зараз відтворюється», який може працювати з різноманітними програвачами мультимедійних даних. Крім того, передбачено можливість показу даних про те, що відтворюється, лише для програвачів звукових даних або лише для програвачів відеоданих: достатньо вказати відповідний параметр командного рядка, <replaceable
+>audio</replaceable
+> або <replaceable
+>video</replaceable
+>. Також можна вказати програвач, до якого слід надіслати запит.</para>
+<para
+>Підтримуються такі програвачі мультимедійних даних: Amarok (звук), JuK (звук), Noatun (звук, відео), Kaffeine (відео, звук), KMPlayer (відео, звук), KPlayer (відео, звук), KsCD (звук), kdetv (відео), Amarok2 (звук), Yammi (звук), Audacious (звук), MPD (звук).</para>
+<para
+>Приклад: вивести поточну пісню, що відтворюється у Amarok2.</para>
+<para
+><userinput
+><command
+>/exec </command
+> <replaceable
+>media amarok2</replaceable
+></userinput
+></para>
+<para
+>Зразок виведених даних: <replaceable
+>* user is listening to There There by Radiohead on Hail to the Thief [Amarok2]</replaceable
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>/exec </command
+> <replaceable
+>sayclip</replaceable
+> [<replaceable
+>Затримка</replaceable
+>]</userinput>
+</term>
+<listitem>
+<para
+>За допомогою цього скрипту можна вивести вміст буфера klipper до поточної вкладки каналу з затримкою, призначеною для захисту від повідомлень з надмірним об’ємом.</para>
+<para
+>Приклад: вивести вміст klipper з затримкою у 1 секунду.</para>
+<para
+><userinput
+><command
+>/exec </command
+> <replaceable
+>sayclip 1s</replaceable
+></userinput
+></para>
+<para
+>Зразок виведених даних: <replaceable
+>Konversation sure is awesome!</replaceable
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>/exec </command
+> <replaceable
+>sysinfo</replaceable
+></userinput>
+</term>
+<listitem>
+<para
+>За допомогою цього скрипту можна вивести докладні відомості про систему, у яких поєднуватимуться з належним форматуванням дані, виведені різними командами.</para>
+<para
+>Приклад: вивести відомості щодо вашої системи на поточну вкладку каналу.</para>
+<para
+><userinput
+><command
+>/exec </command
+> <replaceable
+>sysinfo</replaceable
+></userinput
+></para>
+<para
+>Приклад виведених даних: <replaceable
+>Sysinfo for 'user-desktop': Linux 2.6.28-12-generic running KDE 4.2.85 (KDE 4.2.85 (KDE 4.3 Beta1)), CPU: Intel(R) Core 2 Quad CPU Q9450 @ 2.66GHz at 2666 MHz (5333 bogomips), HD: 370/445GB, RAM: 1965/2012MB, 232 proc's, 98.15d up</replaceable
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>/exec </command
+> <replaceable
+>tinyurl</replaceable
+> [<replaceable
+>Адреса посилання</replaceable
+>]</userinput>
+</term>
+<listitem>
+<para
+>Цей скрипт використовує програмний інтерфейс Tinyurl для перетворення вказаного посилання на tinyurl, який після цього буде надіслано на поточну вкладку каналу.</para>
+<para
+>Приклад: надати комусь коротке посилання на http://konversation.kde.org</para>
+<para
+><userinput
+><command
+>/exec </command
+> <replaceable
+>tinyurl http://konversation.kde.org</replaceable
+></userinput
+></para>
+<para
+>Приклад виведених даних: <replaceable
+>http://tinyurl.com/n3pdum</replaceable
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>/exec </command
+> <replaceable
+>uptime</replaceable
+></userinput>
+</term>
+<listitem>
+<para
+>За допомогою цього скрипту можна вивести результат виконання команди «uptime» з відповідним форматуванням.</para>
+<para
+>Приклад: показати стабільну роботу системи протягом 98 днів.</para>
+<para
+><userinput
+><command
+>/exec </command
+> <replaceable
+>uptime</replaceable
+></userinput
+></para>
+<para
+>Зразок виведених даних: <replaceable
+>Uptime: 98 days, 15 hours and 2 minutes</replaceable
+></para>
+</listitem>
+</varlistentry>
+
+</variablelist>
 </sect1>
 
 </chapter>

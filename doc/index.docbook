@@ -80,8 +80,8 @@ Please respect the format of the date (YYYY-MM-DD) and of the version
 (V.MM.LL), it could be used by automation scripts.
 Do NOT change these in the translation. -->
 
-<date>2005-05-23</date>
-<releaseinfo>0.18</releaseinfo>
+<date>2009-09-13</date>
+<releaseinfo>1.2</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
@@ -888,7 +888,7 @@ To send a message to everyone in the channel, type the message here and press &E
 
  <para>
  A convention used in many channels is to precede messages directed at one user with their &nickname;.  &konversation;
- provides a convenient &nickname; completion feature.  Start typing the user's &nickname;, then press <keycap>Tab</keycap>.  &konversation; will complete the rest of the user's &nickname; followed by a colon.  To customize the completion feature, choose
+ provides a convenient &nickname; completion feature.  Start typing the user's &nickname;, then press &Tab;.  &konversation; will complete the rest of the user's &nickname; followed by a colon.  To customize the completion feature, choose
 <menuchoice>
 	<guisubmenu>Settings</guisubmenu>
 	<guisubmenu>Configure Konversation</guisubmenu>
@@ -2739,6 +2739,9 @@ passing it (optional) <userinput><replaceable>parameters</replaceable></userinpu
 passing it <userinput><replaceable>uname -a</replaceable></userinput>.  This sends your
 &Linux; version string to the channel.</para>
 
+<para>To learn more about the scripts installed with &konversation; please see the
+<link linkend="scripts_ref">Script Reference Guide</link></para>
+
 <para>To get a list of all available scripts, type the following command in a
 &konsole; screen.</para>
 
@@ -2746,13 +2749,9 @@ passing it <userinput><replaceable>uname -a</replaceable></userinput>.  This sen
 
 <para>You can write your own scripts.  Scripts are shell scripts and can be written in
 any shell language, such as bash, perl, or python.  When &konversation; runs a script, the
-first three parameters sent to the script are:</para>
+first two parameters sent to the script are:</para>
 
 <itemizedlist>
-
-<listitem><para>The port number for the &irc; server of the tab where the
-<userinput><command>/exec</command></userinput> command was entered.</para>
-</listitem>
 
 <listitem><para>The address of the server.</para></listitem>
 
@@ -2768,16 +2767,15 @@ first three parameters sent to the script are:</para>
 
 # Executes a command and prints the output into Konversation.
 
-PORT=$1;
-SERVER=$2;
-TARGET=$3;
+SERVER=$1;
+TARGET=$2;
 shift;shift;shift;
 
-$@ | while read line; do dcop $PORT Konversation say $SERVER "$TARGET" "$@: $line"; done
+$@ | while read line; do qdbus org.kde.konversation /irc say $SERVER "$TARGET" "$@: $line"; done
 </programlisting>
 </para>
 
-<para>Notice that the script uses &DCOP; to communicate with &konversation;.  The <computeroutput>say</computeroutput> command causes
+<para>Notice that the script uses qdbus to communicate with &konversation;.  The <computeroutput>say</computeroutput> command causes
 the output to be sent to the channel as a normal message.  To display something
 in the tab without sending it to other users, use <computeroutput>info</computeroutput>
 instead.  Look at the existing script files for more examples of writing scripts.</para>
@@ -2786,6 +2784,148 @@ instead.  Look at the existing script files for more examples of writing scripts
 it to $KDEDIR/share/apps/konversation/scripts or to $HOME/.kde/share/apps/konversation/scripts.  You must also give the file execute
 privilege, for example <userinput><replaceable>chmod a+x myscript</replaceable></userinput>.</para>
 
+</sect1>
+
+<sect1 id="scripts_ref">
+<title>Script Reference Guide</title>
+
+<para>&konversation; comes with several scripts installed by default, please refer to this guide to learn how to use them.</para>
+
+<variablelist>
+<varlistentry>
+<term><userinput><command>/exec </command> <replaceable>bug</replaceable> [<replaceable>Bug Number|Search String</replaceable>]</userinput></term>
+<listitem>
+<para>This script is used to open your browser to search for the given string or bug number on kde's bugzilla.</para>
+<para>Example: To open your browser to search for bug 123456</para>
+<para><userinput><command>/exec </command> <replaceable>bug 123456</replaceable></userinput></para>
+<para>Sample action: <replaceable>The default browser in your KDE System Settings should open to http://bugs.kde.org/show_bug.cgi?id=123456</replaceable></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>/exec </command> <replaceable>cmd</replaceable> [<replaceable>command line arguments</replaceable>]</userinput>
+</term>
+<listitem>
+<para>This script is used to have the output of the command line arguments to be written to your current channel.</para>
+<para>Example: To show everyone in your current channel what version of &konversation; you have installed.</para>
+<para><userinput><command>/exec </command> <replaceable>cmd konversation --version | grep Konversation</replaceable></userinput></para>
+<para>Sample output: <replaceable>Konversation: 1.2</replaceable></para>
+<para>WARNING! The output of the entire command is posted to everyone in the current channel tab! Please use with care.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>/exec </command> <replaceable>fortune</replaceable></userinput>
+</term>
+<listitem>
+<para>This script when run will output a Random Fortune.</para>
+<para>Example: To output a random fortune to your current channel tab.</para>
+<para><userinput><command>/exec </command> <replaceable>fortune</replaceable></userinput></para>
+<para>Sample output: <replaceable>Random Fortune: Never make any mistaeks. -- Anonymous, in a mail discussion about to a
+kernel bug report</replaceable></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>/exec </command> <replaceable>gauge</replaceable> [<replaceable>percentage</replaceable>]</userinput>
+</term>
+<listitem>
+<para>This script shows a simple text based progress bar for the given percentage.</para>
+<para>Example: To output a progress bar with 50% completion to the current channel tab.</para>
+<para><userinput><command>/exec </command> <replaceable>gauge 50</replaceable></userinput></para>
+<para>Sample output: <replaceable>Beer load [          |          ] 50%</replaceable></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>/exec </command> <replaceable>kdeversion</replaceable></userinput>
+</term>
+<listitem>
+<para>This script is used to output the result of the command "kde4-config --version"</para>
+<para>Example: To output your current kdeversion. </para>
+<para><userinput><command>/exec </command> <replaceable>kdeversion</replaceable></userinput></para>
+<para>Sample output: <replaceable>Qt: 4.5.1
+                KDE: 4.2.85 (KDE 4.2.85 (KDE 4.3 Beta1))
+                kde4-config: 1.0</replaceable></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>/exec </command> <replaceable>mail</replaceable> [<replaceable>KMail Email Folder</replaceable>]</userinput>
+</term>
+<listitem>
+<para>This script is used to show the current unread mail and total mail count in KMail.</para>
+<para>Example: To output the current unread mail count in your inbox folder.</para>
+<para><userinput><command>/exec </command> <replaceable>mail inbox</replaceable></userinput></para>
+<para>Sample output: <replaceable>Email folder inbox has 30 unread messages, out of 800</replaceable></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>/exec </command> <replaceable>media</replaceable> [<replaceable>audio|video|{player}</replaceable>]</userinput>
+</term>
+<listitem>
+<para>This is a Now Playing script for various media players. It also features a method to show Now Playing information
+for only audio players, or only video players via the optional command arguments <replaceable>audio</replaceable>
+and <replaceable>video</replaceable>. Additionally, it's possible to specify the media player you wish to query.</para>
+<para>The following media players are supported: Amarok (audio), JuK (audio), Noatun (audio, video), Kaffeine (video, audio),
+KMPlayer (video audio), KPlayer (video audio), KsCD (audio), kdetv (video), Amarok2 (audio), Yammi (audio), Audacious (audio),
+MPD (audio).</para>
+<para>Example: To output your currently playing song in Amarok2.</para>
+<para><userinput><command>/exec </command> <replaceable>media amarok2</replaceable></userinput></para>
+<para>Sample output: <replaceable>* user is listening to You Give Love A Bad Name by Bon Jovi
+on Slippery When Wet [Amarok2]</replaceable></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>/exec </command> <replaceable>sayclip</replaceable> [<replaceable>Optional Delay</replaceable>]</userinput>
+</term>
+<listitem>
+<para>This script outputs the contents of klipper to the current channel tab with a delay to provide flood protection.</para>
+<para>Example: To output the contents of klipper with a 1 second delay.</para>
+<para><userinput><command>/exec </command> <replaceable>sayclip 1s</replaceable></userinput></para>
+<para>Sample output: <replaceable>Konversation sure is awesome!</replaceable></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>/exec </command> <replaceable>sysinfo</replaceable></userinput>
+</term>
+<listitem>
+<para>This script outputs some detailed information about your system by combining the outputs of several commands and
+formatting them appropriately.</para>
+<para>Example: To output some information about your system to the current channel tab.</para>
+<para><userinput><command>/exec </command> <replaceable>sysinfo</replaceable></userinput></para>
+<para>Sample output: <replaceable>Sysinfo for 'user-desktop': Linux 2.6.28-12-generic running KDE 4.2.85 (KDE 4.2.85 (KDE 4.3 Beta1)),
+CPU: Intel(R) Core 2 Quad  CPU   Q9450  @ 2.66GHz at 2666 MHz (5333 bogomips), HD: 370/445GB, RAM: 1965/2012MB, 232 proc's,
+98.15d up</replaceable></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>/exec </command> <replaceable>tinyurl</replaceable> [<replaceable>Link Address</replaceable>]</userinput>
+</term>
+<listitem>
+<para>This script uses Tinyurl's api to turn the given link into a tinyurl that is then sent to the current channel tab.</para>
+<para>Example: To give someone a short link to http://konversation.kde.org</para>
+<para><userinput><command>/exec </command> <replaceable>tinyurl http://konversation.kde.org</replaceable></userinput></para>
+<para>Sample output: <replaceable>http://tinyurl.com/n3pdum</replaceable></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput><command>/exec </command> <replaceable>uptime</replaceable></userinput>
+</term>
+<listitem>
+<para>This script outputs the result of the command "uptime" and formats it appropriately.</para>
+<para>Example: To show off your rock solid 98 day uptime.</para>
+<para><userinput><command>/exec </command> <replaceable>uptime</replaceable></userinput></para>
+<para>Sample output: <replaceable>Uptime: 98 days, 15 hours and 2 minutes</replaceable></para>
+</listitem>
+</varlistentry>
+
+</variablelist>
 </sect1>
 
 </chapter>

@@ -30,6 +30,20 @@ class KUrl;
 class KToggleAction;
 class KMenu;
 
+#include <QAbstractTextDocumentLayout>
+
+class IrcViewMarkerLine: public QObject, public QTextObjectInterface
+{
+    Q_OBJECT
+    Q_INTERFACES(QTextObjectInterface)
+
+    public:
+        IrcViewMarkerLine(QObject *p) : QObject(p), QTextObjectInterface() {}
+        ~IrcViewMarkerLine() {}
+        virtual void drawObject(QPainter *painter, const QRectF &rect, QTextDocument *doc, int posInDocument, const QTextFormat &format);
+        virtual QSizeF intrinsicSize(QTextDocument *doc, int posInDocument, const QTextFormat &format);
+};
+
 
 class IRCView : public KTextBrowser
 {
@@ -67,8 +81,6 @@ class IRCView : public KTextBrowser
 
         void setNickAndChannelContextMenusEnabled(bool enable);
 
-        bool hasLines(); ///< are there any remember lines?
-
 
     signals:
         void gotFocus(); // So we can set focus to input line
@@ -86,13 +98,72 @@ class IRCView : public KTextBrowser
         void setStatusBarTempText(const QString&); //! these two look like mixins to me
         void clearStatusBarTempText();//! these two look like mixins to me
 
+
+    //// Marker lines
+    public:
+        /// Are there any markers or a remember lines in the view?
+        ///Is used internally now.
+        bool hasLines();
+
+        /// QTextBlockFormat states for setUserState.
+        enum BlockStates { None = -1, BlockIsMarker = 1, BlockIsRemember = 2 };
+
+        /// QTextCharFormat object types.
+        enum ObjectFormats { MarkerLine = QTextFormat::UserObject, RememberLine};
+
     public slots:
-        //! FIXME  mixin?
-        void insertRememberLine();
-        void cancelRememberLine();
+        /// Inserts a marker line.
+        /// Does not disturb m_rememberLineDirtyBit.
         void insertMarkerLine();
+
+        /// Insert a remember line now, or when text is appended. Sets the m_rememberLineDirtyBit
+        /// unless configured to add a remember line at any time.
+        void insertRememberLine();
+
+        /// Prevents the next append from inserting a remember line.
+        ///Simply clears m_rememberLineDirtyBit.
+        void cancelRememberLine();
+
+        /// Remove all of the marker lines, and the remember line.
+        /// Does not effect m_rememberLineDirtyBit.
         void clearLines();
 
+    private:
+        /// The internal mechanics of inserting a line.
+        /// Clears m_rememberLineDirtyBit.
+        void appendRememberLine();
+
+        /// Create a remember line and insert it.
+        void appendLine(ObjectFormats=MarkerLine);
+
+        /// Forget the position of the remember line and markers.
+        void wipeLineParagraphs();
+
+        /// Convenience method - is the last block any sort of line, or a specific line?
+        /// @param select - default value is -1, meaning "is any kind of line"
+        bool lastBlockIsLine(int select=-1);
+
+        /// Causes a block to stop being a marker.
+        void voidLineBlock(QTextBlock rem);
+
+        /// Shortcut to get an object format of the desired type
+        QTextCharFormat getFormat(ObjectFormats);
+
+    private slots:
+        /** Called to see if a marker is queued up for deletion. Only triggers if
+            "where" is the beginning and there was nothing added.
+        */
+        void cullMarkedLine(int, int, int);
+
+    private: //marker/remember line data
+        bool m_nextCullIsMarker; ///< the next time a cull occurs, it'll be a marker
+        QList<QTextBlock> m_markers; ///< what blocks are markers?
+        int m_rememberLinePosition; ///< position of remember line in m_markers
+        bool m_rememberLineDirtyBit; ///< the next append needs a remember line
+        IrcViewMarkerLine markerFormatObject; ///< a QTextObjectInterface
+
+    //// Other stuff
+    public slots:
         //! FIXME enum { Raw, Query, Query+Action, Channel+Action, Server Message, Command Message, Backlog message } this looks more like a tuple
         void append(const QString& nick, const QString& message);
         void appendRaw(const QString& message, bool suppressTimestamps=false, bool self = false);
@@ -104,6 +175,9 @@ class IRCView : public KTextBrowser
         //! FIXME why is this protected, and all alone down there?
         void appendAction(const QString& nick, const QString& message);
 
+        /// Appends a new line without any scrollback or notification checks
+        void doRawAppend(const QString& newLine, bool rtl);
+
     public slots:
         void appendChannelAction(const QString& nick, const QString& message);
 
@@ -112,17 +186,9 @@ class IRCView : public KTextBrowser
         void appendBacklogMessage(const QString& firstColumn, const QString& message);
 
     protected:
-        void doAppend(const QString& line, bool self=false);
-        /**
-         * Appends a newLine without any scrollback or notification checks
-         * @param newLine
-         */
-        void doRawAppend(const QString& newLine);
-        void appendLine(const QString& color);
-        void appendRememberLine();
+        void doAppend(const QString& line, bool rtl, bool self=false);
 
         void updateNickMenuEntries(const QString& nickname);
-
 
     public slots:
         /// Emits the doSeach signal.
@@ -163,18 +229,10 @@ class IRCView : public KTextBrowser
 
         void replaceDecoration(QString& line,char decoration,char replacement);
 
-        //virtual void contentsDragMoveEvent(QDragMoveEvent* e);
-        //virtual void contentsDropEvent(QDropEvent* e);
         virtual void mouseReleaseEvent(QMouseEvent* ev);
         virtual void mousePressEvent(QMouseEvent* ev);
         virtual void mouseMoveEvent(QMouseEvent* ev);
         virtual void contextMenuEvent(QContextMenuEvent* ev);
-
-        //virtual void keyPressEvent(QKeyEvent* e);
-        //virtual void resizeEvent(QResizeEvent* e);
-
-        //void hideEvent(QHideEvent* event);
-        //void showEvent(QShowEvent* event);
 
         bool contextMenu(QContextMenuEvent* ce);
 
@@ -202,13 +260,6 @@ class IRCView : public KTextBrowser
         //used in ::filter
         QColor m_highlightColor;
 
-        //// Remember line
-        void updateLineParagraphs(int numRemoved);
-        void wipeLineParagraphs();
-        int m_rememberLineParagraph;
-        bool m_rememberLineDirtyBit;
-        QList<int> m_markerLineParagraphs;
-
 
         QString m_lastStatusText; //last sent status text to the statusbar. Is empty after clearStatusBarTempText()
 
@@ -233,8 +284,6 @@ class IRCView : public KTextBrowser
         KToggleAction* m_ignoreAction;
         QAction* m_addNotifyAction;
         bool m_copyUrlMenu; ///<the menu we're popping up, is it for copying URI?
-        QString m_highlightedURL;   // the URL we're currently hovering on with the mouse
-        QTextCharFormat m_fmtUnderMouse;
         KMenu* m_nickPopup; ///<menu to show when context-click on a nickname
         KMenu* m_channelPopup; ///<menu to show when context-click on a channel
 

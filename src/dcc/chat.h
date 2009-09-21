@@ -35,7 +35,8 @@ namespace Konversation
             Q_OBJECT
 
             public:
-                Chat(QWidget* parent, bool listen, Server* server, const QString& ownNick, const QString& partnerNick, const QString& partnerHost = QString(), int partnerPort = 0);
+                Chat(QWidget* parent, bool listen, Server* server, const QString& ownNick,
+                     const QString& partnerNick, const QString& partnerHost = QString(), int partnerPort = 0);
                 ~Chat();
 
                 virtual QString getTextInLine();
@@ -96,6 +97,8 @@ namespace Konversation
                 QString m_encoding;
 
                 bool m_initialShow;
+
+                int m_connectionId;
         };
     }
 }

@@ -26,14 +26,9 @@
 #include "upnprouter.h"
 
 #include <QDateTime>
-#include <QTcpServer>
 #include <QTcpSocket>
+#include <QTcpServer>
 
-#include <KFileDialog>
-#include <KIconLoader>
-#include <KMessageBox>
-#include <KStandardDirs>
-#include <KDirSelectDialog>
 #include <KUser>
 #include <KAuthorized>
 #include <KIO/Job>
@@ -380,6 +375,16 @@ namespace Konversation
             kDebug() << "[BEGIN]" << endl
                 << "size: " << QString::number( size );
 
+            if ( Application::instance()->getDccTransferManager()->isLocalFileInWritingProcess( m_fileURL ) )
+            {
+                askAndPrepareLocalKio( i18n( "<b>The file is used by another transfer.</b><br>"
+                    "%1<br>",
+                    m_fileURL.prettyUrl() ),
+                    ResumeDialog::RA_Rename | ResumeDialog::RA_Cancel,
+                    ResumeDialog::RA_Rename );
+                return;
+            }
+
             if ( size != 0 )
             {
                 KIO::TransferJob* transferJob = static_cast<KIO::TransferJob*>( job );
@@ -387,15 +392,7 @@ namespace Konversation
                 disconnect( transferJob, 0, 0, 0 );
                 transferJob->kill();
 
-                if ( Application::instance()->getDccTransferManager()->isLocalFileInWritingProcess( m_fileURL ) )
-                {
-                    askAndPrepareLocalKio( i18n( "<b>The file is used by another transfer.</b><br>"
-                        "%1<br>",
-                        m_fileURL.prettyUrl() ),
-                        ResumeDialog::RA_Rename | ResumeDialog::RA_Cancel,
-                        ResumeDialog::RA_Rename );
-                }
-                else if ( Preferences::self()->dccAutoResume() )
+                if ( Preferences::self()->dccAutoResume() )
                 {
                     prepareLocalKio( false, true, size );
                 }
@@ -508,7 +505,7 @@ namespace Konversation
             }
         }
 
-        void TransferRecv::sendReverseAck(bool /* error */, quint16 port)
+        void TransferRecv::sendReverseAck(bool error, quint16 port)
         {
             Server* server = Application::instance()->getConnectionManager()->getServerByConnectionId( m_connectionId );
             if ( !server )
@@ -524,6 +521,9 @@ namespace Konversation
                 if (port != m_ownPort) return; // Somebody elses forward succeeded
 
                 disconnect (this->sender(), SIGNAL( forwardComplete(bool, quint16 ) ), this, SLOT ( sendRequest(bool, quint16) ) );
+
+                if (error)
+                    server->appendMessageToFrontmost(i18nc("Universal Plug and Play", "UPnP"), i18n("Failed to forward port %1. Sending DCC request to remote user regardless.", QString::number(m_ownPort)), false);
             }
 
             setStatus( WaitingRemote, i18n( "Waiting for connection" ) );

@@ -24,18 +24,14 @@
 #include "transferview.h"
 #include "transferlistmodel.h"
 
-#include <QPushButton>
-
-#include <KDialog>
 #include <KGlobal>
-#include <KGlobalSettings>
-#include <KIconLoader>
 #include <KMessageBox>
 #include <KMenu>
 #include <KRun>
 #include <KAuthorized>
-#include <KVBox>
 #include <KFileMetaInfo>
+#include <KToolBar>
+#include <QSplitter>
 
 namespace Konversation
 {
@@ -55,77 +51,75 @@ namespace Konversation
 
         TransferPanel::~TransferPanel()
         {
+            KConfigGroup config(KGlobal::config(), "DCC Settings");
+            const QByteArray state = m_splitter->saveState();
+            config.writeEntry(QString("PanelSplitter"), state.toBase64());
         }
 
         void TransferPanel::initGUI()
         {
             setSpacing(0);
+            m_toolBar = new KToolBar(this, true, true);
+            m_toolBar->setObjectName("dccstatus_toolbar");
 
-            m_transferView = new TransferView(this);
+            m_splitter = new QSplitter(this);
+            m_splitter->setOrientation(Qt::Vertical);
+
+            m_transferView = new TransferView(m_splitter);
 
             connect(m_transferView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
                     this, SLOT(updateButton()));
 
             // detailed info panel
-            m_detailPanel = new TransferDetailedInfoPanel(this);
+            m_detailPanel = new TransferDetailedInfoPanel(m_splitter);
 
-            // button
-
-            KHBox *buttonsBox = new KHBox(this);
-            buttonsBox->setSpacing(spacing());
-
-            m_buttonAccept = new QPushButton(KIcon("media-playback-start"), i18n("Accept"), buttonsBox);
-            m_buttonAccept->setObjectName("start_dcc");
-            m_buttonAbort  = new QPushButton(KIcon("process-stop"), i18n("Abort"), buttonsBox);
-            m_buttonAbort->setObjectName("abort_dcc");
-            m_buttonClear  = new QPushButton(KIcon("edit-delete"), i18n("Clear"), buttonsBox);
-            m_buttonClear->setObjectName("clear_dcc");
-            m_buttonOpen   = new QPushButton(KIcon("system-run"), i18n("Open File"), buttonsBox);
-            m_buttonOpen->setObjectName("open_dcc_file");
-            m_buttonOpenLocation = new QPushButton(KIcon("document-open-folder"), i18n("Open Location"), buttonsBox);
-            m_buttonOpenLocation->setObjectName("open_dcc_file_location");
-            m_buttonDetail = new QPushButton(KIcon("dialog-information"), i18n("Details"), buttonsBox);
-            m_buttonDetail->setObjectName("detail_dcc");
-            m_buttonDetail->setCheckable(true);
-
-            m_buttonAccept->setStatusTip(i18n("Start receiving"));
-            m_buttonAbort->setStatusTip(i18n("Abort the transfer(s)"));
-            m_buttonOpen->setStatusTip(i18n("Run the file"));
-            m_buttonOpenLocation->setStatusTip(i18n("Open the file location"));
-            m_buttonDetail->setStatusTip(i18n("View DCC transfer details"));
-
-            connect(m_buttonAccept, SIGNAL(clicked()), this, SLOT(acceptDcc()));
-            connect(m_buttonAbort, SIGNAL(clicked()), this, SLOT(abortDcc()));
-            connect(m_buttonClear, SIGNAL(clicked()), this, SLOT(clearDcc()));
-            connect(m_buttonOpen, SIGNAL(clicked()), this, SLOT(runDcc()));
-            connect(m_buttonOpenLocation, SIGNAL(clicked()), this, SLOT(openLocation()));
-            connect(m_buttonDetail, SIGNAL(toggled(bool)), m_detailPanel, SLOT(setVisible(bool)));
-            m_buttonDetail->setChecked(true);
+            m_splitter->setStretchFactor(0, QSizePolicy::Expanding);
 
             // popup menu
             m_popup = new KMenu(this);
-            m_selectAll =  m_popup->addAction(i18n("&Select All Items"));
-            m_selectAllCompleted = m_popup->addAction(i18n("S&elect All Completed Items"));
+            m_selectAll =  m_popup->addAction(i18n("&Select All Items"), this, SLOT(selectAll()));
+            m_selectAllCompleted = m_popup->addAction(i18n("S&elect All Completed Items"), this, SLOT(selectAllCompleted()));
             m_popup->addSeparator();                           // -----
-            m_accept =  m_popup->addAction(KIcon("media-playback-start"), i18n("&Accept"));
-            m_abort = m_popup->addAction(KIcon("process-stop"),i18n("A&bort"));
+            m_accept =  m_popup->addAction(KIcon("media-playback-start"), i18n("&Accept"), this, SLOT(acceptDcc()));
+            m_accept->setStatusTip(i18n("Start receiving"));
+            m_abort = m_popup->addAction(KIcon("process-stop"),i18n("A&bort"), this, SLOT(abortDcc()));
+            m_abort->setStatusTip(i18n("Abort the transfer(s)"));
             m_popup->addSeparator();                           // -----
-            // FIXME: make it neat
-            m_resend = m_popup->addAction(KIcon("edit-redo"),i18n("Resend"));
-            m_clear = m_popup->addAction(KIcon("edit-delete"),i18n("&Clear"));
+            m_resend = m_popup->addAction(KIcon("edit-redo"),i18n("Resend"), this, SLOT(resendFile()));
+            m_clear = m_popup->addAction(KIcon("edit-delete"),i18n("&Clear"), this, SLOT(clearDcc()));
+            m_clear->setStatusTip(i18n("Clear all selected Items"));
+            m_clearCompleted = m_popup->addAction(KIcon("edit-clear-list"),i18n("Clear Completed"), this, SLOT(clearCompletedDcc()));
+            m_clearCompleted->setStatusTip(i18n("Clear Completed Items"));
             m_popup->addSeparator();                           // -----
-            m_open = m_popup->addAction(KIcon("system-run"),i18n("&Open File"));
-            m_openLocation = m_popup->addAction(KIcon("document-open-folder"), i18n("Open Location"));
-            m_info = m_popup->addAction(KIcon("dialog-information"),i18n("File &Information"));
+            m_open = m_popup->addAction(KIcon("system-run"), i18n("&Open File"), this, SLOT(runDcc()));
+            m_open->setStatusTip(i18n("Run the file"));
+            m_openLocation = m_popup->addAction(KIcon("document-open-folder"), i18n("Open Location"), this, SLOT(openLocation()));
+            m_openLocation->setStatusTip(i18n("Open the file location"));
+            m_info = m_popup->addAction(KIcon("dialog-information"), i18n("File &Information"), this, SLOT(showFileInfo()));
 
             m_transferView->setContextMenuPolicy(Qt::CustomContextMenu);
             connect(m_transferView, SIGNAL(customContextMenuRequested (const QPoint&)), this, SLOT(popupRequested (const QPoint&)));
-            connect(m_popup, SIGNAL(triggered (QAction*)), this, SLOT(popupActivated(QAction*)));
 
             // misc.
             connect(m_transferView, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(doubleClicked(const QModelIndex&)));
             connect(m_transferView->selectionModel(), SIGNAL(currentChanged(const QModelIndex&, const QModelIndex&)),
                     this, SLOT(setDetailPanelItem (const QModelIndex&, const QModelIndex&)));
+
+            m_toolBar->addAction(m_accept);
+            m_toolBar->addAction(m_abort);
+            m_toolBar->addAction(m_clear);
+            m_toolBar->addAction(m_clearCompleted);
+            m_toolBar->addAction(m_open);
+            m_toolBar->addAction(m_openLocation);
+
+            KConfigGroup config(KGlobal::config(), "DCC Settings");
+            QByteArray state;
+            if (config.hasKey("PanelSplitter"))
+            {
+                state = config.readEntry("PanelSplitter", state);
+                state = QByteArray::fromBase64(state);
+                m_splitter->restoreState(state);
+            }
 
             updateButton();
         }
@@ -150,17 +144,16 @@ namespace Konversation
 
         void TransferPanel::updateButton()
         {
-            bool accept             = true,
+            bool accept             = false,
                  abort              = false,
                  clear              = false,
-                 info               = true,
-                 open               = true,
+                 info               = false,
+                 open               = false,
                  openLocation       = false,
                  resend             = false,
                  selectAll          = false,
                  selectAllCompleted = false;
 
-            int selectedItems = 0;
             QItemSelectionModel *selectionModel = m_transferView->selectionModel();
             foreach (const QModelIndex &index, m_transferView->rowIndexes())
             {
@@ -172,18 +165,16 @@ namespace Konversation
 
                 if (selectionModel->isRowSelected(index.row(), QModelIndex()))
                 {
-                    ++selectedItems;
-
-                    accept &= (status == Transfer::Queued);
+                    accept |= (status == Transfer::Queued);
 
                     abort  |= (status < Transfer::Done);
 
                     clear  |= (status >= Transfer::Done);
 
-                    info   &= (type == Transfer::Send ||
+                    info   |= (type == Transfer::Send ||
                         status == Transfer::Done);
 
-                    open   &= (type == Transfer::Send ||
+                    open   |= (type == Transfer::Send ||
                         status == Transfer::Done);
 
                     openLocation = true;
@@ -193,32 +184,17 @@ namespace Konversation
                 }
             }
 
-            if(!selectedItems)
-            {
-                accept = false;
-                abort = false;
-                clear = false;
-                info = false;
-                open = false;
-                resend = false;
-            }
-
             if (!KAuthorized::authorizeKAction("allow_downloading"))
             {
                 accept = false;
             }
-
-            m_buttonAccept->setEnabled(accept);
-            m_buttonAbort->setEnabled(abort);
-            m_buttonClear->setEnabled(clear);
-            m_buttonOpen->setEnabled(open);
-            m_buttonOpenLocation->setEnabled(openLocation);
 
             m_selectAll->setEnabled(selectAll);
             m_selectAllCompleted->setEnabled(selectAllCompleted);
             m_accept->setEnabled(accept);
             m_abort->setEnabled(abort);
             m_clear->setEnabled(clear);
+            m_clearCompleted->setEnabled(selectAllCompleted);
             m_open->setEnabled(open);
             m_openLocation->setEnabled(openLocation);
             m_resend->setEnabled(resend);
@@ -334,6 +310,7 @@ namespace Konversation
             }
 
             m_transferView->clearSelection();
+            QList<int> toSelectList;
             //select everything that got not removed
             foreach (const QModelIndex &index, indexes)
             {
@@ -345,10 +322,80 @@ namespace Konversation
                         ++offset;
                     }
                 }
-                m_transferView->selectRow(index.row() - offset);
+                toSelectList.append(index.row() - offset);
             }
+            m_transferView->selectRows(toSelectList);
 
             if (m_transferView->itemCount() == 0 || m_transferView->selectedIndexes().count() == 0)
+            {
+                m_detailPanel->clear();
+            }
+
+            updateButton();
+        }
+
+        void TransferPanel::clearCompletedDcc()
+        {
+            //save selected item
+            Transfer *transfer = m_detailPanel->transfer();
+            if (transfer->getStatus() >= Transfer::Done)
+            {
+                //item will be gone
+                transfer = 0;
+            }
+
+            QModelIndexList indexesToRemove;
+            QModelIndexList selectedIndexes = m_transferView->selectedRows();
+
+            foreach (const QModelIndex &index, m_transferView->rowIndexes())
+            {
+                if (index.data(TransferListModel::TransferStatus).toInt() >= Transfer::Done)
+                {
+                    indexesToRemove.append(index);
+                }
+            }
+
+            //sort QModelIndexList descending
+            //NOTE: selectedRows() returned an unsorted list
+            qSort(indexesToRemove.begin(), indexesToRemove.end(), rowGreaterThan);
+
+            //remove from last to first item, to keep a valid row
+            foreach (const QModelIndex &index, indexesToRemove)
+            {
+                m_transferView->model()->removeRow(index.row(), QModelIndex());
+                //needed, otherwise valid rows "can be treated" as invalid,
+                //proxymodel does not keep up with changes
+                m_transferView->updateModel();
+            }
+
+            //remove all gone items
+            foreach (const QModelIndex &index, indexesToRemove)
+            {
+                selectedIndexes.removeOne(index);
+            }
+
+            m_transferView->clearSelection();
+            QList<int> toSelectList;
+            //select everything that got not removed
+            foreach (const QModelIndex &index, selectedIndexes)
+            {
+                int offset = 0;
+                foreach (const QModelIndex &removedIndex, indexesToRemove)
+                {
+                    if (removedIndex.row() < index.row())
+                    {
+                        ++offset;
+                    }
+                }
+                toSelectList.append(index.row() - offset);
+            }
+            m_transferView->selectRows(toSelectList);
+
+            if (transfer)
+            {
+                m_detailPanel->setTransfer(transfer);
+            }
+            else if (m_transferView->itemCount() == 0 || m_transferView->selectedIndexes().count() == 0)
             {
                 m_detailPanel->clear();
             }
@@ -412,46 +459,6 @@ namespace Konversation
         {
             updateButton();
             m_popup->popup(QWidget::mapToGlobal(pos));
-        }
-
-        void TransferPanel::popupActivated(QAction *act)
-        {
-            if (act == m_abort)
-            {
-                abortDcc();
-            }
-            else if (act == m_accept)
-            {
-                acceptDcc();
-            }
-            else if (act == m_clear)
-            {
-                clearDcc();
-            }
-            else if (act == m_info)
-            {
-                showFileInfo();
-            }
-            else if (act == m_open)
-            {
-                runDcc();
-            }
-            else if (act == m_openLocation)
-            {
-                openLocation();
-            }
-            else if (act == m_selectAll)
-            {
-                selectAll();
-            }
-            else if (act == m_selectAllCompleted)
-            {
-                selectAllCompleted();
-            }
-            else if (act == m_resend)
-            {
-                resendFile();
-            }
         }
 
         void TransferPanel::doubleClicked(const QModelIndex &index)

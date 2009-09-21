@@ -41,7 +41,6 @@
 #include "awaymanager.h"
 
 #include <QRegExp>
-#include <QHostAddress>
 #include <QTextCodec>
 #include <QDateTime>
 #include <QStringListModel>
@@ -50,8 +49,6 @@
 #include <KFileDialog>
 #include <KInputDialog>
 #include <KMessageBox>
-#include <KAction>
-#include <KStringHandler>
 #include <KWindowSystem>
 
 using namespace Konversation;
@@ -67,10 +64,10 @@ Server::Server(QObject* parent, ConnectionSettings& settings) : QObject(parent)
 
     m_connectionState = Konversation::SSNeverConnected;
 
-    for (int i=0;i<=_max_queue();i++)
+    for (int i=0; i <= Application::instance()->countOfQueues(); i++)
     {
         //QList<int> r=Preferences::queueRate(i);
-        IRCQueue *q=new IRCQueue(this, staticrates[i]); //FIXME these are supposed to be in the rc
+        IRCQueue *q=new IRCQueue(this, Application::instance()->staticrates[i]); //FIXME these are supposed to be in the rc
         m_queues.append(q);
     }
 
@@ -222,37 +219,6 @@ void Server::doPreShellCommand()
 
     m_preShellCommand.start();
     if (m_preShellCommand.state() == QProcess::NotRunning) preShellCommandExited(m_preShellCommand.exitCode(), m_preShellCommand.exitStatus());
-}
-
-void Server::_fetchRates()
-{
-    for (int i=0;i<=_max_queue();i++)
-    {
-        QList<int> r=Preferences::self()->queueRate(i);
-        staticrates[i]=IRCQueue::EmptyingRate(r[0], r[1]*1000,IRCQueue::EmptyingRate::RateType(r[2]));
-    }
-}
-
-void Server::_stashRates()
-{
-    for (int i=0;i<=_max_queue();i++)
-    {
-        QList<int> r;
-        r.append(staticrates[i].m_rate);
-        r.append(staticrates[i].m_interval/1000);
-        r.append(int(staticrates[i].m_type));
-        Preferences::self()->setQueueRate(i, r);
-    }
-}
-
-void Server::_resetRates()
-{
-    for (int i=0;i<=_max_queue();i++)
-    {
-        Preferences::self()->queueRateItem(i)->setDefault();
-        QList<int> r=Preferences::self()->queueRate(i);
-        staticrates[i]=IRCQueue::EmptyingRate(r[0], r[1]*1000,IRCQueue::EmptyingRate::RateType(r[2]));
-    }
 }
 
 void Server::initTimers()
@@ -433,7 +399,7 @@ void Server::connectToIRCServer()
 
         // set up the connection details
         setPrefixes(m_serverNickPrefixModes, m_serverNickPrefixes);
-        getStatusView()->appendServerMessage(i18n("Info"),i18n("Looking for server %1:%2...",
+        getStatusView()->appendServerMessage(i18n("Info"),i18n("Looking for server %1 (port %2) ...",
             getConnectionSettings().server().host(),
             QString::number(getConnectionSettings().server().port())));
         // reset InputFilter (auto request info, /WHO request info)
@@ -626,8 +592,9 @@ void Server::broken(QAbstractSocket::SocketError state)
     {
         static_cast<Application*>(kapp)->notificationHandler()->connectionFailure(getStatusView(), getServerName());
 
-        QString error = i18n("Connection to Server %1 lost: %2.",
+        QString error = i18n("Connection to server %1 (port %2) lost: %3.",
             getConnectionSettings().server().host(),
+            QString::number(getConnectionSettings().server().port()),
             m_socket->errorString());
 
         getStatusView()->appendServerMessage(i18n("Error"), error);
@@ -646,7 +613,7 @@ void Server::sslError( const QList<QSslError>&  errors)
     }
 
     //this message should be changed since sslError is called even after calling ignoreSslErrors()
-    QString error = i18n("Could not connect to %1:%2 using SSL encryption. Maybe the server does not support SSL, or perhaps you have the wrong port? %3",
+    QString error = i18n("Could not connect to %1 (port %2) using SSL encryption. Maybe the server does not support SSL, or perhaps you have the wrong port? %3",
         getConnectionSettings().server().host(),
         QString::number(getConnectionSettings().server().port()),
         reason);
@@ -758,7 +725,9 @@ void Server::quitServer()
     // Close the socket to allow a dead connection to be reconnected before the socket timeout.
     m_socket->close();
 
-    getStatusView()->appendServerMessage(i18n("Info"), i18n("Disconnected from %1.", getConnectionSettings().server().host()));
+    getStatusView()->appendServerMessage(i18n("Info"), i18n("Disconnected from %1 (port %2).",
+        getConnectionSettings().server().host(),
+        QString::number(getConnectionSettings().server().port())));
 }
 
 void Server::notifyAction(const QString& nick)
@@ -982,6 +951,13 @@ void Server::incoming()
                 lineSplit.removeFirst();          // remove prefix
             }
         }
+        else
+        {
+            // The line contained only spaces (other than CRLF, removed above)
+            // and thus there's nothing more we can do with it.
+            bufferLines.removeFirst();
+            continue;
+        }
 
         // BEGIN pre-parse to know where the message belongs to
         QString command = lineSplit[0].toLower();
@@ -1129,8 +1105,12 @@ static QStringList outcmds = QString("WHO QUIT PRIVMSG NOTICE KICK PART TOPIC").
 int Server::_send_internal(QString outputLine)
 {
     QStringList outputLineSplit = outputLine.split(' ', QString::SkipEmptyParts);
-    //Lets cache the uppercase command so we don't miss or reiterate too much
-    int outboundCommand = outcmds.indexOf(outputLineSplit[0].toUpper());
+
+    int outboundCommand = -1;
+    if (!outputLineSplit.isEmpty()) {
+        //Lets cache the uppercase command so we don't miss or reiterate too much
+        outboundCommand = outcmds.indexOf(outputLineSplit[0].toUpper());
+    }
 
     if (outputLine.at(outputLine.length()-1) == '\n')
     {
@@ -1160,7 +1140,7 @@ int Server::_send_internal(QString outputLine)
         else //if we're connecting to a server manually
             channelCodecName=Preferences::channelEncoding(getDisplayName(), outputLineSplit[1]);
     }
-    QTextCodec* codec;
+    QTextCodec* codec = 0;
     if (channelCodecName.isEmpty())
         codec = getIdentity()->getCodec();
     else
@@ -1171,7 +1151,10 @@ int Server::_send_internal(QString outputLine)
     //int outlen=-1;
 
     //leaving this done twice for now, I'm uncertain of the implications of not encoding other commands
-    QByteArray encoded = codec->fromUnicode(outputLine);
+    QByteArray encoded = outputLine.toUtf8();
+    if(codec)
+        encoded = codec->fromUnicode(outputLine);
+
     #ifdef HAVE_QCA2
     QString cipherKey;
     if (outboundCommand > 1)
@@ -1185,7 +1168,10 @@ int Server::_send_internal(QString outputLine)
 
             QString pay(outputLine.mid(colon));
             //only encode the actual user text, IRCD *should* desire only ASCII 31 < x < 127 for protocol elements
-            QByteArray payload=codec->fromUnicode(pay);
+            QByteArray payload = pay.toUtf8();
+
+            if(codec)
+                payload=codec->fromUnicode(pay);
             //apparently channel name isn't a protocol element...
             QByteArray dest = codec->fromUnicode(outputLineSplit.at(1));
 
@@ -1244,7 +1230,7 @@ void Server::collectStats(int bytes, int encodedBytes)
 
 bool Server::validQueue(QueuePriority priority)
 {
-   if (priority >=0 && priority <= _max_queue())
+   if (priority >=0 && priority <= Application::instance()->countOfQueues())
        return true;
    return false;
 }
@@ -1278,7 +1264,7 @@ bool Server::queueList(const QStringList& buffer, QueuePriority priority)
 
 void Server::resetQueues()
 {
-    for (int i=0;i<=_max_queue();i++)
+    for (int i=0; i <= Application::instance()->countOfQueues(); i++)
         m_queues[i]->reset();
 }
 
@@ -1290,7 +1276,7 @@ void Server::flushQueues()
     {
         cue=-1;
         int wait=0;
-        for (int i=1;i<=_max_queue();i++) //slow queue can rot
+        for (int i=1; i <= Application::instance()->countOfQueues(); i++) //slow queue can rot
         {
             IRCQueue *queue=m_queues[i];
             //higher queue indices have higher priorty, higher queue priority wins tie
@@ -1717,8 +1703,8 @@ void Server::requestDccSend(const QString &a_recipient)
             getViewContainer()->getWindow(),
             i18n("Select File(s) to Send to %1", recipient)
         );
-        KUrl::List::iterator it;
-        for ( it = fileURLs.begin() ; it != fileURLs.end() ; ++it )
+        KUrl::List::const_iterator it;
+        for ( it = fileURLs.constBegin() ; it != fileURLs.constEnd() ; ++it )
         {
             addDccSend( recipient, *it );
         }

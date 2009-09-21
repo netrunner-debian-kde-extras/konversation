@@ -25,7 +25,6 @@
 #include <Q3Header>
 #include <Q3DragObject>
 #include <Q3ListView>
-#include <Q3PtrList>
 
 #include <KApplication>
 
@@ -66,6 +65,8 @@ ViewTree::ViewTree(QWidget *parent)
     connect(this, SIGNAL(selectionChanged(Q3ListViewItem*)), SLOT(announceSelection(Q3ListViewItem*)));
     connect(this, SIGNAL(aboutToMove()), SLOT(slotAboutToMoveView()));
     connect(this, SIGNAL(moved()), SLOT(slotMovedView()));
+
+    updateAppearance();
 }
 
 ViewTree::~ViewTree()
@@ -957,7 +958,7 @@ void ViewTree::paintEmptyArea(QPainter* p, const QRect& rect)
             return;
 
         QColor bgColor  = palette().color(backgroundRole());
-        QColor selColor = palette().color(QPalette::Active, QPalette::Highlight);  //KGlobalSettings::highlightColor();
+        QColor selColor = palette().color(QPalette::Active, QPalette::Highlight);
         QColor midColor = last->mixColor(bgColor, selColor);
 
         p->setPen(selColor);

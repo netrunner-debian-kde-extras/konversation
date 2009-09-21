@@ -16,18 +16,13 @@
 #include "channel.h"
 
 #include <QCheckBox>
+#include <QHeaderView>
 #include <QPushButton>
 #include <QRegExp>
 #include <QStandardItemModel>
-#include <QToolButton>
 #include <QKeyEvent>
 #include <QItemSelectionModel>
-#include <QHeaderView>
 
-#include <KTextEdit>
-#include <KLineEdit>
-#include <KNumInput>
-#include <KIconLoader>
 
 
 namespace Konversation
@@ -214,9 +209,9 @@ namespace Konversation
         }
     }
 
-    void ChannelOptionsDialog::refreshEnableModes()
+    void ChannelOptionsDialog::refreshEnableModes(bool forceUpdate)
     {
-        if(m_channel->getOwnChannelNick()->isChanged())
+        if(m_channel->getOwnChannelNick()->isChanged() || forceUpdate)
         {
             bool enable = m_channel->getOwnChannelNick()->isAnyTypeOfOp();
             m_ui.otherModesList->setEnabled(enable);
@@ -354,7 +349,7 @@ namespace Konversation
             }
         }
 
-        refreshEnableModes();
+        refreshEnableModes(true);
     }
 
     QStringList ChannelOptionsDialog::modes()

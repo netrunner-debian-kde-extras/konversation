@@ -54,6 +54,11 @@ namespace Konversation
         }
 
 
+        TransferProgressBarDelete::TransferProgressBarDelete (QObject *parent)
+            : QStyledItemDelegate (parent)
+        {
+        }
+
         void TransferProgressBarDelete::paint (QPainter *painter,
                                                const QStyleOptionViewItem &option,
                                                const QModelIndex &index) const
@@ -99,6 +104,11 @@ namespace Konversation
                 {
                     return (left.data(TransferListModel::TransferProgress).toInt() <
                             right.data(TransferListModel::TransferProgress).toInt());
+                }
+                else if (left.data(TransferListModel::HeaderType) == TransferHeaderData::OfferDate)
+                {
+                    return (left.data(TransferListModel::TransferOfferDate).toDateTime() <
+                            right.data(TransferListModel::TransferOfferDate).toDateTime());
                 }
                 return QSortFilterProxyModel::lessThan (left, right);
             }
@@ -188,14 +198,11 @@ namespace Konversation
             }
             else if (role == KCategorizedSortFilterProxyModel::CategoryDisplayRole)
             {
-                if (m_transferList[index.row()].displayType == TransferItemData::ReceiveCategory)
-                {
-                    return i18n("Incoming Transfers");
-                }
-                else
-                {
-                    return i18n("Outgoing Transfers");
-                }
+                return displayTypeToString(m_transferList[index.row()].displayType);
+            }
+            else if (role == HeaderType)
+            {
+                return headerData(index.column(), Qt::Horizontal, role);
             }
 
             Transfer *transfer = 0;
@@ -253,6 +260,8 @@ namespace Konversation
                     return qVariantFromValue<QObject*>(transfer);
                 case TransferProgress:
                     return transfer->getProgress();
+                case TransferOfferDate:
+                    return transfer->getTimeOffer();
                 case Qt::DecorationRole:
                 {
                     int type = columnToHeaderType(index.column());
@@ -275,8 +284,57 @@ namespace Konversation
                     }
                     break;
                 }
-//                 case Qt::ToolTipRole:
-//                     return "<qt>" + Qt::escape(item-) + "</qt>";
+                case Qt::ToolTipRole:
+                {
+                    int type = columnToHeaderType(index.column());
+                    QString tooltip;
+                    switch (type)
+                    {
+                        case TransferHeaderData::FileName:
+                            tooltip = transfer->getFileName();
+                            break;
+                        case TransferHeaderData::PartnerNick:
+                            tooltip = transfer->getPartnerNick();
+                            break;
+                        case TransferHeaderData::Progress:
+                            tooltip = QString::number(transfer->getProgress()) + '%';
+                            break;
+                        case TransferHeaderData::OfferDate:
+                            tooltip = transfer->getTimeOffer().toString("hh:mm:ss");
+                            break;
+                        case TransferHeaderData::Position:
+                            tooltip = getPositionPrettyText(transfer->getTransferringPosition(),
+                                                            transfer->getFileSize());
+                            break;
+                        case TransferHeaderData::CurrentSpeed:
+                            tooltip = getSpeedPrettyText(transfer->getCurrentSpeed());
+                            break;
+                        case TransferHeaderData::SenderAdress:
+                            tooltip = getSenderAddressPrettyText(transfer);
+                            break;
+                        case TransferHeaderData::Status:
+                            tooltip = getStatusDescription(transfer->getStatus(), transfer->getType(), transfer->getStatusDetail());
+                            break;
+                        case TransferHeaderData::TimeLeft:
+                            tooltip = getTimeLeftPrettyText(transfer->getTimeLeft());
+                            break;
+                        case TransferHeaderData::TypeIcon:
+                            tooltip = displayTypeToString(m_transferList[index.row()].displayType);
+                            break;
+                        default:
+                            kDebug() << "unknown columntype: " << type;
+                            break;
+                    };
+
+                    if (tooltip.isEmpty())
+                    {
+                        return QVariant();
+                    }
+                    else
+                    {
+                        return "<qt>" + tooltip + "</qt>";
+                    }
+                }
                 default:
                     return QVariant();
             }
@@ -420,6 +478,57 @@ namespace Konversation
             }
         }
 
+        QString TransferListModel::getStatusDescription(Transfer::Status status, Transfer::Type type, const QString& errorMessage) const
+        {
+            switch (status)
+            {
+                case Transfer::Queued:
+                    return i18n("Queued - Transfer is waiting for you to accept or reject it");
+                case Transfer::Preparing:
+                    switch (type)
+                    {
+                        case Transfer::Receive:
+                            return i18n("Preparing - Transfer is checking for resumable files");
+                        case Transfer::Send:
+                            return i18n("Preparing - Transfer is acquiring the data to send");
+                        default:
+                            kDebug() << "unknown type: " << type;
+                            return QString();
+                    }
+                case Transfer::WaitingRemote:
+                    return i18n("Pending - Transfer is waiting for the partner to accept or reject it");
+                case Transfer::Connecting:
+                    return i18n("Connecting - Transfer is connecting to the partner");
+                case Transfer::Transferring:
+                    switch (type)
+                    {
+                        case Transfer::Receive:
+                            return i18n("Receiving - Transfer is receiving data from the partner");
+                        case Transfer::Send:
+                            return i18n("Sending - Transfer is sending data to partner");
+                        default:
+                            kDebug() << "unknown type: " << type;
+                            return QString();
+                    }
+                case Transfer::Done:
+                    return i18n("Done - Transfer has completed successfully");
+                case Transfer::Failed:
+                    if (errorMessage.isEmpty())
+                    {
+                        return i18n("Failed - Transfer failed with 'unknown reason'");
+                    }
+                    else
+                    {
+                        return i18n("Failed - Transfer failed with reason '%1'", errorMessage);
+                    }
+                case Transfer::Aborted:
+                    return i18n("Aborted - Transfer was aborted by the User");
+                default:
+                    kDebug() << "unknown status: " << status;
+                    return QString();
+            }
+        }
+
         int TransferListModel::columnToHeaderType (int column) const
         {
             return m_headerList.at(column).type;
@@ -501,5 +610,18 @@ namespace Konversation
             }
             return count;
         }
+
+        QString TransferListModel::displayTypeToString (int type) const
+        {
+            if (type == TransferItemData::ReceiveCategory)
+            {
+                return i18n("Incoming Transfers");
+            }
+            else
+            {
+                return i18n("Outgoing Transfers");
+            }
+        }
+
     }
 }

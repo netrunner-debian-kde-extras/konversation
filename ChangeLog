@@ -1,3 +1,87 @@
+Changes from 1.2-alpha6 to 1.2-beta1:
+Konversation 1.2-beta1 marks the departure from active feature development
+for Konversation 1.2 and the entrance into the much-vaunted halls of bug-
+fixing-until-the-final-release, which we expect to materialize in early
+October. Until then, you can enjoy what this beta has to offer: HTTP and
+SOCKS v5 proxy support, further redesign of the DCC Status tab (many of
+you will be happy to find the minimum window size with the DCC Status tab
+open much reduced now), the long-awaited return of marker and remember
+lines and the resurrection of link dragging from the text display widget
+are of particular note, but the changelog has the details on a variety of
+other additions, plus the usual assortment of bugfixes, as well.
+
+
+* Added a topic widget for Konsole windows and hooked it up to the KPart's
+  setWindowCaption signal
+* Added tooltips to items in the new DCC transfer lists that describe the
+  transfer's status more verbosely.
+* Fixed the OSD stealing focus when it appears on Windows.
+* Running DCC file transfers are now properly aborted on application quit.
+* Removed the 'ucs2' encoding from the encoding list, as it is is not sup-
+  ported on IRC. This also resolves a crash when sending messages after
+  selecting it (however the crashing codepath has been independently made
+  more robust as well).
+* Fixed a crash when sending a message containing only spaces.
+* Added a "Manage Profiles" button to the information area above the ter-
+  minal area in Konsole tabs.
+* Added SOCKS v5 and HTTP proxy support. Proxy credentials are stored in
+  KWallet.
+* Moved the buttons in the DCC Status tab to a toolbar, similar to how
+  things were already laid out in log viewer tabs.
+* Redesigned the DCC transfer info panel in the DCC Status tab to have a
+  smaller minimum size. This should mean that less people will see their
+  window size increase when a DCC transfer is initiated, as it reduces
+  the minimum size of the window with the DCC Status tab open.
+* Added a "Clear Completed" item to the DCC Status tab's toolbar.
+* Fixed a crash on the processing of illegal lines sent by the server that
+  contain only spaces (as sent by the buggy lidegw lide.cz gateway script).
+* Made DCC transfer speed reporting more reliable.
+* Fixed sorting the transfer list in the DCC Status tab by its "Started At"
+  column. Previously, sorting by that column would sort alphabetically by
+  the string value of the fields rather than properly by date.
+* Fixed the Channel Settings no longer disabling interface elements allow-
+  ing the manipulation of channel properties when the user lacks the ne-
+  cessary operator privileges in the channel.
+* The position of the splitter handle determining the size of the info pa-
+  nel in the DCC Status tab is now saved across application restarts.
+* Fixed a crash when changing settings after the "Insert Character" dialog
+  had been used.
+* When an attempt to set up a port forward via UPnP fails, an error message
+  stating as much will now be shown in the currently active or last active
+  tab for the associated IRC server connection.
+* Made the '/amsg' command work properly again.
+* Fixed two close icons (one on the left, one on the right) being shown on
+  tabs when close buttons were enabled and the tabs were in top or bottom
+  position.
+* Fixed incorrect colors in the listview version of the tab bar when ini-
+  tially switching to it within a session.
+* Fixed a regression vs. the KDE 3 version that caused a failure to correct-
+  ly parse shortened IPv6 addresses except when using RFC 2732-style bracket
+  notation and explicitly stating a port to connect to.
+* Made the display of server address and port number in various connection-
+  related chat view messages more consistent and IPv6-friendly (with the
+  '<ip>:<port>' forward previously used, it could be hard to tell where the
+  IP ended and the port began -- now it's '<ip> (port <port>)').
+* Updated the scripting documentation to talk about D-Bus rather than DCOP.
+* The initial width of the nickname lists in channel tabs is now more sen-
+  sible.
+* Added back the ability to drag links out of the chat view.
+* Resurrected the RTL text support in the chat view.
+* Fixed a crash during UPnP discovery when the router doesn't respond in
+  the expected way.
+* Various actions that operate on the active tab (e.g. those found in the
+  "Insert" menu) are now properly disabled when the last tab is closed.
+* Fixed a bug with Qt 4.5 where after closing a tab a tab adjacent to it
+  would briefly be activated before subsequently activating the tab that
+  was active before the just closed one (i.e. only noticable when 'a tab
+  adjacent to the just closed tab' and 'the previously active tab' are not
+  the same).
+* Marker lines and the remember line are back.
+* Fixed a bug that could cause queue flushing rates to be entered into the
+  configuration that would prevent successfully connecting to Freenode and
+  potentially other IRC networks.
+
+
 Changes from 1.2-alpha5 to 1.2-alpha6:
 Konversation 1.2-alpha6 is primarily a hotfix release addressing a serious
 DCC crash that we unfortunately only discovered after releasing alpha5. To

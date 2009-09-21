@@ -14,17 +14,14 @@
 #include "upnpdescriptionparser.h"
 #include "soap.h"
 
-#include <QDir>
 #include <QCoreApplication>
-#include <QNetworkRequest>
 #include <QNetworkReply>
 
-#include <KGlobal>
-#include <KStandardDirs>
 #include <KDebug>
 #include <KLocale>
 #include <KIO/Job>
 #include <KIO/NetAccess>
+#include <kio/jobclasses.h>
 
 #include <stdlib.h>
 
@@ -98,8 +95,6 @@ namespace Konversation
 
         UPnPRouter::UPnPRouter(const QString & server,const KUrl & location,const QString & uuid) : server(server),location(location),uuid(uuid)
         {
-            connect (&http_service, SIGNAL(finished(QNetworkReply*)),
-                     this, SLOT(onRequestFinished(QNetworkReply*)));
         }
 
 
@@ -127,7 +122,7 @@ namespace Konversation
                 return;
 
             // Confirm this service is connected. Place in pending queue.
-            QNetworkReply *req = getStatusInfo(s);
+            KJob *req = getStatusInfo(s);
 
             if (req) pending_services[req] = s;
         }
@@ -162,7 +157,7 @@ namespace Konversation
             connect(job,SIGNAL(result(KJob *)),this,SLOT(downloadFinished( KJob* )));
         }
 
-        QNetworkReply *UPnPRouter::getStatusInfo(UPnPService s)
+        KJob *UPnPRouter::getStatusInfo(UPnPService s)
         {
             kDebug() << "UPnP - Checking service status: " << s.servicetype << endl;
 
@@ -225,7 +220,7 @@ namespace Konversation
                 forward->host = host;
                 forward->proto = proto;
 
-                if (QNetworkReply *req = sendSoapQuery(comm,service.servicetype + '#' + action,service.controlurl))
+                if (KJob *req = sendSoapQuery(comm,service.servicetype + '#' + action,service.controlurl))
                 {
                     // erase old forwarding if one exists
                     // The UPnP spec states if an IGD receives a forward request that matches an existing request that it must accept it.
@@ -247,9 +242,11 @@ namespace Konversation
                     return true;
                 }
 
+                kDebug() << "Forwarding Failed: Failed to send SOAP query.";
                 delete forward;
             }
 
+            kDebug() << "Forwarding Failed: No UPnP Service.";
             return false;
         }
 
@@ -293,82 +290,68 @@ namespace Konversation
                 QString action = "DeletePortMapping";
                 QString comm = SOAP::createCommand(action,service.servicetype,args);
 
-                if (QNetworkReply *req = sendSoapQuery(comm,service.servicetype + '#' + action,service.controlurl))
+                if (KJob *req = sendSoapQuery(comm,service.servicetype + '#' + action,service.controlurl))
                 {
                     pending_unforwards[req] = forward;
 
                     return true;
                 }
+                
+                kDebug() << "Undo forwarding Failed: Failed to send SOAP query.";
             }
 
+            kDebug() << "Undo forwarding Failed: No UPnP Service.";
             return false;
         }
 
-        QNetworkReply *UPnPRouter::sendSoapQuery(const QString & query,const QString & soapact,const QString & controlurl)
+        KJob *UPnPRouter::sendSoapQuery(const QString & query,const QString & soapact,const QString & controlurl)
         {
             // if port is not set, 0 will be returned
             // thanks to Diego R. Brogna for spotting this bug
             if (location.port()<=0)
                 location.setPort(80);
 
-            QByteArray data = query.toAscii();
+            KUrl address;
 
-            QUrl address;
-
-            address.setScheme(QString("http"));
+            address.setProtocol(QString("http"));
             address.setHost(location.host());
             address.setPort(location.port());
             address.setPath(controlurl);
 
-            QNetworkRequest req = QNetworkRequest(address);
+            KIO::TransferJob *req = KIO::http_post( address, query.toAscii(), KIO::HideProgressInfo );
+            
+            req->addMetaData("content-type", QString("text/xml"));
+            req->addMetaData("UserAgent", QString("Konversation UPnP"));
+            req->addMetaData("customHTTPHeader", QString("SOAPAction: ") + soapact);
 
-            req.setHeader(QNetworkRequest::ContentTypeHeader, QString("text/xml"));
-            req.setHeader(QNetworkRequest::ContentLengthHeader, QString::number(data.size()));
-            req.setRawHeader(QByteArray("User-Agent"), QByteArray("Konversation UPnP"));
-            req.setRawHeader(QByteArray("SOAPAction"), soapact.toAscii());
-
-            return http_service.post(req, data);
+            soap_data_out[req] = QByteArray();
+            soap_data_in[req]  = QByteArray();
+            
+            connect( req, SIGNAL(data( KIO::Job *, const QByteArray & )), this, SLOT(recvSoapData( KIO::Job*, const QByteArray & )) );
+            connect( req, SIGNAL(dataReq( KIO::Job *, QByteArray & )), this, SLOT(sendSoapData( KIO::Job*, QByteArray & )) );
+            
+            connect( req, SIGNAL(result(KJob *)), this, SLOT(onRequestFinished( KJob* )) );
+            
+            return req;
         }
 
-        void UPnPRouter::onRequestFinished(QNetworkReply *r)
+        void UPnPRouter::sendSoapData(KIO::Job *job, QByteArray &data)
         {
-            QString reply(r->readAll());
+            data.append(soap_data_out[job]);
+            soap_data_out[job].clear();
+        }
 
-            if (r->error() == QNetworkReply::NoError)
-            {
-                kDebug() << "UPnPRouter : OK:" << endl;
+        void UPnPRouter::recvSoapData(KIO::Job *job, const QByteArray &data)
+        {
+            soap_data_in[job].append(data);
+        }
 
-                if (pending_services.contains(r))
-                {
-                    if (reply.contains("Connected"))
-                    {
-                        // Lets just deal with one connected service for now. Last one wins.
-                        service = pending_services[r];
-                        service.ready = true;
-
-                        kDebug() << "Found connected service: " << service.servicetype << endl;
-                    }
-
-                    pending_services.remove(r);
-                }
-                else if (pending_forwards.contains(r))
-                {
-                    emit forwardComplete(false, pending_forwards[r]->port);
-
-                    pending_forwards.remove(r);
-                }
-                else if (pending_unforwards.contains(r))
-                {
-                    emit unforwardComplete(false, pending_unforwards[r]->port);
-
-                    forwards.removeAll(pending_unforwards[r]);
-                    pending_unforwards.remove(r);
-                }
-            }
-            else
+        void UPnPRouter::onRequestFinished(KJob *r)
+        {
+            if (r->error())
             {
                 kDebug() << "UPnPRouter : Error: " << r->errorString() << endl;
-
+                
                 if (pending_services.contains(r))
                 {
                     pending_services.remove(r);
@@ -376,20 +359,55 @@ namespace Konversation
                 else if (pending_forwards.contains(r))
                 {
                     emit forwardComplete(true, pending_forwards[r]->port);
-
+                    
                     forwards.removeAll(pending_forwards[r]);
                     pending_forwards.remove(r);
                 }
                 else if (pending_unforwards.contains(r))
                 {
                     emit unforwardComplete(true, pending_unforwards[r]->port);
-
+                    
                     forwards.removeAll(pending_unforwards[r]);
                     pending_unforwards.remove(r);
                 }
             }
+            else
+            {
+                QString reply(soap_data_in[r]);
+                soap_data_in[r].clear();
 
-            delete r;
+                kDebug() << "UPnPRouter : OK:" << endl;
+                
+                if (pending_services.contains(r))
+                {
+                    if (reply.contains("Connected"))
+                    {
+                        // Lets just deal with one connected service for now. Last one wins.
+                        service = pending_services[r];
+                        service.ready = true;
+                        
+                        kDebug() << "Found connected service: " << service.servicetype << endl;
+                    }
+                    
+                    pending_services.remove(r);
+                }
+                else if (pending_forwards.contains(r))
+                {
+                    emit forwardComplete(false, pending_forwards[r]->port);
+                    
+                    pending_forwards.remove(r);
+                }
+                else if (pending_unforwards.contains(r))
+                {
+                    emit unforwardComplete(false, pending_unforwards[r]->port);
+                    
+                    forwards.removeAll(pending_unforwards[r]);
+                    pending_unforwards.remove(r);
+                }
+            }
+            
+            soap_data_in.remove(r);
+            soap_data_out.remove(r);
         }
     }
 }

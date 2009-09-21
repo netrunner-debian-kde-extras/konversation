@@ -98,6 +98,7 @@ set(config_SRCS
     config/quickbuttons_config.cpp
     config/warnings_config.cpp
     config/watchednicknames_config.cpp
+    config/connectionbehavior_config.cpp
 )
 
 kde4_add_ui_files(config_SRCS
@@ -175,6 +176,7 @@ set(dcc_SRCS
 
 kde4_add_ui_files(dcc_SRCS
     dcc/transferdetailedinfopanelui.ui
+    dcc/transferdetailedtimeinfopanelui.ui
 )
 
 set(linkaddressbook_SRCS

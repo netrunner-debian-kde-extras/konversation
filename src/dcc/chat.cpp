@@ -24,6 +24,7 @@
 #include "server.h"
 #include "upnprouter.h"
 #include "transfermanager.h"
+#include "connectionmanager.h"
 
 #include <stdlib.h>
 #include <sys/types.h>
@@ -37,11 +38,8 @@
 #include <QTcpSocket>
 #include <QTcpServer>
 
-#include <KLineEdit>
-#include <KMessageBox>
 #include <KActionCollection>
 #include <KMenu>
-#include <KVBox>
 
 #define DCCCHAT_BUFFER_SIZE 1024
 
@@ -51,7 +49,8 @@ namespace Konversation
 {
     namespace DCC
     {
-        Chat::Chat(QWidget* parent, bool listen, Server* server, const QString& ownNick, const QString& partnerNick, const QString& partnerHost, int partnerPort)
+        Chat::Chat(QWidget* parent, bool listen, Server* server, const QString& ownNick,
+                   const QString& partnerNick, const QString& partnerHost, int partnerPort)
             : ChatWindow(parent)
         {
             kDebug() << "[BEGIN]" ;
@@ -74,6 +73,7 @@ namespace Konversation
             m_sourceLine = new Konversation::TopicLabel(m_headerSplitter);
             m_headerSplitter->setStretchFactor(m_headerSplitter->indexOf(m_sourceLine), 0);
 
+            m_connectionId = server->connectionId();
             m_server = server;
 
             IRCViewBox* ircViewBox = new IRCViewBox(m_headerSplitter, NULL);
@@ -106,7 +106,7 @@ namespace Konversation
 
             connect( getTextView(), SIGNAL( textPasted(bool) ), m_dccChatInput, SLOT( paste(bool) ) );
             connect( getTextView(), SIGNAL( gotFocus() ), m_dccChatInput, SLOT( setFocus() ) );
-            connect( getTextView(), SIGNAL( autoText(const QString&) ), this, SLOT( sendChatText( const QString& ) ) );
+            connect( getTextView(), SIGNAL( autoText(const QString&) ), this, SLOT( sendDccChatText( const QString& ) ) );
 
             if (listen)
             {
@@ -117,7 +117,7 @@ namespace Konversation
                     UPnPRouter *router = Application::instance()->getDccTransferManager()->getUPnPRouter();
 
                     if (router && router->forward(QHostAddress(server->getOwnIpByNetworkInterface()), m_ownPort, QAbstractSocket::TcpSocket))
-                        connect(router, SIGNAL( forwardComplete(bool ) ), this, SLOT ( sendRequest(bool, quint16 ) ) );
+                        connect(router, SIGNAL( forwardComplete(bool, quint16 ) ), this, SLOT ( sendRequest(bool, quint16 ) ) );
                     else
                         sendRequest(true, 0); // On error try anyways
                 }
@@ -153,17 +153,27 @@ namespace Konversation
             }
         }
 
-        void Chat::sendRequest(bool /* error */, quint16 port)
+        void Chat::sendRequest(bool error, quint16 port)
         {
+            Server* server = Application::instance()->getConnectionManager()->getServerByConnectionId( m_connectionId );
+            if ( !server )
+            {
+                getTextView()->appendServerMessage(i18n("DCC"), i18n( "Could not send Reverse DCC SEND acknowledgement to the partner via the IRC server." ) );
+                return;
+            }
+            
             if (Preferences::self()->dccUPnP() && this->sender())
             {
                 if (port != m_ownPort) return; // Somebody elses forward succeeded
 
                 disconnect (this->sender(), SIGNAL( forwardComplete(bool, quint16 ) ), this, SLOT ( sendRequest(bool, quint16) ) );
+
+                if (error)
+                    getTextView()->appendServerMessage(i18nc("Universal Plug and Play", "UPnP"), i18n("Failed to forward port %1. Sending DCC request to remote user regardless.", QString::number(m_ownPort)), false);
             }
 
-            QString ownNumericalIp = DccCommon::textIpToNumericalIp( DccCommon::getOwnIp( m_server ) );
-            m_server->requestDccChat( m_partnerNick, ownNumericalIp, m_ownPort );
+            QString ownNumericalIp = DccCommon::textIpToNumericalIp( DccCommon::getOwnIp( server ) );
+            server->requestDccChat( m_partnerNick, ownNumericalIp, m_ownPort );
         }
 
         void Chat::listenForPartner()
@@ -233,9 +243,9 @@ namespace Konversation
             m_dccChatInput->setEnabled(true);
         }
 
-        void Chat::dccChatBroken(QAbstractSocket::SocketError error)
+        void Chat::dccChatBroken(QAbstractSocket::SocketError /*error*/)
         {
-            getTextView()->appendServerMessage(i18n("Error"), i18n("Connection broken, error (%1) %2.", error, m_dccSocket->errorString()));
+            getTextView()->appendServerMessage(i18n("Error"), i18n("Socket error: %1", m_dccSocket->errorString()));
             m_dccSocket->blockSignals(true);
             m_dccSocket->close();
         }

@@ -8,6 +8,7 @@
   <include>kdialog.h</include>
   <include>QDir</include>
   <include>kglobalsettings.h</include>
+  <include>kuser.h</include>
   <kcfgfile name="konversationrc" />
 
   <group name="Appearance">
@@ -711,10 +712,10 @@
   </group>
   <group name="Path Settings">
     <entry key="LogfilePath" type="Url">
-      <default code="true">QDir::homePath()+"/logs"</default>
+      <default code="true">KUser(KUser::UseRealUserID).homeDir()+"/logs"</default>
     </entry>
     <entry key="DccPath" type="Url">
-      <default code="true">QDir::homePath()+"/dccrecv"</default>
+      <default code="true">KUser(KUser::UseRealUserID).homeDir()+"/logs"</default>
       <label></label>
       <whatsthis></whatsthis>
     </entry>
@@ -999,6 +1000,36 @@
     </entry>
     <entry key="ShowQueueTuner" type="Bool">
         <default>false</default>
+    </entry>
+  </group>
+  <group name="Proxy">
+    <entry key="ProxyEnabled" type="Bool">
+        <default>false</default>
+        <label></label>
+    </entry>
+    <entry key="ProxyType" type="Enum">
+        <choices>
+            <choice name="Socksv5Proxy" />
+            <choice name="HTTPProxy" />
+        </choices>
+        <default>Socksv5Proxy</default>
+        <label></label>
+    </entry>
+    <entry key="ProxyAddress" type="String">
+        <default></default>
+        <label></label>
+    </entry>
+    <entry key="ProxyPort" type="Int">
+        <default>8080</default>
+        <label></label>
+    </entry>
+    <entry key="ProxyUsername" type="String">
+        <default></default>
+        <label></label>
+    </entry>
+    <entry key="ProxyPassword" type="String">
+        <default></default>
+        <label></label>
     </entry>
   </group>
 </kcfg>

@@ -38,22 +38,28 @@
 #include <QList>
 #include <QSplitter>
 #include <QToolButton>
+#include <QTabBar>
 
 #include <KInputDialog>
-#include <KTabWidget>
 #include <KMessageBox>
 #include <KGlobalSettings>
 #include <KVBox>
-#include <KXMLGUIFactory>
 #include <KRun>
 #include <KUrl>
-
+#include <KXMLGUIFactory>
 #include <KActionCollection>
 #include <KToggleAction>
 #include <KSelectAction>
-#include <KXMLGUIClient>
 
 using namespace Konversation;
+
+TabWidget::TabWidget(QWidget* parent) : KTabWidget(parent)
+{
+}
+
+TabWidget::~TabWidget()
+{
+}
 
 ViewContainer::ViewContainer(MainWindow* window):
         m_window(window)
@@ -154,13 +160,16 @@ void ViewContainer::setupTabWidget()
     m_vbox = new KVBox(m_viewTreeSplitter);
     m_viewTreeSplitter->setStretchFactor(m_viewTreeSplitter->indexOf(m_vbox), 1);
     m_vbox->setObjectName("main_window_right_side");
-    m_tabWidget = new KTabWidget(m_vbox);
+    m_tabWidget = new TabWidget(m_vbox);
     m_tabWidget->setObjectName("main_window_tab_widget");
     m_queueTuner = new QueueTuner(m_vbox, this);
     m_queueTuner->hide();
 
     m_tabWidget->setTabReorderingEnabled(true);
     m_tabWidget->setTabCloseActivatePrevious(true);
+#if QT_VERSION >= 0x040500
+    m_tabWidget->tabBar()->setSelectionBehaviorOnRemove(QTabBar::SelectPreviousTab);
+#endif
 
     m_vbox->hide();    //m_tabWidget->hide();
 
@@ -374,7 +383,7 @@ void ViewContainer::updateAppearance()
             font = Preferences::self()->textFont();
         else
             font = KGlobalSettings::generalFont();
-        Q_ASSERT(0);
+
         m_insertCharDialog->setFont(font);
     }
 }
@@ -414,8 +423,10 @@ void ViewContainer::updateViewActions(int index)
     if (!m_tabWidget) return;
 
     QAction* action;
+    ChatWindow* view = 0;
 
-    ChatWindow* view = static_cast<ChatWindow*>(m_tabWidget->widget(index));
+    if (index != -1)
+        view = static_cast<ChatWindow*>(m_tabWidget->widget(index));
 
     if (m_tabWidget->count() > 0 && view)
     {
@@ -1182,7 +1193,7 @@ void ViewContainer::addView(ChatWindow* view, const QString& label, bool weiniti
     ChatWindow::WindowType wtype;
     QIcon iconSet;
 
-    if (Preferences::self()->closeButtons())
+    if (Preferences::self()->closeButtons() && m_viewTree)
         iconSet = KIcon("dialog-close");
 
     connect(Application::instance(), SIGNAL(appearanceChanged()), view, SLOT(updateAppearance()));
@@ -1567,6 +1578,7 @@ void ViewContainer::cleanupAfterClose(ChatWindow* view)
             m_vbox->hide();
             emit resetStatusBar();
             emit setWindowCaption(QString());
+            updateViewActions(-1);
         }
     }
 
