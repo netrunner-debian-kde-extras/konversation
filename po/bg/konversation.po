@@ -3,14 +3,15 @@
 #
 # root <root@localhost.localdomain>, 2006.
 # Zlatko Popov <zlatkopopov@fsa-bg.org>, 2006, 2007.
+# Yasen Pramatarov <yasen@lindeas.com>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-09-21 06:08+0200\n"
-"PO-Revision-Date: 2007-09-20 20:36+0000\n"
-"Last-Translator: Zlatko Popov <zlatkopopov@fsa-bg.org>\n"
-"Language-Team: Bulgarian <dict@linux.zonebg.com>\n"
+"POT-Creation-Date: 2009-09-30 07:03+0200\n"
+"PO-Revision-Date: 2009-09-22 21:32+0300\n"
+"Last-Translator: Yasen Pramatarov <yasen@lindeas.com>\n"
+"Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -63,10 +64,8 @@ msgid "Yes, %1"
 msgstr "Да, %1"
 
 #: src/dcc/transferdetailedinfopanel.cpp:171
-#, fuzzy
-#| msgid "None"
 msgid "No"
-msgstr "Без"
+msgstr "Не"
 
 #: src/dcc/transferdetailedinfopanel.cpp:237
 msgid "< 1sec"
@@ -88,10 +87,8 @@ msgstr "Избиране на псевдоним и затваряне на пр
 #: src/dcc/recipientdialog.cpp:65 src/irc/servergroupdialog.cpp:77
 #: src/identitydialog.cpp:71 src/linkaddressbook/addressbook_base.cpp:501
 #: src/viewer/editnotifydialog.cpp:68
-#, fuzzy
-#| msgid "Channel"
 msgid "&Cancel"
-msgstr "Канал"
+msgstr ""
 
 #: src/dcc/recipientdialog.cpp:65
 msgid "Close the window without changes"
@@ -121,21 +118,21 @@ msgstr "Не може да се отвори сокет"
 msgid "DCC"
 msgstr "DCC"
 
-#: src/dcc/chat.cpp:161 src/dcc/transferrecv.cpp:481
-#: src/dcc/transferrecv.cpp:513
+#: src/dcc/chat.cpp:161 src/dcc/transferrecv.cpp:487
+#: src/dcc/transferrecv.cpp:519
 msgid ""
 "Could not send Reverse DCC SEND acknowledgement to the partner via the IRC "
 "server."
 msgstr "Уведомяването Reverse DCC SEND на партньора чрез IRC беше неуспешно."
 
 #: src/dcc/chat.cpp:172 src/dcc/transfersend.cpp:350
-#: src/dcc/transferrecv.cpp:526
+#: src/dcc/transferrecv.cpp:532
 msgctxt "Universal Plug and Play"
 msgid "UPnP"
 msgstr ""
 
 #: src/dcc/chat.cpp:172 src/dcc/transfersend.cpp:350
-#: src/dcc/transferrecv.cpp:526
+#: src/dcc/transferrecv.cpp:532
 #, kde-format
 msgid ""
 "Failed to forward port %1. Sending DCC request to remote user regardless."
@@ -198,7 +195,7 @@ msgstr "Установена е връзка за DCC разговор с %1."
 msgid "Error"
 msgstr ""
 
-#: src/dcc/chat.cpp:248 src/dcc/transfersend.cpp:515
+#: src/dcc/chat.cpp:248 src/dcc/transfersend.cpp:516
 #, kde-format
 msgid "Socket error: %1"
 msgstr "Грешка при сокета: %1"
@@ -224,10 +221,8 @@ msgid "Could not accept the client."
 msgstr "Не може да се приеме клиента."
 
 #: src/dcc/chat.cpp:391
-#, fuzzy
-#| msgid "Connection"
 msgid "Connection closed."
-msgstr "Връзка"
+msgstr "Връзката е прекъсната."
 
 #: src/dcc/chat.cpp:461
 #, kde-format
@@ -284,63 +279,61 @@ msgstr "Изпращането на DCC SEND заявка към партньо�
 msgid "Awaiting remote user's acceptance"
 msgstr "Изчакване на приемането от отдалечения потребител"
 
-#: src/dcc/transfersend.cpp:404 src/dcc/transferrecv.cpp:625
+#: src/dcc/transfersend.cpp:404 src/dcc/transferrecv.cpp:631
 #, fuzzy
 #| msgid "Could not accept the connection. (Socket Error)"
 msgid "Could not accept the connection (socket error.)"
 msgstr "Не може да се приеме връзката. (Грешка при сокета)"
 
-#: src/dcc/transfersend.cpp:537 src/dcc/transferrecv.cpp:750
+#: src/dcc/transfersend.cpp:538 src/dcc/transferrecv.cpp:756
 msgid "Timed out"
 msgstr "Изтичане на времето"
 
-#: src/dcc/transfersend.cpp:547
+#: src/dcc/transfersend.cpp:548
 msgid "The operation was successful. Should never happen in an error dialog."
 msgstr ""
 "Операцията беше успешна. Не би трябвало да се случва никога в диалог за "
 "грешка."
 
-#: src/dcc/transfersend.cpp:550
+#: src/dcc/transfersend.cpp:551
 #, kde-format
 msgid "Could not read from file \"%1\"."
 msgstr "Не може да се чете от файл \"%1\"."
 
-#: src/dcc/transfersend.cpp:553
+#: src/dcc/transfersend.cpp:554
 #, kde-format
 msgid "Could not write to file \"%1\"."
 msgstr "Не може да се пише във файл \"%1\"."
 
-#: src/dcc/transfersend.cpp:556
+#: src/dcc/transfersend.cpp:557
 msgid "A fatal unrecoverable error occurred."
 msgstr "Възникна невъзстановима грешка."
 
-#: src/dcc/transfersend.cpp:559
+#: src/dcc/transfersend.cpp:560
 #, kde-format
 msgid "Could not open file \"%1\"."
 msgstr "Не може да се отвори файл \"%1\"."
 
-#: src/dcc/transfersend.cpp:568
+#: src/dcc/transfersend.cpp:569
 msgid "The operation was unexpectedly aborted."
 msgstr "Операцията беше прекъсната неочаквано."
 
-#: src/dcc/transfersend.cpp:571
+#: src/dcc/transfersend.cpp:572
 msgid "The operation timed out."
 msgstr "Изтече времето на операцията."
 
-#: src/dcc/transfersend.cpp:574
+#: src/dcc/transfersend.cpp:575
 msgid "An unspecified error happened on close."
 msgstr "Възникна неопределена грешка при затваряне."
 
-#: src/dcc/transfersend.cpp:577
+#: src/dcc/transfersend.cpp:578
 #, kde-format
 msgid "Unknown error. Code %1"
 msgstr "Непозната грешка. Код %1"
 
 #: src/dcc/transferlistmodel.cpp:32
-#, fuzzy
-#| msgid "Failed"
 msgid "File"
-msgstr "Неуспешно"
+msgstr "Файл"
 
 #: src/dcc/transferlistmodel.cpp:34
 msgid "Partner"
@@ -479,10 +472,8 @@ msgid "Outgoing Transfers"
 msgstr "Изходящи"
 
 #: src/dcc/transferview.cpp:275
-#, fuzzy
-#| msgid "Commands:"
 msgid "Columns"
-msgstr "Команди:"
+msgstr "Колони"
 
 #: src/dcc/transferrecv.cpp:185
 msgid "The admin has restricted the right to receive files"
@@ -506,12 +497,12 @@ msgstr "<b>Не може да бъде създадена папка.</b><br>П�
 msgid "Could not create a KIO instance"
 msgstr "Не може да бъде създаден обект KIO"
 
-#: src/dcc/transferrecv.cpp:380
+#: src/dcc/transferrecv.cpp:388
 #, kde-format
 msgid "<b>The file is used by another transfer.</b><br>%1<br>"
 msgstr "<b>Файлът се използва в друго прехвърляне.</b><br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:402
+#: src/dcc/transferrecv.cpp:407
 #, fuzzy, kde-format
 #| msgid ""
 #| "<b>A partial file exists.</b><br>%1<br>Size of the partial file: %2 "
@@ -529,42 +520,40 @@ msgstr[1] ""
 "<b>Съществува частичен файл</b><br>%1<br>Големина на частичния файл: %2 "
 "байта<br>"
 
-#: src/dcc/transferrecv.cpp:433
+#: src/dcc/transferrecv.cpp:439
 #, kde-format
 msgid "<b>The file already exists.</b><br>%1<br>"
 msgstr "<b>Вече има такъв файл.</b><br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:440
+#: src/dcc/transferrecv.cpp:446
 #, kde-format
 msgid "<b>Could not open the file.<br>Error: %1</b><br>%2<br>"
 msgstr "<b>Файлът не може да бъде отворен.<br>Грешка: %1</b><br>%2<br>"
 
-#: src/dcc/transferrecv.cpp:529
+#: src/dcc/transferrecv.cpp:535
 msgid "Waiting for connection"
 msgstr "Изчакване за връзка"
 
-#: src/dcc/transferrecv.cpp:538
+#: src/dcc/transferrecv.cpp:544
 msgid "Waiting for remote host's acceptance"
 msgstr "Изчакване за приемане от отдалечения хост"
 
-#: src/dcc/transferrecv.cpp:548
+#: src/dcc/transferrecv.cpp:554
 msgid ""
 "Could not send DCC RECV resume request to the partner via the IRC server."
 msgstr ""
 "Изпращането на DCC RECV заявка за продължение до партньора чрез IRC сървър "
 "беше неуспешно."
 
-#: src/dcc/transferrecv.cpp:570
+#: src/dcc/transferrecv.cpp:576
 msgid "Unexpected response from remote host"
 msgstr "Неочакван отговор от отдалечения хост"
 
-#: src/dcc/transferrecv.cpp:713
-#, fuzzy
-#| msgid "Transferring error"
+#: src/dcc/transferrecv.cpp:719
 msgid "Transfer error"
 msgstr "Грешка при прехвърляне"
 
-#: src/dcc/transferrecv.cpp:729
+#: src/dcc/transferrecv.cpp:735
 #, kde-format
 msgid "KIO error: %1"
 msgstr "KIO грешка: %1"
@@ -720,10 +709,8 @@ msgid "Timestamp"
 msgstr "&Време:"
 
 #: src/irc/channeloptionsdialog.cpp:623
-#, fuzzy
-#| msgid "Artwork"
 msgid "Author"
-msgstr "Artwork"
+msgstr "Автор"
 
 #: src/irc/channeloptionsdialog.cpp:684
 #, fuzzy
@@ -875,25 +862,25 @@ msgstr ""
 
 #: src/irc/nicklistview.cpp:114 src/irc/nicksonline.cpp:912
 #: src/irc/nicksonline.cpp:930 src/irc/query.cpp:81
-#: src/viewer/ircview.cpp:1151
+#: src/viewer/ircview.cpp:1184
 msgid "&Whois"
 msgstr "&Кой е"
 
 #: src/irc/nicklistview.cpp:115 src/irc/query.cpp:82
-#: src/viewer/ircview.cpp:1153
+#: src/viewer/ircview.cpp:1186
 msgid "&Version"
 msgstr "&Версия"
 
 #: src/irc/nicklistview.cpp:116 src/irc/query.cpp:83
-#: src/viewer/ircview.cpp:1155
+#: src/viewer/ircview.cpp:1188
 msgid "&Ping"
 msgstr "&Ping"
 
-#: src/irc/nicklistview.cpp:122 src/viewer/ircview.cpp:1163
+#: src/irc/nicklistview.cpp:122 src/viewer/ircview.cpp:1196
 msgid "Give Op"
 msgstr "Даване на операторски привилегии"
 
-#: src/irc/nicklistview.cpp:126 src/viewer/ircview.cpp:1168
+#: src/irc/nicklistview.cpp:126 src/viewer/ircview.cpp:1201
 msgid "Take Op"
 msgstr "Вземане на операторски привилегии"
 
@@ -905,66 +892,66 @@ msgstr "Даване на операторски привилегии"
 msgid "Take HalfOp"
 msgstr "Отнемане на операторски привилегии"
 
-#: src/irc/nicklistview.cpp:132 src/viewer/ircview.cpp:1173
+#: src/irc/nicklistview.cpp:132 src/viewer/ircview.cpp:1206
 msgid "Give Voice"
 msgstr "Даване на Глас"
 
-#: src/irc/nicklistview.cpp:136 src/viewer/ircview.cpp:1178
+#: src/irc/nicklistview.cpp:136 src/viewer/ircview.cpp:1211
 msgid "Take Voice"
 msgstr "Вземане на Глас"
 
-#: src/irc/nicklistview.cpp:140 src/viewer/ircview.cpp:1162
+#: src/irc/nicklistview.cpp:140 src/viewer/ircview.cpp:1195
 msgid "Modes"
 msgstr "Режими"
 
 #: src/irc/nicklistview.cpp:147 src/irc/channel.cpp:1503
 #: src/irc/channel.cpp:1505 src/irc/channel.cpp:1512 src/irc/channel.cpp:1517
 #: src/irc/channel.cpp:1538 src/irc/channel.cpp:1540 src/irc/channel.cpp:1547
-#: src/irc/channel.cpp:1552 src/viewer/ircview.cpp:1185
+#: src/irc/channel.cpp:1552 src/viewer/ircview.cpp:1218
 msgid "Kick"
 msgstr "Изритване"
 
-#: src/irc/nicklistview.cpp:148 src/viewer/ircview.cpp:1187
+#: src/irc/nicklistview.cpp:148 src/viewer/ircview.cpp:1220
 msgid "Kickban"
 msgstr "Изритване и банване"
 
-#: src/irc/nicklistview.cpp:149 src/viewer/ircview.cpp:1189
+#: src/irc/nicklistview.cpp:149 src/viewer/ircview.cpp:1222
 msgid "Ban Nickname"
 msgstr "Банване на псевдоним"
 
-#: src/irc/nicklistview.cpp:151 src/viewer/ircview.cpp:1192
+#: src/irc/nicklistview.cpp:151 src/viewer/ircview.cpp:1225
 msgid "Ban *!*@*.host"
 msgstr "Банване на *!*@*.хост"
 
-#: src/irc/nicklistview.cpp:152 src/viewer/ircview.cpp:1194
+#: src/irc/nicklistview.cpp:152 src/viewer/ircview.cpp:1227
 msgid "Ban *!*@domain"
 msgstr "Банване на *!*@домейн"
 
-#: src/irc/nicklistview.cpp:153 src/viewer/ircview.cpp:1196
+#: src/irc/nicklistview.cpp:153 src/viewer/ircview.cpp:1229
 msgid "Ban *!user@*.host"
 msgstr "Банване на *!user@*.хост"
 
-#: src/irc/nicklistview.cpp:154 src/viewer/ircview.cpp:1198
+#: src/irc/nicklistview.cpp:154 src/viewer/ircview.cpp:1231
 msgid "Ban *!user@domain"
 msgstr "Банване на *!user@домейн"
 
-#: src/irc/nicklistview.cpp:156 src/viewer/ircview.cpp:1201
+#: src/irc/nicklistview.cpp:156 src/viewer/ircview.cpp:1234
 msgid "Kickban *!*@*.host"
 msgstr "Изритване и банване на *!*@*.хост"
 
-#: src/irc/nicklistview.cpp:157 src/viewer/ircview.cpp:1203
+#: src/irc/nicklistview.cpp:157 src/viewer/ircview.cpp:1236
 msgid "Kickban *!*@domain"
 msgstr "Изритване и банване на *!*@домейн"
 
-#: src/irc/nicklistview.cpp:158 src/viewer/ircview.cpp:1205
+#: src/irc/nicklistview.cpp:158 src/viewer/ircview.cpp:1238
 msgid "Kickban *!user@*.host"
 msgstr "Изритване и банване на *!user@*.хост"
 
-#: src/irc/nicklistview.cpp:159 src/viewer/ircview.cpp:1207
+#: src/irc/nicklistview.cpp:159 src/viewer/ircview.cpp:1240
 msgid "Kickban *!user@domain"
 msgstr "Изритване и банване на *!user@домейн"
 
-#: src/irc/nicklistview.cpp:160 src/viewer/ircview.cpp:1184
+#: src/irc/nicklistview.cpp:160 src/viewer/ircview.cpp:1217
 msgid "Kick / Ban"
 msgstr "Изритване / Банване"
 
@@ -972,13 +959,13 @@ msgstr "Изритване / Банване"
 #: src/irc/outputfilter.cpp:1504 src/irc/query.cpp:86 src/irc/query.cpp:394
 #: src/irc/query.cpp:395 src/irc/channel.cpp:670 src/irc/channel.cpp:671
 #: src/config/settingsdialog.cpp:131 src/config/warnings_config.cpp:118
-#: src/viewer/ircview.cpp:1211
+#: src/viewer/ircview.cpp:1244
 msgid "Ignore"
 msgstr "Игнориране"
 
 #: src/irc/nicklistview.cpp:166 src/irc/query.cpp:87 src/irc/query.cpp:420
 #: src/irc/query.cpp:421 src/irc/channel.cpp:695 src/irc/channel.cpp:696
-#: src/config/warnings_config.cpp:119 src/viewer/ircview.cpp:1212
+#: src/config/warnings_config.cpp:119 src/viewer/ircview.cpp:1245
 msgid "Unignore"
 msgstr "Отмяна на игнориране"
 
@@ -1011,7 +998,7 @@ msgid ""
 msgstr ""
 
 #: src/irc/nicklistview.cpp:176 src/irc/query.cpp:91
-#: src/viewer/ircview.cpp:1226
+#: src/viewer/ircview.cpp:1259
 msgid "Send &File..."
 msgstr "Изпращане на &файл..."
 
@@ -1034,7 +1021,7 @@ msgid "Address Book Associations"
 msgstr "Асоциации на адресната книга"
 
 #: src/irc/nicklistview.cpp:191 src/irc/query.cpp:95
-#: src/viewer/ircview.cpp:1232
+#: src/viewer/ircview.cpp:1265
 msgid "Add to Watched Nicks"
 msgstr "Добавяне към наблюдаваните псевдоними"
 
@@ -1178,15 +1165,15 @@ msgstr "Свързване към сървъра"
 msgid "Click here to connect to the selected IRC network and channel."
 msgstr "Натиснете тук, за да се свържете с маркираните сървър и канал."
 
-#: src/irc/serverlistdialog.cpp:144
+#: src/irc/serverlistdialog.cpp:145
 msgid "New Network"
 msgstr "Нова мрежа"
 
-#: src/irc/serverlistdialog.cpp:165
+#: src/irc/serverlistdialog.cpp:166
 msgid "Edit Network"
 msgstr "Редактиране на мрежа"
 
-#: src/irc/serverlistdialog.cpp:221
+#: src/irc/serverlistdialog.cpp:222
 #, kde-format
 msgid ""
 "You cannot delete %1.\n"
@@ -1197,7 +1184,7 @@ msgstr ""
 "\n"
 "Мрежата %2 трябва да има поне един сървър."
 
-#: src/irc/serverlistdialog.cpp:226
+#: src/irc/serverlistdialog.cpp:227
 #, fuzzy, kde-format
 #| msgid ""
 #| "You cannot delete the selected servers.\n"
@@ -1220,11 +1207,11 @@ msgstr[1] ""
 "\n"
 "Мрежата %1 трябва да има поне един сървър."
 
-#: src/irc/serverlistdialog.cpp:242
+#: src/irc/serverlistdialog.cpp:243
 msgid "Do you really want to delete the selected entries?"
 msgstr "Сигурни ли сте, че искате да изтриете маркираните записи?"
 
-#: src/irc/serverlistdialog.cpp:244
+#: src/irc/serverlistdialog.cpp:245
 #, kde-format
 msgid "Do you really want to delete %1?"
 msgstr "Наистина ли искате да премахнете %1?"
@@ -1442,7 +1429,7 @@ msgid "Usage: %1RAW [OPEN | CLOSE]"
 msgstr "Употреба: %1RAW [OPEN | CLOSE]"
 
 #: src/irc/outputfilter.cpp:1195 src/irc/server.cpp:2459
-#: src/irc/server.cpp:2477 src/viewer/ircview.cpp:662
+#: src/irc/server.cpp:2477 src/viewer/ircview.cpp:712
 msgid "Notify"
 msgstr "Уведомяване"
 
@@ -1897,7 +1884,7 @@ msgid "You are not on %1."
 msgstr "Не сте в %1."
 
 #: src/irc/inputfilter.cpp:1247 src/irc/inputfilter.cpp:1256
-#: src/irc/inputfilter.cpp:1265 src/viewer/ircview.cpp:641
+#: src/irc/inputfilter.cpp:1265 src/viewer/ircview.cpp:691
 msgid "MOTD"
 msgstr "MOTD"
 
@@ -2275,7 +2262,7 @@ msgid "Nickname error"
 msgstr "Грешка в псевдонима"
 
 #: src/irc/server.cpp:1341 src/irc/server.cpp:3101 src/irc/server.cpp:3106
-#: src/application.cpp:290
+#: src/application.cpp:297
 msgid "D-Bus"
 msgstr ""
 
@@ -2457,7 +2444,7 @@ msgid "Channel Invites"
 msgstr "Списък с канали"
 
 #: src/irc/invitedialog.cpp:167 src/irc/channel.cpp:1378
-#: src/irc/channel.cpp:1394 src/viewer/ircview.cpp:681
+#: src/irc/channel.cpp:1394 src/viewer/ircview.cpp:731
 msgid "Join"
 msgstr "Присъединяване"
 
@@ -2660,35 +2647,35 @@ msgstr "Промяна на информацията за мрежата"
 msgid "Discards all changes made"
 msgstr "Отказва направените промени"
 
-#: src/irc/servergroupdialog.cpp:160
+#: src/irc/servergroupdialog.cpp:161
 msgid "Add Server"
 msgstr "Добавяне на сървър"
 
-#: src/irc/servergroupdialog.cpp:178
+#: src/irc/servergroupdialog.cpp:179
 msgid "Edit Server"
 msgstr "Редактиране не сървър"
 
-#: src/irc/servergroupdialog.cpp:272
+#: src/irc/servergroupdialog.cpp:273
 msgid "Add Channel"
 msgstr "Добавяне на канал"
 
-#: src/irc/servergroupdialog.cpp:290
+#: src/irc/servergroupdialog.cpp:291
 msgid "Edit Channel"
 msgstr "Редактиране на канал"
 
-#: src/irc/servergroupdialog.cpp:394
+#: src/irc/servergroupdialog.cpp:395
 msgid "The network name is required."
 msgstr "Изисква се име на мрежа."
 
-#: src/irc/servergroupdialog.cpp:398
+#: src/irc/servergroupdialog.cpp:399
 msgid "You need to add at least one server to the network."
 msgstr "Трябва да добавите поне един сървър към мрежата."
 
-#: src/irc/servergroupdialog.cpp:453
+#: src/irc/servergroupdialog.cpp:454
 msgid "The server address is required."
 msgstr "Изисква се адрес на сървъра."
 
-#: src/irc/servergroupdialog.cpp:504
+#: src/irc/servergroupdialog.cpp:505
 msgid "The channel name is required."
 msgstr "Изисква се има на канал."
 
@@ -2779,7 +2766,7 @@ msgstr "Говорене на себе си"
 
 #: src/irc/query.cpp:686 src/irc/query.cpp:693 src/irc/channel.cpp:1417
 #: src/irc/channel.cpp:1419 src/irc/channel.cpp:1438 src/irc/channel.cpp:1440
-#: src/viewer/ircview.cpp:686
+#: src/viewer/ircview.cpp:736
 msgid "Quit"
 msgstr ""
 
@@ -2942,7 +2929,7 @@ msgid "You have left this server (%1)."
 msgstr "Напуснахте този сървър (%1)."
 
 #: src/irc/channel.cpp:1424 src/irc/channel.cpp:1426 src/irc/channel.cpp:1446
-#: src/irc/channel.cpp:1448 src/viewer/ircview.cpp:686
+#: src/irc/channel.cpp:1448 src/viewer/ircview.cpp:736
 msgid "Part"
 msgstr "Напускане"
 
@@ -4955,25 +4942,23 @@ msgstr ""
 "Списък с канали на Konversation: %1 - %2\n"
 "\n"
 
-#: src/urlcatcher.cpp:381 src/viewer/ircview.cpp:136
+#: src/urlcatcher.cpp:381 src/viewer/ircview.cpp:189
 #: src/viewer/topiclabel.cpp:143
 msgid "Copy Link Address"
 msgstr ""
 
-#: src/urlcatcher.cpp:382 src/viewer/ircview.cpp:140
+#: src/urlcatcher.cpp:382 src/viewer/ircview.cpp:193
 #: src/viewer/topiclabel.cpp:144
 msgid "Add to Bookmarks"
 msgstr "Добавяне на маркери"
 
-#: src/urlcatcher.cpp:383 src/viewer/ircview.cpp:142
+#: src/urlcatcher.cpp:383 src/viewer/ircview.cpp:195
 #: src/viewer/topiclabel.cpp:145
 msgid "Save Link As..."
 msgstr "Запис на връзката като..."
 
-#: src/urlcatcher.cpp:412 src/viewer/ircview.cpp:1395
+#: src/urlcatcher.cpp:412 src/viewer/ircview.cpp:1434
 #: src/viewer/topiclabel.cpp:332
-#, fuzzy
-#| msgid "Save Link As"
 msgid "Save link as"
 msgstr "Запис на връзката като"
 
@@ -5068,45 +5053,45 @@ msgstr "таен"
 msgid "Insert a character"
 msgstr "Вмъкване на един символ"
 
-#: src/viewer/ircview.cpp:148
+#: src/viewer/ircview.cpp:201
 #, fuzzy
 #| msgid "&Copy URL"
 msgid "&Copy"
 msgstr "&Копиране на URL адрес"
 
-#: src/viewer/ircview.cpp:151
+#: src/viewer/ircview.cpp:204
 #, fuzzy
 #| msgid "&Select All Items"
 msgid "Select All"
 msgstr "&Маркиране на всички"
 
-#: src/viewer/ircview.cpp:152 src/viewer/viewcontainer.cpp:550
+#: src/viewer/ircview.cpp:205 src/viewer/viewcontainer.cpp:550
 msgid "Find Text..."
 msgstr "Търсене на текст..."
 
-#: src/viewer/ircview.cpp:1219
+#: src/viewer/ircview.cpp:1252
 msgid "Open Query"
 msgstr "Отваряне на личен разговор"
 
-#: src/viewer/ircview.cpp:1266 src/viewer/topiclabel.cpp:128
+#: src/viewer/ircview.cpp:1299 src/viewer/topiclabel.cpp:128
 #: src/mainwindow.cpp:421
 msgid "&Join Channel..."
 msgstr "&Присъединяване към канал..."
 
-#: src/viewer/ircview.cpp:1273 src/viewer/topiclabel.cpp:134
+#: src/viewer/ircview.cpp:1306 src/viewer/topiclabel.cpp:134
 msgid "Get &user list"
 msgstr "Търсене на списък с &потребители"
 
-#: src/viewer/ircview.cpp:1275 src/viewer/topiclabel.cpp:135
+#: src/viewer/ircview.cpp:1308 src/viewer/topiclabel.cpp:135
 msgid "Get &topic"
 msgstr "Търсене на &тема"
 
-#: src/viewer/ircview.cpp:1470
+#: src/viewer/ircview.cpp:1509
 #, kde-format
 msgid "Open a query with %1"
 msgstr "Отваряне на личен разговор с %1"
 
-#: src/viewer/ircview.cpp:1491 src/viewer/topiclabel.cpp:277
+#: src/viewer/ircview.cpp:1530 src/viewer/topiclabel.cpp:277
 #, kde-format
 msgid "Join the channel %1"
 msgstr "Влизане в канал %1"
@@ -5152,7 +5137,7 @@ msgstr ""
 "Konversation<p>Едно съобщение може да бъде не по-дълго от 512 символа и не "
 "може да съдържа множество редове.</qt>"
 
-#: src/viewer/ircinput.cpp:484
+#: src/viewer/ircinput.cpp:485
 #, fuzzy, kde-format
 #| msgid " bytes"
 msgid "1 byte"
@@ -5160,7 +5145,7 @@ msgid_plural "%1 bytes"
 msgstr[0] " байта"
 msgstr[1] " байта"
 
-#: src/viewer/ircinput.cpp:485
+#: src/viewer/ircinput.cpp:486
 #, fuzzy, kde-format
 #| msgid " lines"
 msgid "1 line"
@@ -5168,7 +5153,7 @@ msgid_plural "%1 lines"
 msgstr[0] " реда"
 msgstr[1] " реда"
 
-#: src/viewer/ircinput.cpp:491
+#: src/viewer/ircinput.cpp:492
 #, fuzzy, kde-format
 #| msgid ""
 #| "<qt>You are attempting to paste a large portion of text (%1 bytes or %2 "
@@ -5186,11 +5171,11 @@ msgstr ""
 "разговора. Това може да причини прекъсване на връзката или изхвърляне заради "
 "препълване. Искате ли да продължите?</qt>"
 
-#: src/viewer/ircinput.cpp:494
+#: src/viewer/ircinput.cpp:495
 msgid "Large Paste Warning"
 msgstr "Предупреждение при поставяне на голям обем"
 
-#: src/viewer/ircinput.cpp:495
+#: src/viewer/ircinput.cpp:496
 #, fuzzy
 #| msgid "Part"
 msgid "Paste"
@@ -5200,7 +5185,7 @@ msgstr "Напускане"
 #. i18n: ectx: property (text), widget (KPushButton, m_editIdentityButton)
 #. i18n: file: src/irc/serverlistdialogui.ui:162
 #. i18n: ectx: property (text), widget (QPushButton, m_editButton)
-#: src/viewer/ircinput.cpp:496 rc.cpp:116 rc.cpp:257
+#: src/viewer/ircinput.cpp:497 rc.cpp:116 rc.cpp:257
 msgid "&Edit..."
 msgstr "&Редактиране..."
 
@@ -5541,10 +5526,8 @@ msgid "Join on Connect"
 msgstr "Присъединяване към канал"
 
 #: src/mainwindow.cpp:363
-#, fuzzy
-#| msgid "Default ( %1 )"
 msgid "Default"
-msgstr "По подразбиране ( %1 )"
+msgstr "По подразбиране"
 
 #: src/mainwindow.cpp:368
 msgid "Set Encoding"
@@ -5756,16 +5739,12 @@ msgstr "krasimira_m@yahoo.com"
 #. i18n: file: src/dcc/transferdetailedtimeinfopanelui.ui:28
 #. i18n: ectx: property (text), widget (QLabel, textLabel19)
 #: rc.cpp:5
-#, fuzzy
-#| msgid "Current Position:"
 msgid "Current position:"
 msgstr "Текуща позиция:"
 
 #. i18n: file: src/dcc/transferdetailedtimeinfopanelui.ui:48
 #. i18n: ectx: property (text), widget (QLabel, textLabel21)
 #: rc.cpp:8
-#, fuzzy
-#| msgid "File Size:"
 msgid "File size:"
 msgstr "Размер на файл:"
 
@@ -5778,16 +5757,12 @@ msgstr "Възобновено:"
 #. i18n: file: src/dcc/transferdetailedtimeinfopanelui.ui:88
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
 #: rc.cpp:14
-#, fuzzy
-#| msgid "Current Speed:"
 msgid "Current speed:"
 msgstr "Текуща скорост:"
 
 #. i18n: file: src/dcc/transferdetailedtimeinfopanelui.ui:108
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: rc.cpp:17
-#, fuzzy
-#| msgid "Average Speed:"
 msgid "Average speed:"
 msgstr "Средна скорост:"
 
@@ -5948,18 +5923,14 @@ msgstr ""
 #. i18n: file: src/irc/channellistpanelui.ui:117
 #. i18n: ectx: property (text), widget (QCheckBox, m_channelBox)
 #: rc.cpp:80
-#, fuzzy
-#| msgid "Channel"
 msgid "&Channel"
-msgstr "Канал"
+msgstr "&Канал"
 
 #. i18n: file: src/irc/channellistpanelui.ui:133
 #. i18n: ectx: property (text), widget (QCheckBox, m_topicBox)
 #: rc.cpp:83
-#, fuzzy
-#| msgid "Topic"
 msgid "&Topic"
-msgstr "Тема"
+msgstr "&Тема"
 
 #. i18n: file: src/irc/channellistpanelui.ui:149
 #. i18n: ectx: property (text), widget (QLabel, m_lblFilter)
@@ -5976,10 +5947,8 @@ msgstr "Въвеждане на филтриращ низ."
 #. i18n: file: src/irc/channellistpanelui.ui:188
 #. i18n: ectx: property (text), widget (QCheckBox, m_regexBox)
 #: rc.cpp:92
-#, fuzzy
-#| msgid "Regular expression"
 msgid "&Regular expression"
-msgstr "Регулярен израз"
+msgstr "&Регулярен израз"
 
 #. i18n: file: src/irc/channellistpanelui.ui:218
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, m_minUser)
@@ -6188,75 +6157,75 @@ msgstr ""
 msgid "Topi&c"
 msgstr "&Тема"
 
-#. i18n: file: src/irc/channeloptionsui.ui:77
+#. i18n: file: src/irc/channeloptionsui.ui:74
 #. i18n: ectx: attribute (title), widget (QWidget, modesPage)
 #: rc.cpp:176
 msgid "Mo&des"
 msgstr "&Режими"
 
-#. i18n: file: src/irc/channeloptionsui.ui:83
+#. i18n: file: src/irc/channeloptionsui.ui:80
 #. i18n: ectx: property (text), widget (QCheckBox, topicModeChBox)
 #: rc.cpp:179
 msgid "&Topic can only be changed by channel operators"
 msgstr "&Темата на канала може да бъде сменяна само от операторите на канала"
 
-#. i18n: file: src/irc/channeloptionsui.ui:90
+#. i18n: file: src/irc/channeloptionsui.ui:87
 #. i18n: ectx: property (text), widget (QCheckBox, messageModeChBox)
 #: rc.cpp:182
 msgid "&No messages from outside the channel"
 msgstr "&Не са позволени съобщения, идващи извън канала"
 
-#. i18n: file: src/irc/channeloptionsui.ui:97
+#. i18n: file: src/irc/channeloptionsui.ui:94
 #. i18n: ectx: property (text), widget (QCheckBox, secretModeChBox)
 #: rc.cpp:185
 msgid "&Secret channel, the channel is not listed in the channel list"
 msgstr "&Таен канал, каналът не е показан в списъка с канали"
 
-#. i18n: file: src/irc/channeloptionsui.ui:104
+#. i18n: file: src/irc/channeloptionsui.ui:101
 #. i18n: ectx: property (text), widget (QCheckBox, inviteModeChBox)
 #: rc.cpp:188
 msgid "Only &invited are allowed to join the channel"
 msgstr "Само на &поканени е позволено да се присъединят към канала"
 
-#. i18n: file: src/irc/channeloptionsui.ui:111
+#. i18n: file: src/irc/channeloptionsui.ui:108
 #. i18n: ectx: property (text), widget (QCheckBox, moderatedModeChBox)
 #: rc.cpp:191
 msgid "&Moderated channel, only people with voice can write to the channel"
 msgstr ""
 "&Модериран канал, само потребителите с глас могат да пишат в този канал"
 
-#. i18n: file: src/irc/channeloptionsui.ui:120
+#. i18n: file: src/irc/channeloptionsui.ui:117
 #. i18n: ectx: property (text), widget (QCheckBox, keyModeChBox)
 #: rc.cpp:194
 #, fuzzy
 msgid "Channel &password:"
 msgstr "Парола на канала"
 
-#. i18n: file: src/irc/channeloptionsui.ui:137
+#. i18n: file: src/irc/channeloptionsui.ui:134
 #. i18n: ectx: property (text), widget (QCheckBox, userLimitChBox)
 #: rc.cpp:197
 msgid "User &limit:"
 msgstr "&Ограничение за потребители:"
 
-#. i18n: file: src/irc/channeloptionsui.ui:171
+#. i18n: file: src/irc/channeloptionsui.ui:168
 #. i18n: ectx: property (text), widget (QPushButton, toggleAdvancedModes)
 #: rc.cpp:200
 msgid "Show &Advanced Modes >>"
 msgstr "Показване на &разширени режими >>"
 
-#. i18n: file: src/irc/channeloptionsui.ui:174
+#. i18n: file: src/irc/channeloptionsui.ui:171
 #. i18n: ectx: property (shortcut), widget (QPushButton, toggleAdvancedModes)
 #: rc.cpp:203
 msgid "Alt+A, Backspace, Tab, Backspace"
 msgstr "Alt+A, Backspace, Tab, Backspace"
 
-#. i18n: file: src/irc/channeloptionsui.ui:229
+#. i18n: file: src/irc/channeloptionsui.ui:210
 #. i18n: ectx: attribute (title), widget (QWidget, TabPage)
 #: rc.cpp:206
 msgid "&Ban List"
 msgstr "&Списък с баннати"
 
-#. i18n: file: src/irc/channeloptionsui.ui:243
+#. i18n: file: src/irc/channeloptionsui.ui:224
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #. i18n: file: src/urlcatcherui.ui:42
 #. i18n: ectx: property (text), widget (QLabel, m_searchLbl)
@@ -6264,31 +6233,31 @@ msgstr "&Списък с баннати"
 msgid "Search:"
 msgstr "Търсене:"
 
-#. i18n: file: src/irc/channeloptionsui.ui:265
+#. i18n: file: src/irc/channeloptionsui.ui:246
 #. i18n: ectx: property (text), widget (K3ListView, banList)
 #: rc.cpp:212
 msgid "Hostmask"
 msgstr "Хостмаска"
 
-#. i18n: file: src/irc/channeloptionsui.ui:276
+#. i18n: file: src/irc/channeloptionsui.ui:257
 #. i18n: ectx: property (text), widget (K3ListView, banList)
 #: rc.cpp:215
 msgid "Set By"
 msgstr "Зададена от"
 
-#. i18n: file: src/irc/channeloptionsui.ui:287
+#. i18n: file: src/irc/channeloptionsui.ui:268
 #. i18n: ectx: property (text), widget (K3ListView, banList)
 #: rc.cpp:218
 msgid "Time Set"
 msgstr "Задаване на времето"
 
-#. i18n: file: src/irc/channeloptionsui.ui:309
+#. i18n: file: src/irc/channeloptionsui.ui:290
 #. i18n: ectx: property (text), widget (QPushButton, removeBan)
 #: rc.cpp:221
 msgid "&Remove Ban"
 msgstr "&Премахване на бан"
 
-#. i18n: file: src/irc/channeloptionsui.ui:322
+#. i18n: file: src/irc/channeloptionsui.ui:303
 #. i18n: ectx: property (text), widget (QPushButton, addBan)
 #: rc.cpp:224
 msgid "&Add Ban"
@@ -6381,10 +6350,8 @@ msgstr "&Нов..."
 #. i18n: file: src/irc/serverlistdialogui.ui:146
 #. i18n: ectx: property (text), widget (QPushButton, m_delButton)
 #: rc.cpp:254
-#, fuzzy
-#| msgid "&Delete URL"
 msgid "&Delete"
-msgstr "&Изтриване на URL адрес"
+msgstr "&Изтриване"
 
 #. i18n: file: src/irc/serverdialogui.ui:23
 #. i18n: ectx: property (text), widget (QLabel, serverLbl)
@@ -6465,9 +6432,8 @@ msgstr "На опашка"
 #. i18n: file: src/queuetunerbase.ui:469
 #. i18n: ectx: property (text), item, widget (KComboBox, m_fastType)
 #: rc.cpp:296 rc.cpp:329 rc.cpp:362
-#, fuzzy
 msgid "Lines"
-msgstr "&Редове: "
+msgstr "Редове"
 
 #. i18n: file: src/queuetunerbase.ui:135
 #. i18n: ectx: property (text), item, widget (KComboBox, m_slowType)
@@ -6548,9 +6514,8 @@ msgstr "&Звук:"
 #. i18n: file: src/queuetunerbase.ui:702
 #. i18n: ectx: property (text), widget (QLabel, textLabel8)
 #: rc.cpp:314 rc.cpp:335 rc.cpp:380 rc.cpp:416
-#, fuzzy
 msgid "Lines:"
-msgstr "&Редове: "
+msgstr "Редове:"
 
 #. i18n: file: src/queuetunerbase.ui:226
 #. i18n: ectx: property (text), widget (QLabel, textLabel5_2_2)
@@ -6704,10 +6669,8 @@ msgstr "&Самоличност:"
 #. i18n: file: src/identitydialog.ui:65
 #. i18n: ectx: property (toolTip), widget (KPushButton, newBtn)
 #: rc.cpp:462
-#, fuzzy
-#| msgid "Add..."
 msgid "Add"
-msgstr "Добавяне..."
+msgstr "Добавяне"
 
 #. i18n: file: src/identitydialog.ui:96
 #. i18n: ectx: property (toolTip), widget (KPushButton, copyBtn)
@@ -6726,10 +6689,8 @@ msgstr "Преименуване"
 #. i18n: file: src/config/quickbuttons_configui.ui:55
 #. i18n: ectx: property (text), widget (QPushButton, removeButton)
 #: rc.cpp:471 rc.cpp:606
-#, fuzzy
-#| msgid "R&emove"
 msgid "Remove"
-msgstr "&Премахване"
+msgstr "Премахване"
 
 #. i18n: file: src/identitydialog.ui:187
 #. i18n: ectx: property (text), widget (QLabel, realNameLabel)
@@ -7001,7 +6962,6 @@ msgstr ""
 #. i18n: file: src/identitydialog.ui:493
 #. i18n: ectx: property (text), widget (QLabel, quitLabel)
 #: rc.cpp:570
-#, fuzzy
 msgid "&Quit reason:"
 msgstr "Причина за &напускане:"
 
@@ -7238,8 +7198,6 @@ msgstr "&Нов"
 #. i18n: file: src/config/highlight_configui.ui:175
 #. i18n: ectx: property (text), widget (KPushButton, removeButton)
 #: rc.cpp:684 rc.cpp:790 rc.cpp:895 rc.cpp:1060
-#, fuzzy
-#| msgid "R&emove"
 msgid "&Remove"
 msgstr "&Премахване"
 
@@ -7545,9 +7503,8 @@ msgstr "Фокусиране върху новите &лични разгово�
 #. i18n: file: src/config/tabs_configui.ui:128
 #. i18n: ectx: property (title), widget (QGroupBox, mouseGBox)
 #: rc.cpp:829
-#, fuzzy
 msgid "Mouse"
-msgstr "Режим"
+msgstr "Мишка"
 
 #. i18n: file: src/config/tabs_configui.ui:134
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MiddleClickClose)
@@ -7561,7 +7518,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
 #: rc.cpp:835 rc.cpp:1045
 msgid "RegEx"
-msgstr "RegEx"
+msgstr ""
 
 #. i18n: file: src/config/autoreplace_configui.ui:48
 #. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
@@ -8069,39 +8026,31 @@ msgstr ""
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_ProxyEnabled)
 #: rc.cpp:1125
 msgid "Proxy"
-msgstr ""
+msgstr "Прокси"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:198
 #. i18n: ectx: property (text), widget (QLabel, addressLabel)
 #: rc.cpp:1128
-#, fuzzy
-#| msgid "Address book:"
 msgid "Address:"
-msgstr "Адресна книга:"
+msgstr "Адрес:"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:212
 #. i18n: ectx: property (text), widget (QLabel, portLabel)
 #: rc.cpp:1131
-#, fuzzy
-#| msgid "&Port:"
 msgid "Port:"
-msgstr "&Порт:"
+msgstr "Порт:"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:226
 #. i18n: ectx: property (text), widget (QLabel, usernameLabel)
 #: rc.cpp:1134
-#, fuzzy
-#| msgid "Filename:"
 msgid "Username:"
-msgstr "Файл:"
+msgstr "Потребител:"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:240
 #. i18n: ectx: property (text), widget (QLabel, passwordLabel)
 #: rc.cpp:1137
-#, fuzzy
-#| msgid "P&assword:"
 msgid "Password:"
-msgstr "П&арола:"
+msgstr "Парола:"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:271
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_ProxyType)
@@ -8148,8 +8097,6 @@ msgstr "Ако включите това входящата кутия ще св
 #. i18n: file: src/config/konversation.kcfg:276
 #. i18n: ectx: label, entry, group (General Options)
 #: rc.cpp:1241
-#, fuzzy
-#| msgid "Start with hidden mainwindow"
 msgid "Start with hidden main window"
 msgstr "Стартиране със скрит главен прозорец"
 
@@ -8718,7 +8665,6 @@ msgstr "&Показване на часа"
 #. i18n: file: src/config/chatwindowappearance_config.ui:33
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowDate)
 #: rc.cpp:1752
-#, fuzzy
 msgid "Sho&w dates"
 msgstr "Показване на &датите"
 
@@ -8874,10 +8820,8 @@ msgstr "Събитие в канал"
 #. i18n: file: src/viewer/searchbarbase.ui:92
 #. i18n: ectx: property (text), widget (QToolButton, m_optionsButton)
 #: rc.cpp:1833 rc.cpp:1872
-#, fuzzy
-#| msgid "Exception"
 msgid "Options"
-msgstr "Изключение"
+msgstr "Настройки"
 
 #. i18n: file: src/config/tabnotifications_config.ui:281
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsOverride)
@@ -8953,10 +8897,8 @@ msgstr ""
 #. i18n: file: src/viewer/pasteeditor.ui:20
 #. i18n: ectx: property (text), widget (KPushButton, m_removeNewlinesButton)
 #: rc.cpp:1878
-#, fuzzy
-#| msgid "Remove Theme"
 msgid "&Remove Newlines"
-msgstr "Премахване на тема"
+msgstr "Премахване на &новите редове"
 
 #. i18n: file: src/viewer/pasteeditor.ui:27
 #. i18n: ectx: property (text), widget (KPushButton, m_addQuotesButton)
@@ -9068,252 +9010,3 @@ msgstr ""
 #: rc.cpp:1938
 msgid "&Window"
 msgstr "&Прозорец"
-
-#, fuzzy
-#~| msgid "&Format:"
-#~ msgid "Form"
-#~ msgstr "&Формат:"
-
-#, fuzzy
-#~| msgid "Connection broken, error code %1."
-#~ msgid "Connection broken, error (%1) %2."
-#~ msgstr "Връзката е прекъсната, код за грешка %1."
-
-#~ msgid "Accept"
-#~ msgstr "Приемане"
-
-#~ msgid "Abort"
-#~ msgstr "Прекъсване"
-
-#, fuzzy
-#~| msgid "&Clear"
-#~ msgid "Clear"
-#~ msgstr "&Изчистване"
-
-#~ msgid "Open File"
-#~ msgstr "Отваряне на файл"
-
-#~ msgid "View DCC transfer details"
-#~ msgstr "Преглед на подробната информация за DCC"
-
-#~ msgid "Send"
-#~ msgstr "Изпращане"
-
-#~ msgid "Receive"
-#~ msgstr "Получаване"
-
-#~ msgid "Awaiting"
-#~ msgstr "Изчакване"
-
-#~ msgid "&Join"
-#~ msgstr "&Присъединяване"
-
-#~ msgid ""
-#~ "Click here to retrieve the list of channels from the server and apply the "
-#~ "filter."
-#~ msgstr ""
-#~ "Щракнете, за да получите списъка с канали от сървъра и да приложите "
-#~ "филтъра."
-
-#, fuzzy
-#~| msgid "Apply Filter"
-#~ msgid "&Apply Filter"
-#~ msgstr "Прилагане на филтър"
-
-#, fuzzy
-#~| msgid "Channel List for %1"
-#~ msgid "Channel List Buffer:"
-#~ msgstr "Списък с канали за %1"
-
-#~ msgid "Filter Settings"
-#~ msgstr "Настройки за филтриране"
-
-#~ msgid "Filter target:"
-#~ msgstr "Цел за филтриране:"
-
-#~ msgid "Open URL"
-#~ msgstr "Отваряне на URL адрес"
-
-#~ msgid "<<No URL found>>"
-#~ msgstr "<<Няма открит URL адрес>>"
-
-#~ msgid "Today"
-#~ msgstr "Днес"
-
-#~ msgid "Yesterday"
-#~ msgstr "Вчера"
-
-#~ msgid "Automatically join channel on invite"
-#~ msgstr "Автоматично присъединяване при покана"
-
-#, fuzzy
-#~| msgid "DCC"
-#~ msgid "CBC"
-#~ msgstr "DCC"
-
-#~ msgid "&Use raw modes for mode changes"
-#~ msgstr "&Използване на необработени състояния за промяната на режима"
-
-#~ msgid ""
-#~ "You were invited by %1 to join channel %2. Do you accept the invitation?"
-#~ msgstr ""
-#~ "Бяхте поканен от %1 да се присъедините към канал %2. Искате ли да "
-#~ "приемете поканата?"
-
-#~ msgid "Invitation"
-#~ msgstr "Покана"
-
-#~ msgid "Connection failure: %1"
-#~ msgstr "Неуспех на връзката: %1"
-
-#~ msgid "Remote user disconnected"
-#~ msgstr "Отдалеченият потребител прекъсна"
-
-#, fuzzy
-#~ msgid ""
-#~ "Usage: %1setkey [<nick|channel>] <key> sets the encryption key for nick "
-#~ "or channel. %2setkey <key> when in a channel or query tab to set the key "
-#~ "for it."
-#~ msgstr ""
-#~ "Употреба: %1setkey <nick> или <channel> <key> задава шифроващ ключ за "
-#~ "псевдоним или канал"
-
-#~ msgid "Date"
-#~ msgstr "Дата"
-
-#~ msgid "Copy URL to Clipboard"
-#~ msgstr "Копиране на URL в системния буфер"
-
-#~ msgctxt "%1 is the message, %2 the recipient nickname"
-#~ msgid "Sending notice \"%2\" to %1."
-#~ msgstr "Изпращане на бележка \"%2\" на %1."
-
-#, fuzzy
-#~| msgid "Filename:"
-#~ msgctxt "%1 File Transfer is complete"
-#~ msgid "%1 - filename"
-#~ msgstr "Файл:"
-
-#~ msgid "No such ignores: %1"
-#~ msgstr "Няма такива игнорирани: %1"
-
-#~ msgid ""
-#~ "None of the contacts that you have selected have an email address "
-#~ "associated with them. "
-#~ msgstr ""
-#~ "Нито един от контактите, които маркирахте няма адрес за електронна поща, "
-#~ "асоцииран към него. "
-
-#, fuzzy
-#~| msgid ""
-#~| "Optional. This command will be sent to the server after connecting. "
-#~| "Example: <b>/msg NickServ IDENTIFY <i>konvirocks</i></b>. This example "
-#~| "is for the freenode network, which requires users to register their "
-#~| "nickname with a password and login when connecting. <i>konvirocks<i> is "
-#~| "the password for the nickname given in Identity. You may enter more than "
-#~| "one command by separating them with semicolons."
-#~ msgid ""
-#~ "Optional. This command will be sent to the server after connecting. "
-#~ "Example: <b>/msg NickServ IDENTIFY <i>konvirocks</i></b>. This example is "
-#~ "for the freenode network, which requires users to register their nickname "
-#~ "with a password and login when connecting. <i>konvirocks</i> is the "
-#~ "password for the nickname given in Identity. You may enter more than one "
-#~ "command by separating them with semicolons."
-#~ msgstr ""
-#~ "Незадължително. Тази команда ще се изпрати към сървъра след свързване. "
-#~ "Пример: <b>/msg NickServ IDENTIFY <i>konvirocks</i></b>. Този пример е за "
-#~ "мрежа със свободни възли, което изисква потребителите да регистрират "
-#~ "техните псевдоними с пароли и да се включват, когато се свързват. "
-#~ "<i>konvirocks<i> е паролата за псевдонима, зададен в самоличността. Може "
-#~ "да въведете повече от една команда, като като ги разделите с точка и "
-#~ "запетая."
-
-#~ msgid "Edit..."
-#~ msgstr "Редактиране..."
-
-#~ msgctxt "Tab name"
-#~ msgid "Away"
-#~ msgstr "Отсъствие"
-
-#~ msgid "Add Nickname"
-#~ msgstr "Добавяне на псевдоним"
-
-#~ msgid "Edit Nickname"
-#~ msgstr "Редактиране на псевдоним"
-
-#~ msgid "DCOP"
-#~ msgstr "DCOP"
-
-#~ msgid "No matches found for \"%1\"."
-#~ msgstr "Не са намерени съвпадения за \"%1\"."
-
-#~ msgid "Reverse-resolving requires KDE version 3.5.1 or higher."
-#~ msgstr "Обратното разрешаване изисква KDE версии 3.5.1 или по-нова."
-
-#~ msgid "Connection is secured with %1 bit SSL."
-#~ msgstr "Свързването е подсигурено с %1 битов SSL."
-
-#~ msgid ""
-#~ "The functionality to connect to servers using encrypted SSL "
-#~ "communications is not available to Konversation because OpenSSL support "
-#~ "was not enabled at compile time.  You will need to get new version of KDE "
-#~ "that has SSL support."
-#~ msgstr ""
-#~ "Възможността да се свързвате към сървъри, използвайки SSL кодирана "
-#~ "комуникация не е налична в Konversation, защото поддръжката на OpenSSL не "
-#~ "е разрешена по време на компилирането. Трябва да вземете нова версия на "
-#~ "KDE, която има SSL поддръжка."
-
-#~ msgid ""
-#~ "The SSL certificate returned from the server was not recognized.  Maybe "
-#~ "this server does not support SSL on the given port?  If this server "
-#~ "supports normal, non-SSL communications as well, then SSL will be on a "
-#~ "different port."
-#~ msgstr ""
-#~ "SSL сертификатът, който беше върнат от сървъра не се разпознава. Възможно "
-#~ "е този сървър да не поддържа SSL на този порт. Ако този сървър поддържа "
-#~ "нормална не кодирана комуникация, тогава SSL ще е на различен порт."
-
-#~ msgid ""
-#~ "The IP address of the host %1 does not match the one the certificate was "
-#~ "issued to."
-#~ msgstr ""
-#~ "IP адресът на хост %1 не съвпада с този, на когото е издаден сертификатът."
-
-#~ msgid ""
-#~ "Would you like to accept this certificate forever without being prompted?"
-#~ msgstr ""
-#~ "Искате ли да приемете този сертификат завинаги без да получавате "
-#~ "запитвания?"
-
-#~ msgid "&Forever"
-#~ msgstr "&Завинаги"
-
-#~ msgid "&Current Sessions Only"
-#~ msgstr "&Само текущи сесии"
-
-#~ msgid "Could not open the file: %1"
-#~ msgstr "Не може да се отвори файл: %1"
-
-#, fuzzy
-#~ msgid "Server %1 not found: %2"
-#~ msgstr "Сървър %1 не е открит. %2"
-
-#~ msgid "There was an error reading the data from the server: %1"
-#~ msgstr "Възникна грешка при четене на информация от сървър: %1"
-
-#, fuzzy
-#~ msgid "Open Folder"
-#~ msgstr "Отваряне на файл"
-
-#~ msgid ""
-#~ "<qt>These control the <em>mode</em> of the channel.  Only an operator can "
-#~ "change these.<p>An <b>I</b>nvite only channel means that people can only "
-#~ "join the channel if they are invited.  To invite someone, a channel "
-#~ "operator needs to issue the command<em>/invite nick</em> from within the "
-#~ "channel.</qt>"
-#~ msgstr ""
-#~ "<qt>Тези контролират <em>режима</em> на канала. Само оператор може да ги "
-#~ "променя.<p>Канал <b>с</b>амо с покани означава, че потребителите могат да "
-#~ "влизат в канала само ако са поканени. За да поканите някого, оператор на "
-#~ "канала трябва да издаде команда <em>/invite псевдоним</em> в канала.</qt>"

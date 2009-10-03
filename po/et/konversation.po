@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-09-21 06:08+0200\n"
-"PO-Revision-Date: 2009-09-15 04:08+0300\n"
+"POT-Creation-Date: 2009-09-30 07:03+0200\n"
+"PO-Revision-Date: 2009-09-28 16:18+0300\n"
 "Last-Translator: Marek Laane <bald@smail.ee>\n"
 "Language-Team: Estonian <kde-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -118,8 +118,8 @@ msgstr "Sokli avamine nurjus"
 msgid "DCC"
 msgstr "DCC"
 
-#: src/dcc/chat.cpp:161 src/dcc/transferrecv.cpp:481
-#: src/dcc/transferrecv.cpp:513
+#: src/dcc/chat.cpp:161 src/dcc/transferrecv.cpp:487
+#: src/dcc/transferrecv.cpp:519
 msgid ""
 "Could not send Reverse DCC SEND acknowledgement to the partner via the IRC "
 "server."
@@ -127,17 +127,18 @@ msgstr ""
 "Tagurpidi DCC SEND vastuvõtmise saatmine partnerile IRC serveri kaudu nurjus."
 
 #: src/dcc/chat.cpp:172 src/dcc/transfersend.cpp:350
-#: src/dcc/transferrecv.cpp:526
+#: src/dcc/transferrecv.cpp:532
 msgctxt "Universal Plug and Play"
 msgid "UPnP"
 msgstr "UPnP"
 
 #: src/dcc/chat.cpp:172 src/dcc/transfersend.cpp:350
-#: src/dcc/transferrecv.cpp:526
+#: src/dcc/transferrecv.cpp:532
 #, kde-format
 msgid ""
 "Failed to forward port %1. Sending DCC request to remote user regardless."
 msgstr ""
+"Pordi %1 edasisuunamine nurjus. Siiski saadetakse partnerile DCC päring."
 
 #: src/dcc/chat.cpp:191
 #, kde-format
@@ -193,7 +194,7 @@ msgstr "DCC vestluse ühendus kasutajaga %1 loodud"
 msgid "Error"
 msgstr "Viga"
 
-#: src/dcc/chat.cpp:248 src/dcc/transfersend.cpp:515
+#: src/dcc/chat.cpp:248 src/dcc/transfersend.cpp:516
 #, kde-format
 msgid "Socket error: %1"
 msgstr "Sokli viga: %1"
@@ -276,50 +277,50 @@ msgstr "DCC SEND soovi saatmine partnerile ISC serveri kaudu nurjus."
 msgid "Awaiting remote user's acceptance"
 msgstr "Oodatakse kaugkasutaja nõusolekut"
 
-#: src/dcc/transfersend.cpp:404 src/dcc/transferrecv.cpp:625
+#: src/dcc/transfersend.cpp:404 src/dcc/transferrecv.cpp:631
 msgid "Could not accept the connection (socket error.)"
 msgstr "Ühenduse aktsepteerimine nurjus (sokliviga)."
 
-#: src/dcc/transfersend.cpp:537 src/dcc/transferrecv.cpp:750
+#: src/dcc/transfersend.cpp:538 src/dcc/transferrecv.cpp:756
 msgid "Timed out"
 msgstr "Aegus"
 
-#: src/dcc/transfersend.cpp:547
+#: src/dcc/transfersend.cpp:548
 msgid "The operation was successful. Should never happen in an error dialog."
 msgstr "Operatsioon oli edukas. Veadialoogi ei peaks küll ilmuma."
 
-#: src/dcc/transfersend.cpp:550
+#: src/dcc/transfersend.cpp:551
 #, kde-format
 msgid "Could not read from file \"%1\"."
 msgstr "Faili \"%1\" lugemine nurjus."
 
-#: src/dcc/transfersend.cpp:553
+#: src/dcc/transfersend.cpp:554
 #, kde-format
 msgid "Could not write to file \"%1\"."
 msgstr "Faili \"%1\" kirjutamine nurjus."
 
-#: src/dcc/transfersend.cpp:556
+#: src/dcc/transfersend.cpp:557
 msgid "A fatal unrecoverable error occurred."
 msgstr "Tekkis saatuslik ja parandamatu viga."
 
-#: src/dcc/transfersend.cpp:559
+#: src/dcc/transfersend.cpp:560
 #, kde-format
 msgid "Could not open file \"%1\"."
 msgstr "Faili \"%1\" avamine nurjus."
 
-#: src/dcc/transfersend.cpp:568
+#: src/dcc/transfersend.cpp:569
 msgid "The operation was unexpectedly aborted."
 msgstr "Operatsioon lõpetati ootamatult."
 
-#: src/dcc/transfersend.cpp:571
+#: src/dcc/transfersend.cpp:572
 msgid "The operation timed out."
 msgstr "Operatsioon aegus."
 
-#: src/dcc/transfersend.cpp:574
+#: src/dcc/transfersend.cpp:575
 msgid "An unspecified error happened on close."
 msgstr "Sulgemisel tekkis selgusetu viga."
 
-#: src/dcc/transfersend.cpp:577
+#: src/dcc/transfersend.cpp:578
 #, kde-format
 msgid "Unknown error. Code %1"
 msgstr "Tundmatu viga. Kood %1"
@@ -376,10 +377,8 @@ msgid "Preparing"
 msgstr "Ettevalmistamine"
 
 #: src/dcc/transferlistmodel.cpp:455
-#, fuzzy
-#| msgid "Sending"
 msgid "Pending"
-msgstr "Saatmine"
+msgstr "Ootel"
 
 #: src/dcc/transferlistmodel.cpp:457 src/linkaddressbook/addressbook.cpp:107
 msgid "Connecting"
@@ -406,77 +405,61 @@ msgid "Aborted"
 msgstr "Katkestatud"
 
 #: src/dcc/transferlistmodel.cpp:486
-#, fuzzy
 msgid "Queued - Transfer is waiting for you to accept or reject it"
-msgstr "Järjekorras Ülekanne on tingimusel kuni või"
+msgstr "Järjekorras - ülekanne ootab sinu nõusolekut või keeldumist"
 
 #: src/dcc/transferlistmodel.cpp:491
-#, fuzzy
 msgid "Preparing - Transfer is checking for resumable files"
-msgstr "Ettevalmistamine Ülekanne on kontrollimine tingimusel failid"
+msgstr "Ettevalmistamine - kontrollitakse taasalustamiseks kõlblikke faile"
 
 #: src/dcc/transferlistmodel.cpp:493
-#, fuzzy
 msgid "Preparing - Transfer is acquiring the data to send"
-msgstr "Ettevalmistamine Ülekanne on kuni"
+msgstr "Ettevalmistamine - hangitakse saadetavaid andmeid"
 
 #: src/dcc/transferlistmodel.cpp:499
-#, fuzzy
 msgid "Pending - Transfer is waiting for the partner to accept or reject it"
-msgstr "Ootel Ülekanne on tingimusel kuni või"
+msgstr "Ootel - ülekanne ootab partneri nõusolekut või keeldumist"
 
 #: src/dcc/transferlistmodel.cpp:501
-#, fuzzy
 msgid "Connecting - Transfer is connecting to the partner"
-msgstr "Ühendumine Ülekanne on ühendumine kuni"
+msgstr "Ühendumine - ühenduse loomine partneriga"
 
 #: src/dcc/transferlistmodel.cpp:506
-#, fuzzy
 msgid "Receiving - Transfer is receiving data from the partner"
-msgstr "Vastuvõtmine Ülekanne on  "
+msgstr "Vastuvõtmine - andmete saamine partnerilt"
 
 #: src/dcc/transferlistmodel.cpp:508
-#, fuzzy
 msgid "Sending - Transfer is sending data to partner"
-msgstr "Saatmine Ülekanne on saatmine kuni"
+msgstr "Saatmine - andmete saatmine partnerile"
 
 #: src/dcc/transferlistmodel.cpp:514
-#, fuzzy
 msgid "Done - Transfer has completed successfully"
-msgstr "Tehtud Ülekanne valmis"
+msgstr "Tehtud - ülekanne on edukalt lõpetatud"
 
 #: src/dcc/transferlistmodel.cpp:518
-#, fuzzy
 msgid "Failed - Transfer failed with 'unknown reason'"
-msgstr "Nurjus Ülekanne nurjus järgnevaga tundmatu"
+msgstr "Nurjumine - ülekanne nurjus \"teadmata põhjusel\""
 
 #: src/dcc/transferlistmodel.cpp:522
-#, fuzzy, kde-format
+#, kde-format
 msgid "Failed - Transfer failed with reason '%1'"
-msgstr "Nurjus Ülekanne nurjus järgnevaga"
+msgstr "Nurjumine - ülekanne nurjus \"%1\" tõttu"
 
 #: src/dcc/transferlistmodel.cpp:525
-#, fuzzy
 msgid "Aborted - Transfer was aborted by the User"
-msgstr "Katkestatud Ülekanne x Kasutaja"
+msgstr "Katkestatud - kasutaja katkestas ülekande"
 
 #: src/dcc/transferlistmodel.cpp:618
-#, fuzzy
-#| msgid "Incoming"
 msgid "Incoming Transfers"
-msgstr "Sisenev"
+msgstr "Sisenevad ülekanded"
 
 #: src/dcc/transferlistmodel.cpp:622
-#, fuzzy
-#| msgid "Outgoing"
 msgid "Outgoing Transfers"
-msgstr "Väljuv"
+msgstr "Väljuvad ülekanded"
 
 #: src/dcc/transferview.cpp:275
-#, fuzzy
-#| msgid "Commands:"
 msgid "Columns"
-msgstr "Käsud:"
+msgstr "Veerud"
 
 #: src/dcc/transferrecv.cpp:185
 msgid "The admin has restricted the right to receive files"
@@ -500,12 +483,12 @@ msgstr "<b>Kataloogi loomine nurjus.</b><br>Kataloog: %1<br>"
 msgid "Could not create a KIO instance"
 msgstr "KIO protsessi loomine nurjus"
 
-#: src/dcc/transferrecv.cpp:380
+#: src/dcc/transferrecv.cpp:388
 #, kde-format
 msgid "<b>The file is used by another transfer.</b><br>%1<br>"
 msgstr "<b>Faili kasutatakse juba teises ülekandes.</b><br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:402
+#: src/dcc/transferrecv.cpp:407
 #, kde-format
 msgid ""
 "<b>A partial file exists:</b><br/>%2<br/>Size of the partial file: 1 byte."
@@ -518,39 +501,39 @@ msgstr[0] ""
 msgstr[1] ""
 "<b>Olemas on osaline fail:</b><br>%1<br>Osalise faili suurus: %2 baiti.<br>"
 
-#: src/dcc/transferrecv.cpp:433
+#: src/dcc/transferrecv.cpp:439
 #, kde-format
 msgid "<b>The file already exists.</b><br>%1<br>"
 msgstr "<b>Fail on juba olemas.</b><br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:440
+#: src/dcc/transferrecv.cpp:446
 #, kde-format
 msgid "<b>Could not open the file.<br>Error: %1</b><br>%2<br>"
 msgstr "<b>Faili avamine nurjus.<br>Viga: %1</b><br>%2<br>"
 
-#: src/dcc/transferrecv.cpp:529
+#: src/dcc/transferrecv.cpp:535
 msgid "Waiting for connection"
 msgstr "Ühenduse ootel"
 
-#: src/dcc/transferrecv.cpp:538
+#: src/dcc/transferrecv.cpp:544
 msgid "Waiting for remote host's acceptance"
 msgstr "Oodatakse kaugmasina nõusolekut"
 
-#: src/dcc/transferrecv.cpp:548
+#: src/dcc/transferrecv.cpp:554
 msgid ""
 "Could not send DCC RECV resume request to the partner via the IRC server."
 msgstr ""
 "DCC RECV taastamise soovi saatmine partnerile IRC serveri kaudu nurjus."
 
-#: src/dcc/transferrecv.cpp:570
+#: src/dcc/transferrecv.cpp:576
 msgid "Unexpected response from remote host"
 msgstr "Ootamatu vastus kaugmasinalt"
 
-#: src/dcc/transferrecv.cpp:713
+#: src/dcc/transferrecv.cpp:719
 msgid "Transfer error"
 msgstr "Ülekande viga"
 
-#: src/dcc/transferrecv.cpp:729
+#: src/dcc/transferrecv.cpp:735
 #, kde-format
 msgid "KIO error: %1"
 msgstr "KIO viga: %1"
@@ -592,22 +575,16 @@ msgid "&Clear"
 msgstr "&Puhasta"
 
 #: src/dcc/transferpanel.cpp:90
-#, fuzzy
-#| msgid "S&elect All Completed Items"
 msgid "Clear all selected Items"
-msgstr "V&ali kõik lõpetatud elemendid"
+msgstr "Puhasta kõik valitud elemendid"
 
 #: src/dcc/transferpanel.cpp:91
-#, fuzzy
-#| msgid "Clear Logfile"
 msgid "Clear Completed"
-msgstr "Puhasta logifail"
+msgstr "Puhasta lõpetatud"
 
 #: src/dcc/transferpanel.cpp:92
-#, fuzzy
-#| msgid "S&elect All Completed Items"
 msgid "Clear Completed Items"
-msgstr "V&ali kõik lõpetatud elemendid"
+msgstr "Puhasta lõpetatud elemendid"
 
 #: src/dcc/transferpanel.cpp:94
 msgid "&Open File"
@@ -804,25 +781,25 @@ msgstr ""
 
 #: src/irc/nicklistview.cpp:114 src/irc/nicksonline.cpp:912
 #: src/irc/nicksonline.cpp:930 src/irc/query.cpp:81
-#: src/viewer/ircview.cpp:1151
+#: src/viewer/ircview.cpp:1184
 msgid "&Whois"
 msgstr "K&eson"
 
 #: src/irc/nicklistview.cpp:115 src/irc/query.cpp:82
-#: src/viewer/ircview.cpp:1153
+#: src/viewer/ircview.cpp:1186
 msgid "&Version"
 msgstr "&Versioon"
 
 #: src/irc/nicklistview.cpp:116 src/irc/query.cpp:83
-#: src/viewer/ircview.cpp:1155
+#: src/viewer/ircview.cpp:1188
 msgid "&Ping"
 msgstr "&Ping"
 
-#: src/irc/nicklistview.cpp:122 src/viewer/ircview.cpp:1163
+#: src/irc/nicklistview.cpp:122 src/viewer/ircview.cpp:1196
 msgid "Give Op"
 msgstr "Anna op"
 
-#: src/irc/nicklistview.cpp:126 src/viewer/ircview.cpp:1168
+#: src/irc/nicklistview.cpp:126 src/viewer/ircview.cpp:1201
 msgid "Take Op"
 msgstr "Võta op"
 
@@ -834,66 +811,66 @@ msgstr "Anna poolop"
 msgid "Take HalfOp"
 msgstr "Võta poolop"
 
-#: src/irc/nicklistview.cpp:132 src/viewer/ircview.cpp:1173
+#: src/irc/nicklistview.cpp:132 src/viewer/ircview.cpp:1206
 msgid "Give Voice"
 msgstr "Anna hääl"
 
-#: src/irc/nicklistview.cpp:136 src/viewer/ircview.cpp:1178
+#: src/irc/nicklistview.cpp:136 src/viewer/ircview.cpp:1211
 msgid "Take Voice"
 msgstr "Võta hääl"
 
-#: src/irc/nicklistview.cpp:140 src/viewer/ircview.cpp:1162
+#: src/irc/nicklistview.cpp:140 src/viewer/ircview.cpp:1195
 msgid "Modes"
 msgstr "Režiimid"
 
 #: src/irc/nicklistview.cpp:147 src/irc/channel.cpp:1503
 #: src/irc/channel.cpp:1505 src/irc/channel.cpp:1512 src/irc/channel.cpp:1517
 #: src/irc/channel.cpp:1538 src/irc/channel.cpp:1540 src/irc/channel.cpp:1547
-#: src/irc/channel.cpp:1552 src/viewer/ircview.cpp:1185
+#: src/irc/channel.cpp:1552 src/viewer/ircview.cpp:1218
 msgid "Kick"
 msgstr "Viska välja"
 
-#: src/irc/nicklistview.cpp:148 src/viewer/ircview.cpp:1187
+#: src/irc/nicklistview.cpp:148 src/viewer/ircview.cpp:1220
 msgid "Kickban"
 msgstr "Viska välja ja pagenda"
 
-#: src/irc/nicklistview.cpp:149 src/viewer/ircview.cpp:1189
+#: src/irc/nicklistview.cpp:149 src/viewer/ircview.cpp:1222
 msgid "Ban Nickname"
 msgstr "Pagenda kasutaja"
 
-#: src/irc/nicklistview.cpp:151 src/viewer/ircview.cpp:1192
+#: src/irc/nicklistview.cpp:151 src/viewer/ircview.cpp:1225
 msgid "Ban *!*@*.host"
 msgstr "Pagenda *!*@*.masin"
 
-#: src/irc/nicklistview.cpp:152 src/viewer/ircview.cpp:1194
+#: src/irc/nicklistview.cpp:152 src/viewer/ircview.cpp:1227
 msgid "Ban *!*@domain"
 msgstr "Pagenda *!*@domeen"
 
-#: src/irc/nicklistview.cpp:153 src/viewer/ircview.cpp:1196
+#: src/irc/nicklistview.cpp:153 src/viewer/ircview.cpp:1229
 msgid "Ban *!user@*.host"
 msgstr "Pagenda *!kasutaja@*.masin"
 
-#: src/irc/nicklistview.cpp:154 src/viewer/ircview.cpp:1198
+#: src/irc/nicklistview.cpp:154 src/viewer/ircview.cpp:1231
 msgid "Ban *!user@domain"
 msgstr "Pagenda *!kasutaja@domeen"
 
-#: src/irc/nicklistview.cpp:156 src/viewer/ircview.cpp:1201
+#: src/irc/nicklistview.cpp:156 src/viewer/ircview.cpp:1234
 msgid "Kickban *!*@*.host"
 msgstr "Viska välja ja pagenda *!*@*.masin"
 
-#: src/irc/nicklistview.cpp:157 src/viewer/ircview.cpp:1203
+#: src/irc/nicklistview.cpp:157 src/viewer/ircview.cpp:1236
 msgid "Kickban *!*@domain"
 msgstr "Viska välja ja pagenda *!*@domeen"
 
-#: src/irc/nicklistview.cpp:158 src/viewer/ircview.cpp:1205
+#: src/irc/nicklistview.cpp:158 src/viewer/ircview.cpp:1238
 msgid "Kickban *!user@*.host"
 msgstr "Viska välja ja pagenda *!kasutaja@*.masin"
 
-#: src/irc/nicklistview.cpp:159 src/viewer/ircview.cpp:1207
+#: src/irc/nicklistview.cpp:159 src/viewer/ircview.cpp:1240
 msgid "Kickban *!user@domain"
 msgstr "Viska välja ja pagenda *!kasutaja@domeen"
 
-#: src/irc/nicklistview.cpp:160 src/viewer/ircview.cpp:1184
+#: src/irc/nicklistview.cpp:160 src/viewer/ircview.cpp:1217
 msgid "Kick / Ban"
 msgstr "Viska välja / pagenda"
 
@@ -901,13 +878,13 @@ msgstr "Viska välja / pagenda"
 #: src/irc/outputfilter.cpp:1504 src/irc/query.cpp:86 src/irc/query.cpp:394
 #: src/irc/query.cpp:395 src/irc/channel.cpp:670 src/irc/channel.cpp:671
 #: src/config/settingsdialog.cpp:131 src/config/warnings_config.cpp:118
-#: src/viewer/ircview.cpp:1211
+#: src/viewer/ircview.cpp:1244
 msgid "Ignore"
 msgstr "Ignoreeri"
 
 #: src/irc/nicklistview.cpp:166 src/irc/query.cpp:87 src/irc/query.cpp:420
 #: src/irc/query.cpp:421 src/irc/channel.cpp:695 src/irc/channel.cpp:696
-#: src/config/warnings_config.cpp:119 src/viewer/ircview.cpp:1212
+#: src/config/warnings_config.cpp:119 src/viewer/ircview.cpp:1245
 msgid "Unignore"
 msgstr "Ära ignoreeri"
 
@@ -950,7 +927,7 @@ msgstr ""
 "administraator ei näe seda ega saa pealt kuulata.</p></qt>"
 
 #: src/irc/nicklistview.cpp:176 src/irc/query.cpp:91
-#: src/viewer/ircview.cpp:1226
+#: src/viewer/ircview.cpp:1259
 msgid "Send &File..."
 msgstr "Saada &fail..."
 
@@ -974,7 +951,7 @@ msgid "Address Book Associations"
 msgstr "Aadressiraamatu seosed"
 
 #: src/irc/nicklistview.cpp:191 src/irc/query.cpp:95
-#: src/viewer/ircview.cpp:1232
+#: src/viewer/ircview.cpp:1265
 msgid "Add to Watched Nicks"
 msgstr "Lisa jälgitavate kasutajate hulka"
 
@@ -1092,15 +1069,15 @@ msgstr "Ühendumine serveriga"
 msgid "Click here to connect to the selected IRC network and channel."
 msgstr "Klõpsa siia ühendumiseks valitud IRC võrgu ja kanaliga."
 
-#: src/irc/serverlistdialog.cpp:144
+#: src/irc/serverlistdialog.cpp:145
 msgid "New Network"
 msgstr "Uus võrk"
 
-#: src/irc/serverlistdialog.cpp:165
+#: src/irc/serverlistdialog.cpp:166
 msgid "Edit Network"
 msgstr "Võrgu muutmine"
 
-#: src/irc/serverlistdialog.cpp:221
+#: src/irc/serverlistdialog.cpp:222
 #, kde-format
 msgid ""
 "You cannot delete %1.\n"
@@ -1111,7 +1088,7 @@ msgstr ""
 "\n"
 "%2 võrk vajab vähemalt üht serverit."
 
-#: src/irc/serverlistdialog.cpp:226
+#: src/irc/serverlistdialog.cpp:227
 #, kde-format
 msgid ""
 "You cannot delete the selected server.\n"
@@ -1130,27 +1107,27 @@ msgstr[1] ""
 "\n"
 "%2 võrk vajab vähemalt üht serverit."
 
-#: src/irc/serverlistdialog.cpp:242
+#: src/irc/serverlistdialog.cpp:243
 msgid "Do you really want to delete the selected entries?"
 msgstr "Kas tõesti kustutada valitud kirjed?"
 
-#: src/irc/serverlistdialog.cpp:244
+#: src/irc/serverlistdialog.cpp:245
 #, kde-format
 msgid "Do you really want to delete %1?"
 msgstr "Kas tõesti kustutada %1?"
 
 #: src/irc/outputfilter.cpp:208
-#, fuzzy
 msgid ""
 "The message you're sending includes characters that do not exist in your "
 "current encoding. If you choose to continue anyway those characters will be "
 "replaced by a '?'."
-msgstr "teade saatmine mitte asukohas aktiivne kuni continue x a."
+msgstr ""
+"Sõnum, mida soovid saata, sisaldab märke, mida ei leidu sinu aktiivses "
+"kodeeringus. Jätkamise korral asendatakse need märgiga \"?\"."
 
 #: src/irc/outputfilter.cpp:212
-#, fuzzy
 msgid "Encoding Conflict Warning"
-msgstr "Kodeering Konflikt Hoiatus"
+msgstr "Kodeeringu konflikti hoiatus"
 
 #: src/irc/outputfilter.cpp:316
 msgid "Raw"
@@ -1302,10 +1279,9 @@ msgid "Usage: %1DCC [SEND nickname filename]"
 msgstr "Kasutamine: %1DCC [SEND kasutaja failinimi]"
 
 #: src/irc/outputfilter.cpp:967
-#, fuzzy, kde-format
-#| msgid "Usage: %1DCC [SEND nickname filename]"
+#, kde-format
 msgid "Usage: %1DCC [GET [nickname [filename]]]"
-msgstr "Kasutamine: %1DCC [SEND kasutaja failinimi]"
+msgstr "Kasutamine: %1DCC [GET [hüüdnimi [failinimi]]]"
 
 #: src/irc/outputfilter.cpp:977
 #, kde-format
@@ -1347,7 +1323,7 @@ msgid "Usage: %1RAW [OPEN | CLOSE]"
 msgstr "Kasutamine: %1RAW [OPEN | CLOSE]"
 
 #: src/irc/outputfilter.cpp:1195 src/irc/server.cpp:2459
-#: src/irc/server.cpp:2477 src/viewer/ircview.cpp:662
+#: src/irc/server.cpp:2477 src/viewer/ircview.cpp:712
 msgid "Notify"
 msgstr "Märguanne"
 
@@ -1815,7 +1791,7 @@ msgid "You are not on %1."
 msgstr "Sa ei ole kanalil %1."
 
 #: src/irc/inputfilter.cpp:1247 src/irc/inputfilter.cpp:1256
-#: src/irc/inputfilter.cpp:1265 src/viewer/ircview.cpp:641
+#: src/irc/inputfilter.cpp:1265 src/viewer/ircview.cpp:691
 msgid "MOTD"
 msgstr "MOTD"
 
@@ -2122,10 +2098,9 @@ msgid "Warning"
 msgstr "Hoiatus"
 
 #: src/irc/server.cpp:402
-#, fuzzy, kde-format
-#| msgid "Looking for server %1:%2..."
+#, kde-format
 msgid "Looking for server %1 (port %2) ..."
-msgstr "Otsitakse serverit %1:%2..."
+msgstr "Serveri %1 (port %2) otsimine..."
 
 #: src/irc/server.cpp:533
 msgid "Server found, connecting..."
@@ -2136,22 +2111,18 @@ msgid "Connected; logging in..."
 msgstr "Ühendus loodud. Sisselogimine..."
 
 #: src/irc/server.cpp:595
-#, fuzzy, kde-format
-#| msgid "Connection to Server %1 lost: %2."
+#, kde-format
 msgid "Connection to server %1 (port %2) lost: %3."
-msgstr "Ühendus serveriga %1 kadus: %2."
+msgstr "Ühendus serveriga %1 (port %2) kadus: %3."
 
 #: src/irc/server.cpp:616
-#, fuzzy, kde-format
-#| msgid ""
-#| "Could not connect to %1:%2 using SSL encryption. Maybe the server does "
-#| "not support SSL, or perhaps you have the wrong port? %3"
+#, kde-format
 msgid ""
 "Could not connect to %1 (port %2) using SSL encryption. Maybe the server "
 "does not support SSL, or perhaps you have the wrong port? %3"
 msgstr ""
-"Ühenduse loomine serverisse %1:%2 SSL-krüptimist kasutades nurjus. Vahest ei "
-"toeta server SSL-i või on port valesti määratud? %3"
+"Ühenduse loomine serverisse %1 (port %2) SSL-krüptimist kasutades nurjus. "
+"Vahest ei toeta server SSL-i või on port valesti määratud? %3"
 
 #: src/irc/server.cpp:620
 msgid "SSL Connection Error"
@@ -2167,10 +2138,9 @@ msgid "Server Authentication"
 msgstr "Serveri autentimine"
 
 #: src/irc/server.cpp:728
-#, fuzzy, kde-format
-#| msgid "Disconnected from %1."
+#, kde-format
 msgid "Disconnected from %1 (port %2)."
-msgstr "Ühenduse katkemine serveriga %1."
+msgstr "Ühenduse katkemine serveriga %1 (port %2)."
 
 #: src/irc/server.cpp:881
 #, kde-format
@@ -2187,7 +2157,7 @@ msgid "Nickname error"
 msgstr "Hüüdnime viga"
 
 #: src/irc/server.cpp:1341 src/irc/server.cpp:3101 src/irc/server.cpp:3106
-#: src/application.cpp:290
+#: src/application.cpp:297
 msgid "D-Bus"
 msgstr "D-Bus"
 
@@ -2372,7 +2342,7 @@ msgid "Channel Invites"
 msgstr "Kanali kutse"
 
 #: src/irc/invitedialog.cpp:167 src/irc/channel.cpp:1378
-#: src/irc/channel.cpp:1394 src/viewer/ircview.cpp:681
+#: src/irc/channel.cpp:1394 src/viewer/ircview.cpp:731
 msgid "Join"
 msgstr "Liitumine"
 
@@ -2536,10 +2506,9 @@ msgid "Channels: %1 (%2 shown)"
 msgstr "Kanaleid: %1 (%2 näidatud)"
 
 #: src/irc/channellistpanel.cpp:330
-#, fuzzy, kde-format
-#| msgid "Non-unique users: %1 (%2 shown)"
+#, kde-format
 msgid " Non-unique users: %1 (%2 shown)"
-msgstr "Mitteunikaalseid kasutajaid: %1 (%2 näidatud)"
+msgstr " Mitteunikaalseid kasutajaid: %1 (%2 näidatud)"
 
 #: src/irc/channellistpanel.cpp:340
 msgid "Save Channel List"
@@ -2572,35 +2541,35 @@ msgstr "Võrgu info muutmine"
 msgid "Discards all changes made"
 msgstr "Tühistab kõik tehtud muudatused"
 
-#: src/irc/servergroupdialog.cpp:160
+#: src/irc/servergroupdialog.cpp:161
 msgid "Add Server"
 msgstr "Serveri lisamine"
 
-#: src/irc/servergroupdialog.cpp:178
+#: src/irc/servergroupdialog.cpp:179
 msgid "Edit Server"
 msgstr "Serveri muutmine"
 
-#: src/irc/servergroupdialog.cpp:272
+#: src/irc/servergroupdialog.cpp:273
 msgid "Add Channel"
 msgstr "Kanali lisamine"
 
-#: src/irc/servergroupdialog.cpp:290
+#: src/irc/servergroupdialog.cpp:291
 msgid "Edit Channel"
 msgstr "Kanali muutmine"
 
-#: src/irc/servergroupdialog.cpp:394
+#: src/irc/servergroupdialog.cpp:395
 msgid "The network name is required."
 msgstr "Võrgu nimi on nõutav."
 
-#: src/irc/servergroupdialog.cpp:398
+#: src/irc/servergroupdialog.cpp:399
 msgid "You need to add at least one server to the network."
 msgstr "Võrgule tuleb lisada vähemalt üks server."
 
-#: src/irc/servergroupdialog.cpp:453
+#: src/irc/servergroupdialog.cpp:454
 msgid "The server address is required."
 msgstr "Serveri aadress on nõutav."
 
-#: src/irc/servergroupdialog.cpp:504
+#: src/irc/servergroupdialog.cpp:505
 msgid "The channel name is required."
 msgstr "Kanali nimi on nõutav."
 
@@ -2679,7 +2648,7 @@ msgstr "Vestlus iseendaga"
 
 #: src/irc/query.cpp:686 src/irc/query.cpp:693 src/irc/channel.cpp:1417
 #: src/irc/channel.cpp:1419 src/irc/channel.cpp:1438 src/irc/channel.cpp:1440
-#: src/viewer/ircview.cpp:686
+#: src/viewer/ircview.cpp:736
 msgid "Quit"
 msgstr "Välju"
 
@@ -2821,7 +2790,7 @@ msgid "You have left this server (%1)."
 msgstr "Lahkusid sellest serverist (%1)."
 
 #: src/irc/channel.cpp:1424 src/irc/channel.cpp:1426 src/irc/channel.cpp:1446
-#: src/irc/channel.cpp:1448 src/viewer/ircview.cpp:686
+#: src/irc/channel.cpp:1448 src/viewer/ircview.cpp:736
 msgid "Part"
 msgstr "Lahkumine"
 
@@ -3351,16 +3320,14 @@ msgid "%1 removes the invitation mask %2."
 msgstr "%1 eemaldas kutsemaski %2."
 
 #: src/irc/channel.cpp:2093
-#, fuzzy, kde-format
-#| msgid "You set the channel key to '%1'."
+#, kde-format
 msgid "You set the channel mode '%1'."
-msgstr "Määrasid kanali võtmeks \"%1\"."
+msgstr "Määrasid kanali režiimiks \"%1\"."
 
 #: src/irc/channel.cpp:2094
-#, fuzzy, kde-format
-#| msgid "%1 sets the channel key to '%2'."
+#, kde-format
 msgid "%1 sets the channel mode '%2'."
-msgstr "%1 määras kanali võtmeks \"%2\"."
+msgstr "%1 määras kanali režiimiks \"%2\"."
 
 #: src/irc/channel.cpp:2098
 #, kde-format
@@ -3373,16 +3340,14 @@ msgid "%1 sets channel mode +%2"
 msgstr "%1 määras kanali režiimiks +%2"
 
 #: src/irc/channel.cpp:2106
-#, fuzzy, kde-format
-#| msgid "You remove the channel key."
+#, kde-format
 msgid "You remove the channel mode '%1'."
-msgstr "Eemaldasid kanali võtme."
+msgstr "Eemaldasid kanali režiimi \"%1\"."
 
 #: src/irc/channel.cpp:2107
-#, fuzzy, kde-format
-#| msgid "%1 removes the channel key."
+#, kde-format
 msgid "%1 removes the channel mode '%2'."
-msgstr "%1 eemaldas kanali võtme."
+msgstr "%1 eemaldas kanali režiimi \"%2\"."
 
 #: src/irc/channel.cpp:2111
 #, kde-format
@@ -3505,22 +3470,18 @@ msgid "&Use SSL"
 msgstr "SSL-i kas&utamine"
 
 #: src/connectionmanager.cpp:205
-#, fuzzy, kde-format
-#| msgid "Trying to connect to %2 in 1 second."
-#| msgid_plural "Trying to connect to %2 in %1 seconds."
+#, kde-format
 msgid "Trying to connect to %2 (port %3) in 1 second."
 msgid_plural "Trying to connect to %2 (port %3) in %1 seconds."
-msgstr[0] "Ühendumise proovimine masinaga %2 1 sekundi pärast."
-msgstr[1] "Ühendumise proovimine masinaga %2 %1 sekundi pärast."
+msgstr[0] "Ühendumise proovimine masinaga %2 (port %3) 1 sekundi pärast."
+msgstr[1] "Ühendumise proovimine masinaga %2 (port %3) %1 sekundi pärast."
 
 #: src/connectionmanager.cpp:215
-#, fuzzy, kde-format
-#| msgid "Trying to reconnect to %2 in 1 second."
-#| msgid_plural "Trying to reconnect to %2 in %1 seconds."
+#, kde-format
 msgid "Trying to reconnect to %2 (port %3) in 1 second."
 msgid_plural "Trying to reconnect to %2 (port %3) in %1 seconds."
-msgstr[0] "Taasühendumise proovimine masinaga %2 1 sekundi pärast."
-msgstr[1] "Taasühendumise proovimine masinaga %2 %1 sekundi pärast."
+msgstr[0] "Taasühendumise proovimine masinaga %2 (port %3) 1 sekundi pärast."
+msgstr[1] "Taasühendumise proovimine masinaga %2 (port %3) %1 sekundi pärast."
 
 #: src/connectionmanager.cpp:227
 msgid "Reconnection attempts exceeded."
@@ -3699,13 +3660,12 @@ msgid "Eike Hein"
 msgstr "Eike Hein"
 
 #: src/main.cpp:47
-#, fuzzy
-#| msgid "Maintainer, Release Manager, User interface, Protocol handling"
 msgid ""
 "Maintainer, Release Manager, User interface, Connection management, Protocol "
 "handling, Auto-away"
 msgstr ""
-"Hooldaja, väljalasete korraldaja, kasutajaliides, protokolli käsitlemine"
+"Hooldaja, väljalasete korraldaja, kasutajaliides, ühenduste haldus, "
+"protokolli käsitlemine, automaatne eemalolek"
 
 #: src/main.cpp:48
 msgid "Shintaro Matsuoka"
@@ -3959,20 +3919,19 @@ msgid "Travis McHenry"
 msgstr "Travis McHenry"
 
 #: src/main.cpp:80
-#, fuzzy
 msgid ""
 "Various fixes, ported encryption to QCA2, added DH1080 key exchange support."
-msgstr "krüptimine kuni võti."
+msgstr ""
+"Mitmesugused parandused, krüptimise portimine QCA2 peale, DH1080 võtme "
+"vahetuse toetuse lisamine."
 
 #: src/main.cpp:81
-#, fuzzy
 msgid "Modestas Vainius"
 msgstr "Modestas Vainius"
 
 #: src/main.cpp:81
-#, fuzzy
 msgid "Bug fixes and enhancements."
-msgstr "ja."
+msgstr "Veaparandused ja täiustused."
 
 #: src/main.cpp:85
 msgid "irc:// URL or server hostname"
@@ -4034,8 +3993,6 @@ msgid "Both"
 msgstr "Mõlemad"
 
 #: src/config/autoreplace_config.cpp:287
-#, fuzzy
-#| msgid "New"
 msgctxt ""
 "Fallback content for the \"Find:\" field of an auto-replace rule that gets "
 "set when the user leaves the field empty and e.g. switches to another rule "
@@ -4045,8 +4002,6 @@ msgid "New"
 msgstr "Uus"
 
 #: src/config/autoreplace_config.cpp:323
-#, fuzzy
-#| msgid "New"
 msgctxt ""
 "Default content of the \"Find:\" field of a newly-added auto-replace rule."
 msgid "New"
@@ -4193,10 +4148,8 @@ msgid "Warning Dialogs"
 msgstr "Hoiatusdialoogid"
 
 #: src/config/warnings_config.cpp:104
-#, fuzzy
-#| msgid "&Show channel topic"
 msgid "Show channel invitation dialog"
-msgstr "&Kanali teema näitamine"
+msgstr "Kanalile kutsumise dialoogi näitamine"
 
 #: src/config/warnings_config.cpp:105
 msgid "Notice that saving logfiles will save whole file"
@@ -4255,9 +4208,8 @@ msgid "Warn before quitting with active DCC file transfers"
 msgstr "Hoiatus väljumisel, kui on aktiivseid DCC failiülekandeid"
 
 #: src/config/warnings_config.cpp:121
-#, fuzzy
 msgid "Warn when sending characters incompatible with your current encoding"
-msgstr "Hoiata saatmine järgnevaga aktiivne"
+msgstr "Hoiatus aktiivse kodeeringuga sobimatute märkide saatmisel"
 
 #: src/config/configdialog.cpp:72
 msgid "Configure"
@@ -4456,9 +4408,8 @@ msgid "Konsole"
 msgstr "Konsool"
 
 #: src/konsolepanel.cpp:39
-#, fuzzy
 msgid "Manage Konsole Profiles"
-msgstr "Konsool Profiilid"
+msgstr "Konsooli profiilide haldamine"
 
 #: src/linkaddressbook/addressbook.cpp:111
 msgid "Online"
@@ -4694,10 +4645,8 @@ msgid "Name the new entry:"
 msgstr "Uue kirje nimi:"
 
 #: src/urlcatcher.cpp:118
-#, fuzzy
-#| msgid "&Format:"
 msgid "From"
-msgstr "Vormin&g:"
+msgstr "Kasutaja"
 
 #. i18n: file: src/urlcatcherui.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, URLCatcherUI)
@@ -4710,33 +4659,30 @@ msgid "Save URL List"
 msgstr "Salvesta URL nimekiri"
 
 #: src/urlcatcher.cpp:353
-#, fuzzy, kde-format
-#| msgid ""
-#| "Konversation Channel List: %1 - %2\n"
-#| "\n"
+#, kde-format
 msgid ""
 "Konversation URL List: %1\n"
 "\n"
 msgstr ""
-"Konversationi kanalite nimekiri: %1 - %2\n"
+"Konversationi URL-ide loend: %1\n"
 "\n"
 
-#: src/urlcatcher.cpp:381 src/viewer/ircview.cpp:136
+#: src/urlcatcher.cpp:381 src/viewer/ircview.cpp:189
 #: src/viewer/topiclabel.cpp:143
 msgid "Copy Link Address"
 msgstr "Kopeeri lingi aadress"
 
-#: src/urlcatcher.cpp:382 src/viewer/ircview.cpp:140
+#: src/urlcatcher.cpp:382 src/viewer/ircview.cpp:193
 #: src/viewer/topiclabel.cpp:144
 msgid "Add to Bookmarks"
 msgstr "Lisa järjehoidjatesse"
 
-#: src/urlcatcher.cpp:383 src/viewer/ircview.cpp:142
+#: src/urlcatcher.cpp:383 src/viewer/ircview.cpp:195
 #: src/viewer/topiclabel.cpp:145
 msgid "Save Link As..."
 msgstr "&Salvesta link kui..."
 
-#: src/urlcatcher.cpp:412 src/viewer/ircview.cpp:1395
+#: src/urlcatcher.cpp:412 src/viewer/ircview.cpp:1434
 #: src/viewer/topiclabel.cpp:332
 msgid "Save link as"
 msgstr "Salvesta link"
@@ -4822,41 +4768,41 @@ msgstr "L&isa"
 msgid "Insert a character"
 msgstr "Lisa sümbol"
 
-#: src/viewer/ircview.cpp:148
+#: src/viewer/ircview.cpp:201
 msgid "&Copy"
 msgstr "&Kopeeri"
 
-#: src/viewer/ircview.cpp:151
+#: src/viewer/ircview.cpp:204
 msgid "Select All"
 msgstr "Vali kõik"
 
-#: src/viewer/ircview.cpp:152 src/viewer/viewcontainer.cpp:550
+#: src/viewer/ircview.cpp:205 src/viewer/viewcontainer.cpp:550
 msgid "Find Text..."
 msgstr "Otsi teksti..."
 
-#: src/viewer/ircview.cpp:1219
+#: src/viewer/ircview.cpp:1252
 msgid "Open Query"
 msgstr "Ava vestlus"
 
-#: src/viewer/ircview.cpp:1266 src/viewer/topiclabel.cpp:128
+#: src/viewer/ircview.cpp:1299 src/viewer/topiclabel.cpp:128
 #: src/mainwindow.cpp:421
 msgid "&Join Channel..."
 msgstr "Liitu kanali&ga..."
 
-#: src/viewer/ircview.cpp:1273 src/viewer/topiclabel.cpp:134
+#: src/viewer/ircview.cpp:1306 src/viewer/topiclabel.cpp:134
 msgid "Get &user list"
 msgstr "Hangi kas&utajate nimekiri"
 
-#: src/viewer/ircview.cpp:1275 src/viewer/topiclabel.cpp:135
+#: src/viewer/ircview.cpp:1308 src/viewer/topiclabel.cpp:135
 msgid "Get &topic"
 msgstr "Hangi &teema"
 
-#: src/viewer/ircview.cpp:1470
+#: src/viewer/ircview.cpp:1509
 #, kde-format
 msgid "Open a query with %1"
 msgstr "Ava vestlus kasutajaga %1"
 
-#: src/viewer/ircview.cpp:1491 src/viewer/topiclabel.cpp:277
+#: src/viewer/ircview.cpp:1530 src/viewer/topiclabel.cpp:277
 #, kde-format
 msgid "Join the channel %1"
 msgstr "Liitu kanaliga %1"
@@ -4890,21 +4836,21 @@ msgstr ""
 "kasutamise kohta Konversationi käsiraamatust.<p>Sõnum ei tohi sisaldada "
 "mitut rida.</p></qt>"
 
-#: src/viewer/ircinput.cpp:484
+#: src/viewer/ircinput.cpp:485
 #, kde-format
 msgid "1 byte"
 msgid_plural "%1 bytes"
 msgstr[0] "1 bait"
 msgstr[1] "%1 baiti"
 
-#: src/viewer/ircinput.cpp:485
+#: src/viewer/ircinput.cpp:486
 #, kde-format
 msgid "1 line"
 msgid_plural "%1 lines"
 msgstr[0] "1 rida"
 msgstr[1] "%1 rida"
 
-#: src/viewer/ircinput.cpp:491
+#: src/viewer/ircinput.cpp:492
 #, kde-format
 msgctxt ""
 "%1 is, for instance, '200 bytes'.  %2 is, for instance, '7 lines'.  Both are "
@@ -4917,11 +4863,11 @@ msgstr ""
 "<qt>Püüad palju teksti korraga vestlusse asetada (%1 või %2). See võib tuua "
 "kaasa ühenduse lähtestamise või pommitamise. Kas tõesti jätkata?</qt>"
 
-#: src/viewer/ircinput.cpp:494
+#: src/viewer/ircinput.cpp:495
 msgid "Large Paste Warning"
 msgstr "Suure asetamise hoiatus"
 
-#: src/viewer/ircinput.cpp:495
+#: src/viewer/ircinput.cpp:496
 msgid "Paste"
 msgstr "Aseta"
 
@@ -4929,7 +4875,7 @@ msgstr "Aseta"
 #. i18n: ectx: property (text), widget (KPushButton, m_editIdentityButton)
 #. i18n: file: src/irc/serverlistdialogui.ui:162
 #. i18n: ectx: property (text), widget (QPushButton, m_editButton)
-#: src/viewer/ircinput.cpp:496 rc.cpp:116 rc.cpp:257
+#: src/viewer/ircinput.cpp:497 rc.cpp:116 rc.cpp:257
 msgid "&Edit..."
 msgstr "R&edigeeri..."
 
@@ -5047,16 +4993,12 @@ msgid "&Channel Settings..."
 msgstr "&Kanali seadistused..."
 
 #: src/viewer/viewcontainer.cpp:1609
-#, fuzzy
-#| msgid "Rename"
 msgid "Rename Tab"
-msgstr "Nimeta ümber"
+msgstr "Kaardi ümbernimetamine"
 
 #: src/viewer/viewcontainer.cpp:1610
-#, fuzzy
-#| msgid "Enter Filename"
 msgid "Enter new tab name:"
-msgstr "Sisesta failinimi"
+msgstr "Uus kaardi nimi:"
 
 #: src/viewer/viewcontainer.cpp:1682
 #, kde-format
@@ -5065,10 +5007,8 @@ msgid "Default ( %1 )"
 msgstr "Vaikimisi ( %1 )"
 
 #: src/viewer/viewcontainer.cpp:1716
-#, fuzzy
-#| msgid "Rename"
 msgid "&Rename Tab..."
-msgstr "Nimeta ümber"
+msgstr "Nimeta kaa&rt ümber..."
 
 #: src/viewer/viewcontainer.cpp:1859
 msgid "You can only search in text fields."
@@ -5451,10 +5391,8 @@ msgid "no colors allowed"
 msgstr "värvid pole lubatud"
 
 #: src/common.cpp:49
-#, fuzzy
-#| msgid "Website hosting"
 msgid "user throttling"
-msgstr "Veebisaidi ülalpidamine"
+msgstr "ülekande ahendamine"
 
 #: src/bookmarkhandler.cpp:40
 msgid "Konversation Bookmarks Editor"
@@ -5577,18 +5515,14 @@ msgstr "Asukoht:"
 #. i18n: file: src/irc/channellistpanelui.ui:35
 #. i18n: ectx: property (text), widget (QLabel, m_lblMaxUser)
 #: rc.cpp:59
-#, fuzzy
-#| msgid "Maximum users:"
 msgid "Ma&ximum users:"
-msgstr "Maks. kasutajaid:"
+msgstr "Ma&ks. kasutajaid:"
 
 #. i18n: file: src/irc/channellistpanelui.ui:51
 #. i18n: ectx: property (text), widget (QLabel, m_lblMinuser)
 #: rc.cpp:62
-#, fuzzy
-#| msgid "Minimum users:"
 msgid "&Minimum users:"
-msgstr "Min. kasutajaid:"
+msgstr "&Min. kasutajaid:"
 
 #. i18n: file: src/irc/channellistpanelui.ui:63
 #. i18n: ectx: property (text), widget (QPushButton, m_refreshListBtn)
@@ -5599,10 +5533,8 @@ msgstr "Värskenda nimekirja"
 #. i18n: file: src/irc/channellistpanelui.ui:70
 #. i18n: ectx: property (text), widget (QPushButton, m_saveListBtn)
 #: rc.cpp:68
-#, fuzzy
-#| msgid "Save List..."
 msgid "Save &List..."
-msgstr "Salvesta nimekiri..."
+msgstr "Sa&lvesta nimekiri..."
 
 #. i18n: file: src/irc/channellistpanelui.ui:77
 #. i18n: ectx: property (whatsThis), widget (QPushButton, m_joinChanBtn)
@@ -5613,24 +5545,12 @@ msgstr "Klõpsa siia kanaliga liitumiseks. Kanalile luuakse uus kaart."
 #. i18n: file: src/irc/channellistpanelui.ui:80
 #. i18n: ectx: property (text), widget (QPushButton, m_joinChanBtn)
 #: rc.cpp:74
-#, fuzzy
-#| msgid "&Join Channel"
 msgid "&Join channel"
 msgstr "Liitu kanali&ga"
 
 #. i18n: file: src/irc/channellistpanelui.ui:92
 #. i18n: ectx: property (whatsThis), widget (QTreeView, m_channelListView)
 #: rc.cpp:77
-#, fuzzy
-#| msgid ""
-#| "The filtered list of channels is displayed here. Notice that if you do "
-#| "not use regular expressions, Konversation lists any channel whose name "
-#| "contains the filter string you entered. The channel name does not have to "
-#| "start with the string you entered.\n"
-#| "\n"
-#| "Select a channel you want to join by clicking on it. Right click on the "
-#| "channel to get a list of all web addresses mentioned in the channel's "
-#| "topic."
 msgid ""
 "The filtered list of channels is displayed here. Notice that if you do not "
 "use regular expressions, Konversation lists any channel whose name contains "
@@ -5642,27 +5562,21 @@ msgstr ""
 "Siin näeb filtreeritud kanaleid. Arvesta, et kui sa ei kasuta "
 "regulaaravaldisi, näitab Konversation kõiki kanaleid, mille nimes sisaldub "
 "filtris määratud string (sealjuures ei pea kanali nimi selle stringiga "
-"algama, see võib esineda ka selle nime sees).\n"
-"\n"
-"Kanali, millega soovid liituda, saab valida selle nimele klõpsates. Kanali "
-"nimel hiire parema nupuga klõpsates näeb kõiki kanali teemas mainitud "
-"veebiaadresse."
+"algama, see võib esineda ka selle nime sees).\\n\\nKanali, millega soovid "
+"liituda, saab valida selle nimele klõpsates. Kanali nimel hiire parema "
+"nupuga klõpsates näeb kõiki kanali teemas mainitud veebiaadresse."
 
 #. i18n: file: src/irc/channellistpanelui.ui:117
 #. i18n: ectx: property (text), widget (QCheckBox, m_channelBox)
 #: rc.cpp:80
-#, fuzzy
-#| msgid "Channel"
 msgid "&Channel"
-msgstr "Kanal"
+msgstr "&Kanal"
 
 #. i18n: file: src/irc/channellistpanelui.ui:133
 #. i18n: ectx: property (text), widget (QCheckBox, m_topicBox)
 #: rc.cpp:83
-#, fuzzy
-#| msgid "Topic"
 msgid "&Topic"
-msgstr "Teema"
+msgstr "&Teema"
 
 #. i18n: file: src/irc/channellistpanelui.ui:149
 #. i18n: ectx: property (text), widget (QLabel, m_lblFilter)
@@ -5679,10 +5593,8 @@ msgstr "Sisesta siia filtri string."
 #. i18n: file: src/irc/channellistpanelui.ui:188
 #. i18n: ectx: property (text), widget (QCheckBox, m_regexBox)
 #: rc.cpp:92
-#, fuzzy
-#| msgid "Regular expression"
 msgid "&Regular expression"
-msgstr "Regulaaravaldis"
+msgstr "&Regulaaravaldis"
 
 #. i18n: file: src/irc/channellistpanelui.ui:218
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, m_minUser)
@@ -5699,10 +5611,8 @@ msgstr ""
 #. i18n: file: src/irc/channellistpanelui.ui:240
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, m_maxUser)
 #: rc.cpp:98 rc.cpp:104
-#, fuzzy
-#| msgid "Nick Limit"
 msgid "No Limit"
-msgstr "Hüüdnimede piirang"
+msgstr "Piirang puudub"
 
 #. i18n: file: src/irc/channellistpanelui.ui:237
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, m_maxUser)
@@ -5872,7 +5782,6 @@ msgstr "Said kutsed järgmistele kanalitele, vali, millistega soovid liituda:"
 #. i18n: file: src/irc/invitedialog.ui:43
 #. i18n: ectx: property (text), widget (QCheckBox, m_showAgainCheck)
 #: rc.cpp:170
-#, fuzzy
 msgid "Do not ask again"
 msgstr "Rohkem ei küsita"
 
@@ -5882,73 +5791,73 @@ msgstr "Rohkem ei küsita"
 msgid "Topi&c"
 msgstr "Tee&ma"
 
-#. i18n: file: src/irc/channeloptionsui.ui:77
+#. i18n: file: src/irc/channeloptionsui.ui:74
 #. i18n: ectx: attribute (title), widget (QWidget, modesPage)
 #: rc.cpp:176
 msgid "Mo&des"
 msgstr "Režiimi&d"
 
-#. i18n: file: src/irc/channeloptionsui.ui:83
+#. i18n: file: src/irc/channeloptionsui.ui:80
 #. i18n: ectx: property (text), widget (QCheckBox, topicModeChBox)
 #: rc.cpp:179
 msgid "&Topic can only be changed by channel operators"
 msgstr "&Teemat saab muuta ainult kanali operaator."
 
-#. i18n: file: src/irc/channeloptionsui.ui:90
+#. i18n: file: src/irc/channeloptionsui.ui:87
 #. i18n: ectx: property (text), widget (QCheckBox, messageModeChBox)
 #: rc.cpp:182
 msgid "&No messages from outside the channel"
 msgstr "Väljaspoolt ka&nalit teateid ei lubata"
 
-#. i18n: file: src/irc/channeloptionsui.ui:97
+#. i18n: file: src/irc/channeloptionsui.ui:94
 #. i18n: ectx: property (text), widget (QCheckBox, secretModeChBox)
 #: rc.cpp:185
 msgid "&Secret channel, the channel is not listed in the channel list"
 msgstr "&Salajane kanal, ei näidata kanalite nimekirjas"
 
-#. i18n: file: src/irc/channeloptionsui.ui:104
+#. i18n: file: src/irc/channeloptionsui.ui:101
 #. i18n: ectx: property (text), widget (QCheckBox, inviteModeChBox)
 #: rc.cpp:188
 msgid "Only &invited are allowed to join the channel"
 msgstr "A&inult kutsetega kanal"
 
-#. i18n: file: src/irc/channeloptionsui.ui:111
+#. i18n: file: src/irc/channeloptionsui.ui:108
 #. i18n: ectx: property (text), widget (QCheckBox, moderatedModeChBox)
 #: rc.cpp:191
 msgid "&Moderated channel, only people with voice can write to the channel"
 msgstr "&Modereeritav kanal, kus saavad suhelda ainult häälega kasutajad"
 
-#. i18n: file: src/irc/channeloptionsui.ui:120
+#. i18n: file: src/irc/channeloptionsui.ui:117
 #. i18n: ectx: property (text), widget (QCheckBox, keyModeChBox)
 #: rc.cpp:194
 msgid "Channel &password:"
 msgstr "Kanali &parool:"
 
-#. i18n: file: src/irc/channeloptionsui.ui:137
+#. i18n: file: src/irc/channeloptionsui.ui:134
 #. i18n: ectx: property (text), widget (QCheckBox, userLimitChBox)
 #: rc.cpp:197
 msgid "User &limit:"
 msgstr "Kasutajate &limiit:"
 
-#. i18n: file: src/irc/channeloptionsui.ui:171
+#. i18n: file: src/irc/channeloptionsui.ui:168
 #. i18n: ectx: property (text), widget (QPushButton, toggleAdvancedModes)
 #: rc.cpp:200
 msgid "Show &Advanced Modes >>"
 msgstr "Näit&a muid režiime >>"
 
-#. i18n: file: src/irc/channeloptionsui.ui:174
+#. i18n: file: src/irc/channeloptionsui.ui:171
 #. i18n: ectx: property (shortcut), widget (QPushButton, toggleAdvancedModes)
 #: rc.cpp:203
 msgid "Alt+A, Backspace, Tab, Backspace"
 msgstr "Alt+A, Backspace, Tab, Backspace"
 
-#. i18n: file: src/irc/channeloptionsui.ui:229
+#. i18n: file: src/irc/channeloptionsui.ui:210
 #. i18n: ectx: attribute (title), widget (QWidget, TabPage)
 #: rc.cpp:206
 msgid "&Ban List"
 msgstr "&Pagendusnimekiri"
 
-#. i18n: file: src/irc/channeloptionsui.ui:243
+#. i18n: file: src/irc/channeloptionsui.ui:224
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #. i18n: file: src/urlcatcherui.ui:42
 #. i18n: ectx: property (text), widget (QLabel, m_searchLbl)
@@ -5956,31 +5865,31 @@ msgstr "&Pagendusnimekiri"
 msgid "Search:"
 msgstr "Otsing:"
 
-#. i18n: file: src/irc/channeloptionsui.ui:265
+#. i18n: file: src/irc/channeloptionsui.ui:246
 #. i18n: ectx: property (text), widget (K3ListView, banList)
 #: rc.cpp:212
 msgid "Hostmask"
 msgstr "Masinamask"
 
-#. i18n: file: src/irc/channeloptionsui.ui:276
+#. i18n: file: src/irc/channeloptionsui.ui:257
 #. i18n: ectx: property (text), widget (K3ListView, banList)
 #: rc.cpp:215
 msgid "Set By"
 msgstr "Määras"
 
-#. i18n: file: src/irc/channeloptionsui.ui:287
+#. i18n: file: src/irc/channeloptionsui.ui:268
 #. i18n: ectx: property (text), widget (K3ListView, banList)
 #: rc.cpp:218
 msgid "Time Set"
 msgstr "Määramise aeg"
 
-#. i18n: file: src/irc/channeloptionsui.ui:309
+#. i18n: file: src/irc/channeloptionsui.ui:290
 #. i18n: ectx: property (text), widget (QPushButton, removeBan)
 #: rc.cpp:221
 msgid "&Remove Ban"
 msgstr "Lõ&peta pagendus"
 
-#. i18n: file: src/irc/channeloptionsui.ui:322
+#. i18n: file: src/irc/channeloptionsui.ui:303
 #. i18n: ectx: property (text), widget (QPushButton, addBan)
 #: rc.cpp:224
 msgid "&Add Ban"
@@ -6277,12 +6186,6 @@ msgstr ""
 #. i18n: file: src/urlcatcherui.ui:71
 #. i18n: ectx: property (whatsThis), widget (QPushButton, m_openBtn)
 #: rc.cpp:428
-#, fuzzy
-#| msgid ""
-#| "<p>Select a <b>URL</b> above, then click this button to launch the "
-#| "application associated with the mimetype of the URL.</p><p>In the "
-#| "<b>Settings</b>, under <b>Behavior</b> | <b>General</b>, you can specify "
-#| "a custom web browser for web URLs.</p>"
 msgid ""
 "<p>Select a <b>URL</b> above, then click this button to launch the "
 "application associated with the mimetype of the URL.</p>\n"
@@ -6290,9 +6193,9 @@ msgid ""
 "specify a custom web browser for web URLs.</p>"
 msgstr ""
 "<p>Vali ülal <b>URL</b> ja klõpsa sellele nupule rakenduse käivitamiseks, "
-"mis on seotud antud URL-i MIME tüübiga.</p><p><b>Seadistused</b> | "
-"<b>Käitumine</b> | <b>Üldine</b> võimaldab määrata veebi-URL-idele "
-"kohandatud veebilehitseja.</p>"
+"mis on seotud antud URL-i MIME tüübiga.</p>\n"
+"<p>Seadistused</b> | <b>Käitumine</b> | <b>Üldine</b> võimaldab määrata "
+"veebi-URL-idele kohandatud veebilehitseja.</p>"
 
 #. i18n: file: src/urlcatcherui.ui:74
 #. i18n: ectx: property (text), widget (QPushButton, m_openBtn)
@@ -7706,41 +7609,32 @@ msgstr "Šifriploki ahel (CBC)"
 #. i18n: file: src/config/connectionbehavior_config.ui:186
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_ProxyEnabled)
 #: rc.cpp:1125
-#, fuzzy
 msgid "Proxy"
 msgstr "Puhverserver"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:198
 #. i18n: ectx: property (text), widget (QLabel, addressLabel)
 #: rc.cpp:1128
-#, fuzzy
-#| msgid "Address book:"
 msgid "Address:"
-msgstr "Aadressiraamat:"
+msgstr "Aadress:"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:212
 #. i18n: ectx: property (text), widget (QLabel, portLabel)
 #: rc.cpp:1131
-#, fuzzy
-#| msgid "&Port:"
 msgid "Port:"
-msgstr "&Port:"
+msgstr "Port:"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:226
 #. i18n: ectx: property (text), widget (QLabel, usernameLabel)
 #: rc.cpp:1134
-#, fuzzy
-#| msgid "Filename:"
 msgid "Username:"
-msgstr "Failinimi:"
+msgstr "Kasutajanimi:"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:240
 #. i18n: ectx: property (text), widget (QLabel, passwordLabel)
 #: rc.cpp:1137
-#, fuzzy
-#| msgid "P&assword:"
 msgid "Password:"
-msgstr "P&arool:"
+msgstr "Parool:"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:271
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_ProxyType)
@@ -7751,7 +7645,6 @@ msgstr "Socks v5"
 #. i18n: file: src/config/connectionbehavior_config.ui:276
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_ProxyType)
 #: rc.cpp:1146
-#, fuzzy
 msgid "HTTP"
 msgstr "HTTP"
 
