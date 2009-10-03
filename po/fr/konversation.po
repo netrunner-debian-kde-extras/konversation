@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-09-21 06:08+0200\n"
+"POT-Creation-Date: 2009-09-30 07:03+0200\n"
 "PO-Revision-Date: 2009-07-12 13:46+0200\n"
 "Last-Translator: Sebastien Renard <Sebastien.Renard@Solucom.fr>\n"
 "Language-Team: French <kde-francophone@kde.org>\n"
@@ -123,8 +123,8 @@ msgstr "Impossible d'ouvrir un socket"
 msgid "DCC"
 msgstr "DCC"
 
-#: src/dcc/chat.cpp:161 src/dcc/transferrecv.cpp:481
-#: src/dcc/transferrecv.cpp:513
+#: src/dcc/chat.cpp:161 src/dcc/transferrecv.cpp:487
+#: src/dcc/transferrecv.cpp:519
 msgid ""
 "Could not send Reverse DCC SEND acknowledgement to the partner via the IRC "
 "server."
@@ -133,13 +133,13 @@ msgstr ""
 "le serveur IRC."
 
 #: src/dcc/chat.cpp:172 src/dcc/transfersend.cpp:350
-#: src/dcc/transferrecv.cpp:526
+#: src/dcc/transferrecv.cpp:532
 msgctxt "Universal Plug and Play"
 msgid "UPnP"
 msgstr ""
 
 #: src/dcc/chat.cpp:172 src/dcc/transfersend.cpp:350
-#: src/dcc/transferrecv.cpp:526
+#: src/dcc/transferrecv.cpp:532
 #, kde-format
 msgid ""
 "Failed to forward port %1. Sending DCC request to remote user regardless."
@@ -199,7 +199,7 @@ msgstr "Connexion de discussion DCC établie avec %1."
 msgid "Error"
 msgstr "Erreur"
 
-#: src/dcc/chat.cpp:248 src/dcc/transfersend.cpp:515
+#: src/dcc/chat.cpp:248 src/dcc/transfersend.cpp:516
 #, kde-format
 msgid "Socket error: %1"
 msgstr "Erreur de socket : %1"
@@ -284,52 +284,52 @@ msgstr ""
 msgid "Awaiting remote user's acceptance"
 msgstr "En attente de l'acceptation de l'utilisateur distant"
 
-#: src/dcc/transfersend.cpp:404 src/dcc/transferrecv.cpp:625
+#: src/dcc/transfersend.cpp:404 src/dcc/transferrecv.cpp:631
 msgid "Could not accept the connection (socket error.)"
 msgstr "Impossible d'accepter la connexion (Erreur de socket)."
 
-#: src/dcc/transfersend.cpp:537 src/dcc/transferrecv.cpp:750
+#: src/dcc/transfersend.cpp:538 src/dcc/transferrecv.cpp:756
 msgid "Timed out"
 msgstr "Délai expiré"
 
-#: src/dcc/transfersend.cpp:547
+#: src/dcc/transfersend.cpp:548
 msgid "The operation was successful. Should never happen in an error dialog."
 msgstr ""
 "L'opération a réussi. Ne devrait jamais arriver dans une boîte de dialogue "
 "d'erreur."
 
-#: src/dcc/transfersend.cpp:550
+#: src/dcc/transfersend.cpp:551
 #, kde-format
 msgid "Could not read from file \"%1\"."
 msgstr "Impossible de lire le fichier « %1 »."
 
-#: src/dcc/transfersend.cpp:553
+#: src/dcc/transfersend.cpp:554
 #, kde-format
 msgid "Could not write to file \"%1\"."
 msgstr "Impossible d'écrire dans le fichier « %1 »."
 
-#: src/dcc/transfersend.cpp:556
+#: src/dcc/transfersend.cpp:557
 msgid "A fatal unrecoverable error occurred."
 msgstr "Une erreur fatale et irrécupérable est apparue."
 
-#: src/dcc/transfersend.cpp:559
+#: src/dcc/transfersend.cpp:560
 #, kde-format
 msgid "Could not open file \"%1\"."
 msgstr "Impossible d'ouvrir le fichier « %1 »."
 
-#: src/dcc/transfersend.cpp:568
+#: src/dcc/transfersend.cpp:569
 msgid "The operation was unexpectedly aborted."
 msgstr "L'opération a été interrompue de manière inattendue."
 
-#: src/dcc/transfersend.cpp:571
+#: src/dcc/transfersend.cpp:572
 msgid "The operation timed out."
 msgstr "Délai de l'opération dépassé."
 
-#: src/dcc/transfersend.cpp:574
+#: src/dcc/transfersend.cpp:575
 msgid "An unspecified error happened on close."
 msgstr "Une erreur non spécifiée s'est produite à la fermeture."
 
-#: src/dcc/transfersend.cpp:577
+#: src/dcc/transfersend.cpp:578
 #, kde-format
 msgid "Unknown error. Code %1"
 msgstr "Erreur inconnue. Code %1"
@@ -500,12 +500,12 @@ msgstr "<b>Impossible de créer le dossier.</b><br>Dossier : %1<br>"
 msgid "Could not create a KIO instance"
 msgstr "Impossible de créer une instance KIO"
 
-#: src/dcc/transferrecv.cpp:380
+#: src/dcc/transferrecv.cpp:388
 #, kde-format
 msgid "<b>The file is used by another transfer.</b><br>%1<br>"
 msgstr "<b>Le fichier est déjà utilisé par un autre transfert.</b><br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:402
+#: src/dcc/transferrecv.cpp:407
 #, kde-format
 msgid ""
 "<b>A partial file exists:</b><br/>%2<br/>Size of the partial file: 1 byte."
@@ -520,40 +520,40 @@ msgstr[1] ""
 "<b>Un fichier partiel existe :</b><br/>%2<br/>Taille du fichier partiel : %1 "
 "octets<br/>"
 
-#: src/dcc/transferrecv.cpp:433
+#: src/dcc/transferrecv.cpp:439
 #, kde-format
 msgid "<b>The file already exists.</b><br>%1<br>"
 msgstr "<b>Le fichier existe déjà.</b><br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:440
+#: src/dcc/transferrecv.cpp:446
 #, kde-format
 msgid "<b>Could not open the file.<br>Error: %1</b><br>%2<br>"
 msgstr "<b>Impossible d'ouvrir le fichier.<br>Erreur : %1</b><br>%2<br>"
 
-#: src/dcc/transferrecv.cpp:529
+#: src/dcc/transferrecv.cpp:535
 msgid "Waiting for connection"
 msgstr "En attente de connexion"
 
-#: src/dcc/transferrecv.cpp:538
+#: src/dcc/transferrecv.cpp:544
 msgid "Waiting for remote host's acceptance"
 msgstr "En attente pour l'acceptation de l'hôte distant"
 
-#: src/dcc/transferrecv.cpp:548
+#: src/dcc/transferrecv.cpp:554
 msgid ""
 "Could not send DCC RECV resume request to the partner via the IRC server."
 msgstr ""
 "Impossible d'envoyer la requête de reprise DCC RECV au correspondant via le "
 "serveur IRC."
 
-#: src/dcc/transferrecv.cpp:570
+#: src/dcc/transferrecv.cpp:576
 msgid "Unexpected response from remote host"
 msgstr "Réponse inattendue de l'hôte distant"
 
-#: src/dcc/transferrecv.cpp:713
+#: src/dcc/transferrecv.cpp:719
 msgid "Transfer error"
 msgstr "Erreur de transfert"
 
-#: src/dcc/transferrecv.cpp:729
+#: src/dcc/transferrecv.cpp:735
 #, kde-format
 msgid "KIO error: %1"
 msgstr "Erreur KIO : %1"
@@ -818,25 +818,25 @@ msgstr ""
 
 #: src/irc/nicklistview.cpp:114 src/irc/nicksonline.cpp:912
 #: src/irc/nicksonline.cpp:930 src/irc/query.cpp:81
-#: src/viewer/ircview.cpp:1151
+#: src/viewer/ircview.cpp:1184
 msgid "&Whois"
 msgstr "&Whois"
 
 #: src/irc/nicklistview.cpp:115 src/irc/query.cpp:82
-#: src/viewer/ircview.cpp:1153
+#: src/viewer/ircview.cpp:1186
 msgid "&Version"
 msgstr "&Version"
 
 #: src/irc/nicklistview.cpp:116 src/irc/query.cpp:83
-#: src/viewer/ircview.cpp:1155
+#: src/viewer/ircview.cpp:1188
 msgid "&Ping"
 msgstr "&Ping"
 
-#: src/irc/nicklistview.cpp:122 src/viewer/ircview.cpp:1163
+#: src/irc/nicklistview.cpp:122 src/viewer/ircview.cpp:1196
 msgid "Give Op"
 msgstr "Donner les droits opérateur"
 
-#: src/irc/nicklistview.cpp:126 src/viewer/ircview.cpp:1168
+#: src/irc/nicklistview.cpp:126 src/viewer/ircview.cpp:1201
 msgid "Take Op"
 msgstr "Prendre les droits opérateur"
 
@@ -848,66 +848,66 @@ msgstr "Donner les droits demi-opérateur"
 msgid "Take HalfOp"
 msgstr "Prendre les droits demi-opérateur"
 
-#: src/irc/nicklistview.cpp:132 src/viewer/ircview.cpp:1173
+#: src/irc/nicklistview.cpp:132 src/viewer/ircview.cpp:1206
 msgid "Give Voice"
 msgstr "Donner la parole"
 
-#: src/irc/nicklistview.cpp:136 src/viewer/ircview.cpp:1178
+#: src/irc/nicklistview.cpp:136 src/viewer/ircview.cpp:1211
 msgid "Take Voice"
 msgstr "Interdire de parler"
 
-#: src/irc/nicklistview.cpp:140 src/viewer/ircview.cpp:1162
+#: src/irc/nicklistview.cpp:140 src/viewer/ircview.cpp:1195
 msgid "Modes"
 msgstr "Modes"
 
 #: src/irc/nicklistview.cpp:147 src/irc/channel.cpp:1503
 #: src/irc/channel.cpp:1505 src/irc/channel.cpp:1512 src/irc/channel.cpp:1517
 #: src/irc/channel.cpp:1538 src/irc/channel.cpp:1540 src/irc/channel.cpp:1547
-#: src/irc/channel.cpp:1552 src/viewer/ircview.cpp:1185
+#: src/irc/channel.cpp:1552 src/viewer/ircview.cpp:1218
 msgid "Kick"
 msgstr "Expulser"
 
-#: src/irc/nicklistview.cpp:148 src/viewer/ircview.cpp:1187
+#: src/irc/nicklistview.cpp:148 src/viewer/ircview.cpp:1220
 msgid "Kickban"
 msgstr "Expulser et bannir"
 
-#: src/irc/nicklistview.cpp:149 src/viewer/ircview.cpp:1189
+#: src/irc/nicklistview.cpp:149 src/viewer/ircview.cpp:1222
 msgid "Ban Nickname"
 msgstr "Bannir ce pseudonyme"
 
-#: src/irc/nicklistview.cpp:151 src/viewer/ircview.cpp:1192
+#: src/irc/nicklistview.cpp:151 src/viewer/ircview.cpp:1225
 msgid "Ban *!*@*.host"
 msgstr "Bannir *!*@*.hôte"
 
-#: src/irc/nicklistview.cpp:152 src/viewer/ircview.cpp:1194
+#: src/irc/nicklistview.cpp:152 src/viewer/ircview.cpp:1227
 msgid "Ban *!*@domain"
 msgstr "Bannir *!*@domaine"
 
-#: src/irc/nicklistview.cpp:153 src/viewer/ircview.cpp:1196
+#: src/irc/nicklistview.cpp:153 src/viewer/ircview.cpp:1229
 msgid "Ban *!user@*.host"
 msgstr "Bannir *!utilisateur@*.hôte"
 
-#: src/irc/nicklistview.cpp:154 src/viewer/ircview.cpp:1198
+#: src/irc/nicklistview.cpp:154 src/viewer/ircview.cpp:1231
 msgid "Ban *!user@domain"
 msgstr "Bannir *!utilisateur@domaine"
 
-#: src/irc/nicklistview.cpp:156 src/viewer/ircview.cpp:1201
+#: src/irc/nicklistview.cpp:156 src/viewer/ircview.cpp:1234
 msgid "Kickban *!*@*.host"
 msgstr "Expulser et bannir *!*@*.hôte"
 
-#: src/irc/nicklistview.cpp:157 src/viewer/ircview.cpp:1203
+#: src/irc/nicklistview.cpp:157 src/viewer/ircview.cpp:1236
 msgid "Kickban *!*@domain"
 msgstr "Expulser et bannir *!*@domaine"
 
-#: src/irc/nicklistview.cpp:158 src/viewer/ircview.cpp:1205
+#: src/irc/nicklistview.cpp:158 src/viewer/ircview.cpp:1238
 msgid "Kickban *!user@*.host"
 msgstr "Expulser et bannir *!utilisateur@*.hôte"
 
-#: src/irc/nicklistview.cpp:159 src/viewer/ircview.cpp:1207
+#: src/irc/nicklistview.cpp:159 src/viewer/ircview.cpp:1240
 msgid "Kickban *!user@domain"
 msgstr "Expulser et bannir *!utilisateur@domaine"
 
-#: src/irc/nicklistview.cpp:160 src/viewer/ircview.cpp:1184
+#: src/irc/nicklistview.cpp:160 src/viewer/ircview.cpp:1217
 msgid "Kick / Ban"
 msgstr "Expulser / Bannir"
 
@@ -915,13 +915,13 @@ msgstr "Expulser / Bannir"
 #: src/irc/outputfilter.cpp:1504 src/irc/query.cpp:86 src/irc/query.cpp:394
 #: src/irc/query.cpp:395 src/irc/channel.cpp:670 src/irc/channel.cpp:671
 #: src/config/settingsdialog.cpp:131 src/config/warnings_config.cpp:118
-#: src/viewer/ircview.cpp:1211
+#: src/viewer/ircview.cpp:1244
 msgid "Ignore"
 msgstr "Ignorer"
 
 #: src/irc/nicklistview.cpp:166 src/irc/query.cpp:87 src/irc/query.cpp:420
 #: src/irc/query.cpp:421 src/irc/channel.cpp:695 src/irc/channel.cpp:696
-#: src/config/warnings_config.cpp:119 src/viewer/ircview.cpp:1212
+#: src/config/warnings_config.cpp:119 src/viewer/ircview.cpp:1245
 msgid "Unignore"
 msgstr "Ne plus ignorer"
 
@@ -966,7 +966,7 @@ msgstr ""
 "serveur IRC ne peu voir ou espoinner cette discussion.</p></qt>"
 
 #: src/irc/nicklistview.cpp:176 src/irc/query.cpp:91
-#: src/viewer/ircview.cpp:1226
+#: src/viewer/ircview.cpp:1259
 msgid "Send &File..."
 msgstr "Envoyer un &fichier..."
 
@@ -990,7 +990,7 @@ msgid "Address Book Associations"
 msgstr "Associations du carnet d'adresses"
 
 #: src/irc/nicklistview.cpp:191 src/irc/query.cpp:95
-#: src/viewer/ircview.cpp:1232
+#: src/viewer/ircview.cpp:1265
 msgid "Add to Watched Nicks"
 msgstr "Ajouter aux pseudos surveillés"
 
@@ -1114,15 +1114,15 @@ msgid "Click here to connect to the selected IRC network and channel."
 msgstr ""
 "Cliquez ici pour vous connecter au réseau IRC et au canal sélectionnés."
 
-#: src/irc/serverlistdialog.cpp:144
+#: src/irc/serverlistdialog.cpp:145
 msgid "New Network"
 msgstr "Nouveau réseau"
 
-#: src/irc/serverlistdialog.cpp:165
+#: src/irc/serverlistdialog.cpp:166
 msgid "Edit Network"
 msgstr "Modifier le réseau"
 
-#: src/irc/serverlistdialog.cpp:221
+#: src/irc/serverlistdialog.cpp:222
 #, kde-format
 msgid ""
 "You cannot delete %1.\n"
@@ -1133,7 +1133,7 @@ msgstr ""
 "\n"
 "Le réseau %2 doit comporter au moins un serveur."
 
-#: src/irc/serverlistdialog.cpp:226
+#: src/irc/serverlistdialog.cpp:227
 #, kde-format
 msgid ""
 "You cannot delete the selected server.\n"
@@ -1152,11 +1152,11 @@ msgstr[1] ""
 "\n"
 "Le réseau %2 doit comporter au moins un serveur."
 
-#: src/irc/serverlistdialog.cpp:242
+#: src/irc/serverlistdialog.cpp:243
 msgid "Do you really want to delete the selected entries?"
 msgstr "Voulez-vous vraiment vous supprimer les entrées sélectionnés ?"
 
-#: src/irc/serverlistdialog.cpp:244
+#: src/irc/serverlistdialog.cpp:245
 #, kde-format
 msgid "Do you really want to delete %1?"
 msgstr "Voulez-vous vraiment supprimer %1 ?"
@@ -1370,7 +1370,7 @@ msgid "Usage: %1RAW [OPEN | CLOSE]"
 msgstr "Utilisation : %1RAW [OPEN | CLOSE]"
 
 #: src/irc/outputfilter.cpp:1195 src/irc/server.cpp:2459
-#: src/irc/server.cpp:2477 src/viewer/ircview.cpp:662
+#: src/irc/server.cpp:2477 src/viewer/ircview.cpp:712
 msgid "Notify"
 msgstr "Notifier"
 
@@ -1827,7 +1827,7 @@ msgid "You are not on %1."
 msgstr "Vous n'êtes pas sur %1."
 
 #: src/irc/inputfilter.cpp:1247 src/irc/inputfilter.cpp:1256
-#: src/irc/inputfilter.cpp:1265 src/viewer/ircview.cpp:641
+#: src/irc/inputfilter.cpp:1265 src/viewer/ircview.cpp:691
 msgid "MOTD"
 msgstr "MOTD"
 
@@ -2201,7 +2201,7 @@ msgid "Nickname error"
 msgstr "Erreur de pseudonyme"
 
 #: src/irc/server.cpp:1341 src/irc/server.cpp:3101 src/irc/server.cpp:3106
-#: src/application.cpp:290
+#: src/application.cpp:297
 msgid "D-Bus"
 msgstr "D-Bus"
 
@@ -2387,7 +2387,7 @@ msgid "Channel Invites"
 msgstr "Liste des canaux"
 
 #: src/irc/invitedialog.cpp:167 src/irc/channel.cpp:1378
-#: src/irc/channel.cpp:1394 src/viewer/ircview.cpp:681
+#: src/irc/channel.cpp:1394 src/viewer/ircview.cpp:731
 msgid "Join"
 msgstr "Joindre"
 
@@ -2593,35 +2593,35 @@ msgstr "Changer l'information du réseau"
 msgid "Discards all changes made"
 msgstr "Annuler tous les changements effectués"
 
-#: src/irc/servergroupdialog.cpp:160
+#: src/irc/servergroupdialog.cpp:161
 msgid "Add Server"
 msgstr "Ajouter un serveur"
 
-#: src/irc/servergroupdialog.cpp:178
+#: src/irc/servergroupdialog.cpp:179
 msgid "Edit Server"
 msgstr "Modifier le serveur"
 
-#: src/irc/servergroupdialog.cpp:272
+#: src/irc/servergroupdialog.cpp:273
 msgid "Add Channel"
 msgstr "Ajouter un canal"
 
-#: src/irc/servergroupdialog.cpp:290
+#: src/irc/servergroupdialog.cpp:291
 msgid "Edit Channel"
 msgstr "Modifier le canal"
 
-#: src/irc/servergroupdialog.cpp:394
+#: src/irc/servergroupdialog.cpp:395
 msgid "The network name is required."
 msgstr "Le nom du réseau est requis."
 
-#: src/irc/servergroupdialog.cpp:398
+#: src/irc/servergroupdialog.cpp:399
 msgid "You need to add at least one server to the network."
 msgstr "Vous devez ajouter au moins un serveur au réseau."
 
-#: src/irc/servergroupdialog.cpp:453
+#: src/irc/servergroupdialog.cpp:454
 msgid "The server address is required."
 msgstr "L'adresse du serveur est nécessaire."
 
-#: src/irc/servergroupdialog.cpp:504
+#: src/irc/servergroupdialog.cpp:505
 msgid "The channel name is required."
 msgstr "Le nom du canal est requis."
 
@@ -2702,7 +2702,7 @@ msgstr "Discussion avec vous même"
 
 #: src/irc/query.cpp:686 src/irc/query.cpp:693 src/irc/channel.cpp:1417
 #: src/irc/channel.cpp:1419 src/irc/channel.cpp:1438 src/irc/channel.cpp:1440
-#: src/viewer/ircview.cpp:686
+#: src/viewer/ircview.cpp:736
 msgid "Quit"
 msgstr "Quitter"
 
@@ -2845,7 +2845,7 @@ msgid "You have left this server (%1)."
 msgstr "Vous avez quitté ce serveur (%1)."
 
 #: src/irc/channel.cpp:1424 src/irc/channel.cpp:1426 src/irc/channel.cpp:1446
-#: src/irc/channel.cpp:1448 src/viewer/ircview.cpp:686
+#: src/irc/channel.cpp:1448 src/viewer/ircview.cpp:736
 msgid "Part"
 msgstr "Partir"
 
@@ -4784,22 +4784,22 @@ msgstr ""
 "Liste de canaux Konversation : %1 - %2\n"
 "\n"
 
-#: src/urlcatcher.cpp:381 src/viewer/ircview.cpp:136
+#: src/urlcatcher.cpp:381 src/viewer/ircview.cpp:189
 #: src/viewer/topiclabel.cpp:143
 msgid "Copy Link Address"
 msgstr ""
 
-#: src/urlcatcher.cpp:382 src/viewer/ircview.cpp:140
+#: src/urlcatcher.cpp:382 src/viewer/ircview.cpp:193
 #: src/viewer/topiclabel.cpp:144
 msgid "Add to Bookmarks"
 msgstr "Ajouter aux signets"
 
-#: src/urlcatcher.cpp:383 src/viewer/ircview.cpp:142
+#: src/urlcatcher.cpp:383 src/viewer/ircview.cpp:195
 #: src/viewer/topiclabel.cpp:145
 msgid "Save Link As..."
 msgstr "Enregistrer la lien sous..."
 
-#: src/urlcatcher.cpp:412 src/viewer/ircview.cpp:1395
+#: src/urlcatcher.cpp:412 src/viewer/ircview.cpp:1434
 #: src/viewer/topiclabel.cpp:332
 msgid "Save link as"
 msgstr "Enregistrer le lien sous"
@@ -4890,43 +4890,43 @@ msgstr "&Insérer"
 msgid "Insert a character"
 msgstr "Insérer un caractère"
 
-#: src/viewer/ircview.cpp:148
+#: src/viewer/ircview.cpp:201
 msgid "&Copy"
 msgstr "&Copier"
 
-#: src/viewer/ircview.cpp:151
+#: src/viewer/ircview.cpp:204
 msgid "Select All"
 msgstr "Sélectionner tous"
 
-#: src/viewer/ircview.cpp:152 src/viewer/viewcontainer.cpp:550
+#: src/viewer/ircview.cpp:205 src/viewer/viewcontainer.cpp:550
 msgid "Find Text..."
 msgstr "Trouver le texte..."
 
-#: src/viewer/ircview.cpp:1219
+#: src/viewer/ircview.cpp:1252
 #, fuzzy
 #| msgid "Open &Query"
 msgid "Open Query"
 msgstr "Ouvrir la &requête"
 
-#: src/viewer/ircview.cpp:1266 src/viewer/topiclabel.cpp:128
+#: src/viewer/ircview.cpp:1299 src/viewer/topiclabel.cpp:128
 #: src/mainwindow.cpp:421
 msgid "&Join Channel..."
 msgstr "Re&joindre le canal..."
 
-#: src/viewer/ircview.cpp:1273 src/viewer/topiclabel.cpp:134
+#: src/viewer/ircview.cpp:1306 src/viewer/topiclabel.cpp:134
 msgid "Get &user list"
 msgstr "Obtenir la liste des &utilisateurs"
 
-#: src/viewer/ircview.cpp:1275 src/viewer/topiclabel.cpp:135
+#: src/viewer/ircview.cpp:1308 src/viewer/topiclabel.cpp:135
 msgid "Get &topic"
 msgstr "obtenir le suje&t"
 
-#: src/viewer/ircview.cpp:1470
+#: src/viewer/ircview.cpp:1509
 #, kde-format
 msgid "Open a query with %1"
 msgstr "Ouvrir une requête avec %1"
 
-#: src/viewer/ircview.cpp:1491 src/viewer/topiclabel.cpp:277
+#: src/viewer/ircview.cpp:1530 src/viewer/topiclabel.cpp:277
 #, kde-format
 msgid "Join the channel %1"
 msgstr "Rejoindre le canal %1"
@@ -4961,21 +4961,21 @@ msgstr ""
 "table><p>Pour plus de commandes, lisez le manuel de Konversation.</p><p>Un "
 "message ne peut pas contenir de lignes multiples.</p></qt>"
 
-#: src/viewer/ircinput.cpp:484
+#: src/viewer/ircinput.cpp:485
 #, kde-format
 msgid "1 byte"
 msgid_plural "%1 bytes"
 msgstr[0] "1 octet"
 msgstr[1] "%1 octets"
 
-#: src/viewer/ircinput.cpp:485
+#: src/viewer/ircinput.cpp:486
 #, kde-format
 msgid "1 line"
 msgid_plural "%1 lines"
 msgstr[0] "1 ligne"
 msgstr[1] "%1 lignes"
 
-#: src/viewer/ircinput.cpp:491
+#: src/viewer/ircinput.cpp:492
 #, kde-format
 msgctxt ""
 "%1 is, for instance, '200 bytes'.  %2 is, for instance, '7 lines'.  Both are "
@@ -4990,11 +4990,11 @@ msgstr ""
 "un bannissement pour inondation de la discussion. Voulez-vous vraiment "
 "continuer ?</qt>"
 
-#: src/viewer/ircinput.cpp:494
+#: src/viewer/ircinput.cpp:495
 msgid "Large Paste Warning"
 msgstr "Avertissement de collage exagéré"
 
-#: src/viewer/ircinput.cpp:495
+#: src/viewer/ircinput.cpp:496
 msgid "Paste"
 msgstr "Coller"
 
@@ -5002,7 +5002,7 @@ msgstr "Coller"
 #. i18n: ectx: property (text), widget (KPushButton, m_editIdentityButton)
 #. i18n: file: src/irc/serverlistdialogui.ui:162
 #. i18n: ectx: property (text), widget (QPushButton, m_editButton)
-#: src/viewer/ircinput.cpp:496 rc.cpp:116 rc.cpp:257
+#: src/viewer/ircinput.cpp:497 rc.cpp:116 rc.cpp:257
 msgid "&Edit..."
 msgstr "&Modifier..."
 
@@ -5963,37 +5963,37 @@ msgstr ""
 msgid "Topi&c"
 msgstr "Su&jet"
 
-#. i18n: file: src/irc/channeloptionsui.ui:77
+#. i18n: file: src/irc/channeloptionsui.ui:74
 #. i18n: ectx: attribute (title), widget (QWidget, modesPage)
 #: rc.cpp:176
 msgid "Mo&des"
 msgstr "Mo&des"
 
-#. i18n: file: src/irc/channeloptionsui.ui:83
+#. i18n: file: src/irc/channeloptionsui.ui:80
 #. i18n: ectx: property (text), widget (QCheckBox, topicModeChBox)
 #: rc.cpp:179
 msgid "&Topic can only be changed by channel operators"
 msgstr "Le &sujet ne peut être modifié que par les opérateurs du canal"
 
-#. i18n: file: src/irc/channeloptionsui.ui:90
+#. i18n: file: src/irc/channeloptionsui.ui:87
 #. i18n: ectx: property (text), widget (QCheckBox, messageModeChBox)
 #: rc.cpp:182
 msgid "&No messages from outside the channel"
 msgstr "&Aucun message de l'extérieur du canal"
 
-#. i18n: file: src/irc/channeloptionsui.ui:97
+#. i18n: file: src/irc/channeloptionsui.ui:94
 #. i18n: ectx: property (text), widget (QCheckBox, secretModeChBox)
 #: rc.cpp:185
 msgid "&Secret channel, the channel is not listed in the channel list"
 msgstr "Canal &secret, le canal n'est pas affiché dans la liste des canaux"
 
-#. i18n: file: src/irc/channeloptionsui.ui:104
+#. i18n: file: src/irc/channeloptionsui.ui:101
 #. i18n: ectx: property (text), widget (QCheckBox, inviteModeChBox)
 #: rc.cpp:188
 msgid "Only &invited are allowed to join the channel"
 msgstr "Seuls les &invités sont autorisés à rejoindre le canal"
 
-#. i18n: file: src/irc/channeloptionsui.ui:111
+#. i18n: file: src/irc/channeloptionsui.ui:108
 #. i18n: ectx: property (text), widget (QCheckBox, moderatedModeChBox)
 #: rc.cpp:191
 msgid "&Moderated channel, only people with voice can write to the channel"
@@ -6001,37 +6001,37 @@ msgstr ""
 "Canal &modéré, seules les personnes ayant la parole peuvent écrire dans le "
 "canal"
 
-#. i18n: file: src/irc/channeloptionsui.ui:120
+#. i18n: file: src/irc/channeloptionsui.ui:117
 #. i18n: ectx: property (text), widget (QCheckBox, keyModeChBox)
 #: rc.cpp:194
 msgid "Channel &password:"
 msgstr "Mot de &passe du canal"
 
-#. i18n: file: src/irc/channeloptionsui.ui:137
+#. i18n: file: src/irc/channeloptionsui.ui:134
 #. i18n: ectx: property (text), widget (QCheckBox, userLimitChBox)
 #: rc.cpp:197
 msgid "User &limit:"
 msgstr "&Limite d'utilisateurs :"
 
-#. i18n: file: src/irc/channeloptionsui.ui:171
+#. i18n: file: src/irc/channeloptionsui.ui:168
 #. i18n: ectx: property (text), widget (QPushButton, toggleAdvancedModes)
 #: rc.cpp:200
 msgid "Show &Advanced Modes >>"
 msgstr "Afficher les modes &avancés >>"
 
-#. i18n: file: src/irc/channeloptionsui.ui:174
+#. i18n: file: src/irc/channeloptionsui.ui:171
 #. i18n: ectx: property (shortcut), widget (QPushButton, toggleAdvancedModes)
 #: rc.cpp:203
 msgid "Alt+A, Backspace, Tab, Backspace"
 msgstr "Alt+A, Ret. Arr., Tab, Ret. Arr."
 
-#. i18n: file: src/irc/channeloptionsui.ui:229
+#. i18n: file: src/irc/channeloptionsui.ui:210
 #. i18n: ectx: attribute (title), widget (QWidget, TabPage)
 #: rc.cpp:206
 msgid "&Ban List"
 msgstr "Liste des &bannis"
 
-#. i18n: file: src/irc/channeloptionsui.ui:243
+#. i18n: file: src/irc/channeloptionsui.ui:224
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #. i18n: file: src/urlcatcherui.ui:42
 #. i18n: ectx: property (text), widget (QLabel, m_searchLbl)
@@ -6039,31 +6039,31 @@ msgstr "Liste des &bannis"
 msgid "Search:"
 msgstr "Chercher :"
 
-#. i18n: file: src/irc/channeloptionsui.ui:265
+#. i18n: file: src/irc/channeloptionsui.ui:246
 #. i18n: ectx: property (text), widget (K3ListView, banList)
 #: rc.cpp:212
 msgid "Hostmask"
 msgstr "Masque d'hôte"
 
-#. i18n: file: src/irc/channeloptionsui.ui:276
+#. i18n: file: src/irc/channeloptionsui.ui:257
 #. i18n: ectx: property (text), widget (K3ListView, banList)
 #: rc.cpp:215
 msgid "Set By"
 msgstr "Défini par"
 
-#. i18n: file: src/irc/channeloptionsui.ui:287
+#. i18n: file: src/irc/channeloptionsui.ui:268
 #. i18n: ectx: property (text), widget (K3ListView, banList)
 #: rc.cpp:218
 msgid "Time Set"
 msgstr "Temps défini"
 
-#. i18n: file: src/irc/channeloptionsui.ui:309
+#. i18n: file: src/irc/channeloptionsui.ui:290
 #. i18n: ectx: property (text), widget (QPushButton, removeBan)
 #: rc.cpp:221
 msgid "&Remove Ban"
 msgstr "&Supprimer un banni"
 
-#. i18n: file: src/irc/channeloptionsui.ui:322
+#. i18n: file: src/irc/channeloptionsui.ui:303
 #. i18n: ectx: property (text), widget (QPushButton, addBan)
 #: rc.cpp:224
 msgid "&Add Ban"

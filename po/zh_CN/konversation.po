@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-09-21 06:08+0200\n"
+"POT-Creation-Date: 2009-09-30 07:03+0200\n"
 "PO-Revision-Date: 2009-06-24 08:05+0000\n"
 "Last-Translator: Ni Hui <shuizhuyuanluo@126.com>\n"
 "Language-Team: 简体中文 <kde-china@kde.org>\n"
@@ -120,21 +120,21 @@ msgstr "无法打开套接字"
 msgid "DCC"
 msgstr "DCC"
 
-#: src/dcc/chat.cpp:161 src/dcc/transferrecv.cpp:481
-#: src/dcc/transferrecv.cpp:513
+#: src/dcc/chat.cpp:161 src/dcc/transferrecv.cpp:487
+#: src/dcc/transferrecv.cpp:519
 msgid ""
 "Could not send Reverse DCC SEND acknowledgement to the partner via the IRC "
 "server."
 msgstr "无法通过 IRC 服务器向伙伴发送反向 DCC SEND 确认。"
 
 #: src/dcc/chat.cpp:172 src/dcc/transfersend.cpp:350
-#: src/dcc/transferrecv.cpp:526
+#: src/dcc/transferrecv.cpp:532
 msgctxt "Universal Plug and Play"
 msgid "UPnP"
 msgstr ""
 
 #: src/dcc/chat.cpp:172 src/dcc/transfersend.cpp:350
-#: src/dcc/transferrecv.cpp:526
+#: src/dcc/transferrecv.cpp:532
 #, kde-format
 msgid ""
 "Failed to forward port %1. Sending DCC request to remote user regardless."
@@ -194,7 +194,7 @@ msgstr "正在建立到 %1 的 DCC 聊天连接。"
 msgid "Error"
 msgstr "错误"
 
-#: src/dcc/chat.cpp:248 src/dcc/transfersend.cpp:515
+#: src/dcc/chat.cpp:248 src/dcc/transfersend.cpp:516
 #, kde-format
 msgid "Socket error: %1"
 msgstr "Socket 出错：%1"
@@ -276,50 +276,50 @@ msgstr "无法通过 IRC 服务器向伙伴发送 DCC SEND 请求。"
 msgid "Awaiting remote user's acceptance"
 msgstr "正在等待远端用户接收"
 
-#: src/dcc/transfersend.cpp:404 src/dcc/transferrecv.cpp:625
+#: src/dcc/transfersend.cpp:404 src/dcc/transferrecv.cpp:631
 msgid "Could not accept the connection (socket error.)"
 msgstr "无法接收连接(套接字错误)。"
 
-#: src/dcc/transfersend.cpp:537 src/dcc/transferrecv.cpp:750
+#: src/dcc/transfersend.cpp:538 src/dcc/transferrecv.cpp:756
 msgid "Timed out"
 msgstr "超时"
 
-#: src/dcc/transfersend.cpp:547
+#: src/dcc/transfersend.cpp:548
 msgid "The operation was successful. Should never happen in an error dialog."
 msgstr "操作成功，应该不会再出现错误对话框。"
 
-#: src/dcc/transfersend.cpp:550
+#: src/dcc/transfersend.cpp:551
 #, kde-format
 msgid "Could not read from file \"%1\"."
 msgstr "无法读取文件“%1”。"
 
-#: src/dcc/transfersend.cpp:553
+#: src/dcc/transfersend.cpp:554
 #, kde-format
 msgid "Could not write to file \"%1\"."
 msgstr "无法写入文件“%1”。"
 
-#: src/dcc/transfersend.cpp:556
+#: src/dcc/transfersend.cpp:557
 msgid "A fatal unrecoverable error occurred."
 msgstr "发生致命的不可恢复错误。"
 
-#: src/dcc/transfersend.cpp:559
+#: src/dcc/transfersend.cpp:560
 #, kde-format
 msgid "Could not open file \"%1\"."
 msgstr "无法打开文件“%1”。"
 
-#: src/dcc/transfersend.cpp:568
+#: src/dcc/transfersend.cpp:569
 msgid "The operation was unexpectedly aborted."
 msgstr "操作意外放弃。"
 
-#: src/dcc/transfersend.cpp:571
+#: src/dcc/transfersend.cpp:572
 msgid "The operation timed out."
 msgstr "操作超时。"
 
-#: src/dcc/transfersend.cpp:574
+#: src/dcc/transfersend.cpp:575
 msgid "An unspecified error happened on close."
 msgstr "关闭时发生预料外错误。"
 
-#: src/dcc/transfersend.cpp:577
+#: src/dcc/transfersend.cpp:578
 #, kde-format
 msgid "Unknown error. Code %1"
 msgstr "未知错误。代码 %1"
@@ -490,12 +490,12 @@ msgstr "<b>无法创建文件夹。</b><br>文件夹：%1<br>"
 msgid "Could not create a KIO instance"
 msgstr "无法创建 KIO 实例"
 
-#: src/dcc/transferrecv.cpp:380
+#: src/dcc/transferrecv.cpp:388
 #, kde-format
 msgid "<b>The file is used by another transfer.</b><br>%1<br>"
 msgstr "<b>此文件正被另一个传输进程所使用。</b><br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:402
+#: src/dcc/transferrecv.cpp:407
 #, kde-format
 msgid ""
 "<b>A partial file exists:</b><br/>%2<br/>Size of the partial file: 1 byte."
@@ -505,38 +505,38 @@ msgid_plural ""
 "<br/>"
 msgstr[0] "<b>部分文件已存在。</b><br/>%2<br/>部分文件大小：%1 字节。<br/>"
 
-#: src/dcc/transferrecv.cpp:433
+#: src/dcc/transferrecv.cpp:439
 #, kde-format
 msgid "<b>The file already exists.</b><br>%1<br>"
 msgstr "<b>文件已存在。</b><br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:440
+#: src/dcc/transferrecv.cpp:446
 #, kde-format
 msgid "<b>Could not open the file.<br>Error: %1</b><br>%2<br>"
 msgstr "<b>无法打开文件。<br>错误：%1</b><br>%2<br>"
 
-#: src/dcc/transferrecv.cpp:529
+#: src/dcc/transferrecv.cpp:535
 msgid "Waiting for connection"
 msgstr "正在等待连接"
 
-#: src/dcc/transferrecv.cpp:538
+#: src/dcc/transferrecv.cpp:544
 msgid "Waiting for remote host's acceptance"
 msgstr "正在等待远端主机接收"
 
-#: src/dcc/transferrecv.cpp:548
+#: src/dcc/transferrecv.cpp:554
 msgid ""
 "Could not send DCC RECV resume request to the partner via the IRC server."
 msgstr "无法通过 IRC 服务器向伙伴发送 DCC RECV 确认请求。"
 
-#: src/dcc/transferrecv.cpp:570
+#: src/dcc/transferrecv.cpp:576
 msgid "Unexpected response from remote host"
 msgstr "不可预料的远端主机应答"
 
-#: src/dcc/transferrecv.cpp:713
+#: src/dcc/transferrecv.cpp:719
 msgid "Transfer error"
 msgstr "传输错误"
 
-#: src/dcc/transferrecv.cpp:729
+#: src/dcc/transferrecv.cpp:735
 #, kde-format
 msgid "KIO error: %1"
 msgstr "KIO 错误：%1"
@@ -786,25 +786,25 @@ msgstr ""
 
 #: src/irc/nicklistview.cpp:114 src/irc/nicksonline.cpp:912
 #: src/irc/nicksonline.cpp:930 src/irc/query.cpp:81
-#: src/viewer/ircview.cpp:1151
+#: src/viewer/ircview.cpp:1184
 msgid "&Whois"
 msgstr "Whois(&W)"
 
 #: src/irc/nicklistview.cpp:115 src/irc/query.cpp:82
-#: src/viewer/ircview.cpp:1153
+#: src/viewer/ircview.cpp:1186
 msgid "&Version"
 msgstr "版本(&V)"
 
 #: src/irc/nicklistview.cpp:116 src/irc/query.cpp:83
-#: src/viewer/ircview.cpp:1155
+#: src/viewer/ircview.cpp:1188
 msgid "&Ping"
 msgstr "Ping(&P)"
 
-#: src/irc/nicklistview.cpp:122 src/viewer/ircview.cpp:1163
+#: src/irc/nicklistview.cpp:122 src/viewer/ircview.cpp:1196
 msgid "Give Op"
 msgstr "给予操作权限"
 
-#: src/irc/nicklistview.cpp:126 src/viewer/ircview.cpp:1168
+#: src/irc/nicklistview.cpp:126 src/viewer/ircview.cpp:1201
 msgid "Take Op"
 msgstr "撤除操作权限"
 
@@ -816,66 +816,66 @@ msgstr "给予助理权限"
 msgid "Take HalfOp"
 msgstr "撤除助理权限"
 
-#: src/irc/nicklistview.cpp:132 src/viewer/ircview.cpp:1173
+#: src/irc/nicklistview.cpp:132 src/viewer/ircview.cpp:1206
 msgid "Give Voice"
 msgstr "给予发言权限"
 
-#: src/irc/nicklistview.cpp:136 src/viewer/ircview.cpp:1178
+#: src/irc/nicklistview.cpp:136 src/viewer/ircview.cpp:1211
 msgid "Take Voice"
 msgstr "撤除发言权限"
 
-#: src/irc/nicklistview.cpp:140 src/viewer/ircview.cpp:1162
+#: src/irc/nicklistview.cpp:140 src/viewer/ircview.cpp:1195
 msgid "Modes"
 msgstr "模式"
 
 #: src/irc/nicklistview.cpp:147 src/irc/channel.cpp:1503
 #: src/irc/channel.cpp:1505 src/irc/channel.cpp:1512 src/irc/channel.cpp:1517
 #: src/irc/channel.cpp:1538 src/irc/channel.cpp:1540 src/irc/channel.cpp:1547
-#: src/irc/channel.cpp:1552 src/viewer/ircview.cpp:1185
+#: src/irc/channel.cpp:1552 src/viewer/ircview.cpp:1218
 msgid "Kick"
 msgstr "踢出"
 
-#: src/irc/nicklistview.cpp:148 src/viewer/ircview.cpp:1187
+#: src/irc/nicklistview.cpp:148 src/viewer/ircview.cpp:1220
 msgid "Kickban"
 msgstr "踢出并封禁"
 
-#: src/irc/nicklistview.cpp:149 src/viewer/ircview.cpp:1189
+#: src/irc/nicklistview.cpp:149 src/viewer/ircview.cpp:1222
 msgid "Ban Nickname"
 msgstr "封禁此昵称"
 
-#: src/irc/nicklistview.cpp:151 src/viewer/ircview.cpp:1192
+#: src/irc/nicklistview.cpp:151 src/viewer/ircview.cpp:1225
 msgid "Ban *!*@*.host"
 msgstr "封禁 *!*@*.host"
 
-#: src/irc/nicklistview.cpp:152 src/viewer/ircview.cpp:1194
+#: src/irc/nicklistview.cpp:152 src/viewer/ircview.cpp:1227
 msgid "Ban *!*@domain"
 msgstr "封禁 *!*@domain"
 
-#: src/irc/nicklistview.cpp:153 src/viewer/ircview.cpp:1196
+#: src/irc/nicklistview.cpp:153 src/viewer/ircview.cpp:1229
 msgid "Ban *!user@*.host"
 msgstr "封禁 *!user@*.host"
 
-#: src/irc/nicklistview.cpp:154 src/viewer/ircview.cpp:1198
+#: src/irc/nicklistview.cpp:154 src/viewer/ircview.cpp:1231
 msgid "Ban *!user@domain"
 msgstr "封禁 *!user@domain"
 
-#: src/irc/nicklistview.cpp:156 src/viewer/ircview.cpp:1201
+#: src/irc/nicklistview.cpp:156 src/viewer/ircview.cpp:1234
 msgid "Kickban *!*@*.host"
 msgstr "踢出并封禁 *!*@*.host"
 
-#: src/irc/nicklistview.cpp:157 src/viewer/ircview.cpp:1203
+#: src/irc/nicklistview.cpp:157 src/viewer/ircview.cpp:1236
 msgid "Kickban *!*@domain"
 msgstr "踢出并封禁 *!*@domain"
 
-#: src/irc/nicklistview.cpp:158 src/viewer/ircview.cpp:1205
+#: src/irc/nicklistview.cpp:158 src/viewer/ircview.cpp:1238
 msgid "Kickban *!user@*.host"
 msgstr "踢出并封禁 *!user@*.host"
 
-#: src/irc/nicklistview.cpp:159 src/viewer/ircview.cpp:1207
+#: src/irc/nicklistview.cpp:159 src/viewer/ircview.cpp:1240
 msgid "Kickban *!user@domain"
 msgstr "踢出并封禁 *!user@domain"
 
-#: src/irc/nicklistview.cpp:160 src/viewer/ircview.cpp:1184
+#: src/irc/nicklistview.cpp:160 src/viewer/ircview.cpp:1217
 msgid "Kick / Ban"
 msgstr "踢出/封禁"
 
@@ -883,13 +883,13 @@ msgstr "踢出/封禁"
 #: src/irc/outputfilter.cpp:1504 src/irc/query.cpp:86 src/irc/query.cpp:394
 #: src/irc/query.cpp:395 src/irc/channel.cpp:670 src/irc/channel.cpp:671
 #: src/config/settingsdialog.cpp:131 src/config/warnings_config.cpp:118
-#: src/viewer/ircview.cpp:1211
+#: src/viewer/ircview.cpp:1244
 msgid "Ignore"
 msgstr "忽略"
 
 #: src/irc/nicklistview.cpp:166 src/irc/query.cpp:87 src/irc/query.cpp:420
 #: src/irc/query.cpp:421 src/irc/channel.cpp:695 src/irc/channel.cpp:696
-#: src/config/warnings_config.cpp:119 src/viewer/ircview.cpp:1212
+#: src/config/warnings_config.cpp:119 src/viewer/ircview.cpp:1245
 msgid "Unignore"
 msgstr "取消忽略"
 
@@ -922,7 +922,7 @@ msgid ""
 msgstr ""
 
 #: src/irc/nicklistview.cpp:176 src/irc/query.cpp:91
-#: src/viewer/ircview.cpp:1226
+#: src/viewer/ircview.cpp:1259
 msgid "Send &File..."
 msgstr "发送文件(&F)..."
 
@@ -943,7 +943,7 @@ msgid "Address Book Associations"
 msgstr "地址簿关联"
 
 #: src/irc/nicklistview.cpp:191 src/irc/query.cpp:95
-#: src/viewer/ircview.cpp:1232
+#: src/viewer/ircview.cpp:1265
 msgid "Add to Watched Nicks"
 msgstr "添加到监视昵称列表"
 
@@ -1058,15 +1058,15 @@ msgstr "连接到服务器"
 msgid "Click here to connect to the selected IRC network and channel."
 msgstr "点此连接到选择的 IRC 网络与频道。"
 
-#: src/irc/serverlistdialog.cpp:144
+#: src/irc/serverlistdialog.cpp:145
 msgid "New Network"
 msgstr "新建网络"
 
-#: src/irc/serverlistdialog.cpp:165
+#: src/irc/serverlistdialog.cpp:166
 msgid "Edit Network"
 msgstr "编辑网络"
 
-#: src/irc/serverlistdialog.cpp:221
+#: src/irc/serverlistdialog.cpp:222
 #, kde-format
 msgid ""
 "You cannot delete %1.\n"
@@ -1077,7 +1077,7 @@ msgstr ""
 "\n"
 "%2 网络需要至少一个服务器。"
 
-#: src/irc/serverlistdialog.cpp:226
+#: src/irc/serverlistdialog.cpp:227
 #, kde-format
 msgid ""
 "You cannot delete the selected server.\n"
@@ -1092,11 +1092,11 @@ msgstr[0] ""
 "\n"
 "%2 网络需要至少一个服务器。"
 
-#: src/irc/serverlistdialog.cpp:242
+#: src/irc/serverlistdialog.cpp:243
 msgid "Do you really want to delete the selected entries?"
 msgstr "您真要删除选中的条目吗？"
 
-#: src/irc/serverlistdialog.cpp:244
+#: src/irc/serverlistdialog.cpp:245
 #, kde-format
 msgid "Do you really want to delete %1?"
 msgstr "您真要删除 %1 吗？"
@@ -1303,7 +1303,7 @@ msgid "Usage: %1RAW [OPEN | CLOSE]"
 msgstr "用法：%1RAW [OPEN | CLOSE]"
 
 #: src/irc/outputfilter.cpp:1195 src/irc/server.cpp:2459
-#: src/irc/server.cpp:2477 src/viewer/ircview.cpp:662
+#: src/irc/server.cpp:2477 src/viewer/ircview.cpp:712
 msgid "Notify"
 msgstr "通知"
 
@@ -1752,7 +1752,7 @@ msgid "You are not on %1."
 msgstr "您不在 %1 上。"
 
 #: src/irc/inputfilter.cpp:1247 src/irc/inputfilter.cpp:1256
-#: src/irc/inputfilter.cpp:1265 src/viewer/ircview.cpp:641
+#: src/irc/inputfilter.cpp:1265 src/viewer/ircview.cpp:691
 msgid "MOTD"
 msgstr "MOTD"
 
@@ -2118,7 +2118,7 @@ msgid "Nickname error"
 msgstr "昵称错误"
 
 #: src/irc/server.cpp:1341 src/irc/server.cpp:3101 src/irc/server.cpp:3106
-#: src/application.cpp:290
+#: src/application.cpp:297
 msgid "D-Bus"
 msgstr "D-Bus"
 
@@ -2296,7 +2296,7 @@ msgid "Channel Invites"
 msgstr "频道列表"
 
 #: src/irc/invitedialog.cpp:167 src/irc/channel.cpp:1378
-#: src/irc/channel.cpp:1394 src/viewer/ircview.cpp:681
+#: src/irc/channel.cpp:1394 src/viewer/ircview.cpp:731
 msgid "Join"
 msgstr "加入"
 
@@ -2489,35 +2489,35 @@ msgstr "改变网络信息"
 msgid "Discards all changes made"
 msgstr "丢弃所做的全部更改"
 
-#: src/irc/servergroupdialog.cpp:160
+#: src/irc/servergroupdialog.cpp:161
 msgid "Add Server"
 msgstr "添加服务器"
 
-#: src/irc/servergroupdialog.cpp:178
+#: src/irc/servergroupdialog.cpp:179
 msgid "Edit Server"
 msgstr "编辑服务器"
 
-#: src/irc/servergroupdialog.cpp:272
+#: src/irc/servergroupdialog.cpp:273
 msgid "Add Channel"
 msgstr "添加频道"
 
-#: src/irc/servergroupdialog.cpp:290
+#: src/irc/servergroupdialog.cpp:291
 msgid "Edit Channel"
 msgstr "编辑频道"
 
-#: src/irc/servergroupdialog.cpp:394
+#: src/irc/servergroupdialog.cpp:395
 msgid "The network name is required."
 msgstr "这里需要一个网络名。"
 
-#: src/irc/servergroupdialog.cpp:398
+#: src/irc/servergroupdialog.cpp:399
 msgid "You need to add at least one server to the network."
 msgstr "您需要在此网络中添加至少一个服务器。"
 
-#: src/irc/servergroupdialog.cpp:453
+#: src/irc/servergroupdialog.cpp:454
 msgid "The server address is required."
 msgstr "要求填入服务器地址。"
 
-#: src/irc/servergroupdialog.cpp:504
+#: src/irc/servergroupdialog.cpp:505
 msgid "The channel name is required."
 msgstr "需要一个频道名。"
 
@@ -2595,7 +2595,7 @@ msgstr "正在和自己对话"
 
 #: src/irc/query.cpp:686 src/irc/query.cpp:693 src/irc/channel.cpp:1417
 #: src/irc/channel.cpp:1419 src/irc/channel.cpp:1438 src/irc/channel.cpp:1440
-#: src/viewer/ircview.cpp:686
+#: src/viewer/ircview.cpp:736
 msgid "Quit"
 msgstr "退出"
 
@@ -2732,7 +2732,7 @@ msgid "You have left this server (%1)."
 msgstr "您已经离开了此服务器 (%1)。"
 
 #: src/irc/channel.cpp:1424 src/irc/channel.cpp:1426 src/irc/channel.cpp:1446
-#: src/irc/channel.cpp:1448 src/viewer/ircview.cpp:686
+#: src/irc/channel.cpp:1448 src/viewer/ircview.cpp:736
 msgid "Part"
 msgstr "离开"
 
@@ -4610,22 +4610,22 @@ msgstr ""
 "Konversation 频道列表：%1 - %2\n"
 "\n"
 
-#: src/urlcatcher.cpp:381 src/viewer/ircview.cpp:136
+#: src/urlcatcher.cpp:381 src/viewer/ircview.cpp:189
 #: src/viewer/topiclabel.cpp:143
 msgid "Copy Link Address"
 msgstr "复制链接地址"
 
-#: src/urlcatcher.cpp:382 src/viewer/ircview.cpp:140
+#: src/urlcatcher.cpp:382 src/viewer/ircview.cpp:193
 #: src/viewer/topiclabel.cpp:144
 msgid "Add to Bookmarks"
 msgstr "添加到书签"
 
-#: src/urlcatcher.cpp:383 src/viewer/ircview.cpp:142
+#: src/urlcatcher.cpp:383 src/viewer/ircview.cpp:195
 #: src/viewer/topiclabel.cpp:145
 msgid "Save Link As..."
 msgstr "链接另存为..."
 
-#: src/urlcatcher.cpp:412 src/viewer/ircview.cpp:1395
+#: src/urlcatcher.cpp:412 src/viewer/ircview.cpp:1434
 #: src/viewer/topiclabel.cpp:332
 msgid "Save link as"
 msgstr "链接另存为"
@@ -4710,41 +4710,41 @@ msgstr "插入(&I)"
 msgid "Insert a character"
 msgstr "插入一个字符"
 
-#: src/viewer/ircview.cpp:148
+#: src/viewer/ircview.cpp:201
 msgid "&Copy"
 msgstr "复制(&C)"
 
-#: src/viewer/ircview.cpp:151
+#: src/viewer/ircview.cpp:204
 msgid "Select All"
 msgstr "全部选中"
 
-#: src/viewer/ircview.cpp:152 src/viewer/viewcontainer.cpp:550
+#: src/viewer/ircview.cpp:205 src/viewer/viewcontainer.cpp:550
 msgid "Find Text..."
 msgstr "查找文本..."
 
-#: src/viewer/ircview.cpp:1219
+#: src/viewer/ircview.cpp:1252
 msgid "Open Query"
 msgstr "打开对话"
 
-#: src/viewer/ircview.cpp:1266 src/viewer/topiclabel.cpp:128
+#: src/viewer/ircview.cpp:1299 src/viewer/topiclabel.cpp:128
 #: src/mainwindow.cpp:421
 msgid "&Join Channel..."
 msgstr "加入频道(&J)..."
 
-#: src/viewer/ircview.cpp:1273 src/viewer/topiclabel.cpp:134
+#: src/viewer/ircview.cpp:1306 src/viewer/topiclabel.cpp:134
 msgid "Get &user list"
 msgstr "获取用户列表(&U)"
 
-#: src/viewer/ircview.cpp:1275 src/viewer/topiclabel.cpp:135
+#: src/viewer/ircview.cpp:1308 src/viewer/topiclabel.cpp:135
 msgid "Get &topic"
 msgstr "获取话题(&T)"
 
-#: src/viewer/ircview.cpp:1470
+#: src/viewer/ircview.cpp:1509
 #, kde-format
 msgid "Open a query with %1"
 msgstr "打开一个和 %1 的对话"
 
-#: src/viewer/ircview.cpp:1491 src/viewer/topiclabel.cpp:277
+#: src/viewer/ircview.cpp:1530 src/viewer/topiclabel.cpp:277
 #, kde-format
 msgid "Join the channel %1"
 msgstr "加入频道 %1"
@@ -4773,19 +4773,19 @@ msgstr ""
 "关信息，包括他已加入的所有频道清单等。</td></tr></table><p>查询更多的命令，请"
 "参看 Konversation 手册。</p><p>一条消息不能跨越多行。</p></qt>"
 
-#: src/viewer/ircinput.cpp:484
+#: src/viewer/ircinput.cpp:485
 #, kde-format
 msgid "1 byte"
 msgid_plural "%1 bytes"
 msgstr[0] "%1 字节"
 
-#: src/viewer/ircinput.cpp:485
+#: src/viewer/ircinput.cpp:486
 #, kde-format
 msgid "1 line"
 msgid_plural "%1 lines"
 msgstr[0] "%1 行"
 
-#: src/viewer/ircinput.cpp:491
+#: src/viewer/ircinput.cpp:492
 #, fuzzy, kde-format
 #| msgid ""
 #| "<qt>You are attempting to paste a large portion of text (%1 bytes or %2 "
@@ -4802,11 +4802,11 @@ msgstr ""
 "<qt>您正试图粘贴一大段文本(%1 字节或 %2 行)进入聊天栏，这可能引起连接重置或过"
 "量信息发送中止，您真要继续吗？</qt>"
 
-#: src/viewer/ircinput.cpp:494
+#: src/viewer/ircinput.cpp:495
 msgid "Large Paste Warning"
 msgstr "巨量粘贴警告"
 
-#: src/viewer/ircinput.cpp:495
+#: src/viewer/ircinput.cpp:496
 msgid "Paste"
 msgstr "粘贴"
 
@@ -4814,7 +4814,7 @@ msgstr "粘贴"
 #. i18n: ectx: property (text), widget (KPushButton, m_editIdentityButton)
 #. i18n: file: src/irc/serverlistdialogui.ui:162
 #. i18n: ectx: property (text), widget (QPushButton, m_editButton)
-#: src/viewer/ircinput.cpp:496 rc.cpp:116 rc.cpp:257
+#: src/viewer/ircinput.cpp:497 rc.cpp:116 rc.cpp:257
 msgid "&Edit..."
 msgstr "编辑(&E)..."
 
@@ -5751,73 +5751,73 @@ msgstr ""
 msgid "Topi&c"
 msgstr "话题(&C)"
 
-#. i18n: file: src/irc/channeloptionsui.ui:77
+#. i18n: file: src/irc/channeloptionsui.ui:74
 #. i18n: ectx: attribute (title), widget (QWidget, modesPage)
 #: rc.cpp:176
 msgid "Mo&des"
 msgstr "模式(&D)"
 
-#. i18n: file: src/irc/channeloptionsui.ui:83
+#. i18n: file: src/irc/channeloptionsui.ui:80
 #. i18n: ectx: property (text), widget (QCheckBox, topicModeChBox)
 #: rc.cpp:179
 msgid "&Topic can only be changed by channel operators"
 msgstr "话题只能由频道操作员修改(&T)"
 
-#. i18n: file: src/irc/channeloptionsui.ui:90
+#. i18n: file: src/irc/channeloptionsui.ui:87
 #. i18n: ectx: property (text), widget (QCheckBox, messageModeChBox)
 #: rc.cpp:182
 msgid "&No messages from outside the channel"
 msgstr "不接受来自频道以外的消息(&N)"
 
-#. i18n: file: src/irc/channeloptionsui.ui:97
+#. i18n: file: src/irc/channeloptionsui.ui:94
 #. i18n: ectx: property (text), widget (QCheckBox, secretModeChBox)
 #: rc.cpp:185
 msgid "&Secret channel, the channel is not listed in the channel list"
 msgstr "绝密频道，不会显示在频道列表中(&S)"
 
-#. i18n: file: src/irc/channeloptionsui.ui:104
+#. i18n: file: src/irc/channeloptionsui.ui:101
 #. i18n: ectx: property (text), widget (QCheckBox, inviteModeChBox)
 #: rc.cpp:188
 msgid "Only &invited are allowed to join the channel"
 msgstr "只有受邀请的用户才能加入此频道(&I)"
 
-#. i18n: file: src/irc/channeloptionsui.ui:111
+#. i18n: file: src/irc/channeloptionsui.ui:108
 #. i18n: ectx: property (text), widget (QCheckBox, moderatedModeChBox)
 #: rc.cpp:191
 msgid "&Moderated channel, only people with voice can write to the channel"
 msgstr "监管频道，只有具备发言权限的人才能在这里发言(&M)"
 
-#. i18n: file: src/irc/channeloptionsui.ui:120
+#. i18n: file: src/irc/channeloptionsui.ui:117
 #. i18n: ectx: property (text), widget (QCheckBox, keyModeChBox)
 #: rc.cpp:194
 msgid "Channel &password:"
 msgstr "频道密码(&P)："
 
-#. i18n: file: src/irc/channeloptionsui.ui:137
+#. i18n: file: src/irc/channeloptionsui.ui:134
 #. i18n: ectx: property (text), widget (QCheckBox, userLimitChBox)
 #: rc.cpp:197
 msgid "User &limit:"
 msgstr "用户限制(&L)"
 
-#. i18n: file: src/irc/channeloptionsui.ui:171
+#. i18n: file: src/irc/channeloptionsui.ui:168
 #. i18n: ectx: property (text), widget (QPushButton, toggleAdvancedModes)
 #: rc.cpp:200
 msgid "Show &Advanced Modes >>"
 msgstr "显示高级模式(&A) >>"
 
-#. i18n: file: src/irc/channeloptionsui.ui:174
+#. i18n: file: src/irc/channeloptionsui.ui:171
 #. i18n: ectx: property (shortcut), widget (QPushButton, toggleAdvancedModes)
 #: rc.cpp:203
 msgid "Alt+A, Backspace, Tab, Backspace"
 msgstr "Alt+A、Backspace、Tab、Backspace"
 
-#. i18n: file: src/irc/channeloptionsui.ui:229
+#. i18n: file: src/irc/channeloptionsui.ui:210
 #. i18n: ectx: attribute (title), widget (QWidget, TabPage)
 #: rc.cpp:206
 msgid "&Ban List"
 msgstr "封禁列表(&B)"
 
-#. i18n: file: src/irc/channeloptionsui.ui:243
+#. i18n: file: src/irc/channeloptionsui.ui:224
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #. i18n: file: src/urlcatcherui.ui:42
 #. i18n: ectx: property (text), widget (QLabel, m_searchLbl)
@@ -5825,31 +5825,31 @@ msgstr "封禁列表(&B)"
 msgid "Search:"
 msgstr "搜索："
 
-#. i18n: file: src/irc/channeloptionsui.ui:265
+#. i18n: file: src/irc/channeloptionsui.ui:246
 #. i18n: ectx: property (text), widget (K3ListView, banList)
 #: rc.cpp:212
 msgid "Hostmask"
 msgstr "主机掩码"
 
-#. i18n: file: src/irc/channeloptionsui.ui:276
+#. i18n: file: src/irc/channeloptionsui.ui:257
 #. i18n: ectx: property (text), widget (K3ListView, banList)
 #: rc.cpp:215
 msgid "Set By"
 msgstr "设定由"
 
-#. i18n: file: src/irc/channeloptionsui.ui:287
+#. i18n: file: src/irc/channeloptionsui.ui:268
 #. i18n: ectx: property (text), widget (K3ListView, banList)
 #: rc.cpp:218
 msgid "Time Set"
 msgstr "时间设定"
 
-#. i18n: file: src/irc/channeloptionsui.ui:309
+#. i18n: file: src/irc/channeloptionsui.ui:290
 #. i18n: ectx: property (text), widget (QPushButton, removeBan)
 #: rc.cpp:221
 msgid "&Remove Ban"
 msgstr "移除出封禁列表(&R)"
 
-#. i18n: file: src/irc/channeloptionsui.ui:322
+#. i18n: file: src/irc/channeloptionsui.ui:303
 #. i18n: ectx: property (text), widget (QPushButton, addBan)
 #: rc.cpp:224
 msgid "&Add Ban"

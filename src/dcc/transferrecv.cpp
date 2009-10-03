@@ -375,23 +375,28 @@ namespace Konversation
             kDebug() << "[BEGIN]" << endl
                 << "size: " << QString::number( size );
 
+            KIO::TransferJob* transferJob = dynamic_cast<KIO::TransferJob*>( job );
+            if (!transferJob)
+            {
+                kDebug() << "not a TransferJob? returning";
+                return;
+            }
+
             if ( Application::instance()->getDccTransferManager()->isLocalFileInWritingProcess( m_fileURL ) )
             {
+                disconnect( transferJob, 0, 0, 0 );
                 askAndPrepareLocalKio( i18n( "<b>The file is used by another transfer.</b><br>"
                     "%1<br>",
                     m_fileURL.prettyUrl() ),
                     ResumeDialog::RA_Rename | ResumeDialog::RA_Cancel,
                     ResumeDialog::RA_Rename );
+                    transferJob->kill();
                 return;
             }
 
             if ( size != 0 )
             {
-                KIO::TransferJob* transferJob = static_cast<KIO::TransferJob*>( job );
-
                 disconnect( transferJob, 0, 0, 0 );
-                transferJob->kill();
-
                 if ( Preferences::self()->dccAutoResume() )
                 {
                     prepareLocalKio( false, true, size );
@@ -411,6 +416,7 @@ namespace Konversation
                         ResumeDialog::RA_Resume,
                         size );
                 }
+                transferJob->kill();
             }
 
             kDebug() << "[END]";

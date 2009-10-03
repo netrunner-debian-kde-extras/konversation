@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-09-21 06:08+0200\n"
-"PO-Revision-Date: 2009-09-16 22:40+0300\n"
+"POT-Creation-Date: 2009-09-30 07:03+0200\n"
+"PO-Revision-Date: 2009-09-24 20:19+0300\n"
 "Last-Translator: Serdar Soytetir <tulliana@gmail.com>\n"
 "Language-Team: Turkish <yerellestirme@kde.org.tr>\n"
 "MIME-Version: 1.0\n"
@@ -125,21 +125,21 @@ msgstr "Bir soket açılamadı"
 msgid "DCC"
 msgstr "Dosya aktarımı"
 
-#: src/dcc/chat.cpp:161 src/dcc/transferrecv.cpp:481
-#: src/dcc/transferrecv.cpp:513
+#: src/dcc/chat.cpp:161 src/dcc/transferrecv.cpp:487
+#: src/dcc/transferrecv.cpp:519
 msgid ""
 "Could not send Reverse DCC SEND acknowledgement to the partner via the IRC "
 "server."
 msgstr "Ters DCC isteği irc sunucu üstünden yollanamıyor."
 
 #: src/dcc/chat.cpp:172 src/dcc/transfersend.cpp:350
-#: src/dcc/transferrecv.cpp:526
+#: src/dcc/transferrecv.cpp:532
 msgctxt "Universal Plug and Play"
 msgid "UPnP"
 msgstr "UPnP"
 
 #: src/dcc/chat.cpp:172 src/dcc/transfersend.cpp:350
-#: src/dcc/transferrecv.cpp:526
+#: src/dcc/transferrecv.cpp:532
 #, kde-format
 msgid ""
 "Failed to forward port %1. Sending DCC request to remote user regardless."
@@ -199,7 +199,7 @@ msgstr "%1 konumu ile DCC sohbet bağlantısı kuruldu."
 msgid "Error"
 msgstr "Hata"
 
-#: src/dcc/chat.cpp:248 src/dcc/transfersend.cpp:515
+#: src/dcc/chat.cpp:248 src/dcc/transfersend.cpp:516
 #, kde-format
 msgid "Socket error: %1"
 msgstr "Soket hatası: %1"
@@ -282,50 +282,50 @@ msgstr "IRC sunucusu üzerinden arkadaşınıza DCC SEND isteği gönderilemedi.
 msgid "Awaiting remote user's acceptance"
 msgstr "Uzak kullanıcının onayı bekleniyor"
 
-#: src/dcc/transfersend.cpp:404 src/dcc/transferrecv.cpp:625
+#: src/dcc/transfersend.cpp:404 src/dcc/transferrecv.cpp:631
 msgid "Could not accept the connection (socket error.)"
 msgstr "Bağlantı kabul edilemedi (soket hatası.)"
 
-#: src/dcc/transfersend.cpp:537 src/dcc/transferrecv.cpp:750
+#: src/dcc/transfersend.cpp:538 src/dcc/transferrecv.cpp:756
 msgid "Timed out"
 msgstr "Zaman aşımına uğradı"
 
-#: src/dcc/transfersend.cpp:547
+#: src/dcc/transfersend.cpp:548
 msgid "The operation was successful. Should never happen in an error dialog."
 msgstr "İşlem başarıyla sonuçlandı."
 
-#: src/dcc/transfersend.cpp:550
+#: src/dcc/transfersend.cpp:551
 #, kde-format
 msgid "Could not read from file \"%1\"."
 msgstr "\"%1\" dosyasından okunamadı."
 
-#: src/dcc/transfersend.cpp:553
+#: src/dcc/transfersend.cpp:554
 #, kde-format
 msgid "Could not write to file \"%1\"."
 msgstr "\"%1\" dosyasına yazılamadı."
 
-#: src/dcc/transfersend.cpp:556
+#: src/dcc/transfersend.cpp:557
 msgid "A fatal unrecoverable error occurred."
 msgstr "Düzeltilemeyen ölümcül bir hata oluştu."
 
-#: src/dcc/transfersend.cpp:559
+#: src/dcc/transfersend.cpp:560
 #, kde-format
 msgid "Could not open file \"%1\"."
 msgstr "\"%1\" dosyası açılamadı."
 
-#: src/dcc/transfersend.cpp:568
+#: src/dcc/transfersend.cpp:569
 msgid "The operation was unexpectedly aborted."
 msgstr "İşlem beklenmedik şekilde iptal edildi."
 
-#: src/dcc/transfersend.cpp:571
+#: src/dcc/transfersend.cpp:572
 msgid "The operation timed out."
 msgstr "İşlem zaman aşımına uğradı."
 
-#: src/dcc/transfersend.cpp:574
+#: src/dcc/transfersend.cpp:575
 msgid "An unspecified error happened on close."
 msgstr "Kapanırken belirtilmeyen bir hata oluştu."
 
-#: src/dcc/transfersend.cpp:577
+#: src/dcc/transfersend.cpp:578
 #, kde-format
 msgid "Unknown error. Code %1"
 msgstr "Bilinmeyen hata. Kod %1"
@@ -411,48 +411,48 @@ msgstr "İptal edildi"
 
 #: src/dcc/transferlistmodel.cpp:486
 msgid "Queued - Transfer is waiting for you to accept or reject it"
-msgstr ""
+msgstr "Kuyruğa eklendi - Aktarım kabul etmenizi veya reddetmenizi bekliyor"
 
 #: src/dcc/transferlistmodel.cpp:491
 msgid "Preparing - Transfer is checking for resumable files"
-msgstr ""
+msgstr "Hazırlanıyor - Aktarım devam ettirilebilir dosyaları denetliyor"
 
 #: src/dcc/transferlistmodel.cpp:493
 msgid "Preparing - Transfer is acquiring the data to send"
-msgstr ""
+msgstr "Hazırlanıyor - Aktarım göndermek için veri alıyor"
 
 #: src/dcc/transferlistmodel.cpp:499
 msgid "Pending - Transfer is waiting for the partner to accept or reject it"
-msgstr ""
+msgstr "Bekleniyor - Aktarım karşı tarafın kabul etmesini bekliyor"
 
 #: src/dcc/transferlistmodel.cpp:501
 msgid "Connecting - Transfer is connecting to the partner"
-msgstr ""
+msgstr "Bağlanılıyor - Aktarım karşı tarafa bağlanıyor"
 
 #: src/dcc/transferlistmodel.cpp:506
 msgid "Receiving - Transfer is receiving data from the partner"
-msgstr ""
+msgstr "Alınıyor - Aktarım karşı taraftan veri alıyor"
 
 #: src/dcc/transferlistmodel.cpp:508
 msgid "Sending - Transfer is sending data to partner"
-msgstr ""
+msgstr "Gönderiliyor - Aktarım karşı tarafa veri gönderiyor"
 
 #: src/dcc/transferlistmodel.cpp:514
 msgid "Done - Transfer has completed successfully"
-msgstr ""
+msgstr "Tamamlandı - Aktarım başarılı bir şekilde tamamlandı"
 
 #: src/dcc/transferlistmodel.cpp:518
 msgid "Failed - Transfer failed with 'unknown reason'"
-msgstr ""
+msgstr "Başarısız oldu - Aktarım 'bilinmeyen bir neden' ile başarısız oldu"
 
 #: src/dcc/transferlistmodel.cpp:522
 #, kde-format
 msgid "Failed - Transfer failed with reason '%1'"
-msgstr ""
+msgstr "Başarısız oldu - Aktarım '%1' nedeniyle başarısız oldu"
 
 #: src/dcc/transferlistmodel.cpp:525
 msgid "Aborted - Transfer was aborted by the User"
-msgstr ""
+msgstr "Sonlandırıldı - Aktarım kullanıcı tarafından sonlandırıldı"
 
 #: src/dcc/transferlistmodel.cpp:618
 msgid "Incoming Transfers"
@@ -488,16 +488,19 @@ msgstr "<b>Dizin oluşturulamıyor.</b><br>Dizin: %1<br>"
 msgid "Could not create a KIO instance"
 msgstr "Bir KIO örneği oluşturulamadı"
 
-#: src/dcc/transferrecv.cpp:380
+#: src/dcc/transferrecv.cpp:388
 #, kde-format
 msgid "<b>The file is used by another transfer.</b><br>%1<br>"
 msgstr "<b>Bu dosya başka bir transfer tarafından kullanılıyor.</b><br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:402
+#: src/dcc/transferrecv.cpp:407
 #, fuzzy, kde-format
 #| msgid ""
-#| "<b>A partial file exists.</b><br>%1<br>Size of the partial file: %2 "
-#| "bytes<br>"
+#| "<b>A partial file exists:</b><br/>%2<br/>Size of the partial file: 1 byte."
+#| "<br/>"
+#| msgid_plural ""
+#| "<b>A partial file exists:</b><br/>%2<br/>Size of the partial file: %1 "
+#| "bytes.<br/>"
 msgid ""
 "<b>A partial file exists:</b><br/>%2<br/>Size of the partial file: 1 byte."
 "<br/>"
@@ -505,40 +508,40 @@ msgid_plural ""
 "<b>A partial file exists:</b><br/>%2<br/>Size of the partial file: %1 bytes."
 "<br/>"
 msgstr[0] ""
-"<b>Yarım bir dosya var.</b> <br>%1 <br>Yarım dosyanın boyu: %2 bayt<br>"
+"<b>Yarım bir dosya var:</b><br/>%2<br/>Yarım dosyanın boyutu: %2 bayt.<br/>"
 
-#: src/dcc/transferrecv.cpp:433
+#: src/dcc/transferrecv.cpp:439
 #, kde-format
 msgid "<b>The file already exists.</b><br>%1<br>"
 msgstr "<b>Bu dosya zaten var.</b><br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:440
+#: src/dcc/transferrecv.cpp:446
 #, kde-format
 msgid "<b>Could not open the file.<br>Error: %1</b><br>%2<br>"
 msgstr "<b>Dosya açılamadı.<br>Hata: %1</b><br>%2<br>"
 
-#: src/dcc/transferrecv.cpp:529
+#: src/dcc/transferrecv.cpp:535
 msgid "Waiting for connection"
 msgstr "Bağlantı için bekleniyor"
 
-#: src/dcc/transferrecv.cpp:538
+#: src/dcc/transferrecv.cpp:544
 msgid "Waiting for remote host's acceptance"
 msgstr "Uzak bilgisayardan onay bekleniyor"
 
-#: src/dcc/transferrecv.cpp:548
+#: src/dcc/transferrecv.cpp:554
 msgid ""
 "Could not send DCC RECV resume request to the partner via the IRC server."
 msgstr "DCC alımı devam isteği sunucu üzerinden yollanamıyor"
 
-#: src/dcc/transferrecv.cpp:570
+#: src/dcc/transferrecv.cpp:576
 msgid "Unexpected response from remote host"
 msgstr "Uzak bilgisayardan beklenmeyen bir yanıt alındı"
 
-#: src/dcc/transferrecv.cpp:713
+#: src/dcc/transferrecv.cpp:719
 msgid "Transfer error"
 msgstr "Aktarım hatası"
 
-#: src/dcc/transferrecv.cpp:729
+#: src/dcc/transferrecv.cpp:735
 #, kde-format
 msgid "KIO error: %1"
 msgstr "KIO hatası: %1"
@@ -835,25 +838,25 @@ msgstr ""
 
 #: src/irc/nicklistview.cpp:114 src/irc/nicksonline.cpp:912
 #: src/irc/nicksonline.cpp:930 src/irc/query.cpp:81
-#: src/viewer/ircview.cpp:1151
+#: src/viewer/ircview.cpp:1184
 msgid "&Whois"
 msgstr "&Kim"
 
 #: src/irc/nicklistview.cpp:115 src/irc/query.cpp:82
-#: src/viewer/ircview.cpp:1153
+#: src/viewer/ircview.cpp:1186
 msgid "&Version"
 msgstr "&Sürüm"
 
 #: src/irc/nicklistview.cpp:116 src/irc/query.cpp:83
-#: src/viewer/ircview.cpp:1155
+#: src/viewer/ircview.cpp:1188
 msgid "&Ping"
 msgstr "&Ping"
 
-#: src/irc/nicklistview.cpp:122 src/viewer/ircview.cpp:1163
+#: src/irc/nicklistview.cpp:122 src/viewer/ircview.cpp:1196
 msgid "Give Op"
 msgstr "Op Ver"
 
-#: src/irc/nicklistview.cpp:126 src/viewer/ircview.cpp:1168
+#: src/irc/nicklistview.cpp:126 src/viewer/ircview.cpp:1201
 msgid "Take Op"
 msgstr "Op Al"
 
@@ -865,66 +868,66 @@ msgstr "HalfOp Ver"
 msgid "Take HalfOp"
 msgstr "HalfOp Al"
 
-#: src/irc/nicklistview.cpp:132 src/viewer/ircview.cpp:1173
+#: src/irc/nicklistview.cpp:132 src/viewer/ircview.cpp:1206
 msgid "Give Voice"
 msgstr "Voice (Ses) Ver"
 
-#: src/irc/nicklistview.cpp:136 src/viewer/ircview.cpp:1178
+#: src/irc/nicklistview.cpp:136 src/viewer/ircview.cpp:1211
 msgid "Take Voice"
 msgstr "Voice (Ses) Al"
 
-#: src/irc/nicklistview.cpp:140 src/viewer/ircview.cpp:1162
+#: src/irc/nicklistview.cpp:140 src/viewer/ircview.cpp:1195
 msgid "Modes"
 msgstr "Kipler"
 
 #: src/irc/nicklistview.cpp:147 src/irc/channel.cpp:1503
 #: src/irc/channel.cpp:1505 src/irc/channel.cpp:1512 src/irc/channel.cpp:1517
 #: src/irc/channel.cpp:1538 src/irc/channel.cpp:1540 src/irc/channel.cpp:1547
-#: src/irc/channel.cpp:1552 src/viewer/ircview.cpp:1185
+#: src/irc/channel.cpp:1552 src/viewer/ircview.cpp:1218
 msgid "Kick"
 msgstr "Tekmele"
 
-#: src/irc/nicklistview.cpp:148 src/viewer/ircview.cpp:1187
+#: src/irc/nicklistview.cpp:148 src/viewer/ircview.cpp:1220
 msgid "Kickban"
 msgstr "Tekmele ve yasakla"
 
-#: src/irc/nicklistview.cpp:149 src/viewer/ircview.cpp:1189
+#: src/irc/nicklistview.cpp:149 src/viewer/ircview.cpp:1222
 msgid "Ban Nickname"
 msgstr "Takma Adı Yasakla"
 
-#: src/irc/nicklistview.cpp:151 src/viewer/ircview.cpp:1192
+#: src/irc/nicklistview.cpp:151 src/viewer/ircview.cpp:1225
 msgid "Ban *!*@*.host"
 msgstr "*!*@*.sunucuyu yasakla"
 
-#: src/irc/nicklistview.cpp:152 src/viewer/ircview.cpp:1194
+#: src/irc/nicklistview.cpp:152 src/viewer/ircview.cpp:1227
 msgid "Ban *!*@domain"
 msgstr "*!*@domain'i yasakla"
 
-#: src/irc/nicklistview.cpp:153 src/viewer/ircview.cpp:1196
+#: src/irc/nicklistview.cpp:153 src/viewer/ircview.cpp:1229
 msgid "Ban *!user@*.host"
 msgstr "*!kullanıcı@*.sunucuyu yasakla"
 
-#: src/irc/nicklistview.cpp:154 src/viewer/ircview.cpp:1198
+#: src/irc/nicklistview.cpp:154 src/viewer/ircview.cpp:1231
 msgid "Ban *!user@domain"
 msgstr "*!kullanıcı@domain'i yasakla"
 
-#: src/irc/nicklistview.cpp:156 src/viewer/ircview.cpp:1201
+#: src/irc/nicklistview.cpp:156 src/viewer/ircview.cpp:1234
 msgid "Kickban *!*@*.host"
 msgstr "*!*@*.sunucuyu tekmele ve yasakla"
 
-#: src/irc/nicklistview.cpp:157 src/viewer/ircview.cpp:1203
+#: src/irc/nicklistview.cpp:157 src/viewer/ircview.cpp:1236
 msgid "Kickban *!*@domain"
 msgstr "*!*@domain'i tekmele ve yasakla"
 
-#: src/irc/nicklistview.cpp:158 src/viewer/ircview.cpp:1205
+#: src/irc/nicklistview.cpp:158 src/viewer/ircview.cpp:1238
 msgid "Kickban *!user@*.host"
 msgstr "*!kullanıcı@*.sunucuyu tekmele ve yasakla"
 
-#: src/irc/nicklistview.cpp:159 src/viewer/ircview.cpp:1207
+#: src/irc/nicklistview.cpp:159 src/viewer/ircview.cpp:1240
 msgid "Kickban *!user@domain"
 msgstr "*!kullanıcı@domain'i tekmele ve yasakla"
 
-#: src/irc/nicklistview.cpp:160 src/viewer/ircview.cpp:1184
+#: src/irc/nicklistview.cpp:160 src/viewer/ircview.cpp:1217
 msgid "Kick / Ban"
 msgstr "Tekmele / Yasakla"
 
@@ -932,13 +935,13 @@ msgstr "Tekmele / Yasakla"
 #: src/irc/outputfilter.cpp:1504 src/irc/query.cpp:86 src/irc/query.cpp:394
 #: src/irc/query.cpp:395 src/irc/channel.cpp:670 src/irc/channel.cpp:671
 #: src/config/settingsdialog.cpp:131 src/config/warnings_config.cpp:118
-#: src/viewer/ircview.cpp:1211
+#: src/viewer/ircview.cpp:1244
 msgid "Ignore"
 msgstr "Yoksay"
 
 #: src/irc/nicklistview.cpp:166 src/irc/query.cpp:87 src/irc/query.cpp:420
 #: src/irc/query.cpp:421 src/irc/channel.cpp:695 src/irc/channel.cpp:696
-#: src/config/warnings_config.cpp:119 src/viewer/ircview.cpp:1212
+#: src/config/warnings_config.cpp:119 src/viewer/ircview.cpp:1245
 msgid "Unignore"
 msgstr "Yoksayma"
 
@@ -971,7 +974,7 @@ msgid ""
 msgstr ""
 
 #: src/irc/nicklistview.cpp:176 src/irc/query.cpp:91
-#: src/viewer/ircview.cpp:1226
+#: src/viewer/ircview.cpp:1259
 msgid "Send &File..."
 msgstr "Dosya &Gönder..."
 
@@ -992,7 +995,7 @@ msgid "Address Book Associations"
 msgstr "Adres Defteri İlişkilendirmeleri"
 
 #: src/irc/nicklistview.cpp:191 src/irc/query.cpp:95
-#: src/viewer/ircview.cpp:1232
+#: src/viewer/ircview.cpp:1265
 msgid "Add to Watched Nicks"
 msgstr "İzlenen Takma Adlara Ekle"
 
@@ -1136,15 +1139,15 @@ msgstr "Sunucuya bağlan"
 msgid "Click here to connect to the selected IRC network and channel."
 msgstr "Seçili IRC ağı ve kanalına bağlanmak için buraya tıklayın."
 
-#: src/irc/serverlistdialog.cpp:144
+#: src/irc/serverlistdialog.cpp:145
 msgid "New Network"
 msgstr "Yeni Ağ"
 
-#: src/irc/serverlistdialog.cpp:165
+#: src/irc/serverlistdialog.cpp:166
 msgid "Edit Network"
 msgstr "Ağ Düzenle"
 
-#: src/irc/serverlistdialog.cpp:221
+#: src/irc/serverlistdialog.cpp:222
 #, kde-format
 msgid ""
 "You cannot delete %1.\n"
@@ -1155,7 +1158,7 @@ msgstr ""
 "\n"
 "%2 ağı en azından bir sunucuya sahip olmalıdır."
 
-#: src/irc/serverlistdialog.cpp:226
+#: src/irc/serverlistdialog.cpp:227
 #, kde-format
 msgid ""
 "You cannot delete the selected server.\n"
@@ -1170,11 +1173,11 @@ msgstr[0] ""
 "\n"
 "%2 ağı en azından bir sunucuya sahip olmalıdır."
 
-#: src/irc/serverlistdialog.cpp:242
+#: src/irc/serverlistdialog.cpp:243
 msgid "Do you really want to delete the selected entries?"
 msgstr "Seçili girişleri silmek istediğinizden emin misiniz?"
 
-#: src/irc/serverlistdialog.cpp:244
+#: src/irc/serverlistdialog.cpp:245
 #, kde-format
 msgid "Do you really want to delete %1?"
 msgstr "%1'i gerçekten silmek istiyor musunuz?"
@@ -1188,7 +1191,7 @@ msgstr ""
 
 #: src/irc/outputfilter.cpp:212
 msgid "Encoding Conflict Warning"
-msgstr ""
+msgstr "Kodlama Çakışması Uyarısı"
 
 #: src/irc/outputfilter.cpp:316
 msgid "Raw"
@@ -1286,7 +1289,7 @@ msgstr ""
 
 #: src/irc/outputfilter.cpp:738
 msgid "Error: You need to specify a message."
-msgstr ""
+msgstr "Hata: Bir ileti belirtmelisiniz."
 
 #: src/irc/outputfilter.cpp:821 src/irc/outputfilter.cpp:826
 #, kde-format
@@ -1384,7 +1387,7 @@ msgid "Usage: %1RAW [OPEN | CLOSE]"
 msgstr "Kullanım: %1RAW [OPEN | CLOSE]"
 
 #: src/irc/outputfilter.cpp:1195 src/irc/server.cpp:2459
-#: src/irc/server.cpp:2477 src/viewer/ircview.cpp:662
+#: src/irc/server.cpp:2477 src/viewer/ircview.cpp:712
 msgid "Notify"
 msgstr "Haber Ver"
 
@@ -1836,7 +1839,7 @@ msgid "You are not on %1."
 msgstr "%1'de değilsiniz."
 
 #: src/irc/inputfilter.cpp:1247 src/irc/inputfilter.cpp:1256
-#: src/irc/inputfilter.cpp:1265 src/viewer/ircview.cpp:641
+#: src/irc/inputfilter.cpp:1265 src/viewer/ircview.cpp:691
 msgid "MOTD"
 msgstr "Günün Mesajı"
 
@@ -2137,10 +2140,9 @@ msgid "Warning"
 msgstr "Uyarı"
 
 #: src/irc/server.cpp:402
-#, fuzzy, kde-format
-#| msgid "Looking for server %1:%2..."
+#, kde-format
 msgid "Looking for server %1 (port %2) ..."
-msgstr "%1:%2 sunucusu aranıyor..."
+msgstr "%1 sunucusu aranıyor (port %2) ..."
 
 #: src/irc/server.cpp:533
 msgid "Server found, connecting..."
@@ -2201,7 +2203,7 @@ msgid "Nickname error"
 msgstr "Takma ad hatası"
 
 #: src/irc/server.cpp:1341 src/irc/server.cpp:3101 src/irc/server.cpp:3106
-#: src/application.cpp:290
+#: src/application.cpp:297
 msgid "D-Bus"
 msgstr "D-Bus"
 
@@ -2275,13 +2277,10 @@ msgstr ""
 "%2 konumundan, \"%1\" dosyası için geçersiz bir devam etme isteği alındı."
 
 #: src/irc/server.cpp:2084
-#, fuzzy, kde-format
-#| msgctxt "%1 = file name, %2 = nickname"
-#| msgid "Received invalid resume request for \"%1\" from %2."
+#, kde-format
 msgctxt "%1 = file name, %2 = nickname"
 msgid "Received invalid reject request for \"%1\" from %2."
-msgstr ""
-"%2 konumundan, \"%1\" dosyası için geçersiz bir devam etme isteği alındı."
+msgstr "\"%1\" dosyası için %2 konumundan geçersiz bir reddetme isteği alındı."
 
 #: src/irc/server.cpp:2098
 #, kde-format
@@ -2389,7 +2388,7 @@ msgid "Channel Invites"
 msgstr "Kanal Davetleri"
 
 #: src/irc/invitedialog.cpp:167 src/irc/channel.cpp:1378
-#: src/irc/channel.cpp:1394 src/viewer/ircview.cpp:681
+#: src/irc/channel.cpp:1394 src/viewer/ircview.cpp:731
 msgid "Join"
 msgstr "Katıl"
 
@@ -2589,35 +2588,35 @@ msgstr "Ağ bilgisini değiştir"
 msgid "Discards all changes made"
 msgstr "Yapılan tüm değişiklikleri siler"
 
-#: src/irc/servergroupdialog.cpp:160
+#: src/irc/servergroupdialog.cpp:161
 msgid "Add Server"
 msgstr "Sunucu Ekle"
 
-#: src/irc/servergroupdialog.cpp:178
+#: src/irc/servergroupdialog.cpp:179
 msgid "Edit Server"
 msgstr "Sunucuyu Düzenle"
 
-#: src/irc/servergroupdialog.cpp:272
+#: src/irc/servergroupdialog.cpp:273
 msgid "Add Channel"
 msgstr "Kanal Ekle"
 
-#: src/irc/servergroupdialog.cpp:290
+#: src/irc/servergroupdialog.cpp:291
 msgid "Edit Channel"
 msgstr "Kanalı Düzenle"
 
-#: src/irc/servergroupdialog.cpp:394
+#: src/irc/servergroupdialog.cpp:395
 msgid "The network name is required."
 msgstr "Ağ adı gereklidir."
 
-#: src/irc/servergroupdialog.cpp:398
+#: src/irc/servergroupdialog.cpp:399
 msgid "You need to add at least one server to the network."
 msgstr "Ağa en az bir sunucu eklemelisiniz."
 
-#: src/irc/servergroupdialog.cpp:453
+#: src/irc/servergroupdialog.cpp:454
 msgid "The server address is required."
 msgstr "Sunucu adresi gerekli."
 
-#: src/irc/servergroupdialog.cpp:504
+#: src/irc/servergroupdialog.cpp:505
 msgid "The channel name is required."
 msgstr "Kanal adı gereklidir."
 
@@ -2706,7 +2705,7 @@ msgstr "Kendi kendine konuşuyor"
 
 #: src/irc/query.cpp:686 src/irc/query.cpp:693 src/irc/channel.cpp:1417
 #: src/irc/channel.cpp:1419 src/irc/channel.cpp:1438 src/irc/channel.cpp:1440
-#: src/viewer/ircview.cpp:686
+#: src/viewer/ircview.cpp:736
 msgid "Quit"
 msgstr "Çık"
 
@@ -2871,7 +2870,7 @@ msgid "You have left this server (%1)."
 msgstr "Bu sunucudan çıkmış durumdasınız (%1)."
 
 #: src/irc/channel.cpp:1424 src/irc/channel.cpp:1426 src/irc/channel.cpp:1446
-#: src/irc/channel.cpp:1448 src/viewer/ircview.cpp:686
+#: src/irc/channel.cpp:1448 src/viewer/ircview.cpp:736
 msgid "Part"
 msgstr "Ayrıl"
 
@@ -3547,12 +3546,10 @@ msgid "&Use SSL"
 msgstr "&SSL Kullan"
 
 #: src/connectionmanager.cpp:205
-#, fuzzy, kde-format
-#| msgid "Trying to connect to %2 in 1 second."
-#| msgid_plural "Trying to connect to %2 in %1 seconds."
+#, kde-format
 msgid "Trying to connect to %2 (port %3) in 1 second."
 msgid_plural "Trying to connect to %2 (port %3) in %1 seconds."
-msgstr[0] "%2 konumuna %1 saniyedir bağlanılmaya çalışılıyor."
+msgstr[0] "%2 konumuna (port %3) %1 saniyedir bağlanılmaya çalışılıyor."
 
 #: src/connectionmanager.cpp:215
 #, kde-format
@@ -4597,23 +4594,15 @@ msgstr ""
 "lütfen 'kdepim' paketlerini kurun."
 
 #: src/linkaddressbook/addressbook_base.cpp:457
-#, fuzzy
-#| msgid ""
-#| "None of the contacts that you have selected were associated with an "
-#| "addressbook contacts. "
 msgid ""
 "None of the selected contacts are associated with address book entries. "
 msgstr ""
-"Seçtiğiniz bağlantıların hiçbiri bir adres defteri bağlantısıyla "
+"Seçtiğiniz kişilerden hiçbiri bir adres defteri girdisi ile "
 "ilişkilendirilmemiş. "
 
 #: src/linkaddressbook/addressbook_base.cpp:459
-#, fuzzy
-#| msgid ""
-#| "The contact that you have selected is not associated with an addressbook "
-#| "contact. "
 msgid "The selected contact is not associated with an address book entry. "
-msgstr "Seçtiğiniz kişi bir adres defteri bağlantısıyla ilişkilendirilmemiş. "
+msgstr "Seçtiğiniz kişi bir adres defteri girdisi ile ilişkilendirilmemiş. "
 
 #: src/linkaddressbook/addressbook_base.cpp:464
 #, fuzzy, kde-format
@@ -4797,22 +4786,22 @@ msgstr ""
 "Konversation Adres Listesi: %1\n"
 "\n"
 
-#: src/urlcatcher.cpp:381 src/viewer/ircview.cpp:136
+#: src/urlcatcher.cpp:381 src/viewer/ircview.cpp:189
 #: src/viewer/topiclabel.cpp:143
 msgid "Copy Link Address"
 msgstr "Bağlantı Adresini Kopyala"
 
-#: src/urlcatcher.cpp:382 src/viewer/ircview.cpp:140
+#: src/urlcatcher.cpp:382 src/viewer/ircview.cpp:193
 #: src/viewer/topiclabel.cpp:144
 msgid "Add to Bookmarks"
 msgstr "Yer İmleri'ne Ekle"
 
-#: src/urlcatcher.cpp:383 src/viewer/ircview.cpp:142
+#: src/urlcatcher.cpp:383 src/viewer/ircview.cpp:195
 #: src/viewer/topiclabel.cpp:145
 msgid "Save Link As..."
 msgstr "Bağlantıyı Farklı Kaydet..."
 
-#: src/urlcatcher.cpp:412 src/viewer/ircview.cpp:1395
+#: src/urlcatcher.cpp:412 src/viewer/ircview.cpp:1434
 #: src/viewer/topiclabel.cpp:332
 msgid "Save link as"
 msgstr "Bağlantıyı farklı kaydet"
@@ -4902,41 +4891,41 @@ msgstr "&Ekle"
 msgid "Insert a character"
 msgstr "Bir karakter gir"
 
-#: src/viewer/ircview.cpp:148
+#: src/viewer/ircview.cpp:201
 msgid "&Copy"
 msgstr "&Kopyala"
 
-#: src/viewer/ircview.cpp:151
+#: src/viewer/ircview.cpp:204
 msgid "Select All"
 msgstr "Tümünü Seç"
 
-#: src/viewer/ircview.cpp:152 src/viewer/viewcontainer.cpp:550
+#: src/viewer/ircview.cpp:205 src/viewer/viewcontainer.cpp:550
 msgid "Find Text..."
 msgstr "Metin Bul..."
 
-#: src/viewer/ircview.cpp:1219
+#: src/viewer/ircview.cpp:1252
 msgid "Open Query"
 msgstr "Sohbet Aç"
 
-#: src/viewer/ircview.cpp:1266 src/viewer/topiclabel.cpp:128
+#: src/viewer/ircview.cpp:1299 src/viewer/topiclabel.cpp:128
 #: src/mainwindow.cpp:421
 msgid "&Join Channel..."
 msgstr "&Kanala Katıl..."
 
-#: src/viewer/ircview.cpp:1273 src/viewer/topiclabel.cpp:134
+#: src/viewer/ircview.cpp:1306 src/viewer/topiclabel.cpp:134
 msgid "Get &user list"
 msgstr "Kanalın kullanıcı &listesini göster"
 
-#: src/viewer/ircview.cpp:1275 src/viewer/topiclabel.cpp:135
+#: src/viewer/ircview.cpp:1308 src/viewer/topiclabel.cpp:135
 msgid "Get &topic"
 msgstr "Kanal konusunu &göster"
 
-#: src/viewer/ircview.cpp:1470
+#: src/viewer/ircview.cpp:1509
 #, kde-format
 msgid "Open a query with %1"
 msgstr "%1 ile sohbet aç"
 
-#: src/viewer/ircview.cpp:1491 src/viewer/topiclabel.cpp:277
+#: src/viewer/ircview.cpp:1530 src/viewer/topiclabel.cpp:277
 #, kde-format
 msgid "Join the channel %1"
 msgstr "%1 kanalına katıl"
@@ -4981,19 +4970,19 @@ msgstr ""
 "dahil, bilgi verir.</td></tr></table><p>Daha fazla komut için Konversation "
 "El Kitabı'na bakın.<p>Bir ileti birden çok satır içeremez.</qt>"
 
-#: src/viewer/ircinput.cpp:484
+#: src/viewer/ircinput.cpp:485
 #, kde-format
 msgid "1 byte"
 msgid_plural "%1 bytes"
 msgstr[0] "%1 bayt"
 
-#: src/viewer/ircinput.cpp:485
+#: src/viewer/ircinput.cpp:486
 #, kde-format
 msgid "1 line"
 msgid_plural "%1 lines"
 msgstr[0] "%1 satır"
 
-#: src/viewer/ircinput.cpp:491
+#: src/viewer/ircinput.cpp:492
 #, fuzzy, kde-format
 #| msgid ""
 #| "<qt>You are attempting to paste a large portion of text (%1 bytes or %2 "
@@ -5011,11 +5000,11 @@ msgstr ""
 "istiyorsunuz. Bu bağlantının yeniden başlamasına ya da sunucudan atılmanıza "
 "neden olabilir. Gerçekten devam etmek istiyor musunuz?</qt>"
 
-#: src/viewer/ircinput.cpp:494
+#: src/viewer/ircinput.cpp:495
 msgid "Large Paste Warning"
 msgstr "Büyük Yapıştırma Uyarısı"
 
-#: src/viewer/ircinput.cpp:495
+#: src/viewer/ircinput.cpp:496
 msgid "Paste"
 msgstr "Yapıştır"
 
@@ -5023,7 +5012,7 @@ msgstr "Yapıştır"
 #. i18n: ectx: property (text), widget (KPushButton, m_editIdentityButton)
 #. i18n: file: src/irc/serverlistdialogui.ui:162
 #. i18n: ectx: property (text), widget (QPushButton, m_editButton)
-#: src/viewer/ircinput.cpp:496 rc.cpp:116 rc.cpp:257
+#: src/viewer/ircinput.cpp:497 rc.cpp:116 rc.cpp:257
 msgid "&Edit..."
 msgstr "&Düzenle..."
 
@@ -5540,7 +5529,7 @@ msgstr "hiçbir renge izin yok"
 
 #: src/common.cpp:49
 msgid "user throttling"
-msgstr ""
+msgstr "kullanıcı boğuluyor"
 
 #: src/bookmarkhandler.cpp:40
 msgid "Konversation Bookmarks Editor"
@@ -5817,14 +5806,6 @@ msgstr "Komutlar:"
 #. i18n: file: src/irc/servergroupdialogui.ui:103
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, m_commandEdit)
 #: rc.cpp:122
-#, fuzzy
-#| msgid ""
-#| "Optional. This command will be sent to the server after connecting. "
-#| "Example: <b>/msg NickServ IDENTIFY <i>konvirocks</i></b>. This example is "
-#| "for the freenode network, which requires users to register their nickname "
-#| "with a password and login when connecting. <i>konvirocks<i> is the "
-#| "password for the nickname given in Identity. You may enter more than one "
-#| "command by separating them with semicolons."
 msgid ""
 "<qt>Optional. This command will be sent to the server after connecting. "
 "Example: <b>/msg NickServ IDENTIFY <i>konvirocks</i></b>. This example is "
@@ -5833,8 +5814,12 @@ msgid ""
 "for the nickname given in Identity. You may enter more than one command by "
 "separating them with semicolons.</qt>"
 msgstr ""
-"Zorunlu değil. Bağlantı sağlandıktan sonra bu komut sunucuya "
-"gönderilecektir. Örneğin: <b>/msg NickServ IDENTIFY <i>konvirocks</i></b>."
+"<qt>Seçimlik. Bu komut bağlandıktan sonra sunucuya gönderilecektir. Örneğin: "
+"<b>/msg NickServ IDENTIFY</b> <i>konvirocks</i>. Bu örnek , kullanıcıların "
+"kendi takma adlarını bir parola ile kaydetmesinden sonra ağa bağlanıp oturum "
+"açmalarını gerektiren freenode ağı içindir. <i>konvirocks</i>Kimlik ile "
+"verilen takma ad için kullanacağınız paroladır. Bu işlem için aralarına "
+"noktalı virgül koyarak birden fazla komut girebilirsiniz.</qt>"
 
 #. i18n: file: src/irc/servergroupdialogui.ui:110
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_autoConnectCBox)
@@ -5955,74 +5940,74 @@ msgstr "Tekrar sorma"
 msgid "Topi&c"
 msgstr "&Konu"
 
-#. i18n: file: src/irc/channeloptionsui.ui:77
+#. i18n: file: src/irc/channeloptionsui.ui:74
 #. i18n: ectx: attribute (title), widget (QWidget, modesPage)
 #: rc.cpp:176
 msgid "Mo&des"
 msgstr "&Kipler"
 
-#. i18n: file: src/irc/channeloptionsui.ui:83
+#. i18n: file: src/irc/channeloptionsui.ui:80
 #. i18n: ectx: property (text), widget (QCheckBox, topicModeChBox)
 #: rc.cpp:179
 msgid "&Topic can only be changed by channel operators"
 msgstr "Konu sadece kanal &operatörü tarafından değiştirilebilir"
 
-#. i18n: file: src/irc/channeloptionsui.ui:90
+#. i18n: file: src/irc/channeloptionsui.ui:87
 #. i18n: ectx: property (text), widget (QCheckBox, messageModeChBox)
 #: rc.cpp:182
 msgid "&No messages from outside the channel"
 msgstr "Kanal dışından ileti &yok"
 
-#. i18n: file: src/irc/channeloptionsui.ui:97
+#. i18n: file: src/irc/channeloptionsui.ui:94
 #. i18n: ectx: property (text), widget (QCheckBox, secretModeChBox)
 #: rc.cpp:185
 msgid "&Secret channel, the channel is not listed in the channel list"
 msgstr "&Gizli kanal, bu kanal kanal listesinde gösterilmeyecek"
 
-#. i18n: file: src/irc/channeloptionsui.ui:104
+#. i18n: file: src/irc/channeloptionsui.ui:101
 #. i18n: ectx: property (text), widget (QCheckBox, inviteModeChBox)
 #: rc.cpp:188
 msgid "Only &invited are allowed to join the channel"
 msgstr "Sadece &davet edilenler kanala katılabilir"
 
-#. i18n: file: src/irc/channeloptionsui.ui:111
+#. i18n: file: src/irc/channeloptionsui.ui:108
 #. i18n: ectx: property (text), widget (QCheckBox, moderatedModeChBox)
 #: rc.cpp:191
 msgid "&Moderated channel, only people with voice can write to the channel"
 msgstr ""
 "&Seçimli kanal, sadece ses bağlantısı olan kullanıcılar kanala yazabilir"
 
-#. i18n: file: src/irc/channeloptionsui.ui:120
+#. i18n: file: src/irc/channeloptionsui.ui:117
 #. i18n: ectx: property (text), widget (QCheckBox, keyModeChBox)
 #: rc.cpp:194
 msgid "Channel &password:"
 msgstr "Kanal &parolası:"
 
-#. i18n: file: src/irc/channeloptionsui.ui:137
+#. i18n: file: src/irc/channeloptionsui.ui:134
 #. i18n: ectx: property (text), widget (QCheckBox, userLimitChBox)
 #: rc.cpp:197
 msgid "User &limit:"
 msgstr "&Kullanıcı sınırı:"
 
-#. i18n: file: src/irc/channeloptionsui.ui:171
+#. i18n: file: src/irc/channeloptionsui.ui:168
 #. i18n: ectx: property (text), widget (QPushButton, toggleAdvancedModes)
 #: rc.cpp:200
 msgid "Show &Advanced Modes >>"
 msgstr "&İleri Özellikleri Göster >>"
 
-#. i18n: file: src/irc/channeloptionsui.ui:174
+#. i18n: file: src/irc/channeloptionsui.ui:171
 #. i18n: ectx: property (shortcut), widget (QPushButton, toggleAdvancedModes)
 #: rc.cpp:203
 msgid "Alt+A, Backspace, Tab, Backspace"
 msgstr "Alt+A, Geri Sil, Tab, Geri Sil"
 
-#. i18n: file: src/irc/channeloptionsui.ui:229
+#. i18n: file: src/irc/channeloptionsui.ui:210
 #. i18n: ectx: attribute (title), widget (QWidget, TabPage)
 #: rc.cpp:206
 msgid "&Ban List"
 msgstr "Yasaklılar &Listesi"
 
-#. i18n: file: src/irc/channeloptionsui.ui:243
+#. i18n: file: src/irc/channeloptionsui.ui:224
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #. i18n: file: src/urlcatcherui.ui:42
 #. i18n: ectx: property (text), widget (QLabel, m_searchLbl)
@@ -6030,31 +6015,31 @@ msgstr "Yasaklılar &Listesi"
 msgid "Search:"
 msgstr "Ara:"
 
-#. i18n: file: src/irc/channeloptionsui.ui:265
+#. i18n: file: src/irc/channeloptionsui.ui:246
 #. i18n: ectx: property (text), widget (K3ListView, banList)
 #: rc.cpp:212
 msgid "Hostmask"
 msgstr "Sunucu maskesi"
 
-#. i18n: file: src/irc/channeloptionsui.ui:276
+#. i18n: file: src/irc/channeloptionsui.ui:257
 #. i18n: ectx: property (text), widget (K3ListView, banList)
 #: rc.cpp:215
 msgid "Set By"
 msgstr "Tarafından Ayarlandı"
 
-#. i18n: file: src/irc/channeloptionsui.ui:287
+#. i18n: file: src/irc/channeloptionsui.ui:268
 #. i18n: ectx: property (text), widget (K3ListView, banList)
 #: rc.cpp:218
 msgid "Time Set"
 msgstr "Ayarlanma Zamanı"
 
-#. i18n: file: src/irc/channeloptionsui.ui:309
+#. i18n: file: src/irc/channeloptionsui.ui:290
 #. i18n: ectx: property (text), widget (QPushButton, removeBan)
 #: rc.cpp:221
 msgid "&Remove Ban"
 msgstr "Yasağı &Kaldır"
 
-#. i18n: file: src/irc/channeloptionsui.ui:322
+#. i18n: file: src/irc/channeloptionsui.ui:303
 #. i18n: ectx: property (text), widget (QPushButton, addBan)
 #: rc.cpp:224
 msgid "&Add Ban"
@@ -7770,13 +7755,13 @@ msgstr ""
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_EncryptionType)
 #: rc.cpp:1119
 msgid "Electronic Codebook (ECB)"
-msgstr ""
+msgstr "Electronic Codebook (ECB)"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:162
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_EncryptionType)
 #: rc.cpp:1122
 msgid "Cipher-Block Chaining (CBC)"
-msgstr ""
+msgstr "Cipher-Block Chaining (CBC)"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:186
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_ProxyEnabled)

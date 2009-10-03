@@ -1,23 +1,24 @@
-# translation of konversation.po to
 # Translation of konversation.po to Catalan
 #
 # Albert Astals Cid <aacid@kde.org>, 2006.
 # Carles Ferrando Garcia. <carles.ferrando@gmail.com>, 2009.
 # Joan Maspons <joanmaspons@gmail.com>, 2009.
 # Josep Ma. Ferrer <txemaq@gmail.com>, 2009.
+# Manuel Tortosa <manutortosa@gmail.com>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-09-21 06:08+0200\n"
-"PO-Revision-Date: 2009-08-30 15:38+0200\n"
-"Last-Translator: Josep Ma. Ferrer <txemaq@gmail.com>\n"
+"POT-Creation-Date: 2009-09-30 07:03+0200\n"
+"PO-Revision-Date: 2009-09-23 23:46+0200\n"
+"Last-Translator: Manuel Tortosa <manutortosa@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Language: ca_ES\n"
 
 #: src/dcc/transferdetailedinfopanel.cpp:34 src/dcc/transferlistmodel.cpp:46
 msgid "Status"
@@ -28,14 +29,12 @@ msgid "Details"
 msgstr "Detalls"
 
 #: src/dcc/transferdetailedinfopanel.cpp:128
-#, fuzzy
 msgid "DCC Send"
-msgstr "DCC %1: %2"
+msgstr "Enviament DCC"
 
 #: src/dcc/transferdetailedinfopanel.cpp:128
-#, fuzzy
 msgid "DCC Receive"
-msgstr "Receptor:"
+msgstr "Recepció DCC"
 
 #: src/dcc/transferdetailedinfopanel.cpp:131
 msgid " (Reverse DCC)"
@@ -43,24 +42,23 @@ msgstr "(DCC revers )"
 
 #: src/dcc/transferdetailedinfopanel.cpp:148
 #: src/dcc/transferdetailedinfopanel.cpp:152
-#, fuzzy
 msgid "Unknown server"
 msgstr "Servidor desconegut"
 
 #: src/dcc/transferdetailedinfopanel.cpp:153
-#, fuzzy, kde-format
+#, kde-format
 msgid "%1 on %2"
 msgstr "%1 a %2"
 
 #: src/dcc/transferdetailedinfopanel.cpp:157
-#, fuzzy, kde-format
+#, kde-format
 msgid ", %1 (port %2)"
-msgstr "%1 ha deixat %2"
+msgstr ", %1 (port %2)"
 
 #: src/dcc/transferdetailedinfopanel.cpp:162
-#, fuzzy, kde-format
+#, kde-format
 msgid "%1 (port %2)"
-msgstr "%1 ha deixat %2"
+msgstr "%1 (port %2)"
 
 #: src/dcc/transferdetailedinfopanel.cpp:169
 #, kde-format
@@ -68,35 +66,29 @@ msgid "Yes, %1"
 msgstr "Si , %1"
 
 #: src/dcc/transferdetailedinfopanel.cpp:171
-#, fuzzy
-#| msgid "None"
 msgid "No"
 msgstr "No"
 
 #: src/dcc/transferdetailedinfopanel.cpp:237
-#, fuzzy
 msgid "< 1sec"
-msgstr " seg"
+msgstr "< 1seg"
 
 #: src/dcc/recipientdialog.cpp:43
 msgid "Select Recipient"
-msgstr "Escull el destinatari"
+msgstr "Seleccioneu el destinatari"
 
 #: src/dcc/recipientdialog.cpp:64 src/irc/servergroupdialog.cpp:76
 #: src/identitydialog.cpp:70 src/viewer/editnotifydialog.cpp:67
-#, fuzzy
 msgid "&OK"
 msgstr "&Bé"
 
 #: src/dcc/recipientdialog.cpp:64
 msgid "Select nickname and close the window"
-msgstr "Escull el sobrenom i tanca la finestra"
+msgstr "Selecció del sobrenom i tanca la finestra"
 
 #: src/dcc/recipientdialog.cpp:65 src/irc/servergroupdialog.cpp:77
 #: src/identitydialog.cpp:71 src/linkaddressbook/addressbook_base.cpp:501
 #: src/viewer/editnotifydialog.cpp:68
-#, fuzzy
-#| msgid "Channel"
 msgid "&Cancel"
 msgstr "&Cancel·la"
 
@@ -128,8 +120,8 @@ msgstr "No s'ha pogut obrir un sòcol"
 msgid "DCC"
 msgstr "DCC"
 
-#: src/dcc/chat.cpp:161 src/dcc/transferrecv.cpp:481
-#: src/dcc/transferrecv.cpp:513
+#: src/dcc/chat.cpp:161 src/dcc/transferrecv.cpp:487
+#: src/dcc/transferrecv.cpp:519
 msgid ""
 "Could not send Reverse DCC SEND acknowledgement to the partner via the IRC "
 "server."
@@ -138,22 +130,24 @@ msgstr ""
 "servidor IRC."
 
 #: src/dcc/chat.cpp:172 src/dcc/transfersend.cpp:350
-#: src/dcc/transferrecv.cpp:526
+#: src/dcc/transferrecv.cpp:532
 msgctxt "Universal Plug and Play"
 msgid "UPnP"
-msgstr ""
+msgstr "UPnP"
 
 #: src/dcc/chat.cpp:172 src/dcc/transfersend.cpp:350
-#: src/dcc/transferrecv.cpp:526
+#: src/dcc/transferrecv.cpp:532
 #, kde-format
 msgid ""
 "Failed to forward port %1. Sending DCC request to remote user regardless."
 msgstr ""
+"Ha fallat en redireccionar el port %1. S'està enviant la petició DCC per a "
+"l'usuari remot independentment."
 
 #: src/dcc/chat.cpp:191
-#, fuzzy, kde-format
+#, kde-format
 msgid "Could not open a socket for listening: %1"
-msgstr "No s'ha pogut obrir un socket"
+msgstr "No s'ha pogut obrir un sòcol per escolta: %1"
 
 #: src/dcc/chat.cpp:201
 #, kde-format
@@ -178,16 +172,13 @@ msgid "DCC chat with %1 on %2:%3."
 msgstr "Xat DCC amb %1 a %2:%3."
 
 #: src/dcc/chat.cpp:232
-#, fuzzy, kde-format
-#| msgid "Looking for server %1:%2..."
+#, kde-format
 msgid "Looking for host %1..."
-msgstr "S'està buscant el servidor %1:%2..."
+msgstr "S'està cercant la màquina %1..."
 
 #: src/dcc/chat.cpp:237
-#, fuzzy
-#| msgid "Server found, connecting..."
 msgid "Host found, connecting..."
-msgstr "S'ha trobat el servidor, establint la connexió..."
+msgstr "S'ha trobat la màquina, s'està connectant..."
 
 #: src/dcc/chat.cpp:242 src/dcc/chat.cpp:386
 #, kde-format
@@ -204,11 +195,10 @@ msgstr "S'ha establit una connexió xat DCC a %1."
 #: src/irc/server.cpp:2063 src/irc/server.cpp:2082 src/irc/server.cpp:3540
 #: src/irc/server.cpp:3568 src/irc/server.cpp:3599
 #: src/connectionmanager.cpp:227 src/linkaddressbook/addressbook.cpp:113
-#, fuzzy
 msgid "Error"
 msgstr "Error"
 
-#: src/dcc/chat.cpp:248 src/dcc/transfersend.cpp:515
+#: src/dcc/chat.cpp:248 src/dcc/transfersend.cpp:516
 #, kde-format
 msgid "Socket error: %1"
 msgstr "Error de sòcol: %1"
@@ -277,11 +267,11 @@ msgstr "No s'ha donat cap nom de fitxer"
 
 #: src/dcc/transfersend.cpp:236
 msgid "Unable to send a 0 byte file."
-msgstr ""
+msgstr "No es pot enviar un fitxer de 0 bytes."
 
 #: src/dcc/transfersend.cpp:246
 msgid "DCC SEND request was rejected"
-msgstr ""
+msgstr "La petició d'enviament DCC ha estat rebutjada"
 
 #: src/dcc/transfersend.cpp:271 src/dcc/transfersend.cpp:339
 msgid "Could not send a DCC SEND request to the partner via the IRC server."
@@ -290,64 +280,58 @@ msgstr ""
 "servidor IRC."
 
 #: src/dcc/transfersend.cpp:330
-#, fuzzy
-#| msgid "Waiting remote user's acceptance"
 msgid "Awaiting remote user's acceptance"
 msgstr "S'està esperant l'acceptació de l'usuari remot"
 
-#: src/dcc/transfersend.cpp:404 src/dcc/transferrecv.cpp:625
-#, fuzzy
-#| msgid "Could not accept the connection. (Socket Error)"
+#: src/dcc/transfersend.cpp:404 src/dcc/transferrecv.cpp:631
 msgid "Could not accept the connection (socket error.)"
-msgstr "No s'ha pogut acceptar la connexió. (Error de sòcol)"
+msgstr "No s'ha pogut acceptar la connexió. (Error de sòcol.)"
 
-#: src/dcc/transfersend.cpp:537 src/dcc/transferrecv.cpp:750
+#: src/dcc/transfersend.cpp:538 src/dcc/transferrecv.cpp:756
 msgid "Timed out"
 msgstr "Ha expirat"
 
-#: src/dcc/transfersend.cpp:547
+#: src/dcc/transfersend.cpp:548
 msgid "The operation was successful. Should never happen in an error dialog."
 msgstr "L'operació ha tingut èxit. Mai hauria de succeir en un diàleg d'error."
 
-#: src/dcc/transfersend.cpp:550
+#: src/dcc/transfersend.cpp:551
 #, kde-format
 msgid "Could not read from file \"%1\"."
 msgstr "No s'ha pogut llegir del fitxer \"%1\"."
 
-#: src/dcc/transfersend.cpp:553
+#: src/dcc/transfersend.cpp:554
 #, kde-format
 msgid "Could not write to file \"%1\"."
 msgstr "No s'ha pogut escriure al fitxer \"%1\"."
 
-#: src/dcc/transfersend.cpp:556
+#: src/dcc/transfersend.cpp:557
 msgid "A fatal unrecoverable error occurred."
 msgstr "Hi ha hagut un error fatal que del que no és possible recuperar-se."
 
-#: src/dcc/transfersend.cpp:559
+#: src/dcc/transfersend.cpp:560
 #, kde-format
 msgid "Could not open file \"%1\"."
 msgstr "No s'ha pogut obrir el fitxer \"%1\"."
 
-#: src/dcc/transfersend.cpp:568
+#: src/dcc/transfersend.cpp:569
 msgid "The operation was unexpectedly aborted."
 msgstr "L'operació s'ha avortat inesperadament."
 
-#: src/dcc/transfersend.cpp:571
+#: src/dcc/transfersend.cpp:572
 msgid "The operation timed out."
 msgstr "L'operació ha expirat."
 
-#: src/dcc/transfersend.cpp:574
+#: src/dcc/transfersend.cpp:575
 msgid "An unspecified error happened on close."
 msgstr "Hi ha hagut un error sense especificar al tancar."
 
-#: src/dcc/transfersend.cpp:577
+#: src/dcc/transfersend.cpp:578
 #, kde-format
 msgid "Unknown error. Code %1"
 msgstr "Error desconegut. Codi %1"
 
 #: src/dcc/transferlistmodel.cpp:32
-#, fuzzy
-#| msgid "Failed"
 msgid "File"
 msgstr "Fitxer"
 
@@ -356,8 +340,6 @@ msgid "Partner"
 msgstr "Company"
 
 #: src/dcc/transferlistmodel.cpp:36
-#, fuzzy
-#| msgid "Started at"
 msgid "Started At"
 msgstr "Iniciat el"
 
@@ -401,10 +383,8 @@ msgid "Preparing"
 msgstr "S'està preparant"
 
 #: src/dcc/transferlistmodel.cpp:455
-#, fuzzy
-#| msgid "Sending"
 msgid "Pending"
-msgstr "S'està enviant"
+msgstr "Pendent"
 
 #: src/dcc/transferlistmodel.cpp:457 src/linkaddressbook/addressbook.cpp:107
 msgid "Connecting"
@@ -428,69 +408,68 @@ msgstr "Ha fallat"
 
 #: src/dcc/transferlistmodel.cpp:474
 msgid "Aborted"
-msgstr "Avortat"
+msgstr "Interromput"
 
 #: src/dcc/transferlistmodel.cpp:486
 msgid "Queued - Transfer is waiting for you to accept or reject it"
-msgstr ""
+msgstr "En cua - la transferència està esperant que l'accepteu o la rebutgeu"
 
 #: src/dcc/transferlistmodel.cpp:491
 msgid "Preparing - Transfer is checking for resumable files"
 msgstr ""
+"S'està preparant - la transferència està comprovant fitxers continuables"
 
 #: src/dcc/transferlistmodel.cpp:493
 msgid "Preparing - Transfer is acquiring the data to send"
 msgstr ""
+"S'està preparant - la transferència està adquirint les dades per enviar"
 
 #: src/dcc/transferlistmodel.cpp:499
 msgid "Pending - Transfer is waiting for the partner to accept or reject it"
 msgstr ""
+"Pendent - La transferència està esperant a que el company l'accepti o la "
+"rebutgi"
 
 #: src/dcc/transferlistmodel.cpp:501
 msgid "Connecting - Transfer is connecting to the partner"
-msgstr ""
+msgstr "S'està connectant - la transferència s'està connectant al company"
 
 #: src/dcc/transferlistmodel.cpp:506
 msgid "Receiving - Transfer is receiving data from the partner"
-msgstr ""
+msgstr "S'està rebent - la transferència està rebent dades del company"
 
 #: src/dcc/transferlistmodel.cpp:508
 msgid "Sending - Transfer is sending data to partner"
-msgstr ""
+msgstr "S'està enviant - la transferència està enviant dades al company"
 
 #: src/dcc/transferlistmodel.cpp:514
 msgid "Done - Transfer has completed successfully"
-msgstr ""
+msgstr "Fet - la transferència s'ha completat correctament"
 
 #: src/dcc/transferlistmodel.cpp:518
 msgid "Failed - Transfer failed with 'unknown reason'"
-msgstr ""
+msgstr "Ha fallat - la transferència ha fallat amb una 'raó desconeguda'"
 
 #: src/dcc/transferlistmodel.cpp:522
 #, kde-format
 msgid "Failed - Transfer failed with reason '%1'"
-msgstr ""
+msgstr "Ha fallat - la transferència ha fallat, la raó ha estat '%1'"
 
 #: src/dcc/transferlistmodel.cpp:525
 msgid "Aborted - Transfer was aborted by the User"
-msgstr ""
+msgstr "S'ha interromput - l'usuari ha interromput la transferència"
 
 #: src/dcc/transferlistmodel.cpp:618
-#, fuzzy
-#| msgid "Incoming"
 msgid "Incoming Transfers"
-msgstr "Entrades"
+msgstr "Transferències entrants"
 
 #: src/dcc/transferlistmodel.cpp:622
-#, fuzzy
-#| msgid "Outgoing"
 msgid "Outgoing Transfers"
-msgstr "Sortides"
+msgstr "Transferències sortints"
 
 #: src/dcc/transferview.cpp:275
-#, fuzzy
 msgid "Columns"
-msgstr "&Ordres:"
+msgstr "Columnes"
 
 #: src/dcc/transferrecv.cpp:185
 msgid "The admin has restricted the right to receive files"
@@ -514,16 +493,13 @@ msgstr "<b>No s'ha pogut crear la carpeta.</b><br>Carpeta: %1<br>"
 msgid "Could not create a KIO instance"
 msgstr "No s'ha pogut crear una instància KIO"
 
-#: src/dcc/transferrecv.cpp:380
+#: src/dcc/transferrecv.cpp:388
 #, kde-format
 msgid "<b>The file is used by another transfer.</b><br>%1<br>"
 msgstr "<b>El fitxer està sent usat per una altre transferència.</b><br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:402
-#, fuzzy, kde-format
-#| msgid ""
-#| "<b>A partial file exists.</b><br/>%1<br/>Size of the partial file: %2 "
-#| "bytes<br/>"
+#: src/dcc/transferrecv.cpp:407
+#, kde-format
 msgid ""
 "<b>A partial file exists:</b><br/>%2<br/>Size of the partial file: 1 byte."
 "<br/>"
@@ -531,48 +507,45 @@ msgid_plural ""
 "<b>A partial file exists:</b><br/>%2<br/>Size of the partial file: %1 bytes."
 "<br/>"
 msgstr[0] ""
-"<b>Existeix un fitxer parcial.</b><br/>%1<br/>Mida del fitxer parcial: %2 "
-"bytes<br/>"
+"<b>Existeix un fitxer parcial:</b><br/>%2<br/>Mida del fitxer parcial: 1 "
+"byte.<br/>"
 msgstr[1] ""
-"<b>Existeix un fitxer parcial.</b><br/>%1<br/>Mida del fitxer parcial: %2 "
-"bytes<br/>"
+"<b>Existeix un fitxer parcial.</b><br/>%2<br/>Mida del fitxer parcial: %1 "
+"bytes.<br/>"
 
-#: src/dcc/transferrecv.cpp:433
+#: src/dcc/transferrecv.cpp:439
 #, kde-format
 msgid "<b>The file already exists.</b><br>%1<br>"
 msgstr "<b>El fitxer ja existeix.</b><br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:440
+#: src/dcc/transferrecv.cpp:446
 #, kde-format
 msgid "<b>Could not open the file.<br>Error: %1</b><br>%2<br>"
 msgstr "<b>No s'ha pogut obrir el fitxer.<br>Error: %1</b><br>%2<br>"
 
-#: src/dcc/transferrecv.cpp:529
-#, fuzzy
+#: src/dcc/transferrecv.cpp:535
 msgid "Waiting for connection"
-msgstr "Contrasenya per la connexió"
+msgstr "S'està esperant la connexió"
 
-#: src/dcc/transferrecv.cpp:538
+#: src/dcc/transferrecv.cpp:544
 msgid "Waiting for remote host's acceptance"
 msgstr "S'està esperant que la màquina remota accepti"
 
-#: src/dcc/transferrecv.cpp:548
+#: src/dcc/transferrecv.cpp:554
 msgid ""
 "Could not send DCC RECV resume request to the partner via the IRC server."
 msgstr ""
 "No es poden enviar peticions DCC RECV al company mitjançat el servidor IRC."
 
-#: src/dcc/transferrecv.cpp:570
+#: src/dcc/transferrecv.cpp:576
 msgid "Unexpected response from remote host"
 msgstr "Resposta no esperada de la màquina remota"
 
-#: src/dcc/transferrecv.cpp:713
-#, fuzzy
-#| msgid "Transferring error"
+#: src/dcc/transferrecv.cpp:719
 msgid "Transfer error"
 msgstr "Error a la transferència"
 
-#: src/dcc/transferrecv.cpp:729
+#: src/dcc/transferrecv.cpp:735
 #, kde-format
 msgid "KIO error: %1"
 msgstr "Error de KIO: %1"
@@ -583,11 +556,11 @@ msgstr "Estat DCC"
 
 #: src/dcc/transferpanel.cpp:80
 msgid "&Select All Items"
-msgstr "&Selecciona tots els ítems"
+msgstr "&Selecciona tots els elements"
 
 #: src/dcc/transferpanel.cpp:81
 msgid "S&elect All Completed Items"
-msgstr "Selecciona tots els ítems &completats"
+msgstr "Selecciona tots els elements &completats"
 
 #: src/dcc/transferpanel.cpp:83
 msgid "&Accept"
@@ -599,14 +572,13 @@ msgstr "Inicia la recepció"
 
 #: src/dcc/transferpanel.cpp:85
 msgid "A&bort"
-msgstr "A&vorta"
+msgstr "In&terromp"
 
 #: src/dcc/transferpanel.cpp:86
 msgid "Abort the transfer(s)"
-msgstr "Avorta les transferències"
+msgstr "Interromp les transferències"
 
 #: src/dcc/transferpanel.cpp:88
-#, fuzzy
 msgid "Resend"
 msgstr "Torna a enviar"
 
@@ -615,39 +587,32 @@ msgid "&Clear"
 msgstr "&Neteja"
 
 #: src/dcc/transferpanel.cpp:90
-#, fuzzy
-#| msgid "S&elect All Completed Items"
 msgid "Clear all selected Items"
-msgstr "Selecciona tots els ítems &completats"
+msgstr "Selecciona tots els elements seleccionats"
 
 #: src/dcc/transferpanel.cpp:91
-#, fuzzy
-#| msgid "Clear Logfile"
 msgid "Clear Completed"
-msgstr "Neteja el fitxer de registre"
+msgstr "S'ha completat la neteja"
 
 #: src/dcc/transferpanel.cpp:92
-#, fuzzy
-#| msgid "S&elect All Completed Items"
 msgid "Clear Completed Items"
-msgstr "Selecciona tots els ítems &completats"
+msgstr "Neteja tots els elements completats"
 
 #: src/dcc/transferpanel.cpp:94
 msgid "&Open File"
-msgstr "&Obre el fitxer"
+msgstr "&Obre fitxer"
 
 #: src/dcc/transferpanel.cpp:95
 msgid "Run the file"
-msgstr "Executa aquest fitxer"
+msgstr "Executa el fitxer"
 
 #: src/dcc/transferpanel.cpp:96
-#, fuzzy
 msgid "Open Location"
 msgstr "Obre localització"
 
 #: src/dcc/transferpanel.cpp:97
 msgid "Open the file location"
-msgstr ""
+msgstr "Obre la localització del fitxer"
 
 #: src/dcc/transferpanel.cpp:98
 msgid "File &Information"
@@ -669,7 +634,7 @@ msgstr "No s'ha trobat informació detallada per aquest fitxer."
 
 #: src/dcc/resumedialog.cpp:49
 msgid "DCC Receive Question"
-msgstr "Qüestió de recepció DCC"
+msgstr "Pregunta de recepció DCC"
 
 #: src/dcc/resumedialog.cpp:74
 msgid "&Resume"
@@ -677,11 +642,11 @@ msgstr "&Continua"
 
 #: src/dcc/resumedialog.cpp:94
 msgid "O&riginal Filename"
-msgstr "Nom de fitxer &original"
+msgstr "Nom del fitxer &original"
 
 #: src/dcc/resumedialog.cpp:95
 msgid "Suggest &New Filename"
-msgstr "&Suggerir nou nom de fitxer"
+msgstr "&Suggereix nou nom de fitxer"
 
 #: src/dcc/resumedialog.cpp:140
 msgid "&Overwrite"
@@ -701,10 +666,8 @@ msgid "&Hide Advanced Modes &lt;&lt;"
 msgstr "&Oculta els modes avançats &lt;&lt;"
 
 #: src/irc/channeloptionsdialog.cpp:158
-#, fuzzy
-#| msgid "&Show Advanced Modes >>"
 msgid "&Show Advanced Modes &gt;&gt;"
-msgstr "&Mostra els modes avançats >>"
+msgstr "&Mostra els modes avançats &gt;&gt;"
 
 #. i18n: file: src/config/nicklistbehavior_configui.ui:98
 #. i18n: ectx: property (text), widget (QTreeWidget, sortOrder)
@@ -720,16 +683,12 @@ msgid "Parameter"
 msgstr "Paràmetre"
 
 #: src/irc/channeloptionsdialog.cpp:621
-#, fuzzy
-#| msgid "&Timestamp:"
 msgid "Timestamp"
-msgstr "&Marca de temps:"
+msgstr "Marca de temps"
 
 #: src/irc/channeloptionsdialog.cpp:623
-#, fuzzy
-#| msgid "Artwork"
 msgid "Author"
-msgstr "Treball artístic"
+msgstr "Autor"
 
 #: src/irc/channeloptionsdialog.cpp:684
 msgid ""
@@ -737,6 +696,9 @@ msgid ""
 "change these.</p><p>The <b>T</b>opic mode means that only the channel "
 "operator can change the topic for the channel.</p></qt>"
 msgstr ""
+"<qt><p>Això controla el <em>mode</em> del canal. Això només ho pot canviar "
+"un operador.</p><p>El mode <b>T</b>ema vol dir que només un operador pot "
+"canviar el tema del canal.</p></qt>"
 
 #: src/irc/channeloptionsdialog.cpp:686
 msgid ""
@@ -745,6 +707,11 @@ msgid ""
 "in the channel cannot send messages for everybody in the channel to see.  "
 "Almost all channels have this set to prevent nuisance messages.</p></qt>"
 msgstr ""
+"<qt><p>Això controla el <em>mode</em> del canal. Només ho pot canviar un "
+"operador.</p><p><b>C</b>ap missatge de l'exterior vol dir que els usuaris de "
+"no estan en el canal no poden enviar missatges per algú del canal.  La "
+"majoria dels canals tenen això establert per evitar missatges molestos.</p></"
+"qt>"
 
 #: src/irc/channeloptionsdialog.cpp:688
 msgid ""
@@ -755,6 +722,12 @@ msgid ""
 "same channel will know that you are in this channel, if this mode is set.</"
 "p></qt>"
 msgstr ""
+"<qt><p>Això controla el <em>mode</em> del canal. Això només ho pot canviar "
+"un operador.</p><p>Un canal <b>S</b>ecret no es mostrarà en la llista de "
+"canal, i cap usuari serà capaç de veure que esteu en el canal amb una ordre "
+"<em>WHOIS</em> o alguna cosa similar. Només les persones que estan en el "
+"mateix canal sabran que esteu en aquest canal, si s'estableix aquest mode.</"
+"p></qt>"
 
 #: src/irc/channeloptionsdialog.cpp:690
 msgid ""
@@ -764,6 +737,11 @@ msgid ""
 "needs to issue the command <em>/invite nick</em> from within the channel.</"
 "p></qt>"
 msgstr ""
+"<qt><p>Això controla el <em>mode del canal</em>. Això només ho pot canviar "
+"un operador.</p><p>Un canal de només <b>I</b>nvitació vol dir que només "
+"poden entrar al canal les persones invitades. Per invitar a algú, un "
+"operador del canal ha d'emetre l'ordre <em>/invite sobrenom</em> des del "
+"canal.</p></qt>"
 
 #: src/irc/channeloptionsdialog.cpp:692
 msgid ""
@@ -773,6 +751,10 @@ msgid ""
 "not show them as being in a private channel depending on the IRC server.</"
 "p></qt>"
 msgstr ""
+"<qt><p>Això controla el <em>mode del canal</em>. Això només ho pot canviar "
+"un operador.</p><p>Un canal <b>P</b>rivat es mostra en la llista de tots els "
+"canals, però no es mostra el tema. Un <em>WHOIS</em> d'un usuari pot mostrar "
+"o no que està en un canal privat depenent del servidor IRC.</p></qt>"
 
 #: src/irc/channeloptionsdialog.cpp:694
 msgid ""
@@ -780,6 +762,9 @@ msgid ""
 "change these.</p><p>A <b>M</b>oderated channel is one where only operators, "
 "half-operators and those with voice can talk.</p></qt>"
 msgstr ""
+"<qt><p>Això controla el <em>mode del canal</em>. Això només ho pot canviar "
+"un operador.</p><p>Un canal <b>M</b>oderat és aquell en que només poden "
+"parlar els operadors, els mig operadors i els que tenen veu.</p></qt>"
 
 #: src/irc/channeloptionsdialog.cpp:696
 msgid ""
@@ -787,6 +772,9 @@ msgid ""
 "change these.</p><p>A protected channel requires users to enter a password "
 "in order to join.</p></qt>"
 msgstr ""
+"<qt><p>Això controla el <em>mode del canal</em>. Això només ho pot canviar "
+"un operador.</p><p>Un canal protegit requereix que l'usuari introdueixi una "
+"contrasenya per a poder entrar.</p></qt>"
 
 #: src/irc/channeloptionsdialog.cpp:698
 msgid ""
@@ -796,28 +784,32 @@ msgid ""
 "bot that sits in the channel and changes this automatically depending on how "
 "busy the channel is.</p></qt>"
 msgstr ""
+"<qt><p>Això controla el <em>mode del canal</em>. Això només ho pot canviar "
+"un operador.</p><p>Un canal amb <b>L</b>imit d'usuaris és aquell en el que "
+"només poden entrar aquest nombre d'usuaris alhora. Alguns canal tenen un bot "
+"que canvia això automàticament depenent de la seva ocupació.</p></qt>"
 
 #: src/irc/nicklistview.cpp:114 src/irc/nicksonline.cpp:912
 #: src/irc/nicksonline.cpp:930 src/irc/query.cpp:81
-#: src/viewer/ircview.cpp:1151
+#: src/viewer/ircview.cpp:1184
 msgid "&Whois"
 msgstr "&Whois"
 
 #: src/irc/nicklistview.cpp:115 src/irc/query.cpp:82
-#: src/viewer/ircview.cpp:1153
+#: src/viewer/ircview.cpp:1186
 msgid "&Version"
 msgstr "&Versió"
 
 #: src/irc/nicklistview.cpp:116 src/irc/query.cpp:83
-#: src/viewer/ircview.cpp:1155
+#: src/viewer/ircview.cpp:1188
 msgid "&Ping"
 msgstr "&Ping"
 
-#: src/irc/nicklistview.cpp:122 src/viewer/ircview.cpp:1163
+#: src/irc/nicklistview.cpp:122 src/viewer/ircview.cpp:1196
 msgid "Give Op"
 msgstr "Dóna Op"
 
-#: src/irc/nicklistview.cpp:126 src/viewer/ircview.cpp:1168
+#: src/irc/nicklistview.cpp:126 src/viewer/ircview.cpp:1201
 msgid "Take Op"
 msgstr "Treu Op"
 
@@ -829,66 +821,66 @@ msgstr "Dóna MigOp"
 msgid "Take HalfOp"
 msgstr "Treu MigOp"
 
-#: src/irc/nicklistview.cpp:132 src/viewer/ircview.cpp:1173
+#: src/irc/nicklistview.cpp:132 src/viewer/ircview.cpp:1206
 msgid "Give Voice"
 msgstr "Dóna veu"
 
-#: src/irc/nicklistview.cpp:136 src/viewer/ircview.cpp:1178
+#: src/irc/nicklistview.cpp:136 src/viewer/ircview.cpp:1211
 msgid "Take Voice"
 msgstr "Treu veu"
 
-#: src/irc/nicklistview.cpp:140 src/viewer/ircview.cpp:1162
+#: src/irc/nicklistview.cpp:140 src/viewer/ircview.cpp:1195
 msgid "Modes"
 msgstr "Modes"
 
 #: src/irc/nicklistview.cpp:147 src/irc/channel.cpp:1503
 #: src/irc/channel.cpp:1505 src/irc/channel.cpp:1512 src/irc/channel.cpp:1517
 #: src/irc/channel.cpp:1538 src/irc/channel.cpp:1540 src/irc/channel.cpp:1547
-#: src/irc/channel.cpp:1552 src/viewer/ircview.cpp:1185
+#: src/irc/channel.cpp:1552 src/viewer/ircview.cpp:1218
 msgid "Kick"
 msgstr "Expulsa"
 
-#: src/irc/nicklistview.cpp:148 src/viewer/ircview.cpp:1187
+#: src/irc/nicklistview.cpp:148 src/viewer/ircview.cpp:1220
 msgid "Kickban"
 msgstr "Expulsa i veta"
 
-#: src/irc/nicklistview.cpp:149 src/viewer/ircview.cpp:1189
+#: src/irc/nicklistview.cpp:149 src/viewer/ircview.cpp:1222
 msgid "Ban Nickname"
 msgstr "Veta sobrenom"
 
-#: src/irc/nicklistview.cpp:151 src/viewer/ircview.cpp:1192
+#: src/irc/nicklistview.cpp:151 src/viewer/ircview.cpp:1225
 msgid "Ban *!*@*.host"
 msgstr "Veta *!*@*.màquina"
 
-#: src/irc/nicklistview.cpp:152 src/viewer/ircview.cpp:1194
+#: src/irc/nicklistview.cpp:152 src/viewer/ircview.cpp:1227
 msgid "Ban *!*@domain"
 msgstr "Veta *!*@domini"
 
-#: src/irc/nicklistview.cpp:153 src/viewer/ircview.cpp:1196
+#: src/irc/nicklistview.cpp:153 src/viewer/ircview.cpp:1229
 msgid "Ban *!user@*.host"
 msgstr "Veta *!usuari@*.màquina"
 
-#: src/irc/nicklistview.cpp:154 src/viewer/ircview.cpp:1198
+#: src/irc/nicklistview.cpp:154 src/viewer/ircview.cpp:1231
 msgid "Ban *!user@domain"
 msgstr "Veta *!usuari@domini"
 
-#: src/irc/nicklistview.cpp:156 src/viewer/ircview.cpp:1201
+#: src/irc/nicklistview.cpp:156 src/viewer/ircview.cpp:1234
 msgid "Kickban *!*@*.host"
 msgstr "Expulsa i veta *!*@*.màquina"
 
-#: src/irc/nicklistview.cpp:157 src/viewer/ircview.cpp:1203
+#: src/irc/nicklistview.cpp:157 src/viewer/ircview.cpp:1236
 msgid "Kickban *!*@domain"
 msgstr "Expulsa i veta *!*@domini"
 
-#: src/irc/nicklistview.cpp:158 src/viewer/ircview.cpp:1205
+#: src/irc/nicklistview.cpp:158 src/viewer/ircview.cpp:1238
 msgid "Kickban *!user@*.host"
 msgstr "Expulsa i veta *!usuari@*.màquina"
 
-#: src/irc/nicklistview.cpp:159 src/viewer/ircview.cpp:1207
+#: src/irc/nicklistview.cpp:159 src/viewer/ircview.cpp:1240
 msgid "Kickban *!user@domain"
 msgstr "Expulsa i veta *!usuari@domini"
 
-#: src/irc/nicklistview.cpp:160 src/viewer/ircview.cpp:1184
+#: src/irc/nicklistview.cpp:160 src/viewer/ircview.cpp:1217
 msgid "Kick / Ban"
 msgstr "Expulsa / Veta"
 
@@ -896,13 +888,13 @@ msgstr "Expulsa / Veta"
 #: src/irc/outputfilter.cpp:1504 src/irc/query.cpp:86 src/irc/query.cpp:394
 #: src/irc/query.cpp:395 src/irc/channel.cpp:670 src/irc/channel.cpp:671
 #: src/config/settingsdialog.cpp:131 src/config/warnings_config.cpp:118
-#: src/viewer/ircview.cpp:1211
+#: src/viewer/ircview.cpp:1244
 msgid "Ignore"
 msgstr "Ignora"
 
 #: src/irc/nicklistview.cpp:166 src/irc/query.cpp:87 src/irc/query.cpp:420
 #: src/irc/query.cpp:421 src/irc/channel.cpp:695 src/irc/channel.cpp:696
-#: src/config/warnings_config.cpp:119 src/viewer/ircview.cpp:1212
+#: src/config/warnings_config.cpp:119 src/viewer/ircview.cpp:1245
 msgid "Unignore"
 msgstr "Deixa d'ignorar"
 
@@ -919,6 +911,11 @@ msgid ""
 "lag, server stability, and will be terminated when you disconnect from the "
 "server.</p></qt>"
 msgstr ""
+"<qt><p>Inicia una conversa privada entre vós i aquesta persona.</"
+"p><p><em>Nota tècnica:</em><br />La conversació entre vós i aquesta persona "
+"serà enviada a través del servidor. Això significa que la conversació pot "
+"veure's afectada pel retard del servidor, l'estabilitat del servidor, i "
+"s'acabarà quan us desconnecteu del servidor.</p></qt>"
 
 #: src/irc/nicklistview.cpp:172
 msgid "Open DCC &Chat"
@@ -933,9 +930,16 @@ msgid ""
 "use disconnect, your DCC Chat will be unaffected.  It also means that no irc "
 "server admin can view or spy on this chat.</p></qt>"
 msgstr ""
+"<qt><p>Inicia una conversa privada <em>D</em>irect <em>C</em>lient <em>C</"
+"em>onnection entre vós i aquesta persona.</p><p><em>Nota tècnica:</em><br /"
+">La conversació entre vós i aquesta persona s'enviarà directament. Això vol "
+"dir que és independent del servidor - per tant, si la connexió al servidor "
+"falla, o us desconnecteu, la conversa DCC no es veurà afectada. També vol "
+"dir que cap administrador del servidor irc pot veure o espiar aquesta "
+"conversa.</p></qt>"
 
 #: src/irc/nicklistview.cpp:176 src/irc/query.cpp:91
-#: src/viewer/ircview.cpp:1226
+#: src/viewer/ircview.cpp:1259
 msgid "Send &File..."
 msgstr "Envia un &fitxer..."
 
@@ -945,6 +949,9 @@ msgid ""
 "they are sending slowly, see the Konversation Handbook and DCC preferences "
 "page.</qt>"
 msgstr ""
+"<qt>Envia un fitxer a aquesta persona. Si teniu problemes en enviar fitxers, "
+"o s'estan enviant lentament, mireu el manual del Konversation i la pàgina "
+"d'arranjaments DCC.</qt>"
 
 #: src/irc/nicklistview.cpp:180 src/irc/nicksonline.cpp:921
 #: src/linkaddressbook/addressbook_base.cpp:501
@@ -952,13 +959,11 @@ msgid "&Send Email..."
 msgstr "Envia un &correu-e..."
 
 #: src/irc/nicklistview.cpp:186
-#, fuzzy
-#| msgid "Addressbook Associations"
 msgid "Address Book Associations"
 msgstr "Associacions amb la llibreta d'adreces"
 
 #: src/irc/nicklistview.cpp:191 src/irc/query.cpp:95
-#: src/viewer/ircview.cpp:1232
+#: src/viewer/ircview.cpp:1265
 msgid "Add to Watched Nicks"
 msgstr "Afegeix als sobrenoms vigilats"
 
@@ -994,6 +999,21 @@ msgid ""
 "nick shows their current status. See the Konversation Handbook for more "
 "information.</p></qt>"
 msgstr ""
+"<qt><p>Això mostra totes les persones en el canal. Es mosta el sobrenom per "
+"a cada persona, amb una imatge mostrant-ne l'estat.</p><table><tr><th><img "
+"src=\"admin\"/></th><td>Aquesta persona té privilegis d'administrador.</td></"
+"tr><tr><th><img src=\"owner\"/></th><td>Aquesta persona és el propietari "
+"d'un canal.</td></tr><tr><th><img src=\"op\"/></th><td>Aquesta persona és un "
+"operador del canal.</td></tr><tr><th><img src=\"halfop\"/></th><td>Aquesta "
+"persona és un mig-operador del canal.</td></tr><tr><th><img src=\"voice\"/></"
+"th><td>Aquesta persona té veu i per tant, pot parlar en un canal moderat.</"
+"td></tr><tr><th><img src=\"normal\"/></th><td>Aquesta persona no té cap "
+"privilegi especial.</td></tr><tr><th><img src=\"normalaway\"/></th><td>Això "
+"indica que aquesta persona actualment està absent.</td></tr></table><p>Les "
+"funcions d'un administrador, propietari i un mig-operador varien entre "
+"diferents servidors IRC.</p><p>Mantenint el punter de ratolí damunt d'un "
+"sobrenom es mostra el seu estat actual. Mireu el manual del Konversation per "
+"a més informació.</p></qt>"
 
 #: src/irc/nicklistview.cpp:460
 msgid "Edit Contact..."
@@ -1063,15 +1083,15 @@ msgstr "Connecta al servidor"
 msgid "Click here to connect to the selected IRC network and channel."
 msgstr "Premeu aquí per connectar-vos a la xarxa d'IRC i canal seleccionat."
 
-#: src/irc/serverlistdialog.cpp:144
+#: src/irc/serverlistdialog.cpp:145
 msgid "New Network"
 msgstr "Nova xarxa"
 
-#: src/irc/serverlistdialog.cpp:165
+#: src/irc/serverlistdialog.cpp:166
 msgid "Edit Network"
 msgstr "Edita xarxa"
 
-#: src/irc/serverlistdialog.cpp:221
+#: src/irc/serverlistdialog.cpp:222
 #, kde-format
 msgid ""
 "You cannot delete %1.\n"
@@ -1082,8 +1102,8 @@ msgstr ""
 "\n"
 "La xarxa %2 ha de tenir com a mínim un servidor."
 
-#: src/irc/serverlistdialog.cpp:226
-#, fuzzy, kde-format
+#: src/irc/serverlistdialog.cpp:227
+#, kde-format
 msgid ""
 "You cannot delete the selected server.\n"
 "\n"
@@ -1093,7 +1113,7 @@ msgid_plural ""
 "\n"
 "The network %2 needs to have at least one server."
 msgstr[0] ""
-"No podeu eliminar els servidor seleccionats.\n"
+"No podeu eliminar el servidor seleccionat.\n"
 "\n"
 "La xarxa %2 ha de tenir com a mínim un servidor."
 msgstr[1] ""
@@ -1101,11 +1121,11 @@ msgstr[1] ""
 "\n"
 "La xarxa %2 ha de tenir com a mínim un servidor."
 
-#: src/irc/serverlistdialog.cpp:242
+#: src/irc/serverlistdialog.cpp:243
 msgid "Do you really want to delete the selected entries?"
 msgstr "Realment voleu eliminar les entrades seleccionades?"
 
-#: src/irc/serverlistdialog.cpp:244
+#: src/irc/serverlistdialog.cpp:245
 #, kde-format
 msgid "Do you really want to delete %1?"
 msgstr "Realment voleu esborrar %1?"
@@ -1116,10 +1136,13 @@ msgid ""
 "current encoding. If you choose to continue anyway those characters will be "
 "replaced by a '?'."
 msgstr ""
+"El missatge que esteu enviant inclou caràcters que no existeixen un la "
+"codificació actual. Si seleccioneu continuar aquests caràcters seran "
+"reemplaçats per un '?'."
 
 #: src/irc/outputfilter.cpp:212
 msgid "Encoding Conflict Warning"
-msgstr ""
+msgstr "Avís de conflicte de codificació"
 
 #: src/irc/outputfilter.cpp:316
 msgid "Raw"
@@ -1141,13 +1164,13 @@ msgid "%1KICK only works from within channels."
 msgstr "%1KICK només funciona dintre de canals."
 
 #: src/irc/outputfilter.cpp:446
-#, fuzzy, kde-format
-#| msgid ""
-#| "%1PART without parameters only works from within a channel or a query."
+#, kde-format
 msgid ""
 "%1PART and %1LEAVE without parameters only work from within a channel or a "
 "query."
-msgstr "%1PART sense paràmetres només funciona dintre d'un canal o conversa."
+msgstr ""
+"%1PART i %1LEAVE sense paràmetres només funciona dintre d'un canal o una "
+"consult."
 
 #: src/irc/outputfilter.cpp:471
 #, kde-format
@@ -1170,7 +1193,7 @@ msgid ""
 "%1NAMES with no target may disconnect you from the server. Specify '*' if "
 "you really want this."
 msgstr ""
-"%1NAMES sense objectiu us desconectarà del servidor. Especifiqueu '*' si "
+"%1NAMES sense objectiu us desconnectarà del servidor. Especifiqueu '*' si "
 "voleu de veritat fer això."
 
 #: src/irc/outputfilter.cpp:613
@@ -1179,8 +1202,8 @@ msgid ""
 "Usage: %1close [window] closes the named channel or query tab, or the "
 "current tab if none specified."
 msgstr ""
-"Utilització: %1close [finestra] tanca el canal o la pestanya de consulta, o "
-"la pestanya actual si ninguna s'especifica."
+"Sintaxi: %1close [finestra] tanca el canal o la pestanya de conversa, o la "
+"pestanya actual si no se n'especifica cap."
 
 #: src/irc/outputfilter.cpp:642
 #, kde-format
@@ -1199,27 +1222,27 @@ msgid "Notice"
 msgstr "Avís"
 
 #: src/irc/outputfilter.cpp:649
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "%1 is the message, %2 the recipient nickname"
 msgid "Sending notice \"%1\" to %2."
-msgstr "S'està enviant una petició CTCP-%1 a %2."
+msgstr "S'està enviant la notificació \"%1\" a %2."
 
 #: src/irc/outputfilter.cpp:661
-#, fuzzy, kde-format
+#, kde-format
 msgid "Usage: %1ME text"
-msgstr "Sintaxi: %1AME text"
+msgstr "Sintaxi: %1ME text"
 
 #: src/irc/outputfilter.cpp:727
 msgid "Error: You need to specify a recipient."
-msgstr ""
+msgstr "Error: heu d'especificar un destinatari."
 
 #: src/irc/outputfilter.cpp:732
 msgid "Error: You cannot open queries to channels."
-msgstr ""
+msgstr "Error: no podeu obrir converses als canals."
 
 #: src/irc/outputfilter.cpp:738
 msgid "Error: You need to specify a message."
-msgstr ""
+msgstr "Error: heu d'especificar un missatge."
 
 #: src/irc/outputfilter.cpp:821 src/irc/outputfilter.cpp:826
 #, kde-format
@@ -1242,9 +1265,9 @@ msgid "Usage: %1OMSG text"
 msgstr "Sintaxi: %1OMSG text"
 
 #: src/irc/outputfilter.cpp:876
-#, fuzzy, kde-format
+#, kde-format
 msgid "Sending notice \"%1\" to %2."
-msgstr "S'està enviant una petició CTCP-%1 a %2."
+msgstr "S'està enviant la notificació \"%1\" a %2."
 
 #: src/irc/outputfilter.cpp:879
 #, kde-format
@@ -1272,10 +1295,9 @@ msgid "Usage: %1DCC [SEND nickname filename]"
 msgstr "Sintaxi: %1DCC [SEND sobrenom fitxer]"
 
 #: src/irc/outputfilter.cpp:967
-#, fuzzy, kde-format
-#| msgid "Usage: %1DCC [SEND nickname filename]"
+#, kde-format
 msgid "Usage: %1DCC [GET [nickname [filename]]]"
-msgstr "Sintaxi: %1DCC [SEND sobrenom fitxer]"
+msgstr "Sintaxi: %1DCC [GET [sobrenom [fitxer]]]"
 
 #: src/irc/outputfilter.cpp:977
 #, kde-format
@@ -1305,13 +1327,11 @@ msgstr "%1 no és un canal."
 #: src/irc/outputfilter.cpp:1133
 #, c-format, kde-format
 msgid "Usage: %1EXEC <script> [parameter list]"
-msgstr "Utilització: %1EXEC <script> [llista de paràmetres]"
+msgstr "Sintaxi: %1EXEC <script> [llista de paràmetres]"
 
 #: src/irc/outputfilter.cpp:1142
-#, fuzzy
-#| msgid "Script name may not contain \"../\"!"
 msgid "Script name may not contain \"../\"."
-msgstr "El nomdel guió no pot tindre  \"../\"!"
+msgstr "El nom del guió no pot contenir  \"../\"."
 
 #: src/irc/outputfilter.cpp:1157
 #, kde-format
@@ -1319,7 +1339,7 @@ msgid "Usage: %1RAW [OPEN | CLOSE]"
 msgstr "Sintaxi: %1RAW [OPEN | CLOSE]"
 
 #: src/irc/outputfilter.cpp:1195 src/irc/server.cpp:2459
-#: src/irc/server.cpp:2477 src/viewer/ircview.cpp:662
+#: src/irc/server.cpp:2477 src/viewer/ircview.cpp:712
 msgid "Notify"
 msgstr "Notificació"
 
@@ -1333,12 +1353,10 @@ msgid "Current notify list: %1"
 msgstr "Llista de notificacions actual: %1"
 
 #: src/irc/outputfilter.cpp:1224
-#, fuzzy
-#| msgid "Enter user name and password for IRC operator privileges:"
 msgid "Enter username and password for IRC operator privileges:"
 msgstr ""
-"Introduïu el nom d'usuari i la contrasenya per tindre el privilegis "
-"d'operador IRC:"
+"Introduïu el nom d'usuari i la contrasenya per tindre privilegis d'operador "
+"IRC:"
 
 #: src/irc/outputfilter.cpp:1226
 msgid "IRC Operator Password"
@@ -1355,18 +1373,22 @@ msgid "%1KICKBAN without channel name works only from inside a channel."
 msgstr "%1KICKBAN sense nom de canal només funciona des de dintre d'un canal."
 
 #: src/irc/outputfilter.cpp:1325
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "Usage: %1BAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [channel] <user|"
 "mask>"
-msgstr "Sintaxi: %1BAN [-HOST | -DOMAIN] [canal] <usuari|màscara>"
+msgstr ""
+"Sintaxi: %1BAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [channel] <usuari|"
+"màscara>"
 
 #: src/irc/outputfilter.cpp:1328
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "Usage: %1KICKBAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [channel] <user|"
 "mask> [reason]"
-msgstr "Sintaxi: %1KICKBAN [-HOST | -DOMAIN] [canal] <usuari|màscara> [raó]"
+msgstr ""
+"Sintaxi: %1KICKBAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [canal] "
+"<usuari|màscara> [raó]"
 
 #: src/irc/outputfilter.cpp:1371
 #, kde-format
@@ -1399,27 +1421,26 @@ msgid "Removed %1 from your ignore list."
 msgstr "S'ha tret %1 de la vostra llista d'ignorats."
 
 #: src/irc/outputfilter.cpp:1512
-#, fuzzy, kde-format
-#| msgid "No such ignore: %1"
+#, kde-format
 msgid "No such ignore: %2"
 msgid_plural "No such ignores: %2"
-msgstr[0] "No existeix aquest ignorat: %1"
-msgstr[1] "No existeix aquest ignorat: %1"
+msgstr[0] "No existeix aquest ignorat: %2"
+msgstr[1] "No existeixen aquestos ignorats: %2"
 
 #: src/irc/outputfilter.cpp:1564
-#, fuzzy, kde-format
+#, kde-format
 msgid "Current encoding is: %1"
-msgstr "Llista de notificacions actual: %1"
+msgstr "La codificació actual és: %1"
 
 #: src/irc/outputfilter.cpp:1575
-#, fuzzy, kde-format
+#, kde-format
 msgid "Switched to %1 encoding."
-msgstr "Estableix la codificació"
+msgstr "S'ha canviat a la codificació %1."
 
 #: src/irc/outputfilter.cpp:1578
-#, fuzzy, kde-format
+#, kde-format
 msgid "%1 is not a valid encoding."
-msgstr "%1 no és un canal."
+msgstr "%1 no és una codificació vàlida."
 
 #: src/irc/outputfilter.cpp:1598
 #, c-format, kde-format
@@ -1433,11 +1454,20 @@ msgid ""
 "Default Encryption Type, with the default for that setting being Electronic "
 "Codebook (ECB)."
 msgstr ""
+"Sintaxi: %1setkey <sobrenom|canal> <clau> estableix la clau d'encriptatge "
+"per un sobrenom o un canal. %1setkey <clau> en un canal o una pestanya de "
+"conversa n'estableix la clau. El camp clau reconeix els prefixos \"cbc:\" i "
+"\"ecb:\" per establir el mode de bloqueig del xifrat de l'operació tant per "
+"a Cipher-Bloc Chaining o Electronic Codebook. El mode per omissió quan no "
+"s'ha donat un prefix es pot canviar en el diàleg de configuració sota "
+"Comportament -> Connexió -> Encriptatge -> Tipus d'encriptatge "
+"predeterminat, el predeterminat per aquest arranjament és Electronic "
+"Codebook (ECB)."
 
 #: src/irc/outputfilter.cpp:1616
-#, fuzzy, kde-format
+#, kde-format
 msgid "The key for %1 has been set."
-msgstr "El canal %1 no té tema establert."
+msgstr "S'ha establert el tema per %1."
 
 #: src/irc/outputfilter.cpp:1618 src/irc/outputfilter.cpp:1644
 msgid ""
@@ -1446,17 +1476,23 @@ msgid ""
 "distributor about a Konversation package with QCA support, or rebuild "
 "Konversation with QCA present."
 msgstr ""
+"L'establiment d'una clau d'encriptatge requereix que Konversation hagi estat "
+"construït amb la llibreria de l'arquitectura de xifrat de Qt (QCA). Poseu-"
+"vos en contacte amb el distribuïdor sobre un paquet del Konversation amb el "
+"suport QCA, o reconstruïu Konversation amb QCA."
 
 #: src/irc/outputfilter.cpp:1637
 #, kde-format
 msgid ""
 "Usage: %1keyx <nick|channel> triggers DH1080 key exchange with the target."
 msgstr ""
+"Sintaxi: %1 keyx <sobrenom|canal> disparadors DH1080 clau d'intercanvi amb "
+"l'objectiu."
 
 #: src/irc/outputfilter.cpp:1642
 #, kde-format
 msgid "Beginning DH1080 key exchange with %1."
-msgstr ""
+msgstr "S'està iniciant un intercanvi de claus DH1080 amb %1."
 
 #: src/irc/outputfilter.cpp:1662
 #, c-format, kde-format
@@ -1464,8 +1500,8 @@ msgid ""
 "Usage: %1delkey <nick> or <channel> deletes the encryption key for nick or "
 "channel"
 msgstr ""
-"Utilització: %1delkey <nick> o <channel> esborra el xifrat per a l'àlies o "
-"el canal. "
+"Sintaxi: %1delkey <nick> o <channel> esborra la clau d'encriptatge per al "
+"sobrenom o el canal"
 
 #: src/irc/outputfilter.cpp:1674
 #, kde-format
@@ -1487,9 +1523,9 @@ msgid "Blowfish"
 msgstr "Blowfish"
 
 #: src/irc/outputfilter.cpp:1707
-#, fuzzy, kde-format
+#, kde-format
 msgid "Usage: %1KILL <nick> [comment]"
-msgstr "Sintaxi: %1KICK <sobrenom> [raó]"
+msgstr "Sintaxi: %1KILL <sobrenom> [comentari]"
 
 #: src/irc/outputfilter.cpp:1723
 #, kde-format
@@ -1514,7 +1550,7 @@ msgstr "Impossible de resoldre %1"
 #: src/irc/outputfilter.cpp:1796
 #, c-format, kde-format
 msgid "Usage: %1queuetuner [on | off]"
-msgstr "Utilització: %1queuetuner [engegat | apagat]"
+msgstr "Sintaxi: %1queuetuner [engegat | apagat]"
 
 #: src/irc/outputfilter.cpp:1858
 msgid "Usage"
@@ -1550,24 +1586,24 @@ msgid "Received Version request from %1."
 msgstr "S'ha rebut una petició Version de %1."
 
 #: src/irc/inputfilter.cpp:369
-#, fuzzy, kde-format
+#, kde-format
 msgid "Received invalid DCC SEND request from %1."
-msgstr "S'ha rebut una petició Version de %1."
+msgstr "S'ha rebut una petició DCC SEND no vàlida de %1."
 
 #: src/irc/inputfilter.cpp:384
-#, fuzzy, kde-format
+#, kde-format
 msgid "Received invalid DCC ACCEPT request from %1."
-msgstr "S'ha rebut una petició Version de %1."
+msgstr "S'ha rebut una petició DCC ACCEPT no vàlida de %1."
 
 #: src/irc/inputfilter.cpp:399
-#, fuzzy, kde-format
+#, kde-format
 msgid "Received invalid DCC RESUME request from %1."
-msgstr "S'ha rebut una petició Version de %1."
+msgstr "S'ha rebut una petició DCC RESUME no vàlida de %1."
 
 #: src/irc/inputfilter.cpp:415
-#, fuzzy, kde-format
+#, kde-format
 msgid "Received invalid DCC CHAT request from %1."
-msgstr "S'ha rebut una petició Version de %1."
+msgstr "S'ha rebut una petició DCC CHAT no vàlida de %1."
 
 #: src/irc/inputfilter.cpp:423
 #, kde-format
@@ -1595,19 +1631,19 @@ msgid "Received CTCP-PING reply from %1: %2 %3."
 msgstr "S'ha rebut una resposta CTCP-PING de %1: %2 %3."
 
 #: src/irc/inputfilter.cpp:539
-#, fuzzy, kde-format
+#, kde-format
 msgid "Received CTCP-%1 reply from %2: %3."
-msgstr "S'ha rebut una resposta CTCP-%1de %2: %3."
+msgstr "S'ha rebut una resposta CTCP-%1 de %2: %3."
 
 #: src/irc/inputfilter.cpp:552
 #, kde-format
 msgid "Received DH1080_INIT from %1"
-msgstr ""
+msgstr "S'ha rebut DH1080_INIT de %1"
 
 #: src/irc/inputfilter.cpp:557
 #, kde-format
 msgid "Received DH1080_FINISH from %1"
-msgstr ""
+msgstr "S'ha rebut DH1080_FINISH de %1"
 
 #: src/irc/inputfilter.cpp:580 src/irc/inputfilter.cpp:748
 #, kde-format
@@ -1660,9 +1696,9 @@ msgid "URL"
 msgstr "URL"
 
 #: src/irc/inputfilter.cpp:983
-#, fuzzy, kde-format
+#, kde-format
 msgid "Channel URL: %1"
-msgstr "Llista de canals per %1"
+msgstr "URL del canal: %1"
 
 #: src/irc/inputfilter.cpp:993
 msgid "Created"
@@ -1775,7 +1811,7 @@ msgid "You are not on %1."
 msgstr "No esteu a %1."
 
 #: src/irc/inputfilter.cpp:1247 src/irc/inputfilter.cpp:1256
-#: src/irc/inputfilter.cpp:1265 src/viewer/ircview.cpp:641
+#: src/irc/inputfilter.cpp:1265 src/viewer/ircview.cpp:691
 msgid "MOTD"
 msgstr "MOTD"
 
@@ -1873,7 +1909,7 @@ msgid "%1 is a user on channels: %2"
 msgstr "%1 és un usuari als canals: %2"
 
 #: src/irc/inputfilter.cpp:1590
-#, fuzzy, kde-format
+#, kde-format
 msgid "%1 has voice on channels: %2"
 msgstr "%1 té veu als canals: %2"
 
@@ -1967,9 +2003,7 @@ msgid "%1 has been idle for %2 and %3."
 msgstr "%1 ha estat inactiu durant %2 i %3."
 
 #: src/irc/inputfilter.cpp:1749
-#, fuzzy, kde-format
-#| msgid "%2 has been idle for 1 second."
-#| msgid_plural "%2 has been idle for %1 seconds."
+#, kde-format
 msgid "%2 has been idle for 1 second."
 msgid_plural "%2 has been idle for %1 seconds."
 msgstr[0] "%2 ha estat inactiu durant 1 segon."
@@ -2065,33 +2099,28 @@ msgid "%1: This command requires more parameters."
 msgstr "%1: Aquesta ordre necessita més paràmetres."
 
 #: src/irc/inputfilter.cpp:2057
-#, fuzzy, kde-format
+#, kde-format
 msgid "You have set personal modes: %1"
-msgstr "Establiu el mode de canal -%1"
+msgstr "Heu establert els modes personals: %1"
 
 #: src/irc/inputfilter.cpp:2061
-#, fuzzy, kde-format
-#| msgid "has changed your personal modes:"
+#, kde-format
 msgid "%1 has changed your personal modes: %2"
-msgstr "han canviat els vostres modes personals:"
+msgstr "%1 ha canviat els vostres modes personals: %2"
 
 #: src/irc/inputfilter.cpp:2080
-#, fuzzy, kde-format
-#| msgid " sets mode: "
+#, kde-format
 msgid "%1 sets mode: %2"
-msgstr " estableix el mode: "
+msgstr "%1 estableix el mode: %2"
 
 #: src/irc/server.cpp:349
-#, fuzzy
-#| msgid "Warning Dialogs"
 msgid "Warning"
 msgstr "Avís"
 
 #: src/irc/server.cpp:402
-#, fuzzy, kde-format
-#| msgid "Looking for server %1:%2..."
+#, kde-format
 msgid "Looking for server %1 (port %2) ..."
-msgstr "S'està buscant el servidor %1:%2..."
+msgstr "S'està cercant el servidor %1 (port %2)..."
 
 #: src/irc/server.cpp:533
 msgid "Server found, connecting..."
@@ -2102,21 +2131,18 @@ msgid "Connected; logging in..."
 msgstr "S'ha connectat; s'està entrant..."
 
 #: src/irc/server.cpp:595
-#, fuzzy, kde-format
+#, kde-format
 msgid "Connection to server %1 (port %2) lost: %3."
-msgstr "La connexió al servidor %1 ha fallat: %2."
+msgstr "S'ha perdut la connexió al servidor %1 (port %2): %3."
 
 #: src/irc/server.cpp:616
-#, fuzzy, kde-format
-#| msgid ""
-#| "Could not connect to %1:%2 using SSL encryption.Maybe the server does not "
-#| "support SSL, or perhaps you have the wrong port? %3"
+#, kde-format
 msgid ""
 "Could not connect to %1 (port %2) using SSL encryption. Maybe the server "
 "does not support SSL, or perhaps you have the wrong port? %3"
 msgstr ""
-"No s'ha pogut connectar a %1:%2 usant el xifrat SSL. Potser el servidor no "
-"té capacitat SSL, o potser heu especificat el port incorrecte? %3"
+"No s'ha pogut connectar a %1 (port %2) usant l'encriptatge SSL. Potser el "
+"servidor no accepta SSL, o potser heu especificat el port incorrecte? %3"
 
 #: src/irc/server.cpp:620
 msgid "SSL Connection Error"
@@ -2132,9 +2158,9 @@ msgid "Server Authentication"
 msgstr "Autenticació de servidor"
 
 #: src/irc/server.cpp:728
-#, fuzzy, kde-format
+#, kde-format
 msgid "Disconnected from %1 (port %2)."
-msgstr "Desconectat del servidor."
+msgstr "S'ha desconnectat de %1 (port %2)."
 
 #: src/irc/server.cpp:881
 #, kde-format
@@ -2151,9 +2177,9 @@ msgid "Nickname error"
 msgstr "Error al sobrenom"
 
 #: src/irc/server.cpp:1341 src/irc/server.cpp:3101 src/irc/server.cpp:3106
-#: src/application.cpp:290
+#: src/application.cpp:297
 msgid "D-Bus"
-msgstr ""
+msgstr "D-Bus"
 
 #: src/irc/server.cpp:1704
 #, kde-format
@@ -2176,17 +2202,18 @@ msgid "Asking %1 to accept upload of \"%2\" (%3)..."
 msgstr "S'està demanant a %1 que accepti la pujada de \"%2\" (%3)..."
 
 #: src/irc/server.cpp:1890
-#, fuzzy, kde-format
-#| msgid "Asking %1 to accept upload of \"%2\" (%3)..."
+#, kde-format
 msgid "Asking %1 to accept passive upload of \"%2\" (%3)..."
-msgstr "S'està demanant a %1 que accepti la pujada de \"%2\" (%3)..."
+msgstr "S'està demanant a %1 que accepti la pujada passiva de \"%2\" (%3)..."
 
 #: src/irc/server.cpp:1956
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "%1 = file name, %2 = nickname"
 msgid ""
 "Received invalid passive DCC send acceptance message for \"%1\" from %2."
-msgstr "S'ha rebut una petició de continuació no vàlida de \"%1\" per %2."
+msgstr ""
+"S'ha rebut un missatge no vàlid d'acceptació de l'enviament DCC passiu per "
+"\"%1\" des de %2."
 
 #: src/irc/server.cpp:1991
 #, kde-format
@@ -2194,14 +2221,15 @@ msgctxt ""
 "%1 = file name, %2 = nickname of sender, %3 = percentage of file size, %4 = "
 "file size"
 msgid "Resuming download of \"%1\" from %2 starting at %3% of %4..."
-msgstr ""
-"S'està reprenent la descàrrega de \"%1\" des de %2 al punt %3% de %4..."
+msgstr "S'està reprenent la baixada de \"%1\" des de %2 al punt %3% de %4..."
 
 #: src/irc/server.cpp:2001
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "%1 = file name, %2 = nickname"
 msgid "Received invalid resume acceptance message for \"%1\" from %2."
-msgstr "S'ha rebut una petició de continuació no vàlida de \"%1\" per %2."
+msgstr ""
+"S'ha rebut un missatge no vàlid d'acceptació de continuació per \"%1\" des "
+"de %2."
 
 #: src/irc/server.cpp:2042
 #, kde-format
@@ -2218,24 +2246,22 @@ msgid "Received invalid resume request for \"%1\" from %2."
 msgstr "S'ha rebut una petició de continuació no vàlida de \"%1\" per %2."
 
 #: src/irc/server.cpp:2084
-#, fuzzy, kde-format
-#| msgctxt "%1 = file name, %2 = nickname"
-#| msgid "Received invalid resume request for \"%1\" from %2."
+#, kde-format
 msgctxt "%1 = file name, %2 = nickname"
 msgid "Received invalid reject request for \"%1\" from %2."
-msgstr "S'ha rebut una petició de continuació no vàlida de \"%1\" per %2."
+msgstr "S'ha rebut una petició no vàlida de denegació de \"%1\" des de %2."
 
 #: src/irc/server.cpp:2098
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of sender"
 msgid "Download of \"%1\" from %2 finished."
-msgstr "La descàrrega de \"%1\" des de %2 ha acabat."
+msgstr "La baixada de \"%1\" des de %2 ha acabat."
 
 #: src/irc/server.cpp:2103
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of sender"
 msgid "Download of \"%1\" from %2 failed. Reason: %3."
-msgstr "La descàrrega de \"%1\" des de %2 ha fallat. Raó: %3."
+msgstr "La baixada de \"%1\" des de %2 ha fallat. Raó: %3."
 
 #: src/irc/server.cpp:2115
 #, kde-format
@@ -2259,17 +2285,17 @@ msgstr "S'està enviant \"%1\" a %2..."
 #, kde-format
 msgctxt "%1 = file name, %2 = file size, %3 = nickname of sender"
 msgid "Downloading \"%1\" (%2) from %3..."
-msgstr "S'està descarregant \"%1\" (%2) de %3..."
+msgstr "S'està baixant \"%1\" (%2) de %3..."
 
 #: src/irc/server.cpp:2460 src/notificationhandler.cpp:260
 #, kde-format
 msgid "%1 is online (%2)."
-msgstr "%1 està conectat (%2)."
+msgstr "%1 està connectat (%2)."
 
 #: src/irc/server.cpp:2477 src/notificationhandler.cpp:274
 #, kde-format
 msgid "%1 went offline (%2)."
-msgstr "%1 s'ha desconectat (%2)."
+msgstr "%1 s'ha desconnectat (%2)."
 
 #: src/irc/server.cpp:3101
 #, kde-format
@@ -2302,12 +2328,13 @@ msgstr "No esteu marcat com absent."
 #: src/irc/server.cpp:3540
 #, kde-format
 msgid "Failed to initiate key exchange with %1."
-msgstr ""
+msgstr "Ha fallat en iniciar l'intercanvi de claus amb %1."
 
 #: src/irc/server.cpp:3568
 #, kde-format
 msgid "Failed to parse the DH1080_INIT of %1. Key exchange failed."
 msgstr ""
+"Ha fallat en analitzar el DH1080_INIT de %1. Ha fallat l'intercanvi de claus."
 
 #: src/irc/server.cpp:3574
 #, kde-format
@@ -2315,6 +2342,8 @@ msgid ""
 "Your key is set and your messages will now be encrypted, sending "
 "DH1080_FINISH to %1."
 msgstr ""
+"S'ha establert la clau i ara s'encriptaran els missatges, s'està enviant "
+"DH1080_FINISH a %1."
 
 #: src/irc/server.cpp:3595
 #, kde-format
@@ -2322,28 +2351,30 @@ msgid ""
 "Successfully parsed DH1080_FINISH sent by %1. Your key is set and your "
 "messages will now be encrypted."
 msgstr ""
+"Ha analitzat satisfactòriament l'enviament DH1080_FINISH de %1. S'ha "
+"establert la clau i ara s'encriptaran els missatges."
 
 #: src/irc/server.cpp:3599
 #, kde-format
 msgid "Failed to parse DH1080_FINISH sent by %1. Key exchange failed."
 msgstr ""
+"Ha fallat en analitzar l'enviament DH1080_FINISH de %1. Ha fallat "
+"l'intercanvi de claus."
 
 #: src/irc/invitedialog.cpp:31
-#, fuzzy
-#| msgid "Channel List"
 msgid "Channel Invites"
-msgstr "Llista de canals"
+msgstr "Invitació al canal"
 
 #: src/irc/invitedialog.cpp:167 src/irc/channel.cpp:1378
-#: src/irc/channel.cpp:1394 src/viewer/ircview.cpp:681
+#: src/irc/channel.cpp:1394 src/viewer/ircview.cpp:731
 msgid "Join"
-msgstr "Uneix"
+msgstr "Entra"
 
 #. i18n: file: src/identitydialog.ui:211
 #. i18n: ectx: property (title), widget (KEditListBox, m_nicknameLBox)
 #: src/irc/invitedialog.cpp:171 rc.cpp:488
 msgid "Nickname"
-msgstr "Sobrenom:"
+msgstr "Sobrenom"
 
 #: src/irc/nicksonline.cpp:40 src/viewer/viewcontainer.cpp:2486
 msgid "Watched Nicks Online"
@@ -2368,6 +2399,15 @@ msgid ""
 "to any of the servers in the network.</p><p>Right-click with the mouse on a "
 "nickname to perform additional functions.</p>"
 msgstr ""
+"<p>Aquests són tots els sobrenoms a la llista dels sobrenoms vigilats, "
+"llistats sota la xarxa de servidors a la que estan connectats. La llista "
+"inclou també els sobrenoms a KAddressBook associats amb la xarxa de "
+"servidors.</p><p>La columna d'<b>informació addicional</b> mostra la "
+"informació coneguda de cada sobrenom.</p><p>Els canals als que s'ha unit el "
+"sobrenom figuren a sota de cada sobrenom.</p><p>El sobrenoms que apareixen "
+"sota <b>Sense connexió</b> no estan connectats a cap dels servidors de la "
+"xarxa.</p><p>Dretacliqueu amb el ratolí en un sobrenom per realitzar "
+"funcions addicionals.</p>"
 
 #: src/irc/nicksonline.cpp:75
 msgid "&Edit Watch List..."
@@ -2493,10 +2533,9 @@ msgid "Channels: %1 (%2 shown)"
 msgstr "Canals: %1 (%2 mostrats)"
 
 #: src/irc/channellistpanel.cpp:330
-#, fuzzy, kde-format
-#| msgid "Non-unique users: %1 (%2 shown)"
+#, kde-format
 msgid " Non-unique users: %1 (%2 shown)"
-msgstr "Usuaris no únics: %1 (%2 mostrats)"
+msgstr " Usuaris no únics: %1 (%2 mostrats)"
 
 #: src/irc/channellistpanel.cpp:340
 msgid "Save Channel List"
@@ -2512,9 +2551,8 @@ msgstr ""
 "\n"
 
 #: src/irc/channellistpanel.cpp:438
-#, fuzzy
 msgid "Join Channel"
-msgstr "Uneix-te al canal"
+msgstr "Entra al canal"
 
 #: src/irc/channellistpanel.cpp:544
 #, kde-format
@@ -2530,35 +2568,35 @@ msgstr "Canvia informació de xarxa"
 msgid "Discards all changes made"
 msgstr "Descarta tots els canvis fets"
 
-#: src/irc/servergroupdialog.cpp:160
+#: src/irc/servergroupdialog.cpp:161
 msgid "Add Server"
 msgstr "Afegeix un servidor"
 
-#: src/irc/servergroupdialog.cpp:178
+#: src/irc/servergroupdialog.cpp:179
 msgid "Edit Server"
 msgstr "Edita el servidor"
 
-#: src/irc/servergroupdialog.cpp:272
+#: src/irc/servergroupdialog.cpp:273
 msgid "Add Channel"
 msgstr "Afegeix un canal"
 
-#: src/irc/servergroupdialog.cpp:290
+#: src/irc/servergroupdialog.cpp:291
 msgid "Edit Channel"
 msgstr "Edita el canal"
 
-#: src/irc/servergroupdialog.cpp:394
+#: src/irc/servergroupdialog.cpp:395
 msgid "The network name is required."
 msgstr "El nom de la xarxa és necessari."
 
-#: src/irc/servergroupdialog.cpp:398
+#: src/irc/servergroupdialog.cpp:399
 msgid "You need to add at least one server to the network."
 msgstr "Cal que afegiu un servidor com a mínim a la xarxa."
 
-#: src/irc/servergroupdialog.cpp:453
+#: src/irc/servergroupdialog.cpp:454
 msgid "The server address is required."
 msgstr "Us cal l'adreça del servidor."
 
-#: src/irc/servergroupdialog.cpp:504
+#: src/irc/servergroupdialog.cpp:505
 msgid "The channel name is required."
 msgstr "El nom del canal és necessari."
 
@@ -2571,6 +2609,13 @@ msgid ""
 "a contact in the address book, and for an explanation of what the hostmask "
 "is.</p></qt>"
 msgstr ""
+"<qt><p>En aquesta barra es mostren alguns detalls de la persona amb la que "
+"esteu parlant en aquesta conversa. Es mostren el nom complet i la màscara "
+"del servidor, juntament amb qualsevol imatge o logotip que aquesta persona "
+"tingui associada en la llibreta d'adreces del KDE.</p><p>Mireu el <i>manual "
+"del Konversation</i> per obtenir informació sobre l'associació d'un nick amb "
+"un contacte de la llibreta d'adreces, i una explicació del que és la màscara "
+"del servidor.</p></qt>"
 
 #: src/irc/query.cpp:102 src/irc/channel.cpp:246 src/viewer/statuspanel.cpp:51
 msgid "(away)"
@@ -2599,8 +2644,6 @@ msgstr "Tanca aquesta conversa"
 #. i18n: file: src/viewer/searchbarbase.ui:21
 #. i18n: ectx: property (toolTip), widget (QToolButton, m_closeButton)
 #: src/irc/query.cpp:405 rc.cpp:290 rc.cpp:1863
-#, fuzzy
-#| msgid "Colors"
 msgid "Close"
 msgstr "Tanca"
 
@@ -2634,20 +2677,19 @@ msgstr "Parlant amb tu"
 
 #: src/irc/query.cpp:686 src/irc/query.cpp:693 src/irc/channel.cpp:1417
 #: src/irc/channel.cpp:1419 src/irc/channel.cpp:1438 src/irc/channel.cpp:1440
-#: src/viewer/ircview.cpp:686
-#, fuzzy
+#: src/viewer/ircview.cpp:736
 msgid "Quit"
-msgstr "Surt"
+msgstr "Abandona"
 
 #: src/irc/query.cpp:686 src/irc/channel.cpp:1438
 #, kde-format
 msgid "%1 has left this server."
-msgstr "%1 ha sortit del servidor."
+msgstr "%1 ha abandonat aquest servidor."
 
 #: src/irc/query.cpp:693
-#, fuzzy, kde-format
+#, kde-format
 msgid "%1 has left this server (%2)."
-msgstr "%1 ha sortit d'aquest servidor %2."
+msgstr "%1 ha abandonat aquest servidor (%2)."
 
 #: src/irc/channelnick.cpp:199
 msgid "Operator"
@@ -2681,10 +2723,15 @@ msgid ""
 "clicking the Edit Channel Properties button to the left of the topic.  You "
 "can also view the history of topics there.</p></qt>"
 msgstr ""
+"<qt><p>Cada canal del IRC té un tema associat. Això és simplement un "
+"missatge que tothom pot veure.</p><p>Si sou un operador, o no està establert "
+"el mode del canal <em>'T'</em>, llavors podeu canviar el tema clicant el "
+"botó 'Edita els paràmetres del canal' de l'esquerra del tema. També hi podeu "
+"veure l'historial dels temes allà.</p></qt>"
 
 #: src/irc/channel.cpp:188
 msgid "Maximum users allowed in channel"
-msgstr "Nombre màxim d'usuaris permesos al canal"
+msgstr "Nombre màxim d'usuaris permesos en el canal"
 
 #: src/irc/channel.cpp:189
 msgid ""
@@ -2693,6 +2740,10 @@ msgid ""
 "channel mode <b>T</b>opic (button to left) will automatically be set if set "
 "this.</p></qt>"
 msgstr ""
+"<qt><p>Aquest és el límit d'usuaris del canal - el nombre màxim d'usuaris "
+"que poden estar alhora en el canal. Si sou un operador, ho podeu configurar. "
+"El mode de canal <b>T</b>ema (botó a l'esquerra) s'establirà automàticament "
+"si es defineix això.</p></qt>"
 
 #: src/irc/channel.cpp:244 src/viewer/statuspanel.cpp:49
 msgid ""
@@ -2703,6 +2754,12 @@ msgid ""
 "'Enter' at the end.</p><p>You can add change the alternative nicknames from "
 "the <em>Identities</em> option in the <em>File</em> menu.</p></qt>"
 msgstr ""
+"<qt><p>Això mostra el vostre sobrenom actual, i els alternatius que heu "
+"configurat. Si seleccioneu o escriviu un sobrenom diferent, s'enviarà sol "
+"licitud al servidor d'IRC per canviar-lo. Si el servidor ho permet, se "
+"seleccionarà el nou sobrenom. Si escriu un nou sobrenom, heu de prémer "
+"\"Entrar\" en acabar.</p><p>Podeu canviar-lo per un sobrenom alternatiu des "
+"de l'opció <em>identitats</em> en el menú <em>Fitxer</em>.</p></qt>"
 
 #: src/irc/channel.cpp:666
 msgid "Do you want to ignore the selected users?"
@@ -2748,20 +2805,20 @@ msgstr "Heu entrat al canal %1 (%2)."
 #, kde-format
 msgctxt "%1 is the nick joining and %2 the hostmask of that nick"
 msgid "%1 has joined this channel (%2)."
-msgstr "%1 ha entrat aquest canal (%2)."
+msgstr "%1 ha entrat a aquest canal (%2)."
 
 #: src/irc/channel.cpp:1417
 msgid "You have left this server."
-msgstr "Heu sortit d'aquest servidor."
+msgstr "Heu abandonat aquest servidor."
 
 #: src/irc/channel.cpp:1419
 #, kde-format
 msgctxt "%1 adds the reason"
 msgid "You have left this server (%1)."
-msgstr "Heu sortir d'aquest servidor (%1)."
+msgstr "Heu abandonat aquest servidor (%1)."
 
 #: src/irc/channel.cpp:1424 src/irc/channel.cpp:1426 src/irc/channel.cpp:1446
-#: src/irc/channel.cpp:1448 src/viewer/ircview.cpp:686
+#: src/irc/channel.cpp:1448 src/viewer/ircview.cpp:736
 msgid "Part"
 msgstr "Part"
 
@@ -2780,18 +2837,18 @@ msgstr "Heu abandonat el canal %1 (%2)."
 #, kde-format
 msgctxt "%1 adds the nick and %2 the reason"
 msgid "%1 has left this server (%2)."
-msgstr "%1 ha deixat aquest servidor (%2)."
+msgstr "%1 ha abandonat aquest servidor (%2)."
 
 #: src/irc/channel.cpp:1446
 #, kde-format
 msgid "%1 has left this channel."
-msgstr "%1 ha sortit del canal."
+msgstr "%1 ha abandonat aquest canal."
 
 #: src/irc/channel.cpp:1449
 #, kde-format
 msgctxt "%1 adds the nick and %2 the reason"
 msgid "%1 has left this channel (%2)."
-msgstr "%1 ha sortit del canal (%2)."
+msgstr "%1 ha abandonat aquest canal (%2)."
 
 #: src/irc/channel.cpp:1503
 #, kde-format
@@ -2953,9 +3010,9 @@ msgid "You give channel operator privileges to yourself."
 msgstr "Us doneu privilegis d'operador del canal."
 
 #: src/irc/channel.cpp:1808
-#, fuzzy, kde-format
+#, kde-format
 msgid "You give channel operator privileges to %1."
-msgstr "Doneu privilegis d'operador del canal a %2."
+msgstr "Doneu privilegis d'operador del canal a %1."
 
 #: src/irc/channel.cpp:1813
 #, kde-format
@@ -2969,7 +3026,7 @@ msgstr "%1 dóna privilegis d'operador del canal a %2."
 
 #: src/irc/channel.cpp:1823
 msgid "You take channel operator privileges from yourself."
-msgstr "Heu pres privilegis volsaltres mateixos d'operador al canal."
+msgstr "Heu pres privilegis vós mateix d'operador al canal."
 
 #: src/irc/channel.cpp:1825
 #, kde-format
@@ -3025,22 +3082,21 @@ msgid "%1 takes channel halfop privileges from %2."
 msgstr "%1 treu privilegis de migop del canal a %2."
 
 #: src/irc/channel.cpp:1891
-#, fuzzy
 msgid "You give yourself permission to talk."
 msgstr "Us doneu permís per parlar."
 
 #: src/irc/channel.cpp:1892
-#, fuzzy, kde-format
+#, kde-format
 msgid "You give %1 permission to talk."
 msgstr "Doneu permís per parlar a %1."
 
 #: src/irc/channel.cpp:1896
-#, fuzzy, kde-format
+#, kde-format
 msgid "%1 gives you permission to talk."
-msgstr "%1 us dóna permís per parlar."
+msgstr "%1 us dóna permís per a parlar."
 
 #: src/irc/channel.cpp:1897
-#, fuzzy, kde-format
+#, kde-format
 msgid "%1 gives %2 permission to talk."
 msgstr "%1 dóna permís per parlar a %2."
 
@@ -3190,39 +3246,37 @@ msgid "%1 switches off 'topic protection'."
 msgstr "%1 desactiva la 'protecció del tema'."
 
 #: src/irc/channel.cpp:2023
-#, fuzzy, kde-format
+#, kde-format
 msgid "You set the channel key to '%1'."
-msgstr "Heu establert el tema del canal a \"%1\"."
+msgstr "Heu establert el tema del canal a '%1'."
 
 #: src/irc/channel.cpp:2024
-#, fuzzy, kde-format
+#, kde-format
 msgid "%1 sets the channel key to '%2'."
-msgstr "%1 ha establert el tema del canal a \"%2\"."
+msgstr "%1 ha establert el tema del canal a '%2'."
 
 #: src/irc/channel.cpp:2028
-#, fuzzy
 msgid "You remove the channel key."
-msgstr "Elimineu el limit del canal."
+msgstr "Heu eliminat el tema del canal."
 
 #: src/irc/channel.cpp:2029
-#, fuzzy, kde-format
+#, kde-format
 msgid "%1 removes the channel key."
-msgstr "%1 elimina el limit del canal."
+msgstr "%1 ha eliminat el tema del canal."
 
 #: src/irc/channel.cpp:2037
-#, fuzzy, kde-format
-#| msgid "You set the channel limit to %1 nicks."
+#, kde-format
 msgid "You set the channel limit to 1 nick."
 msgid_plural "You set the channel limit to %1 nicks."
-msgstr[0] "Establiu el límit del canal a %1 sobrenoms."
-msgstr[1] "Establiu el límit del canal a %1 sobrenoms."
+msgstr[0] "Heu establert el límit del canal a 1 sobrenom."
+msgstr[1] "Heu establert el límit del canal a %1 sobrenoms."
 
 #: src/irc/channel.cpp:2038
-#, fuzzy, kde-format
+#, kde-format
 msgid "%2 sets the channel limit to 1 nick."
 msgid_plural "%2 sets the channel limit to %1 nicks."
-msgstr[0] "%1 estableix el límit del canal a %1 sobrenoms."
-msgstr[1] "%1 estableix el límit del canal a %1 sobrenoms."
+msgstr[0] "%2 estableix el límit del canal a 1 sobrenom."
+msgstr[1] "%2 estableix el límit del canal a %1 sobrenoms."
 
 #: src/irc/channel.cpp:2042
 msgid "You remove the channel limit."
@@ -3294,14 +3348,14 @@ msgid "%1 removes the invitation mask %2."
 msgstr "%1 treu la mascara d'invitació %2."
 
 #: src/irc/channel.cpp:2093
-#, fuzzy, kde-format
+#, kde-format
 msgid "You set the channel mode '%1'."
-msgstr "Heu establert el tema del canal a \"%1\"."
+msgstr "Heu establert el mode del canal a '%1'."
 
 #: src/irc/channel.cpp:2094
-#, fuzzy, kde-format
+#, kde-format
 msgid "%1 sets the channel mode '%2'."
-msgstr "%1 ha establert el tema del canal a \"%2\"."
+msgstr "%1 ha establert el mode del canal a \"%2\"."
 
 #: src/irc/channel.cpp:2098
 #, kde-format
@@ -3314,14 +3368,14 @@ msgid "%1 sets channel mode +%2"
 msgstr "%1 estableix el mode de canal +%2"
 
 #: src/irc/channel.cpp:2106
-#, fuzzy, kde-format
+#, kde-format
 msgid "You remove the channel mode '%1'."
-msgstr "Elimineu el limit del canal."
+msgstr "Heu eliminat el mode del canal '%1'."
 
 #: src/irc/channel.cpp:2107
-#, fuzzy, kde-format
+#, kde-format
 msgid "%1 removes the channel mode '%2'."
-msgstr "%1 elimina el limit del canal."
+msgstr "%1 elimina el mode del canal '%2'."
 
 #: src/irc/channel.cpp:2111
 #, kde-format
@@ -3389,14 +3443,13 @@ msgid "Leave"
 msgstr "Surt"
 
 #: src/upnp/upnprouter.cpp:134
-#, fuzzy, kde-format
-#| msgid "Failed to Download Theme"
+#, kde-format
 msgid "Failed to download %1 : %2"
-msgstr "Error al descarregar el tema"
+msgstr "Ha fallat en baixar %1 : %2"
 
 #: src/upnp/upnprouter.cpp:145
 msgid "Error parsing router description."
-msgstr ""
+msgstr "Error en analitzar la descripció de l'encaminador."
 
 #: src/quickconnectdialog.cpp:29
 msgid "Quick Connect"
@@ -3445,32 +3498,28 @@ msgid "&Use SSL"
 msgstr "&Usa SSL"
 
 #: src/connectionmanager.cpp:205
-#, fuzzy, kde-format
+#, kde-format
 msgid "Trying to connect to %2 (port %3) in 1 second."
 msgid_plural "Trying to connect to %2 (port %3) in %1 seconds."
-msgstr[0] "S'està oferint una connexió per xat DCC a %1 al port %2..."
-msgstr[1] "S'està oferint una connexió per xat DCC a %1 al port %2..."
+msgstr[0] "S'està intentant connectar a %2 (port %3) en 1 segon."
+msgstr[1] "S'està intentant connectar a %2 (port %3) en %1 segons."
 
 #: src/connectionmanager.cpp:215
-#, fuzzy, kde-format
-#| msgid "Trying to reconnect to %1 in %2 seconds."
+#, kde-format
 msgid "Trying to reconnect to %2 (port %3) in 1 second."
 msgid_plural "Trying to reconnect to %2 (port %3) in %1 seconds."
-msgstr[0] "Intentant  tornar a connectar a %1 en %2 segons."
-msgstr[1] "Intentant  tornar a connectar a %1 en %2 segons."
+msgstr[0] "S'està intentant reconnectar a %2 (port %3) en 1 segon."
+msgstr[1] "S'està intentant reconnectar a %2 (port %3) en %1 segons."
 
 #: src/connectionmanager.cpp:227
-#, fuzzy
 msgid "Reconnection attempts exceeded."
-msgstr "Intents de reconnexió:"
+msgstr "S'han excedit els Intents de reconnexió."
 
 #: src/connectionmanager.cpp:443
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "You are already connected to %1. Do you want to open another connection?"
-msgstr ""
-"Ja esteu connectat a %1. Voleu desconnectar-vos de '%2' i connectar-vos a '%"
-"3'?"
+msgstr "Ja esteu connectat a %1. Voleu obrir una altra connexió?"
 
 #: src/connectionmanager.cpp:444 src/connectionmanager.cpp:466
 #, kde-format
@@ -3478,23 +3527,21 @@ msgid "Already connected to %1"
 msgstr "Ja connectat a %1"
 
 #: src/connectionmanager.cpp:445
-#, fuzzy
 msgid "Create connection"
 msgstr "Crea una connexió"
 
 #: src/connectionmanager.cpp:460
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "You are presently connected to %1 via '%2' (port %3). Do you want to switch "
 "to '%4' (port %5) instead?"
 msgstr ""
-"Ja esteu connectat a %1. Voleu desconnectar-vos de '%2' i connectar-vos a '%"
-"3'?"
+"Ja esteu connectat a %1 via '%2' (port %3). Voleu canviar-la a '%4' (port %"
+"5)?"
 
 #: src/connectionmanager.cpp:467
-#, fuzzy
 msgid "Switch Server"
-msgstr "Edita el servidor"
+msgstr "Canvia de servidor"
 
 #: src/connectionmanager.cpp:508
 msgid "Please fill in your <b>Ident</b>.<br/>"
@@ -3526,14 +3573,12 @@ msgid "Identities"
 msgstr "Identitats"
 
 #: src/identitydialog.cpp:59
-#, fuzzy
 msgid " minute"
 msgid_plural " minutes"
 msgstr[0] " minut"
-msgstr[1] " minut"
+msgstr[1] " minuts"
 
 #: src/identitydialog.cpp:61
-#, fuzzy
 msgid " minutes"
 msgstr " minuts"
 
@@ -3609,9 +3654,8 @@ msgid "A user friendly IRC client"
 msgstr "Un client d'IRC amigable"
 
 #: src/main.cpp:39
-#, fuzzy
 msgid "(C) 2002-2009 by the Konversation team"
-msgstr "(C) 2002-2006 l'equip Konversation"
+msgstr "(C) 2002-2009 per l'equip del Konversation"
 
 #: src/main.cpp:40
 msgid ""
@@ -3625,14 +3669,13 @@ msgstr ""
 
 #: src/main.cpp:45
 msgid "Dario Abatianni"
-msgstr ""
+msgstr "Dario Abatianni"
 
 #: src/main.cpp:45
 msgid "Original Author, Project Founder"
 msgstr "Autor original i fundador del projecte"
 
 #: src/main.cpp:46
-#, fuzzy
 msgid "Peter Simonsson"
 msgstr "Peter Simonsson"
 
@@ -3641,23 +3684,20 @@ msgid "Maintainer"
 msgstr "Mantenidor"
 
 #: src/main.cpp:47
-#, fuzzy
 msgid "Eike Hein"
 msgstr "Eike Hein"
 
 #: src/main.cpp:47
-#, fuzzy
-#| msgid "Maintainer, Release Manager, User interface, Protocol handling"
 msgid ""
 "Maintainer, Release Manager, User interface, Connection management, Protocol "
 "handling, Auto-away"
 msgstr ""
 "Mantenidor, encarregat de les versions, interfície d'usuari, gestió de "
-"protocols"
+"connexions, gestió de protocol, absència automàtica"
 
 #: src/main.cpp:48
 msgid "Shintaro Matsuoka"
-msgstr ""
+msgstr "Shintaro Matsuoka"
 
 #: src/main.cpp:48
 msgid "DCC, Encoding handling, OSD positioning"
@@ -3665,7 +3705,7 @@ msgstr "DCC, gestió de les codificacions, posicionament del OSD"
 
 #: src/main.cpp:49
 msgid "Eli MacKenzie"
-msgstr ""
+msgstr "Eli MacKenzie"
 
 #: src/main.cpp:49
 msgid "Protocol handling, Input line"
@@ -3673,7 +3713,7 @@ msgstr "Gestió de protocols, línia d'entrada"
 
 #: src/main.cpp:50
 msgid "İsmail Dönmez"
-msgstr ""
+msgstr "İsmail Dönmez"
 
 #: src/main.cpp:50
 msgid "Blowfish, SSL support, KNetwork port, Colored nicks, Nicklist themes"
@@ -3682,7 +3722,6 @@ msgstr ""
 "de la llista de sobrenoms"
 
 #: src/main.cpp:51
-#, fuzzy
 msgid "John Tapsell"
 msgstr "John Tapsell"
 
@@ -3692,14 +3731,13 @@ msgstr "Refactoring, Integració KAddressBook/Kontact"
 
 #: src/main.cpp:52
 msgid "Bernd Buschinski"
-msgstr ""
+msgstr "Bernd Buschinski"
 
 #: src/main.cpp:52
 msgid "DCC port to KDE 4, various DCC improvements"
-msgstr ""
+msgstr "Adaptació del DCC al KDE 4, diverses millores DCC"
 
 #: src/main.cpp:54
-#, fuzzy
 msgid "Olivier Bédard"
 msgstr "Olivier Bédard"
 
@@ -3709,14 +3747,13 @@ msgstr "Hostatge de llocs web"
 
 #: src/main.cpp:55
 msgid "Jędrzej Lisowski"
-msgstr ""
+msgstr "Jędrzej Lisowski"
 
 #: src/main.cpp:55
 msgid "Website maintenance"
 msgstr "Manteniment de llocs web"
 
 #: src/main.cpp:56
-#, fuzzy
 msgid "Christian Muehlhaeuser"
 msgstr "Christian Muehlhaeuser"
 
@@ -3725,7 +3762,6 @@ msgid "Multiple modes extension, Close widget placement, OSD functionality"
 msgstr "Extensió de modes múltiples, tancar giny de lloc, funcionalitat OSD"
 
 #: src/main.cpp:57
-#, fuzzy
 msgid "Gary Cramblitt"
 msgstr "Gary Cramblitt"
 
@@ -3734,18 +3770,17 @@ msgid ""
 "Documentation, Watched nicks online improvements, Custom web browser "
 "extension"
 msgstr ""
-"Documentació, prova de sobrenoms en línia, extensions per navegadors web."
+"Documentació, prova de sobrenoms en línia, extensions per navegadors web"
 
 #: src/main.cpp:58
 msgid "Matthias Gierlings"
-msgstr ""
+msgstr "Matthias Gierlings"
 
 #: src/main.cpp:58
 msgid "Color configurator, Highlight dialog"
 msgstr "Configurador de colors, diàleg de ressaltat"
 
 #: src/main.cpp:59
-#, fuzzy
 msgid "Alex Zepeda"
 msgstr "Alex Zepeda"
 
@@ -3754,7 +3789,6 @@ msgid "DCOP interface"
 msgstr "Interfície DCOP"
 
 #: src/main.cpp:60
-#, fuzzy
 msgid "Stanislav Karchebny"
 msgstr "Stanislav Karchebny"
 
@@ -3764,25 +3798,23 @@ msgstr "Codificacions no Latin1"
 
 #: src/main.cpp:61
 msgid "Mickael Marchand"
-msgstr ""
+msgstr "Mickael Marchand"
 
 #: src/main.cpp:61
 msgid "Konsole part view"
 msgstr "Pestanya pel Konsole"
 
 #: src/main.cpp:62
-#, fuzzy
 msgid "Michael Goettsche"
 msgstr "Michael Goettsche"
 
 #: src/main.cpp:62
 msgid "Quick connect, Ported new OSD, other features and bugfixes"
 msgstr ""
-"Connexió fàcil, trasllat de nous OSD, altres caraterístiques i correcció "
+"Connexió fàcil, trasllat de nous OSD, altres característiques i correcció "
 "d'errades"
 
 #: src/main.cpp:63
-#, fuzzy
 msgid "Benjamin Meyer"
 msgstr "Benjamin Meyer"
 
@@ -3791,24 +3823,22 @@ msgid "A Handful of fixes and code cleanup"
 msgstr "Un grapat de reparacions i depuració de codi"
 
 #: src/main.cpp:64
-#, fuzzy
 msgid "Jakub Stachowski"
 msgstr "Jakub Stachowski"
 
 #: src/main.cpp:64
 msgid "Drag&Drop improvements"
-msgstr "Proves d'arrossegar i deixar anar"
+msgstr "Millores d'arrossegar i deixar anar"
 
 #: src/main.cpp:65
 msgid "Sebastian Sariego"
-msgstr ""
+msgstr "Sebastian Sariego"
 
 #: src/main.cpp:65
 msgid "Artwork"
 msgstr "Treball artístic"
 
 #: src/main.cpp:66
-#, fuzzy
 msgid "Renchi Raju"
 msgstr "Renchi Raju"
 
@@ -3818,7 +3848,7 @@ msgstr "Barra de cerca a l'estil Firefox"
 
 #: src/main.cpp:67
 msgid "Michael Kreitzer"
-msgstr ""
+msgstr "Michael Kreitzer"
 
 #: src/main.cpp:67
 msgid "Raw modes, Tab grouping per server, Ban list"
@@ -3826,14 +3856,13 @@ msgstr "Modes en brut, tabulació agrupada per servidor, llista d'expulsats"
 
 #: src/main.cpp:68
 msgid "Frauke Oster"
-msgstr ""
+msgstr "Frauke Oster"
 
 #: src/main.cpp:68
 msgid "System tray patch"
 msgstr "Pedaç per la safata de sistema"
 
 #: src/main.cpp:69
-#, fuzzy
 msgid "Lucijan Busch"
 msgstr "Lucijan Busch"
 
@@ -3842,24 +3871,22 @@ msgid "Bug fixes"
 msgstr "Correccions d'error"
 
 #: src/main.cpp:70
-#, fuzzy
 msgid "Sascha Cunz"
 msgstr "Sascha Cunz"
 
 #: src/main.cpp:70
 msgid "Extended user modes patch"
-msgstr "Pedaç de modes d'usuari estès."
+msgstr "Pedaç de modes d'usuari estès"
 
 #: src/main.cpp:71
 msgid "Steve Wollkind"
-msgstr ""
+msgstr "Steve Wollkind"
 
 #: src/main.cpp:71
 msgid "Close visible tab with shortcut patch"
 msgstr "Tanqueu la tabulació visible amb enllaç al pedaç"
 
 #: src/main.cpp:72
-#, fuzzy
 msgid "Thomas Nagy"
 msgstr "Thomas Nagy"
 
@@ -3869,7 +3896,7 @@ msgstr "Tabuladors de cicle amb ratolí"
 
 #: src/main.cpp:73
 msgid "Tobias Olry"
-msgstr ""
+msgstr "Tobias Olry"
 
 #: src/main.cpp:73
 msgid "Channel ownership mode patch"
@@ -3877,7 +3904,7 @@ msgstr "Pedaç de mode de propietat del canal"
 
 #: src/main.cpp:74
 msgid "Ruud Nabben"
-msgstr ""
+msgstr "Ruud Nabben"
 
 #: src/main.cpp:74
 msgid "Option to enable IRC color filtering"
@@ -3885,20 +3912,19 @@ msgstr "Opció per activar el filtrat del color a l'IRC"
 
 #: src/main.cpp:75
 msgid "Lothar Braun"
-msgstr ""
+msgstr "Lothar Braun"
 
 #: src/main.cpp:76
-#, fuzzy
 msgid "Ivor Hewitt"
 msgstr "Ivor Hewitt"
 
 #: src/main.cpp:76
 msgid "Bug fixes, OSD work, clearing topics"
-msgstr "Corregir errades, treball OSD, netejar temes."
+msgstr "Correcció d'errades, treball OSD, netejar temes"
 
 #: src/main.cpp:77
 msgid "Emil Obermayr"
-msgstr ""
+msgstr "Emil Obermayr"
 
 #: src/main.cpp:77
 msgid "Sysinfo script"
@@ -3906,10 +3932,9 @@ msgstr "Guió sysinfo"
 
 #: src/main.cpp:78
 msgid "Stanislav Nikolov"
-msgstr ""
+msgstr "Stanislav Nikolov"
 
 #: src/main.cpp:79
-#, fuzzy
 msgid "Juan Carlos Torres"
 msgstr "Juan Carlos Torres"
 
@@ -3919,20 +3944,22 @@ msgstr "Menú d'autoincorporació contextual"
 
 #: src/main.cpp:80
 msgid "Travis McHenry"
-msgstr ""
+msgstr "Travis McHenry"
 
 #: src/main.cpp:80
 msgid ""
 "Various fixes, ported encryption to QCA2, added DH1080 key exchange support."
 msgstr ""
+"Diversos arranjaments, adaptació de l'encriptatge a QCA2, addició "
+"d'implementació d'intercanvi de claus DH1080."
 
 #: src/main.cpp:81
 msgid "Modestas Vainius"
-msgstr ""
+msgstr "Modestas Vainius"
 
 #: src/main.cpp:81
 msgid "Bug fixes and enhancements."
-msgstr ""
+msgstr "Arranjament d'errors i millores."
 
 #: src/main.cpp:85
 msgid "irc:// URL or server hostname"
@@ -3948,7 +3975,7 @@ msgstr "Port a usar"
 
 #: src/main.cpp:88
 msgid "Channel to join after connection"
-msgstr "Canal al qual unir-se després de la connexió"
+msgstr "Canal al qual incorporar-se després de la connexió"
 
 #: src/main.cpp:89
 msgid "Nickname to use"
@@ -3978,9 +4005,8 @@ msgid "Click to run Regular Expression Editor (KRegExpEditor)"
 msgstr "Premeu per executar l'editor d'expressions regulars (KRegExpEditor)"
 
 #: src/config/autoreplace_config.cpp:47 src/config/highlight_config.cpp:170
-#, fuzzy
 msgid "The Regular Expression Editor (KRegExpEditor) is not installed"
-msgstr "Premeu per executar l'editor d'expressions regulars (KRegExpEditor)"
+msgstr "L'editor d'expressions regulars (KRegExpEditor) no està instal·lat"
 
 #: src/config/autoreplace_config.cpp:50
 msgid "Outgoing"
@@ -3995,8 +4021,6 @@ msgid "Both"
 msgstr "Tots"
 
 #: src/config/autoreplace_config.cpp:287
-#, fuzzy
-#| msgid "New"
 msgctxt ""
 "Fallback content for the \"Find:\" field of an auto-replace rule that gets "
 "set when the user leaves the field empty and e.g. switches to another rule "
@@ -4006,12 +4030,10 @@ msgid "New"
 msgstr "Nou"
 
 #: src/config/autoreplace_config.cpp:323
-#, fuzzy
-#| msgid "New"
 msgctxt ""
 "Default content of the \"Find:\" field of a newly-added auto-replace rule."
 msgid "New"
-msgstr "Nou"
+msgstr "Nova"
 
 #: src/config/nicklistbehavior_config.cpp:53
 msgid "Normal Users"
@@ -4047,7 +4069,7 @@ msgstr "Escolliu el paquet del tema"
 
 #: src/config/theme_config.cpp:175
 msgid "Failed to Download Theme"
-msgstr "Error al descarregar el tema"
+msgstr "ha fallat en baixar el tema"
 
 #: src/config/theme_config.cpp:190 src/config/theme_config.cpp:211
 msgid "Theme archive is invalid."
@@ -4058,8 +4080,7 @@ msgid "Cannot Install Theme"
 msgstr "No s'ha pogut instal·lat el tema"
 
 #: src/config/theme_config.cpp:237
-#, fuzzy, kde-format
-#| msgid "Do you want to remove %1 ?"
+#, kde-format
 msgid "Do you want to remove %1?"
 msgstr "Voleu eliminar %1?"
 
@@ -4094,8 +4115,6 @@ msgid "Colors"
 msgstr "Colors"
 
 #: src/config/settingsdialog.cpp:81
-#, fuzzy
-#| msgid "Focus"
 msgid "Fonts"
 msgstr "Tipus de lletra"
 
@@ -4157,10 +4176,8 @@ msgid "Warning Dialogs"
 msgstr "Diàlegs d'avís"
 
 #: src/config/warnings_config.cpp:104
-#, fuzzy
-#| msgid "&Show channel topic"
 msgid "Show channel invitation dialog"
-msgstr "Mostra el &tema del canal"
+msgstr "Mostra el diàleg d'invitació del canal"
 
 #: src/config/warnings_config.cpp:105
 msgid "Notice that saving logfiles will save whole file"
@@ -4175,14 +4192,13 @@ msgid "Ask about closing queries after ignoring the nickname"
 msgstr "Pregunta sobre tancar consultes després d'ignorar el sobrenom"
 
 #: src/config/warnings_config.cpp:108
-#, fuzzy
 msgid "Ask before switching a connection to a network to a different server"
-msgstr "Pregunta abans de connectar a un servidor diferent de la xarxa"
+msgstr ""
+"Pregunta abans de canviar la connexió a una xarxa d'un servidor diferent"
 
 #: src/config/warnings_config.cpp:109
-#, fuzzy
 msgid "Ask before creating another connection to the same network or server"
-msgstr "Pregunta abans de connectar a un servidor diferent de la xarxa"
+msgstr "Pregunta abans de crear una altra connexió al mateix servidor o xarxa"
 
 #: src/config/warnings_config.cpp:110
 msgid "Close server tab"
@@ -4215,20 +4231,18 @@ msgid "Warning on pasting large portions of text"
 msgstr "Avís en enganxar grans porcions de text"
 
 #: src/config/warnings_config.cpp:117
-#, fuzzy
 msgid "Warning on quitting Konversation"
-msgstr "Avís en enganxar grans porcions de text"
+msgstr "Avís en abandonar Konversation"
 
 #: src/config/warnings_config.cpp:120
 msgid "Warn before quitting with active DCC file transfers"
-msgstr "Avisa abans de sortir amb transferències de fitxers DCC actius"
+msgstr "Avisa abans de sortir amb transferències actives de fitxers DCC"
 
 #: src/config/warnings_config.cpp:121
 msgid "Warn when sending characters incompatible with your current encoding"
-msgstr ""
+msgstr "Avís en enviar caràcters incompatibles amb la codificació actual"
 
 #: src/config/configdialog.cpp:72
-#, fuzzy
 msgid "Configure"
 msgstr "Configura"
 
@@ -4290,13 +4304,13 @@ msgstr "%1 vol enviar-vos un fitxer"
 #: src/notificationhandler.cpp:210
 #, kde-format
 msgid "An Error has occurred in a DCC transfer: %1"
-msgstr ""
+msgstr "Ha ocorregut un error en una transferència DCC: %1"
 
 #: src/notificationhandler.cpp:221
 #, kde-format
 msgctxt "%1 - filename"
 msgid "%1 File Transfer is complete"
-msgstr ""
+msgstr "S'ha completat la transferència de fitxer %1"
 
 #: src/notificationhandler.cpp:247
 #, kde-format
@@ -4329,9 +4343,8 @@ msgid "You have joined %1."
 msgstr "Heu entrat a %1."
 
 #: src/queuetuner.cpp:241
-#, fuzzy
 msgid "Reset..."
-msgstr "&Desa la llista..."
+msgstr "inicialitza..."
 
 #: src/queuetuner.cpp:246
 msgid ""
@@ -4355,6 +4368,11 @@ msgid ""
 "special privileges, such as the ability to kick and ban users, change the "
 "channel modes, make other users operators</p></qt>"
 msgstr ""
+"<qt><p>Això mostra el nombre d'usuaris al canal i el nombre d'aquells que "
+"són operadors (ops).</p><p>Un operador de canal és un usuari que té "
+"privilegis especials, com ara la capacitat d'expulsar i vetar usuaris, "
+"canviar els modes del canal i fer que altres usuaris siguin operadors.</p></"
+"qt>"
 
 #: src/statusbar.cpp:48 src/statusbar.cpp:152 src/statusbar.cpp:166
 msgid "Lag: Unknown"
@@ -4412,9 +4430,7 @@ msgid "No answer from server %1 for more than %2 and %3."
 msgstr "Sense resposta del servidor %1 durant més de %2 i %3."
 
 #: src/statusbar.cpp:205
-#, fuzzy, kde-format
-#| msgid "No answer from server %2 for more than 1 second."
-#| msgid_plural "No answer from server %2 for more than %1 seconds."
+#, kde-format
 msgid "No answer from server %2 for more than 1 second."
 msgid_plural "No answer from server %2 for more than %1 seconds."
 msgstr[0] "Sense resposta del servidor %2 durant més d'un segon."
@@ -4427,7 +4443,7 @@ msgstr "Konsole"
 
 #: src/konsolepanel.cpp:39
 msgid "Manage Konsole Profiles"
-msgstr ""
+msgstr "Gestió de perfils del Konsole"
 
 #: src/linkaddressbook/addressbook.cpp:111
 msgid "Online"
@@ -4484,16 +4500,14 @@ msgstr ""
 "especificat a la llibreta d'adreces del KDE."
 
 #: src/linkaddressbook/addressbook.cpp:288
-#, fuzzy, kde-format
-#| msgid ""
-#| "Another KDE application tried to use Konversation to send a file to a "
-#| "contact, but the requested user%1 is not currently online."
+#, kde-format
 msgid ""
 "Another KDE application tried to use Konversation to send a file to a "
 "contact, but the requested user %1 is not currently online."
 msgstr ""
-"Una altra aplicació KDE ha intentat usar el Konversation per enviar un "
-"fitxer a un contacte però l'usuari %1 no està connectat."
+"Una altra aplicació del KDE ha intentat usar el Konversation per enviar un "
+"fitxer a un contacte, però l'usuari sol·licitat %1 no està connectat "
+"actualment."
 
 #: src/linkaddressbook/addressbook.cpp:307
 msgid ""
@@ -4504,22 +4518,19 @@ msgstr ""
 "contacte. El Konversation no té aquesta funcionalitat."
 
 #: src/linkaddressbook/addressbook_base.cpp:391
-#, fuzzy
-#| msgid ""
-#| "Could not run your addressbook program (kaddressbook).  This is most "
-#| "likely because it is not installed.  Please install the 'kdepim' packages."
 msgid ""
 "Could not run the address book program (kaddressbook) - this is most likely "
 "because it is not installed.  Please install the 'kdepim' packages."
 msgstr ""
-"No s'ha pogut executar el programa de llibreta d'adreces (kaddressbook). "
-"Probablement no estigui instal·lat. Si us plau instal·leu el paquet 'kdepim'."
+"No s'ha pogut executar el programa de llibreta d'adreces (kaddressbook) - "
+"probablement no estigui instal·lat. Si us plau instal·leu els paquets "
+"'kdepim'."
 
 #: src/linkaddressbook/addressbook_base.cpp:401
 msgid ""
 "The contact that you have selected does not have an email address associated "
 "with them. "
-msgstr "El contacte que heu seleccionat no té una adreça de correu associada."
+msgstr "El contacte que heu seleccionat no té cap adreça de correu associada."
 
 #: src/linkaddressbook/addressbook_base.cpp:401
 #: src/linkaddressbook/addressbook_base.cpp:495
@@ -4537,91 +4548,62 @@ msgstr ""
 "instal·leu el paquet 'kdepim'."
 
 #: src/linkaddressbook/addressbook_base.cpp:457
-#, fuzzy
-#| msgid ""
-#| "None of the contacts that you have selected were associated with an "
-#| "addressbook contacts. "
 msgid ""
 "None of the selected contacts are associated with address book entries. "
 msgstr ""
-"Cap dels contactes que heu seleccionat està associat amb un contacte de la "
+"Cap dels contactes seleccionats està associat amb les entrades de la "
 "llibreta d'adreces."
 
 #: src/linkaddressbook/addressbook_base.cpp:459
-#, fuzzy
-#| msgid ""
-#| "The contact that you have selected is not associated with an addressbook "
-#| "contact. "
 msgid "The selected contact is not associated with an address book entry. "
 msgstr ""
-"El contacte que heu seleccionat no està associat amb un contacte de la "
+"El contacte que heu seleccionat no està associat amb cap entrada de la "
 "llibreta d'adreces."
 
 #: src/linkaddressbook/addressbook_base.cpp:464
-#, fuzzy, kde-format
-#| msgid ""
-#| "Some of the contacts (%1) that you have selected are not associated with "
-#| "addressbook contacts. "
+#, kde-format
 msgid ""
 "Some of the contacts (%1) that you have selected are not associated with "
 "address book entries. "
 msgstr ""
-"Algun dels contactes (%1) que heu seleccionat no estan associats amb "
-"contactes de la llibreta d'adreces."
+"Algun dels contactes (%1) que heu seleccionat no estan associats amb cap "
+"contacte de la llibreta d'adreces. "
 
 #: src/linkaddressbook/addressbook_base.cpp:466
-#, fuzzy, kde-format
-#| msgid ""
-#| "One of the contacts (%1) that you have selected is not associated with an "
-#| "addressbook contact. "
+#, kde-format
 msgid ""
 "One of the contacts (%1) that you have selected is not associated with an "
 "address book entry. "
 msgstr ""
-"Un dels contactes (%1) que heu seleccionat no està associat amb cap contacte "
-"de la llibreta d'adreces."
+"Un dels contactes (%1) que heu seleccionat no està associat amb cap entrada "
+"de la llibreta d'adreces. "
 
 #: src/linkaddressbook/addressbook_base.cpp:468
-#, fuzzy
-#| msgid ""
-#| "You can right click on a contact, and choose to edit the Addressbook "
-#| "Associations to link them to a contact in your addressbook."
 msgid ""
 "You can right click on a contact and choose to edit the Address Book "
 "Associations to link them to a contact in your address book."
 msgstr ""
-"Podeu fer clic dret a un contacte i escollir editar les associacions de la "
+"Podeu dretaclicar a un contacte i escollir editar les associacions de la "
 "llibreta d'adreces per enllaçar-lo amb un contacte de la vostra llibreta "
 "d'adreces."
 
 #: src/linkaddressbook/addressbook_base.cpp:475
-#, fuzzy
-#| msgid ""
-#| "The contact that you have selected does not have an email address "
-#| "associated with them. "
 msgid ""
 "None of the selected contacts have an email address associated with them. "
-msgstr "El contacte que heu seleccionat no té una adreça de correu associada."
+msgstr "Cap dels contactes seleccionats té una adreça de correu associada."
 
 #: src/linkaddressbook/addressbook_base.cpp:477
-#, fuzzy
-#| msgid ""
-#| "The contact that you have selected does not have an email address "
-#| "associated with them. "
 msgid "The selected contact does not have an associated email address. "
-msgstr "El contacte que heu seleccionat no té una adreça de correu associada."
+msgstr "El contacte seleccionat no té cap adreça de correu associada. "
 
 #: src/linkaddressbook/addressbook_base.cpp:482
-#, fuzzy, kde-format
-#| msgid ""
-#| "Some of the contacts (%1) that you have selected do not have an email "
-#| "address associated with them. "
+#, kde-format
 msgid ""
 "Some of the contacts (%1) that you have selected do not have email addresses "
 "associated with them. "
 msgstr ""
-"Algun dels contactes (%1) que heu seleccionat no tenen una adreça de correu "
-"electrònic associada amb ell."
+"Alguns dels contactes (%1) que heu seleccionat no tenen una adreça de correu "
+"electrònic associada amb ells. "
 
 #: src/linkaddressbook/addressbook_base.cpp:484
 #, kde-format
@@ -4633,23 +4615,15 @@ msgstr ""
 "electrònic associada amb ell."
 
 #: src/linkaddressbook/addressbook_base.cpp:486
-#, fuzzy
-#| msgid ""
-#| "You can right click on a contact, and choose to edit the addressbook "
-#| "contact, adding an email for them."
 msgid ""
 "You can right click on a contact and edit the corresponding address book "
 "entry to add an email address for them."
 msgstr ""
-"Podeu prémer el botó dret sobre el cantacte, i escollir editar el llibre "
-"d'adreces de contacte, afegint un correu electrònic per ell."
+"Podeu dretaclicar sobre el contacte, i escollir editar l'entrada "
+"corresponent de la llibreta d'adreces, afegint-ne un correu electrònic."
 
 #: src/linkaddressbook/addressbook_base.cpp:490
-#, fuzzy, kde-format
-#| msgid ""
-#| "Some of the contacts (%1) that you have selected are not associated with "
-#| "addressbook contacts, and some of the contacts (%2) do not have an email "
-#| "address associated with them.  "
+#, kde-format
 msgid ""
 "Some of the contacts (%1) that you have selected are not associated with "
 "address book entries, and some of the contacts (%2) do not have email "
@@ -4657,49 +4631,38 @@ msgid ""
 msgstr ""
 "Alguns dels contactes (%1) que heu seleccionat no estan associats amb cap "
 "adreça de contacte, i alguns dels contactes (%2) no tenen un correu "
-"electrònic associat amb ell."
+"electrònic associat amb ells.  "
 
 #: src/linkaddressbook/addressbook_base.cpp:491
-#, fuzzy
-#| msgid ""
-#| "You can right click on a contact, and choose to edit the Addressbook "
-#| "Associations to link them to a contact in your addressbook, and choose to "
-#| "edit the addressbook contact, adding an email for them."
 msgid ""
 "For the former contacts, this can be resolved by right clicking on a contact "
 "and choosing to edit the Address Book Associations, thereby linking them to "
 "a contact in your address book.  For the latter, by choosing to editing the "
 "corresponding address book contact you can specify an email address for them."
 msgstr ""
-"Podeu prémer el botó dret sobre el contacte, i escollir editar les "
-"associacions del llibre d'adreces per enllaçar-hi amb un contacte de la "
-"vostra adreça, i escollir editar la llibreta d'adreces de contactes afegint-"
-"hi el nou correu electrònic."
+"Per als contactes anteriors, això es pot resoldre dretaclicant sobre un "
+"contacte i seleccionant editar les associacions de la llibreta d'adreces, "
+"vinculant-lo a un contacte de la llibreta d'adreces. En aquest últim cas, "
+"seleccionant modificar el contacte corresponent de la llibreta d'adreces es "
+"pot especificar una adreça de correu electrònic."
 
 #: src/linkaddressbook/addressbook_base.cpp:500
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| "Do you want to send an email anyway to the nicks that do have an email "
-#| "address?"
 msgid ""
 "\n"
 "Do you want to send an email anyway to the nicks that do have email "
 "addresses?"
 msgstr ""
 "\n"
-"Voleu enviar de totes formes un correu electrònic als àlies que teniu en la "
-"llibreta d'adreces ?"
+"Voleu enviar de totes formes un correu electrònic als sobrenoms dels que "
+"teniu adreces de correu electrònic?"
 
 #: src/linkaddressbook/addressbook_base.cpp:501
 msgid "Send Email"
 msgstr "Envia correu-e"
 
 #: src/linkaddressbook/linkaddressbookui.cpp:34
-#, fuzzy
-#| msgid "Link IRC Nick to Addressbook Contact"
 msgid "Link IRC Nick to Address Book Contact"
-msgstr "Enllaça sobrenom IRC amb contacte de la llibreta d'adreces"
+msgstr "Enllaça un sobrenom IRC amb un contacte de la llibreta d'adreces"
 
 #: src/linkaddressbook/linkaddressbookui.cpp:101
 #, kde-format
@@ -4734,10 +4697,8 @@ msgid "Name the new entry:"
 msgstr "Nom per a la nova entrada:"
 
 #: src/urlcatcher.cpp:118
-#, fuzzy
-#| msgid "&Format:"
 msgid "From"
-msgstr "&Format:"
+msgstr "Des de"
 
 #. i18n: file: src/urlcatcherui.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, URLCatcherUI)
@@ -4750,38 +4711,33 @@ msgid "Save URL List"
 msgstr "Desa la llista d'URL"
 
 #: src/urlcatcher.cpp:353
-#, fuzzy, kde-format
-#| msgid ""
-#| "Konversation Channel List: %1 - %2\n"
-#| "\n"
+#, kde-format
 msgid ""
 "Konversation URL List: %1\n"
 "\n"
 msgstr ""
-"Llista de canals de Konversation: %1 - %2\n"
+"Llista d'URL de Konversation: %1\n"
 "\n"
 
-#: src/urlcatcher.cpp:381 src/viewer/ircview.cpp:136
+#: src/urlcatcher.cpp:381 src/viewer/ircview.cpp:189
 #: src/viewer/topiclabel.cpp:143
 msgid "Copy Link Address"
-msgstr ""
+msgstr "Copia l'adreça de l'enllaç"
 
-#: src/urlcatcher.cpp:382 src/viewer/ircview.cpp:140
+#: src/urlcatcher.cpp:382 src/viewer/ircview.cpp:193
 #: src/viewer/topiclabel.cpp:144
 msgid "Add to Bookmarks"
 msgstr "Afegeix als punts"
 
-#: src/urlcatcher.cpp:383 src/viewer/ircview.cpp:142
+#: src/urlcatcher.cpp:383 src/viewer/ircview.cpp:195
 #: src/viewer/topiclabel.cpp:145
-#, fuzzy
 msgid "Save Link As..."
 msgstr "Desa l'enllaç com a..."
 
-#: src/urlcatcher.cpp:412 src/viewer/ircview.cpp:1395
+#: src/urlcatcher.cpp:412 src/viewer/ircview.cpp:1434
 #: src/viewer/topiclabel.cpp:332
-#, fuzzy
 msgid "Save link as"
-msgstr "&Desa la llista..."
+msgstr "Desa l'enllaç com a"
 
 #. i18n: file: src/config/ignore_configui.ui:111
 #. i18n: ectx: property (text), widget (QCheckBox, chkQuery)
@@ -4794,15 +4750,12 @@ msgid "Exception"
 msgstr "Excepció"
 
 #: src/viewer/logfilereader.cpp:44
-#, fuzzy
 msgid "Save As..."
 msgstr "Desa com a..."
 
 #: src/viewer/logfilereader.cpp:45
-#, fuzzy
-#| msgid "Ready."
 msgid "Reload"
-msgstr "Actualitza"
+msgstr "Recarrega"
 
 #: src/viewer/logfilereader.cpp:46 src/viewer/logfilereader.cpp:142
 msgid "Clear Logfile"
@@ -4863,8 +4816,6 @@ msgstr "Insereix un caràcter"
 #. i18n: file: data/konversationui.rc:23
 #. i18n: ectx: Menu (insert)
 #: src/viewer/insertchardialog.cpp:30 rc.cpp:1935
-#, fuzzy
-#| msgid "secret"
 msgid "&Insert"
 msgstr "&Insereix"
 
@@ -4872,45 +4823,41 @@ msgstr "&Insereix"
 msgid "Insert a character"
 msgstr "Insereix un caràcter"
 
-#: src/viewer/ircview.cpp:148
+#: src/viewer/ircview.cpp:201
 msgid "&Copy"
 msgstr "&Copia"
 
-#: src/viewer/ircview.cpp:151
-#, fuzzy
-#| msgid "&Select All Items"
+#: src/viewer/ircview.cpp:204
 msgid "Select All"
 msgstr "Selecciona-ho tot"
 
-#: src/viewer/ircview.cpp:152 src/viewer/viewcontainer.cpp:550
+#: src/viewer/ircview.cpp:205 src/viewer/viewcontainer.cpp:550
 msgid "Find Text..."
 msgstr "Cerca text..."
 
-#: src/viewer/ircview.cpp:1219
-#, fuzzy
-#| msgid "Open &Query"
+#: src/viewer/ircview.cpp:1252
 msgid "Open Query"
-msgstr "Obre una &conversa"
+msgstr "Obre una conversa"
 
-#: src/viewer/ircview.cpp:1266 src/viewer/topiclabel.cpp:128
+#: src/viewer/ircview.cpp:1299 src/viewer/topiclabel.cpp:128
 #: src/mainwindow.cpp:421
 msgid "&Join Channel..."
 msgstr "&Entra al canal..."
 
-#: src/viewer/ircview.cpp:1273 src/viewer/topiclabel.cpp:134
+#: src/viewer/ircview.cpp:1306 src/viewer/topiclabel.cpp:134
 msgid "Get &user list"
 msgstr "Obté la llista d'&usuaris"
 
-#: src/viewer/ircview.cpp:1275 src/viewer/topiclabel.cpp:135
+#: src/viewer/ircview.cpp:1308 src/viewer/topiclabel.cpp:135
 msgid "Get &topic"
 msgstr "Obté el &tema"
 
-#: src/viewer/ircview.cpp:1470
+#: src/viewer/ircview.cpp:1509
 #, kde-format
 msgid "Open a query with %1"
 msgstr "Obre una consulta amb %1"
 
-#: src/viewer/ircview.cpp:1491 src/viewer/topiclabel.cpp:277
+#: src/viewer/ircview.cpp:1530 src/viewer/topiclabel.cpp:277
 #, kde-format
 msgid "Join the channel %1"
 msgstr "Entra al canal %1"
@@ -4930,29 +4877,36 @@ msgid ""
 "in.</td></tr></table><p>For more commands, see the Konversation Handbook.</"
 "p><p>A message cannot contain multiple lines.</p></qt>"
 msgstr ""
-
-#: src/viewer/ircinput.cpp:484
-#, fuzzy, kde-format
-#| msgid " bytes"
-msgid "1 byte"
-msgid_plural "%1 bytes"
-msgstr[0] " bytes"
-msgstr[1] " bytes"
+"<qt><p>La línia d'entrada és un s'escriuen el missatges per ser enviats al "
+"canal, a una conversa o un servidor. Un missatge enviat a un canal és vist "
+"per tothom en el canal, mentre que un missatge en una conversa s'envia només "
+"a la persona amb la que converseu.</p><p>Per completar automàticament el "
+"sobrenom que heu començat a escriure, premeu Tab. Si no heu començat a "
+"escriure, s'usarà el darrer sobrenom correcte usat.</p><p>També podeu usar "
+"ordres especials:</p><table><tr><th>/me <i>acció</i></th><td>es mostra com "
+"una acció al canal o la conversa. Per exemple: <em>/me canta una cançó</em> "
+"es mostra en el canal com 'sobrenom canta una cançó'.</td></tr><tr><th>/"
+"whois <i>sobrenom</i></th><td>mostra informació quant a aquesta persona, "
+"incloent els canals en els que està.</td></tr></table><p>Per més ordres, "
+"mireu el manual del Konversation.</p><p>Un missatge no pot tenir múltiples "
+"línies.</p></qt>"
 
 #: src/viewer/ircinput.cpp:485
-#, fuzzy, kde-format
-#| msgid " lines"
+#, kde-format
+msgid "1 byte"
+msgid_plural "%1 bytes"
+msgstr[0] "1 byte"
+msgstr[1] "%1 bytes"
+
+#: src/viewer/ircinput.cpp:486
+#, kde-format
 msgid "1 line"
 msgid_plural "%1 lines"
-msgstr[0] " línies"
-msgstr[1] " línies"
+msgstr[0] "1 línia"
+msgstr[1] "%1 línies"
 
-#: src/viewer/ircinput.cpp:491
-#, fuzzy, kde-format
-#| msgid ""
-#| "<qt>You are attempting to paste a large portion of text (%1 bytes or %2 "
-#| "lines) into the chat. This can cause connection resets or flood kills. Do "
-#| "you really want to continue?</qt>"
+#: src/viewer/ircinput.cpp:492
+#, kde-format
 msgctxt ""
 "%1 is, for instance, '200 bytes'.  %2 is, for instance, '7 lines'.  Both are "
 "localised (see the two previous messages)."
@@ -4961,17 +4915,15 @@ msgid ""
 "chat. This can cause connection resets or flood kills. Do you really want to "
 "continue?</qt>"
 msgstr ""
-"<qt>Esteu intentant enganxar una gran quantitat de text (%1 bytes o %2 "
-"línies) al xat. Això pot fer que la connexió s'inicialitzi o que us expulsin "
-"per causar inundacions. Realment voleu continuar?</qt>"
+"<qt>Esteu intentant enganxar una gran quantitat de text (%1 o %2) al xat. "
+"Això pot fer que la connexió es reinicialitzi o que us expulsin per causar "
+"inundacions. Realment voleu continuar?</qt>"
 
-#: src/viewer/ircinput.cpp:494
+#: src/viewer/ircinput.cpp:495
 msgid "Large Paste Warning"
 msgstr "Avís d'enganxat gran"
 
-#: src/viewer/ircinput.cpp:495
-#, fuzzy
-#| msgid "Partner"
+#: src/viewer/ircinput.cpp:496
 msgid "Paste"
 msgstr "Enganxa"
 
@@ -4979,7 +4931,7 @@ msgstr "Enganxa"
 #. i18n: ectx: property (text), widget (KPushButton, m_editIdentityButton)
 #. i18n: file: src/irc/serverlistdialogui.ui:162
 #. i18n: ectx: property (text), widget (QPushButton, m_editButton)
-#: src/viewer/ircinput.cpp:496 rc.cpp:116 rc.cpp:257
+#: src/viewer/ircinput.cpp:497 rc.cpp:116 rc.cpp:257
 msgid "&Edit..."
 msgstr "&Edita..."
 
@@ -5098,16 +5050,12 @@ msgid "&Channel Settings..."
 msgstr "Paràmetres del &canal..."
 
 #: src/viewer/viewcontainer.cpp:1609
-#, fuzzy
-#| msgid "Rename"
 msgid "Rename Tab"
-msgstr "Reanomena"
+msgstr "Reanomena la pestanya"
 
 #: src/viewer/viewcontainer.cpp:1610
-#, fuzzy
-#| msgid "Enter Filename"
 msgid "Enter new tab name:"
-msgstr "Introduïu el nom del fitxer"
+msgstr "Introduïu el nom nou de la pestanya:"
 
 #: src/viewer/viewcontainer.cpp:1682
 #, kde-format
@@ -5116,10 +5064,8 @@ msgid "Default ( %1 )"
 msgstr "Predeterminat ( %1 )"
 
 #: src/viewer/viewcontainer.cpp:1716
-#, fuzzy
-#| msgid "Rename"
 msgid "&Rename Tab..."
-msgstr "Reanomena"
+msgstr "&Reanomena la pestanya..."
 
 #: src/viewer/viewcontainer.cpp:1859
 msgid "You can only search in text fields."
@@ -5149,16 +5095,12 @@ msgid "Channel List Warning"
 msgstr "Avís de llista de canals"
 
 #: src/viewer/viewcontainer.cpp:2472
-#, fuzzy
-#| msgid ""
-#| "The channel list can only be opened from a query, channel or status "
-#| "window to find out, which server this list belongs to."
 msgid ""
 "To know which server to display the channel list for, the list can only be "
 "opened from a query, channel or status window."
 msgstr ""
-"La llista de canals només es pot obrir des d'una conversa, canal o finestra "
-"d'estat per saber a quin servidor pertany la llista."
+"Per saber quin és el servidor per mostrar la llista de canals, la llista "
+"només pot ser oberta des d'una conversa, el canal o la finestra d'estat."
 
 #: src/viewer/trayicon.cpp:37
 msgid "Konversation - IRC Client"
@@ -5174,7 +5116,7 @@ msgstr "Cerca endavant"
 
 #: src/viewer/searchbar.cpp:56
 msgid "Case Sensitive"
-msgstr "Distingeix majúscules"
+msgstr "Sensible a caixa"
 
 #: src/viewer/searchbar.cpp:59
 msgid "Whole Words Only"
@@ -5196,17 +5138,19 @@ msgstr ""
 "Totes les pestanyes associades es tancaran també."
 
 #: src/viewer/statuspanel.cpp:261
-#, fuzzy
 msgid "Close Tab"
-msgstr "Tanca pestanya"
+msgstr "Tanca la pestanya"
 
 #: src/viewer/statuspanel.cpp:270
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "Do you want to disconnect from '%1'?\n"
 "\n"
 " All associated tabs will be closed as well."
-msgstr "Voleu desconnectar-vos de '%1'?"
+msgstr ""
+"Voleu desconnectar-vos de '%1'?\n"
+"\n"
+" Totes les pestanyes associades també es tancaran."
 
 #: src/viewer/statuspanel.cpp:271
 msgid "Disconnect From Server"
@@ -5226,7 +5170,7 @@ msgstr "Gestiona xarxes i servidors"
 
 #: src/mainwindow.cpp:133
 msgid "Quick &Connect..."
-msgstr "&Connexió ràpida"
+msgstr "&Connexió ràpida..."
 
 #: src/mainwindow.cpp:136
 msgid "Type in the address of a new IRC server to connect to"
@@ -5306,29 +5250,24 @@ msgid "Close &Tab"
 msgstr "&Tanca la pestanya"
 
 #: src/mainwindow.cpp:271
-#, fuzzy
 msgid "Next Active Tab"
-msgstr "Pestanya &següent"
+msgstr "Pestanya activa següent"
 
 #: src/mainwindow.cpp:346
-#, fuzzy
 msgid "Rejoin Channel"
-msgstr "&Entra al canal"
+msgstr "Torna a entrar al canal"
 
 #: src/mainwindow.cpp:352 src/mainwindow.cpp:733
 msgid "Enable Notifications"
 msgstr "Habilita les notificacions"
 
 #: src/mainwindow.cpp:358
-#, fuzzy
 msgid "Join on Connect"
-msgstr "&Entra al canal"
+msgstr "Entra en connectar"
 
 #: src/mainwindow.cpp:363
-#, fuzzy
-#| msgid "Default ( %1 )"
 msgid "Default"
-msgstr "Omissió"
+msgstr "Predeterminat"
 
 #: src/mainwindow.cpp:368
 msgid "Set Encoding"
@@ -5340,14 +5279,12 @@ msgid "Go to Tab %1"
 msgstr "Vés a la pestanya %1"
 
 #: src/mainwindow.cpp:389
-#, fuzzy
 msgid "Clear &Marker Lines"
-msgstr "&Neteja la llista"
+msgstr "Neteja les línies de &marcador"
 
 #: src/mainwindow.cpp:392
-#, fuzzy
 msgid "Clear marker lines in the current tab"
-msgstr "Neteja el contingut de la pestanya actual"
+msgstr "Neteja les línies de marcador de la pestanya actual"
 
 #: src/mainwindow.cpp:397
 msgid "&Clear Window"
@@ -5378,9 +5315,8 @@ msgid "Set the color of your current IRC message"
 msgstr "Estableix el color del missatge actual d'IRC"
 
 #: src/mainwindow.cpp:450 src/mainwindow.cpp:737
-#, fuzzy
 msgid "&Marker Line"
-msgstr "&Línia de record"
+msgstr "&Línia de marcador"
 
 #: src/mainwindow.cpp:453
 msgid "Insert a horizontal line into the current tab that only you can see"
@@ -5396,17 +5332,14 @@ msgid "Insert any character into your current IRC message"
 msgstr "Insereix qualsevol caràcter al missatge actual d'IRC"
 
 #: src/mainwindow.cpp:467
-#, fuzzy
 msgid "Close &All Open Queries"
-msgstr "Tanca totes les converses obertes"
+msgstr "T&anca totes les consultes obertes"
 
 #: src/mainwindow.cpp:476
 msgid "Hide Nicklist"
 msgstr "Amaga la llista de sobrenoms"
 
 #: src/mainwindow.cpp:493
-#, fuzzy
-#| msgid "Add to Bookmarks"
 msgid "Bookmarks"
 msgstr "Punts"
 
@@ -5432,7 +5365,7 @@ msgid ""
 "tray. Use <b>Quit</b> from the <b>Konversation</b> menu to quit the "
 "application.</p>"
 msgstr ""
-"<p>Tancar la finestra principal mantindrà Konversation execuntant-se a la "
+"<p>Tancar la finestra principal mantindrà Konversation executant-se a la "
 "safata de sistema. Useu <b>Abandona</b> del menú <b>Fitxer</b> per sortir de "
 "l'aplicació.</p>"
 
@@ -5446,7 +5379,7 @@ msgid ""
 "<qt>This will hide the menu bar completely. You can show it again by typing %"
 "1.</qt>"
 msgstr ""
-"<qt>Això ocultarà la barra de menús completamen. Podeu tornar a mostrar-la "
+"<qt>Això ocultarà la barra de menús completament. Podeu tornar a mostrar-la "
 "prement %1.</qt>"
 
 #: src/mainwindow.cpp:719
@@ -5466,9 +5399,8 @@ msgid "Insert Special &Character..."
 msgstr "Insereix un &caràcter especial..."
 
 #: src/mainwindow.cpp:723
-#, fuzzy
 msgid "Insert &Marker Line"
-msgstr "Insereix una línia de &record"
+msgstr "Insereix una línia de &marcador"
 
 #: src/mainwindow.cpp:725
 msgid "&Channel List"
@@ -5519,10 +5451,8 @@ msgid "no colors allowed"
 msgstr "no es permeten colors"
 
 #: src/common.cpp:49
-#, fuzzy
-#| msgid "Website hosting"
 msgid "user throttling"
-msgstr "Hostatge de llocs web"
+msgstr "acceleració d'usuari"
 
 #: src/bookmarkhandler.cpp:40
 msgid "Konversation Bookmarks Editor"
@@ -5531,107 +5461,98 @@ msgstr "Editor de punts del Konversation"
 #: rc.cpp:1
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Albert Astals Cid"
+msgstr "Albert Astals Cid,Manuel Tortosa"
 
 #: rc.cpp:2
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "aacid@kde.org"
+msgstr "aacid@kde.org,manutortosa@gmail.com"
 
 #. i18n: file: src/dcc/transferdetailedtimeinfopanelui.ui:28
 #. i18n: ectx: property (text), widget (QLabel, textLabel19)
 #: rc.cpp:5
-#, fuzzy
 msgid "Current position:"
-msgstr "Posició:"
+msgstr "Posició actual:"
 
 #. i18n: file: src/dcc/transferdetailedtimeinfopanelui.ui:48
 #. i18n: ectx: property (text), widget (QLabel, textLabel21)
 #: rc.cpp:8
-#, fuzzy
 msgid "File size:"
-msgstr "Fitxer:"
+msgstr "Mida del fitxer:"
 
 #. i18n: file: src/dcc/transferdetailedtimeinfopanelui.ui:68
 #. i18n: ectx: property (text), widget (QLabel, textLabel14)
 #: rc.cpp:11
-#, fuzzy
 msgid "Resumed:"
-msgstr "&Continua"
+msgstr "Reprès:"
 
 #. i18n: file: src/dcc/transferdetailedtimeinfopanelui.ui:88
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
 #: rc.cpp:14
-#, fuzzy
 msgid "Current speed:"
-msgstr "Sobrenom usat actualment"
+msgstr "Velocitat actual:"
 
 #. i18n: file: src/dcc/transferdetailedtimeinfopanelui.ui:108
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: rc.cpp:17
 msgid "Average speed:"
-msgstr ""
+msgstr "Velocitat mitjana:"
 
 #. i18n: file: src/dcc/transferdetailedtimeinfopanelui.ui:145
 #. i18n: ectx: property (text), widget (QLabel, textLabel6)
 #: rc.cpp:20
-#, fuzzy
 msgid "Transferring time:"
-msgstr "Error a la transferència"
+msgstr "Temps de transferència:"
 
 #. i18n: file: src/dcc/transferdetailedtimeinfopanelui.ui:165
 #. i18n: ectx: property (text), widget (QLabel, textLabel8)
 #: rc.cpp:23
 msgid "Estimated time left:"
-msgstr ""
+msgstr "Temps restant estimat:"
 
 #. i18n: file: src/dcc/transferdetailedtimeinfopanelui.ui:185
 #. i18n: ectx: property (text), widget (QLabel, textLabel5)
 #: rc.cpp:26
 msgid "Offered at:"
-msgstr ""
+msgstr "Ofert el:"
 
 #. i18n: file: src/dcc/transferdetailedtimeinfopanelui.ui:205
 #. i18n: ectx: property (text), widget (QLabel, textLabel6_2)
 #: rc.cpp:29
-#, fuzzy
 msgid "Started at:"
-msgstr "Iniciat el"
+msgstr "Iniciat el:"
 
 #. i18n: file: src/dcc/transferdetailedtimeinfopanelui.ui:225
 #. i18n: ectx: property (text), widget (QLabel, textLabel7)
 #: rc.cpp:32
 msgid "Finished at:"
-msgstr ""
+msgstr "Finalitzat el:"
 
 #. i18n: file: src/dcc/transferdetailedinfopanelui.ui:23
 #. i18n: ectx: property (text), widget (QLabel, textLabel12)
 #. i18n: file: src/config/connectionbehavior_config.ui:260
 #. i18n: ectx: property (text), widget (QLabel, typeLabel)
 #: rc.cpp:35 rc.cpp:1140
-#, fuzzy
 msgid "Type:"
 msgstr "Tipus:"
 
 #. i18n: file: src/dcc/transferdetailedinfopanelui.ui:40
 #. i18n: ectx: property (text), widget (QLabel, textLabel4)
 #: rc.cpp:38
-#, fuzzy
 msgid "Filename:"
 msgstr "Nom de fitxer:"
 
 #. i18n: file: src/dcc/transferdetailedinfopanelui.ui:57
 #. i18n: ectx: property (text), widget (QLabel, textLabel23)
 #: rc.cpp:41
-#, fuzzy
 msgid "Partner:"
-msgstr "Company"
+msgstr "Company:"
 
 #. i18n: file: src/dcc/transferdetailedinfopanelui.ui:74
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_3)
 #: rc.cpp:44
 msgid "Self:"
-msgstr ""
+msgstr "Propi:"
 
 #. i18n: file: src/dcc/transferdetailedinfopanelui.ui:91
 #. i18n: ectx: property (text), widget (QLabel, textLabel10)
@@ -5648,37 +5569,32 @@ msgstr "Progrés:"
 #. i18n: file: src/dcc/transferdetailedinfopanelui.ui:121
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
 #: rc.cpp:53
-#, fuzzy
 msgid "Location:"
 msgstr "Ubicació:"
 
 #. i18n: file: src/irc/channellistpanelui.ui:35
 #. i18n: ectx: property (text), widget (QLabel, m_lblMaxUser)
 #: rc.cpp:59
-#, fuzzy
 msgid "Ma&ximum users:"
-msgstr "Màxim d'usuaris:"
+msgstr "Mà&xim d'usuaris:"
 
 #. i18n: file: src/irc/channellistpanelui.ui:51
 #. i18n: ectx: property (text), widget (QLabel, m_lblMinuser)
 #: rc.cpp:62
-#, fuzzy
 msgid "&Minimum users:"
-msgstr "Mín&im d'usuaris:"
+msgstr "&Mínim d'usuaris:"
 
 #. i18n: file: src/irc/channellistpanelui.ui:63
 #. i18n: ectx: property (text), widget (QPushButton, m_refreshListBtn)
 #: rc.cpp:65
-#, fuzzy
 msgid "Refresh List"
 msgstr "Refresca la llista"
 
 #. i18n: file: src/irc/channellistpanelui.ui:70
 #. i18n: ectx: property (text), widget (QPushButton, m_saveListBtn)
 #: rc.cpp:68
-#, fuzzy
 msgid "Save &List..."
-msgstr "Desa la llista..."
+msgstr "Desa la &llista..."
 
 #. i18n: file: src/irc/channellistpanelui.ui:77
 #. i18n: ectx: property (whatsThis), widget (QPushButton, m_joinChanBtn)
@@ -5689,8 +5605,6 @@ msgstr "Premeu per entrar al canal. Es crearà una nova pestanya pel canal."
 #. i18n: file: src/irc/channellistpanelui.ui:80
 #. i18n: ectx: property (text), widget (QPushButton, m_joinChanBtn)
 #: rc.cpp:74
-#, fuzzy
-#| msgid "&Join Channel"
 msgid "&Join channel"
 msgstr "&Entra al canal"
 
@@ -5707,33 +5621,28 @@ msgid ""
 msgstr ""
 "La llista de canals filtrats es mostra ací. S'avisa que si no utilitzeu "
 "expressions regulars, Konversation mostra qualsevol nom que contingui la la "
-"cadena que heu introduit. El nom del canal no pot començar amb la cadena que "
-"heu introduit.\\n\\nSeleccioneu el nom del canal al qual voleu afegir-vos "
+"cadena que heu introduït. El nom del canal no pot començar amb la cadena que "
+"heu introduït.\\n\\nSeleccioneu el nom del canal al qual voleu afegir-vos "
 "prement sobre ell. Premeu el botó dret sobre el canal per mostrar una llista "
 "d'adreces web mencionades al tipus de canal."
 
 #. i18n: file: src/irc/channellistpanelui.ui:117
 #. i18n: ectx: property (text), widget (QCheckBox, m_channelBox)
 #: rc.cpp:80
-#, fuzzy
-#| msgid "Channel"
 msgid "&Channel"
-msgstr "Canal"
+msgstr "&Canal"
 
 #. i18n: file: src/irc/channellistpanelui.ui:133
 #. i18n: ectx: property (text), widget (QCheckBox, m_topicBox)
 #: rc.cpp:83
-#, fuzzy
-#| msgid "Topic"
 msgid "&Topic"
-msgstr "Tema"
+msgstr "&Tema"
 
 #. i18n: file: src/irc/channellistpanelui.ui:149
 #. i18n: ectx: property (text), widget (QLabel, m_lblFilter)
 #: rc.cpp:86
-#, fuzzy
 msgid "Filter pattern:"
-msgstr "&Patró de filtrat:"
+msgstr "Patró de filtrat:"
 
 #. i18n: file: src/irc/channellistpanelui.ui:159
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, m_filterLine)
@@ -5744,9 +5653,8 @@ msgstr "Introduïu un text de filtrat aquí."
 #. i18n: file: src/irc/channellistpanelui.ui:188
 #. i18n: ectx: property (text), widget (QCheckBox, m_regexBox)
 #: rc.cpp:92
-#, fuzzy
 msgid "&Regular expression"
-msgstr "Expressió regular"
+msgstr "Expressió &regular"
 
 #. i18n: file: src/irc/channellistpanelui.ui:218
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, m_minUser)
@@ -5763,10 +5671,8 @@ msgstr ""
 #. i18n: file: src/irc/channellistpanelui.ui:240
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, m_maxUser)
 #: rc.cpp:98 rc.cpp:104
-#, fuzzy
-#| msgid "Nick Limit"
 msgid "No Limit"
-msgstr "Límit de sobrenoms"
+msgstr "Sense límit"
 
 #. i18n: file: src/irc/channellistpanelui.ui:237
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, m_maxUser)
@@ -5781,14 +5687,12 @@ msgstr ""
 #. i18n: file: src/irc/servergroupdialogui.ui:26
 #. i18n: ectx: property (text), widget (QLabel, m_networkLabel)
 #: rc.cpp:107
-#, fuzzy
 msgid "Network name:"
-msgstr "Nom de la &xarxa:"
+msgstr "Nom de la xarxa:"
 
 #. i18n: file: src/irc/servergroupdialogui.ui:45
 #. i18n: ectx: property (text), widget (QLabel, m_identityLabel)
 #: rc.cpp:110
-#, fuzzy
 msgid "Identity:"
 msgstr "Identitat:"
 
@@ -5807,9 +5711,8 @@ msgstr ""
 #. i18n: file: src/irc/servergroupdialogui.ui:90
 #. i18n: ectx: property (text), widget (QLabel, m_commandsLabel)
 #: rc.cpp:119
-#, fuzzy
 msgid "Commands:"
-msgstr "&Ordres:"
+msgstr "Ordres:"
 
 #. i18n: file: src/irc/servergroupdialogui.ui:103
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, m_commandEdit)
@@ -5822,6 +5725,12 @@ msgid ""
 "for the nickname given in Identity. You may enter more than one command by "
 "separating them with semicolons.</qt>"
 msgstr ""
+"<qt>Opcional. Aquesta ordre s'envia al servidor després de la connexió. "
+"Exemple: <b>/msg NickServ IDENTIFY <i>konvirocks</i></b>. Aquest exemple és "
+"per a la xarxa freenode, que requereix que els usuaris registrin el seu "
+"sobrenom amb una contrasenya i usuari en connectar. <i>konvirocks</i> és la "
+"contrasenya per al sobrenom donat en la identitat. Podeu introduir més d'una "
+"ordre separant-les amb punt i coma.</qt>"
 
 #. i18n: file: src/irc/servergroupdialogui.ui:110
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_autoConnectCBox)
@@ -5836,9 +5745,8 @@ msgstr ""
 #. i18n: file: src/irc/servergroupdialogui.ui:113
 #. i18n: ectx: property (text), widget (QCheckBox, m_autoConnectCBox)
 #: rc.cpp:128
-#, fuzzy
 msgid "Co&nnect on application start up"
-msgstr "Connecta-hi en engegar l'&aplicació"
+msgstr "Co&nnecta en iniciar l'aplicació"
 
 #. i18n: file: src/irc/servergroupdialogui.ui:120
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
@@ -5864,16 +5772,14 @@ msgstr ""
 #. i18n: file: src/irc/servergroupdialogui.ui:136
 #. i18n: ectx: property (text), widget (KPushButton, m_addServerButton)
 #: rc.cpp:137
-#, fuzzy
 msgid "&Add..."
 msgstr "&Afegeix..."
 
 #. i18n: file: src/irc/servergroupdialogui.ui:146
 #. i18n: ectx: property (text), widget (KPushButton, m_changeServerButton)
 #: rc.cpp:140
-#, fuzzy
 msgid "E&dit..."
-msgstr "Edita..."
+msgstr "E&dita..."
 
 #. i18n: file: src/irc/servergroupdialogui.ui:211
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
@@ -5902,9 +5808,8 @@ msgstr "Afegeix..."
 #. i18n: file: src/irc/servergroupdialogui.ui:237
 #. i18n: ectx: property (text), widget (KPushButton, m_changeChannelButton)
 #: rc.cpp:155
-#, fuzzy
 msgid "Ed&it..."
-msgstr "&Edita..."
+msgstr "Ed&ita..."
 
 #. i18n: file: src/irc/servergroupdialogui.ui:302
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, m_nameEdit)
@@ -5933,12 +5838,14 @@ msgid ""
 "You have received invites for the following channels. Select the channels "
 "you want to join:"
 msgstr ""
+"Heu rebut invitacions pels següents canals. Seleccioneu els canals als que "
+"voleu entrar:"
 
 #. i18n: file: src/irc/invitedialog.ui:43
 #. i18n: ectx: property (text), widget (QCheckBox, m_showAgainCheck)
 #: rc.cpp:170
 msgid "Do not ask again"
-msgstr ""
+msgstr "No tornis a preguntar"
 
 #. i18n: file: src/irc/channeloptionsui.ui:27
 #. i18n: ectx: attribute (title), widget (QWidget, topicTab)
@@ -5946,107 +5853,105 @@ msgstr ""
 msgid "Topi&c"
 msgstr "Te&ma"
 
-#. i18n: file: src/irc/channeloptionsui.ui:77
+#. i18n: file: src/irc/channeloptionsui.ui:74
 #. i18n: ectx: attribute (title), widget (QWidget, modesPage)
 #: rc.cpp:176
 msgid "Mo&des"
 msgstr "Mo&des"
 
-#. i18n: file: src/irc/channeloptionsui.ui:83
+#. i18n: file: src/irc/channeloptionsui.ui:80
 #. i18n: ectx: property (text), widget (QCheckBox, topicModeChBox)
 #: rc.cpp:179
 msgid "&Topic can only be changed by channel operators"
 msgstr "El &tema només el poden canviar els operadors del canal"
 
-#. i18n: file: src/irc/channeloptionsui.ui:90
+#. i18n: file: src/irc/channeloptionsui.ui:87
 #. i18n: ectx: property (text), widget (QCheckBox, messageModeChBox)
 #: rc.cpp:182
 msgid "&No messages from outside the channel"
 msgstr "&Sense missatges de l'exterior del canal"
 
-#. i18n: file: src/irc/channeloptionsui.ui:97
+#. i18n: file: src/irc/channeloptionsui.ui:94
 #. i18n: ectx: property (text), widget (QCheckBox, secretModeChBox)
 #: rc.cpp:185
 msgid "&Secret channel, the channel is not listed in the channel list"
 msgstr "Canal &secret, el canal no es mostra a la llista de canals"
 
-#. i18n: file: src/irc/channeloptionsui.ui:104
+#. i18n: file: src/irc/channeloptionsui.ui:101
 #. i18n: ectx: property (text), widget (QCheckBox, inviteModeChBox)
 #: rc.cpp:188
 msgid "Only &invited are allowed to join the channel"
 msgstr "Només els &invitats poden unir-se al canal"
 
-#. i18n: file: src/irc/channeloptionsui.ui:111
+#. i18n: file: src/irc/channeloptionsui.ui:108
 #. i18n: ectx: property (text), widget (QCheckBox, moderatedModeChBox)
 #: rc.cpp:191
 msgid "&Moderated channel, only people with voice can write to the channel"
 msgstr "Canal &moderat, només les persones amb veu poden escriure al canal"
 
-#. i18n: file: src/irc/channeloptionsui.ui:120
+#. i18n: file: src/irc/channeloptionsui.ui:117
 #. i18n: ectx: property (text), widget (QCheckBox, keyModeChBox)
 #: rc.cpp:194
-#, fuzzy
 msgid "Channel &password:"
-msgstr "Contrasenya del canal"
+msgstr "&Contrasenya del canal:"
 
-#. i18n: file: src/irc/channeloptionsui.ui:137
+#. i18n: file: src/irc/channeloptionsui.ui:134
 #. i18n: ectx: property (text), widget (QCheckBox, userLimitChBox)
 #: rc.cpp:197
 msgid "User &limit:"
 msgstr "Límit d'&usuaris:"
 
-#. i18n: file: src/irc/channeloptionsui.ui:171
+#. i18n: file: src/irc/channeloptionsui.ui:168
 #. i18n: ectx: property (text), widget (QPushButton, toggleAdvancedModes)
 #: rc.cpp:200
 msgid "Show &Advanced Modes >>"
 msgstr "Mostra els modes &avançats >>"
 
-#. i18n: file: src/irc/channeloptionsui.ui:174
+#. i18n: file: src/irc/channeloptionsui.ui:171
 #. i18n: ectx: property (shortcut), widget (QPushButton, toggleAdvancedModes)
 #: rc.cpp:203
 msgid "Alt+A, Backspace, Tab, Backspace"
 msgstr "Alt+A, Retrocés, Tab, Retrocés"
 
-#. i18n: file: src/irc/channeloptionsui.ui:229
+#. i18n: file: src/irc/channeloptionsui.ui:210
 #. i18n: ectx: attribute (title), widget (QWidget, TabPage)
 #: rc.cpp:206
 msgid "&Ban List"
 msgstr "Llista de &vetos"
 
-#. i18n: file: src/irc/channeloptionsui.ui:243
+#. i18n: file: src/irc/channeloptionsui.ui:224
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #. i18n: file: src/urlcatcherui.ui:42
 #. i18n: ectx: property (text), widget (QLabel, m_searchLbl)
 #: rc.cpp:209 rc.cpp:422
-#, fuzzy
 msgid "Search:"
 msgstr "Cerca:"
 
-#. i18n: file: src/irc/channeloptionsui.ui:265
+#. i18n: file: src/irc/channeloptionsui.ui:246
 #. i18n: ectx: property (text), widget (K3ListView, banList)
 #: rc.cpp:212
 msgid "Hostmask"
-msgstr ""
+msgstr "Màscara del servidor"
 
-#. i18n: file: src/irc/channeloptionsui.ui:276
+#. i18n: file: src/irc/channeloptionsui.ui:257
 #. i18n: ectx: property (text), widget (K3ListView, banList)
 #: rc.cpp:215
 msgid "Set By"
 msgstr "Establert per"
 
-#. i18n: file: src/irc/channeloptionsui.ui:287
+#. i18n: file: src/irc/channeloptionsui.ui:268
 #. i18n: ectx: property (text), widget (K3ListView, banList)
 #: rc.cpp:218
 msgid "Time Set"
-msgstr ""
+msgstr "Estableix l'hora"
 
-#. i18n: file: src/irc/channeloptionsui.ui:309
+#. i18n: file: src/irc/channeloptionsui.ui:290
 #. i18n: ectx: property (text), widget (QPushButton, removeBan)
 #: rc.cpp:221
 msgid "&Remove Ban"
-msgstr ""
+msgstr "&Elimina veto"
 
-#. i18n: file: src/irc/channeloptionsui.ui:322
+#. i18n: file: src/irc/channeloptionsui.ui:303
 #. i18n: ectx: property (text), widget (QPushButton, addBan)
 #: rc.cpp:224
 msgid "&Add Ban"
@@ -6071,9 +5976,8 @@ msgstr "Cont&rasenya:"
 #. i18n: file: src/irc/serverlistdialogui.ui:17
 #. i18n: ectx: property (text), widget (QCheckBox, m_showAtStartup)
 #: rc.cpp:233
-#, fuzzy
 msgid "&Show at application startup"
-msgstr "Connecta-hi en engegar l'&aplicació"
+msgstr "&Mostra en iniciar l'aplicació"
 
 #. i18n: file: src/irc/serverlistdialogui.ui:36
 #. i18n: ectx: property (whatsThis), widget (ServerListView, m_serverList)
@@ -6086,6 +5990,12 @@ msgid ""
 "Konversation is started for the first time, the Freenode network and the "
 "<i>#kde</i> channel are already entered for you."
 msgstr ""
+"Això mostra la llista de xarxes IRC configurades. Una xarxa IRC és un "
+"col·lecció de servidors cooperadors. Només necessiteu connectar-vos a un "
+"dels servidors de la xarxa per estar connectat a la xarxa IRC sencera. Un "
+"cop connectat, Konversation s'unirà automàticament els canals mostrats. Quan "
+"Konversation s'inicia per primera vegada, la xarxa Freenode i el canal "
+"<i>#kde</i> ja estan inclosos."
 
 #. i18n: file: src/irc/serverlistdialogui.ui:97
 #. i18n: ectx: property (text), widget (ServerListView, m_serverList)
@@ -6154,13 +6064,6 @@ msgstr ""
 #. i18n: file: src/irc/serverdialogui.ui:89
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_sslChBox)
 #: rc.cpp:275
-#, fuzzy
-#| msgid ""
-#| "Check if you want to use Secure Socket Layer (SSL) protocol to "
-#| "communicate with the server. This protects the privacy of your "
-#| "communications between your computer and the IRC server. The server must "
-#| "support SSL protocol for this to work. In most cases, if the server does "
-#| "not support SSL, the connection will fail."
 msgid ""
 "Check if you want to use the Secure Socket Layer (SSL) protocol to "
 "communicate with the server. This protects the privacy of your "
@@ -6169,7 +6072,7 @@ msgid ""
 "support SSL, the connection will fail."
 msgstr ""
 "Marqueu aquesta opció si voleu usar el protocol Secure Socket Layer (SSL) "
-"per comunicar-vos amb el servidor. Això protegeix la privacitat de les "
+"per comunicar-vos amb el servidor. Això protegeix la privadesa de les "
 "comunicacions entre el vostre ordinador i el servidor d'IRC. El servidor ha "
 "de poder funcionar amb SSL per que això sigui possible. En la majoria de "
 "casos, si el servidor no funciona amb SSL, la connexió fallarà."
@@ -6177,10 +6080,8 @@ msgstr ""
 #. i18n: file: src/irc/serverdialogui.ui:92
 #. i18n: ectx: property (text), widget (QCheckBox, m_sslChBox)
 #: rc.cpp:278
-#, fuzzy
-#| msgid "S&ecure connection (SSL)"
 msgid "S&ecure Connection (SSL)"
-msgstr "&Connexió segura (SSL)"
+msgstr "Connexió s&egura (SSL)"
 
 #. i18n: file: src/irc/joinchannelui.ui:55
 #. i18n: ectx: property (text), widget (QLabel, passwordLabel)
@@ -6197,9 +6098,8 @@ msgstr "Servidor:"
 #. i18n: file: src/queuetunerbase.ui:96
 #. i18n: ectx: property (title), widget (QGroupBox, m_slowBox)
 #: rc.cpp:293
-#, fuzzy
 msgid "Slow Queue"
-msgstr "En cua"
+msgstr "Cua lenta"
 
 #. i18n: file: src/queuetunerbase.ui:130
 #. i18n: ectx: property (text), item, widget (KComboBox, m_slowType)
@@ -6208,7 +6108,6 @@ msgstr "En cua"
 #. i18n: file: src/queuetunerbase.ui:469
 #. i18n: ectx: property (text), item, widget (KComboBox, m_fastType)
 #: rc.cpp:296 rc.cpp:329 rc.cpp:362
-#, fuzzy
 msgid "Lines"
 msgstr "Línies"
 
@@ -6219,7 +6118,6 @@ msgstr "Línies"
 #. i18n: file: src/queuetunerbase.ui:474
 #. i18n: ectx: property (text), item, widget (KComboBox, m_fastType)
 #: rc.cpp:299 rc.cpp:332 rc.cpp:365
-#, fuzzy
 msgid "Bytes"
 msgstr "Bytes"
 
@@ -6259,7 +6157,7 @@ msgstr "Bytes"
 #: rc.cpp:350 rc.cpp:353 rc.cpp:371 rc.cpp:374 rc.cpp:386 rc.cpp:389
 #: rc.cpp:398 rc.cpp:401 rc.cpp:410 rc.cpp:413
 msgid "888"
-msgstr ""
+msgstr "888"
 
 #. i18n: file: src/queuetunerbase.ui:186
 #. i18n: ectx: property (text), widget (QLabel, m_textLabel3_2)
@@ -6268,7 +6166,6 @@ msgstr ""
 #. i18n: file: src/queuetunerbase.ui:505
 #. i18n: ectx: property (text), widget (QLabel, m_textLabel3_2_3_2)
 #: rc.cpp:308 rc.cpp:356 rc.cpp:368
-#, fuzzy
 msgid "Age:"
 msgstr "Edat:"
 
@@ -6279,7 +6176,6 @@ msgstr "Edat:"
 #. i18n: file: src/queuetunerbase.ui:541
 #. i18n: ectx: property (text), widget (QLabel, m_textLabel3_4_2)
 #: rc.cpp:311 rc.cpp:347 rc.cpp:377
-#, fuzzy
 msgid "Count:"
 msgstr "Compte:"
 
@@ -6292,7 +6188,6 @@ msgstr "Compte:"
 #. i18n: file: src/queuetunerbase.ui:702
 #. i18n: ectx: property (text), widget (QLabel, textLabel8)
 #: rc.cpp:314 rc.cpp:335 rc.cpp:380 rc.cpp:416
-#, fuzzy
 msgid "Lines:"
 msgstr "Línies:"
 
@@ -6303,49 +6198,44 @@ msgstr "Línies:"
 #. i18n: file: src/queuetunerbase.ui:571
 #. i18n: ectx: property (text), widget (QLabel, textLabel5)
 #: rc.cpp:317 rc.cpp:338 rc.cpp:383
-#, fuzzy
 msgid "Bytes:"
-msgstr " bytes"
+msgstr "Bytes:"
 
 #. i18n: file: src/queuetunerbase.ui:267
 #. i18n: ectx: property (title), widget (QGroupBox, m_normalBox)
 #: rc.cpp:326
-#, fuzzy
 msgid "Normal Queue"
-msgstr "Usuaris normals"
+msgstr "Cua normal"
 
 #. i18n: file: src/queuetunerbase.ui:438
 #. i18n: ectx: property (title), widget (QGroupBox, m_fastBox)
 #: rc.cpp:359
-#, fuzzy
 msgid "Fast Queue"
-msgstr "En cua"
+msgstr "Cua ràpida"
 
 #. i18n: file: src/queuetunerbase.ui:612
 #. i18n: ectx: property (title), widget (QGroupBox, m_globalBox)
 #: rc.cpp:392
-#, fuzzy
 msgid "All Queues"
-msgstr "En cua"
+msgstr "Totes les cues"
 
 #. i18n: file: src/queuetunerbase.ui:632
 #. i18n: ectx: property (text), widget (QLabel, textLabel13)
 #: rc.cpp:395
-#, fuzzy
 msgid "Received:"
-msgstr "Receptor:"
+msgstr "Rebut:"
 
 #. i18n: file: src/queuetunerbase.ui:662
 #. i18n: ectx: property (text), widget (QLabel, textLabel9)
 #: rc.cpp:404
 msgid "Bytes (Raw):"
-msgstr ""
+msgstr "Bytes (cru):"
 
 #. i18n: file: src/queuetunerbase.ui:672
 #. i18n: ectx: property (text), widget (QLabel, textLabel4_3)
 #: rc.cpp:407
 msgid "Bytes (Encoded):"
-msgstr ""
+msgstr "Bytes (codificat):"
 
 #. i18n: file: src/urlcatcherui.ui:52
 #. i18n: ectx: property (whatsThis), widget (QTreeView, m_urlListView)
@@ -6360,21 +6250,15 @@ msgstr ""
 #. i18n: file: src/urlcatcherui.ui:71
 #. i18n: ectx: property (whatsThis), widget (QPushButton, m_openBtn)
 #: rc.cpp:428
-#, fuzzy
-#| msgid ""
-#| "<p>Select a <b>URL</b> above, then click this button to launch the "
-#| "application associated with the mimetype of the URL.</p><p>In the "
-#| "<b>Settings</b>, under <b>Behavior</b> | <b>General</b>, you can specify "
-#| "a custom web browser for web URLs.</p>"
 msgid ""
 "<p>Select a <b>URL</b> above, then click this button to launch the "
 "application associated with the mimetype of the URL.</p>\n"
 "<p>In the <b>Settings</b>, under <b>Behavior</b> | <b>General</b>, you can "
 "specify a custom web browser for web URLs.</p>"
 msgstr ""
-"<p>Seleccioneu l'<b>URL</b> de dalt, llavors premeu el botó per llaçar "
-"l'aplicació associada amb el tipus MIME de l'URL.</p><p>En "
-"la<b>configuració</b>, sota <b>Comportament</b> i <b>General</b>, podeu "
+"<p>Seleccioneu l'<b>URL</b> de dalt, llavors cliqueu aquest el botó per "
+"llançar l'aplicació associada amb el tipus MIME de L'URL.</p>\n"
+"<p>En <b>Arranjament</b>, sota <b>Comportament</b> i <b>General</b>, podeu "
 "especificar un navegador web per URL web. </p>"
 
 #. i18n: file: src/urlcatcherui.ui:74
@@ -6448,8 +6332,6 @@ msgstr "&Identitat:"
 #. i18n: file: src/identitydialog.ui:65
 #. i18n: ectx: property (toolTip), widget (KPushButton, newBtn)
 #: rc.cpp:462
-#, fuzzy
-#| msgid "Add..."
 msgid "Add"
 msgstr "Afegeix"
 
@@ -6470,7 +6352,6 @@ msgstr "Reanomena"
 #. i18n: file: src/config/quickbuttons_configui.ui:55
 #. i18n: ectx: property (text), widget (QPushButton, removeButton)
 #: rc.cpp:471 rc.cpp:606
-#, fuzzy
 msgid "Remove"
 msgstr "Elimina"
 
@@ -6513,9 +6394,9 @@ msgstr ""
 "caràcter cal que sigui una lletra. \n"
 "\n"
 "Com que els noms són únics a la xarxa d'IRC, el seu nom desitjat pot ser "
-"rebutjat pel servidor si algú l'està utilitzant. Proveu un àlies alternatiu. "
-"Si el primer sobrenom es rebutjat pel servidor Konversation provarà amb "
-"altres àlies alternatius."
+"rebutjat pel servidor si algú l'està utilitzant. Proveu un sobrenom "
+"alternatiu. Si el primer sobrenom es rebutjat pel servidor Konversation "
+"provarà amb altres àlies alternatius."
 
 #. i18n: file: src/identitydialog.ui:218
 #. i18n: ectx: property (title), widget (QGroupBox, autoIdentifyGroup)
@@ -6532,16 +6413,12 @@ msgstr "Ser&vei:"
 #. i18n: file: src/identitydialog.ui:234
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, m_botEdit)
 #: rc.cpp:497
-#, fuzzy
-#| msgid ""
-#| "Service name can be <b><i>nickserv</i></b> or a network dependant name "
-#| "like  <b><i>nickserv@services.dal.net</i></b>"
 msgid ""
 "Service name can be <b><i>nickserv</i></b> or a network-dependent name such "
 "as <b><i>nickserv@services.dal.net</i></b>"
 msgstr ""
 "El nom del servei pot ser <b><i>nickserv</i></b> o un nom que depengui de la "
-"xarxa com <b><i>nickserv@services.dal.net</i></b>"
+"xarxa com ara <b><i>nickserv@services.dal.net</i></b>"
 
 #. i18n: file: src/identitydialog.ui:241
 #. i18n: ectx: property (text), widget (QLabel, passwordLabel)
@@ -6585,6 +6462,14 @@ msgid ""
 "will automatically change your nickname back to the original. If you do not "
 "wish to automatically change your nickname when going away, leave blank."
 msgstr ""
+"Introduïu un sobrenom que indica que esteu absent. Cada vegada que realitzeu "
+"una orde <b>/away msg</b> en qualsevol canal al que heu entrat amb aquesta "
+"identitat, Konversation automàticament canviarà el seu sobrenom per el "
+"sobrenom de d'absent. Altres usuaris seran capaços de dir-vos que esteu "
+"absents de l'ordinador. Cada vegada que realitzeu una ordre <b>/away</b> en "
+"qualsevol canal on esteu absent, Konversation canviarà el sobrenom "
+"automàticament a l'original. Si no voleu canviar automàticament el sobrenom "
+"en estar absent, deixeu-lo en blanc."
 
 #. i18n: file: src/identitydialog.ui:302
 #. i18n: ectx: property (whatsThis), widget (QGroupBox, automaticAwayGroup)
@@ -6595,8 +6480,8 @@ msgid ""
 "user inactivity configured below."
 msgstr ""
 "Si seleccioneu aquesta casella, Konversation posarà totes les connexions amb "
-"l'identitat d'absent quan el salva pantalles comence després del periode "
-"d'inactivitat configurat a sota."
+"la identitat d'absent quan el protector de pantalla s'inicii després del "
+"període d'inactivitat configurat a sota."
 
 #. i18n: file: src/identitydialog.ui:305
 #. i18n: ectx: property (title), widget (QGroupBox, automaticAwayGroup)
@@ -6624,16 +6509,15 @@ msgid ""
 "connections using this Identity when the screensaver stops or new user "
 "activity is detected."
 msgstr ""
-"Si seleccioneu aquesta casella, Konversation cancel·larà absent per totes "
-"les connexions utilitzant aquesta identitat quan el salvapantalles s'aturi o "
-"un nou usuari sigui detectat."
+"Si seleccioneu aquesta casella, Konversation cancel·larà l'estat d'absent "
+"per totes les connexions utilitzant aquesta identitat quan el protector de "
+"pantalla s'aturi o un nou usuari sigui detectat."
 
 #. i18n: file: src/identitydialog.ui:356
 #. i18n: ectx: property (text), widget (QCheckBox, m_automaticUnawayChBox)
 #: rc.cpp:533
-#, fuzzy
 msgid "Automatically return on activity"
-msgstr "Continua &automàticament les descàrregues"
+msgstr "Torna automàticament a l'activitat"
 
 #. i18n: file: src/identitydialog.ui:372
 #. i18n: ectx: property (whatsThis), widget (QGroupBox, awayMessageGroup)
@@ -6648,15 +6532,14 @@ msgstr ""
 "Si seleccioneu aquesta casella, Konversation enviarà de forma automàtica el "
 "missatge absent a tots els canals als qual us heu afegit amb aquesta "
 "identitat. <b>%s</b> serà reemplaçat amb <b>msg</b>. Quan poseu l'ordre <b>/"
-"away</b>, el missatge serà mostrat en tots els canals als quals us hagueu "
+"away</b>, el missatge serà mostrat en tots els canals als quals us hageu "
 "afegit amb aquesta identitat."
 
 #. i18n: file: src/identitydialog.ui:375
 #. i18n: ectx: property (title), widget (QGroupBox, awayMessageGroup)
 #: rc.cpp:540
-#, fuzzy
 msgid "Away Messages"
-msgstr "Missatge d'absència:"
+msgstr "Missatges d'absència"
 
 #. i18n: file: src/identitydialog.ui:387
 #. i18n: ectx: property (text), widget (QLabel, awayLabel)
@@ -6691,7 +6574,7 @@ msgid ""
 "executed for each server"
 msgstr ""
 "Ací podeu introduir una ordre per executar abans de la connexió amb el "
-"servidor<br> Si teniu la vostra identitat en multiples servidors aquesta "
+"servidor<br> Si teniu la vostra identitat en múltiples servidors aquesta "
 "ordre serà executada en cada servidor"
 
 #. i18n: file: src/identitydialog.ui:459
@@ -6712,7 +6595,7 @@ msgid ""
 msgstr ""
 "Aquesta configuració afecta a com els caràcters que heu teclejat són "
 "codificats per enviar-los al servidor. Això afecta a com els missatges són "
-"mostrats. Quan obriu per primera vegada konversation, automàticament ho "
+"mostrats. Quan obriu per primera vegada Konversation, automàticament ho "
 "recupera del sistema operatiu. Si sembla que tens problemes mirant "
 "correctament els missatges d'altres usuaris, prova a canviar aquest "
 "paràmetre."
@@ -6738,9 +6621,8 @@ msgstr ""
 #. i18n: file: src/identitydialog.ui:493
 #. i18n: ectx: property (text), widget (QLabel, quitLabel)
 #: rc.cpp:570
-#, fuzzy
 msgid "&Quit reason:"
-msgstr "Du&rada:"
+msgstr "&Motiu de la sortida:"
 
 #. i18n: file: src/identitydialog.ui:503
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, m_quitEdit)
@@ -6754,10 +6636,8 @@ msgstr ""
 #. i18n: file: src/identitydialog.ui:526
 #. i18n: ectx: property (text), widget (KLineEdit, m_partEdit)
 #: rc.cpp:576 rc.cpp:585
-#, fuzzy
-#| msgid "Konversation"
 msgid "Konversation terminated."
-msgstr "Konversation"
+msgstr "Konversation ha finalitzat."
 
 #. i18n: file: src/identitydialog.ui:513
 #. i18n: ectx: property (text), widget (QLabel, partLabel)
@@ -6790,10 +6670,8 @@ msgstr ""
 #. i18n: file: src/identitydialog.ui:546
 #. i18n: ectx: property (text), widget (KLineEdit, m_kickEdit)
 #: rc.cpp:594
-#, fuzzy
-#| msgid "Konversation"
 msgid "User terminated."
-msgstr "Konversation"
+msgstr "Finalitzat per l'usuari."
 
 #. i18n: file: src/config/quickbuttons_configui.ui:33
 #. i18n: ectx: property (text), widget (QTreeWidget, buttonListView)
@@ -6837,18 +6715,24 @@ msgid ""
 "%s&lt;term>%: term used to separate nicknames in %u\n"
 "%n: Send command directly to the server instead of your input line"
 msgstr ""
+"%o: sobrenom actual\n"
+"%c: canal actual\n"
+"%K: Contrasenya del servidor\n"
+"%u: Llista dels sobrenoms seleccionats\n"
+"%s&lt;terme>%: terme usat per separar els sobrenoms en %u\n"
+"%n: Envia ordre directament al servidor en lloc de a la línia d'entrada"
 
 #. i18n: file: src/config/osd_configui.ui:35
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOSD)
 #: rc.cpp:627
 msgid "&Enable On Screen Display"
-msgstr ""
+msgstr "&Habilita la visualització en pantalla"
 
 #. i18n: file: src/config/osd_configui.ui:45
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
 #: rc.cpp:630
 msgid "On &Screen Display"
-msgstr ""
+msgstr "Visualització en &pantalla"
 
 #. i18n: file: src/config/osd_configui.ui:54
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDDrawShadow)
@@ -6884,13 +6768,13 @@ msgstr "En &qualsevol missatge del canal"
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowQuery)
 #: rc.cpp:648
 msgid "On &query activity"
-msgstr ""
+msgstr "En activitat de &conversa"
 
 #. i18n: file: src/config/osd_configui.ui:162
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_OSDShowChannelEvent)
 #: rc.cpp:651
 msgid "On &Join/Part events"
-msgstr ""
+msgstr "En esdeveniments &Join/Part"
 
 #. i18n: file: src/config/osd_configui.ui:175
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_OSDUseCustomColors)
@@ -6969,7 +6853,6 @@ msgstr "&Nou"
 #. i18n: file: src/config/highlight_configui.ui:175
 #. i18n: ectx: property (text), widget (KPushButton, removeButton)
 #: rc.cpp:684 rc.cpp:790 rc.cpp:895 rc.cpp:1060
-#, fuzzy
 msgid "&Remove"
 msgstr "&Elimina"
 
@@ -7004,11 +6887,18 @@ msgid ""
 "the watched nicknames.</p>\n"
 "</qt>"
 msgstr ""
+"<qt>\n"
+"<p>\n"
+"Quan està activat el vigilant de sobrenoms, sereu notificat en línia quan "
+"els sobrenoms que apareixen a la llista de <b>Xarxes vigilades/Sobrenoms</b> "
+"es connecten o desconnecten.</p>\n"
+" <p>També podeu obrir la finestra de <b>Sobrenoms en línia</b> per veure "
+"l'estat de tots els sobrenoms vigilats.</p>\n"
+"</qt>"
 
 #. i18n: file: src/config/watchednicknames_configui.ui:27
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseNotify)
 #: rc.cpp:703
-#, fuzzy
 msgid "Enable nic&kname watcher"
 msgstr "&Habilita el vigilant de sobrenoms"
 
@@ -7019,13 +6909,14 @@ msgid ""
 "<qt>When checked, the <b>Nicks Online</b> window will be automatically "
 "opened when starting Konversation.</qt>"
 msgstr ""
+"<qt>Si està marcat, la llista de <b>Sobrenoms en línia</b> s'obrirà "
+"automàticament en iniciar Konversation.</qt>"
 
 #. i18n: file: src/config/watchednicknames_configui.ui:40
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_OpenWatchedNicksAtStartup)
 #: rc.cpp:709
-#, fuzzy
 msgid "Show watched nicks online tab on &application startup"
-msgstr "Obre la pestanya de sobrenoms vigilats a l'inici de l'aplicació"
+msgstr "Obre la pestanya de sobrenoms vigilats a l'inici de l'&aplicació"
 
 #. i18n: file: src/config/watchednicknames_configui.ui:66
 #. i18n: ectx: property (whatsThis), widget (QLabel, notifyActionLabel)
@@ -7043,6 +6934,18 @@ msgid ""
 "</ul>\n"
 "</qt>"
 msgstr ""
+"<qt>\n"
+"<p>En dobleclicar un sobrenom de la finestra de <b>Sobrenoms en línia</b>, "
+"aquesta\n"
+"ordre s'emplaçarà en la <b>Línia d'entrada</b> de la finestra del servidor.</"
+"p>\n"
+"<p>Es poden usar els següents símbols en l'ordre:</p><ul>\n"
+"<li>%u: El sobrenom dobleclicat.</li>\n"
+"<li>%K: La contrasenya del servidor.</li>\n"
+"<li>%n: Envia l'ordre directament al servidor en lloc de a la línia "
+"d'entrada.</li>\n"
+"</ul>\"\n"
+"</qt>"
 
 #. i18n: file: src/config/watchednicknames_configui.ui:69
 #. i18n: ectx: property (text), widget (QLabel, notifyActionLabel)
@@ -7066,6 +6969,18 @@ msgid ""
 "</ul>\n"
 "</qt>"
 msgstr ""
+"<qt>\n"
+"<p>En dobleclicar un sobrenom de la finestra de <b>Sobrenoms en línia</b>, "
+"aquesta\n"
+" ordre s'emplaçarà en la <b>Línia d'entrada</b> de la finestra del servidor."
+"</p>\n"
+"<p>Es poden usar els següents símbols en l'ordre:</p><ul>\n"
+"<li>%u: El sobrenom dobleclicat.</li>\n"
+"<li>%K: La contrasenya del servidor.</li>\n"
+"<li>%n: Envia l'ordre directament al servidor en lloc de a la línia "
+"d'entrada.</li>\n"
+"</ul>\n"
+"</qt>"
 
 #. i18n: file: src/config/watchednicknames_configui.ui:109
 #. i18n: ectx: property (whatsThis), widget (QLabel, notifyDelayLabel)
@@ -7082,9 +6997,8 @@ msgstr ""
 #. i18n: file: src/config/watchednicknames_configui.ui:112
 #. i18n: ectx: property (text), widget (QLabel, notifyDelayLabel)
 #: rc.cpp:742
-#, fuzzy
 msgid "&Update interval:"
-msgstr "Interval d'actualització:"
+msgstr "Interval d'act&ualització:"
 
 #. i18n: file: src/config/watchednicknames_configui.ui:131
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_NotifyDelay)
@@ -7105,6 +7019,8 @@ msgid ""
 "The irc server network (such as 'freenode') that the selected user to watch "
 "is on."
 msgstr ""
+"La xarxa del servidor irc (com ara 'freenode') on es troba l'usuari a "
+"vigilar seleccionat."
 
 #. i18n: file: src/config/watchednicknames_configui.ui:161
 #. i18n: ectx: property (text), widget (QLabel, networkLabel)
@@ -7138,6 +7054,13 @@ msgid ""
 "<p>You can also open the <b>Nicks Online</b> window to see the status of all "
 "the watched nicknames.</p></qt>"
 msgstr ""
+"<qt>\n"
+"<p>\n"
+"Quan està activat el vigilant de sobrenoms, sereu notificat en línia quan "
+"els sobrenoms que apareixen a la llista de <b>Xarxes vigilades/Sobrenoms</b> "
+"es connecten o desconnecten.</p>\n"
+"<p>També podeu obrir la finestra de <b>Sobrenoms en línia</b> per veure "
+"l'estat de tots els sobrenoms vigilats.</p></qt>"
 
 #. i18n: file: src/config/watchednicknames_configui.ui:229
 #. i18n: ectx: property (text), widget (QTreeWidget, notifyListView)
@@ -7180,23 +7103,18 @@ msgstr "Posició:"
 #. i18n: file: src/config/tabs_configui.ui:45
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_TabPlacement)
 #: rc.cpp:802
-#, fuzzy
-#| msgid "Topic"
 msgid "Top"
 msgstr "Dalt"
 
 #. i18n: file: src/config/tabs_configui.ui:50
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_TabPlacement)
 #: rc.cpp:805
-#, fuzzy
-#| msgid "Both"
 msgid "Bottom"
 msgstr "Baix"
 
 #. i18n: file: src/config/tabs_configui.ui:55
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_TabPlacement)
 #: rc.cpp:808
-#, fuzzy
 msgid "Left"
 msgstr "Esquerra"
 
@@ -7240,7 +7158,6 @@ msgstr "Dóna el focus a les noves &converses"
 #. i18n: file: src/config/tabs_configui.ui:128
 #. i18n: ectx: property (title), widget (QGroupBox, mouseGBox)
 #: rc.cpp:829
-#, fuzzy
 msgid "Mouse"
 msgstr "Ratolí"
 
@@ -7248,7 +7165,7 @@ msgstr "Ratolí"
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MiddleClickClose)
 #: rc.cpp:832
 msgid "&Middle-click on a tab to close it"
-msgstr ""
+msgstr "Tanca la pestanya en &centreclicar"
 
 #. i18n: file: src/config/autoreplace_configui.ui:43
 #. i18n: ectx: property (text), widget (QTreeWidget, patternListView)
@@ -7279,14 +7196,12 @@ msgstr "Substitueix amb"
 #. i18n: file: src/config/autoreplace_configui.ui:68
 #. i18n: ectx: property (text), widget (QPushButton, newButton)
 #: rc.cpp:847
-#, fuzzy
 msgid "Ne&w"
 msgstr "&Nova"
 
 #. i18n: file: src/config/autoreplace_configui.ui:75
 #. i18n: ectx: property (text), widget (QPushButton, removeButton)
 #: rc.cpp:850
-#, fuzzy
 msgid "R&emove"
 msgstr "&Elimina"
 
@@ -7349,19 +7264,19 @@ msgstr "&Usa la safata de sistema per la notificació de nous missatges"
 #: rc.cpp:907
 msgid "Only &notify when a highlight is triggered or your current nick is used"
 msgstr ""
-"Notifica únicament quan un ressaltat s'activa o s'usa el vostre sobrenom"
+"&Notifica únicament quan un ressaltat s'activa o s'usa el vostre sobrenom"
 
 #. i18n: file: src/config/generalbehavior_config.ui:92
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TrayNotifyBlink)
 #: rc.cpp:910
 msgid "Blin&k the icon"
-msgstr ""
+msgstr "Fes &parpellejar la icona"
 
 #. i18n: file: src/config/generalbehavior_config.ui:101
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideToTrayOnStartup)
 #: rc.cpp:913
 msgid "Hide window on startup"
-msgstr ""
+msgstr "Oculta la finestra en iniciar"
 
 #. i18n: file: src/config/generalbehavior_config.ui:111
 #. i18n: ectx: property (title), widget (QGroupBox, middleLabel)
@@ -7379,42 +7294,41 @@ msgstr "&Mode de compleció:"
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_NickCompletionMode)
 #: rc.cpp:922
 msgid "Cycle NickList"
-msgstr ""
+msgstr "Recorre la llista de sobrenoms"
 
 #. i18n: file: src/config/generalbehavior_config.ui:136
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_NickCompletionMode)
 #: rc.cpp:925
 msgid "Shell-Like"
-msgstr "Com una shell"
+msgstr "Com una línia d'ordres"
 
 #. i18n: file: src/config/generalbehavior_config.ui:141
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_NickCompletionMode)
 #: rc.cpp:928
 msgid "Shell-Like with Completion Box"
-msgstr "Com una shell amb capsa de compleció"
+msgstr "Com una línia d'ordres amb caixa de compleció"
 
 #. i18n: file: src/config/generalbehavior_config.ui:152
 #. i18n: ectx: property (text), widget (QLabel, startOfLineLabel)
 #: rc.cpp:931
 msgid "Suffi&x at start of line:"
-msgstr ""
+msgstr "&Sufix a l'inici de la línia:"
 
 #. i18n: file: src/config/generalbehavior_config.ui:168
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
 #: rc.cpp:934
 msgid "&Elsewhere:"
-msgstr ""
+msgstr "&En un altre lloc:"
 
 #. i18n: file: src/config/generalbehavior_config.ui:181
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_NickCompletionCaseSensitive)
 #: rc.cpp:937
 msgid "Case sensitive"
-msgstr "Sensible a majúscules"
+msgstr "Sensible a caixa"
 
 #. i18n: file: src/config/generalbehavior_config.ui:194
 #. i18n: ectx: property (title), widget (QGroupBox, miscGBox)
 #: rc.cpp:940
-#, fuzzy
 msgid "Miscellaneous"
 msgstr "Miscel·lània"
 
@@ -7444,19 +7358,19 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseMultiRowInputBox)
 #: rc.cpp:952
 msgid "Input box expands with text"
-msgstr ""
+msgstr "El camp d'entrada s'expandeix amb el text"
 
 #. i18n: file: src/config/generalbehavior_config.ui:251
 #. i18n: ectx: property (text), widget (QLabel, commandCharLabel)
 #: rc.cpp:955
 msgid "Comman&d char:"
-msgstr ""
+msgstr "Caràcter d'or&dre:"
 
 #. i18n: file: src/config/generalbehavior_config.ui:264
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseCustomBrowser)
 #: rc.cpp:958
 msgid "Use custom web &browser:"
-msgstr "Usa un fullejador &web personalitzat:"
+msgstr "Usa un navegador &web personalitzat:"
 
 #. i18n: file: src/config/dcc_configui.ui:18
 #. i18n: ectx: property (windowTitle), widget (QWidget, DCC_ConfigUI)
@@ -7468,19 +7382,19 @@ msgstr "DCC_Settings"
 #. i18n: ectx: property (text), widget (QLabel, dccPathLbl)
 #: rc.cpp:964
 msgid "Download &folder:"
-msgstr "&Carpeta de descàrregues:"
+msgstr "&Carpeta de baixades:"
 
 #. i18n: file: src/config/dcc_configui.ui:50
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAddPartner)
 #: rc.cpp:967
 msgid "&Add sender to file name"
-msgstr ""
+msgstr "&Afegeix el remitent al nom del fitxer"
 
 #. i18n: file: src/config/dcc_configui.ui:57
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccCreateFolder)
 #: rc.cpp:970
 msgid "Cr&eate folder for sender"
-msgstr ""
+msgstr "Cr&ea una carpeta per al remitent"
 
 #. i18n: file: src/config/dcc_configui.ui:64
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpaceToUnderscore)
@@ -7492,13 +7406,13 @@ msgstr "Converteix espais al nom de fitxers en guions baixos abans d'enviar"
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAutoGet)
 #: rc.cpp:976
 msgid "Automaticall&y accept download offer"
-msgstr "&Accepta automàticament els oferiments de descàrrega"
+msgstr "&Accepta automàticament els oferiments de baixada"
 
 #. i18n: file: src/config/dcc_configui.ui:81
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAutoResume)
 #: rc.cpp:979
 msgid "Au&tomatically resume download"
-msgstr "Continua &automàticament les descàrregues"
+msgstr "Continua &automàticament les baixades"
 
 #. i18n: file: src/config/dcc_configui.ui:88
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccFastSend)
@@ -7510,9 +7424,8 @@ msgstr ""
 #. i18n: file: src/config/dcc_configui.ui:95
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccPassiveSend)
 #: rc.cpp:985
-#, fuzzy
 msgid "Enable passive DCC send"
-msgstr "Habilita ports específics per les &transferències DCC:"
+msgstr "Habilita l'enviament DCC passiu"
 
 #. i18n: file: src/config/dcc_configui.ui:105
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DccIPv4Fallback)
@@ -7521,18 +7434,20 @@ msgid ""
 "If this option enabled dcc transfers for IPv6 connections will be done over "
 "IPv4 interface set here"
 msgstr ""
+"Si aquesta opció està habilitada les transferències dcc de les connexions "
+"IPv6 es realitzaran per la interfície IPv4 establerta aquí"
 
 #. i18n: file: src/config/dcc_configui.ui:108
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccIPv4Fallback)
 #: rc.cpp:991
 msgid "Fallback to an IPv&4 interface for DCC send:"
-msgstr ""
+msgstr "Recorre a una interfície IPv&4 per enviament DCC:"
 
 #. i18n: file: src/config/dcc_configui.ui:138
 #. i18n: ectx: property (text), widget (QLabel, textLabel7)
 #: rc.cpp:994
 msgid "DCC send t&imeout:"
-msgstr ""
+msgstr "Temps lím&it d'enviament DCC:"
 
 #. i18n: file: src/config/dcc_configui.ui:151
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_DccSendTimeout)
@@ -7544,7 +7459,7 @@ msgstr " seg"
 #. i18n: ectx: property (text), widget (QLabel, textLabel6)
 #: rc.cpp:1000
 msgid "Buffer si&ze:"
-msgstr ""
+msgstr "Mida de la memòria &cau:"
 
 #. i18n: file: src/config/dcc_configui.ui:193
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_DccBufferSize)
@@ -7593,41 +7508,38 @@ msgstr "a"
 #. i18n: file: src/config/dcc_configui.ui:337
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpecificSendPorts)
 #: rc.cpp:1024
-#, fuzzy
 msgid "Enable specific &ports for DCC transfer server:"
-msgstr "Habilita ports específics per les &transferències DCC:"
+msgstr "Habilita &ports específics pel servidor de les transferències DCC:"
 
 #. i18n: file: src/config/dcc_configui.ui:421
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccUPnP)
 #: rc.cpp:1030
 msgid "Enable UPnP for NAT traversal"
-msgstr ""
+msgstr "Habilita UPnP per NAT traversal"
 
 #. i18n: file: src/config/highlight_configui.ui:20
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightSoundsEnabled)
 #: rc.cpp:1033
-#, fuzzy
 msgid "Ena&ble sound for highlights"
-msgstr "&Habilita sons pels ítems de la llista de ressaltats"
+msgstr "Ha&bilita sons pels elements de la llista de ressaltats"
 
 #. i18n: file: src/config/highlight_configui.ui:47
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightNick)
 #: rc.cpp:1036
 msgid "Alwa&ys highlight own current nick:"
-msgstr ""
+msgstr "Ressalta sempre el sobrenom prop&i actual:"
 
 #. i18n: file: src/config/highlight_configui.ui:54
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightOwnLines)
 #: rc.cpp:1039
 msgid "Always highlight own &lines:"
-msgstr "Ressalta sempre les &línies propies:"
+msgstr "Ressalta sempre les &línies pròpies:"
 
 #. i18n: file: src/config/highlight_configui.ui:109
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox1)
 #: rc.cpp:1042
-#, fuzzy
 msgid "Highlight List"
-msgstr "Llista de &ressaltats"
+msgstr "Llista de ressaltats"
 
 #. i18n: file: src/config/highlight_configui.ui:136
 #. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
@@ -7645,7 +7557,7 @@ msgstr "So"
 #. i18n: ectx: property (text), widget (QTreeWidget, highlightListView)
 #: rc.cpp:1054
 msgid "Auto Text"
-msgstr ""
+msgstr "Text automàtic"
 
 #. i18n: file: src/config/highlight_configui.ui:205
 #. i18n: ectx: property (text), widget (QLabel, patternLabel)
@@ -7656,7 +7568,6 @@ msgstr "&Patró:"
 #. i18n: file: src/config/highlight_configui.ui:260
 #. i18n: ectx: property (text), widget (QLabel, colorLabel)
 #: rc.cpp:1072
-#, fuzzy
 msgid "Color:"
 msgstr "Color:"
 
@@ -7676,13 +7587,13 @@ msgstr "audio/x-wav audio/x-mp3 application/ogg audio/x-adpcm"
 #. i18n: ectx: property (toolTip), widget (QToolButton, soundPlayBtn)
 #: rc.cpp:1081
 msgid "Test sound"
-msgstr ""
+msgstr "Prova de so"
 
 #. i18n: file: src/config/highlight_configui.ui:338
 #. i18n: ectx: property (text), widget (QLabel, autoTextLabel)
 #: rc.cpp:1084
 msgid "&Auto text:"
-msgstr ""
+msgstr "Text &automàtic:"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:23
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoReconnect)
@@ -7693,9 +7604,8 @@ msgstr "Habilita la reconnexió automàtica"
 #. i18n: file: src/config/connectionbehavior_config.ui:32
 #. i18n: ectx: property (text), widget (QLabel, reconnectDelayLabel)
 #: rc.cpp:1090
-#, fuzzy
 msgid "Reconnect delay:"
-msgstr "&Reconnecta"
+msgstr "Retard de reconnexió:"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:61
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
@@ -7721,23 +7631,19 @@ msgstr "Depuració"
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_RawLog)
 #: rc.cpp:1105
 msgid "Show raw &log window when connecting"
-msgstr ""
+msgstr "Mostra la finestra de &registres en cru en connectar"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:138
 #. i18n: ectx: property (title), widget (QGroupBox, encryptionGBox)
 #: rc.cpp:1108
-#, fuzzy
-#| msgid "Exception"
 msgid "Encryption"
-msgstr "Excepció"
+msgstr "Encriptatge"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:144
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: rc.cpp:1111
-#, fuzzy
-#| msgid "Default Identity"
 msgid "Default encryption type:"
-msgstr "Identitat predeterminada"
+msgstr "Tipus d'encriptatge predeterminat:"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:153
 #. i18n: ectx: property (whatsThis), widget (KComboBox, kcfg_EncryptionType)
@@ -7752,73 +7658,73 @@ msgid ""
 "able to see what they're saying, but they won't be able to read what you're "
 "saying."
 msgstr ""
+"El mode Electronic Codebook està acceptat per molts clients d'encriptatge "
+"com ara FiSH i Mircryption encare que està generalment considerat com "
+"insegur.\n"
+"\n"
+"CBC o mode Cipher-Block Chaining no està implementat per FiSH però està "
+"implementat per Mircryption. Si voleu usar un intercanvi de claus és millor "
+"comprovar primer si el vostre company té un client que pot usar CBC, del "
+"contrari sereu capaç de veure el que està escrivint. però ell no serà capaç "
+"de llegir el que esteu escrivint vos."
 
 #. i18n: file: src/config/connectionbehavior_config.ui:157
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_EncryptionType)
 #: rc.cpp:1119
 msgid "Electronic Codebook (ECB)"
-msgstr ""
+msgstr "Electronic Codebook (ECB)"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:162
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_EncryptionType)
 #: rc.cpp:1122
 msgid "Cipher-Block Chaining (CBC)"
-msgstr ""
+msgstr "Cipher-Block Chaining (CBC)"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:186
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_ProxyEnabled)
 #: rc.cpp:1125
 msgid "Proxy"
-msgstr ""
+msgstr "Servidor intermediari"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:198
 #. i18n: ectx: property (text), widget (QLabel, addressLabel)
 #: rc.cpp:1128
-#, fuzzy
-#| msgid "Address book:"
 msgid "Address:"
-msgstr "Llibreta d'adreces:"
+msgstr "Adreça:"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:212
 #. i18n: ectx: property (text), widget (QLabel, portLabel)
 #: rc.cpp:1131
-#, fuzzy
-#| msgid "&Port:"
 msgid "Port:"
-msgstr "&Port:"
+msgstr "Port:"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:226
 #. i18n: ectx: property (text), widget (QLabel, usernameLabel)
 #: rc.cpp:1134
-#, fuzzy
 msgid "Username:"
-msgstr "Nom de fitxer:"
+msgstr "Nom de l'usuari:"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:240
 #. i18n: ectx: property (text), widget (QLabel, passwordLabel)
 #: rc.cpp:1137
-#, fuzzy
-#| msgid "P&assword:"
 msgid "Password:"
-msgstr "Contr&asenya:"
+msgstr "Contrasenya:"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:271
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_ProxyType)
 #: rc.cpp:1143
 msgid "Socks v5"
-msgstr ""
+msgstr "Socks v5"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:276
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_ProxyType)
 #: rc.cpp:1146
 msgid "HTTP"
-msgstr ""
+msgstr "HTTP"
 
 #. i18n: file: src/config/konversation.kcfg:22
 #. i18n: ectx: label, entry, group (Appearance)
 #: rc.cpp:1151
-#, fuzzy
-#| msgid "Limit the size of the tab labels to fit all on screen"
 msgid "Limit the size of the tab labels to fit them all on screen"
 msgstr ""
 "Limita la mida de la barra de pestanyes per tal que càpiga a la finestra"
@@ -7827,7 +7733,7 @@ msgstr ""
 #. i18n: ectx: label, entry, group (Appearance)
 #: rc.cpp:1220
 msgid "Hide the scrollbar"
-msgstr ""
+msgstr "Oculta la barra de desplaçament"
 
 #. i18n: file: src/config/konversation.kcfg:233
 #. i18n: ectx: whatsthis, entry, group (General Options)
@@ -7835,6 +7741,8 @@ msgstr ""
 msgid ""
 "Enable if you want all the IRC input lines to check your spelling as you type"
 msgstr ""
+"Habiliteu-lo si voleu comprovar l'ortografia de totes les línies introduïdes "
+"en el IRC a mida que escriviu"
 
 #. i18n: file: src/config/konversation.kcfg:242
 #. i18n: ectx: whatsthis, entry, group (General Options)
@@ -7842,12 +7750,13 @@ msgstr ""
 msgid ""
 "Enabling this will cause the input box to grow vertically when it fills up."
 msgstr ""
+"En habilitar això el camp d'entrada creixerà verticalment en omplir-se."
 
 #. i18n: file: src/config/konversation.kcfg:276
 #. i18n: ectx: label, entry, group (General Options)
 #: rc.cpp:1241
 msgid "Start with hidden main window"
-msgstr ""
+msgstr "Inicia amb la finestra principal amagada"
 
 #. i18n: file: src/config/konversation.kcfg:320
 #. i18n: ectx: label, entry, group (General Options)
@@ -7879,18 +7788,20 @@ msgstr "Tema d'emoticones"
 msgid ""
 "Sounds the system bell when you receive an ASCII BEL (0x07) control character"
 msgstr ""
+"Reprodueix la campana del sistema en rebre un caràcter de control CAMPANA "
+"ASCII (0x07)"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:28
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_Beep)
 #: rc.cpp:1474
 msgid "Enable s&ystem bell on incoming ASCII BEL"
-msgstr "Habilita el &timbre de sistema en arrivar un ASCII BEL"
+msgstr "Habilita el &timbre de sistema en arribar un ASCII BEL"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:35
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideUnimportantEvents)
 #: rc.cpp:1477
 msgid "Hide &Join/Part/Nick events"
-msgstr ""
+msgstr "Oculta esdeveniments &Join/Part/Nick"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:42
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DisableExpansion)
@@ -7901,19 +7812,22 @@ msgid ""
 "with '%'; for example, %B will expand to the characters needed to make a "
 "text bold."
 msgstr ""
+"No expandeixis les variables en enviar text al servidor. Una variable "
+"comença amb '%'; per exemple %B s'expandirà als caràcters necessaris per "
+"convertir un text a negreta."
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:45
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DisableExpansion)
 #: rc.cpp:1485
 #, no-c-format
 msgid "Disable variable (e.g. %C, %B, %G...) e&xpansion"
-msgstr ""
+msgstr "Deshabilita l'e&xpansió de variables (p.ex. %C, %B, %G...)"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:52
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_RedirectServerAndAppMsgToStatusPane)
 #: rc.cpp:1488
 msgid "&Redirect status messages to the server status window"
-msgstr ""
+msgstr "&Redirecciona els missatges d'estat a la finestra d'estat del servidor"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:59
 #. i18n: ectx: property (whatsThis), widget (QLabel, textLabel1)
@@ -7921,13 +7835,13 @@ msgstr ""
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_ScrollbackMax)
 #: rc.cpp:1491 rc.cpp:1503
 msgid "How many lines to keep in buffers, 0 = unlimited"
-msgstr ""
+msgstr "Nombre de línies a mantenir en les memòries cau, 0 = sense limit"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:62
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: rc.cpp:1494
 msgid "Scroll&back limit:"
-msgstr ""
+msgstr "&Límit de l'historial:"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:91
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_UseLiteralModes)
@@ -7937,12 +7851,15 @@ msgid ""
 "translating them into human readable words. E.g. '*** Channel modes: no "
 "messages from outside' will become '*** Channel modes: n'"
 msgstr ""
+"Mantén la cadena del mode del canal com una combinació de caràcters. en lloc "
+"de traduir-la a paraules intel·ligibles. P.ex. '*** Modes del canal: sense "
+"missatges de l'exterior' passaria a ser '*** Modes del canal: n'"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:94
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseLiteralModes)
 #: rc.cpp:1500
 msgid "Show raw mode characters"
-msgstr ""
+msgstr "Mostra els caràcters del mode en cru"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:107
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_ScrollbackMax)
@@ -7953,9 +7870,8 @@ msgstr " línies"
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:136
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox3_2)
 #: rc.cpp:1512
-#, fuzzy
 msgid "Marker Lines"
-msgstr "Llista de servidors"
+msgstr "Línies de marcador"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:142
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_AutomaticRememberLine)
@@ -7971,31 +7887,32 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutomaticRememberLine)
 #: rc.cpp:1518
 msgid "Mark the last position in a chat window when it is hidden"
-msgstr ""
+msgstr "Marca la darrera posició en una finestra de conversa quan s'oculta"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:176
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutomaticRememberLineOnlyOnTextChange)
 #: rc.cpp:1521
 msgid "Move the line only when new text is about to be shown"
-msgstr ""
+msgstr "Mou la línia només quan un nou text sigui a punt de ser mostrat"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:185
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MarkerLineInAllViews)
 #: rc.cpp:1524
 msgid "Show manually inserted lines in all chat windows"
 msgstr ""
+"Mostra les línies inserides manualment en totes les finestres de conversa"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:195
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoWhoContinuousEnabled)
 #: rc.cpp:1527
 msgid "Enable Automatic User Information Look Up (/WHO)"
-msgstr ""
+msgstr "Habilita la cerca automàtica d'informació de l'usuari (/WHO)"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:239
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #: rc.cpp:1530
 msgid "Max. number of users in a channel:"
-msgstr ""
+msgstr "Nombre màxim d'usuaris en un canal:"
 
 #. i18n: file: src/config/chatwindowbehaviour_config.ui:252
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_AutoWhoNicksLimit)
@@ -8019,13 +7936,13 @@ msgstr "&Ordre a executar al fer doble clic:"
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortCaseInsensitive)
 #: rc.cpp:1545
 msgid "Sort case &insensitive"
-msgstr "Ordena sense tenir en compte les &majúscules"
+msgstr "Ordena &insensiblement a la caixa"
 
 #. i18n: file: src/config/nicklistbehavior_configui.ui:46
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortByActivity)
 #: rc.cpp:1548
 msgid "Sort by &activity"
-msgstr ""
+msgstr "Ordena per &activitat"
 
 #. i18n: file: src/config/nicklistbehavior_configui.ui:59
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SortByStatus)
@@ -8037,7 +7954,7 @@ msgstr "Ordena per &estat d'usuari"
 #. i18n: ectx: property (text), widget (QLabel, orderHintLabel)
 #: rc.cpp:1554
 msgid "(Reorder nick sorting order by drag and drop)"
-msgstr ""
+msgstr "(Reordena els sobrenoms novament arrossegant i deixant anar)"
 
 #. i18n: file: src/config/nicklistbehavior_configui.ui:103
 #. i18n: ectx: property (text), widget (QTreeWidget, sortOrder)
@@ -8056,13 +7973,14 @@ msgstr "Mostra el MOTD (missatge del dia) en un tipus de lletra d'amplada fixa"
 #: rc.cpp:1566
 msgid "Enable fi&xed font for MOTD messages"
 msgstr ""
-"Habilita l'ús d'un tipus de lletra d'amplada fixa pels missatges del dia"
+"Habilita l'ús d'un tipus de lletra d'amplada fi&xa pels missatges del dia"
 
 #. i18n: file: src/config/fontappearance_config.ui:35
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseBoldNicks)
 #: rc.cpp:1569
 msgid "Show sender nicknames &bold in the chat view"
 msgstr ""
+"Mostra en &negreta els sobrenoms dels remitents en la finestra de conversa"
 
 #. i18n: file: src/config/fontappearance_config.ui:61
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomTextFont)
@@ -8121,14 +8039,12 @@ msgstr "Icona pels usuaris amb veu"
 #. i18n: file: src/config/theme_configui.ui:129
 #. i18n: ectx: property (toolTip), widget (QLabel, previewLabel4)
 #: rc.cpp:1599
-#, fuzzy
 msgid "Icon for users with half-operator privileges"
 msgstr "Icona pels usuaris amb privilegis de mig-operador"
 
 #. i18n: file: src/config/theme_configui.ui:145
 #. i18n: ectx: property (toolTip), widget (QLabel, previewLabel5)
 #: rc.cpp:1602
-#, fuzzy
 msgid "Icon for users with operator privileges"
 msgstr "Icona pels usuaris amb privilegis d'operador"
 
@@ -8308,12 +8224,15 @@ msgid ""
 "in your chat window as colored text. You can add color codes to your "
 "messages, by selecting Insert -> IRC Color"
 msgstr ""
+"En habilitar aquesta opció, els codis de color afegits als missatges IRC es "
+"mostraran en la finestra de conversa com text acolorit. Podeu afegir codis "
+"de color als missatges seleccionant Insereix -> Color d'IRC"
 
 #. i18n: file: src/config/colorsappearance_config.ui:747
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_AllowColorCodes)
 #: rc.cpp:1683
 msgid "&Allow Colored Text in IRC Messages"
-msgstr "&Permet text colorejat als missatges d'IRC"
+msgstr "&Permet text acolorit als missatges d'IRC"
 
 #. i18n: file: src/config/colorsappearance_config.ui:1051
 #. i18n: ectx: property (text), widget (QLabel, textLabel12_12)
@@ -8373,13 +8292,13 @@ msgstr "&Habilita el registre"
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_LowerLog)
 #: rc.cpp:1737
 msgid "Enable &lower case logfile names"
-msgstr ""
+msgstr "Habilita &la caixa baixa als noms dels fitxers de registre"
 
 #. i18n: file: src/config/log_config.ui:39
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AddHostnameToLog)
 #: rc.cpp:1740
 msgid "&Append hostname to logfile names"
-msgstr ""
+msgstr "&Annexa el nom de la màquina als noms dels fitxers de registre"
 
 #. i18n: file: src/config/log_config.ui:46
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
@@ -8391,7 +8310,7 @@ msgstr "&Ruta pels fitxers de registre:"
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseExternalLogViewer)
 #: rc.cpp:1746
 msgid "Use system text editor to open logs"
-msgstr ""
+msgstr "Usa l'editor de text del sistema per obrir els registres"
 
 #. i18n: file: src/config/chatwindowappearance_config.ui:24
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_Timestamping)
@@ -8402,7 +8321,6 @@ msgstr "Habilita les marques de &temps"
 #. i18n: file: src/config/chatwindowappearance_config.ui:33
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowDate)
 #: rc.cpp:1752
-#, fuzzy
 msgid "Sho&w dates"
 msgstr "Mostra les &dates"
 
@@ -8457,9 +8375,8 @@ msgstr "Mostra la màscara de &xarxa a la llista de sobrenoms"
 #. i18n: file: src/config/chatwindowappearance_config.ui:208
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowRealNames)
 #: rc.cpp:1779
-#, fuzzy
 msgid "Show real names in nickname list"
-msgstr "&Mostra els noms reals al costat dels sobrenoms"
+msgstr "Mostra els noms reals en la llista dels sobrenoms"
 
 #. i18n: file: src/config/chatwindowappearance_config.ui:238
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowQuickButtons)
@@ -8477,7 +8394,7 @@ msgstr "Mostra una caixa per canviar el &sobrenom"
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowIRCViewScrollBar)
 #: rc.cpp:1788
 msgid "Show sc&rollbar"
-msgstr ""
+msgstr "Most&ra la barra de desplaçament"
 
 #. i18n: file: src/config/chatwindowappearance_config.ui:267
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowBackgroundImage)
@@ -8510,6 +8427,9 @@ msgid ""
 "Application events occur in Konsole tabs, the DCC Status tab and other "
 "application tabs not used directly for chatting."
 msgstr ""
+"Els esdeveniments de l'aplicació ocorreixen en les pestanyes del Konsole, la "
+"pestanya d'estat DCC i altres pestanyes de l'aplicació no s'usen directament "
+"per xatejar."
 
 #. i18n: file: src/config/tabnotifications_config.ui:54
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsSystem)
@@ -8526,9 +8446,8 @@ msgstr "Missatge"
 #. i18n: file: src/config/tabnotifications_config.ui:143
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsPrivate)
 #: rc.cpp:1818
-#, fuzzy
 msgid "Private message"
-msgstr "Missatge del &servidor:"
+msgstr "Missatge privat"
 
 #. i18n: file: src/config/tabnotifications_config.ui:167
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsNick)
@@ -8555,8 +8474,6 @@ msgstr "Esdeveniment de canal"
 #. i18n: file: src/viewer/searchbarbase.ui:92
 #. i18n: ectx: property (text), widget (QToolButton, m_optionsButton)
 #: rc.cpp:1833 rc.cpp:1872
-#, fuzzy
-#| msgid "Exception"
 msgid "Options"
 msgstr "Opcions"
 
@@ -8567,12 +8484,15 @@ msgid ""
 "If you select this, the colors you chose in the Highlights preferences page "
 "will override the colors for \"Current nick used\" and \"Highlight\"."
 msgstr ""
+"Si seleccioneu això, els colors que trieu en la pàgina d'arranjaments de "
+"ressaltat substituiran els colors per \"Sobrenom usat actualment\" i "
+"\"Ressaltat\"."
 
 #. i18n: file: src/config/tabnotifications_config.ui:284
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TabNotificationsOverride)
 #: rc.cpp:1839
 msgid "Give precedence to chat window highlight colors"
-msgstr ""
+msgstr "Dona prioritat als colors ressaltats de la finestra de xat"
 
 #. i18n: file: src/linkaddressbook/linkaddressbookui_base.ui:41
 #. i18n: ectx: property (toolTip), widget (QPushButton, addAddresseeButton)
@@ -8628,15 +8548,13 @@ msgstr "Cerca l'anterior"
 #. i18n: ectx: property (windowTitle), widget (QWidget, PasteEditor)
 #: rc.cpp:1875
 msgid "Paste Editor"
-msgstr ""
+msgstr "Editor d'enganxat"
 
 #. i18n: file: src/viewer/pasteeditor.ui:20
 #. i18n: ectx: property (text), widget (KPushButton, m_removeNewlinesButton)
 #: rc.cpp:1878
-#, fuzzy
-#| msgid "Remove Theme"
 msgid "&Remove Newlines"
-msgstr "Elimina el tema"
+msgstr "&Elimina les línies noves"
 
 #. i18n: file: src/viewer/pasteeditor.ui:27
 #. i18n: ectx: property (text), widget (KPushButton, m_addQuotesButton)
@@ -8660,6 +8578,11 @@ msgid ""
 "ignore your color changes.</b>\n"
 "</qt>"
 msgstr ""
+"<qt>Això és una vista prèvia del com els lectors podrien veure el missatge "
+"si seleccioneu aquests colors.<br>\n"
+"<b>Nota: no tots els clients implementen això, i alguns usuaris poden haver "
+"decidit ignorar els canvis de color.</b>\n"
+"</qt>"
 
 #. i18n: file: src/viewer/irccolorchooserui.ui:33
 #. i18n: ectx: property (text), widget (QLabel, m_previewLbl)
@@ -8673,7 +8596,7 @@ msgstr "Vista prèvia"
 #. i18n: ectx: property (toolTip), widget (QLabel, m_fgColorLbl)
 #: rc.cpp:1895 rc.cpp:1902
 msgid "The chosen text color is added to the input line."
-msgstr ""
+msgstr "El color de text seleccionat s'afegeix a la línia d'entrada."
 
 #. i18n: file: src/viewer/irccolorchooserui.ui:56
 #. i18n: ectx: property (whatsThis), widget (KComboBox, m_fgColorCBox)
@@ -8687,6 +8610,11 @@ msgid ""
 "until you change the color again.<br>\n"
 "<b>Note:  Not all users turn on the option to see this.</b></qt>"
 msgstr ""
+"<qt>Aquí podeu seleccionar el color que voleu pel text en el pròxim missatge "
+"que envieu. Si escolliu un color i feu clic a Bé, el color seleccionat "
+"s'afegeix a la línia d'entrada. Qualsevol text escrit després d'això serà en "
+"el color seleccionat, fins que canvieu el color de nou.<br>\n"
+"<b>Nota: no tots els usuaris activen l'opció per veure això.</b></qt>"
 
 #. i18n: file: src/viewer/irccolorchooserui.ui:76
 #. i18n: ectx: property (text), widget (QLabel, m_fgColorLbl)
@@ -8700,7 +8628,7 @@ msgstr "Color de &primer pla:"
 #. i18n: ectx: property (toolTip), widget (QLabel, m_bgColorLbl)
 #: rc.cpp:1912 rc.cpp:1922
 msgid "The chosen text-background color is added to the input line."
-msgstr ""
+msgstr "El color del fons del text seleccionat s'afegeix a la línia d'entrada."
 
 #. i18n: file: src/viewer/irccolorchooserui.ui:105
 #. i18n: ectx: property (whatsThis), widget (KComboBox, m_bgColorCBox)
@@ -8720,19 +8648,20 @@ msgid ""
 "<b>Note:  Not all clients support this, and not all users turn on the option "
 "to see this.</b></qt>"
 msgstr ""
+"<qt>Aquí podeu seleccionar de quin color voleu el fons pel text en el pròxim "
+"missatge que envieu.\n"
+"Si seleccioneu un color i feu clic a Bé, el color seleccionat s'afegeix a la "
+"línia d'entrada.\n"
+"Qualsevol text escrit després d'això, tindrà el color seleccionat, fins que "
+"canvieu el color de nou.\n"
+"En escollir l'opció per defecte \"<i>Cap</i>\" no canviarà el color de fons "
+"del missatge, per tant els lectors veuran el missatge amb el seu habitual "
+"color de fons de text.\n"
+"<b>Nota: no tots els clients implementen això, i no tots els usuaris activen "
+"l'opció de veure això.</b></qt>"
 
 #. i18n: file: data/konversationui.rc:35
 #. i18n: ectx: Menu (windows)
 #: rc.cpp:1938
 msgid "&Window"
 msgstr "&Finestra"
-
-#, fuzzy
-#~| msgid "&Format:"
-#~ msgid "Form"
-#~ msgstr "&Format:"
-
-#, fuzzy
-#~| msgid "Connection broken, error code %1."
-#~ msgid "Connection broken, error (%1) %2."
-#~ msgstr "Connexió trencada, codi d'error %1."
