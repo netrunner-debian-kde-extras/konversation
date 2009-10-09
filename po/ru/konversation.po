@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-09-30 07:03+0200\n"
-"PO-Revision-Date: 2009-05-21 21:32+0300\n"
+"POT-Creation-Date: 2009-10-08 06:17+0200\n"
+"PO-Revision-Date: 2009-10-07 00:39+0300\n"
 "Last-Translator: Artem Sereda <overmind88@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "MIME-Version: 1.0\n"
@@ -378,10 +378,8 @@ msgid "Preparing"
 msgstr "Подготовка"
 
 #: src/dcc/transferlistmodel.cpp:455
-#, fuzzy
-#| msgid "Sending"
 msgid "Pending"
-msgstr "Посылаю"
+msgstr "Ожидание"
 
 #: src/dcc/transferlistmodel.cpp:457 src/linkaddressbook/addressbook.cpp:107
 msgid "Connecting"
@@ -465,10 +463,8 @@ msgid "Outgoing Transfers"
 msgstr "Исходящее"
 
 #: src/dcc/transferview.cpp:275
-#, fuzzy
-#| msgid "Commands:"
 msgid "Columns"
-msgstr "Команды:"
+msgstr "Столбцы"
 
 #: src/dcc/transferrecv.cpp:185
 msgid "The admin has restricted the right to receive files"
@@ -683,19 +679,15 @@ msgstr "Режим"
 msgid "Parameter"
 msgstr "Параметр"
 
-#: src/irc/channeloptionsdialog.cpp:621
-#, fuzzy
-#| msgid "&Timestamp:"
+#: src/irc/channeloptionsdialog.cpp:625
 msgid "Timestamp"
-msgstr "&Время сообщения:"
+msgstr "Временная метка"
 
-#: src/irc/channeloptionsdialog.cpp:623
-#, fuzzy
-#| msgid "Artwork"
+#: src/irc/channeloptionsdialog.cpp:627
 msgid "Author"
-msgstr "Внешний вид"
+msgstr "Автор"
 
-#: src/irc/channeloptionsdialog.cpp:684
+#: src/irc/channeloptionsdialog.cpp:688
 msgid ""
 "<qt><p>These control the <em>mode</em> of the channel.  Only an operator can "
 "change these.</p><p>The <b>T</b>opic mode means that only the channel "
@@ -705,7 +697,7 @@ msgstr ""
 "изменить.</p><p><b>T</b>opic (тема) обозначает, что только оператор канала "
 "может сменить тему.</p></q>"
 
-#: src/irc/channeloptionsdialog.cpp:686
+#: src/irc/channeloptionsdialog.cpp:690
 msgid ""
 "<qt><p>These control the <em>mode</em> of the channel.  Only an operator can "
 "change these.</p><p><b>N</b>o messages from outside means users who are not "
@@ -717,7 +709,7 @@ msgstr ""
 "пользователи не на канале не могут слать в него сообщения.  Почти на всех "
 "каналах установлен этот режим для предотвращения вредных сообщений.</p></qt>"
 
-#: src/irc/channeloptionsdialog.cpp:688
+#: src/irc/channeloptionsdialog.cpp:692
 msgid ""
 "<qt><p>These control the <em>mode</em> of the channel.  Only an operator can "
 "change these.</p><p>A <b>S</b>ecret channel will not show up in the channel "
@@ -733,7 +725,7 @@ msgstr ""
 "вы на канале будут знать, что вы на этом канале, если этот режим установлен."
 "</p></qt>"
 
-#: src/irc/channeloptionsdialog.cpp:690
+#: src/irc/channeloptionsdialog.cpp:694
 msgid ""
 "<qt><p>These control the <em>mode</em> of the channel.  Only an operator can "
 "change these.</p><p>An <b>I</b>nvite only channel means that people can only "
@@ -747,7 +739,7 @@ msgstr ""
 "приглашения кого-либо используйте команду <em>/invite ник</em> на канале.</"
 "p></qt>"
 
-#: src/irc/channeloptionsdialog.cpp:692
+#: src/irc/channeloptionsdialog.cpp:696
 msgid ""
 "<qt><p>These control the <em>mode</em> of the channel.  Only an operator can "
 "change these.</p><p>A <b>P</b>rivate channel is shown in a listing of all "
@@ -761,7 +753,7 @@ msgstr ""
 "показывать, что пользователь на частном канале. Это зависит от сервера.</p></"
 "qt>"
 
-#: src/irc/channeloptionsdialog.cpp:694
+#: src/irc/channeloptionsdialog.cpp:698
 msgid ""
 "<qt><p>These control the <em>mode</em> of the channel.  Only an operator can "
 "change these.</p><p>A <b>M</b>oderated channel is one where only operators, "
@@ -772,22 +764,17 @@ msgstr ""
 "могут общаться только операторы, полуоператоры и пользователи с правом "
 "голоса.</p></qt>"
 
-#: src/irc/channeloptionsdialog.cpp:696
-#, fuzzy
-#| msgid ""
-#| "<qt><p>These control the <em>mode</em> of the channel.  Only an operator "
-#| "can change these.</p><p>A <b>P</b>rotected channel requires users to "
-#| "enter a password in order to join.</p></qt>"
+#: src/irc/channeloptionsdialog.cpp:700
 msgid ""
 "<qt><p>These control the <em>mode</em> of the channel.  Only an operator can "
 "change these.</p><p>A protected channel requires users to enter a password "
 "in order to join.</p></qt>"
 msgstr ""
 "<qt><p>Контролирует <em>режим</em> канала.  Только оператор может сменить "
-"это.</p><p>A <b>P</b>rotected (защищенный) канал требует от пользователей "
-"ввести пароль для входа.</p></qt>"
+"это.</p><p>Защищённый канал требует от пользователей ввести пароль для входа."
+"</p></qt>"
 
-#: src/irc/channeloptionsdialog.cpp:698
+#: src/irc/channeloptionsdialog.cpp:702
 msgid ""
 "<qt><p>These control the <em>mode</em> of the channel.  Only an operator can "
 "change these.</p><p>A channel that has a user <b>L</b>imit means that only "
@@ -803,25 +790,25 @@ msgstr ""
 
 #: src/irc/nicklistview.cpp:114 src/irc/nicksonline.cpp:912
 #: src/irc/nicksonline.cpp:930 src/irc/query.cpp:81
-#: src/viewer/ircview.cpp:1184
+#: src/viewer/ircview.cpp:1182
 msgid "&Whois"
 msgstr "&Whois"
 
 #: src/irc/nicklistview.cpp:115 src/irc/query.cpp:82
-#: src/viewer/ircview.cpp:1186
+#: src/viewer/ircview.cpp:1184
 msgid "&Version"
 msgstr "&Версия клиента"
 
 #: src/irc/nicklistview.cpp:116 src/irc/query.cpp:83
-#: src/viewer/ircview.cpp:1188
+#: src/viewer/ircview.cpp:1186
 msgid "&Ping"
 msgstr "&Пинг"
 
-#: src/irc/nicklistview.cpp:122 src/viewer/ircview.cpp:1196
+#: src/irc/nicklistview.cpp:122 src/viewer/ircview.cpp:1194
 msgid "Give Op"
 msgstr "Дать статус оператора"
 
-#: src/irc/nicklistview.cpp:126 src/viewer/ircview.cpp:1201
+#: src/irc/nicklistview.cpp:126 src/viewer/ircview.cpp:1199
 msgid "Take Op"
 msgstr "Забрать статус оператора"
 
@@ -833,66 +820,66 @@ msgstr "Дать статус полуоператора"
 msgid "Take HalfOp"
 msgstr "Забрать статус полуоператора"
 
-#: src/irc/nicklistview.cpp:132 src/viewer/ircview.cpp:1206
+#: src/irc/nicklistview.cpp:132 src/viewer/ircview.cpp:1204
 msgid "Give Voice"
 msgstr "Дать право голоса"
 
-#: src/irc/nicklistview.cpp:136 src/viewer/ircview.cpp:1211
+#: src/irc/nicklistview.cpp:136 src/viewer/ircview.cpp:1209
 msgid "Take Voice"
 msgstr "Забрать право голоса"
 
-#: src/irc/nicklistview.cpp:140 src/viewer/ircview.cpp:1195
+#: src/irc/nicklistview.cpp:140 src/viewer/ircview.cpp:1193
 msgid "Modes"
 msgstr "Режимы"
 
 #: src/irc/nicklistview.cpp:147 src/irc/channel.cpp:1503
 #: src/irc/channel.cpp:1505 src/irc/channel.cpp:1512 src/irc/channel.cpp:1517
 #: src/irc/channel.cpp:1538 src/irc/channel.cpp:1540 src/irc/channel.cpp:1547
-#: src/irc/channel.cpp:1552 src/viewer/ircview.cpp:1218
+#: src/irc/channel.cpp:1552 src/viewer/ircview.cpp:1216
 msgid "Kick"
 msgstr "Выкинуть"
 
-#: src/irc/nicklistview.cpp:148 src/viewer/ircview.cpp:1220
+#: src/irc/nicklistview.cpp:148 src/viewer/ircview.cpp:1218
 msgid "Kickban"
 msgstr "Выкинуть и забанить"
 
-#: src/irc/nicklistview.cpp:149 src/viewer/ircview.cpp:1222
+#: src/irc/nicklistview.cpp:149 src/viewer/ircview.cpp:1220
 msgid "Ban Nickname"
 msgstr "Забанить по имени"
 
-#: src/irc/nicklistview.cpp:151 src/viewer/ircview.cpp:1225
+#: src/irc/nicklistview.cpp:151 src/viewer/ircview.cpp:1223
 msgid "Ban *!*@*.host"
 msgstr "Бан *!*@*.узел"
 
-#: src/irc/nicklistview.cpp:152 src/viewer/ircview.cpp:1227
+#: src/irc/nicklistview.cpp:152 src/viewer/ircview.cpp:1225
 msgid "Ban *!*@domain"
 msgstr "Бан *!*@домен"
 
-#: src/irc/nicklistview.cpp:153 src/viewer/ircview.cpp:1229
+#: src/irc/nicklistview.cpp:153 src/viewer/ircview.cpp:1227
 msgid "Ban *!user@*.host"
 msgstr "Бан *!пользователь@*.узел"
 
-#: src/irc/nicklistview.cpp:154 src/viewer/ircview.cpp:1231
+#: src/irc/nicklistview.cpp:154 src/viewer/ircview.cpp:1229
 msgid "Ban *!user@domain"
 msgstr "Бан *!пользователь@домен"
 
-#: src/irc/nicklistview.cpp:156 src/viewer/ircview.cpp:1234
+#: src/irc/nicklistview.cpp:156 src/viewer/ircview.cpp:1232
 msgid "Kickban *!*@*.host"
 msgstr "Выкинуть и бан *!*@*.узел"
 
-#: src/irc/nicklistview.cpp:157 src/viewer/ircview.cpp:1236
+#: src/irc/nicklistview.cpp:157 src/viewer/ircview.cpp:1234
 msgid "Kickban *!*@domain"
 msgstr "Выкинуть и бан *!*@домен"
 
-#: src/irc/nicklistview.cpp:158 src/viewer/ircview.cpp:1238
+#: src/irc/nicklistview.cpp:158 src/viewer/ircview.cpp:1236
 msgid "Kickban *!user@*.host"
 msgstr "Выкинуть и бан *!пользователь@*.узел"
 
-#: src/irc/nicklistview.cpp:159 src/viewer/ircview.cpp:1240
+#: src/irc/nicklistview.cpp:159 src/viewer/ircview.cpp:1238
 msgid "Kickban *!user@domain"
 msgstr "Выкинуть и бан *!пользователь@домен"
 
-#: src/irc/nicklistview.cpp:160 src/viewer/ircview.cpp:1217
+#: src/irc/nicklistview.cpp:160 src/viewer/ircview.cpp:1215
 msgid "Kick / Ban"
 msgstr "Выкинуть/Забанить"
 
@@ -900,13 +887,13 @@ msgstr "Выкинуть/Забанить"
 #: src/irc/outputfilter.cpp:1504 src/irc/query.cpp:86 src/irc/query.cpp:394
 #: src/irc/query.cpp:395 src/irc/channel.cpp:670 src/irc/channel.cpp:671
 #: src/config/settingsdialog.cpp:131 src/config/warnings_config.cpp:118
-#: src/viewer/ircview.cpp:1244
+#: src/viewer/ircview.cpp:1242
 msgid "Ignore"
 msgstr "Игнорировать"
 
 #: src/irc/nicklistview.cpp:166 src/irc/query.cpp:87 src/irc/query.cpp:420
 #: src/irc/query.cpp:421 src/irc/channel.cpp:695 src/irc/channel.cpp:696
-#: src/config/warnings_config.cpp:119 src/viewer/ircview.cpp:1245
+#: src/config/warnings_config.cpp:119 src/viewer/ircview.cpp:1243
 msgid "Unignore"
 msgstr "Отменить игнорирование"
 
@@ -939,7 +926,7 @@ msgid ""
 msgstr ""
 
 #: src/irc/nicklistview.cpp:176 src/irc/query.cpp:91
-#: src/viewer/ircview.cpp:1259
+#: src/viewer/ircview.cpp:1257
 msgid "Send &File..."
 msgstr "Передать &файл..."
 
@@ -960,7 +947,7 @@ msgid "Address Book Associations"
 msgstr "Интеграция с адресной книгой"
 
 #: src/irc/nicklistview.cpp:191 src/irc/query.cpp:95
-#: src/viewer/ircview.cpp:1265
+#: src/viewer/ircview.cpp:1263
 msgid "Add to Watched Nicks"
 msgstr "Наблюдать за пользователем"
 
@@ -1114,15 +1101,7 @@ msgstr ""
 "В сети %2 должен быть как хотя бы один сервер."
 
 #: src/irc/serverlistdialog.cpp:227
-#, fuzzy, kde-format
-#| msgid ""
-#| "You cannot delete the selected server.\n"
-#| "\n"
-#| "The network %2 needs to have at least one server."
-#| msgid_plural ""
-#| "You cannot delete the selected servers.\n"
-#| "\n"
-#| "The network %2 needs to have at least one server."
+#, kde-format
 msgid ""
 "You cannot delete the selected server.\n"
 "\n"
@@ -1134,15 +1113,15 @@ msgid_plural ""
 msgstr[0] ""
 "Невозможно удалить выбранный сервер.\n"
 "\n"
-"В сети %1 должен быть как хотя бы один сервер."
+"В сети %2 должен быть как хотя бы один сервер."
 msgstr[1] ""
 "Невозможно удалить выбранные серверы.\n"
 "\n"
-"В сети %1 должен быть как хотя бы один сервер."
+"В сети %2 должен быть как хотя бы один сервер."
 msgstr[2] ""
 "Невозможно удалить выбранные серверы.\n"
 "\n"
-"В сети %1 должен быть как хотя бы один сервер."
+"В сети %2 должен быть как хотя бы один сервер."
 
 #: src/irc/serverlistdialog.cpp:243
 msgid "Do you really want to delete the selected entries?"
@@ -1283,9 +1262,9 @@ msgid "Usage: %1OMSG text"
 msgstr "Использование: %1OMSG текст"
 
 #: src/irc/outputfilter.cpp:876
-#, fuzzy, kde-format
+#, kde-format
 msgid "Sending notice \"%1\" to %2."
-msgstr "Отправка запроса CTCP-%1 для %2"
+msgstr "Отправка уведомления «%1» к %2."
 
 #: src/irc/outputfilter.cpp:879
 #, kde-format
@@ -1313,10 +1292,9 @@ msgid "Usage: %1DCC [SEND nickname filename]"
 msgstr "Использование: %1DCC [SEND ник файл]"
 
 #: src/irc/outputfilter.cpp:967
-#, fuzzy, kde-format
-#| msgid "Usage: %1DCC [SEND nickname filename]"
+#, kde-format
 msgid "Usage: %1DCC [GET [nickname [filename]]]"
-msgstr "Использование: %1DCC [SEND ник файл]"
+msgstr "Использование: %1DCC [GET ник файл]"
 
 #: src/irc/outputfilter.cpp:977
 #, kde-format
@@ -2370,10 +2348,8 @@ msgid "Failed to parse DH1080_FINISH sent by %1. Key exchange failed."
 msgstr ""
 
 #: src/irc/invitedialog.cpp:31
-#, fuzzy
-#| msgid "Channel List"
 msgid "Channel Invites"
-msgstr "Список каналов"
+msgstr "Приглашения на каналы"
 
 #: src/irc/invitedialog.cpp:167 src/irc/channel.cpp:1378
 #: src/irc/channel.cpp:1394 src/viewer/ircview.cpp:731
@@ -3707,7 +3683,9 @@ msgstr "Eike Hein"
 msgid ""
 "Maintainer, Release Manager, User interface, Connection management, Protocol "
 "handling, Auto-away"
-msgstr "Координатор, взаимодействие с пользователем, поддержка протоколов"
+msgstr ""
+"Координатор, взаимодействие с пользователем, управление соединениями, "
+"поддержка протоколов, "
 
 #: src/main.cpp:48
 msgid "Shintaro Matsuoka"
@@ -4733,15 +4711,12 @@ msgid "Save URL List"
 msgstr "Сохранить список URL"
 
 #: src/urlcatcher.cpp:353
-#, fuzzy, kde-format
-#| msgid ""
-#| "Konversation Channel List: %1 - %2\n"
-#| "\n"
+#, kde-format
 msgid ""
 "Konversation URL List: %1\n"
 "\n"
 msgstr ""
-"Konversation - Список каналов: %1 - %2\n"
+"Konversation - Список адресов: %1\n"
 "\n"
 
 #: src/urlcatcher.cpp:381 src/viewer/ircview.cpp:189
@@ -4759,7 +4734,7 @@ msgstr "Добавить в избранное"
 msgid "Save Link As..."
 msgstr "Сохранить ссылку как..."
 
-#: src/urlcatcher.cpp:412 src/viewer/ircview.cpp:1434
+#: src/urlcatcher.cpp:412 src/viewer/ircview.cpp:1430
 #: src/viewer/topiclabel.cpp:332
 msgid "Save link as"
 msgstr "Сохранить ссылку как"
@@ -4859,29 +4834,29 @@ msgstr "Выделить всё"
 msgid "Find Text..."
 msgstr "Найти текст..."
 
-#: src/viewer/ircview.cpp:1252
+#: src/viewer/ircview.cpp:1250
 msgid "Open Query"
 msgstr "Открыть окно привата"
 
-#: src/viewer/ircview.cpp:1299 src/viewer/topiclabel.cpp:128
+#: src/viewer/ircview.cpp:1297 src/viewer/topiclabel.cpp:128
 #: src/mainwindow.cpp:421
 msgid "&Join Channel..."
 msgstr "&Зайти на канал..."
 
-#: src/viewer/ircview.cpp:1306 src/viewer/topiclabel.cpp:134
+#: src/viewer/ircview.cpp:1304 src/viewer/topiclabel.cpp:134
 msgid "Get &user list"
 msgstr "Получить &список пользователей"
 
-#: src/viewer/ircview.cpp:1308 src/viewer/topiclabel.cpp:135
+#: src/viewer/ircview.cpp:1306 src/viewer/topiclabel.cpp:135
 msgid "Get &topic"
 msgstr "Получить &тему"
 
-#: src/viewer/ircview.cpp:1509
+#: src/viewer/ircview.cpp:1505
 #, kde-format
 msgid "Open a query with %1"
 msgstr "Открыть окно личного разговора с %1"
 
-#: src/viewer/ircview.cpp:1530 src/viewer/topiclabel.cpp:277
+#: src/viewer/ircview.cpp:1526 src/viewer/topiclabel.cpp:277
 #, kde-format
 msgid "Join the channel %1"
 msgstr "Зайти на канал %1"
@@ -5075,10 +5050,8 @@ msgid "&Channel Settings..."
 msgstr "&Параметры канала..."
 
 #: src/viewer/viewcontainer.cpp:1609
-#, fuzzy
-#| msgid "Rename"
 msgid "Rename Tab"
-msgstr "Переименовать"
+msgstr "Переименовать вкладку"
 
 #: src/viewer/viewcontainer.cpp:1610
 #, fuzzy
@@ -5093,10 +5066,8 @@ msgid "Default ( %1 )"
 msgstr "Стандартная ( %1 )"
 
 #: src/viewer/viewcontainer.cpp:1716
-#, fuzzy
-#| msgid "Rename"
 msgid "&Rename Tab..."
-msgstr "Переименовать"
+msgstr "&Переименовать вкладку..."
 
 #: src/viewer/viewcontainer.cpp:1859
 msgid "You can only search in text fields."
@@ -5340,7 +5311,6 @@ msgid "Set the color of your current IRC message"
 msgstr "Установить цвет вашего текущего сообщения в IRC"
 
 #: src/mainwindow.cpp:450 src/mainwindow.cpp:737
-#, fuzzy
 msgid "&Marker Line"
 msgstr "&Линия запоминания"
 
@@ -5606,18 +5576,14 @@ msgstr "Расположение:"
 #. i18n: file: src/irc/channellistpanelui.ui:35
 #. i18n: ectx: property (text), widget (QLabel, m_lblMaxUser)
 #: rc.cpp:59
-#, fuzzy
-#| msgid "Maximum users:"
 msgid "Ma&ximum users:"
-msgstr "Максимум пользователей:"
+msgstr "М&аксимум пользователей:"
 
 #. i18n: file: src/irc/channellistpanelui.ui:51
 #. i18n: ectx: property (text), widget (QLabel, m_lblMinuser)
 #: rc.cpp:62
-#, fuzzy
-#| msgid "Minimum users:"
 msgid "&Minimum users:"
-msgstr "Минимум пользователей:"
+msgstr "&Минимум пользователей:"
 
 #. i18n: file: src/irc/channellistpanelui.ui:63
 #. i18n: ectx: property (text), widget (QPushButton, m_refreshListBtn)
@@ -5628,10 +5594,8 @@ msgstr "Обновить список"
 #. i18n: file: src/irc/channellistpanelui.ui:70
 #. i18n: ectx: property (text), widget (QPushButton, m_saveListBtn)
 #: rc.cpp:68
-#, fuzzy
-#| msgid "Save List..."
 msgid "Save &List..."
-msgstr "Сохранить список..."
+msgstr "Со&хранить список..."
 
 #. i18n: file: src/irc/channellistpanelui.ui:77
 #. i18n: ectx: property (whatsThis), widget (QPushButton, m_joinChanBtn)
@@ -5642,24 +5606,12 @@ msgstr "Нажмите здесь для входа на канал. Для не
 #. i18n: file: src/irc/channellistpanelui.ui:80
 #. i18n: ectx: property (text), widget (QPushButton, m_joinChanBtn)
 #: rc.cpp:74
-#, fuzzy
-#| msgid "&Join Channel"
 msgid "&Join channel"
 msgstr "&Зайти на канал"
 
 #. i18n: file: src/irc/channellistpanelui.ui:92
 #. i18n: ectx: property (whatsThis), widget (QTreeView, m_channelListView)
 #: rc.cpp:77
-#, fuzzy
-#| msgid ""
-#| "The filtered list of channels is displayed here. Notice that if you do "
-#| "not use regular expressions, Konversation lists any channel whose name "
-#| "contains the filter string you entered. The channel name does not have to "
-#| "start with the string you entered.\n"
-#| "\n"
-#| "Select a channel you want to join by clicking on it. Right click on the "
-#| "channel to get a list of all web addresses mentioned in the channel's "
-#| "topic."
 msgid ""
 "The filtered list of channels is displayed here. Notice that if you do not "
 "use regular expressions, Konversation lists any channel whose name contains "
@@ -5671,26 +5623,21 @@ msgstr ""
 "Здесь показывается фильтрованный список каналов. Учтите, что если вы не "
 "используете регулярные выражения, Konversation покажет все каналы, "
 "содержащие в названии введенную строку фильтра. Название канала не "
-"начинается с введенной вами строки.\n"
-"\n"
-"Выберите канал для входа с помощью клика по нему. Клик правой кнопкой мыши "
-"для получения всех веб адресов, указанных в теме канала."
+"начинается с введенной вами строки.\\n\\nВыберите канал для входа с помощью "
+"клика по нему. Клик правой кнопкой мыши для получения всех веб адресов, "
+"указанных в теме канала."
 
 #. i18n: file: src/irc/channellistpanelui.ui:117
 #. i18n: ectx: property (text), widget (QCheckBox, m_channelBox)
 #: rc.cpp:80
-#, fuzzy
-#| msgid "Channel"
 msgid "&Channel"
-msgstr "Канал"
+msgstr "&Канал"
 
 #. i18n: file: src/irc/channellistpanelui.ui:133
 #. i18n: ectx: property (text), widget (QCheckBox, m_topicBox)
 #: rc.cpp:83
-#, fuzzy
-#| msgid "Topic"
 msgid "&Topic"
-msgstr "Тема"
+msgstr "&Тема"
 
 #. i18n: file: src/irc/channellistpanelui.ui:149
 #. i18n: ectx: property (text), widget (QLabel, m_lblFilter)
@@ -5707,10 +5654,8 @@ msgstr "Введите строку для фильтрации здесь."
 #. i18n: file: src/irc/channellistpanelui.ui:188
 #. i18n: ectx: property (text), widget (QCheckBox, m_regexBox)
 #: rc.cpp:92
-#, fuzzy
-#| msgid "Regular expression"
 msgid "&Regular expression"
-msgstr "Регулярное выражение"
+msgstr "&Регулярное выражение"
 
 #. i18n: file: src/irc/channellistpanelui.ui:218
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, m_minUser)
@@ -5727,10 +5672,8 @@ msgstr ""
 #. i18n: file: src/irc/channellistpanelui.ui:240
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, m_maxUser)
 #: rc.cpp:98 rc.cpp:104
-#, fuzzy
-#| msgid "Nick Limit"
 msgid "No Limit"
-msgstr "Максимум пользователей"
+msgstr "Без ограничений"
 
 #. i18n: file: src/irc/channellistpanelui.ui:237
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, m_maxUser)
@@ -6132,8 +6075,6 @@ msgstr ""
 #. i18n: file: src/irc/serverdialogui.ui:92
 #. i18n: ectx: property (text), widget (QCheckBox, m_sslChBox)
 #: rc.cpp:278
-#, fuzzy
-#| msgid "S&ecure connection (SSL)"
 msgid "S&ecure Connection (SSL)"
 msgstr "&Безопасное соединение (SSL)"
 
@@ -7647,9 +7588,8 @@ msgstr "Автоматическое переподключение"
 #. i18n: file: src/config/connectionbehavior_config.ui:32
 #. i18n: ectx: property (text), widget (QLabel, reconnectDelayLabel)
 #: rc.cpp:1090
-#, fuzzy
 msgid "Reconnect delay:"
-msgstr "Тайм-аут повторного подключения:"
+msgstr "Задержка переподключения:"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:61
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
@@ -7680,10 +7620,8 @@ msgstr "Показывать окно &журнала при соединени�
 #. i18n: file: src/config/connectionbehavior_config.ui:138
 #. i18n: ectx: property (title), widget (QGroupBox, encryptionGBox)
 #: rc.cpp:1108
-#, fuzzy
-#| msgid "Exception"
 msgid "Encryption"
-msgstr "Исключение"
+msgstr "Шифрование"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:144
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -7728,34 +7666,26 @@ msgstr ""
 #. i18n: file: src/config/connectionbehavior_config.ui:198
 #. i18n: ectx: property (text), widget (QLabel, addressLabel)
 #: rc.cpp:1128
-#, fuzzy
-#| msgid "Address book:"
 msgid "Address:"
-msgstr "Адресная книга:"
+msgstr "Адрес:"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:212
 #. i18n: ectx: property (text), widget (QLabel, portLabel)
 #: rc.cpp:1131
-#, fuzzy
-#| msgid "&Port:"
 msgid "Port:"
-msgstr "По&рт:"
+msgstr "Порт:"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:226
 #. i18n: ectx: property (text), widget (QLabel, usernameLabel)
 #: rc.cpp:1134
-#, fuzzy
-#| msgid "Filename:"
 msgid "Username:"
-msgstr "Имя файла:"
+msgstr "Пользователь:"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:240
 #. i18n: ectx: property (text), widget (QLabel, passwordLabel)
 #: rc.cpp:1137
-#, fuzzy
-#| msgid "P&assword:"
 msgid "Password:"
-msgstr "П&ароль:"
+msgstr "Пароль:"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:271
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_ProxyType)
