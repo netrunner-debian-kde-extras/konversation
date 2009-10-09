@@ -20,7 +20,6 @@
 #include <KCmdLineArgs>
 #include <KAboutData>
 
-
 /*
   Don't use i18n() here, use ki18n() instead!
   i18n() will only work as soon as a kapplication object was made.

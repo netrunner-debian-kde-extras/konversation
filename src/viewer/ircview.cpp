@@ -856,8 +856,6 @@ void IRCView::doRawAppend(const QString& newLine, bool rtl)
 
     KTextBrowser::append(line);
 
-    Q_ASSERT(document()->rootFrame()->childFrames().count() == 0); // no child frames, see SelectionPin
-
     QTextCursor formatCursor(document()->lastBlock());
     QTextBlockFormat format = formatCursor.blockFormat();
 
@@ -1329,10 +1327,8 @@ void IRCView::mouseMoveEvent(QMouseEvent* ev)
         QPointer<QDrag> drag = new QDrag(this);
         QMimeData* mimeData = new QMimeData;
 
-        QList<QUrl> urlList;
-        QUrl url(m_urlToDrag);
-        urlList << url;
-        mimeData->setUrls(urlList);
+        KUrl url(m_urlToDrag);
+        url.populateMimeData(mimeData);
 
         drag->setMimeData(mimeData);
 
