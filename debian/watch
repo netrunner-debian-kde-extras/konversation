@@ -1,3 +1,4 @@
 version=3
-opts=dversionmangle=s/~/-/ \
-http://download.berlios.de/konversation/konversation-(.*)\.tar\.bz2
+
+opts=uversionmangle=s/-/~/ \
+ftp://ftp.kde.org/pub/kde/stable/konversation/(?:[\w.-]+)/src/ konversation-(.*).tar.bz2
