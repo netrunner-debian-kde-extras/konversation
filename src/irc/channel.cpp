@@ -208,12 +208,6 @@ Channel::Channel(QWidget* parent, QString _name) : ChatWindow(parent)
     setTextView(ircViewBox->ircView());
     connect(textView,SIGNAL(popupCommand(int)),this,SLOT(popupChannelCommand(int)));
 
-#if QT_VERSION >= 0x040500
-    topicLine->setAlignment(Qt::AlignTop);
-    QString stylesheet = QString("QLabel { margin-top:%1 }").arg(getTextView()->document()->documentMargin());
-    topicLine->setStyleSheet(stylesheet);
-#endif
-
     // The box that holds the Nick List and the quick action buttons
     nickListButtons = new KVBox(m_horizSplitter);
     m_horizSplitter->setStretchFactor(m_horizSplitter->indexOf(nickListButtons), 0);
@@ -1237,8 +1231,8 @@ void Channel::modeButtonClicked(int id, bool on)
         {
             bool ok=false;
             // ask user how many nicks should be the limit
-            args=KInputDialog::getText(i18n("Nick Limit"),
-                i18n("Enter the new nick limit:"),
+            args=KInputDialog::getText(i18n("Channel User Limit"),
+                i18n("Enter the new user limit for the channel:"),
                 limit->text(),                    // will be always "" but what the hell ;)
                 &ok,
                 this);
@@ -1703,8 +1697,26 @@ void Channel::updateMode(const QString& sourceNick, char mode, bool plus, const 
 
     // remember if this nick had any type of op.
     bool wasAnyOp=false;
-    if(parameterChannelNick)
+    if (parameterChannelNick)
+    {
+        // If NAMES processing is in progress, we likely have received
+        // a NAMES just prior to the MODE that caused this method to
+        // be run. If this nick is not yet in the nicklist (e.g. be-
+        // cause it's just after JOIN and the nicklist is still empty
+        // prior to the initial NAMES processing), the NAMES process-
+        // ing can set the ChannelNick's mode data to outdated infor-
+        // mation. By adding the nickname to the nicklist here if NA-
+        // MES processing is in progress, we prevent this, as the NA-
+        // MES processing code will ignore nicks already in the nick-
+        // list.
+        // We also add the nickname if the timer hasn't been instanci-
+        // ated yet, as this means addPendingNickList() has never run
+        // (yet) and thus NAMES hasn't been processed so far.
+        if (!m_processingTimer || m_processingTimer->isActive())
+            addNickname(parameterChannelNick);
+
         wasAnyOp=parameterChannelNick->isAnyTypeOfOp();
+    }
 
     if(sourceNick.toLower()==m_server->loweredNickname())
         fromMe=true;

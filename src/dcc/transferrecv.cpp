@@ -303,6 +303,16 @@ namespace Konversation
                 return;
             }
 
+            if (Application::instance()->getDccTransferManager()->isLocalFileInWritingProcess(m_fileURL))
+            {
+                askAndPrepareLocalKio(i18n("<b>The file is used by another transfer.</b><br>"
+                    "%1<br>",
+                    m_fileURL.prettyUrl()),
+                    ResumeDialog::RA_Rename | ResumeDialog::RA_Cancel,
+                    ResumeDialog::RA_Rename);
+                return;
+            }
+
             KIO::JobFlags flags;
             if(overwrite)
                 flags |= KIO::Overwrite;
@@ -319,6 +329,7 @@ namespace Konversation
                 return;
             }
 
+            transferJob->setAutoDelete(true);
             connect( transferJob, SIGNAL( canResume( KIO::Job*, KIO::filesize_t ) ), this, SLOT( slotLocalCanResume( KIO::Job*, KIO::filesize_t ) ) );
             connect( transferJob, SIGNAL( result( KJob* ) ),                         this, SLOT( slotLocalGotResult( KJob* ) ) );
             connect( transferJob, SIGNAL( dataReq( KIO::Job*, QByteArray& ) ),       this, SLOT( slotLocalReady( KIO::Job* ) ) );
@@ -382,18 +393,6 @@ namespace Konversation
                 return;
             }
 
-            if ( Application::instance()->getDccTransferManager()->isLocalFileInWritingProcess( m_fileURL ) )
-            {
-                disconnect( transferJob, 0, 0, 0 );
-                askAndPrepareLocalKio( i18n( "<b>The file is used by another transfer.</b><br>"
-                    "%1<br>",
-                    m_fileURL.prettyUrl() ),
-                    ResumeDialog::RA_Rename | ResumeDialog::RA_Cancel,
-                    ResumeDialog::RA_Rename );
-                    transferJob->kill();
-                return;
-            }
-
             if ( size != 0 )
             {
                 disconnect( transferJob, 0, 0, 0 );
@@ -416,7 +415,7 @@ namespace Konversation
                         ResumeDialog::RA_Resume,
                         size );
                 }
-                transferJob->kill();
+                transferJob->putOnHold();
             }
 
             kDebug() << "[END]";
@@ -529,7 +528,9 @@ namespace Konversation
                 disconnect (this->sender(), SIGNAL( forwardComplete(bool, quint16 ) ), this, SLOT ( sendRequest(bool, quint16) ) );
 
                 if (error)
+                {
                     server->appendMessageToFrontmost(i18nc("Universal Plug and Play", "UPnP"), i18n("Failed to forward port %1. Sending DCC request to remote user regardless.", QString::number(m_ownPort)), false);
+                }
             }
 
             setStatus( WaitingRemote, i18n( "Waiting for connection" ) );
@@ -628,7 +629,7 @@ namespace Konversation
             m_recvSocket = m_serverSocket->nextPendingConnection();
             if ( !m_recvSocket )
             {
-                failed( i18n( "Could not accept the connection (socket error.)" ) );
+                failed( i18n( "Could not accept the connection (socket error)." ) );
                 return;
             }
 

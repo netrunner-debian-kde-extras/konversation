@@ -37,7 +37,6 @@ class ConnectionManager : public QObject
         Server* getServerByName(const QString& name);
         Server* getAnyServer();
 
-        void quitServers();
         void toggleGlobalAway();
 
 
@@ -51,7 +50,14 @@ class ConnectionManager : public QObject
                        bool useSSL = false);
 
         void connectTo(Konversation::ConnectionFlag flag, int serverGroupId);
+        void connectTo(Konversation::ConnectionFlag flag, const QList<KUrl>& list);
         void connectTo(Konversation::ConnectionFlag flag, ConnectionSettings& settings);
+
+        void quitServers();
+        void reconnectServers();
+
+        void involuntaryQuitServers();
+        void reconnectInvoluntary();
 
 
     signals:
@@ -89,6 +95,7 @@ class ConnectionManager : public QObject
 
         QMap<int, Server*> m_connectionList;
         QSet<uint> m_activeIdentities;
+        bool m_overrideAutoReconnect;
 
         enum ConnectionDupe { SameServer, SameServerGroup };
 };

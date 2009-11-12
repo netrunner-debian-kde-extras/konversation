@@ -1,3 +1,60 @@
+Changes from 1.2 to 1.2.1:
+This second release in the Konversation 1.2.x release series for KDE 4
+adds a number of new features to the bookmarks system and support for
+reacting to changes in network availability as signaled by KDE's Solid,
+along with a number of fixes for bugs discovered since version 1.2 was
+released last month.
+
+
+* Fixed a crash when cancelling the warning dialog that is shown upon
+  receiving two incoming DCC file transfer requests using the same file
+  name.
+* Fixed a crash when using the "Clear Completed" action in the DCC Sta-
+  tus tab after having previously used the "Clear" action to remove spe-
+  cific transfers from the transfer list.
+* Fixed a crash when using the "Clear" or "Clear Completed" action in the
+  DCC Status tab after creating a mixed selection of removable (e.g. com-
+  pleted, or failed) and non-removable (e.g. sending) transfers and the
+  last addition to the selection was a removable transfer.
+* Added a "Bookmark Tabs as Folder" feature.
+* Added the ability to open the contents of an entire bookmark folder at
+  once (aka "Open Folder in Tabs").
+* Made the default generated bookmark titles more verbose: The Format is
+  now "Channel (Network-or-Server)".
+* Added support for reacting to changes in network availability as re-
+  ported by KDE's Solid subsystem. If the network goes down, Konversa-
+  tion will now no longer make futile attempts to reconnect the affect-
+  ed connections. Instead, it will reconnect once the network comes back
+  up.
+* Variable expansion (%B, %C, %I, etc.) is no longer done in text seg-
+  ments recognized as URLs to avoid clashes with percent-encoded char-
+  acters in URLs copied from web browsers, such as German umlauts.
+* Made tooltips for truncated labels in the listview version of the tab
+  bar work again with newer versions of Qt.
+* Fixed a bug that caused the Watched Nicknames Online list to show the
+  wrong or no tooltip when hovering a list item with the mouse pointer.
+* The default destination folder for incoming DCC file transfers is now
+  the "Downloads paths" configured in System Settings or the equivalent
+  in other desktop environments (under the hood, this is a shared XDG
+  setting).
+* Making and then comitting unrelated changes in the Channel Settings
+  dialog could cause unintentionally setting the channel's topic to an
+  older version if someone else had changed the topic since the first
+  time the dialog was opened or while the dialog was open, due to a bug
+  in the code that avoids such external topic changes interfering with
+  concurrent local editing of the topic. This has been fixed.
+* The contents of the topic edit field in the Channel Settings dialog
+  will now reflect the selected item in the topic history list until
+  the user starts editing.
+* Fixed a bug that could cause user mode changes occurring directly af-
+  ter joining a channel not to be reflected by the channel's nickname
+  list.
+* Fixed a bug causing the "Open File" context menu action for DCC file
+  transfer items in the transfer list in the DCC Status tab not to work
+  for incoming file transfers.
+* Added support for RPL_HOSTHIDDEN.
+
+
 Changes from 1.2-rc1 to 1.2:
 Konversation 1.2 is the first release of Konversation for the KDE 4 app-
 lication platform and desktop environment. In addition to preserving the
