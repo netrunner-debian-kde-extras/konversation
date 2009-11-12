@@ -3,6 +3,10 @@ konversation (1.2.1-1) UNRELEASED; urgency=low
   * New upstream release.
   * Fix download URL in debian/watch. konversation moved to ftp.kde.org.
     Track upstream stable branch dir.
+  * Switch to dpkg-source format 3.0 (quilt):
+    - do not use quilt dh addon anymore;
+    - do not build depend on quilt;
+    - remove notes about quilt from README.source.
 
  -- Modestas Vainius <modestas@vainius.eu>  Thu, 12 Nov 2009 18:13:24 +0200
 
