@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-10-08 06:17+0200\n"
+"POT-Creation-Date: 2009-11-11 06:57+0100\n"
 "PO-Revision-Date: 2009-09-22 21:32+0300\n"
 "Last-Translator: Yasen Pramatarov <yasen@lindeas.com>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
@@ -109,17 +109,17 @@ msgstr "Не може да се отвори сокет"
 #: src/dcc/chat.cpp:242 src/dcc/chat.cpp:386 src/dcc/chat.cpp:391
 #: src/irc/inputfilter.cpp:368 src/irc/inputfilter.cpp:383
 #: src/irc/inputfilter.cpp:398 src/irc/inputfilter.cpp:414
-#: src/irc/inputfilter.cpp:422 src/irc/server.cpp:1846 src/irc/server.cpp:1877
-#: src/irc/server.cpp:1889 src/irc/server.cpp:1989 src/irc/server.cpp:2040
-#: src/irc/server.cpp:2097 src/irc/server.cpp:2102 src/irc/server.cpp:2114
-#: src/irc/server.cpp:2117 src/irc/server.cpp:2131 src/irc/server.cpp:2138
+#: src/irc/inputfilter.cpp:422 src/irc/server.cpp:1856 src/irc/server.cpp:1887
+#: src/irc/server.cpp:1899 src/irc/server.cpp:1999 src/irc/server.cpp:2050
+#: src/irc/server.cpp:2107 src/irc/server.cpp:2112 src/irc/server.cpp:2124
+#: src/irc/server.cpp:2127 src/irc/server.cpp:2141 src/irc/server.cpp:2148
 #: src/config/settingsdialog.cpp:143 src/viewer/ignorelistviewitem.cpp:46
 #: rc.cpp:883
 msgid "DCC"
 msgstr "DCC"
 
-#: src/dcc/chat.cpp:161 src/dcc/transferrecv.cpp:487
-#: src/dcc/transferrecv.cpp:519
+#: src/dcc/chat.cpp:161 src/dcc/transferrecv.cpp:486
+#: src/dcc/transferrecv.cpp:518
 msgid ""
 "Could not send Reverse DCC SEND acknowledgement to the partner via the IRC "
 "server."
@@ -185,13 +185,13 @@ msgstr "Установена е връзка за DCC разговор с %1."
 #: src/dcc/chat.cpp:248 src/dcc/chat.cpp:365 src/irc/outputfilter.cpp:1512
 #: src/irc/outputfilter.cpp:1876 src/irc/inputfilter.cpp:1148
 #: src/irc/inputfilter.cpp:1152 src/irc/inputfilter.cpp:1165
-#: src/irc/inputfilter.cpp:1236 src/irc/inputfilter.cpp:1407
-#: src/irc/inputfilter.cpp:1972 src/irc/inputfilter.cpp:1993
-#: src/irc/inputfilter.cpp:2001 src/irc/inputfilter.cpp:2009
-#: src/irc/server.cpp:600 src/irc/server.cpp:1954 src/irc/server.cpp:1999
-#: src/irc/server.cpp:2063 src/irc/server.cpp:2082 src/irc/server.cpp:3540
-#: src/irc/server.cpp:3568 src/irc/server.cpp:3599
-#: src/connectionmanager.cpp:227 src/linkaddressbook/addressbook.cpp:113
+#: src/irc/inputfilter.cpp:1236 src/irc/inputfilter.cpp:1415
+#: src/irc/inputfilter.cpp:1980 src/irc/inputfilter.cpp:2001
+#: src/irc/inputfilter.cpp:2009 src/irc/inputfilter.cpp:2017
+#: src/irc/server.cpp:600 src/irc/server.cpp:1964 src/irc/server.cpp:2009
+#: src/irc/server.cpp:2073 src/irc/server.cpp:2092 src/irc/server.cpp:3554
+#: src/irc/server.cpp:3582 src/irc/server.cpp:3613
+#: src/connectionmanager.cpp:265 src/linkaddressbook/addressbook.cpp:113
 msgid "Error"
 msgstr ""
 
@@ -279,13 +279,13 @@ msgstr "Изпращането на DCC SEND заявка към партньо�
 msgid "Awaiting remote user's acceptance"
 msgstr "Изчакване на приемането от отдалечения потребител"
 
-#: src/dcc/transfersend.cpp:404 src/dcc/transferrecv.cpp:631
+#: src/dcc/transfersend.cpp:404
 #, fuzzy
 #| msgid "Could not accept the connection. (Socket Error)"
 msgid "Could not accept the connection (socket error.)"
 msgstr "Не може да се приеме връзката. (Грешка при сокета)"
 
-#: src/dcc/transfersend.cpp:538 src/dcc/transferrecv.cpp:756
+#: src/dcc/transfersend.cpp:538 src/dcc/transferrecv.cpp:757
 msgid "Timed out"
 msgstr "Изтичане на времето"
 
@@ -493,16 +493,16 @@ msgstr "Неподдържани преговори (filesize=0)"
 msgid "<b>Cannot create the folder.</b><br>Folder: %1<br>"
 msgstr "<b>Не може да бъде създадена папка.</b><br>Папка: %1<br>"
 
-#: src/dcc/transferrecv.cpp:318
-msgid "Could not create a KIO instance"
-msgstr "Не може да бъде създаден обект KIO"
-
-#: src/dcc/transferrecv.cpp:388
+#: src/dcc/transferrecv.cpp:308
 #, kde-format
 msgid "<b>The file is used by another transfer.</b><br>%1<br>"
 msgstr "<b>Файлът се използва в друго прехвърляне.</b><br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:407
+#: src/dcc/transferrecv.cpp:328
+msgid "Could not create a KIO instance"
+msgstr "Не може да бъде създаден обект KIO"
+
+#: src/dcc/transferrecv.cpp:406
 #, fuzzy, kde-format
 #| msgid ""
 #| "<b>A partial file exists.</b><br>%1<br>Size of the partial file: %2 "
@@ -520,45 +520,51 @@ msgstr[1] ""
 "<b>Съществува частичен файл</b><br>%1<br>Големина на частичния файл: %2 "
 "байта<br>"
 
-#: src/dcc/transferrecv.cpp:439
+#: src/dcc/transferrecv.cpp:438
 #, kde-format
 msgid "<b>The file already exists.</b><br>%1<br>"
 msgstr "<b>Вече има такъв файл.</b><br>%1<br>"
 
-#: src/dcc/transferrecv.cpp:446
+#: src/dcc/transferrecv.cpp:445
 #, kde-format
 msgid "<b>Could not open the file.<br>Error: %1</b><br>%2<br>"
 msgstr "<b>Файлът не може да бъде отворен.<br>Грешка: %1</b><br>%2<br>"
 
-#: src/dcc/transferrecv.cpp:535
+#: src/dcc/transferrecv.cpp:536
 msgid "Waiting for connection"
 msgstr "Изчакване за връзка"
 
-#: src/dcc/transferrecv.cpp:544
+#: src/dcc/transferrecv.cpp:545
 msgid "Waiting for remote host's acceptance"
 msgstr "Изчакване за приемане от отдалечения хост"
 
-#: src/dcc/transferrecv.cpp:554
+#: src/dcc/transferrecv.cpp:555
 msgid ""
 "Could not send DCC RECV resume request to the partner via the IRC server."
 msgstr ""
 "Изпращането на DCC RECV заявка за продължение до партньора чрез IRC сървър "
 "беше неуспешно."
 
-#: src/dcc/transferrecv.cpp:576
+#: src/dcc/transferrecv.cpp:577
 msgid "Unexpected response from remote host"
 msgstr "Неочакван отговор от отдалечения хост"
 
-#: src/dcc/transferrecv.cpp:719
+#: src/dcc/transferrecv.cpp:632
+#, fuzzy
+#| msgid "Could not accept the connection. (Socket Error)"
+msgid "Could not accept the connection (socket error)."
+msgstr "Не може да се приеме връзката. (Грешка при сокета)"
+
+#: src/dcc/transferrecv.cpp:720
 msgid "Transfer error"
 msgstr "Грешка при прехвърляне"
 
-#: src/dcc/transferrecv.cpp:735
+#: src/dcc/transferrecv.cpp:736
 #, kde-format
 msgid "KIO error: %1"
 msgstr "KIO грешка: %1"
 
-#: src/dcc/transferpanel.cpp:44 src/viewer/viewcontainer.cpp:2115
+#: src/dcc/transferpanel.cpp:44 src/viewer/viewcontainer.cpp:2125
 msgid "DCC Status"
 msgstr "DCC статус"
 
@@ -591,6 +597,9 @@ msgid "Resend"
 msgstr "Ново изпращане"
 
 #: src/dcc/transferpanel.cpp:89
+#, fuzzy
+#| msgid "&Clear"
+msgctxt "clear selected dcctransfer"
 msgid "&Clear"
 msgstr "&Изчистване"
 
@@ -634,17 +643,17 @@ msgstr ""
 msgid "File &Information"
 msgstr "&Информация за файла"
 
-#: src/dcc/transferpanel.cpp:537
+#: src/dcc/transferpanel.cpp:549
 #, kde-format
 msgid "Available information for file %1:"
 msgstr "Налична информация за файл %1:"
 
-#: src/dcc/transferpanel.cpp:539 src/dcc/transferpanel.cpp:545
-#: src/dcc/transferpanel.cpp:552
+#: src/dcc/transferpanel.cpp:551 src/dcc/transferpanel.cpp:557
+#: src/dcc/transferpanel.cpp:564
 msgid "File Information"
 msgstr "Информация за файл"
 
-#: src/dcc/transferpanel.cpp:552
+#: src/dcc/transferpanel.cpp:564
 msgid "No detailed information for this file found."
 msgstr "Не е открита детайлна информация за този файл."
 
@@ -677,13 +686,13 @@ msgstr "Пре&именуване"
 msgid "Channel Settings for %1"
 msgstr "Настройки на канала за %1"
 
-#: src/irc/channeloptionsdialog.cpp:154
+#: src/irc/channeloptionsdialog.cpp:155
 #, fuzzy
 #| msgid "&Hide Advanced Modes <<"
 msgid "&Hide Advanced Modes &lt;&lt;"
 msgstr "&Скриване на режима за напреднали <<"
 
-#: src/irc/channeloptionsdialog.cpp:158
+#: src/irc/channeloptionsdialog.cpp:159
 #, fuzzy
 #| msgid "&Show Advanced Modes >>"
 msgid "&Show Advanced Modes &gt;&gt;"
@@ -691,28 +700,28 @@ msgstr "&Показване на режима за напреднали >>"
 
 #. i18n: file: src/config/nicklistbehavior_configui.ui:98
 #. i18n: ectx: property (text), widget (QTreeWidget, sortOrder)
-#: src/irc/channeloptionsdialog.cpp:257 src/irc/inputfilter.cpp:967
-#: src/irc/inputfilter.cpp:971 src/irc/inputfilter.cpp:2065
-#: src/irc/inputfilter.cpp:2119 src/irc/channelnick.cpp:208
-#: src/irc/channel.cpp:2128 rc.cpp:1557
+#: src/irc/channeloptionsdialog.cpp:261 src/irc/inputfilter.cpp:967
+#: src/irc/inputfilter.cpp:971 src/irc/inputfilter.cpp:2073
+#: src/irc/inputfilter.cpp:2127 src/irc/channelnick.cpp:208
+#: src/irc/channel.cpp:2146 rc.cpp:1557
 msgid "Mode"
 msgstr "Режим"
 
-#: src/irc/channeloptionsdialog.cpp:257
+#: src/irc/channeloptionsdialog.cpp:261
 msgid "Parameter"
 msgstr "Параметър"
 
-#: src/irc/channeloptionsdialog.cpp:625
+#: src/irc/channeloptionsdialog.cpp:628
 #, fuzzy
 #| msgid "&Timestamp:"
 msgid "Timestamp"
 msgstr "&Време:"
 
-#: src/irc/channeloptionsdialog.cpp:627
+#: src/irc/channeloptionsdialog.cpp:630
 msgid "Author"
 msgstr "Автор"
 
-#: src/irc/channeloptionsdialog.cpp:688
+#: src/irc/channeloptionsdialog.cpp:691
 #, fuzzy
 #| msgid ""
 #| "<qt>These control the <em>mode</em> of the channel.  Only an operator can "
@@ -727,7 +736,7 @@ msgstr ""
 "променя.<p>Режим <b>Т</b>ема означава, че само операторите на канала могат "
 "да променят темата за канала.</qt>"
 
-#: src/irc/channeloptionsdialog.cpp:690
+#: src/irc/channeloptionsdialog.cpp:693
 #, fuzzy
 #| msgid ""
 #| "<qt>These control the <em>mode</em> of the channel.  Only an operator can "
@@ -746,7 +755,7 @@ msgstr ""
 "може да види. Почти всеки канал има зададено това, за да се предотвратят "
 "неприятните съобщения.</qt>"
 
-#: src/irc/channeloptionsdialog.cpp:692
+#: src/irc/channeloptionsdialog.cpp:695
 #, fuzzy
 #| msgid ""
 #| "<qt>These control the <em>mode</em> of the channel.  Only an operator can "
@@ -769,7 +778,7 @@ msgstr ""
 "em> или каквато и да е подобна команда. Ако този режим е зададен, само "
 "потребителите, които са в същия канал ще знаят, че сте в този канал.</qt>"
 
-#: src/irc/channeloptionsdialog.cpp:694
+#: src/irc/channeloptionsdialog.cpp:697
 #, fuzzy
 #| msgid ""
 #| "<qt>These control the <em>mode</em> of the channel.  Only an operator can "
@@ -789,7 +798,7 @@ msgstr ""
 "влизат в канала само ако са поканени. За да поканите някого, оператор на "
 "канала трябва да издаде команда <em>/invite псевдоним</em> в канала.</qt>"
 
-#: src/irc/channeloptionsdialog.cpp:696
+#: src/irc/channeloptionsdialog.cpp:699
 #, fuzzy
 #| msgid ""
 #| "<qt>These control the <em>mode</em> of the channel.  Only an operator can "
@@ -809,7 +818,7 @@ msgstr ""
 "им не се показват.  Потребителска команда <em>WHOIS</e> може да покаже, че "
 "сте в личен канал, в зависимост от IRC сървъра.</qt>"
 
-#: src/irc/channeloptionsdialog.cpp:698
+#: src/irc/channeloptionsdialog.cpp:701
 #, fuzzy
 #| msgid ""
 #| "<qt>These control the <em>mode</em> of the channel.  Only an operator can "
@@ -824,7 +833,7 @@ msgstr ""
 "променя.<p><b>М</b>одериран канал е канал, в който само операторите, "
 "полуоператорите или тези с глас могат да разговарят.</qt>"
 
-#: src/irc/channeloptionsdialog.cpp:700
+#: src/irc/channeloptionsdialog.cpp:703
 #, fuzzy
 #| msgid ""
 #| "<qt>These control the <em>mode</em> of the channel.  Only an operator can "
@@ -839,7 +848,7 @@ msgstr ""
 "променя.<p><b>З</b>ащитените канали изискват потребителите да въвеждат "
 "парола, за да могат да се присъединят.</qt>"
 
-#: src/irc/channeloptionsdialog.cpp:702
+#: src/irc/channeloptionsdialog.cpp:705
 #, fuzzy
 #| msgid ""
 #| "<qt>These control the <em>mode</em> of the channel.  Only an operator can "
@@ -1218,7 +1227,7 @@ msgstr "Наистина ли искате да премахнете %1?"
 
 #: src/irc/outputfilter.cpp:208
 msgid ""
-"The message you're sending includes characters that do not exist in your "
+"The message you are sending includes characters that do not exist in your "
 "current encoding. If you choose to continue anyway those characters will be "
 "replaced by a '?'."
 msgstr ""
@@ -1298,7 +1307,7 @@ msgstr "Употреба: %1NOTICE (известие) <получател> <съ
 #: src/irc/inputfilter.cpp:484 src/irc/inputfilter.cpp:552
 #: src/irc/inputfilter.cpp:557 src/irc/inputfilter.cpp:580
 #: src/irc/inputfilter.cpp:748 src/irc/inputfilter.cpp:1289
-#: src/irc/server.cpp:3574 src/irc/server.cpp:3595
+#: src/irc/server.cpp:3588 src/irc/server.cpp:3609
 #: src/viewer/ignorelistviewitem.cpp:44 rc.cpp:886
 msgid "Notice"
 msgstr "Известие"
@@ -1428,8 +1437,8 @@ msgstr "Името на скрипт не може да съдържа \"../\"!"
 msgid "Usage: %1RAW [OPEN | CLOSE]"
 msgstr "Употреба: %1RAW [OPEN | CLOSE]"
 
-#: src/irc/outputfilter.cpp:1195 src/irc/server.cpp:2459
-#: src/irc/server.cpp:2477 src/viewer/ircview.cpp:712
+#: src/irc/outputfilter.cpp:1195 src/irc/server.cpp:2469
+#: src/irc/server.cpp:2487 src/viewer/ircview.cpp:712
 msgid "Notify"
 msgstr "Уведомяване"
 
@@ -1607,7 +1616,7 @@ msgid "Usage: %1DNS <nick>"
 msgstr "Употреба: %1DNS <псевдоним>"
 
 #: src/irc/outputfilter.cpp:1738 src/irc/outputfilter.cpp:1757
-#: src/irc/inputfilter.cpp:1398
+#: src/irc/inputfilter.cpp:1406
 msgid "DNS"
 msgstr "DNS"
 
@@ -1630,10 +1639,10 @@ msgstr ""
 msgid "Usage"
 msgstr "Употреба"
 
-#: src/irc/outputfilter.cpp:1867 src/irc/server.cpp:211 src/irc/server.cpp:347
-#: src/irc/server.cpp:402 src/irc/server.cpp:533 src/irc/server.cpp:544
-#: src/irc/server.cpp:728 src/connectionmanager.cpp:203
-#: src/connectionmanager.cpp:213
+#: src/irc/outputfilter.cpp:1867 src/irc/inputfilter.cpp:1297
+#: src/irc/server.cpp:211 src/irc/server.cpp:347 src/irc/server.cpp:402
+#: src/irc/server.cpp:533 src/irc/server.cpp:544 src/irc/server.cpp:728
+#: src/connectionmanager.cpp:241 src/connectionmanager.cpp:251
 msgid "Info"
 msgstr "Информация"
 
@@ -1723,7 +1732,7 @@ msgstr ""
 msgid "-%1- %2"
 msgstr "-%1- %2"
 
-#: src/irc/inputfilter.cpp:687 src/irc/inputfilter.cpp:1350
+#: src/irc/inputfilter.cpp:687 src/irc/inputfilter.cpp:1358
 msgid "Invite"
 msgstr "Поканване"
 
@@ -1783,15 +1792,15 @@ msgid "This channel was created on %1."
 msgstr "Каналът е създаден на %1."
 
 #: src/irc/inputfilter.cpp:1007 src/irc/inputfilter.cpp:1135
-#: src/irc/inputfilter.cpp:1382 src/irc/inputfilter.cpp:1438
-#: src/irc/inputfilter.cpp:1581 src/irc/inputfilter.cpp:1589
-#: src/irc/inputfilter.cpp:1596 src/irc/inputfilter.cpp:1603
-#: src/irc/inputfilter.cpp:1610 src/irc/inputfilter.cpp:1617
-#: src/irc/inputfilter.cpp:1643 src/irc/inputfilter.cpp:1658
-#: src/irc/inputfilter.cpp:1674 src/irc/inputfilter.cpp:1676
-#: src/irc/inputfilter.cpp:1719 src/irc/inputfilter.cpp:1731
-#: src/irc/inputfilter.cpp:1741 src/irc/inputfilter.cpp:1748
-#: src/irc/inputfilter.cpp:1754 src/irc/inputfilter.cpp:1772
+#: src/irc/inputfilter.cpp:1390 src/irc/inputfilter.cpp:1446
+#: src/irc/inputfilter.cpp:1589 src/irc/inputfilter.cpp:1597
+#: src/irc/inputfilter.cpp:1604 src/irc/inputfilter.cpp:1611
+#: src/irc/inputfilter.cpp:1618 src/irc/inputfilter.cpp:1625
+#: src/irc/inputfilter.cpp:1651 src/irc/inputfilter.cpp:1666
+#: src/irc/inputfilter.cpp:1682 src/irc/inputfilter.cpp:1684
+#: src/irc/inputfilter.cpp:1727 src/irc/inputfilter.cpp:1739
+#: src/irc/inputfilter.cpp:1749 src/irc/inputfilter.cpp:1756
+#: src/irc/inputfilter.cpp:1762 src/irc/inputfilter.cpp:1780
 msgid "Whois"
 msgstr "Whois"
 
@@ -1900,135 +1909,140 @@ msgstr "Край на съобщението на деня"
 msgid "You are now an IRC operator on this server."
 msgstr "Сега сте IRC оператор на този сървър."
 
-#: src/irc/inputfilter.cpp:1299 src/irc/inputfilter.cpp:1309
-#: src/irc/inputfilter.cpp:1985 src/irc/channellistpanel.cpp:86
+#: src/irc/inputfilter.cpp:1297
+#, kde-format
+msgid "'%1' is now your hidden host (set by services)."
+msgstr ""
+
+#: src/irc/inputfilter.cpp:1307 src/irc/inputfilter.cpp:1317
+#: src/irc/inputfilter.cpp:1993 src/irc/channellistpanel.cpp:86
 msgid "Users"
 msgstr "Потребители"
 
-#: src/irc/inputfilter.cpp:1299
+#: src/irc/inputfilter.cpp:1307
 #, kde-format
 msgid "Current users on the network: %1"
 msgstr "Потребители в мрежата в момента: %1"
 
-#: src/irc/inputfilter.cpp:1309
+#: src/irc/inputfilter.cpp:1317
 #, kde-format
 msgid "Current users on %1: %2."
 msgstr "Потребители в момента в %1: %2."
 
 #. i18n: file: src/identitydialog.ui:262
 #. i18n: ectx: attribute (title), widget (QWidget, awayWidget)
-#: src/irc/inputfilter.cpp:1339 src/irc/server.cpp:3359
-#: src/irc/server.cpp:3384 src/irc/server.cpp:3393 src/irc/nicksonline.cpp:261
+#: src/irc/inputfilter.cpp:1347 src/irc/server.cpp:3373
+#: src/irc/server.cpp:3398 src/irc/server.cpp:3407 src/irc/nicksonline.cpp:261
 #: src/linkaddressbook/addressbook.cpp:109 rc.cpp:503
 msgid "Away"
 msgstr "Отсъства"
 
-#: src/irc/inputfilter.cpp:1340
+#: src/irc/inputfilter.cpp:1348
 #, kde-format
 msgid "%1 is away: %2"
 msgstr "%1 отсъства: %2"
 
-#: src/irc/inputfilter.cpp:1351
+#: src/irc/inputfilter.cpp:1359
 #, kde-format
 msgid "You invited %1 to channel %2."
 msgstr "Поканихте %1 в канал %2."
 
-#: src/irc/inputfilter.cpp:1373 src/irc/inputfilter.cpp:1456
+#: src/irc/inputfilter.cpp:1381 src/irc/inputfilter.cpp:1464
 #, kde-format
 msgid "%1@%2"
 msgstr "%1@%2"
 
-#: src/irc/inputfilter.cpp:1383
+#: src/irc/inputfilter.cpp:1391
 #, kde-format
 msgid "%1 is %2@%3 (%4)"
 msgstr "%1 е %2@%3 (%4)"
 
-#: src/irc/inputfilter.cpp:1399
+#: src/irc/inputfilter.cpp:1407
 #, kde-format
 msgid "Resolved %1 (%2) to address: %3"
 msgstr "Разрешаване на %1 (%2) за адрес: %3"
 
-#: src/irc/inputfilter.cpp:1408
+#: src/irc/inputfilter.cpp:1416
 #, kde-format
 msgid "Unable to resolve address for %1 (%2)"
 msgstr "Разрешаването на адрес за %1 (%2)"
 
-#: src/irc/inputfilter.cpp:1438
+#: src/irc/inputfilter.cpp:1446
 #, kde-format
 msgid "%1 is an identified user."
 msgstr "%1 е идентифициран потребител."
 
-#: src/irc/inputfilter.cpp:1470 src/irc/inputfilter.cpp:1495
+#: src/irc/inputfilter.cpp:1478 src/irc/inputfilter.cpp:1503
 msgid "Who"
 msgstr "Кой"
 
-#: src/irc/inputfilter.cpp:1475
+#: src/irc/inputfilter.cpp:1483
 msgid " (Away)"
 msgstr " (Отсъства)"
 
-#: src/irc/inputfilter.cpp:1471
+#: src/irc/inputfilter.cpp:1479
 #, kde-format
 msgid "%1 is %2@%3 (%4)%5"
 msgstr "%1 е %2@%3 (%4)%5"
 
-#: src/irc/inputfilter.cpp:1496
+#: src/irc/inputfilter.cpp:1504
 #, kde-format
 msgid "End of /WHO list for %1"
 msgstr "Край на списък /WHO за %1"
 
-#: src/irc/inputfilter.cpp:1582
+#: src/irc/inputfilter.cpp:1590
 #, kde-format
 msgid "%1 is a user on channels: %2"
 msgstr "%1 е потребител в канали: %2"
 
-#: src/irc/inputfilter.cpp:1590
+#: src/irc/inputfilter.cpp:1598
 #, kde-format
 msgid "%1 has voice on channels: %2"
 msgstr "%1 има глас в канали: %2"
 
-#: src/irc/inputfilter.cpp:1597
+#: src/irc/inputfilter.cpp:1605
 #, kde-format
 msgid "%1 is a halfop on channels: %2"
 msgstr "%1 е полуоператор в канали: %2"
 
-#: src/irc/inputfilter.cpp:1604
+#: src/irc/inputfilter.cpp:1612
 #, kde-format
 msgid "%1 is an operator on channels: %2"
 msgstr "%1 е оператор в канали: %2"
 
-#: src/irc/inputfilter.cpp:1611
+#: src/irc/inputfilter.cpp:1619
 #, kde-format
 msgid "%1 is owner of channels: %2"
 msgstr "%1 е притежател на канали: %2"
 
-#: src/irc/inputfilter.cpp:1618
+#: src/irc/inputfilter.cpp:1626
 #, kde-format
 msgid "%1 is admin on channels: %2"
 msgstr "%1 е администратор на канали: %2"
 
-#: src/irc/inputfilter.cpp:1644
+#: src/irc/inputfilter.cpp:1652
 #, kde-format
 msgid "%1 is online via %2 (%3)."
 msgstr "%1 е активен през %2 (%3)."
 
-#: src/irc/inputfilter.cpp:1659
+#: src/irc/inputfilter.cpp:1667
 #, kde-format
 msgid "%1 is available for help."
 msgstr "%1 е наличен за помощ."
 
-#: src/irc/inputfilter.cpp:1674
+#: src/irc/inputfilter.cpp:1682
 #, kde-format
 msgid "%1 is an IRC Operator."
 msgstr "%1 е IRC оператор."
 
-#: src/irc/inputfilter.cpp:1714 src/statusbar.cpp:181
+#: src/irc/inputfilter.cpp:1722 src/statusbar.cpp:181
 #, kde-format
 msgid "1 day"
 msgid_plural "%1 days"
 msgstr[0] "1 ден"
 msgstr[1] "%1 дни"
 
-#: src/irc/inputfilter.cpp:1715 src/irc/inputfilter.cpp:1728
+#: src/irc/inputfilter.cpp:1723 src/irc/inputfilter.cpp:1736
 #: src/statusbar.cpp:182 src/statusbar.cpp:190
 #, kde-format
 msgid "1 hour"
@@ -2036,8 +2050,8 @@ msgid_plural "%1 hours"
 msgstr[0] "1 час"
 msgstr[1] "%1 часа"
 
-#: src/irc/inputfilter.cpp:1716 src/irc/inputfilter.cpp:1729
-#: src/irc/inputfilter.cpp:1739 src/statusbar.cpp:183 src/statusbar.cpp:191
+#: src/irc/inputfilter.cpp:1724 src/irc/inputfilter.cpp:1737
+#: src/irc/inputfilter.cpp:1747 src/statusbar.cpp:183 src/statusbar.cpp:191
 #: src/statusbar.cpp:198
 #, kde-format
 msgid "1 minute"
@@ -2045,8 +2059,8 @@ msgid_plural "%1 minutes"
 msgstr[0] "1 минута"
 msgstr[1] "%1 минути"
 
-#: src/irc/inputfilter.cpp:1717 src/irc/inputfilter.cpp:1730
-#: src/irc/inputfilter.cpp:1740 src/statusbar.cpp:184 src/statusbar.cpp:192
+#: src/irc/inputfilter.cpp:1725 src/irc/inputfilter.cpp:1738
+#: src/irc/inputfilter.cpp:1748 src/statusbar.cpp:184 src/statusbar.cpp:192
 #: src/statusbar.cpp:199
 #, kde-format
 msgid "1 second"
@@ -2054,7 +2068,7 @@ msgid_plural "%1 seconds"
 msgstr[0] "1 секунда"
 msgstr[1] "%1 секунди"
 
-#: src/irc/inputfilter.cpp:1721
+#: src/irc/inputfilter.cpp:1729
 #, kde-format
 msgctxt ""
 "%1 = name of person, %2 = (x days), %3 = (x hours), %4 = (x minutes), %5 = "
@@ -2062,20 +2076,20 @@ msgctxt ""
 msgid "%1 has been idle for %2, %3, %4, and %5."
 msgstr "%1 е неактивен от %2, %3, %4 и %5."
 
-#: src/irc/inputfilter.cpp:1733
+#: src/irc/inputfilter.cpp:1741
 #, kde-format
 msgctxt ""
 "%1 = name of person, %2 = (x hours), %3 = (x minutes), %4 = (x seconds)"
 msgid "%1 has been idle for %2, %3, and %4."
 msgstr "%1 е неактивен от %2, %3 и %4."
 
-#: src/irc/inputfilter.cpp:1743
+#: src/irc/inputfilter.cpp:1751
 #, kde-format
 msgctxt "%1 = name of person, %2 = (x minutes), %3 = (x seconds)"
 msgid "%1 has been idle for %2 and %3."
 msgstr "%1 е неактивен от %2 и %3."
 
-#: src/irc/inputfilter.cpp:1749
+#: src/irc/inputfilter.cpp:1757
 #, fuzzy, kde-format
 #| msgid "%2 has been idle for 1 second."
 #| msgid_plural "%2 has been idle for %1 seconds."
@@ -2084,108 +2098,108 @@ msgid_plural "%2 has been idle for %1 seconds."
 msgstr[0] "%2 е неактивен от 1 секунди."
 msgstr[1] "%2 е неактивен от %1 секунди."
 
-#: src/irc/inputfilter.cpp:1755
+#: src/irc/inputfilter.cpp:1763
 #, kde-format
 msgid "%1 has been online since %2."
 msgstr "%1 е активен от %2."
 
-#: src/irc/inputfilter.cpp:1772
+#: src/irc/inputfilter.cpp:1780
 msgid "End of WHOIS list."
 msgstr "Край на списък WHOIS."
 
-#: src/irc/inputfilter.cpp:1812
+#: src/irc/inputfilter.cpp:1820
 msgid "Userhost"
 msgstr "Хост на потребителя"
 
-#: src/irc/inputfilter.cpp:1815
+#: src/irc/inputfilter.cpp:1823
 msgid " (IRC Operator)"
 msgstr " (IRC оператор)"
 
-#: src/irc/inputfilter.cpp:1817
+#: src/irc/inputfilter.cpp:1825
 msgid " (away)"
 msgstr " (отсъства)"
 
-#: src/irc/inputfilter.cpp:1813
+#: src/irc/inputfilter.cpp:1821
 #, kde-format
 msgctxt "%1 = nick, %2 = shows if nick is op, %3 = hostmask, %4 = shows away"
 msgid "%1%2 is %3%4."
 msgstr "%1%2 е %3%4."
 
-#: src/irc/inputfilter.cpp:1835 src/irc/inputfilter.cpp:1848
-#: src/irc/inputfilter.cpp:1864
+#: src/irc/inputfilter.cpp:1843 src/irc/inputfilter.cpp:1856
+#: src/irc/inputfilter.cpp:1872
 msgid "List"
 msgstr "Списък"
 
-#: src/irc/inputfilter.cpp:1835
+#: src/irc/inputfilter.cpp:1843
 msgid "List of channels:"
 msgstr "Списък с канали:"
 
-#: src/irc/inputfilter.cpp:1847
+#: src/irc/inputfilter.cpp:1855
 #, kde-format
 msgid "%2 (%1 user): %3"
 msgid_plural "%2 (%1 users): %3"
 msgstr[0] "%2 (%1 потребител): %3"
 msgstr[1] "%2 (%1 потребители): %3"
 
-#: src/irc/inputfilter.cpp:1864
+#: src/irc/inputfilter.cpp:1872
 msgid "End of channel list."
 msgstr "Край на списъка с канали."
 
-#: src/irc/inputfilter.cpp:1917 src/irc/inputfilter.cpp:1935
+#: src/irc/inputfilter.cpp:1925 src/irc/inputfilter.cpp:1943
 #, kde-format
 msgid "BanList:%1"
 msgstr "Списък с баннати:%1"
 
-#: src/irc/inputfilter.cpp:1918
+#: src/irc/inputfilter.cpp:1926
 #, kde-format
 msgctxt "BanList message: e.g. *!*@aol.com set by MrGrim on <date>"
 msgid "%1 set by %2 on %3"
 msgstr "%1 е зададен от %2 на %3"
 
-#: src/irc/inputfilter.cpp:1935
+#: src/irc/inputfilter.cpp:1943
 msgid "End of Ban List."
 msgstr "Край на списъка с баннати."
 
 #. i18n: file: src/config/ignore_configui.ui:90
 #. i18n: ectx: property (text), widget (QCheckBox, chkChannel)
-#: src/irc/inputfilter.cpp:1947 src/irc/inputfilter.cpp:1951
+#: src/irc/inputfilter.cpp:1955 src/irc/inputfilter.cpp:1959
 #: src/irc/invitedialog.cpp:169 src/viewer/ignorelistviewitem.cpp:42
 #: rc.cpp:880
 msgid "Channel"
 msgstr "Канал"
 
-#: src/irc/inputfilter.cpp:1972
+#: src/irc/inputfilter.cpp:1980
 #, kde-format
 msgid "%1 is currently unavailable."
 msgstr "%1 в момента е недостъпен."
 
-#: src/irc/inputfilter.cpp:1993
+#: src/irc/inputfilter.cpp:2001
 #, kde-format
 msgid "%1: Unknown command."
 msgstr "%1: неизвестна команда."
 
-#: src/irc/inputfilter.cpp:2001
+#: src/irc/inputfilter.cpp:2009
 msgid "Not registered."
 msgstr "Нерегистрирано."
 
-#: src/irc/inputfilter.cpp:2009
+#: src/irc/inputfilter.cpp:2017
 #, kde-format
 msgid "%1: This command requires more parameters."
 msgstr "%1: Тази команда изисква повече параметри."
 
-#: src/irc/inputfilter.cpp:2057
+#: src/irc/inputfilter.cpp:2065
 #, fuzzy, kde-format
 #| msgid "You have set personal modes: "
 msgid "You have set personal modes: %1"
 msgstr "Зададохте лични режими: "
 
-#: src/irc/inputfilter.cpp:2061
+#: src/irc/inputfilter.cpp:2069
 #, fuzzy, kde-format
 #| msgid "has changed your personal modes:"
 msgid "%1 has changed your personal modes: %2"
 msgstr "промени личните ви режими:"
 
-#: src/irc/inputfilter.cpp:2080
+#: src/irc/inputfilter.cpp:2088
 #, fuzzy, kde-format
 #| msgid " sets mode: "
 msgid "%1 sets mode: %2"
@@ -2247,7 +2261,7 @@ msgstr "Проверка на сървъра"
 msgid "Disconnected from %1 (port %2)."
 msgstr "Връзката със сървъра е прекъсната."
 
-#: src/irc/server.cpp:881
+#: src/irc/server.cpp:891
 #, kde-format
 msgid ""
 "No nicknames from the \"%1\" identity were accepted by the connection \"%2"
@@ -2257,49 +2271,49 @@ msgstr ""
 "Нито един псевдоним на самоличност \"%1\" не бяха приети от връзка \"%2\".\n"
 "Моля, въведете нов или натиснете \"Отказ\" за прекъсване на връзката:"
 
-#: src/irc/server.cpp:882
+#: src/irc/server.cpp:892
 msgid "Nickname error"
 msgstr "Грешка в псевдонима"
 
-#: src/irc/server.cpp:1341 src/irc/server.cpp:3101 src/irc/server.cpp:3106
-#: src/application.cpp:297
+#: src/irc/server.cpp:1351 src/irc/server.cpp:3111 src/irc/server.cpp:3116
+#: src/application.cpp:301
 msgid "D-Bus"
 msgstr ""
 
-#: src/irc/server.cpp:1704
+#: src/irc/server.cpp:1714
 #, kde-format
 msgid "Select File(s) to Send to %1"
 msgstr "Изберете файл(ове) за изпращане до %1"
 
-#: src/irc/server.cpp:1850 src/irc/server.cpp:1881 src/irc/server.cpp:1893
-#: src/irc/server.cpp:1995 src/irc/server.cpp:2046 src/irc/server.cpp:2141
+#: src/irc/server.cpp:1860 src/irc/server.cpp:1891 src/irc/server.cpp:1903
+#: src/irc/server.cpp:2005 src/irc/server.cpp:2056 src/irc/server.cpp:2151
 msgid "unknown size"
 msgstr "непозната големина"
 
-#: src/irc/server.cpp:1847
+#: src/irc/server.cpp:1857
 #, kde-format
 msgid "%1 offers to send you \"%2\" (%3)..."
 msgstr "%1 предлага да ви изпрати \"%2\" (%3)..."
 
-#: src/irc/server.cpp:1878
+#: src/irc/server.cpp:1888
 #, kde-format
 msgid "Asking %1 to accept upload of \"%2\" (%3)..."
 msgstr "Молба към %1 да приеме качване на %2 (%3)..."
 
-#: src/irc/server.cpp:1890
+#: src/irc/server.cpp:1900
 #, fuzzy, kde-format
 #| msgid "Asking %1 to accept upload of \"%2\" (%3)..."
 msgid "Asking %1 to accept passive upload of \"%2\" (%3)..."
 msgstr "Молба към %1 да приеме качване на %2 (%3)..."
 
-#: src/irc/server.cpp:1956
+#: src/irc/server.cpp:1966
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname"
 msgid ""
 "Received invalid passive DCC send acceptance message for \"%1\" from %2."
 msgstr "Получено е съобщение за \"%1\" от %2."
 
-#: src/irc/server.cpp:1991
+#: src/irc/server.cpp:2001
 #, kde-format
 msgctxt ""
 "%1 = file name, %2 = nickname of sender, %3 = percentage of file size, %4 = "
@@ -2307,13 +2321,13 @@ msgctxt ""
 msgid "Resuming download of \"%1\" from %2 starting at %3% of %4..."
 msgstr "Продължение на свалянето на \"%1\" от %2, започвайки %3% на %4..."
 
-#: src/irc/server.cpp:2001
+#: src/irc/server.cpp:2011
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname"
 msgid "Received invalid resume acceptance message for \"%1\" from %2."
 msgstr "Получена е невалидно съобщение за продължаване на \"%1\" от %2."
 
-#: src/irc/server.cpp:2042
+#: src/irc/server.cpp:2052
 #, kde-format
 msgctxt ""
 "%1 = file name, %2 = nickname of recipient, %3 = percentage of file size, %4 "
@@ -2321,13 +2335,13 @@ msgctxt ""
 msgid "Resuming upload of \"%1\" to %2 starting at %3% of %4..."
 msgstr "Продължение качването на \"%1\" на %2, започвайки с %3% на %4..."
 
-#: src/irc/server.cpp:2065
+#: src/irc/server.cpp:2075
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname"
 msgid "Received invalid resume request for \"%1\" from %2."
 msgstr "Получена е невалидна заявка за продължаване за \"%1\" от %2."
 
-#: src/irc/server.cpp:2084
+#: src/irc/server.cpp:2094
 #, fuzzy, kde-format
 #| msgctxt "%1 = file name, %2 = nickname"
 #| msgid "Received invalid resume request for \"%1\" from %2."
@@ -2335,104 +2349,104 @@ msgctxt "%1 = file name, %2 = nickname"
 msgid "Received invalid reject request for \"%1\" from %2."
 msgstr "Получена е невалидна заявка за продължаване за \"%1\" от %2."
 
-#: src/irc/server.cpp:2098
+#: src/irc/server.cpp:2108
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of sender"
 msgid "Download of \"%1\" from %2 finished."
 msgstr "Свалянето на \"%1\" от %2 завърши."
 
-#: src/irc/server.cpp:2103
+#: src/irc/server.cpp:2113
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of sender"
 msgid "Download of \"%1\" from %2 failed. Reason: %3."
 msgstr "Свалянето на \"%1\" от %2 беше неуспешно. Причина: %3."
 
-#: src/irc/server.cpp:2115
+#: src/irc/server.cpp:2125
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of recipient"
 msgid "Upload of \"%1\" to %2 finished."
 msgstr "Качването на \"%1\" на %2 приключи."
 
-#: src/irc/server.cpp:2118
+#: src/irc/server.cpp:2128
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname of recipient"
 msgid "Upload of \"%1\" to %2 failed. Reason: %3."
 msgstr "Качването на \"%1\" на %2 беше неуспешно. Причина: %3."
 
-#: src/irc/server.cpp:2132
+#: src/irc/server.cpp:2142
 #, kde-format
 msgctxt "%1 = file name, %2 nickname of recipient"
 msgid "Sending \"%1\" to %2..."
 msgstr "Изпращане \"%1\" на %2..."
 
-#: src/irc/server.cpp:2139
+#: src/irc/server.cpp:2149
 #, kde-format
 msgctxt "%1 = file name, %2 = file size, %3 = nickname of sender"
 msgid "Downloading \"%1\" (%2) from %3..."
 msgstr "Сваляне на \"%1\" (%2) от %3..."
 
-#: src/irc/server.cpp:2460 src/notificationhandler.cpp:260
+#: src/irc/server.cpp:2470 src/notificationhandler.cpp:260
 #, kde-format
 msgid "%1 is online (%2)."
 msgstr "%1 е активен (%2)."
 
-#: src/irc/server.cpp:2477 src/notificationhandler.cpp:274
+#: src/irc/server.cpp:2487 src/notificationhandler.cpp:274
 #, kde-format
 msgid "%1 went offline (%2)."
 msgstr "%1 е неактивен (%2)."
 
-#: src/irc/server.cpp:3101
+#: src/irc/server.cpp:3111
 #, kde-format
 msgid "Error: Could not find script \"%1\"."
 msgstr "Грешка: не може да бъде открит скрипт \"%1\"."
 
-#: src/irc/server.cpp:3106
+#: src/irc/server.cpp:3116
 #, kde-format
 msgid "Error: Could not execute script \"%1\". Check file permissions."
 msgstr "Грешка: Не може да бъде изпълнен скрипт \"%1\". Проверете правата."
 
-#: src/irc/server.cpp:3329
+#: src/irc/server.cpp:3343
 #, fuzzy
 msgid "Gone away for now"
 msgstr "Отсъства за сега."
 
-#: src/irc/server.cpp:3359
+#: src/irc/server.cpp:3373
 msgid "You are now marked as being away."
 msgstr "Маркиран сте като отсъстващ."
 
-#: src/irc/server.cpp:3384
+#: src/irc/server.cpp:3398
 msgid "You are no longer marked as being away."
 msgstr "Вече не сте маркиран като отсъстващ."
 
-#: src/irc/server.cpp:3393
+#: src/irc/server.cpp:3407
 msgid "You are not marked as being away."
 msgstr "Вече не сте маркиран като отсъстващ."
 
-#: src/irc/server.cpp:3540
+#: src/irc/server.cpp:3554
 #, kde-format
 msgid "Failed to initiate key exchange with %1."
 msgstr ""
 
-#: src/irc/server.cpp:3568
+#: src/irc/server.cpp:3582
 #, kde-format
 msgid "Failed to parse the DH1080_INIT of %1. Key exchange failed."
 msgstr ""
 
-#: src/irc/server.cpp:3574
+#: src/irc/server.cpp:3588
 #, kde-format
 msgid ""
 "Your key is set and your messages will now be encrypted, sending "
 "DH1080_FINISH to %1."
 msgstr ""
 
-#: src/irc/server.cpp:3595
+#: src/irc/server.cpp:3609
 #, kde-format
 msgid ""
 "Successfully parsed DH1080_FINISH sent by %1. Your key is set and your "
 "messages will now be encrypted."
 msgstr ""
 
-#: src/irc/server.cpp:3599
+#: src/irc/server.cpp:3613
 #, kde-format
 msgid "Failed to parse DH1080_FINISH sent by %1. Key exchange failed."
 msgstr ""
@@ -2454,7 +2468,7 @@ msgstr "Присъединяване"
 msgid "Nickname"
 msgstr "Псевдоним"
 
-#: src/irc/nicksonline.cpp:40 src/viewer/viewcontainer.cpp:2486
+#: src/irc/nicksonline.cpp:40 src/viewer/viewcontainer.cpp:2501
 msgid "Watched Nicks Online"
 msgstr "Наблюдавани псевдоними"
 
@@ -2600,10 +2614,16 @@ msgstr "Тема на канал"
 
 #. i18n: file: src/irc/channellistpanelui.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, ChannelListWidgetUI)
-#: src/irc/channellistpanel.cpp:143 src/viewer/viewcontainer.cpp:2423
-#: src/viewer/viewcontainer.cpp:2476 rc.cpp:56
+#: src/irc/channellistpanel.cpp:143 src/viewer/viewcontainer.cpp:2433
+#: src/viewer/viewcontainer.cpp:2491 rc.cpp:56
 msgid "Channel List"
 msgstr "Списък с канали"
+
+#: src/irc/channellistpanel.cpp:221 src/irc/channellistpanel.cpp:312
+#, fuzzy
+#| msgid "Refresh List"
+msgid "Refreshing."
+msgstr "Обновяване на списъка"
 
 #: src/irc/channellistpanel.cpp:329
 #, kde-format
@@ -2745,7 +2765,7 @@ msgstr "Запазване отворено"
 msgid "Do you want to stop ignoring %1?"
 msgstr "Ще спрете ли да игнорирате %1?"
 
-#: src/irc/query.cpp:614 src/irc/channel.cpp:2794
+#: src/irc/query.cpp:614 src/irc/channel.cpp:2812
 #: src/viewer/statuspanel.cpp:344
 #, kde-format
 msgid "Identity Default ( %1 )"
@@ -2894,12 +2914,16 @@ msgid "Channel Password"
 msgstr "Парола на канала"
 
 #: src/irc/channel.cpp:1240
-msgid "Nick Limit"
-msgstr "Ограничения за псевдоним"
+#, fuzzy
+#| msgid "Channel List"
+msgid "Channel User Limit"
+msgstr "Списък с канали"
 
 #: src/irc/channel.cpp:1241
-msgid "Enter the new nick limit:"
-msgstr "Въведете ограничение за псевдоним:"
+#, fuzzy
+#| msgid "Set user limit to channel."
+msgid "Enter the new user limit for the channel:"
+msgstr "Задаване на потребителски лимит на канала."
 
 #: src/irc/channel.cpp:1357
 #, kde-format
@@ -3040,348 +3064,348 @@ msgstr "Зададохте темата на канала да е \"%1\"."
 msgid "%1 sets the channel topic to \"%2\"."
 msgstr "%1 задава темата на канала да е \"%2\"."
 
-#: src/irc/channel.cpp:1722
+#: src/irc/channel.cpp:1740
 msgid "You give channel owner privileges to yourself."
 msgstr "Дадохте си привилегии на притежател за канала."
 
-#: src/irc/channel.cpp:1724
+#: src/irc/channel.cpp:1742
 #, kde-format
 msgid "You give channel owner privileges to %1."
 msgstr "Дадохте привилегии на притежател за канала на %1."
 
-#: src/irc/channel.cpp:1729
+#: src/irc/channel.cpp:1747
 #, kde-format
 msgid "%1 gives channel owner privileges to you."
 msgstr "%1 ви дава привилегии на притежател за канала."
 
-#: src/irc/channel.cpp:1731
+#: src/irc/channel.cpp:1749
 #, kde-format
 msgid "%1 gives channel owner privileges to %2."
 msgstr "%1 дава привилегии на притежател за канала на %2."
 
-#: src/irc/channel.cpp:1739
+#: src/irc/channel.cpp:1757
 msgid "You take channel owner privileges from yourself."
 msgstr "Вземате привилегии на притежател за канала от себе си."
 
-#: src/irc/channel.cpp:1741
+#: src/irc/channel.cpp:1759
 #, kde-format
 msgid "You take channel owner privileges from %1."
 msgstr "Вземате привилегии на притежател за канала от %1."
 
-#: src/irc/channel.cpp:1746
+#: src/irc/channel.cpp:1764
 #, kde-format
 msgid "%1 takes channel owner privileges from you."
 msgstr "%1 взима привилегии на притежател за канала от вас."
 
-#: src/irc/channel.cpp:1748
+#: src/irc/channel.cpp:1766
 #, kde-format
 msgid "%1 takes channel owner privileges from %2."
 msgstr "%1 взима привилегии на притежател за канала от %2."
 
-#: src/irc/channel.cpp:1764
+#: src/irc/channel.cpp:1782
 msgid "You give channel admin privileges to yourself."
 msgstr "Дадохте си привилегии на администратор за канала."
 
-#: src/irc/channel.cpp:1766
+#: src/irc/channel.cpp:1784
 #, kde-format
 msgid "You give channel admin privileges to %1."
 msgstr "Дадохте привилегии на администратор за канала на %1."
 
-#: src/irc/channel.cpp:1771
+#: src/irc/channel.cpp:1789
 #, kde-format
 msgid "%1 gives channel admin privileges to you."
 msgstr "%1 ви дава привилегии на администратор за канала."
 
-#: src/irc/channel.cpp:1773
+#: src/irc/channel.cpp:1791
 #, kde-format
 msgid "%1 gives channel admin privileges to %2."
 msgstr "%1 дава привилегии на администратор за канала на %2."
 
-#: src/irc/channel.cpp:1781
+#: src/irc/channel.cpp:1799
 msgid "You take channel admin privileges from yourself."
 msgstr "Отнемате привилегии на администратор за канала от себе си."
 
-#: src/irc/channel.cpp:1783
+#: src/irc/channel.cpp:1801
 #, kde-format
 msgid "You take channel admin privileges from %1."
 msgstr "Отнемате привилегии на администратор за канала от %1."
 
-#: src/irc/channel.cpp:1788
+#: src/irc/channel.cpp:1806
 #, kde-format
 msgid "%1 takes channel admin privileges from you."
 msgstr "%1 отнема привилегии на администратор за канала от вас."
 
-#: src/irc/channel.cpp:1790
+#: src/irc/channel.cpp:1808
 #, kde-format
 msgid "%1 takes channel admin privileges from %2."
 msgstr "%1 отнема привилегии на администратор на %2."
 
-#: src/irc/channel.cpp:1806
+#: src/irc/channel.cpp:1824
 msgid "You give channel operator privileges to yourself."
 msgstr "Дадохте си операторски права за канала."
 
-#: src/irc/channel.cpp:1808
+#: src/irc/channel.cpp:1826
 #, kde-format
 msgid "You give channel operator privileges to %1."
 msgstr "Дадохте операторски права на %1."
 
-#: src/irc/channel.cpp:1813
+#: src/irc/channel.cpp:1831
 #, kde-format
 msgid "%1 gives channel operator privileges to you."
 msgstr "%1 ви дава операторски права."
 
-#: src/irc/channel.cpp:1815
+#: src/irc/channel.cpp:1833
 #, kde-format
 msgid "%1 gives channel operator privileges to %2."
 msgstr "%1 дава операторски права на %2."
 
-#: src/irc/channel.cpp:1823
+#: src/irc/channel.cpp:1841
 msgid "You take channel operator privileges from yourself."
 msgstr "Вземате операторски права от себе си."
 
-#: src/irc/channel.cpp:1825
+#: src/irc/channel.cpp:1843
 #, kde-format
 msgid "You take channel operator privileges from %1."
 msgstr "Вземате операторски права от %1."
 
-#: src/irc/channel.cpp:1830
+#: src/irc/channel.cpp:1848
 #, kde-format
 msgid "%1 takes channel operator privileges from you."
 msgstr "%1 взима операторски права от вас."
 
-#: src/irc/channel.cpp:1832
+#: src/irc/channel.cpp:1850
 #, kde-format
 msgid "%1 takes channel operator privileges from %2."
 msgstr "%1 взима операторски права от %2."
 
-#: src/irc/channel.cpp:1848
+#: src/irc/channel.cpp:1866
 msgid "You give channel halfop privileges to yourself."
 msgstr "Дадохте си полуоператорски права за канала."
 
-#: src/irc/channel.cpp:1850
+#: src/irc/channel.cpp:1868
 #, kde-format
 msgid "You give channel halfop privileges to %1."
 msgstr "Дадохте полуоператорски права на %1."
 
-#: src/irc/channel.cpp:1855
+#: src/irc/channel.cpp:1873
 #, kde-format
 msgid "%1 gives channel halfop privileges to you."
 msgstr "%1 ви дава полуоператорски права."
 
-#: src/irc/channel.cpp:1857
+#: src/irc/channel.cpp:1875
 #, kde-format
 msgid "%1 gives channel halfop privileges to %2."
 msgstr "%1 дава полуоператорски права на %2."
 
-#: src/irc/channel.cpp:1865
+#: src/irc/channel.cpp:1883
 msgid "You take channel halfop privileges from yourself."
 msgstr "Вземате полуоператорски права от себе си."
 
-#: src/irc/channel.cpp:1867
+#: src/irc/channel.cpp:1885
 #, kde-format
 msgid "You take channel halfop privileges from %1."
 msgstr "Вземате полуоператорски права от %1."
 
-#: src/irc/channel.cpp:1872
+#: src/irc/channel.cpp:1890
 #, kde-format
 msgid "%1 takes channel halfop privileges from you."
 msgstr "%1 взима полуоператорски права от вас."
 
-#: src/irc/channel.cpp:1874
+#: src/irc/channel.cpp:1892
 #, kde-format
 msgid "%1 takes channel halfop privileges from %2."
 msgstr "%1 взима полуоператорски права от %2."
 
-#: src/irc/channel.cpp:1891
+#: src/irc/channel.cpp:1909
 msgid "You give yourself permission to talk."
 msgstr "Давате си право за говорене."
 
-#: src/irc/channel.cpp:1892
+#: src/irc/channel.cpp:1910
 #, fuzzy, kde-format
 #| msgid "You give %1  permission to talk."
 msgid "You give %1 permission to talk."
 msgstr "Давате право за говорене на %1."
 
-#: src/irc/channel.cpp:1896
+#: src/irc/channel.cpp:1914
 #, kde-format
 msgid "%1 gives you permission to talk."
 msgstr "%1 ви дава право за говорене."
 
-#: src/irc/channel.cpp:1897
+#: src/irc/channel.cpp:1915
 #, kde-format
 msgid "%1 gives %2 permission to talk."
 msgstr "%1 дава право за говорене на %2."
 
-#: src/irc/channel.cpp:1904
+#: src/irc/channel.cpp:1922
 msgid "You take the permission to talk from yourself."
 msgstr "Отнемате правото за говорете от себе си."
 
-#: src/irc/channel.cpp:1905
+#: src/irc/channel.cpp:1923
 #, kde-format
 msgid "You take the permission to talk from %1."
 msgstr "Отнемате правото за говорене на %1."
 
-#: src/irc/channel.cpp:1909
+#: src/irc/channel.cpp:1927
 #, kde-format
 msgid "%1 takes the permission to talk from you."
 msgstr "%1 ви отнема правото на говорене."
 
-#: src/irc/channel.cpp:1910
+#: src/irc/channel.cpp:1928
 #, kde-format
 msgid "%1 takes the permission to talk from %2."
 msgstr "%1 отнема правото на говорене на %2."
 
-#: src/irc/channel.cpp:1922
+#: src/irc/channel.cpp:1940
 msgid "You set the channel mode to 'no colors allowed'."
 msgstr "Задавате режим на канала \"цветове не са позволени\"."
 
-#: src/irc/channel.cpp:1923
+#: src/irc/channel.cpp:1941
 #, kde-format
 msgid "%1 sets the channel mode to 'no colors allowed'."
 msgstr "%1 задава режим на канала \"цветове не са позволени\"."
 
-#: src/irc/channel.cpp:1927
+#: src/irc/channel.cpp:1945
 msgid "You set the channel mode to 'allow color codes'."
 msgstr "Задавате режим на канала \"цветният код е позволен\"."
 
-#: src/irc/channel.cpp:1928
+#: src/irc/channel.cpp:1946
 #, kde-format
 msgid "%1 sets the channel mode to 'allow color codes'."
 msgstr "%1 задава режим на канала \"цветният код е позволен\"."
 
-#: src/irc/channel.cpp:1935
+#: src/irc/channel.cpp:1953
 msgid "You set the channel mode to 'invite only'."
 msgstr "Задавате режим на канала \"само с покани\"."
 
-#: src/irc/channel.cpp:1936
+#: src/irc/channel.cpp:1954
 #, kde-format
 msgid "%1 sets the channel mode to 'invite only'."
 msgstr "%1 задава режим на канала \"само с покани\"."
 
-#: src/irc/channel.cpp:1940
+#: src/irc/channel.cpp:1958
 msgid "You remove the 'invite only' mode from the channel."
 msgstr "Премахвате режим \"само с покани\" на този канал."
 
-#: src/irc/channel.cpp:1941
+#: src/irc/channel.cpp:1959
 #, kde-format
 msgid "%1 removes the 'invite only' mode from the channel."
 msgstr "%1 премахва режим \"само с покани\" на този канал."
 
-#: src/irc/channel.cpp:1949
+#: src/irc/channel.cpp:1967
 msgid "You set the channel mode to 'moderated'."
 msgstr "Задавате режим на канала \"модериран\"."
 
-#: src/irc/channel.cpp:1950
+#: src/irc/channel.cpp:1968
 #, kde-format
 msgid "%1 sets the channel mode to 'moderated'."
 msgstr "%1 задава режим на канала \"модериран\"."
 
-#: src/irc/channel.cpp:1954
+#: src/irc/channel.cpp:1972
 msgid "You set the channel mode to 'unmoderated'."
 msgstr "Задавате режим на канала \"не модериран\"."
 
-#: src/irc/channel.cpp:1955
+#: src/irc/channel.cpp:1973
 #, kde-format
 msgid "%1 sets the channel mode to 'unmoderated'."
 msgstr "%1 задава режим на канала \"не модериран\"."
 
-#: src/irc/channel.cpp:1963
+#: src/irc/channel.cpp:1981
 msgid "You set the channel mode to 'no messages from outside'."
 msgstr ""
 "Задавате режим на канала \"забранени са съобщения, идващи извън канала\"."
 
-#: src/irc/channel.cpp:1964
+#: src/irc/channel.cpp:1982
 #, kde-format
 msgid "%1 sets the channel mode to 'no messages from outside'."
 msgstr ""
 "%1 задава режим на канала \"забранени са съобщения, идващи извън канала\"."
 
-#: src/irc/channel.cpp:1968
+#: src/irc/channel.cpp:1986
 msgid "You set the channel mode to 'allow messages from outside'."
 msgstr ""
 "Задавате режим на канала \"разрешени са съобщения, идващи извън канала\"."
 
-#: src/irc/channel.cpp:1969
+#: src/irc/channel.cpp:1987
 #, kde-format
 msgid "%1 sets the channel mode to 'allow messages from outside'."
 msgstr ""
 "%1 задава режим на канала \"разрешени са съобщения, идващи извън канала\"."
 
-#: src/irc/channel.cpp:1977
+#: src/irc/channel.cpp:1995
 msgid "You set the channel mode to 'private'."
 msgstr "Задавате режим на канала \"личен\"."
 
-#: src/irc/channel.cpp:1978
+#: src/irc/channel.cpp:1996
 #, kde-format
 msgid "%1 sets the channel mode to 'private'."
 msgstr "%1 задава режим на канала \"личен\"."
 
-#: src/irc/channel.cpp:1982
+#: src/irc/channel.cpp:2000
 msgid "You set the channel mode to 'public'."
 msgstr "Задавате режим на канала \"публичен\"."
 
-#: src/irc/channel.cpp:1983
+#: src/irc/channel.cpp:2001
 #, kde-format
 msgid "%1 sets the channel mode to 'public'."
 msgstr "%1 задава режим на канала \"публичен\"."
 
-#: src/irc/channel.cpp:1992
+#: src/irc/channel.cpp:2010
 msgid "You set the channel mode to 'secret'."
 msgstr "Задавате режим на канала \"таен\"."
 
-#: src/irc/channel.cpp:1993
+#: src/irc/channel.cpp:2011
 #, kde-format
 msgid "%1 sets the channel mode to 'secret'."
 msgstr "%1 задава режим на канала \"таен\"."
 
-#: src/irc/channel.cpp:1997
+#: src/irc/channel.cpp:2015
 msgid "You set the channel mode to 'visible'."
 msgstr "Задавате режим на канала \"видим\"."
 
-#: src/irc/channel.cpp:1998
+#: src/irc/channel.cpp:2016
 #, kde-format
 msgid "%1 sets the channel mode to 'visible'."
 msgstr "%1 задава режим на канала \"видим\"."
 
-#: src/irc/channel.cpp:2009
+#: src/irc/channel.cpp:2027
 msgid "You switch on 'topic protection'."
 msgstr "Включихте \"защита на темата\"."
 
-#: src/irc/channel.cpp:2010
+#: src/irc/channel.cpp:2028
 #, kde-format
 msgid "%1 switches on 'topic protection'."
 msgstr "%1 включи \"защита на темата\"."
 
-#: src/irc/channel.cpp:2014
+#: src/irc/channel.cpp:2032
 msgid "You switch off 'topic protection'."
 msgstr "Изключихте \"защита на темата\"."
 
-#: src/irc/channel.cpp:2015
+#: src/irc/channel.cpp:2033
 #, kde-format
 msgid "%1 switches off 'topic protection'."
 msgstr "%1 изключи \"защита на темата\"."
 
-#: src/irc/channel.cpp:2023
+#: src/irc/channel.cpp:2041
 #, fuzzy, kde-format
 msgid "You set the channel key to '%1'."
 msgstr "Зададохте темата на канала да е \"%1\"."
 
-#: src/irc/channel.cpp:2024
+#: src/irc/channel.cpp:2042
 #, fuzzy, kde-format
 msgid "%1 sets the channel key to '%2'."
 msgstr "%1 задава темата на канала да е \"%2\"."
 
-#: src/irc/channel.cpp:2028
+#: src/irc/channel.cpp:2046
 #, fuzzy
 msgid "You remove the channel key."
 msgstr "Премахнахте ограничението на канала."
 
-#: src/irc/channel.cpp:2029
+#: src/irc/channel.cpp:2047
 #, fuzzy, kde-format
 msgid "%1 removes the channel key."
 msgstr "%1 премахна ограничението на канала."
 
-#: src/irc/channel.cpp:2037
+#: src/irc/channel.cpp:2055
 #, fuzzy, kde-format
 #| msgid "You set the channel limit to %1 nicks."
 msgid "You set the channel limit to 1 nick."
@@ -3389,7 +3413,7 @@ msgid_plural "You set the channel limit to %1 nicks."
 msgstr[0] "Зададохте ограничение на канала на %1 псевдонима."
 msgstr[1] "Зададохте ограничение на канала на %1 псевдонима."
 
-#: src/irc/channel.cpp:2038
+#: src/irc/channel.cpp:2056
 #, fuzzy, kde-format
 #| msgid "%1 sets the channel limit to %2 nicks."
 msgid "%2 sets the channel limit to 1 nick."
@@ -3397,167 +3421,167 @@ msgid_plural "%2 sets the channel limit to %1 nicks."
 msgstr[0] "%1 зададе ограничение на канала на %2 псевдонима."
 msgstr[1] "%1 зададе ограничение на канала на %2 псевдонима."
 
-#: src/irc/channel.cpp:2042
+#: src/irc/channel.cpp:2060
 msgid "You remove the channel limit."
 msgstr "Премахнахте ограничението на канала."
 
-#: src/irc/channel.cpp:2043
+#: src/irc/channel.cpp:2061
 #, kde-format
 msgid "%1 removes the channel limit."
 msgstr "%1 премахна ограничението на канала."
 
-#: src/irc/channel.cpp:2053
+#: src/irc/channel.cpp:2071
 #, kde-format
 msgid "You set a ban on %1."
 msgstr "Баннахте %1."
 
-#: src/irc/channel.cpp:2054
+#: src/irc/channel.cpp:2072
 #, kde-format
 msgid "%1 sets a ban on %2."
 msgstr "%1 банва %2."
 
-#: src/irc/channel.cpp:2058
+#: src/irc/channel.cpp:2076
 #, kde-format
 msgid "You remove the ban on %1."
 msgstr "Премахнахте бан на %1."
 
-#: src/irc/channel.cpp:2059
+#: src/irc/channel.cpp:2077
 #, kde-format
 msgid "%1 removes the ban on %2."
 msgstr "%1 премахна бан на %2."
 
-#: src/irc/channel.cpp:2066
+#: src/irc/channel.cpp:2084
 #, kde-format
 msgid "You set a ban exception on %1."
 msgstr "Зададохте изключение при банване на %1."
 
-#: src/irc/channel.cpp:2067
+#: src/irc/channel.cpp:2085
 #, kde-format
 msgid "%1 sets a ban exception on %2."
 msgstr "%1 е задал изключение при банване на %2."
 
-#: src/irc/channel.cpp:2071
+#: src/irc/channel.cpp:2089
 #, kde-format
 msgid "You remove the ban exception on %1."
 msgstr "Премахнахте изключение за банване на %1."
 
-#: src/irc/channel.cpp:2072
+#: src/irc/channel.cpp:2090
 #, kde-format
 msgid "%1 removes the ban exception on %2."
 msgstr "%1 премахна изключение при банване на %2."
 
-#: src/irc/channel.cpp:2079
+#: src/irc/channel.cpp:2097
 #, kde-format
 msgid "You set invitation mask %1."
 msgstr "Зададохте маска на покана %1."
 
-#: src/irc/channel.cpp:2080
+#: src/irc/channel.cpp:2098
 #, kde-format
 msgid "%1 sets invitation mask %2."
 msgstr "%1 зададе маска на покана %2."
 
-#: src/irc/channel.cpp:2084
+#: src/irc/channel.cpp:2102
 #, kde-format
 msgid "You remove the invitation mask %1."
 msgstr "Премахнахте маска на покана %1."
 
-#: src/irc/channel.cpp:2085
+#: src/irc/channel.cpp:2103
 #, kde-format
 msgid "%1 removes the invitation mask %2."
 msgstr "%1 премахна маска на покана %2."
 
-#: src/irc/channel.cpp:2093
+#: src/irc/channel.cpp:2111
 #, fuzzy, kde-format
 msgid "You set the channel mode '%1'."
 msgstr "Зададохте темата на канала да е \"%1\"."
 
-#: src/irc/channel.cpp:2094
+#: src/irc/channel.cpp:2112
 #, fuzzy, kde-format
 msgid "%1 sets the channel mode '%2'."
 msgstr "%1 задава темата на канала да е \"%2\"."
 
-#: src/irc/channel.cpp:2098
+#: src/irc/channel.cpp:2116
 #, kde-format
 msgid "You set channel mode +%1"
 msgstr "Зададохте режим на канала +%1"
 
-#: src/irc/channel.cpp:2099
+#: src/irc/channel.cpp:2117
 #, kde-format
 msgid "%1 sets channel mode +%2"
 msgstr "%1 зададе режим на канала +%2"
 
-#: src/irc/channel.cpp:2106
+#: src/irc/channel.cpp:2124
 #, fuzzy, kde-format
 msgid "You remove the channel mode '%1'."
 msgstr "Премахнахте ограничението на канала."
 
-#: src/irc/channel.cpp:2107
+#: src/irc/channel.cpp:2125
 #, fuzzy, kde-format
 msgid "%1 removes the channel mode '%2'."
 msgstr "%1 премахна ограничението на канала."
 
-#: src/irc/channel.cpp:2111
+#: src/irc/channel.cpp:2129
 #, kde-format
 msgid "You set channel mode -%1"
 msgstr "Зададохте режим на канала -%1"
 
-#: src/irc/channel.cpp:2112
+#: src/irc/channel.cpp:2130
 #, kde-format
 msgid "%1 sets channel mode -%2"
 msgstr "%1 зададе режим на канала -%2"
 
-#: src/irc/channel.cpp:2520
+#: src/irc/channel.cpp:2538
 msgid "You have to be an operator to change this."
 msgstr "Трябва да сте оператор, за да промените това."
 
-#: src/irc/channel.cpp:2522
+#: src/irc/channel.cpp:2540
 #, kde-format
 msgid "Topic can be changed by channel operator only.  %1"
 msgstr "Темата може да бъде сменяна само от оператори на канала. %1"
 
-#: src/irc/channel.cpp:2523
+#: src/irc/channel.cpp:2541
 #, kde-format
 msgid "No messages to channel from clients on the outside.  %1"
 msgstr "Не са разрешени съобщения, идващи от клиенти, които са навън.  %1"
 
-#: src/irc/channel.cpp:2524
+#: src/irc/channel.cpp:2542
 #, kde-format
 msgid "Secret channel.  %1"
 msgstr "таен канал.  %1"
 
-#: src/irc/channel.cpp:2525
+#: src/irc/channel.cpp:2543
 #, kde-format
 msgid "Invite only channel.  %1"
 msgstr "Само с покани.  %1"
 
-#: src/irc/channel.cpp:2526
+#: src/irc/channel.cpp:2544
 #, kde-format
 msgid "Private channel.  %1"
 msgstr "Личен канал.  %1"
 
-#: src/irc/channel.cpp:2527
+#: src/irc/channel.cpp:2545
 #, kde-format
 msgid "Moderated channel.  %1"
 msgstr "Модериран канал.  %1"
 
-#: src/irc/channel.cpp:2528
+#: src/irc/channel.cpp:2546
 msgid "Protect channel with a password."
 msgstr "Защитаване на канал с парола."
 
-#: src/irc/channel.cpp:2529
+#: src/irc/channel.cpp:2547
 msgid "Set user limit to channel."
 msgstr "Задаване на потребителски лимит на канала."
 
-#: src/irc/channel.cpp:2659
+#: src/irc/channel.cpp:2677
 #, kde-format
 msgid "Do you want to leave %1?"
 msgstr "Искате ли да напуснете %1 ?"
 
-#: src/irc/channel.cpp:2660
+#: src/irc/channel.cpp:2678
 msgid "Leave Channel"
 msgstr "Напускане на канал"
 
-#: src/irc/channel.cpp:2661
+#: src/irc/channel.cpp:2679
 msgid "Leave"
 msgstr "Напускане"
 
@@ -3617,26 +3641,26 @@ msgstr ""
 msgid "&Use SSL"
 msgstr "&Използване на SSL"
 
-#: src/connectionmanager.cpp:205
+#: src/connectionmanager.cpp:243
 #, fuzzy, kde-format
 msgid "Trying to connect to %2 (port %3) in 1 second."
 msgid_plural "Trying to connect to %2 (port %3) in %1 seconds."
 msgstr[0] "Предлагане на DCC разговор връзка на %1 през порт %2..."
 msgstr[1] "Предлагане на DCC разговор връзка на %1 през порт %2..."
 
-#: src/connectionmanager.cpp:215
+#: src/connectionmanager.cpp:253
 #, fuzzy, kde-format
 msgid "Trying to reconnect to %2 (port %3) in 1 second."
 msgid_plural "Trying to reconnect to %2 (port %3) in %1 seconds."
 msgstr[0] "Предлагане на DCC разговор връзка на %1 през порт %2..."
 msgstr[1] "Предлагане на DCC разговор връзка на %1 през порт %2..."
 
-#: src/connectionmanager.cpp:227
+#: src/connectionmanager.cpp:265
 #, fuzzy
 msgid "Reconnection attempts exceeded."
 msgstr "Опити за ново свързване:"
 
-#: src/connectionmanager.cpp:443
+#: src/connectionmanager.cpp:494
 #, fuzzy, kde-format
 msgid ""
 "You are already connected to %1. Do you want to open another connection?"
@@ -3644,17 +3668,17 @@ msgstr ""
 "Вече сте свързани към %1. Искате ли да прекъснете връзката с \"%2\" и да се "
 "свършете с \"%3\"?"
 
-#: src/connectionmanager.cpp:444 src/connectionmanager.cpp:466
+#: src/connectionmanager.cpp:495 src/connectionmanager.cpp:517
 #, kde-format
 msgid "Already connected to %1"
 msgstr "Вече сте свързани с %1"
 
-#: src/connectionmanager.cpp:445
+#: src/connectionmanager.cpp:496
 #, fuzzy
 msgid "Create connection"
 msgstr "Връзка"
 
-#: src/connectionmanager.cpp:460
+#: src/connectionmanager.cpp:511
 #, fuzzy, kde-format
 msgid ""
 "You are presently connected to %1 via '%2' (port %3). Do you want to switch "
@@ -3663,40 +3687,40 @@ msgstr ""
 "Вече сте свързани към %1. Искате ли да прекъснете връзката с \"%2\" и да се "
 "свършете с \"%3\"?"
 
-#: src/connectionmanager.cpp:467
+#: src/connectionmanager.cpp:518
 #, fuzzy
 msgid "Switch Server"
 msgstr "Редактиране не сървър"
 
-#: src/connectionmanager.cpp:508
+#: src/connectionmanager.cpp:565
 #, fuzzy
 #| msgid "Please fill in your <b>Ident</b>.<br>"
 msgid "Please fill in your <b>Ident</b>.<br/>"
 msgstr "Моля попълнете вашата <b>самоличност</b>.<br>"
 
-#: src/connectionmanager.cpp:511
+#: src/connectionmanager.cpp:568
 #, fuzzy
 #| msgid "Please fill in your <b>Real name</b>.<br>"
 msgid "Please fill in your <b>Real name</b>.<br/>"
 msgstr "Моля попълнете вашето <b>истинско име</b>.<br>"
 
-#: src/connectionmanager.cpp:514
+#: src/connectionmanager.cpp:571
 #, fuzzy
 #| msgid "Please provide at least one <b>Nickname</b>.<br>"
 msgid "Please provide at least one <b>Nickname</b>.<br/>"
 msgstr "Моля напишете поне един <b>псевдоним</b>.<br>"
 
-#: src/connectionmanager.cpp:522
+#: src/connectionmanager.cpp:579
 #, fuzzy, kde-format
 #| msgid "<qt>Your identity \"%1\" is not set up correctly:<br>%2</qt>"
 msgid "<qt>Your identity \"%1\" is not set up correctly:<br/>%2</qt>"
 msgstr "<qt>Вашата самоличност \"%1\" не е настроена правилно:<br>%2</qt>"
 
-#: src/connectionmanager.cpp:523
+#: src/connectionmanager.cpp:580
 msgid "Identity Settings"
 msgstr "Настройка на самоличност"
 
-#: src/connectionmanager.cpp:524
+#: src/connectionmanager.cpp:581
 msgid "Edit Identity..."
 msgstr "Редактиране на самоличност..."
 
@@ -4591,8 +4615,8 @@ msgid_plural "No answer from server %2 for more than %1 seconds."
 msgstr[0] "Няма отговор от сървър %2 повече от 1 секунди."
 msgstr[1] "Няма отговор от сървър %2 повече от %1 секунди."
 
-#: src/konsolepanel.cpp:27 src/viewer/viewcontainer.cpp:2063
-#: src/viewer/viewcontainer.cpp:2064
+#: src/konsolepanel.cpp:27 src/viewer/viewcontainer.cpp:2073
+#: src/viewer/viewcontainer.cpp:2074
 msgid "Konsole"
 msgstr "Конзола"
 
@@ -4922,7 +4946,7 @@ msgstr "&Формат:"
 
 #. i18n: file: src/urlcatcherui.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, URLCatcherUI)
-#: src/urlcatcher.cpp:128 src/viewer/viewcontainer.cpp:2075 rc.cpp:419
+#: src/urlcatcher.cpp:128 src/viewer/viewcontainer.cpp:2085 rc.cpp:419
 msgid "URL Catcher"
 msgstr "Ловец на URL"
 
@@ -5237,7 +5261,7 @@ msgstr "Без"
 msgid "Edit Multiline Paste"
 msgstr "Редактиране на многоредово поставяне"
 
-#: src/viewer/chatwindow.cpp:356
+#: src/viewer/chatwindow.cpp:400
 #, kde-format
 msgid ""
 "\n"
@@ -5250,7 +5274,7 @@ msgstr ""
 "*** на %1\n"
 "\n"
 
-#: src/viewer/rawlog.cpp:25 src/viewer/viewcontainer.cpp:2208
+#: src/viewer/rawlog.cpp:25 src/viewer/viewcontainer.cpp:2218
 msgid "Raw Log"
 msgstr "Необработен файл-регистър"
 
@@ -5328,20 +5352,20 @@ msgstr "По подразбиране ( %1 )"
 msgid "&Rename Tab..."
 msgstr "Преименуване"
 
-#: src/viewer/viewcontainer.cpp:1859
+#: src/viewer/viewcontainer.cpp:1869
 msgid "You can only search in text fields."
 msgstr "Може да търсите само в текстови полета."
 
-#: src/viewer/viewcontainer.cpp:1860
+#: src/viewer/viewcontainer.cpp:1870
 msgid "Find Text Information"
 msgstr "Търсене на текстова информация"
 
-#: src/viewer/viewcontainer.cpp:2054
+#: src/viewer/viewcontainer.cpp:2064
 #, kde-format
 msgid "Logfile of %1"
 msgstr "Файл-регистър на %1"
 
-#: src/viewer/viewcontainer.cpp:2449
+#: src/viewer/viewcontainer.cpp:2459
 msgid ""
 "Using this function may result in a lot of network traffic. If your "
 "connection is not fast enough, it is possible that your client will be "
@@ -5350,11 +5374,11 @@ msgstr ""
 "Използването на тази функция може да доведе до голям мрежов трафик. Ако "
 "връзката ви не е достатъчно бърза, възможно е да бъдете изключен от сървъра."
 
-#: src/viewer/viewcontainer.cpp:2453
+#: src/viewer/viewcontainer.cpp:2463
 msgid "Channel List Warning"
 msgstr "Предупреждение на списъка с канали"
 
-#: src/viewer/viewcontainer.cpp:2472
+#: src/viewer/viewcontainer.cpp:2487
 #, fuzzy
 #| msgid ""
 #| "The channel list can only be opened from a query, channel or status "
@@ -5722,7 +5746,7 @@ msgstr "цветове не са позволени"
 msgid "user throttling"
 msgstr "Хостване на уеб страницата"
 
-#: src/bookmarkhandler.cpp:40
+#: src/bookmarkhandler.cpp:41
 msgid "Konversation Bookmarks Editor"
 msgstr "Редактор на маркери в Konversation"
 
@@ -8006,8 +8030,8 @@ msgid ""
 "CBC or Cipher Block Chaining mode is not supported by FiSH but is supported "
 "by Mircryption. If you are going to use key exchange it is best to first "
 "find out if your peer has a client that can use CBC otherwise you will be "
-"able to see what they're saying, but they won't be able to read what you're "
-"saying."
+"able to see what they are saying, but they will not be able to read what you "
+"are saying."
 msgstr ""
 
 #. i18n: file: src/config/connectionbehavior_config.ui:157
@@ -9010,3 +9034,9 @@ msgstr ""
 #: rc.cpp:1938
 msgid "&Window"
 msgstr "&Прозорец"
+
+#~ msgid "Nick Limit"
+#~ msgstr "Ограничения за псевдоним"
+
+#~ msgid "Enter the new nick limit:"
+#~ msgstr "Въведете ограничение за псевдоним:"
