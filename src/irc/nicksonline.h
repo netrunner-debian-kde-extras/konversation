@@ -27,8 +27,9 @@ class ChatWindow;
 
 class QPushButton;
 
-class K3ListView;
+class QTreeWidget;
 
+class KToolBar;
 
 class NicksOnline : public ChatWindow
 {
@@ -57,16 +58,12 @@ class NicksOnline : public ChatWindow
         ~NicksOnline();
 
         // These are here for the benefit of NicksOnlineTooltip.
-        K3ListView* getNickListView();
-        NickInfoPtr getNickInfo(const Q3ListViewItem* item);
+        QTreeWidget* getNickListView();
+        NickInfoPtr getNickInfo(const QTreeWidgetItem* item);
 
         virtual bool canBeFrontView()   { return true; }
 
     signals:
-        /**
-         * Emitted when user clicks Edit Watch List button.
-         */
-        void editClicked();
         /**
          * Emitted whenever user double-clicks a nick in the Nicks Online tab.
          */
@@ -87,23 +84,11 @@ class NicksOnline : public ChatWindow
          * When a user double-clicks a nickname in the nicklistview, let server know so that
          * it can perform the user's chosen default action for that.
          */
-        void processDoubleClick(Q3ListViewItem* item);
+        void processDoubleClick(QTreeWidgetItem* item, int column);
         /**
          * Timer used to refresh display.
          */
         void timerFired();
-        /**
-         * Received when user clicks the Edit Contact (or New Contact) button.
-         */
-        void slotEditContactButton_Clicked();
-        /**
-         * Received when user clicks the Change Association button.
-         */
-        void slotChangeAssociationButton_Clicked();
-        /**
-         * Received when user clicks the Delete Association button.
-         */
-        void slotDeleteAssociationButton_Clicked();
         /**
          * Received when user selects a different item in the nicklistview.
          */
@@ -111,7 +96,7 @@ class NicksOnline : public ChatWindow
         /**
          * Received when right-clicking an item in the NickListView.
          */
-        void slotNickListView_RightButtonClicked(Q3ListViewItem* item, const QPoint& pt);
+        void slotCustomContextMenuRequested(QPoint point);
         /**
          * Received from server when a NickInfo changes its information.
          */
@@ -120,6 +105,10 @@ class NicksOnline : public ChatWindow
          * Received from popup menu when user chooses something.
          */
         void slotPopupMenu_Activated(QAction* id);
+        /**
+         * Received when user added a new nick to the watched nicks.
+         */
+        void slotAddNickname(int serverGroupId, QString nickname);
 
     protected:
         /** Called from ChatWindow adjustFocus */
@@ -134,20 +123,20 @@ class NicksOnline : public ChatWindow
         * @param type              The type of entry to be found
         * @return                  Pointer to the child QListViewItem or 0 if not found.
         */
-        Q3ListViewItem* findItemChild(const Q3ListViewItem* parent, const QString& name, NicksOnlineItem::NickListViewColumn type);
+        QTreeWidgetItem* findItemChild(const QTreeWidgetItem* parent, const QString& name, NicksOnlineItem::NickListViewColumn type);
         /**
         * Returns the first occurrence of a child item of a given type in a NicksOnlineItem
         * @param parent            Pointer to a NicksOnlineItem.
         * @param type              The type of entry to be found
         * @return                  Pointer to the child QListViewItem or 0 if not found.
         */
-        Q3ListViewItem* findItemType(const Q3ListViewItem* parent, NicksOnlineItem::NickListViewColumn type);
+        QTreeWidgetItem* findItemType(const QTreeWidgetItem* parent, NicksOnlineItem::NickListViewColumn type);
         /**
          * Returns a pointer to the network QListViewItem with the given name.
          * @param name              The name of the network, assumed to be in column 0 of the item.
          * @return                  Pointer to the QListViewItem or 0 if not found.
          */
-        Q3ListViewItem* findNetworkRoot(const QString& name);
+        QTreeWidgetItem* findNetworkRoot(const QString& name);
         /**
          * Refresh the nicklistview for all servers.
          */
@@ -156,7 +145,7 @@ class NicksOnline : public ChatWindow
          * Refreshes the information for the given item in the list.
          * @param item               Pointer to listview item.
          */
-        void refreshItem(Q3ListViewItem* item);
+        void refreshItem(QTreeWidgetItem* item);
         /**
          * Return a string containing formatted additional information about a nick.
          * @param nickInfo          A pointer to NickInfo structure for the nick.
@@ -179,7 +168,7 @@ class NicksOnline : public ChatWindow
          * @return serverName       Name of the server for the nick at the item, or Null if not a nick.
          * @return nickname         The nickname at the item.
          */
-        bool getItemServerAndNick(const Q3ListViewItem* item, QString& serverName, QString& nickname);
+        bool getItemServerAndNick(const QTreeWidgetItem* item, QString& serverName, QString& nickname);
         /**
          * Given a server name and nickname, returns the item in the Nick List View displaying
          * the nick.
@@ -189,7 +178,7 @@ class NicksOnline : public ChatWindow
          *
          * @see getItemServerAndNick
          */
-        Q3ListViewItem* getServerAndNickItem(const QString& serverName, const QString& nickname);
+        QTreeWidgetItem* getServerAndNickItem(const QString& serverName, const QString& nickname);
         /**
          * Perform an addressbook command (edit contact, create new contact,
          * change/delete association.)
@@ -208,14 +197,17 @@ class NicksOnline : public ChatWindow
          * @return                  Addressbook state.
          * 0 = not a nick, 1 = nick has no addressbook association, 2 = nick has association
          */
-        int getNickAddressbookState(Q3ListViewItem* item);
+        int getNickAddressbookState(QTreeWidgetItem* item);
         /**
-         * Sets the enabled/disabled state and labels of the addressbook buttons
-         * based on the given nick addressbook state.
-         * @param nickState         The state of the nick. 1 = not associated with addressbook,
-         *                          2 = associated with addressbook.  @ref getNickAddressbookState.
+         * Sets up toolbar actions based on the given item.
+         * @param item              Item of the nicklistview.
          */
-        void setupAddressbookButtons(int nickState);
+        void setupToolbarActions(NicksOnlineItem *item);
+        /**
+         * Sets up popup menu actions based on the given item.
+         * @param item              Item of the nicklistview.
+         */
+        void setupPopupMenuActions(NicksOnlineItem *item);
         /**
          * Determines if a nick is online in any of the servers in a network and returns
          * a NickInfo if found, otherwise 0.
@@ -231,36 +223,42 @@ class NicksOnline : public ChatWindow
          * @param nickname           Nick name.
          */
         void requestWhois(QString& networkName, QString& nickname);
+        /**
+         * Updates the notify list based on the current state of the tree
+         */
+        void updateNotifyList();
 
         // The main display of networks, nicks, and channels.
-        K3ListView* m_nickListView;
-        // Buttons on screen.
-        QPushButton* m_editContactButton;
-        QPushButton* m_changeAssociationButton;
-        QPushButton* m_deleteAssociationButton;
+        QTreeWidget* m_nickListView;
         // Context menu when right-clicking a nick.
         KMenu* m_popupMenu;
+        KToolBar *m_toolBar;
         // A string containing the identifier for the "Offline" listview item
         QString c_offline;
         // Timer for refreshing display and generating WHOISes.
         QTimer* m_timer;
         // Addressbook icon.
         QIcon m_kabcIconSet;
+        // Online nick icon
+        QIcon m_onlineIcon;
+        // Offline nick icon
+        QIcon m_offlineIcon;
         /* Set to False every 8 seconds so that we generate a WHOIS on watch nicks that
            lack information.*/
         bool m_whoisRequested;
 
 
-
-    QAction* m_chooseAssociation;
+    QAction* m_addNickname;
+    QAction* m_removeNickname;
     QAction* m_newContact;
+    QAction* m_editContact;
+    QAction* m_chooseAssociation;
+    QAction* m_changeAssociation;
+    QAction* m_deleteAssociation;
     QAction* m_whois;
     QAction* m_openQuery;
-    QAction* m_joinChannel;
     QAction* m_sendMail;
-    QAction* m_editContact;
-    QAction* m_addressBookChange;
-    QAction* m_deleteAssociation;
+    QAction* m_joinChannel;
 
 };
 #endif

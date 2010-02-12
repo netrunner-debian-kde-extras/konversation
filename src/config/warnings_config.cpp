@@ -70,7 +70,7 @@ void Warnings_Config::saveSettings()
     // save state of this item in hasChanged() list
     warningsChecked += checked ? "1" : "0";
 
-    if (warningName == "LargePaste" || warningName == "Invitation")
+    if (warningName == "LargePaste")
     {
         if (checked)
         {
@@ -87,6 +87,24 @@ void Warnings_Config::saveSettings()
                 grp.writeEntry(warningName, "true");
         }
     }
+    else if (warningName == "Invitation")
+    {
+	if (checked)
+	{
+	    grp.writeEntry(warningName, "0");
+	}
+	else
+	{
+	    // Let's keep the old state if we got one, or join if
+	    // there isn't an old state.
+	    QString state = grp.readEntry(warningName, QString());
+	    
+	    if (!state.isEmpty())
+		grp.writeEntry(warningName, state);
+	    else
+		grp.writeEntry(warningName, "1");
+	}
+    }
     else
     {
         grp.writeEntry(warningName, checked ? "1" : "0");
@@ -100,7 +118,7 @@ void Warnings_Config::saveSettings()
 void Warnings_Config::loadSettings()
 {
   QStringList dialogDefinitions;
-  QString flagNames = "Invitation,SaveLogfileNote,ClearLogfileQuestion,CloseQueryAfterIgnore,ReconnectWithDifferentServer,ReuseExistingConnection,QuitServerTab,QuitChannelTab,QuitQueryTab,ChannelListNoServerSelected,HideMenuBarWarning,ChannelListWarning,LargePaste,systemtrayquitKonversation,IgnoreNick,UnignoreNick,QuitWithActiveDccTransfers,WarnEncodingConflict";
+  QString flagNames = "Invitation,SaveLogfileNote,ClearLogfileQuestion,CloseQueryAfterIgnore,ReconnectWithDifferentServer,ReuseExistingConnection,QuitServerTab,QuitChannelTab,QuitQueryTab,QuitDCCChatTab,ChannelListNoServerSelected,HideMenuBarWarning,ChannelListWarning,LargePaste,systemtrayquitKonversation,IgnoreNick,UnignoreNick,QuitWithActiveDccTransfers,WarnEncodingConflict";
   dialogDefinitions.append(i18n("Show channel invitation dialog"));
   dialogDefinitions.append(i18n("Notice that saving logfiles will save whole file"));
   dialogDefinitions.append(i18n("Ask before deleting logfile contents"));
@@ -110,6 +128,7 @@ void Warnings_Config::loadSettings()
   dialogDefinitions.append(i18n("Close server tab"));
   dialogDefinitions.append(i18n("Close channel tab"));
   dialogDefinitions.append(i18n("Close query tab"));
+  dialogDefinitions.append(i18n("Close DCC Chat tab"));
   dialogDefinitions.append(i18n("The channel list can only be opened from server-aware tabs"));
   dialogDefinitions.append(i18n("Warning on hiding the main window menu"));
   dialogDefinitions.append(i18n("Warning on high traffic with channel list"));
@@ -133,9 +152,13 @@ void Warnings_Config::loadSettings()
     flagName = flagNames.section(',',i,i);
     item->setData(0, WarningNameRole, flagName);
 
-    if (flagName == "LargePaste" || flagName == "Invitation")
+    if (flagName == "LargePaste" )
     {
         item->setCheckState(0, grp.readEntry(flagName, QString()).isEmpty() ? Qt::Checked : Qt::Unchecked);
+    }
+    else if (flagName == "Invitation")
+    {
+	item->setCheckState(0, grp.readEntry(flagName, QString()) == "0" ? Qt::Checked : Qt::Unchecked);
     }
     else
     {

@@ -395,6 +395,9 @@ void IRCInput::paste(bool useSelection)
 
 void IRCInput::insertFromMimeData(const QMimeData * source)
 {
+    if(!source)
+        return;
+
     setFocus();
 
     // Copy text from the clipboard (paste)
@@ -408,6 +411,9 @@ void IRCInput::insertFromMimeData(const QMimeData * source)
         emit endCompletion();
 
         bool signal=false;
+
+        //filter out crashy crap
+        Konversation::sterilizeUnicode(pasteText);
 
         // replace \r with \n to make xterm pastes happy
         pasteText.replace('\r','\n');
@@ -460,6 +466,7 @@ void IRCInput::insertFromMimeData(const QMimeData * source)
             // ask the user on long pastes
             if(checkPaste(pasteText))
             {
+              Konversation::sterilizeUnicode(pasteText);
               // signal pasted text
               emit textPasted(pasteText);
               // remember old line, in case the user does not paste eventually

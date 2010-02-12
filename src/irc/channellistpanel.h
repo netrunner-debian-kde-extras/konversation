@@ -21,6 +21,8 @@
 #include <QAbstractListModel>
 #include <QSortFilterProxyModel>
 
+class KToolBar;
+
 struct ChannelItem
 {
     QString name;
@@ -109,7 +111,7 @@ class ChannelListPanel : public ChatWindow, private Ui::ChannelListWidgetUI
         void updateFilter();
 
         void updateUsersChannels();
-
+        void currentChanged(QModelIndex current,QModelIndex previous);
         void setProgress();
 
         void joinChannelClicked();
@@ -121,7 +123,7 @@ class ChannelListPanel : public ChatWindow, private Ui::ChannelListWidgetUI
     protected:
 
         /** Called from ChatWindow adjustFocus */
-        virtual void childAdjustFocus(){};
+        virtual void childAdjustFocus(){}
         virtual bool isInsertCharacterSupported() { return true; }
 
         void countUsers(const QModelIndex& index, int pos);
@@ -130,6 +132,7 @@ class ChannelListPanel : public ChatWindow, private Ui::ChannelListWidgetUI
         int m_numUsers;
         int m_visibleChannels;
         int m_visibleUsers;
+        bool m_online;
         bool m_firstRun;
         bool m_regexState;
 
@@ -139,6 +142,11 @@ class ChannelListPanel : public ChatWindow, private Ui::ChannelListWidgetUI
 
         ChannelListModel* m_channelListModel;
         ChannelListProxyModel* m_proxyModel;
+
+        KToolBar *m_toolBar;
+        QAction *m_saveList;
+        QAction *m_refreshList;
+        QAction *m_joinChannel;
 };
 
 #endif

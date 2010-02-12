@@ -21,11 +21,16 @@
 #include <QRegExp>
 
 #include <KMessageBox>
+#include <solid/networking.h>
 
 
 ConnectionManager::ConnectionManager(QObject* parent)
     : QObject(parent), m_overrideAutoReconnect (false)
 {
+// Reenable the check again when it works reliably for all backends
+//    if (Solid::Networking::status() != Solid::Networking::Connected)
+//        m_overrideAutoReconnect = true;
+
     connect(this, SIGNAL(requestReconnect(Server*)), this, SLOT(handleReconnect(Server*)));
 }
 
@@ -107,11 +112,11 @@ void ConnectionManager::connectTo(Konversation::ConnectionFlag flag, const QList
                          cs.serverGroup()->name():
                          (cs.server().host()+':'+cs.server().port()) );
 
-        serverChannels[sname] += cs.oneShotChannelList();
         if (!serverChannels.contains(sname))
         {
             serverConnections[sname] = cs;
         }
+        serverChannels[sname] += cs.oneShotChannelList();
     }
 
     // Perform the connection
@@ -166,11 +171,15 @@ void ConnectionManager::connectTo(Konversation::ConnectionFlag flag, ConnectionS
 void ConnectionManager::enlistConnection(int connectionId, Server* server)
 {
     m_connectionList.insert(connectionId, server);
+
+    emit connectionListChanged();
 }
 
 void ConnectionManager::delistConnection(int connectionId)
 {
     m_connectionList.remove(connectionId);
+
+    emit connectionListChanged();
 }
 
 void ConnectionManager::handleConnectionStateChange(Server* server, Konversation::ConnectionState state)
@@ -200,12 +209,16 @@ void ConnectionManager::handleConnectionStateChange(Server* server, Konversation
         }
     }
 
-    if (state == Konversation::SSInvoluntarilyDisconnected)
+    if (state == Konversation::SSInvoluntarilyDisconnected && !m_overrideAutoReconnect)
     {
         // The asynchronous invocation of handleReconnect() makes sure that
         // connectionChangedState() is emitted and delivered before it runs
         // (and causes the next connection state change to occur).
         emit requestReconnect(server);
+    }
+    else if (state == Konversation::SSInvoluntarilyDisconnected && m_overrideAutoReconnect)
+    {
+        server->getStatusView()->appendServerMessage(i18n("Info"), i18n ("Network is down, will reconnect automatically when it is back up."));
     }
 }
 

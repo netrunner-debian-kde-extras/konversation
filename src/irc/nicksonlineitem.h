@@ -12,39 +12,34 @@
 #ifndef NICKSONLINEITEM_H
 #define NICKSONLINEITEM_H
 
-#include <K3ListView>
+#include <QTreeWidget>
 
-
-class NicksOnlineItem : public K3ListViewItem
+class NicksOnlineItem : public QTreeWidgetItem
 {
     public:
         enum NickListViewColumn
         {
             NetworkRootItem=0,  // TODO: not used yet
             NicknameItem=1,     // TODO: not used yet
-            ChannelItem=2,      // TODO: not used yet
-            OfflineItem=3       // this item is the "Offline" item
+            ChannelItem=2      // TODO: not used yet
         };
 
         NicksOnlineItem(int type,
-                        Q3ListView* parent,
+                        QTreeWidget* parent,
                         const QString& name,
                         const QString& col2 = QString());
 
         NicksOnlineItem(int type,
-                        Q3ListViewItem* parent,
+                        QTreeWidgetItem* parent,
                         const QString& name,
                         const QString& col2 = QString());
 
         /**
         * Reimplemented to make sure, "Offline" items always get sorted to the bottom of the list
-        * @param i                 Pointer to the QListViewItem to compare with.
-        * @param col               The column to compare
-        * @param ascending         Specify sorting direction
+        * @param item              Pointer to the QTreeWidgetItem to compare with.
         * @return                  -1 if this item's value is smaller than i, 0 if they are equal, 1 if it's greater
         */
-        virtual int compare(Q3ListViewItem* i,int col,bool ascending) const;
-
+        bool operator<(const QTreeWidgetItem &item) const;
         /**
         * Returns the type of the item.
         * @return                  One of the enum NickListViewColumn
@@ -57,14 +52,13 @@ class NicksOnlineItem : public K3ListViewItem
         int connectionId() const { return m_connectionId; }
 
         /// Set the nick's offline state as @p state
-        void setOffline (bool state) { m_offline = state; }
+        void setOffline (bool state) { setData(0, Qt::UserRole, state); }
         /// Returns true if the nick is currently offline.
-        bool isOffline () const { return m_offline; }
+        bool isOffline () const { return data(0, Qt::UserRole).toBool(); }
 
     protected:
         int m_type;
         int m_connectionId;
-        bool m_offline;
 };
 
 #endif

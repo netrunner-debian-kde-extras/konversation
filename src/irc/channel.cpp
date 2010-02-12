@@ -56,6 +56,7 @@
 
 #define DELAYED_SORT_TRIGGER    10
 
+using namespace Konversation;
 
 bool nickTimestampLessThan(const Nick* nick1, const Nick* nick2)
 {
@@ -295,8 +296,6 @@ Channel::Channel(QWidget* parent, QString _name) : ChatWindow(parent)
     if(nicknameCombobox->lineEdit())
         connect(nicknameCombobox->lineEdit(), SIGNAL (editingFinished()),this,SLOT(nicknameComboboxChanged()));
 
-
-    setLog(Preferences::self()->log());
 
     connect(&userhostTimer,SIGNAL (timeout()),this,SLOT (autoUserhost()));
 
@@ -1074,7 +1073,7 @@ void Channel::channelTextEntered()
     else
     {
         if(!line.isEmpty())
-            sendChannelText(line);
+            sendChannelText(sterilizeUnicode(line));
     }
 }
 
@@ -1092,7 +1091,7 @@ void Channel::channelPassthroughCommand()
         {
             line = commandChar + line;
         }
-        sendChannelText(line);
+        sendChannelText(sterilizeUnicode(line));
     }
 }
 
@@ -1694,6 +1693,15 @@ void Channel::updateMode(const QString& sourceNick, char mode, bool plus, const 
 
     bool fromMe=false;
     bool toMe=false;
+    bool banTypeThang = m_server->banAddressListModes().contains(QChar(mode));
+
+    // HACK to avoid changing strings for 1.2.2, we pretend any TYPE A mode is a
+    // ban except for e and I, as we have support for those
+    if (banTypeThang)
+    {
+        if (mode != 'b' && mode != 'e' && mode != 'I')
+            mode = 'b';
+    }
 
     // remember if this nick had any type of op.
     bool wasAnyOp=false;

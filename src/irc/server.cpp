@@ -25,6 +25,7 @@
 #include "transfermanager.h"
 #include "transfersend.h"
 #include "transferrecv.h"
+#include <chat.h>
 #include "recipientdialog.h"
 #include "nick.h"
 #include "irccharsets.h"
@@ -50,6 +51,7 @@
 #include <KInputDialog>
 #include <KMessageBox>
 #include <KWindowSystem>
+#include <solid/networking.h>
 
 using namespace Konversation;
 
@@ -95,6 +97,7 @@ Server::Server(QObject* parent, ConnectionSettings& settings) : QObject(parent)
     // TODO fold these into a QMAP, and these need to be reset to RFC values if this server object is reused.
     m_serverNickPrefixModes = "ovh";
     m_serverNickPrefixes = "@+%";
+    m_banAddressListModes = 'b'; // {RFC-1459, draft-brocklesby-irc-isupport} -> pick one
     m_channelPrefixes = "#&";
     m_modesCount = 3;
     m_showSSLConfirmation = true;
@@ -206,11 +209,11 @@ bool Server::closeYourself(bool)
 
 void Server::doPreShellCommand()
 {
-
     QString command = getIdentity()->getShellCommand();
     getStatusView()->appendServerMessage(i18n("Info"),"Running preconfigured command...");
 
     connect(&m_preShellCommand,SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(preShellCommandExited(int, QProcess::ExitStatus)));
+    connect(&m_preShellCommand,SIGNAL(error(QProcess::ProcessError)), this, SLOT(preShellCommandError(QProcess::ProcessError)));
 
     const QStringList commandList = command.split(' ');
 
@@ -268,8 +271,8 @@ void Server::connectSignals()
    // ViewContainer
     connect(this, SIGNAL(showView(ChatWindow*)), getViewContainer(), SLOT(showView(ChatWindow*)));
     connect(this, SIGNAL(addDccPanel()), getViewContainer(), SLOT(addDccPanel()));
-    connect(this, SIGNAL(addDccChat(const QString&,const QString&,const QStringList&,bool)),
-        getViewContainer(), SLOT(addDccChat(const QString&,const QString&,const QStringList&,bool)) );
+    connect(this, SIGNAL(addDccChat(Konversation::DCC::Chat*)),
+            getViewContainer(), SLOT(addDccChat(Konversation::DCC::Chat*)));
     connect(this, SIGNAL(serverLag(Server*, int)), getViewContainer(), SIGNAL(updateStatusBarLagLabel(Server*, int)));
     connect(this, SIGNAL(tooLongLag(Server*, int)), getViewContainer(), SIGNAL(setStatusBarLagLabelTooLongLag(Server*, int)));
     connect(this, SIGNAL(resetLag()), getViewContainer(), SIGNAL(resetStatusBarLagLabel()));
@@ -278,10 +281,14 @@ void Server::connectSignals()
     connect(getOutputFilter(), SIGNAL(openChannelList(const QString&, bool)), getViewContainer(), SLOT(openChannelList(const QString&, bool)));
     connect(getOutputFilter(), SIGNAL(closeDccPanel()), getViewContainer(), SLOT(closeDccPanel()));
     connect(getOutputFilter(), SIGNAL(addDccPanel()), getViewContainer(), SLOT(addDccPanel()));
-    connect(&m_inputFilter, SIGNAL(addDccChat(const QString&,const QString&,const QStringList&,bool)),
-        getViewContainer(), SLOT(addDccChat(const QString&,const QString&,const QStringList&,bool)) );
 
     // Inputfilter
+    connect(&m_inputFilter, SIGNAL(addDccChat(const QString&,const QStringList&)),
+            this, SLOT(addDccChat(const QString&,const QStringList&)));
+    connect(&m_inputFilter, SIGNAL(rejectDccChat(const QString&)),
+            this, SLOT(rejectDccChat(const QString&)));
+    connect(&m_inputFilter, SIGNAL(startReverseDccChat(const QString&,const QStringList&)),
+            this, SLOT(startReverseDccChat(const QString&,const QStringList&)));
     connect(&m_inputFilter, SIGNAL(welcome(const QString&)), this, SLOT(connectionEstablished(const QString&)));
     connect(&m_inputFilter, SIGNAL(notifyResponse(const QString&)), this, SLOT(notifyResponse(const QString&)));
     connect(&m_inputFilter, SIGNAL(startReverseDccSendTransfer(const QString&,const QStringList&)),
@@ -352,10 +359,27 @@ void Server::preShellCommandExited(int exitCode, QProcess::ExitStatus exitStatus
     connectSignals();
 }
 
+void Server::preShellCommandError(QProcess::ProcessError error)
+{
+    Q_UNUSED(error);
+
+    getStatusView()->appendServerMessage(i18n("Warning"),"There was a problem while executing the command!");
+
+    connectToIRCServer();
+    connectSignals();
+}
+
 void Server::connectToIRCServer()
 {
     if (!isConnected())
     {
+// Reenable check when it works reliably for all backends
+//         if(Solid::Networking::status() != Solid::Networking::Connected)
+//         {
+//             updateConnectionState(Konversation::SSInvoluntarilyDisconnected);
+//             return;
+//         }
+
         updateConnectionState(Konversation::SSConnecting);
 
         m_autoIdentifyLock = false;
@@ -448,6 +472,12 @@ void Server::setPrefixes(const QString &modes, const QString& prefixes)
     // modes which relates to the network's nick-prefixes
     m_serverNickPrefixModes = modes;
     m_serverNickPrefixes = prefixes;
+}
+
+void Server::setChanModes(QString modes)
+{
+    QStringList abcd = modes.split(',');
+    m_banAddressListModes = abcd.value(0);
 }
 
 // return a nickname without possible mode character at the beginning
@@ -573,14 +603,14 @@ void Server::broken(QAbstractSocket::SocketError state)
     m_inputFilter.setLagMeasuring(false);
     m_currentLag = -1;
 
-    // HACK Only show one nick change dialog at connection time
+    // HACK Only show one nick change dialog at connection time.
+    // This hack is a bit nasty as it assumes that the only KDialog
+    // child of the statusview will be the nick change dialog.
     if (getStatusView())
     {
-        //! TODO FIXME uh, wtf. this should be a slot
-        //KDialogBase* nickChangeDialog = dynamic_cast<KDialogBase*>(
-        //        getStatusView()->child("NickChangeDialog", "KInputDialog"));
+        KDialog* nickChangeDialog = getStatusView()->findChild<KDialog*>();
 
-        //if (nickChangeDialog) nickChangeDialog->cancel();
+        if (nickChangeDialog) nickChangeDialog->reject();
     }
 
     emit resetLag();
@@ -693,12 +723,12 @@ void Server::registerWithServices()
 //FIXME operator[] inserts an empty T& so each destination might just as well have its own key storage
 QByteArray Server::getKeyForRecipient(const QString& recipient) const
 {
-    return m_keyMap[recipient];
+    return m_keyHash[recipient.toLower()];
 }
 
 void Server::setKeyForRecipient(const QString& recipient, const QByteArray& key)
 {
-    m_keyMap[recipient] = key;
+    m_keyHash[recipient.toLower()] = key;
 }
 
 void Server::gotOwnResolvedHostByWelcome(const QHostInfo& res)
@@ -715,6 +745,8 @@ void Server::quitServer()
     // (i.e. this is not redundant with _send_internal()'s updateConnectionState() call for
     // a QUIT).
     updateConnectionState(Konversation::SSDeliberatelyDisconnected);
+
+    if (!m_socket) return;
 
     QString command(Preferences::self()->commandChar()+"QUIT");
     Konversation::OutputFilterResult result = getOutputFilter()->parse(getNickname(),command, QString());
@@ -890,7 +922,7 @@ QString Server::getNextNickname()
     {
         QString inputText = i18n("No nicknames from the \"%1\" identity were accepted by the connection \"%2\".\nPlease enter a new one or press Cancel to disconnect:", getIdentity()->getName(), getDisplayName());
         newNick = KInputDialog::getText(i18n("Nickname error"), inputText,
-                                        QString(), 0, getStatusView()); // TODO FIXME hope we don't need the name... "NickChangeDialog"
+                                        QString(), 0, getStatusView());
     }
     return newNick;
 }
@@ -1047,7 +1079,7 @@ void Server::incoming()
         #endif
         bool isUtf8 = Konversation::isUtf8(first);
 
-        if( isUtf8 )
+        if (isUtf8)
             m_inputBuffer << QString::fromUtf8(first);
         else
         {
@@ -1067,7 +1099,7 @@ void Server::incoming()
 
             // if channel encoding is utf-8 and the string is definitely not utf-8
             // then try latin-1
-            if ( !isUtf8 && codec->mibEnum() == 106 )
+            if (codec->mibEnum() == 106)
                 codec = QTextCodec::codecForMib( 4 /* iso-8859-1 */ );
 
             m_inputBuffer << codec->toUnicode(first);
@@ -1078,7 +1110,7 @@ void Server::incoming()
         // Qt uses 0xFDD0 and 0xFDD1 to mark the beginning and end of text frames. Remove
         // these here to avoid fatal errors encountered in QText* and the event loop pro-
         // cessing.
-        m_inputBuffer.back().remove(QChar(0xFDD0)).remove(QChar(0xFDD1));
+        sterilizeUnicode(m_inputBuffer.back());
 
         //FIXME: This has nothing to do with bytes, and it's not raw received bytes either. Bogus number.
         //m_bytesReceived+=m_inputBuffer.back().length();
@@ -1741,23 +1773,26 @@ void Server::slotNewDccTransferItemQueued(DCC::Transfer* transfer)
 
 void Server::addDccSend(const QString &recipient,KUrl fileURL, const QString &altFileName, quint64 fileSize)
 {
-    if (!fileURL.isValid()) return;
+    if (!fileURL.isValid())
+    {
+        return;
+    }
 
     // We already checked that the file exists in output filter / requestDccSend() resp.
     DCC::TransferSend* newDcc = Application::instance()->getDccTransferManager()->newUpload();
 
-    newDcc->setConnectionId( connectionId() );
+    newDcc->setConnectionId(connectionId());
 
-    newDcc->setPartnerNick( recipient );
-    newDcc->setFileURL( fileURL );
-    if ( !altFileName.isEmpty() )
-        newDcc->setFileName( altFileName );
-    if ( fileSize != 0 )
-        newDcc->setFileSize( fileSize );
+    newDcc->setPartnerNick(recipient);
+    newDcc->setFileURL(fileURL);
+    if (!altFileName.isEmpty())
+        newDcc->setFileName(altFileName);
+    if (fileSize != 0)
+        newDcc->setFileSize(fileSize);
 
     emit addDccPanel();
 
-    if ( newDcc->queue() )
+    if (newDcc->queue())
         newDcc->start();
 }
 
@@ -1801,20 +1836,38 @@ QString Server::cleanDccFileName(const QString& filename) const
     return cleanFileName;
 }
 
+quint16 Server::stringToPort(const QString &port, bool *ok)
+{
+    bool toUintOk = false;
+    uint uPort32 = port.toUInt(&toUintOk);
+    // ports over 65535 are invalid, someone sends us bad data
+    if (!toUintOk || uPort32 > USHRT_MAX)
+    {
+        if (ok)
+        {
+            *ok = false;
+        }
+    }
+    else
+    {
+        if (ok)
+        {
+            *ok = true;
+        }
+    }
+    return (quint16)uPort32;
+}
+
 void Server::addDccGet(const QString &sourceNick, const QStringList &dccArguments)
 {
-    DCC::TransferRecv* newDcc = Application::instance()->getDccTransferManager()->newDownload();
-
-    newDcc->setConnectionId( connectionId() );
-    newDcc->setPartnerNick( sourceNick );
-
     //filename ip port filesize [token]
     QString ip;
-    uint port;
+    quint16 port;
     QString fileName;
     quint64 fileSize;
     QString token;
     const int argumentSize = dccArguments.count();
+    bool ok = true;
 
     if (dccArguments.at(argumentSize - 3) == "0") //port==0, for passive send, ip can't be 0
     {
@@ -1824,9 +1877,6 @@ void Server::addDccGet(const QString &sourceNick, const QStringList &dccArgument
         port = 0;
         fileSize = dccArguments.at(argumentSize - 2).toULongLong(); //-1 index, -1 token
         token = dccArguments.at(argumentSize - 1); //-1 index
-
-        // Reverse DCC
-        newDcc->setReverse( true, token );
     }
     else
     {
@@ -1834,13 +1884,31 @@ void Server::addDccGet(const QString &sourceNick, const QStringList &dccArgument
         ip = DCC::DccCommon::numericalIpToTextIp( dccArguments.at(argumentSize - 3) ); //-1 index, -1 filesize
         fileName = recoverDccFileName(dccArguments, 3); //ip port filesize
         fileSize = dccArguments.at(argumentSize - 1).toULongLong(); //-1 index
-        port = dccArguments.at(argumentSize - 2).toUInt(); //-1 index, -1 filesize
+        port = stringToPort(dccArguments.at(argumentSize - 2), &ok); //-1 index, -1 filesize
     }
 
-    newDcc->setPartnerIp( ip );
-    newDcc->setPartnerPort( port );
-    newDcc->setFileName( fileName );
-    newDcc->setFileSize( fileSize );
+    if (!ok)
+    {
+        appendMessageToFrontmost(i18n("Error"),
+                                 i18nc("%1=nickname","Received invalid DCC SEND request from %1.",
+                                       sourceNick));
+        return;
+    }
+
+    DCC::TransferRecv* newDcc = Application::instance()->getDccTransferManager()->newDownload();
+
+    newDcc->setConnectionId(connectionId());
+    newDcc->setPartnerNick(sourceNick);
+
+    newDcc->setPartnerIp(ip);
+    newDcc->setPartnerPort(port);
+    newDcc->setFileName(fileName);
+    newDcc->setFileSize(fileSize);
+    // Reverse DCC
+    if (!token.isEmpty())
+    {
+        newDcc->setReverse(true, token);
+    }
 
     kDebug() << "ip: " << ip;
     kDebug() << "port: " << port;
@@ -1864,14 +1932,103 @@ void Server::addDccGet(const QString &sourceNick, const QStringList &dccArgument
     }
 }
 
-void Server::openDccChat(const QString& nickname)
+void Server::addDccChat(const QString& sourceNick,const QStringList& dccArguments)
 {
-    emit addDccChat(getNickname(),nickname,QStringList(),true);
+    //chat ip port [token]
+    QString ip;
+    quint16 port = 0;
+    QString token;
+    bool reverse = false;
+    const int argumentSize = dccArguments.count();
+    bool ok = true;
+
+    if (argumentSize == 3)
+    {
+        //CHAT ip port
+        ip = DCC::DccCommon::numericalIpToTextIp(dccArguments.at(1));
+        port = stringToPort(dccArguments.at(2), &ok);
+    }
+    else if (argumentSize == 4)
+    {
+        //CHAT ip port(0) token
+        ip = DCC::DccCommon::numericalIpToTextIp(dccArguments.at(1));
+        token = dccArguments.at(3);
+        reverse = true;
+    }
+
+    if (!ok)
+    {
+        appendMessageToFrontmost(i18n("Error"),
+                                 i18nc("%1=nickname","Received invalid DCC CHAT request from %1.",
+                                       sourceNick));
+        return;
+    }
+
+    DCC::Chat* newChat = Application::instance()->getDccTransferManager()->newChat();
+
+    newChat->setConnectionId(connectionId());
+    newChat->setPartnerNick(sourceNick);
+    newChat->setOwnNick(getNickname());
+
+    kDebug() << "ip: " << ip;
+    kDebug() << "port: " << port;
+    kDebug() << "token: " << token;
+
+    newChat->setPartnerIp(ip);
+    newChat->setPartnerPort(port);
+    newChat->setReverse(reverse, token);
+    newChat->setSelfOpened(false);
+
+    emit addDccChat(newChat);
+    newChat->start();
 }
 
-void Server::requestDccChat(const QString& partnerNick, const QString& numericalOwnIp, uint ownPort)
+void Server::openDccChat(const QString& nickname)
 {
-    queue(QString("PRIVMSG %1 :\001DCC CHAT chat %2 %3\001").arg(partnerNick).arg(numericalOwnIp).arg(QString::number(ownPort)));
+    kDebug();
+    QString recipient(nickname);
+    // if we don't have a recipient yet, let the user select one
+    if (recipient.isEmpty())
+    {
+        QStringList nickList;
+
+        // fill nickList with all nicks we know about
+        foreach (Channel* lookChannel, m_channelList)
+        {
+            foreach (Nick* lookNick, lookChannel->getNickList())
+            {
+                if (!nickList.contains(lookNick->getChannelNick()->getNickname()))
+                    nickList.append(lookNick->getChannelNick()->getNickname());
+            }
+        }
+
+        // add Queries as well, but don't insert duplicates
+        foreach (Query* lookQuery, m_queryList)
+        {
+            if(!nickList.contains(lookQuery->getName())) nickList.append(lookQuery->getName());
+        }
+        QStringListModel model;
+        model.setStringList(nickList);
+        recipient = DCC::RecipientDialog::getNickname(getViewContainer()->getWindow(), &model);
+    }
+
+    // do we have a recipient *now*?
+    if (!recipient.isEmpty())
+    {
+        DCC::Chat* newChat = Application::instance()->getDccTransferManager()->newChat();
+        newChat->setConnectionId(connectionId());
+        newChat->setPartnerNick(recipient);
+        newChat->setOwnNick(getNickname());
+        newChat->setSelfOpened(true);
+        emit addDccChat(newChat);
+        newChat->start();
+    }
+}
+
+void Server::requestDccChat(const QString& partnerNick, const QString& numericalOwnIp, quint16 ownPort)
+{
+    Konversation::OutputFilterResult result = getOutputFilter()->requestDccChat(partnerNick,numericalOwnIp,ownPort);
+    queue(result.toServer);
 }
 
 void Server::acceptDccGet(const QString& nick, const QString& file)
@@ -1879,7 +2036,7 @@ void Server::acceptDccGet(const QString& nick, const QString& file)
     Application::instance()->getDccTransferManager()->acceptDccGet(m_connectionId, nick, file);
 }
 
-void Server::dccSendRequest(const QString &partner, const QString &fileName, const QString &address, uint port, quint64 size)
+void Server::dccSendRequest(const QString &partner, const QString &fileName, const QString &address, quint16 port, quint64 size)
 {
     Konversation::OutputFilterResult result = getOutputFilter()->sendRequest(partner,fileName,address,port,size);
     queue(result.toServer);
@@ -1903,21 +2060,36 @@ void Server::dccPassiveSendRequest(const QString& recipient,const QString& fileN
                                     ( size == 0 ) ? i18n( "unknown size" ) : KIO::convertSize( size ) ) );
 }
 
-void Server::dccPassiveResumeGetRequest(const QString& sender,const QString& fileName,uint port,KIO::filesize_t startAt,const QString &token)
+void Server::dccPassiveChatRequest(const QString& recipient, const QString& address, const QString& token)
+{
+    Konversation::OutputFilterResult result = getOutputFilter()->passiveChatRequest(recipient, address, token);
+    queue(result.toServer);
+
+    appendMessageToFrontmost(i18n("DCC"),
+                             i18n("Asking %1 to accept chat...", recipient));
+}
+
+void Server::dccPassiveResumeGetRequest(const QString& sender,const QString& fileName,quint16 port,KIO::filesize_t startAt,const QString &token)
 {
     Konversation::OutputFilterResult result = getOutputFilter()->resumePassiveRequest(sender,fileName,port,startAt,token);;
     queue(result.toServer);
 }
 
-void Server::dccResumeGetRequest(const QString &sender, const QString &fileName, uint port, KIO::filesize_t startAt)
+void Server::dccResumeGetRequest(const QString &sender, const QString &fileName, quint16 port, KIO::filesize_t startAt)
 {
     Konversation::OutputFilterResult result = getOutputFilter()->resumeRequest(sender,fileName,port,startAt);;
     queue(result.toServer);
 }
 
-void Server::dccReverseSendAck(const QString& partnerNick,const QString& fileName,const QString& ownAddress,uint ownPort,quint64 size,const QString& reverseToken)
+void Server::dccReverseSendAck(const QString& partnerNick,const QString& fileName,const QString& ownAddress,quint16 ownPort,quint64 size,const QString& reverseToken)
 {
     Konversation::OutputFilterResult result = getOutputFilter()->acceptPassiveSendRequest(partnerNick,fileName,ownAddress,ownPort,size,reverseToken);
+    queue(result.toServer);
+}
+
+void Server::dccReverseChatAck(const QString& partnerNick,const QString& ownAddress,quint16 ownPort,const QString& reverseToken)
+{
+    Konversation::OutputFilterResult result = getOutputFilter()->acceptPassiveChatRequest(partnerNick,ownAddress,ownPort,reverseToken);
     queue(result.toServer);
 }
 
@@ -1933,17 +2105,42 @@ void Server::dccRejectChat(const QString& partnerNick)
     queue(result.toServer);
 }
 
+void Server::startReverseDccChat(const QString &sourceNick, const QStringList &dccArguments)
+{
+    kDebug();
+    DCC::TransferManager* dtm = Application::instance()->getDccTransferManager();
+
+    bool ok = true;
+    QString partnerIP = DCC::DccCommon::numericalIpToTextIp(dccArguments.at(1));
+    quint16 port = stringToPort(dccArguments.at(2), &ok);
+    QString token = dccArguments.at(3);
+
+    kDebug() << "ip: " << partnerIP;
+    kDebug() << "port: " << port;
+    kDebug() << "token: " << token;
+
+    if (!ok || dtm->startReverseChat(connectionId(), sourceNick,
+                                    partnerIP, port, token) == 0)
+    {
+        // DTM could not find a matched item
+        appendMessageToFrontmost(i18n("Error"),
+                                 i18nc("%1 = nickname",
+                                       "Received invalid passive DCC chat acceptance message from %1.",
+                                       sourceNick));
+    }
+}
+
 void Server::startReverseDccSendTransfer(const QString& sourceNick,const QStringList& dccArguments)
 {
     kDebug();
     DCC::TransferManager* dtm = Application::instance()->getDccTransferManager();
 
+    bool ok = true;
     const int argumentSize = dccArguments.size();
     QString partnerIP = DCC::DccCommon::numericalIpToTextIp( dccArguments.at(argumentSize - 4) ); //dccArguments[1] ) );
-    uint port = dccArguments.at(argumentSize - 3).toUInt();
+    quint16 port = stringToPort(dccArguments.at(argumentSize - 3), &ok);
     QString token = dccArguments.at(argumentSize - 1);
     quint64 fileSize = dccArguments.at(argumentSize - 2).toULongLong();
-
     QString fileName = recoverDccFileName(dccArguments, 4); //ip port filesize token
 
     kDebug() << "ip: " << partnerIP;
@@ -1952,20 +2149,21 @@ void Server::startReverseDccSendTransfer(const QString& sourceNick,const QString
     kDebug() << "filesize: " << fileSize;
     kDebug() << "token: " << token;
 
-    if ( dtm->startReverseSending( connectionId(), sourceNick,
-                                   fileName,  // filename
-                                   partnerIP,  // partner IP
-                                   port,  // partner port
-                                   fileSize,  // filesize
-                                   token  // Reverse DCC token
-         ) == 0 )
+    if (!ok ||
+        dtm->startReverseSending(connectionId(), sourceNick,
+                                 fileName,  // filename
+                                 partnerIP,  // partner IP
+                                 port,  // partner port
+                                 fileSize,  // filesize
+                                 token  // Reverse DCC token
+         ) == 0)
     {
         // DTM could not find a matched item
-        appendMessageToFrontmost( i18n( "Error" ),
-                                  i18nc( "%1 = file name, %2 = nickname",
-                                        "Received invalid passive DCC send acceptance message for \"%1\" from %2.",
-                                        fileName,
-                                        sourceNick ) );
+        appendMessageToFrontmost(i18n("Error"),
+                                 i18nc("%1 = file name, %2 = nickname",
+                                       "Received invalid passive DCC send acceptance message for \"%1\" from %2.",
+                                       fileName,
+                                       sourceNick));
     }
 }
 
@@ -1976,8 +2174,10 @@ void Server::resumeDccGetTransfer(const QString &sourceNick, const QStringList &
     //filename port position [token]
     QString fileName;
     quint64 position;
-    uint ownPort;
+    quint16 ownPort;
+    bool ok = true;
     const int argumentSize = dccArguments.count();
+
     if (dccArguments.at(argumentSize - 3) == "0") //-1 index, -1 token, -1 pos
     {
         fileName = recoverDccFileName(dccArguments, 3); //port position token
@@ -1987,30 +2187,34 @@ void Server::resumeDccGetTransfer(const QString &sourceNick, const QStringList &
     else
     {
         fileName = recoverDccFileName(dccArguments, 2); //port position
-        ownPort = dccArguments.at(argumentSize - 1).toUInt(); //-1 index, -1 pos
+        ownPort = stringToPort(dccArguments.at(argumentSize - 2), &ok); //-1 index, -1 pos
         position = dccArguments.at(argumentSize - 1).toULongLong(); //-1 index
     }
     //do we need the token here?
 
-    DCC::TransferRecv* dccTransfer = dtm->resumeDownload( connectionId(), sourceNick, fileName, ownPort, position );
-
-    if ( dccTransfer )
+    DCC::TransferRecv* dccTransfer = 0;
+    if (ok)
     {
-        appendMessageToFrontmost( i18n( "DCC" ),
-                                  i18nc( "%1 = file name, %2 = nickname of sender, %3 = percentage of file size, %4 = file size",
-                                        "Resuming download of \"%1\" from %2 starting at %3% of %4..." ,
-                                        fileName,
-                                        sourceNick,
-                                        QString::number( dccTransfer->getProgress() ),
-                                        ( dccTransfer->getFileSize() == 0 ) ? i18n( "unknown size" ) : KIO::convertSize( dccTransfer->getFileSize() ) ) );
+        dccTransfer = dtm->resumeDownload(connectionId(), sourceNick, fileName, ownPort, position);
+    }
+
+    if (dccTransfer)
+    {
+        appendMessageToFrontmost(i18n("DCC"),
+                                 i18nc("%1 = file name, %2 = nickname of sender, %3 = percentage of file size, %4 = file size",
+                                       "Resuming download of \"%1\" from %2 starting at %3% of %4...",
+                                       fileName,
+                                       sourceNick,
+                                       QString::number( dccTransfer->getProgress()),
+                                       (dccTransfer->getFileSize() == 0) ? i18n("unknown size") : KIO::convertSize(dccTransfer->getFileSize())));
     }
     else
     {
-        appendMessageToFrontmost( i18n( "Error" ),
-                                  i18nc( "%1 = file name, %2 = nickname",
-                                        "Received invalid resume acceptance message for \"%1\" from %2.",
-                                        fileName,
-                                        sourceNick ) );
+        appendMessageToFrontmost(i18n("Error"),
+                                 i18nc("%1 = file name, %2 = nickname",
+                                       "Received invalid resume acceptance message for \"%1\" from %2.",
+                                       fileName,
+                                       sourceNick));
     }
 }
 
@@ -2022,7 +2226,8 @@ void Server::resumeDccSendTransfer(const QString &sourceNick, const QStringList 
     QString fileName;
     quint64 position;
     QString token;
-    uint ownPort;
+    quint16 ownPort;
+    bool ok = true;
     const int argumentSize = dccArguments.count();
 
     //filename port filepos [token]
@@ -2038,22 +2243,26 @@ void Server::resumeDccSendTransfer(const QString &sourceNick, const QStringList 
     else
     {
         //filename port filepos
-        ownPort = dccArguments.at( argumentSize - 2).toUInt(); //-1 index, -1 filesize
+        ownPort = stringToPort(dccArguments.at(argumentSize - 2), &ok); //-1 index, -1 filesize
         position = dccArguments.at( argumentSize - 1).toULongLong(); // -1 index
         fileName = recoverDccFileName(dccArguments, 2); //port filepos
     }
 
-    DCC::TransferSend* dccTransfer = dtm->resumeUpload( connectionId(), sourceNick, fileName, ownPort, position );
-
-    if ( dccTransfer )
+    DCC::TransferSend* dccTransfer = 0;
+    if (ok)
     {
-        appendMessageToFrontmost( i18n( "DCC" ),
-                                  i18nc( "%1 = file name, %2 = nickname of recipient, %3 = percentage of file size, %4 = file size",
-                                        "Resuming upload of \"%1\" to %2 starting at %3% of %4...",
-                                        fileName,
-                                        sourceNick,
-                                        QString::number(dccTransfer->getProgress()),
-                                        ( dccTransfer->getFileSize() == 0 ) ? i18n( "unknown size" ) : KIO::convertSize( dccTransfer->getFileSize() ) ) );
+        dccTransfer = dtm->resumeUpload(connectionId(), sourceNick, fileName, ownPort, position);
+    }
+
+    if (dccTransfer)
+    {
+        appendMessageToFrontmost(i18n("DCC"),
+                                 i18nc("%1 = file name, %2 = nickname of recipient, %3 = percentage of file size, %4 = file size",
+                                       "Resuming upload of \"%1\" to %2 starting at %3% of %4...",
+                                       fileName,
+                                       sourceNick,
+                                       QString::number(dccTransfer->getProgress()),
+                                       (dccTransfer->getFileSize() == 0) ? i18n("unknown size") : KIO::convertSize(dccTransfer->getFileSize())));
 
         // fileName can't have " here
         if (fileName.contains(' '))
@@ -2066,15 +2275,14 @@ void Server::resumeDccSendTransfer(const QString &sourceNick, const QStringList 
         else
             result = getOutputFilter()->acceptResumeRequest( sourceNick, fileName, ownPort, position );
         queue( result.toServer );
-
     }
     else
     {
-        appendMessageToFrontmost( i18n( "Error" ),
-                                  i18nc( "%1 = file name, %2 = nickname",
-                                        "Received invalid resume request for \"%1\" from %2.",
-                                        fileName,
-                                        sourceNick ) );
+        appendMessageToFrontmost(i18n("Error"),
+                                 i18nc("%1 = file name, %2 = nickname",
+                                       "Received invalid resume request for \"%1\" from %2.",
+                                       fileName,
+                                       sourceNick));
     }
 }
 
@@ -2083,17 +2291,32 @@ void Server::rejectDccSendTransfer(const QString &sourceNick, const QStringList 
     DCC::TransferManager* dtm = Application::instance()->getDccTransferManager();
 
     //filename
-    QString fileName = recoverDccFileName(dccArguments,0);
+    QString fileName = recoverDccFileName(dccArguments, 0);
 
-    DCC::TransferSend* dccTransfer = dtm->rejectSend( connectionId(), sourceNick, fileName );
+    DCC::TransferSend* dccTransfer = dtm->rejectSend(connectionId(), sourceNick, fileName);
 
-    if ( !dccTransfer )
+    if (!dccTransfer)
     {
-        appendMessageToFrontmost( i18n( "Error" ),
-                                  i18nc( "%1 = file name, %2 = nickname",
-                                        "Received invalid reject request for \"%1\" from %2.",
-                                        fileName,
-                                        sourceNick ) );
+        appendMessageToFrontmost(i18n("Error"),
+                                 i18nc("%1 = file name, %2 = nickname",
+                                       "Received invalid reject request for \"%1\" from %2.",
+                                       fileName,
+                                       sourceNick));
+    }
+}
+
+void Server::rejectDccChat(const QString& sourceNick)
+{
+    DCC::TransferManager* dtm = Application::instance()->getDccTransferManager();
+
+    DCC::Chat* dccChat = dtm->rejectChat(connectionId(), sourceNick);
+
+    if (!dccChat)
+    {
+        appendMessageToFrontmost(i18n("Error"),
+                                 i18nc("%1 = nickname",
+                                       "Received invalid reject request from %1.",
+                                       sourceNick));
     }
 }
 
@@ -2864,10 +3087,21 @@ void Server::renameNick(const QString &nickname, const QString &newNick)
             // Note that NickPanel has already updated, so pass new nick to getNickByName.
             if (channel->getNickByName(newNick)) channel->nickRenamed(nickname, *nickInfo);
         }
+
         //Watched nicknames stuff
         if (isWatchedNick(nickname)) setWatchedNickOffline(nickname, NickInfoPtr());
     }
-    // If we had a query with this nick, change that name, too
+
+    // We had an encrypt conversation with the user that changed his nick, lets copy the key to the new nick and remove the old nick
+    #ifdef HAVE_QCA2
+    QByteArray userKey = getKeyForRecipient(nickname);
+
+    if (!userKey.isEmpty())
+    {
+        setKeyForRecipient(newNick, userKey);
+        m_keyHash.remove(nickname.toLower());
+    }
+    #endif
 
 }
 
@@ -3118,6 +3352,8 @@ void Server::scriptExecutionError(const QString& name)
 
 bool Server::isAChannel(const QString &channel) const
 {
+    if (channel.isEmpty()) return false;
+
     return (getChannelTypes().contains(channel.at(0)) > 0);
 }
 

@@ -10,15 +10,17 @@
 */
 
 /*
-  Copyright (C) 2009 Bernd Buschinski <b.buschinski@web.de>
+  Copyright (C) 2009,2010 Bernd Buschinski <b.buschinski@web.de>
 */
 
 #include "transferlistmodel.h"
 
 #include <QApplication>
+
 #include <KCategorizedSortFilterProxyModel>
 #include <klocalizedstring.h>
 #include <KDebug>
+#include <KCategoryDrawer>
 
 namespace Konversation
 {
@@ -54,14 +56,48 @@ namespace Konversation
         }
 
 
-        TransferProgressBarDelete::TransferProgressBarDelete (QObject *parent)
+        TransferSizeDelegate::TransferSizeDelegate(KCategoryDrawer* categoryDrawer, QObject* parent)
+            : QItemDelegate(parent)
+        {
+            m_categoryDrawer = categoryDrawer;
+        }
+
+        QSize TransferSizeDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
+        {
+            const int itemType = index.data(TransferListModel::TransferDisplayType).toInt();
+            int height;
+            QFontMetrics metrics(option.font);
+
+            int width = metrics.width(index.data(Qt::DisplayRole).toString());
+
+            if (itemType == TransferItemData::SendCategory || itemType == TransferItemData::ReceiveCategory)
+            {
+                height = m_categoryDrawer->categoryHeight(index, QStyleOption());
+            }
+            else
+            {
+                height = metrics.height();
+                QVariant pixmapVariant = index.data(Qt::DecorationRole);
+                if (!pixmapVariant.isNull())
+                {
+                    QPixmap tPix = pixmapVariant.value<QPixmap>();
+                    height = qMax(height, tPix.height());
+                    width = qMax(width, tPix.width());
+                }
+            }
+
+            return QSize(width, height);
+        }
+
+
+        TransferProgressBarDelegate::TransferProgressBarDelegate(QObject *parent)
             : QStyledItemDelegate (parent)
         {
         }
 
-        void TransferProgressBarDelete::paint (QPainter *painter,
-                                               const QStyleOptionViewItem &option,
-                                               const QModelIndex &index) const
+        void TransferProgressBarDelegate::paint(QPainter *painter,
+                                                const QStyleOptionViewItem &option,
+                                                const QModelIndex &index) const
         {
             if (index.isValid())
             {
@@ -430,17 +466,17 @@ namespace Konversation
 
         QString TransferListModel::secToHMS(long sec)
         {
-                int remSec = sec;
-                int remHour = remSec / 3600;
-                remSec -= remHour * 3600;
-                int remMin = remSec / 60;
-                remSec -= remMin * 60;
+            int remSec = sec;
+            int remHour = remSec / 3600;
+            remSec -= remHour * 3600;
+            int remMin = remSec / 60;
+            remSec -= remMin * 60;
 
-                // remHour can be more than 25, so we can't use QTime here.
-                return QString("%1:%2:%3")
-                    .arg(QString::number(remHour).rightJustified(2, '0', false))
-                    .arg(QString::number(remMin).rightJustified(2, '0'))
-                    .arg(QString::number(remSec).rightJustified(2, '0'));
+            // remHour can be more than 25, so we can't use QTime here.
+            return QString("%1:%2:%3")
+                .arg(QString::number(remHour).rightJustified(2, '0', false))
+                .arg(QString::number(remMin).rightJustified(2, '0'))
+                .arg(QString::number(remSec).rightJustified(2, '0'));
         }
 
         QString TransferListModel::getStatusText(Transfer::Status status, Transfer::Type type)

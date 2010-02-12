@@ -309,7 +309,7 @@ void InputFilter::parseClientCommand(const QString &prefix, const QString &comma
                     else
                     {
                         // Do not internationalize the below version string
-                        reply = QString("Konversation %1 (C) 2002-2009 by the Konversation team")
+                        reply = QString("Konversation %1 (C) 2002-2010 by the Konversation team")
                             .arg(QString(KONVI_VERSION));
 
                     }
@@ -328,9 +328,11 @@ void InputFilter::parseClientCommand(const QString &prefix, const QString &comma
                     QString dccArguments = ctcpArgument.mid(ctcpArgument.indexOf(' ')+1);
                     QStringList dccArgumentList;
 
-                    if ((dccArguments.count('\"') >= 2) && (dccArguments.startsWith('\"'))) {
+                    if ((dccArguments.count('\"') >= 2) && (dccArguments.startsWith('\"')))
+                    {
                         int lastQuotePos = dccArguments.lastIndexOf('\"');
-                        if (dccArguments[lastQuotePos+1] == ' ') {
+                        if (dccArguments[lastQuotePos+1] == ' ')
+                        {
                             QString fileName = dccArguments.mid(1, lastQuotePos-1);
                             dccArguments = dccArguments.mid(lastQuotePos+2);
 
@@ -401,17 +403,29 @@ void InputFilter::parseClientCommand(const QString &prefix, const QString &comma
                     }
                     else if (dccType=="chat")
                     {
-
-                        if (dccArgumentList.count()==3)
+                        if (dccArgumentList.count() == 3)
                         {
-                            // will be connected via Server to KonversationMainWindow::addDccChat()
-                            emit addDccChat(server->getNickname(),sourceNick,dccArgumentList,false);
+                            // incoming chat
+                            emit addDccChat(sourceNick,dccArgumentList);
+                        }
+                        else if (dccArgumentList.count() == 4)
+                        {
+                            if (dccArgumentList[dccArgumentList.size() - 2] == "0")
+                            {
+                                // incoming chat (Reverse DCC)
+                                emit addDccChat(sourceNick,dccArgumentList);
+                            }
+                            else
+                            {
+                                // the receiver accepted the offer for Reverse DCC chat
+                                emit startReverseDccChat(sourceNick,dccArgumentList);
+                            }
                         }
                         else
                         {
                             server->appendMessageToFrontmost(i18n("DCC"),
-                                i18n("Received invalid DCC CHAT request from %1.",
-                                     sourceNick)
+                                                             i18n("Received invalid DCC CHAT request from %1.",
+                                                             sourceNick)
                                 );
                         }
                     }
@@ -526,7 +540,7 @@ void InputFilter::parseClientCommand(const QString &prefix, const QString &comma
                             }
                             else if (dccList.first().toLower() == "chat")
                             {
-                                //TODO dcc chat currently lacks accept/reject-structure
+                                emit rejectDccChat(sourceNick);
                             }
                         }
                     }
@@ -887,6 +901,7 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
                         {
                             if(!value.isEmpty())
                             {
+                                server->setChanModes(value);
                                 QString allowed = server->allowedChannelModes();
                                 QString newModes = value.remove(',');
                                 if(!allowed.isEmpty()) //attempt to merge the two
@@ -1021,7 +1036,7 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
                     else if (parameterList.count() > 3)
                     {
                         for(int i = 3; i < parameterList.count(); i++) {
-                        nickList.append(parameterList.value(i));
+                            nickList.append(parameterList.value(i));
                         }
                     }
                     else
@@ -1050,10 +1065,10 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
                         // NAMES input for this channel will be manual invocations of /names
                         setAutomaticRequest("NAMES", parameterList.value(1), false);
 
-                    if (Preferences::self()->autoWhoContinuousEnabled())
-                    {
-                        emit endOfWho(parameterList.value(1));
-                    }
+                        if (Preferences::self()->autoWhoContinuousEnabled())
+                        {
+                            emit endOfWho(parameterList.value(1));
+                        }
                     }
                     else
                     {

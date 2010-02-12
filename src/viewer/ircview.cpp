@@ -16,7 +16,7 @@
 
 #include "ircview.h"
 #include "channel.h"
-#include "dcc/chat.h"
+#include "dcc/chatcontainer.h"
 #include "application.h"
 #include "mainwindow.h"
 #include "viewcontainer.h"
@@ -186,27 +186,59 @@ IRCView::IRCView(QWidget* parent, Server* newServer) : KTextBrowser(parent), m_n
 
     m_popup->addSeparator();
 
-    m_copyUrlClipBoard =m_popup->addAction(KIcon("edit-copy"), i18n("Copy Link Address"), this, SLOT( copyUrl() )) ;
+    m_copyUrlClipBoard = new KAction(this);
+    m_copyUrlClipBoard->setIcon(KIcon("edit-copy"));
+    m_copyUrlClipBoard->setText(i18n("Copy Link Address"));
+    connect(m_copyUrlClipBoard, SIGNAL(triggered()), SLOT(copyUrl()));
+    m_popup->addAction(m_copyUrlClipBoard);
     m_copyUrlClipBoard->setVisible( false );
 
-
-    m_bookmark = m_popup->addAction(KIcon("bookmark-new"), i18n("Add to Bookmarks"), this, SLOT( slotBookmark() ) );
+    m_bookmark = new KAction(this);
+    m_bookmark->setIcon(KIcon("bookmark-new"));
+    m_bookmark->setText(i18n("Add to Bookmarks"));
+    connect(m_bookmark, SIGNAL(triggered()), SLOT(slotBookmark()));
+    m_popup->addAction(m_bookmark);
     m_bookmark->setVisible( false );
-    m_saveUrl = m_popup->addAction(KIcon("document-save"), i18n("Save Link As..."), this, SLOT( saveLinkAs() ));
+
+    m_saveUrl = new KAction(this);
+    m_saveUrl->setIcon(KIcon("document-save"));
+    m_saveUrl->setText(i18n("Save Link As..."));
+    connect(m_saveUrl, SIGNAL(triggered()), SLOT(saveLinkAs()));
+    m_popup->addAction(m_saveUrl);
     m_saveUrl->setVisible( false );
+
     QAction * toggleMenuBarSeparator = m_popup->addSeparator();
     toggleMenuBarSeparator->setVisible(false);
     copyUrlMenuSeparator = m_popup->addSeparator();
     copyUrlMenuSeparator->setVisible( false );
-    QAction *act = m_popup->addAction(KIcon("edit-copy"),i18n("&Copy"),this, SLOT( copy()) );
-    connect( this, SIGNAL(copyAvailable(bool)),act,SLOT( setEnabled( bool ) ) );
-    act->setEnabled( false );
-    m_popup->addAction(i18n("Select All"),this, SLOT(selectAll()) );
-    m_popup->addAction(KIcon("edit-find"),i18n("Find Text..."),this, SLOT( findText() ) );
+
+    QAction *copyAct = new KAction(this);
+    copyAct->setIcon(KIcon("edit-copy"));
+    copyAct->setText(i18n("&Copy"));
+    connect(copyAct, SIGNAL(triggered()), SLOT(copy()));
+    m_popup->addAction(copyAct);
+    connect(this, SIGNAL(copyAvailable(bool)), copyAct, SLOT( setEnabled( bool ) ));
+    copyAct->setEnabled( false );
+
+    QAction *selectAllAct = new KAction(this);
+    selectAllAct->setText(i18n("Select All"));
+    connect(selectAllAct, SIGNAL(triggered()), SLOT(selectAll()));
+    m_popup->addAction(selectAllAct);
+
+    QAction *findTextAct = new KAction(this);
+    findTextAct->setIcon(KIcon("edit-find"));
+    findTextAct->setText(i18n("Find Text..."));
+    connect(findTextAct, SIGNAL(triggered()), SLOT(findText()));
+    m_popup->addAction(findTextAct);
 
     setServer(newServer);
 
     if (Preferences::self()->useParagraphSpacing()) enableParagraphSpacing();
+
+    //HACK to workaround an issue with the QTextDocument
+    //doing a relayout/scrollbar over and over resulting in 100%
+    //proc usage. See bug 215256
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
 IRCView::~IRCView()
@@ -910,7 +942,7 @@ QString IRCView::createNickLine(const QString& nick, const QString& defaultColor
         }
         else if (m_chatWin->getType() == ChatWindow::DccChat)
         {
-            QString ownNick = static_cast<DCC::Chat*>(m_chatWin)->getOwnNick();
+            QString ownNick = static_cast<DCC::ChatContainer*>(m_chatWin)->ownNick();
 
             if (nick != ownNick)
                 nickColor = Preferences::self()->nickColor(Konversation::colorForNick(ownNick)).name();
@@ -1055,7 +1087,7 @@ bool doHighlight, bool parseURL, bool self)
     }
     else if (m_chatWin->getType() == ChatWindow::DccChat)
     {
-        ownNick = static_cast<DCC::Chat*>(m_chatWin)->getOwnNick();
+        ownNick = static_cast<DCC::ChatContainer*>(m_chatWin)->ownNick();
     }
 
     if(doHighlight && (whoSent != ownNick) && !self)
@@ -1339,6 +1371,11 @@ void IRCView::mouseMoveEvent(QMouseEvent* ev)
 
         return;
     }
+    else
+    {
+        // Store the url here instead of in highlightedSlot as the link given there is decoded.
+        m_urlToCopy = anchorAt(ev->pos());
+    }
 
     KTextBrowser::mouseMoveEvent(ev);
 }
@@ -1369,7 +1406,7 @@ void IRCView::mouseReleaseEvent(QMouseEvent *ev)
     {
         if (m_copyUrlMenu)
         {
-            openLink(m_urlToCopy,true);
+            openLink(QUrl (m_urlToCopy));
             return;
         }
         else
@@ -1382,15 +1419,29 @@ void IRCView::mouseReleaseEvent(QMouseEvent *ev)
     KTextBrowser::mouseReleaseEvent(ev);
 }
 
+void IRCView::keyPressEvent(QKeyEvent* ev)
+{
+    const int key = ev->key() | ev->modifiers();
+
+    if (KStandardShortcut::paste().contains(key))
+    {
+        emit textPasted(false);
+        ev->accept();
+        return;
+    }
+
+    KTextBrowser::keyPressEvent(ev);
+}
+
 void IRCView::anchorClicked(const QUrl& url)
 {
-    openLink(url.toString());
+    openLink(url);
 }
 
 // FIXME do we still care about newtab? looks like konqi has lots of config now..
-void IRCView::openLink(const QString& url, bool)
+void IRCView::openLink(const QUrl& url)
 {
-    QString link(url);
+    QString link(url.toString());
     // HACK Replace " " with %20 for channelnames, NOTE there can't be 2 channelnames in one link
     link = link.replace (' ', "%20");
 
@@ -1402,7 +1453,7 @@ void IRCView::openLink(const QString& url, bool)
             konvApp->getConnectionManager()->connectTo(Konversation::SilentlyReuseConnection, link);
         }
         else
-            Application::openUrl(link);
+            Application::openUrl(url.toEncoded());
     }
     //FIXME: Don't do channel links in DCC Chats to begin with since they don't have a server.
     else if (link.startsWith(QLatin1String("##")) && m_server && m_server->isConnected())
@@ -1489,7 +1540,7 @@ void IRCView::highlightedSlot(const QString& _link)
                 m_bookmark->setVisible( true );
                 m_saveUrl->setVisible( true );
             m_copyUrlMenu = true;
-            m_urlToCopy = link;
+//            m_urlToCopy = link;
         }
     }
     else if (link.startsWith('#') && !link.startsWith(QLatin1String("##")))

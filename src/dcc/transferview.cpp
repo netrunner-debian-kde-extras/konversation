@@ -10,7 +10,7 @@
 */
 
 /*
-  Copyright (C) 2009 Bernd Buschinski <b.buschinski@web.de>
+  Copyright (C) 2009,2010 Bernd Buschinski <b.buschinski@web.de>
 */
 
 #include "transferview.h"
@@ -37,12 +37,18 @@ namespace Konversation
             m_proxyModel = new TransferListProxyModel(this);
             m_proxyModel->setSourceModel(m_dccModel);
             setModel(m_proxyModel);
-            setUniformRowHeights(true); //doc says it improves performance
+
+            // doc says it improves performance
+            // but brings problems with KCategoryDrawer starting with kde4.4
+            setUniformRowHeights(false);
+
             setSortingEnabled(true);
             setRootIsDecorated(false); //not implemented for special items
             setSelectionMode(QAbstractItemView::ExtendedSelection);
 
             m_categoryDrawer = new KCategoryDrawer();
+
+            setItemDelegate(new TransferSizeDelegate(m_categoryDrawer, this));
 
             //only after model was set
             restoreColumns();
@@ -72,7 +78,6 @@ namespace Konversation
 
         TransferView::~TransferView()
         {
-            kDebug();
             disconnect(m_updateTimer, 0, 0, 0);
 
             saveColumns();
@@ -90,17 +95,17 @@ namespace Konversation
             }
         }
 
-        void TransferView::drawRow (QPainter *painter, const QStyleOptionViewItem &option,
-                                    const QModelIndex &index) const
+        void TransferView::drawRow(QPainter *painter, const QStyleOptionViewItem &option,
+                                   const QModelIndex &index) const
         {
             int type = index.data(TransferListModel::TransferDisplayType).toInt();
 
             if (type == TransferItemData::SendCategory || type == TransferItemData::ReceiveCategory)
             {
                 m_categoryDrawer->drawCategory(index,
-                                         0, //ignored anyway
-                                         option,
-                                         painter);
+                                               0, //ignored anyway
+                                               option,
+                                               painter);
             }
             else
             {
@@ -188,10 +193,16 @@ namespace Konversation
             m_dccModel->append(tD);
         }
 
-        void TransferView::transferStatusChanged(Transfer */*transfer*/,
+        void TransferView::transferStatusChanged(Transfer *transfer,
                                                  int newStatus, int oldStatus)
         {
             Q_ASSERT(newStatus != oldStatus);
+
+            QModelIndex rowIndex = index(transfer);
+            if (rowIndex.isValid())
+            {
+                dataChanged(rowIndex, index(rowIndex.row(), model()->columnCount()-1));
+            }
 
             if (newStatus == Transfer::Transferring)
             {
@@ -209,6 +220,7 @@ namespace Konversation
                     m_updateTimer->stop();
                 }
             }
+            update();
         }
 
         int TransferView::itemCount() const
@@ -264,9 +276,27 @@ namespace Konversation
             return selectionModel()->selectedRows(column);
         }
 
-        QModelIndex TransferView::index (int row, int column) const
+        QModelIndex TransferView::index(int row, int column) const
         {
             return model()->index(row, column);
+        }
+
+        QModelIndex TransferView::index(Transfer *transfer) const
+        {
+            if (!transfer)
+            {
+                return QModelIndex();
+            }
+
+            foreach (const QModelIndex& rowIndex, rowIndexes())
+            {
+                Transfer *rowTransfer = static_cast<Transfer*>(qVariantValue<QObject*>(rowIndex.data(TransferListModel::TransferPointer)));
+                if (rowTransfer == transfer)
+                {
+                    return rowIndex;
+                }
+            }
+            return QModelIndex();
         }
 
         void TransferView::headerCustomContextMenuRequested(const QPoint &pos)
@@ -399,7 +429,7 @@ namespace Konversation
                 int headerType = m_dccModel->headerData(i, Qt::Horizontal, TransferListModel::HeaderType).toInt();
                 if (headerType == TransferHeaderData::Progress)
                 {
-                    setItemDelegateForColumn (i, new TransferProgressBarDelete(this));
+                    setItemDelegateForColumn (i, new TransferProgressBarDelegate(this));
                     return;
                 }
             }
@@ -542,8 +572,15 @@ namespace Konversation
 
         void TransferView::update()
         {
-            //force an update, but be careful, it makes QItemSelection indexes invalid
-            m_proxyModel->invalidate();
+            const int columnCount = model()->columnCount()-1;
+            foreach (const QModelIndex& rowIndex, rowIndexes(0))
+            {
+                int status = rowIndex.data(TransferListModel::TransferStatus).toInt();
+                if (status == Transfer::Transferring)
+                {
+                    dataChanged(rowIndex, index(rowIndex.row(), columnCount));
+                }
+            }
             QTreeView::update();
         }
 

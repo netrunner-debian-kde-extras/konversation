@@ -1,3 +1,131 @@
+Changes from 1.2.1 to 1.2.2:
+Konversation 1.2.2 contains a number of new features, such as support
+for passive DCC chat and amarok:// URLs, and a large amount of user
+interface improvements to various tabs (e.g. Watched Nicknames Online
+and the URL Catcher) and dialogs (e.g. Join Channel). When used with
+KDE SC 4.4 it supports the new system tray icon API. A sizable list
+of bug fixes round things out; of particular note is a change address-
+ing the high CPU usage some users have experienced with Qt 4.6.
+
+
+* Added support for passive DCC chat.
+* Made it possible to accept/reject DCC chats like DCC file transfers.
+* Added an option to auto-accept DCC chats (previously it would always
+  auto-accept).
+* Added a confirmation dialog for closing DCC chats, consistent with
+  other conversation tabs.
+* Improved the sanity-checking code for the validity of ports used in
+  DCC operations.
+* Fixed connection attempts possibly stalling when there is a problem
+  with executing the associated identity's pre-shell command (provided
+  it has one set at all), and Konversation crashing when it is quit
+  while a connection attempt is stuck on trying to execute the pre-
+  shell command.
+* Fixed /setkey, /delkey and /showkey treating their target arguments
+  (i.e. a channel or a query) case-sensitive.
+* Fixed the encryption key for a query getting lost if the other end
+  changes their nickname.
+* Added support for KStatusNotifierItem, the new system tray API in
+  KDE.
+* Fixed a bug causing multiple auto-replacements in a single message
+  not to work.
+* Made it possible to include syntax normally used to refer to a sub-
+  group of the matching pattern as normal text in the replacement pat-
+  tern of a regular expression auto-replace, by escaping it like this:
+  %%1.
+* Fixed a bug causing an empty MODE message to be sent to the server
+  preceding the correct one when using /op, /deop and the like.
+* Fixed a bug causing as many mode chars as target nicknames given to
+  commands like /op, /deop etc. to be sent as part of every single re-
+  sultant MODE messages sent to the server, despite one MODE message
+  being generated for every group of three target nicknames. I.e. "/op
+  foo foo foo foo" would result in "MODE +oooo foo foo foo" and "MODE
+  +oooo foo", when it should only be "+ooo" and "+o", respectively.
+* Added support for amarok:// URLs in chat text views and channel to-
+  pics.
+* Fixed a bug causing Konversation to treat "Page Up" and "Page Down"
+  key events with any modifier (e.g. Ctrl) the same as without any mo-
+  difier, making such combinations unavailable as shortcuts for other
+  actions.
+* Fixed a bug causing the status bar to remain stuck displaying the
+  description of a menu action if subsequently hovering other actions
+  without a description set.
+* The Watched Nicknames Online, URL Catcher and Channel List tabs now
+  use a toolbar at the top rather than a row of buttons at the bottom
+  for their various actions, consistent with the Log Viewer and the
+  (redesigned for 1.2) DCC Status tabs. Aside from a nicer UI this has
+  the side benefit of reducing the minimum window width with any of
+  these tabs open.
+* Further work on reducing the use of the qt3support/kde3support lib-
+  raries throughout the codebase.
+* The design of the search bar has been made more consistent with the
+  search bars found in other KDE applications (e.g. Konqueror, Konso-
+  le and KWrite).
+* Added a "--noautoconnect" command line argument to disable auto-co-
+  nnecting to any IRC networks on application startup.
+* The invite dialog now has a drop-down offering the options "Always
+  ask", "Always join" and "Always ignore" for future default behavior,
+  rather than just a "Don't ask again" checkbox that wasn't sufficient
+  to cover all scenarios.
+* The "Hide Nicklist" action has been renamed "Show Nicklist" to com-
+  ply with the KDE 4 HIG.
+* URLs are no longer decoded before being passed to the web browser,
+  fixing the opening of some links from the chat text view.
+* Fixed a bug causing the application to crash when pressing the left
+  or right arrow keys after selecting an active file transfer in the
+  DCC Status tab's transfer list when using Qt 4.6.
+* Improved performance of the DCC Status tab's transfer list.
+* It's now possible to add nicknames to the Watched Nicknames Online
+  list, as well as remove them, right from the tab rather than having
+  to go to the config dialog.
+* Fixed a bug that would cause the "Choose Association" KDE address
+  book integration action to create a new contact in the address book.
+* It's now possible to add a nickname to the watch list of all net-
+  works in the Watched Nicknames Online tab at once.
+* Fixed a bug causing the opening of all bookmarks in a bookmark fol-
+  der at once not to work.
+* The ban list interface has seen a facelift. The new way of working
+  with the list makes it very easy to use an existing list entry as
+  a starting point, modify it and then decide between replacing the
+  original ban with the new version or adding it as an additional ban.
+* The topic history list in the Channel Settings dialog has seen a
+  number of behavioral and reliability improvements.
+* Updated various dialog layouts to better comply with the alignment
+  rules of the KDE 4 HIG.
+* The URL list in the URL catcher tab now sports a new Date column
+  and can be sorted. The sorting settings are saved and restored
+  across sessions.
+* Fixed a bug causing the vertical spacing inbetween the regular mode
+  checkboxen on the "Modes" tab of the Channel Settings dialog to
+  change when the display of the advanced mode list was toggled or
+  the dialog was resized.
+* The Join Channel dialog now sports a combo box listing all open co-
+  nnections (and the nicknames used on them, to be able to tell mul-
+  tiple connections to the same network apart), with the connection
+  owning the active tab automatically pre-selected. This allows one
+  to pick the connection to join the channel on regardless of the
+  active tab at the time the dialog is invoked (e.g. via the keyboard
+  shortcut). Previously, the dialog would only operate on the connec-
+  tion owning the active tab (and display it in a static label),
+  possibly requiring one to switch to a suitable tab first.
+* Fixed a bug causing the "Clear History" item in the context menu of
+  the channel combobox in the "Join Channel" dialog not to clear the
+  history correctly; while it would be gone for as long as the dialog
+  was open, it would be back when closing and reopening the dialog.
+* Fixed a bug causing a crash on Windows when middle-clicking the chat
+  text view.
+* Fixed a bug causing the pasting of clipboard contents using keyboard
+  shortcuts not to work when the chat text has keyboard focus.
+* Fixed a bug causing the setting or removing of a 'q' channel mode to
+  be mistakenly announced as giving or taking channel owner privileges
+  on networks where it's actually a type of ban.
+* Fixed a bug causing a crash when pressing the "Ok" button in the
+  "Join Channel" dialog without entering anything in the dialog's
+  "Channel:" input field beforehand.
+* More robust Unicode handling to make interaction with the D-Bus dae-
+  mon more reliable.
+
+
 Changes from 1.2 to 1.2.1:
 This second release in the Konversation 1.2.x release series for KDE 4
 adds a number of new features to the bookmarks system and support for
