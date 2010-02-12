@@ -11,10 +11,10 @@ Signed-off-by: Modestas Vainius <modestas@vainius.eu>
  1 files changed, 1 insertions(+), 0 deletions(-)
 
 diff --git a/src/config/preferences.cpp b/src/config/preferences.cpp
-index 46b4964..a854786 100644
+index 0371bc2..27bdacd 100644
 --- a/src/config/preferences.cpp
 +++ b/src/config/preferences.cpp
-@@ -119,6 +119,7 @@ const QList<QStringList> Preferences::defaultAutoreplaceList()
+@@ -121,6 +121,7 @@ const QList<QStringList> Preferences::defaultAutoreplaceList()
      QList<QStringList> defaultList;
      defaultList.append(QStringList() << "1" << "o" << "\\[\\[([^\\s]+)\\]\\]" << "http://en.wikipedia.org/wiki/Special:Search?go=Go&search=%1");
      defaultList.append(QStringList() << "1" << "o" << "(BUG:|bug:)([0-9]+)" << "https://bugs.kde.org/show_bug.cgi?id=%2");
@@ -23,4 +23,4 @@ index 46b4964..a854786 100644
  }
  
 -- 
-tg: (02e5a8f..) debian/dbug_autoreplace (depends on: upstream)
+tg: (704a89b..) debian/dbug_autoreplace (depends on: upstream)
