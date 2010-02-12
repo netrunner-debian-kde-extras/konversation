@@ -11,39 +11,44 @@
 
 #include "nicksonlineitem.h"
 
+#include <QHeaderView>
 
-NicksOnlineItem::NicksOnlineItem(int type, Q3ListView* parent, const QString& name, const QString& col2) :
-                 K3ListViewItem(parent, name, col2)
+NicksOnlineItem::NicksOnlineItem(int type, QTreeWidget* parent, const QString& name, const QString& col2) :
+                 QTreeWidgetItem(parent)
 {
+  setText(0, name);
+  setText(1, col2);
   m_type=type;
   m_connectionId = 0;
-  m_offline = false;
+  setOffline(false);
 }
 
-NicksOnlineItem::NicksOnlineItem(int type, Q3ListViewItem* parent, const QString& name, const QString& col2) :
-                 K3ListViewItem(parent, name, col2)
+NicksOnlineItem::NicksOnlineItem(int type, QTreeWidgetItem* parent, const QString& name, const QString& col2) :
+                 QTreeWidgetItem(parent)
 {
+  setText(0, name);
+  setText(1, col2);
   m_type=type;
   m_connectionId = 0;
-  m_offline = false;
+  setOffline(false);
 }
 
-/**
- * Reimplemented to make sure, "Offline" items always get sorted to the bottom of the list
- * @param i                 Pointer to the QListViewItem to compare with.
- * @param col               The column to compare
- * @param ascending         Specify sorting direction
- * @return                  -1 if this item's value is smaller than i, 0 if they are equal, 1 if it's greater
- */
-int NicksOnlineItem::compare(Q3ListViewItem* i,int col,bool ascending) const
+bool NicksOnlineItem::operator<(const QTreeWidgetItem &item) const
 {
-  // if we are the Offline item, make sure we get sorted at the end of the list
-  if(m_type==OfflineItem) return ascending ? 1 : -1;
-  // if we are competing with an Offline item, always lose
-  if(static_cast<NicksOnlineItem*>(i)->type()==OfflineItem) return ascending ? -1 : 1;
-
+  // make sure that offline items are always at the bottom
+  QVariant itemState = item.data(0, Qt::UserRole);
+  if (itemState.type() == QVariant::Bool)
+  {
+    bool itemOffline = itemState.toBool();
+    // we are online but other item is offline
+    if (!this->isOffline() && itemOffline)
+      return treeWidget()->header()->sortIndicatorOrder() == Qt::AscendingOrder;
+    // we are offline but other item is online
+    if (this->isOffline() && !itemOffline)
+      return treeWidget()->header()->sortIndicatorOrder() != Qt::AscendingOrder;
+  }
   // otherwise compare items case-insensitively
-  return key(col,ascending).toLower().localeAwareCompare(i->key(col,ascending).toLower());
+  return text(treeWidget()->sortColumn()).toLower() < item.text(treeWidget()->sortColumn()).toLower();
 }
 
 /**

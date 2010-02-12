@@ -12,14 +12,19 @@
 
 #include "searchbar.h"
 
+#include "application.h"
+
 #include <QTimer>
 #include <QShortcut>
 
+#include <KActionCollection>
+#include <KColorScheme>
+#include <KStandardAction>
 #include <KMenu>
 
 
 SearchBar::SearchBar(QWidget* parent)
-: QWidget(parent)
+: QWidget(parent), m_goUpSearch("go-up-search"), m_goDownSearch("go-down-search")
 {
     setupUi(this);
 
@@ -29,11 +34,12 @@ SearchBar::SearchBar(QWidget* parent)
     m_fromCursor = false;
 
     setFocusProxy(m_searchEdit);
-    m_closeButton->setIcon(KIcon("process-stop"));
-    m_findNextButton->setIcon(KIcon("arrow-up"));
-    m_findPreviousButton->setIcon(KIcon("arrow-down"));
-    m_statusPixLabel->hide();
-    m_statusTextLabel->hide();
+    m_closeButton->setIcon(KIcon("dialog-close"));
+    m_findNextButton->setIcon(m_goUpSearch);
+    m_findPreviousButton->setIcon(m_goDownSearch);
+    Application* konvApp = static_cast<Application*>(kapp);
+    konvApp->getMainWindow()->actionCollection()->action(KStandardAction::name(KStandardAction::FindNext))->setIcon(m_goUpSearch);
+    konvApp->getMainWindow()->actionCollection()->action(KStandardAction::name(KStandardAction::FindPrev))->setIcon(m_goDownSearch);
 
     m_timer = new QTimer(this);
     m_timer->setSingleShot(true);
@@ -53,7 +59,7 @@ SearchBar::SearchBar(QWidget* parent)
     action = m_optionsMenu->addAction(i18n("Find Forward"));
     action->setCheckable(true);
     connect(action, SIGNAL(toggled(bool)), this, SLOT(toggleSearchFoward(bool)));
-    action = m_optionsMenu->addAction(i18n("Case Sensitive"));
+    action = m_optionsMenu->addAction(i18n("Match Case"));
     action->setCheckable(true);
     connect(action, SIGNAL(toggled(bool)), this, SLOT(toggleMatchCase(bool)));
     action = m_optionsMenu->addAction(i18n("Whole Words Only"));
@@ -107,7 +113,6 @@ void SearchBar::slotFind()
         m_searchEdit->setPalette(QPalette());
         m_findNextButton->setEnabled(false);
         m_findPreviousButton->setEnabled(false);
-        setStatus(QPixmap(), "");
         return;
     }
 
@@ -121,7 +126,6 @@ void SearchBar::slotFindNext()
         m_searchEdit->setPalette(QPalette());
         m_findNextButton->setEnabled(false);
         m_findPreviousButton->setEnabled(false);
-        setStatus(QPixmap(), "");
         return;
     }
 
@@ -135,7 +139,6 @@ void SearchBar::slotFindPrevious()
         m_searchEdit->setPalette(QPalette());
         m_findNextButton->setEnabled(false);
         m_findPreviousButton->setEnabled(false);
-        setStatus(QPixmap(), "");
         return;
     }
 
@@ -145,24 +148,11 @@ void SearchBar::slotFindPrevious()
 void SearchBar::setHasMatch(bool value)
 {
     QPalette pal = m_searchEdit->palette();
-    pal.setColor(QPalette::Active, QPalette::Base, value ? Qt::green : Qt::red);
+    KColorScheme::adjustBackground(pal, value ? KColorScheme::PositiveBackground : KColorScheme::NegativeBackground);
     m_searchEdit->setPalette(pal);
+
     m_findNextButton->setEnabled(value);
     m_findPreviousButton->setEnabled(value);
-}
-
-void SearchBar::setStatus(const QPixmap& pix, const QString& text)
-{
-    if(!text.isEmpty()) {
-        m_statusPixLabel->show();
-        m_statusTextLabel->show();
-    } else {
-        m_statusPixLabel->hide();
-        m_statusTextLabel->hide();
-    }
-
-    m_statusPixLabel->setPixmap(pix);
-    m_statusTextLabel->setText(text);
 }
 
 QString SearchBar::pattern() const
@@ -192,6 +182,20 @@ bool SearchBar::fromCursor() const
 
 void SearchBar::toggleSearchFoward(bool value)
 {
+    Application* konvApp = static_cast<Application*>(kapp);
+    if (value) {
+      m_findNextButton->setIcon(m_goDownSearch);
+      m_findPreviousButton->setIcon(m_goUpSearch);
+      konvApp->getMainWindow()->actionCollection()->action(KStandardAction::name(KStandardAction::FindNext))->setIcon(m_goDownSearch);
+      konvApp->getMainWindow()->actionCollection()->action(KStandardAction::name(KStandardAction::FindPrev))->setIcon(m_goUpSearch);
+    }
+    else
+    {
+      m_findNextButton->setIcon(m_goUpSearch);
+      m_findPreviousButton->setIcon(m_goDownSearch);
+      konvApp->getMainWindow()->actionCollection()->action(KStandardAction::name(KStandardAction::FindNext))->setIcon(m_goUpSearch);
+      konvApp->getMainWindow()->actionCollection()->action(KStandardAction::name(KStandardAction::FindPrev))->setIcon(m_goDownSearch);
+    }
     m_searchFoward = value;
     slotTextChanged();
 }

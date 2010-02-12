@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
         "",
         ki18n("Konversation"),
         KONVI_VERSION,
-        ki18n("A user friendly IRC client"),
+        ki18n("A user-friendly IRC client"),
         KAboutData::License_GPL,
         ki18n("(C) 2002-2009 by the Konversation team"),
         ki18n("Konversation is a client for the Internet Relay Chat (IRC) protocol.\n"
@@ -76,6 +76,7 @@ int main(int argc, char* argv[])
     aboutData.addCredit(ki18n("Juan Carlos Torres"),ki18n("Auto-join context menu"),"carlosdgtorres@gmail.com");
     aboutData.addCredit(ki18n("Travis McHenry"),ki18n("Various fixes, ported encryption to QCA2, added DH1080 key exchange support."),"tmchenryaz@cox.net");
     aboutData.addCredit(ki18n("Modestas Vainius"),ki18n("Bug fixes and enhancements."),"modestas@vainius.eu");
+    aboutData.addCredit(ki18n("Abdurrahman AVCI"),ki18n("Various bug fixes and enhancements."),"abdurrahmanavci@gmail.com");
 
     KCmdLineArgs::init(argc, argv, &aboutData);
     KCmdLineOptions options;
@@ -86,6 +87,7 @@ int main(int argc, char* argv[])
     options.add( "nick <nickname>", ki18n("Nickname to use"),"");
     options.add( "password <password>", ki18n("Password for connection"),"");
     options.add( "ssl", ki18n("Use SSL for connection"),"false");
+    options.add( "noautoconnect", ki18n("Disable auto-connecting to any IRC networks"));
 
 
     KCmdLineArgs::addCmdLineOptions(options);

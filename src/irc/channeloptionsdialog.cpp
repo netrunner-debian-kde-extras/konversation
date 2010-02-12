@@ -22,8 +22,7 @@
 #include <QStandardItemModel>
 #include <QKeyEvent>
 #include <QItemSelectionModel>
-
-
+#include <QTreeWidget>
 
 namespace Konversation
 {
@@ -37,12 +36,15 @@ namespace Konversation
         Q_ASSERT(channel);
         m_ui.setupUi(mainWidget());
 
+        m_ui.addBan->setIcon(KIcon("list-add"));
+        m_ui.updateBan->setIcon(KIcon("edit-rename"));
+        m_ui.removeBan->setIcon(KIcon("list-remove"));
+
         QStandardItemModel *modesModel = new QStandardItemModel(m_ui.otherModesList);
         m_ui.otherModesList->setModel(modesModel);
         m_ui.otherModesList->hide();
 
-        m_ui.banList->setDefaultRenameAction(Q3ListView::Accept);
-        m_ui.banListSearchLine->setListView(m_ui.banList);
+        m_ui.banListSearchLine->setTreeWidget(m_ui.banList);
 
         m_topicModel = new TopicListModel(m_ui.topicHistoryView);
         m_ui.topicHistoryView->setModel(m_topicModel);
@@ -62,18 +64,17 @@ namespace Konversation
         connect(m_channel, SIGNAL(modesChanged()), this, SLOT(refreshModes()));
         connect(m_channel->getServer(), SIGNAL(channelNickChanged(const QString&)), this, SLOT(refreshEnableModes()));
 
-        connect(this, SIGNAL(cancelClicked()), this, SLOT(cancelClicked()));
         connect(this, SIGNAL(okClicked()), this, SLOT(changeOptions()));
-        connect(this, SIGNAL(okClicked()), this, SLOT(okClicked()));
 
         connect(m_channel, SIGNAL(banAdded(const QString&)), this, SLOT(addBan(const QString&)));
         connect(m_channel, SIGNAL(banRemoved(const QString&)), this, SLOT(removeBan(const QString&)));
         connect(m_channel, SIGNAL(banListCleared()), m_ui.banList, SLOT(clear()));
 
         connect(m_ui.addBan, SIGNAL(clicked()), this, SLOT(addBanClicked()));
+        connect(m_ui.updateBan, SIGNAL(clicked()), this, SLOT(updateBanClicked()));
         connect(m_ui.removeBan, SIGNAL(clicked()), this, SLOT(removeBanClicked()));
-        connect(m_ui.banList, SIGNAL(itemRenamed (Q3ListViewItem*)), this, SLOT(banEdited(Q3ListViewItem*)));
-        connect(m_ui.banList, SIGNAL(itemRenamed (Q3ListViewItem*, int, const QString&)), this, SLOT(banEdited(Q3ListViewItem*)));
+        connect(m_ui.banList, SIGNAL(itemSelectionChanged()), this, SLOT(banSelectionChanged()));
+        connect(m_ui.hostmask, SIGNAL(textChanged(QString)), this, SLOT(hostmaskChanged(QString)));
 
         m_ui.topicModeChBox->setWhatsThis(whatsThisForMode('T'));
         m_ui.messageModeChBox->setWhatsThis(whatsThisForMode('N'));
@@ -183,14 +184,32 @@ namespace Konversation
             item.topic = (*it).section(' ', 2);
             topicList.append(item);
         }
-
         m_topicModel->setTopicList(topicList);
         m_topicModel->sort(m_ui.topicHistoryView->header()->sortIndicatorSection(),
                            m_ui.topicHistoryView->header()->sortIndicatorOrder());
-
-        // update topic preview
-        QItemSelection selection(m_topicModel->index(0, 0, QModelIndex()), m_topicModel->index(0, 1, QModelIndex()));
-        m_ui.topicHistoryView->selectionModel()->select(selection, QItemSelectionModel::ClearAndSelect);
+        if (topicList.count() > 0)
+        {
+            // Save current topic
+            TopicItem topic = topicList.last();
+            // Find current topic's row index
+            int row = 0;
+            QList<TopicItem> sortedList = m_topicModel->topicList();
+            for (int i = 0; i < sortedList.count(); ++i)
+            {
+                if (sortedList.at(i).author == topic.author &&
+                    sortedList.at(i).timestamp == topic.timestamp &&
+                    sortedList.at(i).topic == topic.topic)
+                {
+                    row = i;
+                    break;
+                }
+            }
+            // Select current topic and update topic preview
+            QItemSelection selection(m_topicModel->index(row, 0, QModelIndex()), m_topicModel->index(row, 1, QModelIndex()));
+            m_ui.topicHistoryView->selectionModel()->select(selection, QItemSelectionModel::ClearAndSelect);
+            // Make sure that the item is visible
+            m_ui.topicHistoryView->scrollTo(m_topicModel->index(row, 0, QModelIndex()));
+        }
     }
 
     void ChannelOptionsDialog::topicHistoryItemClicked(const QItemSelection& selection)
@@ -217,23 +236,27 @@ namespace Konversation
     {
         if(m_channel->getOwnChannelNick()->isChanged() || forceUpdate)
         {
-            bool enable = m_channel->getOwnChannelNick()->isAnyTypeOfOp();
-            m_ui.otherModesList->setEnabled(enable);
-            m_ui.topicEdit->setReadOnly(!enable && m_ui.topicModeChBox->isChecked());
+            // cache the value
+            m_isAnyTypeOfOp = m_channel->getOwnChannelNick()->isAnyTypeOfOp();
+            m_ui.otherModesList->setEnabled(m_isAnyTypeOfOp);
+            m_ui.topicEdit->setReadOnly(!m_isAnyTypeOfOp && m_ui.topicModeChBox->isChecked());
 
-            m_ui.topicModeChBox->setEnabled(enable);
-            m_ui.messageModeChBox->setEnabled(enable);
-            m_ui.userLimitChBox->setEnabled(enable);
-            m_ui.userLimitEdit->setEnabled(enable);
-            m_ui.inviteModeChBox->setEnabled(enable);
-            m_ui.moderatedModeChBox->setEnabled(enable);
-            m_ui.secretModeChBox->setEnabled(enable);
-            m_ui.keyModeChBox->setEnabled(enable);
-            m_ui.keyModeEdit->setEnabled(enable);
+            m_ui.topicModeChBox->setEnabled(m_isAnyTypeOfOp);
+            m_ui.messageModeChBox->setEnabled(m_isAnyTypeOfOp);
+            m_ui.userLimitChBox->setEnabled(m_isAnyTypeOfOp);
+            m_ui.userLimitEdit->setEnabled(m_isAnyTypeOfOp);
+            m_ui.inviteModeChBox->setEnabled(m_isAnyTypeOfOp);
+            m_ui.moderatedModeChBox->setEnabled(m_isAnyTypeOfOp);
+            m_ui.secretModeChBox->setEnabled(m_isAnyTypeOfOp);
+            m_ui.keyModeChBox->setEnabled(m_isAnyTypeOfOp);
+            m_ui.keyModeEdit->setEnabled(m_isAnyTypeOfOp);
+            m_ui.hostmask->setEnabled(m_isAnyTypeOfOp);
+            m_ui.addBan->setEnabled(m_isAnyTypeOfOp);
+            m_ui.updateBan->setEnabled(m_isAnyTypeOfOp);
+            m_ui.removeBan->setEnabled(m_isAnyTypeOfOp);
 
-            m_ui.banList->setItemsRenameable(enable);
-            m_ui.addBan->setEnabled(enable);
-            m_ui.removeBan->setEnabled(enable);
+            banSelectionChanged();
+            hostmaskChanged(m_ui.hostmask->text());
         }
     }
 
@@ -417,161 +440,129 @@ namespace Konversation
 
     void ChannelOptionsDialog::addBan(const QString& newban)
     {
-        new BanListViewItem(m_ui.banList, newban.section(' ', 0, 0), newban.section(' ', 1, 1).section('!', 0, 0), newban.section(' ', 2 ,2).toUInt());
+        BanListViewItem *item = new BanListViewItem(m_ui.banList, newban.section(' ', 0, 0), newban.section(' ', 1, 1).section('!', 0, 0), newban.section(' ', 2 ,2).toUInt());
+        // set item as current item
+        m_ui.banList->setCurrentItem(item);
+        // update button states
+        hostmaskChanged(m_ui.hostmask->text());
     }
 
     void ChannelOptionsDialog::removeBan(const QString& ban)
     {
-        delete m_ui.banList->findItem(ban, 0);
-    }
-
-    void ChannelOptionsDialog::banEdited(Q3ListViewItem *edited)
-    {
-        if (edited == m_NewBan)
-        {
-            if (!m_NewBan->text(0).isEmpty())
-            {
-                m_channel->getServer()->requestBan(QStringList(m_NewBan->text(0)), m_channel->getName(), QString());
-            }
-
-            // We will delete the item and let the addBan slot handle
-            // readding the item because for some odd reason using
-            // startRename causes further attempts to rename the item
-            // using 2 mouse clicks to fail in odd ways.
-            delete edited;
-
-            return;
-        }
-
-        BanListViewItem *new_edited = dynamic_cast <BanListViewItem*> (edited);
-        if (new_edited == NULL) return; // Should not happen.
-
-        if (new_edited->getOldValue() != new_edited->text(0))
-        {
-            m_channel->getServer()->requestUnban(new_edited->getOldValue(), m_channel->getName());
-
-            if (!new_edited->text(0).isEmpty())
-            {
-                m_channel->getServer()->requestBan(QStringList(new_edited->text(0)), m_channel->getName(), QString());
-            }
-
-            // We delete the existing item because it's possible the server may
-            // Modify the ban causing us not to catch it. If that happens we'll be
-            // stuck with a stale item and a new item with the modified hostmask.
-            delete new_edited;
-        }
+        QList<QTreeWidgetItem *> items = m_ui.banList->findItems(ban, Qt::MatchCaseSensitive | Qt::MatchExactly, 0);
+        if (items.count() > 0)
+          delete items.at(0);
     }
 
     void ChannelOptionsDialog::addBanClicked()
     {
-        m_NewBan = new BanListViewItem(m_ui.banList, true);
-
-        m_NewBan->setRenameEnabled(0,true);
-        m_NewBan->startRename(0);
+      QString newHostmask = m_ui.hostmask->text();
+      if (!newHostmask.isEmpty())
+        m_channel->getServer()->requestBan(QStringList(newHostmask), m_channel->getName(), QString());
     }
 
     void ChannelOptionsDialog::removeBanClicked()
     {
-        if (m_ui.banList->currentItem())
-            m_channel->getServer()->requestUnban(m_ui.banList->currentItem()->text(0), m_channel->getName());
+      QString oldHostmask = m_ui.banList->currentItem()->text(0);
+      // We delete the existing item because it's possible the server may
+      // Modify the ban causing us not to catch it. If that happens we'll be
+      // stuck with a stale item and a new item with the modified hostmask.
+      delete m_ui.banList->currentItem();
+      // request unban
+      m_channel->getServer()->requestUnban(oldHostmask, m_channel->getName());
     }
 
-    void ChannelOptionsDialog::cancelClicked()
+    void ChannelOptionsDialog::updateBanClicked()
     {
-        if (m_ui.banList->renameLineEdit()->isVisible())
-        {
-            QKeyEvent e(QEvent::KeyPress, Qt::Key_Escape, Qt::NoModifier);
-            QApplication::sendEvent(m_ui.banList->renameLineEdit(), &e);
-        }
-
-        hide();
+      QString oldHostmask = m_ui.banList->currentItem()->text(0);
+      QString newHostmask = m_ui.hostmask->text();
+      if (!newHostmask.isEmpty() && newHostmask.compare(oldHostmask))
+      {
+        // We delete the existing item because it's possible the server may
+        // Modify the ban causing us not to catch it. If that happens we'll be
+        // stuck with a stale item and a new item with the modified hostmask.
+        delete m_ui.banList->currentItem();
+        // request unban for the of the old hostmask
+        m_channel->getServer()->requestUnban(oldHostmask, m_channel->getName());
+        // request ban for the of the old hostmask
+        m_channel->getServer()->requestBan(QStringList(newHostmask), m_channel->getName(), QString());
+      }
     }
-
-    void ChannelOptionsDialog::okClicked()
+    /// Enables/disables updateBan and removeBan buttons depending on the currentItem of the banList
+    void ChannelOptionsDialog::banSelectionChanged()
     {
-        if (m_ui.banList->renameLineEdit()->isVisible())
-        {
-            QKeyEvent e(QEvent::KeyPress, Qt::Key_Return, Qt::NoModifier);
-            QApplication::sendEvent(m_ui.banList->renameLineEdit(), &e);
-        }
+      if (m_ui.banList->currentItem())
+      {
+        m_ui.updateBan->setEnabled(m_isAnyTypeOfOp);
+        m_ui.removeBan->setEnabled(m_isAnyTypeOfOp);
+        // update line edit content
+        m_ui.hostmask->setText(m_ui.banList->currentItem()->text(0));
+      }
+      else
+      {
+        m_ui.updateBan->setEnabled(false);
+        m_ui.removeBan->setEnabled(false);
+      }
     }
-
+    /// Enables/disables addBan and updateBan buttons depending on the value of @p text
+    void ChannelOptionsDialog::hostmaskChanged(QString text)
+    {
+      if (text.trimmed().length() != 0)
+      {
+        if (m_isAnyTypeOfOp)
+        {
+          QList<QTreeWidgetItem*> items = m_ui.banList->findItems(text, Qt::MatchExactly | Qt::MatchCaseSensitive, 0);
+          m_ui.addBan->setEnabled(items.count() == 0);
+          m_ui.updateBan->setEnabled(items.count() == 0 && m_ui.banList->currentItem());
+        }
+      }
+      else
+      {
+        m_ui.addBan->setEnabled(false);
+        m_ui.updateBan->setEnabled(false);
+      }
+    }
     // This is our implementation of BanListViewItem
 
-    BanListViewItem::BanListViewItem(Q3ListView *parent)
-      : K3ListViewItem(parent)
+    BanListViewItem::BanListViewItem(QTreeWidget *parent)
+      : QTreeWidgetItem()
     {
-        m_isNewBan = 0;
+        parent->addTopLevelItem(this);
     }
 
-    BanListViewItem::BanListViewItem(Q3ListView *parent, bool isNew)
-      : K3ListViewItem(parent)
+    BanListViewItem::BanListViewItem (QTreeWidget *parent, const QString& label1, const QString& label2,
+        uint timestamp) : QTreeWidgetItem()
     {
-        m_isNewBan = isNew;
-    }
-
-    BanListViewItem::BanListViewItem (Q3ListView *parent, const QString& label1, const QString& label2,
-        uint timestamp) : K3ListViewItem(parent, label1, label2)
-    {
-        m_isNewBan = 0;
+        setText(0, label1);
+        setText(1, label2);
         m_timestamp.setTime_t(timestamp);
+        setText(2, KGlobal::locale()->formatDateTime(m_timestamp, KLocale::ShortDate, true));
+        setData(2, Qt::UserRole, m_timestamp);
+        parent->addTopLevelItem(this);
     }
 
-    BanListViewItem::BanListViewItem (Q3ListView *parent, bool isNew, const QString& label1, const QString& label2,
-        uint timestamp) : K3ListViewItem(parent, label1, label2)
+    bool BanListViewItem::operator<(const QTreeWidgetItem &item) const
     {
-        m_isNewBan = isNew;
-        m_timestamp.setTime_t(timestamp);
-    }
-
-    QString BanListViewItem::text(int column) const
-    {
-        if (column == 2)
-            return KGlobal::locale()->formatDateTime(m_timestamp, KLocale::ShortDate, true);
-
-        return K3ListViewItem::text(column);
-    }
-
-    int BanListViewItem::compare(Q3ListViewItem *i, int col, bool ascending) const
-    {
-        if (col == 2)
+        if (treeWidget()->sortColumn() == 2)
         {
-            BanListViewItem* item = dynamic_cast<BanListViewItem*>(i);
-            if (!item)
+            QVariant userdata = item.data(2, Qt::UserRole);
+            if (userdata.isValid() && userdata.type() == QVariant::DateTime)
             {
-                return 0;
+              return m_timestamp < userdata.toDateTime();
             }
-
-            if (m_timestamp == item->timestamp())
-                return 0;
-            else if (m_timestamp < item->timestamp())
-                return -1;
-            else
-                return 1;
         }
 
-        return K3ListViewItem::compare(i, col, ascending);
+        return text(treeWidget()->sortColumn()) < item.text(treeWidget()->sortColumn());
     }
-
-    void BanListViewItem::startRename( int col )
-    {
-        m_oldValue = text(col);
-
-        K3ListViewItem::startRename(col);
-    }
-
-    void BanListViewItem::cancelRename( int col )
-    {
-        if (text(col).isEmpty() && m_isNewBan)
-            delete this;
-        else
-            K3ListViewItem::cancelRename(col);
-    }
-
 
     TopicListModel::TopicListModel(QObject* parent)
         : QAbstractListModel(parent)
     {
+    }
+
+    QList<TopicItem> TopicListModel::topicList() const
+    {
+        return m_topicList;
     }
 
     void TopicListModel::setTopicList(const QList<TopicItem>& list)

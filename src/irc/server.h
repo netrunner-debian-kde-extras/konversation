@@ -61,6 +61,7 @@ namespace Konversation
     namespace DCC
     {
         class Transfer;
+        class Chat;
     }
 }
 
@@ -130,6 +131,9 @@ void resetNickSelection();
         int getModesCount();
 
         // extended user modes support
+        void setChanModes(QString);                 //grab modes types from RPL_ISUPPORT CHANMODES
+        QString banAddressListModes() { return m_banAddressListModes; }     // aka "TYPE A" modes http://tools.ietf.org/html/draft-brocklesby-irc-isupport-03#section-3.3
+
         void setPrefixes(const QString &modes, const QString& prefixes);
         void mangleNicknameWithModes(QString &nickname,bool& isAdmin,bool& isOwner,bool &isOp,
             bool& isHalfop,bool &hasVoice);
@@ -346,15 +350,17 @@ void resetNickSelection();
         ChannelListPanel* addChannelListPanel();
 
         // invoked by DCC::TransferSend
-        void dccSendRequest(const QString& recipient,const QString& fileName,const QString& address,uint port,quint64 size);
+        void dccSendRequest(const QString& recipient,const QString& fileName,const QString& address,quint16 port,quint64 size);
         void dccPassiveSendRequest(const QString& recipient,const QString& fileName,const QString& address,quint64 size,const QString& token);
         // invoked by DCC::TransferRecv
-        void dccPassiveResumeGetRequest(const QString& sender,const QString& fileName,uint port,KIO::filesize_t startAt,const QString &token);
-        void dccResumeGetRequest(const QString& sender,const QString& fileName,uint port,KIO::filesize_t startAt);
-        void dccReverseSendAck(const QString& partnerNick,const QString& fileName,const QString& ownAddress,uint ownPort,quint64 size,const QString& reverseToken);
+        void dccPassiveResumeGetRequest(const QString& sender,const QString& fileName,quint16 port,KIO::filesize_t startAt,const QString &token);
+        void dccResumeGetRequest(const QString& sender,const QString& fileName,quint16 port,KIO::filesize_t startAt);
+        void dccReverseSendAck(const QString& partnerNick,const QString& fileName,const QString& ownAddress,quint16 ownPort,quint64 size,const QString& reverseToken);
         void dccRejectSend(const QString& partnerNick, const QString& fileName);
-        // invoked by DccChat
+        // invoked by DCC::Chat
         void dccRejectChat(const QString& partnerNick);
+        void dccPassiveChatRequest(const QString& recipient, const QString& address, const QString& token);
+        void dccReverseChatAck(const QString& partnerNick,const QString& ownAddress,quint16 ownPort,const QString& reverseToken);
 
     // IRCQueueManager
         bool validQueue(QueuePriority priority); ///< is this queue index valid?
@@ -427,7 +433,7 @@ void resetNickSelection();
 
         void showView(ChatWindow* view);
         void addDccPanel();
-        void addDccChat(const QString& myNick,const QString& nick,const QStringList& arguments,bool listen);
+        void addDccChat(Konversation::DCC::Chat *chat);
 
     public slots:
         void connectToIRCServer();
@@ -448,7 +454,7 @@ void resetNickSelection();
         void closeChannel(const QString &name);
         void quitServer();
         void openDccChat(const QString& nickname);
-        void requestDccChat(const QString& partnerNick, const QString& numericalOwnIp, uint ownPort);
+        void requestDccChat(const QString& partnerNick, const QString& numericalOwnIp, quint16 ownPort);
         void acceptDccGet(const QString& nick, const QString& file);
         void requestBan(const QStringList& users,const QString& channel,const QString& option);
         void requestUnban(const QString& mask,const QString& channel);
@@ -503,6 +509,7 @@ void resetNickSelection();
     protected slots:
         void hostFound();
         void preShellCommandExited(int exitCode, QProcess::ExitStatus exitStatus);
+        void preShellCommandError(QProcess::ProcessError eror);
         void ircServerConnectionSuccess();
         void startAwayTimer();
         void incoming();
@@ -519,8 +526,10 @@ void resetNickSelection();
         void sslVerifyError(const QSslError& error);
         void connectionEstablished(const QString& ownHost);
         void notifyResponse(const QString& nicksOnline);
+
         void slotNewDccTransferItemQueued(Konversation::DCC::Transfer* transfer);
         void startReverseDccSendTransfer(const QString& sourceNick,const QStringList& dccArguments);
+        void startReverseDccChat(const QString &sourceNick, const QStringList &dccArgument);
         void addDccGet(const QString& sourceNick,const QStringList& dccArguments);
         void requestDccSend();                    // -> to outputFilter, dccPanel
                                                   // -> to outputFilter
@@ -533,6 +542,9 @@ void resetNickSelection();
         void dccGetDone(Konversation::DCC::Transfer* item);
         void dccSendDone(Konversation::DCC::Transfer* item);
         void dccStatusChanged(Konversation::DCC::Transfer* item, int newStatus, int oldStatus);
+        void addDccChat(const QString& sourceNick,const QStringList& arguments);
+        void rejectDccChat(const QString& sourceNick);
+
         void scriptNotFound(const QString& name);
         void scriptExecutionError(const QString& name);
         void userhost(const QString& nick,const QString& hostmask,bool away,bool ircOp);
@@ -670,6 +682,9 @@ void resetNickSelection();
         // TODO roll these into a QMap.
         QString m_serverNickPrefixes;               // Prefixes used by the server to indicate a mode
         QString m_serverNickPrefixModes;            // if supplied: modes related to those prefixes
+
+        QString m_banAddressListModes;              // "TYPE A" modes from RPL_ISUPPORT CHANMODES=A,B,C,D
+
         QString m_channelPrefixes;                  // prefixes that indicate channel names. defaults to RFC1459 "#&"
         int m_modesCount;                           // Maximum number of channel modes with parameter allowed per MODE command.
 
@@ -735,6 +750,9 @@ void resetNickSelection();
         /// but all we want is the plain filename.
         inline QString cleanDccFileName(const QString& filename) const;
 
+        /// Checks if the port is in a valid range
+        inline quint16 stringToPort(const QString &port, bool *ok = 0);
+
         /// Helper object to construct ISON (notify) list and map offline nicks to
         /// addressbook.
         ServerISON* m_serverISON;
@@ -756,7 +774,7 @@ void resetNickSelection();
         QString m_allowedChannelModes;
 
         // Blowfish key map
-        QMap<QString, QByteArray> m_keyMap;
+        QHash<QString, QByteArray> m_keyHash;
 
         bool m_identifyMsg;
         bool m_autoIdentifyLock;

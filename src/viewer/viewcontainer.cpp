@@ -10,6 +10,7 @@
 */
 
 #include "viewcontainer.h"
+#include "connectionmanager.h"
 #include "queuetuner.h"
 #include "viewtree.h"
 #include "application.h"
@@ -22,7 +23,7 @@
 #include "urlcatcher.h"
 #include "transferpanel.h"
 #include "transfermanager.h"
-#include "chat.h"
+#include "chatcontainer.h"
 #include "statuspanel.h"
 #include "channel.h"
 #include "query.h"
@@ -373,7 +374,7 @@ void ViewContainer::updateAppearance()
 
     KToggleAction* action = qobject_cast<KToggleAction*>(actionCollection()->action("hide_nicknamelist"));
     Q_ASSERT(action);
-    action->setChecked(!Preferences::self()->showNickList());
+    action->setChecked(Preferences::self()->showNickList());
 
     if(m_insertCharDialog)
     {
@@ -1899,7 +1900,7 @@ void ViewContainer::appendToFrontmost(const QString& type,const QString& message
     {
         if (m_frontView) // m_frontView == NULL if canBeFrontView() == false for active ChatWindow
             serverView = m_frontView->getServer()->getStatusView();
-        else if (m_frontServer) // m_fronView == NULL && m_frontServer != NULL if ChannelListPanel is active.
+        else if (m_frontServer) // m_frontView == NULL && m_frontServer != NULL if ChannelListPanel is active.
             serverView = m_frontServer->getStatusView();
     }
 
@@ -2084,8 +2085,8 @@ void ViewContainer::addUrlCatcher()
         m_urlCatcherPanel=new UrlCatcher(m_tabWidget);
         addView(m_urlCatcherPanel, i18n("URL Catcher"));
         Application *konvApp=static_cast<Application *>(KApplication::kApplication());
-        connect(konvApp,SIGNAL(catchUrl(const QString&,const QString&)),
-            m_urlCatcherPanel, SLOT(addUrl(const QString&,const QString&)) );
+        connect(konvApp,SIGNAL(catchUrl(const QString&,const QString&,const QDateTime&)),
+            m_urlCatcherPanel, SLOT(addUrl(const QString&,const QString&,const QDateTime&)) );
         connect(m_urlCatcherPanel, SIGNAL(deleteUrl(const QString&,const QString&)),
             konvApp, SLOT(deleteUrl(const QString&,const QString&)) );
         connect(m_urlCatcherPanel, SIGNAL(clearUrlList()),
@@ -2156,25 +2157,19 @@ DCC::TransferPanel* ViewContainer::getDccPanel()
     return m_dccPanel;
 }
 
-void ViewContainer::addDccChat(const QString& myNick,const QString& nick,const QStringList& arguments,bool listen)
+void ViewContainer::addDccChat(DCC::Chat* chat)
 {
-    if (!listen) // Someone else initiated dcc chat
+    if (!chat->selfOpened()) // Someone else initiated dcc chat
     {
         Application* konv_app=static_cast<Application*>(KApplication::kApplication());
-        konv_app->notificationHandler()->dccChat(m_frontView, nick);
+        konv_app->notificationHandler()->dccChat(m_frontView, chat->partnerNick());
     }
 
-    if (m_frontServer)
-    {
-        DCC::Chat* dccChatPanel=listen
-            ? new DCC::Chat(m_tabWidget, listen, m_frontServer, myNick, nick )
-            : new DCC::Chat(m_tabWidget, listen, m_frontServer, myNick, nick, arguments[1], arguments[2].toInt() );
+    DCC::ChatContainer *chatcontainer = new DCC::ChatContainer(m_tabWidget,chat);
+    connect(chatcontainer, SIGNAL(updateTabNotification(ChatWindow*,const Konversation::TabNotifyType&)),
+            this, SLOT(setViewNotification(ChatWindow*,const Konversation::TabNotifyType&)));
 
-        connect(dccChatPanel, SIGNAL(updateTabNotification(ChatWindow*,const Konversation::TabNotifyType&)), this, SLOT(setViewNotification(ChatWindow*,const Konversation::TabNotifyType&)));
-
-        // This needs to be here as addView will change m_frontServer if focus new tabs is enabled.
-        addView(dccChatPanel, dccChatPanel->getName());
-    }
+    addView(chatcontainer, chatcontainer->getName());
 }
 
 StatusPanel* ViewContainer::addStatusView(Server* server)
@@ -2211,7 +2206,6 @@ RawLog* ViewContainer::addRawLog(Server* server)
 {
     RawLog* rawLog = new RawLog(m_tabWidget);
     rawLog->setServer(server);
-    rawLog->setLog(false);
 
     if (server->getServerGroup()) rawLog->setNotificationsEnabled(server->getServerGroup()->enableNotifications());
 
@@ -2264,6 +2258,9 @@ void ViewContainer::showJoinChannelDialog()
 
     if (dlg->exec() == QDialog::Accepted)
     {
+        Server *server = Application::instance()->getConnectionManager()->getServerByConnectionId(dlg->connectionId());
+        if (!server)
+          return;
         server->sendJoinCommand(dlg->channel(), dlg->password());
     }
     delete dlg;
@@ -2354,7 +2351,7 @@ void ViewContainer::toggleChannelNicklists()
 
     if (action)
     {
-        Preferences::self()->setShowNickList(!action->isChecked());
+        Preferences::self()->setShowNickList(action->isChecked());
         Preferences::self()->writeConfig();
 
         emit updateChannelAppearance();
@@ -2499,7 +2496,6 @@ void ViewContainer::openNicksOnlinePanel()
     {
         m_nicksOnlinePanel=new NicksOnline(m_window);
         addView(m_nicksOnlinePanel, i18n("Watched Nicks Online"));
-        connect(m_nicksOnlinePanel, SIGNAL(editClicked()), m_window, SLOT(openNotify()));
         connect(m_nicksOnlinePanel, SIGNAL(doubleClicked(int,const QString&)), m_window, SLOT(notifyAction(int,const QString&)));
         connect(m_nicksOnlinePanel, SIGNAL(showView(ChatWindow*)), this, SLOT(showView(ChatWindow*)));
         connect(m_window, SIGNAL(nicksNowOnline(Server*)), m_nicksOnlinePanel, SLOT(updateServerOnlineList(Server*)));
