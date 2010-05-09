@@ -6,8 +6,9 @@
 */
 
 /*
-  Copyright (c) 1999 Martin R. Jones <mjones@kde.org>
+  Copyright (C) 1999 Martin R. Jones <mjones@kde.org>
   Copyright (C) 2008 Eike Hein <hein@kde.org>
+  Copyright (C) 2010 Martin Blumenstingl <darklight.xdarklight@googlemail.com>
 */
 
 #include "awaymanager.h"
@@ -63,7 +64,7 @@ struct AwayManagerPrivate
     bool useMit;
 };
 
-AwayManager::AwayManager(QObject* parent) : QObject(parent)
+AwayManager::AwayManager(QObject* parent) : AbstractAwayManager(parent)
 {
     int dummy = 0;
     dummy = dummy;
@@ -74,8 +75,6 @@ AwayManager::AwayManager(QObject* parent) : QObject(parent)
     d->mouseMask = 0;
     d->useXidle = false;
     d->useMit = false;
-
-    m_connectionManager = static_cast<Application*>(kapp)->getConnectionManager();
 
 #ifdef HasXHeaders
     Display* display = QX11Info::display();
@@ -98,6 +97,7 @@ AwayManager::AwayManager(QObject* parent) : QObject(parent)
     m_activityTimer->setObjectName("AwayTimer");
     connect(m_activityTimer, SIGNAL(timeout()), this, SLOT(checkActivity()));
 
+    // Initially reset the idle status.
     resetIdle();
 }
 
@@ -106,60 +106,56 @@ AwayManager::~AwayManager()
     delete d;
 }
 
+void AwayManager::simulateUserActivity()
+{
+    resetIdle();
+}
+
 void AwayManager::resetIdle()
 {
+    // Set the time of the idleTimer to the current time.
     m_idleTime.start();
 }
 
-void AwayManager::identitiesChanged()
+int AwayManager::idleTime()
 {
-    QList<int> newIdentityList;
-
-    const QList<Server*> serverList = m_connectionManager->getServerList();
-
-    foreach (Server* server, serverList)
-    {
-        IdentityPtr identity = server->getIdentity();
-
-        if (identity && identity->getAutomaticAway() && server->isConnected())
-            newIdentityList.append(identity->id());
-    }
-
-    m_identitiesOnAutoAway = newIdentityList;
-
-    toggleTimer();
+    // Calculate the idle time in milliseconds.
+    return m_idleTime.elapsed();
 }
 
-void AwayManager::identityOnline(int identityId)
+void AwayManager::setManagedIdentitiesAway()
 {
-    IdentityPtr identity = Preferences::identityById(identityId);
-
-    if (identity && identity->getAutomaticAway() &&
-        !m_identitiesOnAutoAway.contains(identityId))
-    {
-        m_identitiesOnAutoAway.append(identityId);
-
-        toggleTimer();
-    }
+    // Used to skip X-based activity checking for one round, to avoid jumping
+    // on residual mouse activity after manual screensaver activation.
+    d->mouseX = -1;
+    
+    // Call the base implementation.
+    AbstractAwayManager::setManagedIdentitiesAway();
 }
 
-void AwayManager::identityOffline(int identityId)
+void AwayManager::identitiesOnAutoAwayChanged()
 {
-    if (m_identitiesOnAutoAway.removeOne(identityId))
-    {
-        toggleTimer();
-    }
-}
-
-void AwayManager::toggleTimer()
-{
-    if (m_identitiesOnAutoAway.count() > 0)
+    if (m_idetitiesWithIdleTimesOnAutoAway.count() > 0)
     {
         if (!m_activityTimer->isActive())
             m_activityTimer->start(Preferences::self()->autoAwayPollInterval() * 1000);
     }
     else if (m_activityTimer->isActive())
         m_activityTimer->stop();
+}
+
+void AwayManager::identityOnAutoAwayWentOnline(int identityId)
+{
+    Q_UNUSED(identityId);
+
+    identitiesOnAutoAwayChanged();
+}
+
+void AwayManager::identityOnAutoAwayWentOffline(int identityId)
+{
+    Q_UNUSED(identityId);
+
+    identitiesOnAutoAwayChanged();
 }
 
 void AwayManager::checkActivity()
@@ -174,7 +170,15 @@ void AwayManager::checkActivity()
     rentrencyProtection = false;
 
     if (!isBlanked.isValid() || !isBlanked.value())
-         implementIdleAutoAway(Xactivity());
+    {
+        // If there was activity we un-away all identities.
+        // Otherwise we set all identities to away (if they
+        // were idle long enough).
+        if (Xactivity())
+            setManagedIdentitiesUnaway();
+        else
+            implementIdleAutoAway();
+    }
 }
 
 bool AwayManager::Xactivity()
@@ -241,148 +245,26 @@ bool AwayManager::Xactivity()
     return activity;
 }
 
-void AwayManager::implementIdleAutoAway(bool activity)
+void AwayManager::implementIdleAutoAway()
 {
-    if (activity)
+    QHash<int, int>::ConstIterator it;
+
+    for (it = m_idetitiesWithIdleTimesOnAutoAway.constBegin(); it != m_idetitiesWithIdleTimesOnAutoAway.constEnd(); ++it)
     {
-        resetIdle();
-
-        const QList<Server*> serverList = m_connectionManager->getServerList();
-
-        foreach (Server* server, serverList)
-        {
-            IdentityPtr identity = server->getIdentity();
-
-            if (m_identitiesOnAutoAway.contains(identity->id()) && identity->getAutomaticUnaway()
-                && server->isConnected() && server->isAway())
-            {
-                server->requestUnaway();
-            }
-        }
-    }
-    else
-    {
-        long int idleTime = m_idleTime.elapsed() / 1000;
-
-        QList<int> identitiesIdleTimeExceeded;
-        QList<int>::ConstIterator it;
-
-        for (it = m_identitiesOnAutoAway.constBegin(); it != m_identitiesOnAutoAway.constEnd(); ++it)
-        {
-            if (idleTime >= Preferences::identityById((*it))->getAwayInactivity() * 60)
-                identitiesIdleTimeExceeded.append((*it));
-        }
-
-        const QList<Server*> serverList = m_connectionManager->getServerList();
-
-        foreach (Server* server, serverList)
-        {
-            int identityId = server->getIdentity()->id();
-
-            if (identitiesIdleTimeExceeded.contains(identityId) && server->isConnected() && !server->isAway())
-                server->requestAway();
-        }
+        // Check if the auto-away timeout (which the user has configured for the given identity)
+        // has already elapsed - if it has we mark the identity as away.
+        if (idleTime() >= it.value())
+            implementManagedAway(it.key());
     }
 }
 
-void AwayManager::setManagedIdentitiesAway()
+void AwayManager::implementManagedUnaway(const QList<int>& identityList)
 {
-    // Used to skip X-based activity checking for one round, to avoid jumping
-    // on residual mouse activity after manual screensaver activation.
-    d->mouseX = -1;
+    // Call the base implementation (which does all workflow logic).
+    AbstractAwayManager::implementManagedUnaway(identityList);
 
-    const QList<Server*> serverList = m_connectionManager->getServerList();
-
-    foreach (Server* server, serverList)
-    {
-        if (m_identitiesOnAutoAway.contains(server->getIdentity()->id()) && server->isConnected() && !server->isAway())
-            server->requestAway();
-    }
-}
-
-void AwayManager::setManagedIdentitiesUnaway()
-{
-    const QList<Server*> serverList = m_connectionManager->getServerList();
-
-    foreach (Server* server, serverList)
-    {
-        IdentityPtr identity = server->getIdentity();
-
-        if (m_identitiesOnAutoAway.contains(identity->id()) && identity->getAutomaticUnaway()
-            && server->isConnected() && server->isAway())
-        {
-            server->requestUnaway();
-        }
-    }
-}
-
-void AwayManager::requestAllAway(const QString& reason)
-{
-    const QList<Server*> serverList = m_connectionManager->getServerList();
-
-    foreach (Server* server, serverList)
-        if (server->isConnected()) server->requestAway(reason);
-}
-
-void AwayManager::requestAllUnaway()
-{
-    const QList<Server*> serverList = m_connectionManager->getServerList();
-
-    foreach (Server* server, serverList)
-        if (server->isConnected() && server->isAway()) server->requestUnaway();
-}
-
-void AwayManager::toggleGlobalAway(bool away)
-{
-    if (away)
-        requestAllAway();
-    else
-        requestAllUnaway();
-}
-
-void AwayManager::updateGlobalAwayAction(bool away)
-{
-    // FIXME: For now, our only triggers for resetting the idle time
-    // are mouse movement and the screensaver getting disabled. This
-    // means that typing '/unaway' or '/back' does not reset the idle
-    // time and won't prevent AwayManager from setting a connection
-    // away again shortly after when its identity's maximum auto-away
-    // idle time, counted from the last mouse movement or screensaver
-    // deactivation rather than the actual last user activity (the key
-    // presses), has been exceeded. We work around this here by reset-
-    // ting the idle time whenever any connection changes its state to
-    // unaway in response to the server until we find a better solu-
-    // tion (i.e. a reliable way to let keyboard activity in the sys-
-    // tem reset the idle time).
-    if(!away) resetIdle();
-
-    Application* konvApp = static_cast<Application*>(kapp);
-    KToggleAction* awayAction = qobject_cast<KToggleAction*>(konvApp->getMainWindow()->actionCollection()->action("toggle_away"));
-
-    if (!awayAction) return;
-
-    if (away)
-    {
-        const QList<Server*> serverList = m_connectionManager->getServerList();
-        int awayCount = 0;
-
-        foreach (Server* server, serverList)
-        {
-            if (server->isAway())
-                awayCount++;
-        }
-
-        if (awayCount == serverList.count())
-        {
-            awayAction->setChecked(true);
-            awayAction->setIcon(KIcon("im-user-away"));
-        }
-    }
-    else
-    {
-        awayAction->setChecked(false);
-        awayAction->setIcon(KIcon("im-user"));
-    }
+    // Then reset the idle status as the user is not idle anymore.
+    resetIdle();
 }
 
 #include "awaymanager.moc"

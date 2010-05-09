@@ -253,8 +253,8 @@ void ConnectionManager::handleReconnect(Server* server)
 
             server->getStatusView()->appendServerMessage(i18n("Info"),
                 i18np(
-                 "Trying to connect to %2 (port %3) in 1 second.",
-                 "Trying to connect to %2 (port %3) in %1 seconds.",
+                 "Trying to connect to %2 (port <numid>%3</numid>) in 1 second.",
+                 "Trying to connect to %2 (port <numid>%3</numid>) in %1 seconds.",
                  Preferences::self()->reconnectDelay(),
                  settings.server().host(),
                  QString::number(settings.server().port())));
@@ -263,19 +263,21 @@ void ConnectionManager::handleReconnect(Server* server)
         {
             server->getStatusView()->appendServerMessage(i18n("Info"),
                 i18np(
-                 "Trying to reconnect to %2 (port %3) in 1 second.",
-                 "Trying to reconnect to %2 (port %3) in %1 seconds.",
+                 "Trying to reconnect to %2 (port <numid>%3</numid>) in 1 second.",
+                 "Trying to reconnect to %2 (port <numid>%3</numid>) in %1 seconds.",
                  Preferences::self()->reconnectDelay(),
                  settings.server().host(),
                  QString::number(settings.server().port())));
         }
 
         server->getConnectionSettings().incrementReconnectCount();
-
-        QTimer::singleShot(Preferences::self()->reconnectDelay() * 1000, server, SLOT(connectToIRCServer()));
+        server->connectToIRCServerIn(Preferences::self()->reconnectDelay());
     }
     else
+    {
+        server->getConnectionSettings().setReconnectCount(0);
         server->getStatusView()->appendServerMessage(i18n("Error"), i18n("Reconnection attempts exceeded."));
+    }
 }
 
 void ConnectionManager::quitServers()
@@ -291,7 +293,7 @@ void ConnectionManager::reconnectServers()
     QMap<int, Server*>::ConstIterator it;
 
     for (it = m_connectionList.constBegin(); it != m_connectionList.constEnd(); ++it)
-        it.value()->reconnect();
+        it.value()->reconnectServer();
 }
 
 void ConnectionManager::decodeIrcUrl(const QString& url, ConnectionSettings& settings)
@@ -521,7 +523,7 @@ bool ConnectionManager::reuseExistingConnection(ConnectionSettings& settings, bo
             int result = KMessageBox::warningContinueCancel(
                 mainWindow,
                 //my, isn't this fucking ugly
-                i18n("You are presently connected to %1 via '%2' (port %3). Do you want to switch to '%4' (port %5) instead?",
+                i18n("You are presently connected to %1 via '%2' (port <numid>%3</numid>). Do you want to switch to '%4' (port <numid>%5</numid>) instead?",
                     dupe->getDisplayName(),
                     dupe->getServerName(),
                     dupe->getPort(),
@@ -534,7 +536,7 @@ bool ConnectionManager::reuseExistingConnection(ConnectionSettings& settings, bo
 
             if (result == KMessageBox::Continue)
             {
-                dupe->disconnect();
+                dupe->disconnectServer();
 
                 dupe->setConnectionSettings(settings);
             }
@@ -546,7 +548,7 @@ bool ConnectionManager::reuseExistingConnection(ConnectionSettings& settings, bo
                 dupe->updateAutoJoin(settings.oneShotChannelList());
 
             if (!dupe->isConnecting())
-                dupe->reconnect();
+                dupe->reconnectServer();
         }
         else
         {

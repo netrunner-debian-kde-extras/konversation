@@ -7,68 +7,93 @@
 
 /*
   Copyright (C) 2008 Eike Hein <hein@kde.org>
+  Copyright (C) 2010 Martin Blumenstingl <darklight.xdarklight@googlemail.com>
 */
 
 #ifndef AWAYMANAGER_H
 #define AWAYMANAGER_H
 
+#include "abstractawaymanager.h"
 
-#include <QObject>
-#include <QList>
-#include <QTimer>
 #include <QTime>
-
-class ConnectionManager;
-
+#include <QTimer>
 
 struct AwayManagerPrivate;
 
-
-class AwayManager : public QObject
+class AwayManager : public AbstractAwayManager
 {
     Q_OBJECT
 
     public:
-        explicit AwayManager(QObject* parent = 0);
+        AwayManager(QObject* parent = 0);
         ~AwayManager();
 
-        void screensaverDisabled() { resetIdle(); }
+        /**
+          * Simulates user activity. This simply resets the idle status.
+          */
+        virtual void simulateUserActivity();
+
 
     public slots:
-        void identitiesChanged();
-
-        void identityOnline(int identityId);
-        void identityOffline(int identityId);
-
-        void requestAllAway(const QString& reason = "");
-        void requestAllUnaway();
-
-        void setManagedIdentitiesAway();
-        void setManagedIdentitiesUnaway();
-
-        void toggleGlobalAway(bool away);
-        void updateGlobalAwayAction(bool away);
+        virtual void setManagedIdentitiesAway();
 
 
     private slots:
         void checkActivity();
 
 
-    private:
+    protected:
+        /**
+          * The list of identities which have auto-away enabled has changed.
+          * This starts or stops the timer (depending on what's needed).
+          */
+        virtual void identitiesOnAutoAwayChanged();
+
+        /**
+          * Restarts the idle time calculation.
+          */
         void resetIdle();
-        void toggleTimer();
+
+        /**
+          * Returns the idle time in milliseconds.
+          */
+        int idleTime();
+
+        /**
+          * Decides which identities should be marked as "away".
+          */
+        void implementIdleAutoAway();
+
         bool Xactivity();
 
-        void implementIdleAutoAway(bool activity);
+        /**
+          * Marks all given identities as "not away" if they have automatic un-away enabled.
+          * Also resets the idle status.
+          *
+          * @param identityList a list of identitiy IDs which will be marked as "not away"
+          */
+        virtual void implementManagedUnaway(const QList<int>& identityList);
 
-        AwayManagerPrivate* d;
+        /**
+          * An identity which has auto-away enabled went online.
+          *
+          * @param identityId the ID of the identity which just went online
+          */
+        virtual void identityOnAutoAwayWentOnline(int identityId);
 
-        QTime m_idleTime;
+        /**
+          * An identity which has auto-away enabled went offline.
+          *
+          * @param identityId the ID of the identity which just went offline
+          */
+        virtual void identityOnAutoAwayWentOffline(int identityId);
+
+    private:
         QTimer* m_activityTimer;
 
-        QList<int> m_identitiesOnAutoAway;
+        QTime m_idleTime;
 
-        ConnectionManager* m_connectionManager;
+        struct AwayManagerPrivate* d;
 };
 
 #endif

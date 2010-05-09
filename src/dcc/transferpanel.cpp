@@ -12,7 +12,7 @@
 */
 /*
   Copyright (C) 2004-2008 Shintaro Matsuoka <shin@shoegazed.org>
-  Copyright (C) 2009 Bernd Buschinski <b.buschinski@web.de>
+  Copyright (C) 2009,2010 Bernd Buschinski <b.buschinski@web.de>
 */
 
 #include "transferpanel.h"
@@ -24,6 +24,8 @@
 #include "transferview.h"
 #include "transferlistmodel.h"
 
+#include <QSplitter>
+
 #include <KGlobal>
 #include <KMessageBox>
 #include <KMenu>
@@ -31,7 +33,6 @@
 #include <KAuthorized>
 #include <KFileMetaInfo>
 #include <KToolBar>
-#include <QSplitter>
 
 namespace Konversation
 {
@@ -69,6 +70,8 @@ namespace Konversation
 
             connect(m_transferView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
                     this, SLOT(updateButton()));
+            connect(m_transferView, SIGNAL(runSelectedTransfers()),
+                    this, SLOT(runDcc()));
 
             // detailed info panel
             m_detailPanel = new TransferDetailedInfoPanel(m_splitter);
@@ -102,8 +105,8 @@ namespace Konversation
 
             // misc.
             connect(m_transferView, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(doubleClicked(const QModelIndex&)));
-            connect(m_transferView->selectionModel(), SIGNAL(currentChanged(const QModelIndex&, const QModelIndex&)),
-                    this, SLOT(setDetailPanelItem (const QModelIndex&, const QModelIndex&)));
+            connect(m_transferView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)),
+                    this, SLOT(setDetailPanelItem (const QItemSelection&, const QItemSelection&)));
 
             m_toolBar->addAction(m_accept);
             m_toolBar->addAction(m_abort);
@@ -201,12 +204,26 @@ namespace Konversation
             m_info->setEnabled(info);
         }
 
-        void TransferPanel::setDetailPanelItem (const QModelIndex &newindex, const QModelIndex &/*oldindex*/)
+        void TransferPanel::setDetailPanelItem (const QItemSelection &/*newindex*/, const QItemSelection &/*oldindex*/)
         {
-            Transfer *transfer = static_cast<Transfer*>(qVariantValue<QObject*>(newindex.data(TransferListModel::TransferPointer)));
-            if (transfer)
+            QModelIndex index;
+
+            if (m_transferView->selectionModel()->selectedRows().contains(m_transferView->selectionModel()->currentIndex()))
             {
-                m_detailPanel->setTransfer(transfer);
+                index = m_transferView->selectionModel()->currentIndex();
+            }
+            else if (!m_transferView->selectionModel()->selectedRows().isEmpty())
+            {
+                index = m_transferView->selectionModel()->selectedRows().first();
+            }
+
+            if (index.isValid())
+            {
+                Transfer *transfer = static_cast<Transfer*>(qVariantValue<QObject*>(index.data(TransferListModel::TransferPointer)));
+                if (transfer)
+                {
+                    m_detailPanel->setTransfer(transfer);
+                }
             }
         }
 
@@ -245,6 +262,7 @@ namespace Konversation
 
         void TransferPanel::resendFile()
         {
+            QList<Transfer*> transferList;
             foreach (const QModelIndex &index, m_transferView->selectedRows())
             {
                 if (index.data(TransferListModel::TransferType).toInt() == Transfer::Send &&
@@ -255,18 +273,22 @@ namespace Konversation
                     {
                         continue;
                     }
+                    transferList.append(transfer);
+                }
+            }
 
-                    TransferSend *newTransfer = Application::instance()->getDccTransferManager()->newUpload();
+            foreach (Transfer* transfer, transferList)
+            {
+                TransferSend *newTransfer = Application::instance()->getDccTransferManager()->newUpload();
 
-                    newTransfer->setConnectionId(transfer->getConnectionId());
-                    newTransfer->setPartnerNick(transfer->getPartnerNick());
-                    newTransfer->setFileURL(transfer->getFileURL());
-                    newTransfer->setFileName(transfer->getFileName());
+                newTransfer->setConnectionId(transfer->getConnectionId());
+                newTransfer->setPartnerNick(transfer->getPartnerNick());
+                newTransfer->setFileURL(transfer->getFileURL());
+                newTransfer->setFileName(transfer->getFileName());
 
-                    if (newTransfer->queue())
-                    {
-                        newTransfer->start();
-                    }
+                if (newTransfer->queue())
+                {
+                    newTransfer->start();
                 }
             }
         }
@@ -417,6 +439,24 @@ namespace Konversation
 
         void TransferPanel::runDcc()
         {
+            const int selectedRows = m_transferView->selectedRows().count();
+            if (selectedRows > 3)
+            {
+                int ret = KMessageBox::questionYesNo(this,
+                                                     i18np("You have selected %1 file to execute, are you sure you want to continue?",
+                                                           "You have selected %1 files to execute, are you sure you want to continue?",
+                                                           selectedRows),
+                                                     i18np("Execute %1 file",
+                                                           "Execute %1 files",
+                                                           selectedRows)
+                                                     );
+
+                if (ret == KMessageBox::No)
+                {
+                    return;
+                }
+            }
+
             foreach (const QModelIndex &index, m_transferView->selectedRows())
             {
                 if (index.data(TransferListModel::TransferType).toInt() == Transfer::Send ||

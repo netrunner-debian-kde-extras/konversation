@@ -15,7 +15,7 @@
 #include "dbus.h"
 #include "application.h"
 #include "connectionmanager.h"
-#include "awaymanager.h"
+#include "abstractawaymanager.h"
 #include "channel.h"
 #include "identity.h"
 #include "server.h"
@@ -174,8 +174,16 @@ void DBus::changeAwayStatus(bool away)
     }
     else
     {
-        konvApp->getAwayManager()->screensaverDisabled();
         konvApp->getAwayManager()->setManagedIdentitiesUnaway();
+
+        // Simulate user activity so the whole idle time calculation
+        // logic is being restarted. This is needed as a DBus call
+        // could be made without any user activity involved. Simulating
+        // user activity then correctly causes the idle-time calculation
+        // to be restarted completely (which means the user will only
+        // get marked as "auto-away" if the configured idle-timeout has
+        // expired).
+        konvApp->getAwayManager()->simulateUserActivity();
     }
 }
 

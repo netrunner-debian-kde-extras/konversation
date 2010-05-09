@@ -157,6 +157,7 @@ Channel::Channel(QWidget* parent, QString _name) : ChatWindow(parent)
 
     // The box holding the channel modes
     modeBox = new KHBox(topicWidget);
+    modeBox->hide();
     modeBox->setSizePolicy(hfixed);
     modeT = new ModeButton("T",modeBox,0);
     modeN = new ModeButton("N",modeBox,1);
@@ -649,6 +650,9 @@ void Channel::popupCommand(int id)
         case Konversation::StartDccChat:
             pattern=cc+"DCC CHAT %u";
             break;
+        case Konversation::StartDccWhiteboard:
+            pattern=cc+"DCC WHITEBOARD %u";
+            break;
         case Konversation::DccSend:
             pattern=cc+"DCC SEND %u";
             break;
@@ -728,13 +732,8 @@ void Channel::popupCommand(int id)
                 command = pattern;
                 partialList = list.mid(index, modesCount);
                 command = command.replace("%l", partialList.join(" "));
-#if QT_VERSION >= 0x040500
                 const QString repeatedMode = mode.repeated(partialList.count());
-#else
-                QString repeatedMode;
-                for (int rr = 0; rr < partialList.count(); ++rr)
-                    repeatedMode += mode;
-#endif
+
                 command = command.replace("%m", repeatedMode);
                 if (raw)
                     m_server->queue(command);
@@ -2239,6 +2238,7 @@ void Channel::updateQuickButtons(const QStringList &newButtonList)
 
     // the grid that holds the quick action buttons
     m_buttonsGrid = new QWidget (nickListButtons); //Q3Grid(2, nickListButtons);
+    m_buttonsGrid->hide();
     QGridLayout* layout = new QGridLayout (m_buttonsGrid);
     layout->setMargin(0);
 

@@ -18,13 +18,29 @@
 #include "notificationhandler.h"
 #include "preferences.h"
 
+#include <config-konversation.h>
+
+#ifdef HAVE_BYTESWAP_H
+#   include <byteswap.h>
+#elif defined(HAVE_SYS_ENDIAN_H)
+#   include <sys/endian.h>
+#   define bswap_32(X) bswap32(X)
+#else
+#   if (defined(_MSC_VER) && (_MSC_VER > 1298))
+#       include <stdlib.h>
+#       define bswap_32(X) _byteswap_ulong(X)
+#   else
+#       define bswap_32(X) ( (((X)&0x000000FF)<<24) | (((X)&0xFF000000) >> 24) | (((X)&0x0000FF00) << 8) | (((X) &0x00FF0000) >> 8))
+#   endif
+#endif
+
 #include <QFileInfo>
 
 namespace Konversation
 {
     namespace DCC
     {
-        Transfer::Transfer( Type dccType, QObject* parent )
+        Transfer::Transfer(Type dccType, QObject *parent)
             : QObject(parent)
         {
             kDebug();
@@ -45,9 +61,9 @@ namespace Konversation
             m_currentSpeed = 0.0;
 
             m_bufferSize = Preferences::self()->dccBufferSize();
-            m_buffer = new char[ m_bufferSize ];
+            m_buffer = new char[m_bufferSize];
 
-            connect( &m_loggerTimer, SIGNAL( timeout() ), this, SLOT( logTransfer() ) );
+            connect(&m_loggerTimer, SIGNAL(timeout()), this, SLOT(logTransfer()));
 
             m_timeOffer = QDateTime::currentDateTime();
         }
@@ -57,31 +73,41 @@ namespace Konversation
             kDebug();
         }
 
-        void Transfer::setConnectionId( int id )
+        void Transfer::setConnectionId(int id)
         {
-            if ( getStatus() == Configuring || getStatus() == Queued )
+            if (getStatus() == Configuring || getStatus() == Queued)
+            {
                 m_connectionId = id;
+            }
         }
 
-        void Transfer::setPartnerNick( const QString& nick )
+        void Transfer::setPartnerNick(const QString &nick)
         {
-            if ( getStatus() == Configuring || getStatus() == Queued )
+            if (getStatus() == Configuring || getStatus() == Queued)
+            {
                 m_partnerNick = nick;
+            }
         }
 
         bool Transfer::queue()
         {
             kDebug();
-            if ( getStatus() != Configuring )
+            if (getStatus() != Configuring)
+            {
                 return false;
+            }
 
-            if ( m_fileName.isEmpty() )
+            if (m_fileName.isEmpty())
+            {
                 return false;
+            }
 
-            if ( m_connectionId == -1 || m_partnerNick.isEmpty() )
+            if (m_connectionId == -1 || m_partnerNick.isEmpty())
+            {
                 return false;
+            }
 
-            setStatus( Queued );
+            setStatus(Queued);
             return true;
         }
 
@@ -89,13 +115,15 @@ namespace Konversation
         {
             m_timeTransferStarted = QDateTime::currentDateTime();
             m_loggerBaseTime.start();
-            m_loggerTimer.start( 100 );
+            m_loggerTimer.start(100);
         }
 
         void Transfer::finishTransferLogger()
         {
-            if ( m_timeTransferFinished.isNull() )
+            if (m_timeTransferFinished.isNull())
+            {
                 m_timeTransferFinished = QDateTime::currentDateTime();
+            }
             m_loggerTimer.stop();
             updateTransferMeters();
         }
@@ -103,8 +131,8 @@ namespace Konversation
         // called by m_loggerTimer
         void Transfer::logTransfer()
         {
-            m_transferLogTime.append( m_loggerBaseTime.elapsed() );
-            m_transferLogPosition.append( m_transferringPosition );
+            m_transferLogTime.append(m_loggerBaseTime.elapsed());
+            m_transferLogPosition.append(m_transferringPosition);
             updateTransferMeters();
         }
 
@@ -122,35 +150,35 @@ namespace Konversation
         }
 
         // just for convenience
-        void Transfer::failed( const QString& errorMessage )
+        void Transfer::failed(const QString &errorMessage)
         {
             cleanUp();
-            Application* konv_app = Application::instance();
-            Server* server = konv_app->getConnectionManager()->getServerByConnectionId( m_connectionId );
+            Application *konv_app = Application::instance();
+            Server *server = konv_app->getConnectionManager()->getServerByConnectionId(m_connectionId);
             if (server)
             {
                 kDebug() << "notification:" << errorMessage;
                 konv_app->notificationHandler()->dccError(server->getStatusView(), errorMessage);
             }
-            setStatus( Failed, errorMessage );
-            emit done( this );
+            setStatus(Failed, errorMessage);
+            emit done(this);
         }
 
-        void Transfer::setStatus( Status status, const QString& statusDetail )
+        void Transfer::setStatus(Status status, const QString &statusDetail)
         {
-            bool changed = ( status != m_status );
+            bool changed = (status != m_status);
             Status oldStatus = m_status;
             m_status = status;
             m_statusDetail = statusDetail;
-            if ( changed )
+            if (changed)
             {
-                emit statusChanged( this, m_status, oldStatus );
+                emit statusChanged(this, m_status, oldStatus);
             }
 
             if (m_status == Done)
             {
-                Application* konv_app = Application::instance();
-                Server* server = konv_app->getConnectionManager()->getServerByConnectionId( m_connectionId );
+                Application *konv_app = Application::instance();
+                Server *server = konv_app->getConnectionManager()->getServerByConnectionId(m_connectionId);
                 if (server)
                 {
                     kDebug() << "notification:" << m_fileName;
@@ -163,32 +191,34 @@ namespace Konversation
         {
             const int timeToCalc = 5;
 
-            if ( getStatus() == Transferring )
+            if (getStatus() == Transferring)
             {
                 // update CurrentSpeed
 
                 // remove too old data
                 QList<int>::iterator itTime = m_transferLogTime.begin();
                 QList<KIO::fileoffset_t>::iterator itPos = m_transferLogPosition.begin();
-                while ( itTime != m_transferLogTime.end() && ( m_transferLogTime.last() - (*itTime) > timeToCalc * 1000 ) )
+                while (itTime != m_transferLogTime.end() && (m_transferLogTime.last() - (*itTime) > timeToCalc * 1000))
                 {
-                    itTime = m_transferLogTime.erase( itTime );
-                    itPos = m_transferLogPosition.erase( itPos );
+                    itTime = m_transferLogTime.erase(itTime);
+                    itPos = m_transferLogPosition.erase(itPos);
                 }
 
                 // shift the base of the time (m_transferLoggerBaseTime)
                 // reason: QTime can't handle a time longer than 24 hours
                 int shiftOffset = m_loggerBaseTime.restart();
                 itTime = m_transferLogTime.begin();
-                for ( ; itTime != m_transferLogTime.end() ; ++itTime )
+                for (; itTime != m_transferLogTime.end(); ++itTime)
+                {
                     (*itTime) = (*itTime) - shiftOffset;
+                }
 
                 // The logTimer is 100ms, as 200ms is below 1sec we get "undefined" speed
-                if ( m_transferLogTime.count() >= 2 && m_timeTransferStarted.secsTo( QDateTime::currentDateTime()) > 0)
+                if (m_transferLogTime.count() >= 2 && m_timeTransferStarted.secsTo(QDateTime::currentDateTime()) > 0)
                 {
                     // FIXME: precision of average speed is too bad
-                    m_averageSpeed = (double)( m_transferringPosition - m_transferStartPosition ) / (double)m_timeTransferStarted.secsTo( QDateTime::currentDateTime() );
-                    m_currentSpeed = (double)( m_transferLogPosition.last() - m_transferLogPosition.front() ) / (double)( m_transferLogTime.last() - m_transferLogTime.front() ) * 1000;
+                    m_averageSpeed = (double)(m_transferringPosition - m_transferStartPosition) / (double)m_timeTransferStarted.secsTo(QDateTime::currentDateTime());
+                    m_currentSpeed = (double)(m_transferLogPosition.last() - m_transferLogPosition.front()) / (double)(m_transferLogTime.last() - m_transferLogTime.front()) * 1000;
                 }
                 else // avoid zero devision
                 {
@@ -201,20 +231,20 @@ namespace Konversation
                 {
                     m_timeLeft = 0;
                 }
-                else if ( m_currentSpeed <= 0 )
+                else if (m_currentSpeed <= 0)
                 {
                     m_timeLeft = Transfer::InfiniteValue;
                 }
                 else
                 {
-                    m_timeLeft = (int)( (double)( m_fileSize - m_transferringPosition ) / m_currentSpeed );
+                    m_timeLeft = (int)((double)(m_fileSize - m_transferringPosition) / m_currentSpeed);
                 }
             }
-            else if ( m_status >= Done )
+            else if (m_status >= Done)
             {
-                if ( m_timeTransferStarted.secsTo( m_timeTransferFinished ) > 1 )
+                if (m_timeTransferStarted.secsTo(m_timeTransferFinished) > 1)
                 {
-                    m_averageSpeed = (double)( m_transferringPosition - m_transferStartPosition ) / (double)m_timeTransferStarted.secsTo( m_timeTransferFinished );
+                    m_averageSpeed = (double)(m_transferringPosition - m_transferStartPosition) / (double)m_timeTransferStarted.secsTo(m_timeTransferFinished);
                 }
                 else
                 {
@@ -239,24 +269,23 @@ namespace Konversation
             }
         }
 
-        QString Transfer::sanitizeFileName( const QString& fileName )
+        QString Transfer::sanitizeFileName(const QString &fileName)
         {
-            QString fileNameTmp = QFileInfo( fileName ).fileName();
-            if ( fileNameTmp.startsWith( '.' ) )
-                fileNameTmp.replace( 0, 1, '_' );         // Don't create hidden files
-            if ( fileNameTmp.isEmpty() )
+            QString fileNameTmp = QFileInfo(fileName).fileName();
+            if (fileNameTmp.startsWith('.'))
+            {
+                fileNameTmp.replace(0, 1, '_');         // Don't create hidden files
+            }
+            if (fileNameTmp.isEmpty())
+            {
                 fileNameTmp = "unnamed";
+            }
             return fileNameTmp;
         }
 
-        quint32 Transfer::intel( quint32 value )
+        quint32 Transfer::intel(quint32 value)
         {
-            value = ( (value & 0xff000000) >> 24 ) +
-                    ( (value & 0x00ff0000) >> 8  ) +
-                    ( (value & 0x0000ff00) << 8  ) +
-                    ( (value & 0x000000ff) << 24 );
-
-            return value;
+            return bswap_32(value);
         }
 
         Transfer::Type Transfer::getType() const
@@ -269,7 +298,7 @@ namespace Konversation
             return m_status;
         }
 
-        const QString& Transfer::getStatusDetail() const
+        const QString &Transfer::getStatusDetail() const
         {
             return m_statusDetail;
         }
@@ -289,7 +318,7 @@ namespace Konversation
             return m_ownIp;
         }
 
-        uint Transfer::getOwnPort() const
+        quint16 Transfer::getOwnPort() const
         {
             return m_ownPort;
         }
@@ -304,7 +333,7 @@ namespace Konversation
             return m_partnerIp;
         }
 
-        uint Transfer::getPartnerPort() const
+        quint16 Transfer::getPartnerPort() const
         {
             return m_partnerPort;
         }
@@ -372,7 +401,7 @@ namespace Konversation
             }
             else
             {
-                return (int)( ( (double)getTransferringPosition() / (double)getFileSize() ) * 100.0 );
+                return (int)(((double)getTransferringPosition() / (double)getFileSize()) * 100.0);
             }
         }
 
@@ -389,7 +418,9 @@ namespace Konversation
         QString Transfer::transferFileName(const QString & fileName)
         {
             if (fileName.contains(' ') && !(fileName.startsWith('\"') && fileName.endsWith('\"')))
+            {
                 return '\"'+fileName+'\"';
+            }
 
             return fileName;
         }

@@ -15,6 +15,7 @@
 #include "server.h"
 #include "replycodes.h"
 #include "application.h"
+#include "commit.h"
 #include "version.h"
 #include "query.h"
 #include "channel.h"
@@ -309,8 +310,9 @@ void InputFilter::parseClientCommand(const QString &prefix, const QString &comma
                     else
                     {
                         // Do not internationalize the below version string
-                        reply = QString("Konversation %1 (C) 2002-2010 by the Konversation team")
-                            .arg(QString(KONVI_VERSION));
+                        reply = QString("Konversation %1 Build %2 (C) 2002-2010 by the Konversation team")
+                            .arg(QString(KONVI_VERSION))
+                            .arg(QString::number(COMMIT));
 
                     }
                     server->ctcpReply(sourceNick,"VERSION "+reply);
@@ -1198,7 +1200,7 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
                         // The user chose to disconnect
                         if (newNick.isNull())
                         {
-                            server->disconnect();
+                            server->disconnectServer();
                         }
                         else
                         {
@@ -1229,7 +1231,7 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
                         // The user chose to disconnect
                         if (newNick.isNull())
                         {
-                            server->disconnect();
+                            server->disconnectServer();
                         }
                         else
                         {
@@ -1924,20 +1926,26 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
             }
             case RPL_BANLIST:
             {
-                if (plHas(5))
+                //:calvino.freenode.net 367 argonel #konversation fooish!~a@example.com argonel!argkde4@konversation/developer/argonel 1269464382
+                if (plHas(3))
                 {
                     if (getAutomaticRequest("BANLIST", parameterList.value(1)))
                     {
-                        server->addBan(parameterList.value(1), parameterList.join(" ").section(' ', 2, 4));
+                        server->addBan(parameterList.value(1), parameterList.join(" ").section(' ', 2, 4)); //<-- QString::Section handles out of bounds end parameter
                     }
                     else
                     {
                         QDateTime when;
-                        when.setTime_t(parameterList.value(4).toUInt());
+                        if (plHas(5))
+                            when.setTime_t(parameterList.value(4).toUInt());
+                        else
+                            when = QDateTime::currentDateTime(); //use todays date instead of Jan 1 1970
+
+                        QString setter(parameterList.value(3, i18nc("The server didn't respond with the identity of the ban creator, so we say unknown (in brackets to avoid confusion with a real nickname)", "(unknown)")).section('!', 0, 0));
 
                         server->appendMessageToFrontmost(i18n("BanList:%1", parameterList.value(1)),
                                     i18nc("BanList message: e.g. *!*@aol.com set by MrGrim on <date>", "%1 set by %2 on %3",
-                                        parameterList.value(2), parameterList.value(3).section('!', 0, 0), KGlobal::locale()->formatDateTime(when, KLocale::ShortDate))
+                                        parameterList.value(2), setter, KGlobal::locale()->formatDateTime(when, KLocale::ShortDate))
                                     );
                     }
                 }
@@ -1982,6 +1990,14 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
                     if (getLagMeasuring() && trailing.startsWith(prefix))
                     {
                         server->pongReceived();
+                    }
+                    else if (getAutomaticRequest("WHOIS", parameterList.value(1)) == 1) //Inhibit message if this was an automatic request
+                    {
+                        setAutomaticRequest("WHOIS", parameterList.value(1), false);
+                    }
+                    else
+                    {
+                        server->appendMessageToFrontmost(i18n("Error"), i18n("No such server: %1.", parameterList.value(1)));
                     }
                 }
                 break;

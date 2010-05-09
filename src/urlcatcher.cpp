@@ -153,7 +153,7 @@ UrlCatcher::UrlCatcher(QWidget* parent) : ChatWindow(parent)
     m_toolBar->setObjectName("urlcatcher_toolbar");
     m_open = m_toolBar->addAction(KIcon("window-new"), i18nc("open url", "&Open"), this, SLOT(openUrlClicked()));
     m_open->setStatusTip(i18n("Open link in external browser."));
-    m_open->setWhatsThis("<p>Select a <b>URL</b> above, then click this button to launch the application associated with the mimetype of the URL.</p>-<p>In the <b>Settings</b>, under <b>Behavior</b> | <b>General</b>, you can specify a custom web browser for web URLs.</p>");
+    m_open->setWhatsThis(i18n("<p>Select a <b>URL</b> above, then click this button to launch the application associated with the mimetype of the URL.</p>-<p>In the <b>Settings</b>, under <b>Behavior</b> | <b>General</b>, you can specify a custom web browser for web URLs.</p>"));
     m_open->setEnabled(false);
     m_saveLink = m_toolBar->addAction(KIcon("document-save"), i18n("&Save..."), this, SLOT(saveLinkAs()));
     m_saveLink->setStatusTip(i18n("Save selected link to the disk."));
@@ -161,20 +161,20 @@ UrlCatcher::UrlCatcher(QWidget* parent) : ChatWindow(parent)
     m_toolBar->addSeparator();
     m_copy = m_toolBar->addAction(KIcon("edit-copy"), i18nc("copy url","&Copy"), this, SLOT(copyUrlClicked()));
     m_copy->setStatusTip(i18n("Copy link address to the clipboard."));
-    m_copy->setWhatsThis("Select a <b>URL</b> above, then click this button to copy the URL to the clipboard.");
+    m_copy->setWhatsThis(i18n("Select a <b>URL</b> above, then click this button to copy the URL to the clipboard."));
     m_copy->setEnabled(false);
     m_delete = m_toolBar->addAction(KIcon("edit-delete"), i18nc("delete url","&Delete"), this, SLOT(deleteUrlClicked()));
-    m_delete->setWhatsThis("Select a <b>URL</b> above, then click this button to delete the URL from the list.");
+    m_delete->setWhatsThis(i18n("Select a <b>URL</b> above, then click this button to delete the URL from the list."));
     m_delete->setStatusTip(i18n("Delete selected link."));
     m_delete->setEnabled(false);
     m_toolBar->addSeparator();
     m_save = m_toolBar->addAction(KIcon("document-save"), i18nc("save url list", "&Save List..."), this, SLOT(saveListClicked()));
     m_save->setStatusTip(i18n("Save list."));
-    m_save->setWhatsThis("Click to save the entire list to a file.");
+    m_save->setWhatsThis(i18n("Click to save the entire list to a file."));
     m_save->setEnabled(false);
     m_clear = m_toolBar->addAction(KIcon("edit-clear-list"), i18nc("clear url list","&Clear List"), this, SLOT(clearListClicked()));
     m_clear->setStatusTip(i18n("Clear list."));
-    m_clear->setWhatsThis("Click to erase the entire list.");
+    m_clear->setWhatsThis(i18n("Click to erase the entire list."));
     m_clear->setEnabled(false);
     m_toolBar->addSeparator();
     m_bookmarkLink = m_toolBar->addAction(KIcon("bookmark-new"), i18n("Add Bookmark..."), this, SLOT (bookmarkUrl()));
@@ -334,13 +334,13 @@ void UrlCatcher::deleteUrlClicked()
 
         if (indexAbove.isValid())
         {
-            QItemSelection selection(indexAbove, indexAbove.sibling(indexAbove.row(),1));
+            QItemSelection selection(indexAbove, indexAbove.sibling(indexAbove.row(),2));
             if(!selection.isEmpty())
                 m_urlListView->selectionModel()->select(selection, QItemSelectionModel::ClearAndSelect);
         }
         else if (indexBelow.isValid())
         {
-            QItemSelection selection(index, index.sibling(index.row(),1));
+            QItemSelection selection(index, index.sibling(index.row(),2));
             if(!selection.isEmpty())
                 m_urlListView->selectionModel()->select(selection, QItemSelectionModel::ClearAndSelect);
         }
@@ -360,7 +360,7 @@ void UrlCatcher::deleteUrlClicked()
             m_save->setEnabled(false);
         }
 
-        emit deleteUrl(item.nick, item.url);
+        emit deleteUrl(item.nick, item.url, item.datetime);
     }
 }
 

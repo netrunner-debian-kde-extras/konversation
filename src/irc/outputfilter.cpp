@@ -16,7 +16,7 @@
 #include "outputfilter.h"
 #include "application.h"
 #include "mainwindow.h"
-#include "awaymanager.h"
+#include "abstractawaymanager.h"
 #include "ignore.h"
 #include "server.h"
 #include "irccharsets.h"
@@ -30,10 +30,11 @@
 #include <QRegExp>
 #include <QTextCodec>
 #include <QByteArray>
+#include <QTextStream>
 
 #include <KIO/PasswordDialog>
 #include <KMessageBox>
-
+#include <KAboutData>
 
 namespace Konversation
 {
@@ -138,7 +139,7 @@ namespace Konversation
         Q_ASSERT(codec);
         int index = 0;
 
-        while(text.length() > max && (segments == -1 || finals.size() < segments-1))
+        while (index < text.length() && (segments == -1 || finals.size() < segments-1))
         {
             // The most important bit - turn the current char into a QCString so we can measure it
             QByteArray ch = codec->fromUnicode(QString(text[index]));
@@ -147,7 +148,7 @@ namespace Konversation
             // If adding this char puts us over the limit:
             if (charLength + sublen > max)
             {
-                if(lastBreakPoint != 0)
+                if (lastBreakPoint != 0)
                 {
                     finals.append(text.left(lastBreakPoint + 1));
                     text = text.mid(lastBreakPoint + 1);
@@ -982,6 +983,7 @@ namespace Konversation
             }
             else if (dccType == "chat")
             {
+                //dcc chat nick
                 switch (parameterList.count())
                 {
                     case 1:
@@ -995,9 +997,25 @@ namespace Konversation
                                             Preferences::self()->commandChar()));
                 }
             }
+            else if (dccType == "whiteboard")
+            {
+                //dcc whiteboard nick
+                switch (parameterList.count())
+                {
+                    case 1:
+                        emit openDccWBoard("");
+                        break;
+                    case 2:
+                        emit openDccWBoard(parameterList[1]);
+                        break;
+                    default:
+                        result = usage(i18n("Usage: %1DCC [WHITEBOARD [nickname]]",
+                                            Preferences::self()->commandChar()));
+                }
+            }
             else
                 result = error(i18n("Unrecognized command %1DCC %2. Possible commands are SEND, "
-                                    "CHAT, CLOSE, GET.",
+                                    "CHAT, CLOSE, GET, WHITEBOARD.",
                                     Preferences::self()->commandChar(), parameterList[0]));
         }
 
@@ -1102,35 +1120,35 @@ namespace Konversation
         return result;
     }
 
-    OutputFilterResult OutputFilter::rejectDccChat(const QString & partnerNick)
+    OutputFilterResult OutputFilter::rejectDccChat(const QString & partnerNick, const QString& extension)
     {
         OutputFilterResult result;
-        result.toServer = "NOTICE " + partnerNick + " :" + '\x01' + "DCC REJECT CHAT CHAT" + '\x01';
+        result.toServer = "NOTICE " + partnerNick + " :" + '\x01' + "DCC REJECT CHAT " + extension.toUpper() + '\x01';
 
         return result;
     }
 
-    OutputFilterResult OutputFilter::requestDccChat(const QString& partnerNick, const QString& numericalOwnIp, quint16 ownPort)
+    OutputFilterResult OutputFilter::requestDccChat(const QString& partnerNick, const QString& extension, const QString& numericalOwnIp, quint16 ownPort)
     {
         OutputFilterResult result;
-        result.toServer = "PRIVMSG " + partnerNick + " :" + '\x01' + "DCC CHAT CHAT "
-                          + numericalOwnIp + ' ' + QString::number(ownPort) + '\x01';
+        result.toServer = "PRIVMSG " + partnerNick + " :" + '\x01' + "DCC CHAT " +
+                          extension.toUpper() + ' ' + numericalOwnIp + ' ' + QString::number(ownPort) + '\x01';
         return result;
     }
 
-    OutputFilterResult OutputFilter::passiveChatRequest(const QString& recipient, const QString& address, const QString& token)
+    OutputFilterResult OutputFilter::passiveChatRequest(const QString& recipient, const QString extension, const QString& address, const QString& token)
     {
         OutputFilterResult result;
-        result.toServer = "PRIVMSG " + recipient + " :" + '\x01' + "DCC CHAT CHAT "
-                          + address + " 0 " + token + '\x01';
+        result.toServer = "PRIVMSG " + recipient + " :" + '\x01' + "DCC CHAT " +
+                          extension.toUpper() + ' ' + address + " 0 " + token + '\x01';
         return result;
     }
 
-    OutputFilterResult OutputFilter::acceptPassiveChatRequest(const QString& recipient, const QString& numericalOwnIp, quint16 ownPort, const QString& token)
+    OutputFilterResult OutputFilter::acceptPassiveChatRequest(const QString& recipient, const QString& extension, const QString& numericalOwnIp, quint16 ownPort, const QString& token)
     {
         OutputFilterResult result;
-        result.toServer = "PRIVMSG " + recipient + " :" + '\x01' + "DCC CHAT CHAT "
-                          + numericalOwnIp + ' ' + QString::number(ownPort) + ' ' + token + '\x01';
+        result.toServer = "PRIVMSG " + recipient + " :" + '\x01' + "DCC CHAT " +
+                          extension.toUpper() + ' ' + numericalOwnIp + ' ' + QString::number(ownPort) + ' ' + token + '\x01';
         return result;
     }
 
@@ -1837,6 +1855,27 @@ namespace Konversation
             return usage(i18n("Usage: %1queuetuner [on | off]", Preferences::self()->commandChar()));
 
         return OutputFilterResult();
+    }
+
+    OutputFilterResult OutputFilter::command_sayversion(const OutputFilterInput& input)
+    {
+        OutputFilterResult result;
+        result.output = input.parameter;
+
+        QTextStream serverOut(&result.toServer);
+        QTextStream myOut(&result.output); //<--because seek is unimplemented in QTextStreamPrivate::write(const QString &data)
+        myOut
+            << "Konversation: " << KGlobal::mainComponent().aboutData()->version()
+            << ", Qt " << QString::fromLatin1(qVersion())
+            << ", KDE SC " << KDE::versionString()
+            ;
+        if (QString::fromLatin1(KDE_VERSION_STRING) != KDE::versionString())
+            myOut << ", KDE DP " << QString::fromLatin1(KDE_VERSION_STRING);
+        if (qgetenv("KDE_FULL_SESSION").isEmpty())
+            myOut << ", no KDE";
+
+        serverOut << "PRIVMSG " << input.destination << " :" << result.output;
+        return result;
     }
 
     OutputFilterResult OutputFilter::changeMode(const QString &parameter, const QString& destination,

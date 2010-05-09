@@ -20,6 +20,9 @@
 #include <KCmdLineArgs>
 #include <KAboutData>
 
+#define HACKSTR(x) #x
+#define STRHACK(x) HACKSTR(x)
+
 /*
   Don't use i18n() here, use ki18n() instead!
   i18n() will only work as soon as a kapplication object was made.
@@ -30,10 +33,10 @@ int main(int argc, char* argv[])
     KAboutData aboutData("konversation",
         "",
         ki18n("Konversation"),
-        KONVI_VERSION,
+        KONVI_VERSION " #" STRHACK(COMMIT),
         ki18n("A user-friendly IRC client"),
         KAboutData::License_GPL,
-        ki18n("(C) 2002-2009 by the Konversation team"),
+        ki18n("(C) 2002-2010 by the Konversation team"),
         ki18n("Konversation is a client for the Internet Relay Chat (IRC) protocol.\n"
         "Meet friends on the net, make new acquaintances and lose yourself in\n"
         "talk about your favorite subject."),
@@ -77,6 +80,7 @@ int main(int argc, char* argv[])
     aboutData.addCredit(ki18n("Travis McHenry"),ki18n("Various fixes, ported encryption to QCA2, added DH1080 key exchange support."),"tmchenryaz@cox.net");
     aboutData.addCredit(ki18n("Modestas Vainius"),ki18n("Bug fixes and enhancements."),"modestas@vainius.eu");
     aboutData.addCredit(ki18n("Abdurrahman AVCI"),ki18n("Various bug fixes and enhancements."),"abdurrahmanavci@gmail.com");
+    aboutData.addCredit(ki18n("Martin Blumenstingl"),ki18n("KStatusNotifierItem support, KIdleTime support, other enhancements"),"darklight.xdarklight@googlemail.com");
 
     KCmdLineArgs::init(argc, argv, &aboutData);
     KCmdLineOptions options;

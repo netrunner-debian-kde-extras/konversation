@@ -23,7 +23,7 @@
 #include <QObject>
 #include <QTimer>
 
-#include <kurl.h>
+#include <KUrl>
 #include <kio/global.h>
 
 namespace Konversation
@@ -63,19 +63,19 @@ namespace Konversation
                     InfiniteValue = -3
                 };
 
-                Transfer( Type dccType, QObject* parent );
+                Transfer(Type dccType, QObject *parent);
                 virtual ~Transfer();
 
                 Type               getType()                  const;
                 Status             getStatus()                const;
-                const QString&     getStatusDetail()          const;
+                const QString &    getStatusDetail()          const;
                 QDateTime          getTimeOffer()             const;
                 int                getConnectionId()          const;
                 QString            getOwnIp()                 const;
-                uint               getOwnPort()               const;
+                quint16            getOwnPort()               const;
                 QString            getPartnerNick()           const;
                 QString            getPartnerIp()             const;
-                uint               getPartnerPort()           const;
+                quint16            getPartnerPort()           const;
                 QString            getFileName()              const;
                 KIO::filesize_t    getFileSize()              const;
                 KIO::fileoffset_t  getTransferringPosition()  const;
@@ -94,19 +94,19 @@ namespace Konversation
                 // common settings for DccTransferRecv / DccTransferSend
 
                 // REQUIRED
-                void setConnectionId( int connectionId );
+                void setConnectionId(int connectionId);
                 // REQUIRED
-                void setPartnerNick( const QString& nick );
+                void setPartnerNick(const QString &nick);
 
                 void removedFromView();
 
             signals:
-                void transferStarted( Konversation::DCC::Transfer* item );
+                void transferStarted(Konversation::DCC::Transfer *item);
                 //done is when the transfer is done, it will not get deleted after emiting this signal
-                void done( Konversation::DCC::Transfer* item );
-                void statusChanged( Konversation::DCC::Transfer* item, int newStatus, int oldStatus );
+                void done(Konversation::DCC::Transfer *item);
+                void statusChanged(Konversation::DCC::Transfer *item, int newStatus, int oldStatus);
                 //removed is when the transfer is removed from all visible views and ready to get deleted
-                void removed( Konversation::DCC::Transfer* item );
+                void removed(Konversation::DCC::Transfer *item);
 
             public slots:
                 virtual bool queue();
@@ -115,7 +115,7 @@ namespace Konversation
 
             protected:
                 virtual void cleanUp();
-                void failed(const QString& errorMessage = QString() );
+                void failed(const QString &errorMessage = QString());
 
                 /**
                  * setStatus behavior changed:
@@ -125,13 +125,13 @@ namespace Konversation
                  * If you call setStatus(..) and change the "Started at:"-time afterwards,
                  * the transferpanel won't notice it
                  */
-                void setStatus( Status status, const QString& statusDetail = QString() );
+                void setStatus(Status status, const QString &statusDetail = QString());
                 void startTransferLogger();
                 void finishTransferLogger();
 
-                static QString transferFileName( const QString& fileName );
-                static QString sanitizeFileName( const QString& fileName );
-                static quint32 intel( quint32 value );
+                static QString transferFileName(const QString &fileName);
+                static QString sanitizeFileName(const QString &fileName);
+                static quint32 intel(quint32 value);
 
             protected slots:
                 void logTransfer();
@@ -156,12 +156,12 @@ namespace Konversation
                 int m_connectionId;
                 QString m_partnerNick;
                 QString m_partnerIp;                      // null when unknown
-                uint m_partnerPort;
+                quint16 m_partnerPort;
                 QString m_ownIp;
-                uint m_ownPort;
+                quint16 m_ownPort;
 
                 unsigned long m_bufferSize;
-                char* m_buffer;
+                char *m_buffer;
 
                 /**
                  * The filename. Clean filename without any "../" or extra "

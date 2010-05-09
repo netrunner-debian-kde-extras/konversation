@@ -18,7 +18,7 @@
 #include <QApplication>
 
 #include <KCategorizedSortFilterProxyModel>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <KDebug>
 #include <KCategoryDrawer>
 
@@ -91,7 +91,7 @@ namespace Konversation
 
 
         TransferProgressBarDelegate::TransferProgressBarDelegate(QObject *parent)
-            : QStyledItemDelegate (parent)
+            : QStyledItemDelegate(parent)
         {
         }
 
@@ -117,58 +117,48 @@ namespace Konversation
              progressBarOption.progress = index.data().toInt();
              progressBarOption.text = QString::number(progressBarOption.progress) + '%';
              progressBarOption.textVisible = true;
+             progressBarOption.state = option.state;
 
              QApplication::style()->drawControl(QStyle::CE_ProgressBar,
                                                 &progressBarOption, painter);
         }
 
 
-        TransferListProxyModel::TransferListProxyModel (QObject *parent)
-            : QSortFilterProxyModel (parent)
+        TransferListProxyModel::TransferListProxyModel(QObject *parent)
+            : QSortFilterProxyModel(parent)
         {
         }
 
-        bool TransferListProxyModel::lessThan (const QModelIndex &left,
-                                               const QModelIndex &right) const
+        bool TransferListProxyModel::lessThan(const QModelIndex &left,
+                                              const QModelIndex &right) const
         {
             int leftType = left.data(TransferListModel::TransferDisplayType).toInt();
             int rightType = right.data(TransferListModel::TransferDisplayType).toInt();
 
             if (leftType == rightType)
             {
-                if (left.data(TransferListModel::HeaderType) == TransferHeaderData::Position)
+                const int headerType = left.data(TransferListModel::HeaderType).toInt();
+                if (headerType == TransferHeaderData::Position)
                 {
                     return (left.data(TransferListModel::TransferProgress).toInt() <
                             right.data(TransferListModel::TransferProgress).toInt());
                 }
-                else if (left.data(TransferListModel::HeaderType) == TransferHeaderData::OfferDate)
+                else if (headerType == TransferHeaderData::OfferDate)
                 {
                     return (left.data(TransferListModel::TransferOfferDate).toDateTime() <
                             right.data(TransferListModel::TransferOfferDate).toDateTime());
                 }
-                return QSortFilterProxyModel::lessThan (left, right);
+                return QSortFilterProxyModel::lessThan(left, right);
             }
 
             //visible order should always be
             //DCCReceiveCategory > DCCReceiveItem > SpacerRow > DCCSendCategory > DCCSendItem
-#if (QT_VERSION < QT_VERSION_CHECK(4, 5, 0))
-            if (m_sortOrder == Qt::AscendingOrder)
-#else
             if (sortOrder() == Qt::AscendingOrder)
-#endif
             {
                 return !(leftType < rightType);
             }
             return (leftType < rightType);
         }
-
-#if (QT_VERSION < QT_VERSION_CHECK(4, 5, 0))
-        void TransferListProxyModel::sort(int column, Qt::SortOrder order)
-        {
-            m_sortOrder = order;
-            QSortFilterProxyModel::sort(column,order);
-        }
-#endif
 
         TransferListModel::TransferListModel(QObject *parent)
             : QAbstractListModel(parent)
@@ -177,7 +167,9 @@ namespace Konversation
 
         void TransferListModel::append(const TransferItemData &item)
         {
+            beginInsertRows(QModelIndex(), rowCount(), rowCount());
             m_transferList.append(item);
+            endInsertRows();
 
             if (item.transfer)
             {
@@ -488,9 +480,9 @@ namespace Konversation
                 case Transfer::Preparing:
                     return i18n("Preparing");
                 case Transfer::WaitingRemote:
-                    return i18n("Pending");
+                    return i18nc("Transfer is waiting for the partner to accept or reject it", "Pending");
                 case Transfer::Connecting:
-                    return i18n("Connecting");
+                    return i18nc("Transfer is connecting to the partner", "Connecting");
                 case Transfer::Transferring:
                     switch (type)
                     {
@@ -503,9 +495,9 @@ namespace Konversation
                             return QString();
                     }
                 case Transfer::Done:
-                    return i18n("Done");
+                    return i18nc("Transfer has completed successfully", "Done");
                 case Transfer::Failed:
-                    return i18n("Failed");
+                    return i18nc("Transfer failed", "Failed");
                 case Transfer::Aborted:
                     return i18n("Aborted");
                 default:

@@ -15,13 +15,13 @@
 
 #include "transferview.h"
 
-
 #include <KDebug>
 #include <KMenu>
 #include <KCategoryDrawer>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <QHeaderView>
+#include <QKeyEvent>
 
 #include <preferences.h>
 
@@ -57,8 +57,8 @@ namespace Konversation
             setProgressBarDeletegate();
 
             header()->setContextMenuPolicy(Qt::CustomContextMenu);
-            connect(header(), SIGNAL(customContextMenuRequested (const QPoint&)),
-                    this, SLOT(headerCustomContextMenuRequested (const QPoint&)));
+            connect(header(), SIGNAL(customContextMenuRequested(const QPoint&)),
+                    this, SLOT(headerCustomContextMenuRequested(const QPoint&)));
 
             m_activeTransfers = 0;
             m_itemCategoryToRemove = 0;
@@ -66,14 +66,14 @@ namespace Konversation
             m_updateTimer->setInterval(500);
             connect(m_updateTimer, SIGNAL(timeout()), this, SLOT(update()));
 
-            connect(model(), SIGNAL(rowsAboutToBeRemoved (const QModelIndex &, int, int)),
-                     this, SLOT(rowsAboutToBeRemovedFromModel (const QModelIndex&, int, int)));
+            connect(model(), SIGNAL(rowsAboutToBeRemoved(const QModelIndex &, int, int)),
+                     this, SLOT(rowsAboutToBeRemovedFromModel(const QModelIndex&, int, int)));
             //we can't use rowsRemoved here, it seems when rowsRemoved is emitted
             //the rows are not permanently removed from model,
             //so if we trigger a new removeRows in our slot,
             //the new remove happens before the old pending
-            connect(m_dccModel, SIGNAL(rowsPermanentlyRemoved (int, int)),
-                    this, SLOT(rowsRemovedFromModel (int, int)));
+            connect(m_dccModel, SIGNAL(rowsPermanentlyRemoved(int, int)),
+                    this, SLOT(rowsRemovedFromModel(int, int)));
         }
 
         TransferView::~TransferView()
@@ -113,7 +113,7 @@ namespace Konversation
             }
         }
 
-        void TransferView::addTransfer (Transfer *transfer)
+        void TransferView::addTransfer(Transfer *transfer)
         {
             //save selected rows
             QModelIndexList selectedIndexes = selectedRows();
@@ -166,26 +166,27 @@ namespace Konversation
             connect (transfer, SIGNAL(statusChanged(Konversation::DCC::Transfer*,int,int)),
                      this, SLOT(transferStatusChanged(Konversation::DCC::Transfer*,int,int)));
 
-            updateModel();
-
             clearSelection();
             //restore selected
+
+            QList<int> rows;
             foreach (const QModelIndex &index, rowIndexes())
             {
                 QVariant pointer = index.data(TransferListModel::TransferPointer);
                 if (selectedItems.contains(pointer))
                 {
                     selectedItems.removeOne(pointer);
-                    selectRow(index.row());
+                    rows.append(index.row());
                     if (selectedItems.isEmpty())
                     {
                         break;
                     }
                 }
             }
+            selectRows(rows);
         }
 
-        void TransferView::addItem (Transfer* transfer, TransferItemData::ItemDisplayType type)
+        void TransferView::addItem(Transfer *transfer, TransferItemData::ItemDisplayType type)
         {
             TransferItemData tD;
             tD.displayType = type;
@@ -288,7 +289,7 @@ namespace Konversation
                 return QModelIndex();
             }
 
-            foreach (const QModelIndex& rowIndex, rowIndexes())
+            foreach (const QModelIndex &rowIndex, rowIndexes())
             {
                 Transfer *rowTransfer = static_cast<Transfer*>(qVariantValue<QObject*>(rowIndex.data(TransferListModel::TransferPointer)));
                 if (rowTransfer == transfer)
@@ -359,47 +360,47 @@ namespace Konversation
             menu.exec(QWidget::mapToGlobal(pos));
         }
 
-        void TransferView::toggleFilenameColumn (bool visible)
+        void TransferView::toggleFilenameColumn(bool visible)
         {
             setColumnHidden(headerTypeToColumn(TransferHeaderData::FileName), !visible);
         }
 
-        void TransferView::togglePartnerNickColumn (bool visible)
+        void TransferView::togglePartnerNickColumn(bool visible)
         {
             setColumnHidden(headerTypeToColumn(TransferHeaderData::PartnerNick), !visible);
         }
 
-        void TransferView::toggleProgressColumn (bool visible)
+        void TransferView::toggleProgressColumn(bool visible)
         {
             setColumnHidden(headerTypeToColumn(TransferHeaderData::Progress), !visible);
         }
 
-        void TransferView::toggleStartedAtColumn (bool visible)
+        void TransferView::toggleStartedAtColumn(bool visible)
         {
             setColumnHidden(headerTypeToColumn(TransferHeaderData::OfferDate), !visible);
         }
 
-        void TransferView::toggleCurrentSpeedColumn (bool visible)
+        void TransferView::toggleCurrentSpeedColumn(bool visible)
         {
             setColumnHidden(headerTypeToColumn(TransferHeaderData::CurrentSpeed), !visible);
         }
 
-        void TransferView::togglePositionColumn (bool visible)
+        void TransferView::togglePositionColumn(bool visible)
         {
             setColumnHidden(headerTypeToColumn(TransferHeaderData::Position), !visible);
         }
 
-        void TransferView::toggleSenderAdressColumn (bool visible)
+        void TransferView::toggleSenderAdressColumn(bool visible)
         {
             setColumnHidden(headerTypeToColumn(TransferHeaderData::SenderAdress), !visible);
         }
 
-        void TransferView::toggleStatusColumn (bool visible)
+        void TransferView::toggleStatusColumn(bool visible)
         {
             setColumnHidden(headerTypeToColumn(TransferHeaderData::Status), !visible);
         }
 
-        void TransferView::toggleTimeLeftColumn (bool visible)
+        void TransferView::toggleTimeLeftColumn(bool visible)
         {
             setColumnHidden(headerTypeToColumn(TransferHeaderData::TimeLeft), !visible);
         }
@@ -409,7 +410,7 @@ namespace Konversation
             setColumnHidden(headerTypeToColumn(TransferHeaderData::TypeIcon), !visible);
         }
 
-        int TransferView::headerTypeToColumn (int headerType) const
+        int TransferView::headerTypeToColumn(int headerType) const
         {
             for (int i = 0; i < m_dccModel->columnCount(); ++i)
             {
@@ -451,10 +452,8 @@ namespace Konversation
             Preferences::self()->setDccColumnWidths(columnWidths);
             Preferences::self()->setDccColumnOrders(columnOrder);
             Preferences::self()->setDccColumnVisibles(columnVisible);
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 5, 0))
-            Preferences::self()->setDccColumnSorted( m_proxyModel->sortColumn() );
-            Preferences::self()->setDccColumnSortDescending ( m_proxyModel->sortOrder() == Qt::DescendingOrder ? true : false );
-#endif
+            Preferences::self()->setDccColumnSorted(m_proxyModel->sortColumn());
+            Preferences::self()->setDccColumnSortDescending(m_proxyModel->sortOrder() == Qt::DescendingOrder ? true : false);
         }
 
         void TransferView::restoreColumns()
@@ -486,7 +485,6 @@ namespace Konversation
                     setColumnHidden(column, (columnVisible.at(i) > 0) ? false : true);
                 }
 
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 5, 0))
                 Qt::SortOrder order;
                 if (Preferences::self()->dccColumnSortDescending())
                 {
@@ -497,7 +495,6 @@ namespace Konversation
                     order = Qt::AscendingOrder;
                 }
                 sortByColumn(Preferences::self()->dccColumnSorted(), order);
-#endif
             }
             else
             {
@@ -522,13 +519,22 @@ namespace Konversation
             m_proxyModel->invalidate();
         }
 
-        void TransferView::scrollContentsBy (int dx, int dy)
+        void TransferView::scrollContentsBy(int dx, int dy)
         {
             if (dx) //KCategoryDrawer is a bit slow when it comes to horiz redraws, force it
             {
                 update();
             }
-            QTreeView::scrollContentsBy (dx, dy);
+            QTreeView::scrollContentsBy(dx, dy);
+        }
+
+        void TransferView::keyPressEvent(QKeyEvent *event)
+        {
+            if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter)
+            {
+                emit runSelectedTransfers();
+            }
+            QTreeView::keyPressEvent(event);
         }
 
         void TransferView::selectAllCompleted()
@@ -573,7 +579,7 @@ namespace Konversation
         void TransferView::update()
         {
             const int columnCount = model()->columnCount()-1;
-            foreach (const QModelIndex& rowIndex, rowIndexes(0))
+            foreach (const QModelIndex &rowIndex, rowIndexes(0))
             {
                 int status = rowIndex.data(TransferListModel::TransferStatus).toInt();
                 if (status == Transfer::Transferring)
@@ -584,8 +590,8 @@ namespace Konversation
             QTreeView::update();
         }
 
-        void TransferView::rowsAboutToBeRemovedFromModel (const QModelIndex &/*parent*/,
-                                                          int start, int end)
+        void TransferView::rowsAboutToBeRemovedFromModel(const QModelIndex &/*parent*/,
+                                                         int start, int end)
         {
             // The items that will be removed are those between start and end inclusive
             for (int i = start; i < end+1; ++i)
@@ -594,7 +600,7 @@ namespace Konversation
             }
         }
 
-        void TransferView::rowsRemovedFromModel (int start, int end)
+        void TransferView::rowsRemovedFromModel(int start, int end)
         {
             if (m_itemCategoryToRemove & Transfer::Send)
             {
@@ -628,7 +634,7 @@ namespace Konversation
             }
         }
 
-        int TransferView::removeItems (TransferItemData::ItemDisplayType displaytype)
+        int TransferView::removeItems(TransferItemData::ItemDisplayType displaytype)
         {
             int removed = 0;
             for (int i = model()->rowCount()-1; i >= 0; --i)

@@ -11,7 +11,7 @@
 */
 #include "identitydialog.h"
 #include "application.h"
-#include "awaymanager.h"
+#include "abstractawaymanager.h"
 #include "irccharsets.h"
 
 #include <KDialog>
@@ -55,11 +55,7 @@ namespace Konversation
         m_codecCBox->addItems(Konversation::IRCCharsets::self()->availableEncodingDescriptiveNames());
 
         // set the suffix for the inactivity time spinbox
-#if KDE_IS_VERSION(4, 2, 80)
         m_awayInactivitySpin->setSuffix(ki18np(" minute", " minutes"));
-#else
-        m_awayInactivitySpin->setSuffix(i18n(" minutes"));
-#endif
 
         // set values for the widgets
         updateIdentity(0);
@@ -70,7 +66,7 @@ namespace Konversation
         setButtonGuiItem(KDialog::Ok, KGuiItem(i18n("&OK"), "dialog-ok", i18n("Change identity information")));
         setButtonGuiItem(KDialog::Cancel, KGuiItem(i18n("&Cancel"), "dialog-cancel", i18n("Discards all changes made")));
 
-        AwayManager* awayManager = static_cast<Application*>(kapp)->getAwayManager();
+        AbstractAwayManager* awayManager = static_cast<Application*>(kapp)->getAwayManager();
         connect(m_identityCBox, SIGNAL(currentIndexChanged(int)), this, SLOT(updateIdentity(int)));
         connect(this, SIGNAL(identitiesChanged()), awayManager, SLOT(identitiesChanged()));
     }
