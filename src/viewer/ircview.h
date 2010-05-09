@@ -20,13 +20,12 @@
 #include <QList>
 
 #include <KTextBrowser>
+#include <KUrl>
 
 class Server;
 class ChatWindow;
 
-class QDropEvent;
 
-class KUrl;
 class KToggleAction;
 class KMenu;
 
@@ -90,7 +89,7 @@ class IRCView : public KTextBrowser
         void autoText(const QString& text); ///< helper for autotext-on-highlight
         void textPasted(bool useSelection); ///< middle button with no m_copyUrlMenu
         void popupCommand(int); ///< wired to all of the popup menus
-        void filesDropped(const QStringList&); ///< Q3UriDrag::decode valid in contentsDropEvent
+        void urlsDropped(const KUrl::List urls);
         void doSearch(); /// Emitted when a search should be started
         void doSearchNext(); /// Emitted when there's a request to go to the next search result.
         void doSearchPrevious(); /// Emitted when there's a request to go to the previous search result.
@@ -127,6 +126,12 @@ class IRCView : public KTextBrowser
         /// Remove all of the marker lines, and the remember line.
         /// Does not effect m_rememberLineDirtyBit.
         void clearLines();
+
+    protected:
+        virtual QMimeData* createMimeDataFromSelection() const;
+        virtual void dragEnterEvent(QDragEnterEvent* e);
+        virtual void dragMoveEvent(QDragMoveEvent* e);
+        virtual void dropEvent(QDropEvent* e);
 
     private:
         /// The internal mechanics of inserting a line.

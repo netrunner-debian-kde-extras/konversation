@@ -26,7 +26,7 @@
 #include "notificationhandler.h"
 #include "irccharsets.h"
 #include "connectionmanager.h"
-#include "awaymanager.h"
+#include "abstractawaymanager.h"
 #include "transfermanager.h"
 
 
@@ -415,16 +415,12 @@ MainWindow::MainWindow() : KXmlGuiWindow(0)
     awayAction->setShortcut(KShortcut("Ctrl+Shift+A"));
     awayAction->setEnabled(false);
     awayAction->setIcon(KIcon("im-user-away"));
-    connect(awayAction, SIGNAL(triggered(bool)), Application::instance()->getAwayManager(), SLOT(toggleGlobalAway(bool)));
+    connect(awayAction, SIGNAL(triggered(bool)), Application::instance()->getAwayManager(), SLOT(setGlobalAway(bool)));
     actionCollection()->addAction("toggle_away", awayAction);
 
     action=new KAction(this);
     action->setText(i18n("&Join Channel..."));
-#if KDE_IS_VERSION(4,2,85)
     action->setIcon(KIcon("irc-join-channel"));
-#else
-    action->setIcon(KIcon("list-add"));
-#endif
     action->setShortcut(KShortcut("Ctrl+J"));
     action->setEnabled(false);
     action->setStatusTip("Join a new channel on this server");

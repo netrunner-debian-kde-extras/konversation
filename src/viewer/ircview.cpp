@@ -40,6 +40,8 @@
 #include <QAbstractTextDocumentLayout>
 #include <QPainter>
 #include <QTextObjectInterface>
+#include <QTextDocumentFragment>
+#include <QTextCodec>
 
 #include <KUrl>
 #include <KBookmarkManager>
@@ -142,6 +144,7 @@ IRCView::IRCView(QWidget* parent, Server* newServer) : KTextBrowser(parent), m_n
     m_nickPopup = 0;
     m_channelPopup = 0;
 
+    setAcceptDrops(false);
 
     //// Marker lines
     connect(document(), SIGNAL(contentsChange(int, int, int)), SLOT(cullMarkedLine(int, int, int)));
@@ -350,6 +353,70 @@ QDebug operator<<(QDebug dbg, QList<QTextBlock> &l)
     return dbg.space();
 }
 
+class IrcViewMimeData : public QMimeData
+{
+public:
+    IrcViewMimeData(const QTextDocumentFragment& _fragment): fragment(_fragment) {}
+    virtual QStringList formats() const;
+
+protected:
+    virtual QVariant retrieveData(const QString &mimeType, QVariant::Type type) const;
+
+private:
+    mutable QTextDocumentFragment fragment;
+};
+
+QStringList IrcViewMimeData::formats() const
+{
+    if (!fragment.isEmpty())
+        return QStringList() << QString::fromLatin1("text/plain");
+    else
+        return QMimeData::formats();
+}
+
+QVariant IrcViewMimeData::retrieveData(const QString &mimeType, QVariant::Type type) const
+{
+    if (!fragment.isEmpty())
+    {
+        IrcViewMimeData *that = const_cast<IrcViewMimeData *>(this);
+
+        //Copy the text, skipping any QChar::ObjectReplacementCharacter
+        QRegExp needle(QString("\\xFFFC\\n?"));
+
+        that->setText(fragment.toPlainText().remove(needle));
+        fragment = QTextDocumentFragment();
+    }
+    return QMimeData::retrieveData(mimeType, type);
+}
+
+QMimeData *IRCView::createMimeDataFromSelection() const
+{
+    const QTextDocumentFragment fragment(textCursor());
+    return new IrcViewMimeData(fragment);
+}
+
+void IRCView::dragEnterEvent(QDragEnterEvent* e)
+{
+    if (e->mimeData()->hasUrls())
+        e->acceptProposedAction();
+    else
+        e->ignore();
+}
+
+void IRCView::dragMoveEvent(QDragMoveEvent* e)
+{
+    if (e->mimeData()->hasUrls())
+        e->accept();
+    else
+        e->ignore();
+}
+
+void IRCView::dropEvent(QDropEvent* e)
+{
+    if (e->mimeData() && e->mimeData()->hasUrls())
+        emit urlsDropped(KUrl::List::fromMimeData(e->mimeData(), KUrl::List::PreferLocalUrls));
+}
+
 void IrcViewMarkerLine::drawObject(QPainter *painter, const QRectF &r, QTextDocument *doc, int posInDocument, const QTextFormat &format)
 {
     Q_UNUSED(format);
@@ -498,7 +565,7 @@ void IRCView::clearLines()
     dump_doc(document());
 
     //are there any markers?
-    if (hasLines() > 0)
+    if (hasLines())
     {
         for (int i=0; i < m_markers.count(); ++i)
             voidLineBlock(m_markers[i]);
@@ -1056,7 +1123,7 @@ bool doHighlight, bool parseURL, bool self)
     // Replace all text decorations
     // TODO: \017 should reset all text decorations to plain text
     replaceDecoration(filteredLine,'\x02','b');
-    replaceDecoration(filteredLine,'\x09','i');
+    replaceDecoration(filteredLine,'\x1d','i');
     replaceDecoration(filteredLine,'\x13','s');
     replaceDecoration(filteredLine,'\x15','u');
     replaceDecoration(filteredLine,'\x16','b');   // should be inverse
@@ -1225,24 +1292,16 @@ void IRCView::setupNickPopupMenu(bool isQuery)
         QMenu* modes = m_nickPopup->addMenu(i18n("Modes"));
         action = modes->addAction(i18n("Give Op"), this, SLOT(handleContextActions()));
         action->setData(Konversation::GiveOp);
-#if KDE_IS_VERSION(4, 2, 85)
         action->setIcon(KIcon("irc-operator"));
-#endif
         action = modes->addAction(i18n("Take Op"), this, SLOT(handleContextActions()));
         action->setData(Konversation::TakeOp);
-#if KDE_IS_VERSION(4, 2, 85)
         action->setIcon(KIcon("irc-remove-operator"));
-#endif
         action = modes->addAction(i18n("Give Voice"), this, SLOT(handleContextActions()));
         action->setData(Konversation::GiveVoice);
-#if KDE_IS_VERSION(4, 2, 85)
         action->setIcon(KIcon("irc-voice"));
-#endif
         action = modes->addAction(i18n("Take Voice"), this, SLOT(handleContextActions()));
         action->setData(Konversation::TakeVoice);
-#if KDE_IS_VERSION(4, 2, 85)
         action->setIcon(KIcon("irc-unvoice"));
-#endif
 
         QMenu* kickban = m_nickPopup->addMenu(i18n("Kick / Ban"));
         action = kickban->addAction(i18n("Kick"), this, SLOT(handleContextActions()));
@@ -1328,11 +1387,7 @@ void IRCView::setupChannelPopupMenu()
 
     QAction* action = m_channelPopup->addAction(i18n("&Join Channel..."), this, SLOT(handleContextActions()));
     action->setData(Konversation::Join);
-    #if KDE_IS_VERSION(4,2,85)
     action->setIcon(KIcon("irc-join-channel"));
-    #else
-    action->setIcon(KIcon("list-add"));
-    #endif
     action = m_channelPopup->addAction(i18n("Get &user list"), this, SLOT(handleContextActions()));
     action->setData(Konversation::Names);
     action = m_channelPopup->addAction(i18n("Get &topic"), this, SLOT(handleContextActions()));
@@ -1486,15 +1541,11 @@ void IRCView::saveLinkAs()
     KIO::copy(srcUrl, saveUrl);
 }
 
-void IRCView::highlightedSlot(const QString& _link)
+void IRCView::highlightedSlot(const QString& /*_link*/)
 {
-    QString link = _link;
+    QString link = m_urlToCopy;
     // HACK Replace " " with %20 for channelnames, NOTE there can't be 2 channelnames in one link
     link = link.replace (' ', "%20");
-
-    //Hack to handle the fact that we get a decoded url
-    //FIXME someone who knows what it looks like when we get a decoded url can reenable this if necessary...
-    //link = KUrl(link).url();
 
     //we just saw this a second ago.  no need to reemit.
     if (link == m_lastStatusText && !link.isEmpty())

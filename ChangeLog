@@ -1,3 +1,110 @@
+Changes since 1.2.3:
+* Konversation now depends on Qt 4.5 and KDE 4.3.
+* Added support for DCC WHITEBOARD, bringing collaborative drawing to
+  IRC.
+* When showing the dialog informing the user about the local target
+  file for an incoming DCC file transfer already existing that dialog
+  now includes the sizes of the local file and the file the sender is
+  offering up.
+* Fixed a bug causing either an empty line or a few characters of gar-
+  bage to be placed in the clipboard in place of marker/remember lines
+  when copying chat text containing such lines.
+* Fixed a bug causing quotation marks, ampersands and angle brackets
+  in chat messages to be displayed as HTML entities in the OSD.
+* The "Clear All Windows" action will now also resets the notification
+  state of all tabs (i.e. removes active new message or highlight no-
+  tifications from the tab bar).
+* Fixed a bug causing the server responses to background data gather-
+  ing via WHO (to keep the app's idea of its own hostmask up to date,
+  as well as optionally channel user info) to be displayed in tabs as
+  if the user had made the requests manually after sending a '/who'
+  command without parameters.
+* Fixed a bug causing a crash when sending '/privmsg' without any pa-
+  rameters (did not apply to '/msg').
+* In previous versions, channel tabs opened in the background (i.e.
+  while "Focus new tabs" is disabled, as it is by default) would con-
+  siderably increase the minimum width of the window due to particu-
+  larities of the Qt layout system. After raising every channel tab
+  at least once it would then be possible to make the window much
+  narrower. This unintuitive behavior resulted in confusion as to why
+  the minimum width of the Konversation window would sometimes vary
+  greatly. This has been fixed in this version, i.e. it is no longer
+  necessary to have raised every channel tab at least once to achieve
+  a reasonable minimum width of the window. This also means that
+  joining a new channel is now much less likely to resize the window.
+* Fixed a bug causing the status bar to become multiple lines in
+  height when hovering an URL containing percent-encoded line breaks
+  in the chat text view.
+* Fixed a bug making it impossible to scroll the Advanced Modes list
+  in the Channel Settings dialog when the user doesn't have operator
+  status in the channel.
+* Fixed a crash when selecting more than one completed, failed or
+  aborted outbound transfer in the "DCC Status" tab and clicking "Re-
+  send" in ther context menu.
+* Fixed a bug causing the human-readable mode descriptions used by
+  default in channel chat text views as well as the Channel Settings
+  dialog's Advanced Modes list not to be translated.
+* When the display of human-readable mode descriptions is enabled
+  (as it is by default), the Advanced Mode list in the Channel Set-
+  tings dialog will now show the respective mode characters along-
+  side them. Previously, only the description was shown. This makes
+  the list useful as a utility to look up the meaning of obscure
+  mode characters.
+* Fixed a bug causing both the default email client and the default
+  web browser to be invoked when clicking an email address link in
+  the chat text view.
+* Added a built-in '/sayversion' command that, as opposed to the
+  bundled '/kdeversion' script, can show the version of both the KDE
+  Konversation was built against and is running on. It also outputs
+  the information in a single message instead of several.
+* Fixed a bug that would cause the second and following segments of a
+  text so long that it has to be split into multiple messages when it
+  is sent to be encoded incorrectly.
+* The ASCII 0x1d character is now used to denote italic formatting of
+  text rather than 0x09, to avoid the conflict with the tab character
+  that is frequently pasted e.g. from websites with tables.
+* Fixed a bug causing the server response to '/whois <nick> <nick>'
+  not to be displayed on many IRC servers when the nick in questions
+  is not online at that time (this variant of the WHOIS command is
+  also used by the GUI actions).
+* Fixed a bug causing missing bans in the list in the Channel Settings
+  dialog on certain (mostly older) IRC servers.
+* The text in notification messages used to be wrapped every 50 char-
+  acters, an old workaround for problems with KDE 3.x's bubble notifi-
+  cations. This has been removed now since it's no longer needed with
+  modern notification frontends such as Plasma's, and produces rather
+  ugly results there.
+* Made it possible again to initate DCC file transfers to a query
+  partner by dragging files or URLs onto the chat text area of the
+  query.
+* When building against the KDE Platform v4.4 libraries, the auto-
+  away functionality will now make use of the new KIdleTime library
+  to determine user activity and inactivity rather than use its own
+  code, the primary advantage being that KIdleTime is supported on
+  non-X11 platforms such as Windows and Mac OS X. In effect, this
+  means auto-away is now supported on those platforms, depending on
+  the implementation level in KIdleTime. (The use of KIdleTime can
+  be explicitly disabled by passing '-DUSE_KIDLETIME=false' to
+  'cmake', in which case Konversation will fall back to using the
+  original, X11-specific code and auto-away will only work decently
+  on an X11 platform.)
+* SSL support now integrates with KDE's certificate handling again,
+  as it used to in the KDE 3 version, made possible by improvements
+  in the libraries of the KDE Platform v4.3 (the minimum version
+  supported in this release) and higher.
+* Not reacting to an SSL certificat validation error dialog in a
+  timely manner should no longer result in Konversation locking up.
+* In-progress automatic reconnect in the event of connection failure
+  can now be aborted by using the '/disconnect' command.
+* Manually issueing a reconnect order to a connection currently in-
+  active after having exceeded its maximum number of reconnection
+  attempts used to result in a single connection attempt after
+  which it would be announced that the maximum number of reconnect-
+  ion attempts had been exceeded again. This has been fixed: It will
+  now make the number of attempts specified as the upper limit in
+  the application settings.
+
+
 Changes from 1.2.2 to 1.2.3:
 Konversation 1.2.3 is a hotfix release that improves upon an earlier
 fix, originally included in Konversation 1.2.2, that increases the re-

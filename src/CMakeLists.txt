@@ -26,7 +26,7 @@ set(core_SRCS
     scriptlauncher.cpp
     konsolepanel.cpp
     notificationhandler.cpp
-    awaymanager.cpp
+    abstractawaymanager.cpp
     connectionmanager.cpp
     connectionsettings.cpp
     identity.cpp
@@ -176,11 +176,19 @@ set(dcc_SRCS
     dcc/transfersend.cpp
     dcc/transferlistmodel.cpp
     dcc/transferview.cpp
+    dcc/whiteboard.cpp
+    dcc/whiteboardcolorchooser.cpp
+    dcc/whiteboardfontchooser.cpp
+    dcc/whiteboardglobals.cpp
+    dcc/whiteboardpaintarea.cpp
+    dcc/whiteboardtoolbar.cpp
 )
 
 kde4_add_ui_files(dcc_SRCS
     dcc/transferdetailedinfopanelui.ui
     dcc/transferdetailedtimeinfopanelui.ui
+    dcc/whiteboardtoolbarui.ui
+    dcc/whiteboardfontchooserui.ui
 )
 
 set(linkaddressbook_SRCS
@@ -213,7 +221,15 @@ else (HAVE_KSTATUSNOTIFIERITEM)
         viewer/trayiconksystemtray.cpp)
 endif (HAVE_KSTATUSNOTIFIERITEM)
 
-set (completed_SRCS ${core_SRCS}  ${irc_SRCS} ${viewer_SRCS} ${trayicon_SRCS} ${config_SRCS} ${dcc_SRCS} ${linkaddressbook_SRCS} ${cipher_SRCS} ${upnp_SRCS})
+if (HAVE_KIDLETIME)
+    set(awaymanager_SRCS
+        awaymanagerkidletime.cpp)
+else (HAVE_KIDLETIME)
+    set(awaymanager_SRCS
+        awaymanager.cpp)
+endif (HAVE_KIDLETIME)
+
+set (completed_SRCS ${core_SRCS} ${awaymanager_SRCS} ${irc_SRCS} ${viewer_SRCS} ${trayicon_SRCS} ${config_SRCS} ${dcc_SRCS} ${linkaddressbook_SRCS} ${cipher_SRCS} ${upnp_SRCS})
 set (konversation_SRCS ${completed_SRCS})
 
 kde4_add_ui_files(konversation_SRCS
@@ -244,11 +260,8 @@ if (QCA2_FOUND)
     target_link_libraries(konversation ${QCA2_LIBRARIES})
 endif (QCA2_FOUND)
 
-CHECK_INCLUDE_FILE(
-  "stropts.h" HAVE_STROPTS_H)
-IF(HAVE_STROPTS_H)
-  ADD_DEFINITIONS(-DHAVE_STROPTS_H)
-ENDIF(HAVE_STROPTS_H)
-
+if (HAVE_KIDLETIME)
+    target_link_libraries(konversation ${KDE4_KUTILS_LIBS})
+endif (HAVE_KIDLETIME)
 
 install(TARGETS konversation ${INSTALL_TARGETS_DEFAULT_ARGS})

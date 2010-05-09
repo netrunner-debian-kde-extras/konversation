@@ -160,12 +160,12 @@ ChannelListPanel::ChannelListPanel(QWidget* parent) : ChatWindow(parent)
     m_toolBar = new KToolBar(this, true, true);
     m_toolBar->setObjectName("channellistpanel_toolbar");
     m_saveList = m_toolBar->addAction(KIcon("document-save"), i18nc("save list", "Save &List..."), this, SLOT(saveList()));
-    m_saveList->setWhatsThis("Click here to save the channel list.");
+    m_saveList->setWhatsThis(i18n("Click here to save the channel list."));
     m_refreshList = m_toolBar->addAction(KIcon("view-refresh"), i18nc("refresh list", "&Refresh List"), this, SLOT(refreshList()));
-    m_refreshList->setWhatsThis("Click here to refresh the channel list.");
+    m_refreshList->setWhatsThis(i18n("Click here to refresh the channel list."));
     m_toolBar->addSeparator();
     m_joinChannel = m_toolBar->addAction(KIcon("irc-join-channel"), i18nc("join channel", "&Join Channel"), this, SLOT(joinChannelClicked()));
-    m_joinChannel->setWhatsThis("Click here to join the channel. A new tab is created for the channel.");
+    m_joinChannel->setWhatsThis(i18n("Click here to join the channel. A new tab is created for the channel."));
     //UI Setup
     setupUi(this);
 
@@ -456,11 +456,7 @@ void ChannelListPanel::contextMenu(const QPoint& p)
     // Join Channel Action
     QAction *joinAction = new QAction(menu);
     joinAction->setText(i18n("Join Channel"));
-    #if KDE_IS_VERSION(4,2,85)
     joinAction->setIcon(KIcon("irc-join-channel"));
-    #else
-    joinAction->setIcon(KIcon("list-add"));
-    #endif
     menu->addAction(joinAction);
     connect(joinAction, SIGNAL(triggered()), this, SLOT(joinChannelClicked()));
 

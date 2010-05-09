@@ -31,7 +31,7 @@ namespace Konversation
         "([-.\\d\\w]+@[-.\\d\\w]{2,}\\.[\\w]{2,})");
     static QRegExp tdlPattern("(.*)\\.(\\w+),$");
 
-    QHash<QChar,QString> initChanModesHash()
+    void initChanModesHash()
     {
         QHash<QChar,QString> myHash;
 
@@ -47,14 +47,15 @@ namespace Konversation
         myHash.insert('c', i18n("no colors allowed"));
         myHash.insert('l', i18n("user throttling"));
 
-        return myHash;
+        m_modesHash = myHash;
     }
-
-    const QHash<QChar,QString> ChanModes::m_hash = initChanModesHash();
 
     QHash<QChar,QString> getChannelModesHash()
     {
-        return ChanModes::m_hash;
+        if(m_modesHash.isEmpty())
+            initChanModesHash();
+
+        return m_modesHash;
     }
 
     QString removeIrcMarkup(const QString& text)
@@ -119,7 +120,7 @@ namespace Konversation
         line.replace("%B","\x02");       // replace %B with bold char
         line.replace("%C","\x03");       // replace %C with color char
         line.replace("%G","\x07");       // replace %G with ASCII BEL 0x07
-        line.replace("%I","\x09");       // replace %I with italics char
+        line.replace("%I","\x1d");       // replace %I with italics char
         line.replace("%O","\x0f");       // replace %O with reset to default char
         line.replace("%S","\x13");       // replace %S with strikethru char
         // line.replace(QRegExp("%?"),"\x15");

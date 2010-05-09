@@ -39,7 +39,7 @@
 #include "serverison.h"
 #include "common.h"
 #include "notificationhandler.h"
-#include "awaymanager.h"
+#include "abstractawaymanager.h"
 
 #include <QRegExp>
 #include <QTextCodec>
@@ -49,9 +49,11 @@
 #include <KLocale>
 #include <KFileDialog>
 #include <KInputDialog>
-#include <KMessageBox>
 #include <KWindowSystem>
+
 #include <solid/networking.h>
+
+#include <kio/sslui.h>
 
 using namespace Konversation;
 
@@ -65,6 +67,10 @@ Server::Server(QObject* parent, ConnectionSettings& settings) : QObject(parent)
     setConnectionSettings(settings);
 
     m_connectionState = Konversation::SSNeverConnected;
+
+    m_delayedConnectTimer = new QTimer(this);
+    m_delayedConnectTimer->setSingleShot(true);
+    connect(m_delayedConnectTimer, SIGNAL(timeout()), this, SLOT(connectToIRCServer()));
 
     for (int i=0; i <= Application::instance()->countOfQueues(); i++)
     {
@@ -239,14 +245,15 @@ void Server::connectSignals()
     connect(&m_pingResponseTimer, SIGNAL(timeout()), this, SLOT(updateLongPongLag()));
 
     // OutputFilter
-    connect(getOutputFilter(), SIGNAL(requestDccSend()), this,SLOT(requestDccSend()));
-    connect(getOutputFilter(), SIGNAL(requestDccSend(const QString&)), this, SLOT(requestDccSend(const QString&)));
+    connect(getOutputFilter(), SIGNAL(requestDccSend()), this,SLOT(requestDccSend()), Qt::QueuedConnection);
+    connect(getOutputFilter(), SIGNAL(requestDccSend(const QString&)), this, SLOT(requestDccSend(const QString&)), Qt::QueuedConnection);
     connect(getOutputFilter(), SIGNAL(multiServerCommand(const QString&, const QString&)),
         this, SLOT(sendMultiServerCommand(const QString&, const QString&)));
-    connect(getOutputFilter(), SIGNAL(reconnectServer()), this, SLOT(reconnect()));
-    connect(getOutputFilter(), SIGNAL(disconnectServer()), this, SLOT(disconnect()));
-    connect(getOutputFilter(), SIGNAL(openDccSend(const QString &, KUrl)), this, SLOT(addDccSend(const QString &, KUrl)));
-    connect(getOutputFilter(), SIGNAL(openDccChat(const QString &)), this, SLOT(openDccChat(const QString &)));
+    connect(getOutputFilter(), SIGNAL(reconnectServer()), this, SLOT(reconnectServer()));
+    connect(getOutputFilter(), SIGNAL(disconnectServer()), this, SLOT(disconnectServer()));
+    connect(getOutputFilter(), SIGNAL(openDccSend(const QString &, KUrl)), this, SLOT(addDccSend(const QString &, KUrl)), Qt::QueuedConnection);
+    connect(getOutputFilter(), SIGNAL(openDccChat(const QString &)), this, SLOT(openDccChat(const QString &)), Qt::QueuedConnection);
+    connect(getOutputFilter(), SIGNAL(openDccWBoard(const QString &)), this, SLOT(openDccWBoard(const QString &)), Qt::QueuedConnection);
     connect(getOutputFilter(), SIGNAL(acceptDccGet(const QString&, const QString&)),
         this, SLOT(acceptDccGet(const QString&, const QString&)));
     connect(getOutputFilter(), SIGNAL(sendToAllChannels(const QString&)), this, SLOT(sendToAllChannels(const QString&)));
@@ -263,8 +270,8 @@ void Server::connectSignals()
                 const QString&, const QString&, const QString&, const QString&, bool)),
             konvApp->getConnectionManager(), SLOT(connectTo(Konversation::ConnectionFlag,
                 const QString&, const QString&, const QString&, const QString&, const QString&, bool)));
-                connect(konvApp->getDccTransferManager(), SIGNAL(newDccTransferQueued(Konversation::DCC::Transfer*)),
-                        this, SLOT(slotNewDccTransferItemQueued(Konversation::DCC::Transfer*)));
+    connect(konvApp->getDccTransferManager(), SIGNAL(newDccTransferQueued(Konversation::DCC::Transfer*)),
+            this, SLOT(slotNewDccTransferItemQueued(Konversation::DCC::Transfer*)));
 
     connect(konvApp, SIGNAL(appearanceChanged()), this, SLOT(startNotifyTimer()));
 
@@ -272,7 +279,7 @@ void Server::connectSignals()
     connect(this, SIGNAL(showView(ChatWindow*)), getViewContainer(), SLOT(showView(ChatWindow*)));
     connect(this, SIGNAL(addDccPanel()), getViewContainer(), SLOT(addDccPanel()));
     connect(this, SIGNAL(addDccChat(Konversation::DCC::Chat*)),
-            getViewContainer(), SLOT(addDccChat(Konversation::DCC::Chat*)));
+            getViewContainer(), SLOT(addDccChat(Konversation::DCC::Chat*)), Qt::QueuedConnection);
     connect(this, SIGNAL(serverLag(Server*, int)), getViewContainer(), SIGNAL(updateStatusBarLagLabel(Server*, int)));
     connect(this, SIGNAL(tooLongLag(Server*, int)), getViewContainer(), SIGNAL(setStatusBarLagLabelTooLongLag(Server*, int)));
     connect(this, SIGNAL(resetLag()), getViewContainer(), SIGNAL(resetStatusBarLagLabel()));
@@ -282,9 +289,9 @@ void Server::connectSignals()
     connect(getOutputFilter(), SIGNAL(closeDccPanel()), getViewContainer(), SLOT(closeDccPanel()));
     connect(getOutputFilter(), SIGNAL(addDccPanel()), getViewContainer(), SLOT(addDccPanel()));
 
-    // Inputfilter
+    // Inputfilter - queued connections should be used for slots that have blocking UI
     connect(&m_inputFilter, SIGNAL(addDccChat(const QString&,const QStringList&)),
-            this, SLOT(addDccChat(const QString&,const QStringList&)));
+            this, SLOT(addDccChat(const QString&,const QStringList&)), Qt::QueuedConnection);
     connect(&m_inputFilter, SIGNAL(rejectDccChat(const QString&)),
             this, SLOT(rejectDccChat(const QString&)));
     connect(&m_inputFilter, SIGNAL(startReverseDccChat(const QString&,const QStringList&)),
@@ -294,7 +301,7 @@ void Server::connectSignals()
     connect(&m_inputFilter, SIGNAL(startReverseDccSendTransfer(const QString&,const QStringList&)),
         this, SLOT(startReverseDccSendTransfer(const QString&,const QStringList&)));
     connect(&m_inputFilter, SIGNAL(addDccGet(const QString&, const QStringList&)),
-        this, SLOT(addDccGet(const QString&, const QStringList&)));
+            this, SLOT(addDccGet(const QString&, const QStringList&)), Qt::QueuedConnection);
     connect(&m_inputFilter, SIGNAL(resumeDccGetTransfer(const QString&, const QStringList&)),
         this, SLOT(resumeDccGetTransfer(const QString&, const QStringList&)));
     connect(&m_inputFilter, SIGNAL(resumeDccSendTransfer(const QString&, const QStringList&)),
@@ -394,10 +401,10 @@ void Server::connectToIRCServer()
             m_nickListModel->setStringList(getIdentity()->getNicknameList());
         resetNickSelection();
 
-        m_socket = new QSslSocket();
+        m_socket = new KTcpSocket();
         m_socket->setObjectName("serverSocket");
 
-        connect(m_socket, SIGNAL(error(QAbstractSocket::SocketError)), SLOT(broken(QAbstractSocket::SocketError)) );
+        connect(m_socket, SIGNAL(error(KTcpSocket::Error)), SLOT(broken(KTcpSocket::Error)) );
         connect(m_socket, SIGNAL(readyRead()), SLOT(incoming()));
         connect(m_socket, SIGNAL(disconnected()), SLOT(closed()));
 
@@ -412,18 +419,14 @@ void Server::connectToIRCServer()
         else
         {
             connect(m_socket, SIGNAL(encrypted()), SLOT (ircServerConnectionSuccess()));
-            connect(m_socket, SIGNAL(peerVerifyError(const QSslError&)), SLOT(sslVerifyError(const QSslError&)));
-            connect(m_socket, SIGNAL(sslErrors(const QList<QSslError>&)), SLOT(sslError(const QList<QSslError>&)));
-
-            // Ensure that the SSL confirmation dialog is shown if needed on reconnect
-            m_showSSLConfirmation = true;
+            connect(m_socket, SIGNAL(sslErrors(const QList<KSslError>&)), SLOT(sslError(const QList<KSslError>&)));
 
             m_socket->connectToHostEncrypted(getConnectionSettings().server().host(), getConnectionSettings().server().port());
         }
 
         // set up the connection details
         setPrefixes(m_serverNickPrefixModes, m_serverNickPrefixes);
-        getStatusView()->appendServerMessage(i18n("Info"),i18n("Looking for server %1 (port %2) ...",
+        getStatusView()->appendServerMessage(i18n("Info"),i18n("Looking for server %1 (port <numid>%2</numid>) ...",
             getConnectionSettings().server().host(),
             QString::number(getConnectionSettings().server().port())));
         // reset InputFilter (auto request info, /WHO request info)
@@ -431,6 +434,12 @@ void Server::connectToIRCServer()
     }
     else
         kDebug() << "connectToIRCServer() called while already connected: This should never happen.";
+}
+
+void Server::connectToIRCServerIn(uint delay)
+{
+    m_delayedConnectTimer->setInterval(delay * 1000);
+    m_delayedConnectTimer->start();
 }
 
 void Server::showSSLDialog()
@@ -565,7 +574,7 @@ void Server::hostFound()
 
 void Server::ircServerConnectionSuccess()
 {
-        emit sslConnected(this);
+    emit sslConnected(this);
     getConnectionSettings().setReconnectCount(0);
 
     Konversation::ServerSettings serverSettings = getConnectionSettings().server();
@@ -589,9 +598,9 @@ void Server::ircServerConnectionSuccess()
     setNickname(getNickname());
 }
 
-void Server::broken(QAbstractSocket::SocketError state)
+void Server::broken(KTcpSocket::Error error)
 {
-    Q_UNUSED(state);
+    Q_UNUSED(error);
     kDebug() << "Connection broken " << m_socket->errorString() << "!";
 
     m_socket->blockSignals(true);
@@ -622,7 +631,7 @@ void Server::broken(QAbstractSocket::SocketError state)
     {
         static_cast<Application*>(kapp)->notificationHandler()->connectionFailure(getStatusView(), getServerName());
 
-        QString error = i18n("Connection to server %1 (port %2) lost: %3.",
+        QString error = i18n("Connection to server %1 (port <numid>%2</numid>) lost: %3.",
             getConnectionSettings().server().host(),
             QString::number(getConnectionSettings().server().port()),
             m_socket->errorString());
@@ -633,47 +642,63 @@ void Server::broken(QAbstractSocket::SocketError state)
     }
 }
 
-
-void Server::sslError( const QList<QSslError>&  errors)
+bool Server::askUserToIgnoreSslErrors()
 {
-    QString reason;
-    for(int i = 0; i < errors.size(); ++i)
+    bool retVal = false;
+
+    // We are called by sslError:
+    // sslError is a slot, if it's signal is emitted multiple times
+    // then we only want to show the dialog once.
+    if ( m_showSSLConfirmation )
     {
-        reason += errors.at(i).errorString() + ' ';
+        // We don't want to show any further SSL confirmation dialogs.
+        m_showSSLConfirmation = false;
+
+        // Ask the user if he wants to ignore SSL errors.
+        // In case the user wants to make the rule he chose (for example: always allow) persistent
+        // this will not show a dialog (but it will return "sslErrorsIgnored = true").
+        retVal = KIO::SslUi::askIgnoreSslErrors( m_socket, KIO::SslUi::RecallAndStoreRules );
+
+        // As we're done now we can show further SSL dialogs.
+        m_showSSLConfirmation = true;
     }
 
-    //this message should be changed since sslError is called even after calling ignoreSslErrors()
-    QString error = i18n("Could not connect to %1 (port %2) using SSL encryption. Maybe the server does not support SSL, or perhaps you have the wrong port? %3",
-        getConnectionSettings().server().host(),
-        QString::number(getConnectionSettings().server().port()),
-        reason);
-    getStatusView()->appendServerMessage(i18n("SSL Connection Error"),error);
-    emit sslInitFailure();
+    return retVal;
 }
 
-void Server::sslVerifyError( const QSslError&  error)
+void Server::sslError( const QList<KSslError>& errors )
 {
-    if (!m_showSSLConfirmation)
-        return;
-
-    QString msg = i18n("The server (%1) certificate failed the authenticity test. %2", getConnectionSettings().server().host(), error.errorString());
-
-    Application* konvApp = static_cast<Application *>(kapp);
-
-    int result = KMessageBox::warningYesNo( konvApp->getMainWindow(),
-                                            msg,
-                                            i18n("Server Authentication"),
-                                            KStandardGuiItem::guiItem(KStandardGuiItem::Continue),
-                                            KStandardGuiItem::cancel(),
-                                            "ssl_"+getConnectionSettings().server().host(),
-                                            KMessageBox::Dangerous );
-
-    if (result == KMessageBox::Yes)
+    // Ask the user if he wants to ignore the errors.
+    if ( askUserToIgnoreSslErrors() )
     {
+        // The user has chosen to ignore SSL errors.
         m_socket->ignoreSslErrors();
-    }
 
-    m_showSSLConfirmation = false; //this is needed since peerVerifyError is emitted multiple time if there are multiple errors
+        // Show a warning in the chat window that the SSL certificate failed the authenticity check.
+        QString error = i18n("The SSL certificate for the the server %1 (port <numid>%2</numid>) failed the authenticity check.",
+                            getConnectionSettings().server().host(),
+                            QString::number(getConnectionSettings().server().port()));
+
+        getStatusView()->appendServerMessage(i18n("SSL Connection Warning"), error);
+    }
+    else
+    {
+        QString errorReason;
+
+        for (int i = 0; i < errors.size(); ++i)
+        {
+            errorReason += errors.at(i).errorString() + ' ';
+        }
+
+        QString error = i18n("Could not connect to %1 (port <numid>%2</numid>) using SSL encryption. Either the server does not support SSL (did you use the correct port?) or you rejected the certificate. %3",
+            getConnectionSettings().server().host(),
+            QString::number(getConnectionSettings().server().port()),
+            errorReason);
+
+        getStatusView()->appendServerMessage(i18n("SSL Connection Error"), error);
+
+        emit sslInitFailure();
+    }
 }
 
 // Will be called from InputFilter as soon as the Welcome message was received
@@ -757,7 +782,7 @@ void Server::quitServer()
     // Close the socket to allow a dead connection to be reconnected before the socket timeout.
     m_socket->close();
 
-    getStatusView()->appendServerMessage(i18n("Info"), i18n("Disconnected from %1 (port %2).",
+    getStatusView()->appendServerMessage(i18n("Info"), i18n("Disconnected from %1 (port <numid>%2</numid>).",
         getConnectionSettings().server().host(),
         QString::number(getConnectionSettings().server().port())));
 }
@@ -1161,13 +1186,8 @@ int Server::_send_internal(QString outputLine)
     }
 
     // remember the first arg of /WHO to identify responses
-    if (outboundCommand == 0) //"WHO"
-    {
-        if (outputLineSplit.count() >= 2)
-            m_inputFilter.addWhoRequest(outputLineSplit[1]);
-        else // no argument (servers recognize it as "*")
-            m_inputFilter.addWhoRequest("*");
-    }
+    if (outboundCommand == 0 && outputLineSplit.count() >= 2) //"WHO"
+        m_inputFilter.addWhoRequest(outputLineSplit[1]);
     else if (outboundCommand == 1) //"QUIT"
         updateConnectionState(Konversation::SSDeliberatelyDisconnected);
 
@@ -1199,7 +1219,7 @@ int Server::_send_internal(QString outputLine)
 
     #ifdef HAVE_QCA2
     QString cipherKey;
-    if (outboundCommand > 1)
+    if (outputLineSplit.count() > 2 && outboundCommand > 1)
         cipherKey = getKeyForRecipient(outputLineSplit.at(1));
     if (!cipherKey.isEmpty())
     {
@@ -1713,29 +1733,11 @@ void Server::requestDccSend(const QString &a_recipient)
 {
     QString recipient(a_recipient);
     // if we don't have a recipient yet, let the user select one
-    if(recipient.isEmpty())
+    if (recipient.isEmpty())
     {
-        QStringList nickList;
-
-        // fill nickList with all nicks we know about
-        foreach (Channel* lookChannel, m_channelList)
-        {
-            foreach (Nick* lookNick, lookChannel->getNickList())
-            {
-                if (!nickList.contains(lookNick->getChannelNick()->getNickname()))
-                    nickList.append(lookNick->getChannelNick()->getNickname());
-            }
-        }
-
-        // add Queries as well, but don't insert duplicates
-        foreach (Query* lookQuery, m_queryList)
-        {
-            if(!nickList.contains(lookQuery->getName())) nickList.append(lookQuery->getName());
-        }
-        QStringListModel model;
-        model.setStringList(nickList);
-        recipient = DCC::RecipientDialog::getNickname(getViewContainer()->getWindow(), &model);
+        recipient = recipientNick();
     }
+
     // do we have a recipient *now*?
     if(!recipient.isEmpty())
     {
@@ -1858,6 +1860,30 @@ quint16 Server::stringToPort(const QString &port, bool *ok)
     return (quint16)uPort32;
 }
 
+QString Server::recipientNick() const
+{
+    QStringList nickList;
+
+    // fill nickList with all nicks we know about
+    foreach (Channel* lookChannel, m_channelList)
+    {
+        foreach (Nick* lookNick, lookChannel->getNickList())
+        {
+            if (!nickList.contains(lookNick->getChannelNick()->getNickname()))
+                nickList.append(lookNick->getChannelNick()->getNickname());
+        }
+    }
+
+    // add Queries as well, but don't insert duplicates
+    foreach (Query* lookQuery, m_queryList)
+    {
+        if(!nickList.contains(lookQuery->getName())) nickList.append(lookQuery->getName());
+    }
+    QStringListModel model;
+    model.setStringList(nickList);
+    return DCC::RecipientDialog::getNickname(getViewContainer()->getWindow(), &model);
+}
+
 void Server::addDccGet(const QString &sourceNick, const QStringList &dccArguments)
 {
     //filename ip port filesize [token]
@@ -1932,7 +1958,7 @@ void Server::addDccGet(const QString &sourceNick, const QStringList &dccArgument
     }
 }
 
-void Server::addDccChat(const QString& sourceNick,const QStringList& dccArguments)
+void Server::addDccChat(const QString& sourceNick, const QStringList& dccArguments)
 {
     //chat ip port [token]
     QString ip;
@@ -1941,17 +1967,19 @@ void Server::addDccChat(const QString& sourceNick,const QStringList& dccArgument
     bool reverse = false;
     const int argumentSize = dccArguments.count();
     bool ok = true;
+    QString extension;
+
+    extension = dccArguments.at(0);
+    ip = DCC::DccCommon::numericalIpToTextIp(dccArguments.at(1));
 
     if (argumentSize == 3)
     {
-        //CHAT ip port
-        ip = DCC::DccCommon::numericalIpToTextIp(dccArguments.at(1));
+        //extension ip port
         port = stringToPort(dccArguments.at(2), &ok);
     }
     else if (argumentSize == 4)
     {
-        //CHAT ip port(0) token
-        ip = DCC::DccCommon::numericalIpToTextIp(dccArguments.at(1));
+        //extension ip port(0) token
         token = dccArguments.at(3);
         reverse = true;
     }
@@ -1973,11 +2001,13 @@ void Server::addDccChat(const QString& sourceNick,const QStringList& dccArgument
     kDebug() << "ip: " << ip;
     kDebug() << "port: " << port;
     kDebug() << "token: " << token;
+    kDebug() << "extension: " << extension;
 
     newChat->setPartnerIp(ip);
     newChat->setPartnerPort(port);
     newChat->setReverse(reverse, token);
     newChat->setSelfOpened(false);
+    newChat->setExtension(extension);
 
     emit addDccChat(newChat);
     newChat->start();
@@ -1990,26 +2020,7 @@ void Server::openDccChat(const QString& nickname)
     // if we don't have a recipient yet, let the user select one
     if (recipient.isEmpty())
     {
-        QStringList nickList;
-
-        // fill nickList with all nicks we know about
-        foreach (Channel* lookChannel, m_channelList)
-        {
-            foreach (Nick* lookNick, lookChannel->getNickList())
-            {
-                if (!nickList.contains(lookNick->getChannelNick()->getNickname()))
-                    nickList.append(lookNick->getChannelNick()->getNickname());
-            }
-        }
-
-        // add Queries as well, but don't insert duplicates
-        foreach (Query* lookQuery, m_queryList)
-        {
-            if(!nickList.contains(lookQuery->getName())) nickList.append(lookQuery->getName());
-        }
-        QStringListModel model;
-        model.setStringList(nickList);
-        recipient = DCC::RecipientDialog::getNickname(getViewContainer()->getWindow(), &model);
+        recipient = recipientNick();
     }
 
     // do we have a recipient *now*?
@@ -2025,9 +2036,34 @@ void Server::openDccChat(const QString& nickname)
     }
 }
 
-void Server::requestDccChat(const QString& partnerNick, const QString& numericalOwnIp, quint16 ownPort)
+void Server::openDccWBoard(const QString& nickname)
 {
-    Konversation::OutputFilterResult result = getOutputFilter()->requestDccChat(partnerNick,numericalOwnIp,ownPort);
+    kDebug();
+    QString recipient(nickname);
+    // if we don't have a recipient yet, let the user select one
+    if (recipient.isEmpty())
+    {
+        recipient = recipientNick();
+    }
+
+    // do we have a recipient *now*?
+    if (!recipient.isEmpty())
+    {
+        DCC::Chat* newChat = Application::instance()->getDccTransferManager()->newChat();
+        newChat->setConnectionId(connectionId());
+        newChat->setPartnerNick(recipient);
+        newChat->setOwnNick(getNickname());
+        // Set extension before emiting addDccChat
+        newChat->setExtension(DCC::Chat::Whiteboard);
+        newChat->setSelfOpened(true);
+        emit addDccChat(newChat);
+        newChat->start();
+    }
+}
+
+void Server::requestDccChat(const QString& partnerNick, const QString& extension, const QString& numericalOwnIp, quint16 ownPort)
+{
+    Konversation::OutputFilterResult result = getOutputFilter()->requestDccChat(partnerNick, extension, numericalOwnIp,ownPort);
     queue(result.toServer);
 }
 
@@ -2060,13 +2096,13 @@ void Server::dccPassiveSendRequest(const QString& recipient,const QString& fileN
                                     ( size == 0 ) ? i18n( "unknown size" ) : KIO::convertSize( size ) ) );
 }
 
-void Server::dccPassiveChatRequest(const QString& recipient, const QString& address, const QString& token)
+void Server::dccPassiveChatRequest(const QString& recipient, const QString& extension, const QString& address, const QString& token)
 {
-    Konversation::OutputFilterResult result = getOutputFilter()->passiveChatRequest(recipient, address, token);
+    Konversation::OutputFilterResult result = getOutputFilter()->passiveChatRequest(recipient, extension, address, token);
     queue(result.toServer);
 
     appendMessageToFrontmost(i18n("DCC"),
-                             i18n("Asking %1 to accept chat...", recipient));
+                             i18nc("%1=name, %2=dcc extension, chat or wboard for example","Asking %1 to accept %2...", recipient, extension));
 }
 
 void Server::dccPassiveResumeGetRequest(const QString& sender,const QString& fileName,quint16 port,KIO::filesize_t startAt,const QString &token)
@@ -2087,9 +2123,9 @@ void Server::dccReverseSendAck(const QString& partnerNick,const QString& fileNam
     queue(result.toServer);
 }
 
-void Server::dccReverseChatAck(const QString& partnerNick,const QString& ownAddress,quint16 ownPort,const QString& reverseToken)
+void Server::dccReverseChatAck(const QString& partnerNick, const QString& extension, const QString& ownAddress, quint16 ownPort, const QString& reverseToken)
 {
-    Konversation::OutputFilterResult result = getOutputFilter()->acceptPassiveChatRequest(partnerNick,ownAddress,ownPort,reverseToken);
+    Konversation::OutputFilterResult result = getOutputFilter()->acceptPassiveChatRequest(partnerNick, extension, ownAddress, ownPort, reverseToken);
     queue(result.toServer);
 }
 
@@ -2099,9 +2135,9 @@ void Server::dccRejectSend(const QString& partnerNick, const QString& fileName)
     queue(result.toServer);
 }
 
-void Server::dccRejectChat(const QString& partnerNick)
+void Server::dccRejectChat(const QString& partnerNick, const QString& extension)
 {
-    Konversation::OutputFilterResult result = getOutputFilter()->rejectDccChat(partnerNick);
+    Konversation::OutputFilterResult result = getOutputFilter()->rejectDccChat(partnerNick, extension);
     queue(result.toServer);
 }
 
@@ -3486,9 +3522,9 @@ ViewContainer* Server::getViewContainer() const
 bool Server::getUseSSL() const
 {
         if ( m_socket )
-                return m_socket->isEncrypted();
+            return ( m_socket->encryptionMode() != KTcpSocket::UnencryptedMode );
         else
-                return false;
+            return false;
 }
 
 
@@ -3535,7 +3571,7 @@ bool Server::isSocketConnected() const
 {
     if (!m_socket) return false;
 
-    return (m_socket->state() == QAbstractSocket::ConnectedState);
+    return (m_socket->state() == KTcpSocket::ConnectedState);
 }
 
 void Server::updateConnectionState(Konversation::ConnectionState state)
@@ -3553,7 +3589,7 @@ void Server::updateConnectionState(Konversation::ConnectionState state)
     }
 }
 
-void Server::reconnect()
+void Server::reconnectServer()
 {
     if (isConnecting() || isSocketConnected()) quitServer();
 
@@ -3564,9 +3600,16 @@ void Server::reconnect()
     QTimer::singleShot(0, this, SLOT(connectToIRCServer()));
 }
 
-//! TODO FIXME this is a QObject....
-void Server::disconnect()
+void Server::disconnectServer()
 {
+    getConnectionSettings().setReconnectCount(0);
+
+    if (m_delayedConnectTimer->isActive())
+    {
+        m_delayedConnectTimer->stop();
+        getStatusView()->appendServerMessage(i18n("Info"), i18n("Delayed connect aborted."));
+    }
+
     if (isSocketConnected()) quitServer();
 }
 
@@ -3925,7 +3968,7 @@ void Server::involuntaryQuit()
 void Server::reconnectInvoluntary()
 {
     if(m_connectionState == Konversation::SSInvoluntarilyDisconnected)
-        reconnect();
+        reconnectServer();
 }
 
 #include "server.moc"

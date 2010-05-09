@@ -35,11 +35,11 @@
 #include <QTimer>
 #include <QPointer>
 
-#include <QSslSocket>
 #include <QHostInfo>
 
 #include <ksharedptr.h>
 #include <kprocess.h>
+#include <ktcpsocket.h>
 
 class QAbstractItemModel;
 class QStringListModel;
@@ -358,9 +358,9 @@ void resetNickSelection();
         void dccReverseSendAck(const QString& partnerNick,const QString& fileName,const QString& ownAddress,quint16 ownPort,quint64 size,const QString& reverseToken);
         void dccRejectSend(const QString& partnerNick, const QString& fileName);
         // invoked by DCC::Chat
-        void dccRejectChat(const QString& partnerNick);
-        void dccPassiveChatRequest(const QString& recipient, const QString& address, const QString& token);
-        void dccReverseChatAck(const QString& partnerNick,const QString& ownAddress,quint16 ownPort,const QString& reverseToken);
+        void dccRejectChat(const QString& partnerNick, const QString& extension);
+        void dccPassiveChatRequest(const QString& recipient, const QString& extension, const QString& address, const QString& token);
+        void dccReverseChatAck(const QString& partnerNick, const QString& extension, const QString& ownAddress, quint16 ownPort, const QString& reverseToken);
 
     // IRCQueueManager
         bool validQueue(QueuePriority priority); ///< is this queue index valid?
@@ -437,6 +437,7 @@ void resetNickSelection();
 
     public slots:
         void connectToIRCServer();
+        void connectToIRCServerIn(uint delay);
 
         /** Adds line to queue if non-empty. */
         bool queue(const QString& line, QueuePriority priority=StandardPriority);
@@ -454,7 +455,8 @@ void resetNickSelection();
         void closeChannel(const QString &name);
         void quitServer();
         void openDccChat(const QString& nickname);
-        void requestDccChat(const QString& partnerNick, const QString& numericalOwnIp, quint16 ownPort);
+        void openDccWBoard(const QString& nickname);
+        void requestDccChat(const QString& partnerNick, const QString& extension, const QString& numericalOwnIp, quint16 ownPort);
         void acceptDccGet(const QString& nick, const QString& file);
         void requestBan(const QStringList& users,const QString& channel,const QString& option);
         void requestUnban(const QString& mask,const QString& channel);
@@ -476,8 +478,8 @@ void resetNickSelection();
         void updateChannelQuickButtons();
         void sendMultiServerCommand(const QString& command, const QString& parameter);
         void executeMultiServerCommand(const QString& command, const QString& parameter);
-        void reconnect();
-        void disconnect(); //FIXME is this overriding a qobject method? do we care?
+        void reconnectServer();
+        void disconnectServer();
         void showSSLDialog();
         void sendToAllChannels(const QString& text);
         void notifyTimeout();
@@ -518,12 +520,11 @@ void resetNickSelection();
         void toServer(QString&, IRCQueue *);
         /// Because KBufferedSocket has no closed(int) signal we use this slot to call broken(0)
         void closed();
-        void broken(QAbstractSocket::SocketError state);
+        void broken(KTcpSocket::Error error);
         /** This is connected to the SSLSocket failed.
          * @param reason The reason why this failed.  This is already translated, ready to show the user.
          */
-        void sslError(const QList<QSslError>& errors);
-        void sslVerifyError(const QSslError& error);
+        void sslError(const QList<KSslError>&);
         void connectionEstablished(const QString& ownHost);
         void notifyResponse(const QString& nicksOnline);
 
@@ -692,7 +693,7 @@ void resetNickSelection();
 
         QStringList m_autoJoinCommands;
 
-        QSslSocket* m_socket;
+        KTcpSocket* m_socket;
 
         QTimer m_reconnectTimer;
         QTimer m_incomingTimer;
@@ -753,6 +754,17 @@ void resetNickSelection();
         /// Checks if the port is in a valid range
         inline quint16 stringToPort(const QString &port, bool *ok = 0);
 
+        /// Creates a list of known users and returns the one chosen by the user
+        inline QString recipientNick() const;
+
+        /**
+          * shows a dialog to the user where he is asked if he wants to
+          * ignore SSL certificate errors
+          *
+          @ @return true if the user accepted the invalid SSL certificate, otherwise false
+          */
+        bool askUserToIgnoreSslErrors();
+
         /// Helper object to construct ISON (notify) list and map offline nicks to
         /// addressbook.
         ServerISON* m_serverISON;
@@ -791,6 +803,10 @@ void resetNickSelection();
         QStringList m_prevISONList;
 
         ConnectionSettings m_connectionSettings;
+
+        /// Used by ConnectionManaer to schedule a reconnect; stopped by /disconnect
+        /// and /quit.
+        QTimer* m_delayedConnectTimer;
 
         static int m_availableConnectionId;
         int m_connectionId;

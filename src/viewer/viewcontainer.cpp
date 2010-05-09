@@ -168,9 +168,7 @@ void ViewContainer::setupTabWidget()
 
     m_tabWidget->setTabReorderingEnabled(true);
     m_tabWidget->setTabCloseActivatePrevious(true);
-#if QT_VERSION >= 0x040500
     m_tabWidget->tabBar()->setSelectionBehaviorOnRemove(QTabBar::SelectPreviousTab);
-#endif
 
     m_vbox->hide();    //m_tabWidget->hide();
 
@@ -395,10 +393,7 @@ void ViewContainer::updateTabWidgetAppearance()
 
     bool noTabBar = (Preferences::self()->tabPlacement()==Preferences::Left);
     m_tabWidget->setTabBarHidden(noTabBar);
-
-#if KDE_IS_VERSION(4, 2, 85)
     m_tabWidget->setDocumentMode(noTabBar);
-#endif
 
     if (Preferences::self()->customTabFont())
         m_tabWidget->setFont(Preferences::self()->tabFont());
@@ -1857,8 +1852,11 @@ void ViewContainer::clearAllViews()
     {
         nextPage=static_cast<ChatWindow*>(m_tabWidget->widget(i));
 
-        if(nextPage && nextPage->getTextView())
+        if (nextPage && nextPage->getTextView())
+        {
             nextPage->getTextView()->clear();
+            unsetViewNotification(nextPage);
+        }
     }
 }
 
@@ -2087,8 +2085,8 @@ void ViewContainer::addUrlCatcher()
         Application *konvApp=static_cast<Application *>(KApplication::kApplication());
         connect(konvApp,SIGNAL(catchUrl(const QString&,const QString&,const QDateTime&)),
             m_urlCatcherPanel, SLOT(addUrl(const QString&,const QString&,const QDateTime&)) );
-        connect(m_urlCatcherPanel, SIGNAL(deleteUrl(const QString&,const QString&)),
-            konvApp, SLOT(deleteUrl(const QString&,const QString&)) );
+        connect(m_urlCatcherPanel, SIGNAL(deleteUrl(const QString&,const QString&,const QDateTime&)),
+            konvApp, SLOT(deleteUrl(const QString&,const QString&,const QDateTime&)) );
         connect(m_urlCatcherPanel, SIGNAL(clearUrlList()),
             konvApp, SLOT(clearUrlList()));
 
@@ -2226,7 +2224,7 @@ void ViewContainer::reconnectFrontServer()
     else
         server = m_frontServer;
 
-    if (server) server->reconnect();
+    if (server) server->reconnectServer();
 }
 
 void ViewContainer::disconnectFrontServer()
@@ -2239,7 +2237,7 @@ void ViewContainer::disconnectFrontServer()
         server = m_frontServer;
 
     if (server && server->isConnected())
-        server->disconnect();
+        server->disconnectServer();
 }
 
 void ViewContainer::showJoinChannelDialog()

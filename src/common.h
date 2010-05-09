@@ -17,7 +17,6 @@
 #include <QHash>
 
 class QString;
-class QBitmap;
 class QPixmap;
 
 namespace Konversation
@@ -49,11 +48,6 @@ namespace Konversation
         CreateNewConnection
     };
 
-    struct ChanModes
-    {
-        static const QHash<QChar,QString> m_hash;
-    };
-
     struct TextUrlData
     {
         QList<QPair<int, int> > urlRanges;
@@ -74,6 +68,7 @@ namespace Konversation
     bool isUtf8(const QByteArray& text);
     uint colorForNick(const QString& nickname);
 
+    static QHash<QChar,QString> m_modesHash;
     QHash<QChar,QString> getChannelModesHash();
 
     QString sterilizeUnicode(const QString& s);
