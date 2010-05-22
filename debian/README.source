@@ -1,23 +1,49 @@
-This package uses git+topgit as the packaging VCS. Please install Debian topgit
-package 0.5 or higher and read /usr/share/doc/topgit/HOWTO-tg2quilt.gz for more
-information how to checkout, add, remove, modify patches (topic branches) and
-do other common tasks. Branch structure of the repository is as follows:
+Branches in the Git packaging repository
+----------------------------------------
 
-* upstream   - upstream source code.
-* master     - the Debianization branch (upstream source and debian directory).
-               This branch also contains exported debian/patches ready for
-               building.
+Packaging branches must NOT have any debian/patches/* applied. When diff'ing
+packaging and the respective upstream branch, there must NOT be any changes
+outside debian/ subdirectory.
 
-Topic branches should be named as follows:
+Repository layout is as follows:
 
-* general/*  - namespace for general upstream patches. Patches can be named
-               freely, but it is recommended to suffix names with '_fix' for
-               patches fixing bugs and with '_feature' for patches introducing
-               new features. These patches should be based on the upstream
-               branch.
-* debian/*   - Debian specific patches should be put in this namespace. These
-               patches should be based on the upstream branch or even master
-               branch if necessary.
+* master               - the main packaging branch (upstream source and
+                         debian directory). Typically targets Debian unstable.
+* upstream             - upstream source code for the master branch.
+* <suitename>          - packaging branch targeting Debian <suite_name>
+* upstream-<suitename> - upstream source code for packaging in <suite_name>
+                         branch.
+* pristine-tar         - a branch with pristine-tar deltas for original
+                       - upstream tarballs.
+* debian/<dversion>    - annotated signed tags for package releases to Debian
+                         (based on master and <suitename> branches. ~ is
+                         replaced with -. Tag message should be of the form
+                         '<dversion>/<suitename>'.
+* upstream/<uversion>  - annotated tags for upstream releases which had at least one
+                         debian package release (based on upstream and
+                         upstream-<suitename> branches). ~ is replaced with -.
 
-If a patch depends on any other patch(es), create/adjust its topic branch
-dependencies as needed.
+General rules for patches in debian/patches
+-------------------------------------------
+
+- Patches are managed with `QUILT_PATCHES=debian/patches quilt`.
+* Highly recommended ~/.quiltrc settings are as follows:
+  -------<--------->--------
+  QUILT_NO_DIFF_INDEX=y
+  QUILT_NO_DIFF_TIMESTAMPS=y
+  QUILT_REFRESH_ARGS="-p ab"
+  QUILT_DIFF_OPTS="-p"
+  -------<--------->--------
+* All patches must have valid DEP-3 [1] headers with at least Description and
+  Author/Origin fields.
+* Patches should follow these naming rules:
+  - Each patch should be prefixed with either "debian_" for Debian specific
+    changes, "general_" for distribution agnostic changes or "backport_" for
+    changes backported from future releases.
+  - Patch name should be rather short and meaningfully reflect nature of the
+    changes. "_" should be used as a word separator.
+  - It is recommended to suffix the patch name with either  "_fix" for patches
+    fixing bugs or with '_feature' for patches introducing new features.
+* All patches should have .diff extension.
+
+1. http://dep.debian.net/deps/dep3/

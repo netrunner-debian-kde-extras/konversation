@@ -2,12 +2,6 @@
 
 #DEB_KDE_LINK_WITH_AS_NEEDED := yes
 
-ifneq (,$(shell which tg))
-QUILT_PATCH_DIR := debian/patches
-TG_BRANCHES := $(filter-out debian/aboutdata_add_debian_version,$(shell tg summary -t))
-include /usr/share/topgit/tg2quilt.mk
-endif
-
 override_dh_auto_configure:
 	dh_auto_configure -Skde -- -DCMAKE_USE_RELATIVE_PATHS=ON
 
