@@ -10,8 +10,6 @@ Signed-off-by: Modestas Vainius <modestas@vainius.eu>
  src/config/preferences.cpp |   10 ++++++----
  1 files changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/src/config/preferences.cpp b/src/config/preferences.cpp
-index 0371bc2..84353c2 100644
 --- a/src/config/preferences.cpp
 +++ b/src/config/preferences.cpp
 @@ -61,14 +61,16 @@ Preferences::Preferences()
@@ -35,5 +33,3 @@ index 0371bc2..84353c2 100644
      serverGroup->addChannel(channel);
      serverGroup->setExpanded(false);
      mServerGroupHash.insert(0, serverGroup);
--- 
-tg: (89e9aaf..) debian/debian_channel (depends on: upstream)
