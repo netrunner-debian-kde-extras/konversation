@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-05-07 04:52+0200\n"
-"PO-Revision-Date: 2010-03-15 18:05+0200\n"
+"POT-Creation-Date: 2010-05-20 04:55+0200\n"
+"PO-Revision-Date: 2010-05-18 04:43+0300\n"
 "Last-Translator: Marek Laane <bald@smail.ee>\n"
 "Language-Team: Estonian <kde-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -188,9 +188,9 @@ msgstr "Automaatne asendus"
 
 #: src/config/settingsdialog.cpp:140 src/config/warnings_config.cpp:137
 #: src/irc/query.cpp:88 src/irc/query.cpp:394 src/irc/query.cpp:395
-#: src/irc/outputfilter.cpp:1492 src/irc/outputfilter.cpp:1563
 #: src/irc/channel.cpp:667 src/irc/channel.cpp:668
-#: src/irc/nicklistview.cpp:158 src/viewer/ircview.cpp:1333
+#: src/irc/nicklistview.cpp:158 src/irc/outputfilter.cpp:1498
+#: src/irc/outputfilter.cpp:1569 src/viewer/ircview.cpp:1333
 msgid "Ignore"
 msgstr "Ignoreeri"
 
@@ -964,7 +964,7 @@ msgctxt "%1=Encoding"
 msgid "Default ( %1 )"
 msgstr "Vaikimisi ( %1 )"
 
-#: src/dcc/chatcontainer.cpp:309 src/irc/outputfilter.cpp:1943
+#: src/dcc/chatcontainer.cpp:309 src/irc/outputfilter.cpp:1949
 msgid "Usage"
 msgstr "Kasutamine"
 
@@ -973,8 +973,7 @@ msgstr "Kasutamine"
 msgid "Usage: %1ME text"
 msgstr "Kasutamine: %1ME tekst"
 
-#: src/dcc/chatcontainer.cpp:323 src/irc/outputfilter.cpp:1571
-#: src/irc/outputfilter.cpp:1961 src/irc/inputfilter.cpp:1163
+#: src/dcc/chatcontainer.cpp:323 src/irc/inputfilter.cpp:1163
 #: src/irc/inputfilter.cpp:1167 src/irc/inputfilter.cpp:1180
 #: src/irc/inputfilter.cpp:1251 src/irc/inputfilter.cpp:1430
 #: src/irc/inputfilter.cpp:2000 src/irc/inputfilter.cpp:2009
@@ -983,7 +982,8 @@ msgstr "Kasutamine: %1ME tekst"
 #: src/irc/server.cpp:1989 src/irc/server.cpp:2162 src/irc/server.cpp:2198
 #: src/irc/server.cpp:2249 src/irc/server.cpp:2317 src/irc/server.cpp:2336
 #: src/irc/server.cpp:2352 src/irc/server.cpp:3833 src/irc/server.cpp:3861
-#: src/irc/server.cpp:3892 src/linkaddressbook/addressbook.cpp:113
+#: src/irc/server.cpp:3892 src/irc/outputfilter.cpp:1577
+#: src/irc/outputfilter.cpp:1967 src/linkaddressbook/addressbook.cpp:113
 #: src/connectionmanager.cpp:279
 msgid "Error"
 msgstr "Viga"
@@ -994,12 +994,13 @@ msgstr "Tundmatu käsk."
 
 #. i18n: file: src/config/ignore_configui.ui:83
 #. i18n: ectx: property (text), widget (QCheckBox, chkCTCP)
-#: src/dcc/chatcontainer.cpp:371 src/irc/outputfilter.cpp:830
-#: src/irc/inputfilter.cpp:269 src/irc/inputfilter.cpp:276
-#: src/irc/inputfilter.cpp:292 src/irc/inputfilter.cpp:299
-#: src/irc/inputfilter.cpp:445 src/irc/inputfilter.cpp:453
-#: src/irc/inputfilter.cpp:473 src/irc/inputfilter.cpp:524
-#: src/irc/inputfilter.cpp:552 src/viewer/ignorelistviewitem.cpp:45 rc.cpp:522
+#: src/dcc/chatcontainer.cpp:371 src/irc/inputfilter.cpp:269
+#: src/irc/inputfilter.cpp:276 src/irc/inputfilter.cpp:292
+#: src/irc/inputfilter.cpp:299 src/irc/inputfilter.cpp:445
+#: src/irc/inputfilter.cpp:453 src/irc/inputfilter.cpp:473
+#: src/irc/inputfilter.cpp:524 src/irc/inputfilter.cpp:552
+#: src/irc/outputfilter.cpp:830 src/viewer/ignorelistviewitem.cpp:45
+#: rc.cpp:522
 msgid "CTCP"
 msgstr "CTCP"
 
@@ -1016,7 +1017,7 @@ msgstr "Vaba porti pole"
 msgid "Could not open a socket"
 msgstr "Sokli avamine nurjus"
 
-#: src/dcc/transferpanel.cpp:45 src/viewer/viewcontainer.cpp:2124
+#: src/dcc/transferpanel.cpp:45 src/viewer/viewcontainer.cpp:2162
 msgid "DCC Status"
 msgstr "DCC olek"
 
@@ -1189,13 +1190,13 @@ msgstr " (tuvastatud)"
 #. i18n: file: src/linkaddressbook/linkaddressbookui_base.ui:97
 #. i18n: ectx: property (text), widget (QTreeWidget, addresseeListView)
 #: src/irc/nickinfo.cpp:388 src/linkaddressbook/linkaddressbookui.cpp:59
-#: rc.cpp:1759
+#: rc.cpp:1756
 msgid "Email"
 msgstr "E-post"
 
-#. i18n: file: src/irc/channeloptionsui.ui:271
+#. i18n: file: src/irc/channeloptionsui.ui:268
 #. i18n: ectx: property (text), widget (QLabel, hostmaskLabel)
-#: src/irc/nickinfo.cpp:417 rc.cpp:1600
+#: src/irc/nickinfo.cpp:417 rc.cpp:1729
 msgid "Hostmask:"
 msgstr "Masinamask:"
 
@@ -1211,7 +1212,7 @@ msgstr "(tundmatu)"
 msgid "Online Since:"
 msgstr "Võrgus alates:"
 
-#: src/irc/nicksonline.cpp:42 src/viewer/viewcontainer.cpp:2496
+#: src/irc/nicksonline.cpp:42 src/viewer/viewcontainer.cpp:2534
 msgid "Watched Nicks Online"
 msgstr "Jälgitavad kasutajad võrgus"
 
@@ -1666,7 +1667,7 @@ msgstr "Sulge see vestlus"
 #. i18n: ectx: property (toolTip), widget (QToolButton, m_closeButton)
 #. i18n: file: src/viewer/searchbarbase.ui:33
 #. i18n: ectx: property (toolTip), widget (QToolButton, m_closeButton)
-#: src/irc/query.cpp:405 rc.cpp:1765 rc.cpp:1963
+#: src/irc/query.cpp:405 rc.cpp:1762 rc.cpp:1960
 msgid "Close"
 msgstr "Sulge"
 
@@ -1709,435 +1710,6 @@ msgstr "%1 lahkus sellest serverist."
 #, kde-format
 msgid "%1 has left this server (%2)."
 msgstr "%1 lahkus sellest serverist (%2)."
-
-#: src/irc/outputfilter.cpp:209
-msgid ""
-"The message you are sending includes characters that do not exist in your "
-"current encoding. If you choose to continue anyway those characters will be "
-"replaced by a '?'."
-msgstr ""
-"Sõnum, mida soovid saata, sisaldab märke, mida ei leidu sinu aktiivses "
-"kodeeringus. Jätkamise korral asendatakse need märgiga \"?\"."
-
-#: src/irc/outputfilter.cpp:213
-msgid "Encoding Conflict Warning"
-msgstr "Kodeeringu konflikti hoiatus"
-
-#: src/irc/outputfilter.cpp:317
-msgid "Raw"
-msgstr "Toores"
-
-#: src/irc/outputfilter.cpp:374
-#, kde-format
-msgid "Usage: %1JOIN <channel> [password]"
-msgstr "Kasutamine: %1JOIN <kanal> [parool]"
-
-#: src/irc/outputfilter.cpp:413
-#, kde-format
-msgid "Usage: %1KICK <nick> [reason]"
-msgstr "Kasutamine: %1KICK <kasutaja> [põhjus]"
-
-#: src/irc/outputfilter.cpp:427
-#, kde-format
-msgid "%1KICK only works from within channels."
-msgstr "%1KICK toimib ainult kanalitel."
-
-#: src/irc/outputfilter.cpp:447
-#, kde-format
-msgid ""
-"%1PART and %1LEAVE without parameters only work from within a channel or a "
-"query."
-msgstr ""
-"%1PART ja %1LEAVE ilma parameetriteta toimib ainult kanalil või vestluses."
-
-#: src/irc/outputfilter.cpp:472
-#, kde-format
-msgid "%1PART without channel name only works from within a channel."
-msgstr "%1PART ilma kanalinimeta toimib ainult kanalil."
-
-#: src/irc/outputfilter.cpp:496
-#, kde-format
-msgid "%1TOPIC without parameters only works from within a channel."
-msgstr "%1TOPIC ilma parameetriteta toimib ainult kanalil."
-
-#: src/irc/outputfilter.cpp:533
-#, kde-format
-msgid "%1TOPIC without channel name only works from within a channel."
-msgstr "%1TOPIC ilma kanalinimeta toimib ainult kanalil."
-
-#: src/irc/outputfilter.cpp:591
-#, kde-format
-msgid ""
-"%1NAMES with no target may disconnect you from the server. Specify '*' if "
-"you really want this."
-msgstr ""
-"%1NAMES ilma sihtmärgita võib isegi katkestada ühenduse serveriga. Kui sa "
-"seda tõesti tahad, siis lisa vähemalt '*'."
-
-#: src/irc/outputfilter.cpp:614
-#, c-format, kde-format
-msgid ""
-"Usage: %1close [window] closes the named channel or query tab, or the "
-"current tab if none specified."
-msgstr ""
-"Kasutamine: %1close [aken] sulgeb nimega antud kanali või vestluskaardi või "
-"aktiivse kaardi, kui nimi on andmata."
-
-#: src/irc/outputfilter.cpp:643
-#, kde-format
-msgid "Usage: %1NOTICE <recipient> <message>"
-msgstr "Kasutamine: %1NOTICE <saaja> <sõnum>"
-
-#. i18n: file: src/config/ignore_configui.ui:104
-#. i18n: ectx: property (text), widget (QCheckBox, chkNotice)
-#: src/irc/outputfilter.cpp:647 src/irc/outputfilter.cpp:875
-#: src/irc/inputfilter.cpp:498 src/irc/inputfilter.cpp:566
-#: src/irc/inputfilter.cpp:571 src/irc/inputfilter.cpp:594
-#: src/irc/inputfilter.cpp:762 src/irc/inputfilter.cpp:1304
-#: src/irc/server.cpp:3867 src/irc/server.cpp:3888
-#: src/viewer/ignorelistviewitem.cpp:44 rc.cpp:531
-msgid "Notice"
-msgstr "Märguanne"
-
-#: src/irc/outputfilter.cpp:650
-#, kde-format
-msgctxt "%1 is the message, %2 the recipient nickname"
-msgid "Sending notice \"%1\" to %2."
-msgstr "Märguande \"%1\" saatmine kasutajale %2."
-
-#: src/irc/outputfilter.cpp:728
-msgid "Error: You need to specify a recipient."
-msgstr "Viga: määrata tuleb saaja."
-
-#: src/irc/outputfilter.cpp:733
-msgid "Error: You cannot open queries to channels."
-msgstr "Viga: kanalitega ei saa vestlust alustada."
-
-#: src/irc/outputfilter.cpp:739
-msgid "Error: You need to specify a message."
-msgstr "Viga: määrata tuleb sõnum."
-
-#: src/irc/outputfilter.cpp:822 src/irc/outputfilter.cpp:827
-#, kde-format
-msgid "Sending CTCP-%1 request to %2."
-msgstr "CTCP-%1 soovi saatmine kasutajale %2."
-
-#: src/irc/outputfilter.cpp:839
-#, c-format, kde-format
-msgid "Usage: %1AME text"
-msgstr "Kasutamine: %1AME tekst"
-
-#: src/irc/outputfilter.cpp:849
-#, c-format, kde-format
-msgid "Usage: %1AMSG text"
-msgstr "Kasutamine: %1AMSG tekst"
-
-#: src/irc/outputfilter.cpp:859
-#, kde-format
-msgid "Usage: %1OMSG text"
-msgstr "Kasutamine: %1OMSG tekst"
-
-#: src/irc/outputfilter.cpp:877
-#, kde-format
-msgid "Sending notice \"%1\" to %2."
-msgstr "Märguande \"%1\" saatmine kasutajale %2."
-
-#: src/irc/outputfilter.cpp:880
-#, kde-format
-msgid "Usage: %1ONOTICE text"
-msgstr "Kasutamine: %1ONOTICE tekst"
-
-#: src/irc/outputfilter.cpp:890
-#, kde-format
-msgid "Usage: %1QUOTE command list"
-msgstr "Kasutamine: %1QUOTE käskude nimekiri"
-
-#: src/irc/outputfilter.cpp:902
-#, c-format, kde-format
-msgid "Usage: %1SAY text"
-msgstr "Kasutamine: %1SAY tekst"
-
-#: src/irc/outputfilter.cpp:958
-#, kde-format
-msgid "File \"%1\" does not exist."
-msgstr "Faili \"%1\" ei ole olemas."
-
-#: src/irc/outputfilter.cpp:962
-#, kde-format
-msgid "Usage: %1DCC [SEND [nickname [filename]]]"
-msgstr "Kasutamine: %1DCC [SEND [hüüdnimi [failinimi]]]"
-
-#: src/irc/outputfilter.cpp:980
-#, kde-format
-msgid "Usage: %1DCC [GET [nickname [filename]]]"
-msgstr "Kasutamine: %1DCC [GET [hüüdnimi [failinimi]]]"
-
-#: src/irc/outputfilter.cpp:996
-#, kde-format
-msgid "Usage: %1DCC [CHAT [nickname]]"
-msgstr "Kasutamine: %1DCC [CHAT [hüüdnimi]]"
-
-#: src/irc/outputfilter.cpp:1012
-#, kde-format
-msgid "Usage: %1DCC [WHITEBOARD [nickname]]"
-msgstr "Kasutamine: %1DCC [WHITEBOARD [hüüdnimi]]"
-
-#: src/irc/outputfilter.cpp:1017
-#, kde-format
-msgid ""
-"Unrecognized command %1DCC %2. Possible commands are SEND, CHAT, CLOSE, GET, "
-"WHITEBOARD."
-msgstr ""
-"Tundmatu käsk %1DCC %2. Võimalikud käsud on SEND, CHAT, CLOSE, GET, "
-"WHITEBOARD."
-
-#: src/irc/outputfilter.cpp:1160
-#, kde-format
-msgid "Usage: %1INVITE <nick> [channel]"
-msgstr "Kasutamine: %1INVITE <kasutaja> [kanal]"
-
-#: src/irc/outputfilter.cpp:1171
-#, kde-format
-msgid "%1INVITE without channel name works only from within channels."
-msgstr "%1INVITE ilma kanalinimeta toimib ainult kanalitel."
-
-#: src/irc/outputfilter.cpp:1180
-#, kde-format
-msgid "%1 is not a channel."
-msgstr "%1 ei ole kanal."
-
-#: src/irc/outputfilter.cpp:1192
-#, c-format, kde-format
-msgid "Usage: %1EXEC <script> [parameter list]"
-msgstr "Kasutamine: %1EXEC <skript> [parameetrite nimekiri]"
-
-#: src/irc/outputfilter.cpp:1201
-msgid "Script name may not contain \"../\"."
-msgstr "Skripti nimes ei tohi esineda \"../\"."
-
-#: src/irc/outputfilter.cpp:1216
-#, kde-format
-msgid "Usage: %1RAW [OPEN | CLOSE]"
-msgstr "Kasutamine: %1RAW [OPEN | CLOSE]"
-
-#: src/irc/outputfilter.cpp:1254 src/irc/server.cpp:2728
-#: src/irc/server.cpp:2746 src/viewer/ircview.cpp:811
-msgid "Notify"
-msgstr "Märguanne"
-
-#: src/irc/outputfilter.cpp:1257
-msgid "Current notify list is empty."
-msgstr "Aktiivne märguannete nimekiri on tühi."
-
-#: src/irc/outputfilter.cpp:1259
-#, kde-format
-msgid "Current notify list: %1"
-msgstr "Aktiivne märguannete nimekiri: %1"
-
-#: src/irc/outputfilter.cpp:1283
-msgid "Enter username and password for IRC operator privileges:"
-msgstr "Sisesta IRC operaatori õiguste saamiseks nimi ja parool:"
-
-#: src/irc/outputfilter.cpp:1285
-msgid "IRC Operator Password"
-msgstr "IRC operaatori parool"
-
-#: src/irc/outputfilter.cpp:1349
-#, kde-format
-msgid "%1BAN without channel name works only from inside a channel."
-msgstr "%1BAN ilma kanalinimeta toimib ainult kanalil."
-
-#: src/irc/outputfilter.cpp:1352
-#, kde-format
-msgid "%1KICKBAN without channel name works only from inside a channel."
-msgstr "%1KICKBAN ilma kanalinimeta toimib ainult kanalil."
-
-#: src/irc/outputfilter.cpp:1384
-#, kde-format
-msgid ""
-"Usage: %1BAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [channel] <user|"
-"mask>"
-msgstr ""
-"Kasutamine: %1BAN [-MASIN | -DOMEEN | -KASUTAJA_MASIN | -KASUTAJA_DOMEEN] "
-"[kanal] <kasutaja|mask>"
-
-#: src/irc/outputfilter.cpp:1387
-#, kde-format
-msgid ""
-"Usage: %1KICKBAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [channel] <user|"
-"mask> [reason]"
-msgstr ""
-"Kasutamine: %1KICKBAN [-MASIN | -DOMEEN | -KASUTAJA_MASIN | -"
-"KASUTAJA_DOMEEN] [kanal] <kasutaja|mask> [põhjus]"
-
-#: src/irc/outputfilter.cpp:1430
-#, kde-format
-msgid "%1UNBAN without channel name works only from inside a channel."
-msgstr "%1UNBAN ilma kanalinimeta toimib ainult kanalil."
-
-#: src/irc/outputfilter.cpp:1445
-#, kde-format
-msgid "Usage: %1UNBAN [channel] pattern"
-msgstr "Kasutamine: %1UNBAN [kanal] muster"
-
-#: src/irc/outputfilter.cpp:1491
-#, kde-format
-msgid "Added %1 to your ignore list."
-msgstr "%1 lisati sinu ignoreeritavate nimekirja."
-
-#: src/irc/outputfilter.cpp:1501
-#, kde-format
-msgid "Usage: %1IGNORE [ -ALL ] <user 1> <user 2> ... <user n>"
-msgstr ""
-"Kasutamine: %1IGNORE [ -ALL] <kasutaja 1> <kasutaja 2> ... <kasutaja n>"
-
-#: src/irc/outputfilter.cpp:1512
-#, kde-format
-msgid "Usage: %1UNIGNORE <user 1> <user 2> ... <user n>"
-msgstr "Kasutamine: %1UNIGNORE <kasutaja 1> <kasutaja 2> ... <kasutaja n>"
-
-#: src/irc/outputfilter.cpp:1563
-#, kde-format
-msgid "Removed %1 from your ignore list."
-msgstr "%1 eemaldati sinu ignoreeritavate nimekirjast."
-
-#: src/irc/outputfilter.cpp:1571
-#, kde-format
-msgid "No such ignore: %2"
-msgid_plural "No such ignores: %2"
-msgstr[0] "%2: pole sellist ignoreeritavat."
-msgstr[1] "%2: pole selliseid ignoreeritavaid."
-
-#: src/irc/outputfilter.cpp:1623
-#, kde-format
-msgid "Current encoding is: %1"
-msgstr "Aktiivne kodeering: %1"
-
-#: src/irc/outputfilter.cpp:1634
-#, kde-format
-msgid "Switched to %1 encoding."
-msgstr "Lülituti %1 kodeeringule."
-
-#: src/irc/outputfilter.cpp:1637
-#, kde-format
-msgid "%1 is not a valid encoding."
-msgstr "%1 ei ole sobiv kodeering."
-
-#: src/irc/outputfilter.cpp:1657
-#, c-format, kde-format
-msgid ""
-"Usage: %1setkey <nick|channel> <key> sets the encryption key for nick or "
-"channel. %1setkey <key> when in a channel or query tab sets the key for it. "
-"The key field recognizes \"cbc:\" and \"ecb:\" prefixes to set the block "
-"cipher mode of operation to either Cipher-Block Chaining or Electronic "
-"Codebook. The mode it defaults to when no prefix is given can be changed in "
-"the configuration dialog under Behavior -> Connection -> Encryption -> "
-"Default Encryption Type, with the default for that setting being Electronic "
-"Codebook (ECB)."
-msgstr ""
-"Kasutamine: %1setkey <hüüdnimi|kanal> <võti> määrab kasutaja või kanali "
-"krüptovõtme. %1setkey <võti> kanalil või eravestluses viibides määrab võtme "
-"ainult sellele. Võtmeväli tunnustab prefikseid \"cbc:\" ja \"ecb:\", millega "
-"määratakse plokkšifri režiimiks kas šifriplokkide ahel või elektrooniline "
-"koodiraamat. Kui prefiks puudub, kasutatakse vaikimisi esimest võimalust. "
-"Seda saab muuta, kui valida Seadistused->Konversationi seadistamine-"
-">Käitumine->Ühendus->Krüptimine."
-
-#: src/irc/outputfilter.cpp:1675
-#, kde-format
-msgid "The key for %1 has been set."
-msgstr "%1 võti on nüüd määratud."
-
-#: src/irc/outputfilter.cpp:1677 src/irc/outputfilter.cpp:1703
-msgid ""
-"Setting an encryption key requires Konversation to have been built with "
-"support for the Qt Cryptographic Architecture (QCA) library. Contact your "
-"distributor about a Konversation package with QCA support, or rebuild "
-"Konversation with QCA present."
-msgstr ""
-"Krüptovõtme määramine eeldab, et Konversation on paigaldatud Qt "
-"krüptograafiaarhitektuuri (QCA) teegi toega. Võta ühendust oma "
-"distributsiooniga, et nad valmistaksid QCA toetusega paketi, või ehita "
-"Konversation ise ümber."
-
-#: src/irc/outputfilter.cpp:1696
-#, kde-format
-msgid ""
-"Usage: %1keyx <nick|channel> triggers DH1080 key exchange with the target."
-msgstr ""
-"Kasutamine: %1keyx <hüüdnimi|kanal> käivitab DH1080 võtme vahetamise "
-"sihtmärgiga."
-
-#: src/irc/outputfilter.cpp:1701
-#, kde-format
-msgid "Beginning DH1080 key exchange with %1."
-msgstr "DH1080 võtme vahetamise alustamine kasutajaga %1."
-
-#: src/irc/outputfilter.cpp:1721
-#, c-format, kde-format
-msgid ""
-"Usage: %1delkey <nick> or <channel> deletes the encryption key for nick or "
-"channel"
-msgstr ""
-"Kasutamine: %1delkey <kasutaja> või <kanal> kustutab kasutaja või kanali "
-"krüptovõtme"
-
-#: src/irc/outputfilter.cpp:1733
-#, kde-format
-msgid "The key for %1 has been deleted."
-msgstr "%1 võti on nüüd kustutatud."
-
-#: src/irc/outputfilter.cpp:1736 src/irc/outputfilter.cpp:1756
-#, kde-format
-msgid "No key has been set for %1."
-msgstr "%1 võtit ei ole määratud."
-
-#: src/irc/outputfilter.cpp:1753
-#, kde-format
-msgid "The key for %1 is \"%2\"."
-msgstr "%1 võti on \"%2\"."
-
-#: src/irc/outputfilter.cpp:1754
-msgid "Blowfish"
-msgstr "Blowfish"
-
-#: src/irc/outputfilter.cpp:1766
-#, kde-format
-msgid "Usage: %1KILL <nick> [comment]"
-msgstr "Kasutamine: %1KILL <kasutaja> [kommentaar]"
-
-#: src/irc/outputfilter.cpp:1782
-#, kde-format
-msgid "Usage: %1DNS <nick>"
-msgstr "Kasutamine: %1DNS <kasutaja>"
-
-#: src/irc/outputfilter.cpp:1797 src/irc/outputfilter.cpp:1816
-#: src/irc/inputfilter.cpp:1421
-msgid "DNS"
-msgstr "DNS"
-
-#: src/irc/outputfilter.cpp:1798 src/irc/outputfilter.cpp:1817
-#, kde-format
-msgid "Resolved %1 to: %2"
-msgstr "%1 lahendamine: %2"
-
-#: src/irc/outputfilter.cpp:1802 src/irc/outputfilter.cpp:1821
-#, kde-format
-msgid "Unable to resolve %1"
-msgstr "%1 lahendamine nurjus"
-
-#: src/irc/outputfilter.cpp:1855
-#, c-format, kde-format
-msgid "Usage: %1queuetuner [on | off]"
-msgstr "Kasutamine: %1queuetuner [on | off]"
-
-#: src/irc/outputfilter.cpp:1952 src/irc/inputfilter.cpp:1312
-#: src/irc/server.cpp:219 src/irc/server.cpp:361 src/irc/server.cpp:429
-#: src/irc/server.cpp:572 src/irc/server.cpp:583 src/irc/server.cpp:785
-#: src/irc/server.cpp:3610 src/connectionmanager.cpp:221
-#: src/connectionmanager.cpp:254 src/connectionmanager.cpp:264
-msgid "Info"
-msgstr "Info"
 
 #: src/irc/inputfilter.cpp:270
 #, kde-format
@@ -2194,6 +1766,17 @@ msgstr "Saadi tundmatu CTCP-%1 soov kasutajalt %2 kanalile %3."
 #, kde-format
 msgid "Received unknown CTCP-%1 request from %2."
 msgstr "Saadi tundmatu CTCP-%1 soov kasutajalt %2."
+
+#. i18n: file: src/config/ignore_configui.ui:104
+#. i18n: ectx: property (text), widget (QCheckBox, chkNotice)
+#: src/irc/inputfilter.cpp:498 src/irc/inputfilter.cpp:566
+#: src/irc/inputfilter.cpp:571 src/irc/inputfilter.cpp:594
+#: src/irc/inputfilter.cpp:762 src/irc/inputfilter.cpp:1304
+#: src/irc/server.cpp:3867 src/irc/server.cpp:3888
+#: src/irc/outputfilter.cpp:647 src/irc/outputfilter.cpp:881
+#: src/viewer/ignorelistviewitem.cpp:44 rc.cpp:531
+msgid "Notice"
+msgstr "Märguanne"
 
 #: src/irc/inputfilter.cpp:499
 #, kde-format
@@ -2396,6 +1979,14 @@ msgstr "Päeva sõnumi lõpp"
 msgid "You are now an IRC operator on this server."
 msgstr "Sa oled nüüd selles serveris IRC operaator."
 
+#: src/irc/inputfilter.cpp:1312 src/irc/server.cpp:219 src/irc/server.cpp:361
+#: src/irc/server.cpp:429 src/irc/server.cpp:572 src/irc/server.cpp:583
+#: src/irc/server.cpp:785 src/irc/server.cpp:3610
+#: src/irc/outputfilter.cpp:1958 src/connectionmanager.cpp:221
+#: src/connectionmanager.cpp:254 src/connectionmanager.cpp:264
+msgid "Info"
+msgstr "Info"
+
 #: src/irc/inputfilter.cpp:1312
 #, kde-format
 msgid "'%1' is now your hidden host (set by services)."
@@ -2435,6 +2026,11 @@ msgstr "%1@%2"
 #, kde-format
 msgid "%1 is %2@%3 (%4)"
 msgstr "%1 on %2@%3 (%4)"
+
+#: src/irc/inputfilter.cpp:1421 src/irc/outputfilter.cpp:1803
+#: src/irc/outputfilter.cpp:1822
+msgid "DNS"
+msgstr "DNS"
 
 #: src/irc/inputfilter.cpp:1422
 #, kde-format
@@ -2623,8 +2219,6 @@ msgid "End of channel list."
 msgstr "Kanalite nimekirja lõpp."
 
 #: src/irc/inputfilter.cpp:1944
-#, fuzzy
-#| msgid "(unknown)"
 msgctxt ""
 "The server didn't respond with the identity of the ban creator, so we say "
 "unknown (in brackets to avoid confusion with a real nickname)"
@@ -2647,10 +2241,9 @@ msgid "End of Ban List."
 msgstr "Pagendusnimekirja lõpp."
 
 #: src/irc/inputfilter.cpp:2000
-#, fuzzy, kde-format
-#| msgid "No such nick: %1."
+#, kde-format
 msgid "No such server: %1."
-msgstr "%1: pole sellist kasutajat."
+msgstr "Sellist serverit pole: %1"
 
 #: src/irc/inputfilter.cpp:2009
 #, kde-format
@@ -2709,33 +2302,28 @@ msgid "Connection to server %1 (port <numid>%2</numid>) lost: %3."
 msgstr "Ühendus serveriga %1 (port <numid>%2</numid>) kadus: %3."
 
 #: src/irc/server.cpp:678
-#, fuzzy, kde-format
-#| msgid "Connection to server %1 (port <numid>%2</numid>) lost: %3."
+#, kde-format
 msgid ""
 "The SSL certificate for the the server %1 (port <numid>%2</numid>) failed "
 "the authenticity check."
-msgstr "Ühendus serveriga %1 (port <numid>%2</numid>) kadus: %3."
+msgstr ""
+"Serveri %1 (port <numid>%2</numid>) SSL sertifikaat ei pidanud vastu "
+"autentsuskontrollile."
 
 #: src/irc/server.cpp:682
-#, fuzzy
-#| msgid "SSL Connection Error"
 msgid "SSL Connection Warning"
-msgstr "SSL-ühenduse viga"
+msgstr "SSL-ühenduse hoiatus"
 
 #: src/irc/server.cpp:693
-#, fuzzy, kde-format
-#| msgid ""
-#| "Could not connect to %1 (port <numid>%2</numid>) using SSL encryption. "
-#| "Maybe the server does not support SSL, or perhaps you have the wrong "
-#| "port? %3"
+#, kde-format
 msgid ""
 "Could not connect to %1 (port <numid>%2</numid>) using SSL encryption. "
 "Either the server does not support SSL (did you use the correct port?) or "
 "you rejected the certificate. %3"
 msgstr ""
 "Ühenduse loomine serverisse %1 (port <numid>%2</numid>) SSL-krüptimist "
-"kasutades nurjus. Vahest ei toeta server SSL-i või on port valesti määratud? "
-"%3"
+"kasutades nurjus. Server ei toeta SSL-i (kas port oli ikka õigesti määratud) "
+"või lükkasid sa sertifikaadi tagasi. %3"
 
 #: src/irc/server.cpp:698
 msgid "SSL Connection Error"
@@ -2902,6 +2490,11 @@ msgctxt "%1 = file name, %2 = file size, %3 = nickname of sender"
 msgid "Downloading \"%1\" (%2) from %3..."
 msgstr "Faili \"%1\" (%2) allalaadimine kasutajalt %3..."
 
+#: src/irc/server.cpp:2728 src/irc/server.cpp:2746
+#: src/irc/outputfilter.cpp:1260 src/viewer/ircview.cpp:811
+msgid "Notify"
+msgstr "Märguanne"
+
 #: src/irc/server.cpp:2729 src/notificationhandler.cpp:260
 #, kde-format
 msgid "%1 is online (%2)."
@@ -2924,7 +2517,7 @@ msgstr "Viga: skripti \"%1\" käivitamine nurjus. Kontrolli faili õigusi."
 
 #: src/irc/server.cpp:3610
 msgid "Delayed connect aborted."
-msgstr ""
+msgstr "Hilinenud ühendus katkestati."
 
 #: src/irc/server.cpp:3622
 msgid "Gone away for now"
@@ -3724,8 +3317,8 @@ msgstr "Kanali teema"
 
 #. i18n: file: src/irc/channellistpanelui.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, ChannelListWidgetUI)
-#: src/irc/channellistpanel.cpp:145 src/viewer/viewcontainer.cpp:2428
-#: src/viewer/viewcontainer.cpp:2486 rc.cpp:1513
+#: src/irc/channellistpanel.cpp:145 src/viewer/viewcontainer.cpp:2466
+#: src/viewer/viewcontainer.cpp:2524 rc.cpp:1513
 msgid "Channel List"
 msgstr "Kanalite nimekiri"
 
@@ -3735,10 +3328,8 @@ msgid "Save &List..."
 msgstr "Sa&lvesta nimekiri..."
 
 #: src/irc/channellistpanel.cpp:163
-#, fuzzy
-#| msgid "Click to erase the entire list."
 msgid "Click here to save the channel list."
-msgstr "Klõpsa kogu nimekirja tühjendamiseks."
+msgstr "Klõpsa siia kanalite nimekirja salvestamiseks."
 
 #: src/irc/channellistpanel.cpp:164
 msgctxt "refresh list"
@@ -3746,10 +3337,8 @@ msgid "&Refresh List"
 msgstr "Vä&rskenda nimekirja"
 
 #: src/irc/channellistpanel.cpp:165
-#, fuzzy
-#| msgid "Click to erase the entire list."
 msgid "Click here to refresh the channel list."
-msgstr "Klõpsa kogu nimekirja tühjendamiseks."
+msgstr "Klõpsa siia kanalite nimekirja värskendamiseks."
 
 #: src/irc/channellistpanel.cpp:167
 msgctxt "join channel"
@@ -4001,8 +3590,410 @@ msgstr "Loo uus kontakt..."
 msgid "Delete Association"
 msgstr "Kustuta seos"
 
-#: src/konsolepanel.cpp:27 src/viewer/viewcontainer.cpp:2072
-#: src/viewer/viewcontainer.cpp:2073
+#: src/irc/outputfilter.cpp:209
+msgid ""
+"The message you are sending includes characters that do not exist in your "
+"current encoding. If you choose to continue anyway those characters will be "
+"replaced by a '?'."
+msgstr ""
+"Sõnum, mida soovid saata, sisaldab märke, mida ei leidu sinu aktiivses "
+"kodeeringus. Jätkamise korral asendatakse need märgiga \"?\"."
+
+#: src/irc/outputfilter.cpp:213
+msgid "Encoding Conflict Warning"
+msgstr "Kodeeringu konflikti hoiatus"
+
+#: src/irc/outputfilter.cpp:317
+msgid "Raw"
+msgstr "Toores"
+
+#: src/irc/outputfilter.cpp:374
+#, kde-format
+msgid "Usage: %1JOIN <channel> [password]"
+msgstr "Kasutamine: %1JOIN <kanal> [parool]"
+
+#: src/irc/outputfilter.cpp:413
+#, kde-format
+msgid "Usage: %1KICK <nick> [reason]"
+msgstr "Kasutamine: %1KICK <kasutaja> [põhjus]"
+
+#: src/irc/outputfilter.cpp:427
+#, kde-format
+msgid "%1KICK only works from within channels."
+msgstr "%1KICK toimib ainult kanalitel."
+
+#: src/irc/outputfilter.cpp:447
+#, kde-format
+msgid ""
+"%1PART and %1LEAVE without parameters only work from within a channel or a "
+"query."
+msgstr ""
+"%1PART ja %1LEAVE ilma parameetriteta toimib ainult kanalil või vestluses."
+
+#: src/irc/outputfilter.cpp:472
+#, kde-format
+msgid "%1PART without channel name only works from within a channel."
+msgstr "%1PART ilma kanalinimeta toimib ainult kanalil."
+
+#: src/irc/outputfilter.cpp:496
+#, kde-format
+msgid "%1TOPIC without parameters only works from within a channel."
+msgstr "%1TOPIC ilma parameetriteta toimib ainult kanalil."
+
+#: src/irc/outputfilter.cpp:533
+#, kde-format
+msgid "%1TOPIC without channel name only works from within a channel."
+msgstr "%1TOPIC ilma kanalinimeta toimib ainult kanalil."
+
+#: src/irc/outputfilter.cpp:591
+#, kde-format
+msgid ""
+"%1NAMES with no target may disconnect you from the server. Specify '*' if "
+"you really want this."
+msgstr ""
+"%1NAMES ilma sihtmärgita võib isegi katkestada ühenduse serveriga. Kui sa "
+"seda tõesti tahad, siis lisa vähemalt '*'."
+
+#: src/irc/outputfilter.cpp:614
+#, c-format, kde-format
+msgid ""
+"Usage: %1close [window] closes the named channel or query tab, or the "
+"current tab if none specified."
+msgstr ""
+"Kasutamine: %1close [aken] sulgeb nimega antud kanali või vestluskaardi või "
+"aktiivse kaardi, kui nimi on andmata."
+
+#: src/irc/outputfilter.cpp:643
+#, kde-format
+msgid "Usage: %1NOTICE <recipient> <message>"
+msgstr "Kasutamine: %1NOTICE <saaja> <sõnum>"
+
+#: src/irc/outputfilter.cpp:650
+#, kde-format
+msgctxt "%1 is the message, %2 the recipient nickname"
+msgid "Sending notice \"%1\" to %2."
+msgstr "Märguande \"%1\" saatmine kasutajale %2."
+
+#: src/irc/outputfilter.cpp:728
+msgid "Error: You need to specify a recipient."
+msgstr "Viga: määrata tuleb saaja."
+
+#: src/irc/outputfilter.cpp:733
+msgid "Error: You cannot open queries to channels."
+msgstr "Viga: kanalitega ei saa vestlust alustada."
+
+#: src/irc/outputfilter.cpp:739
+msgid "Error: You need to specify a message."
+msgstr "Viga: määrata tuleb sõnum."
+
+#: src/irc/outputfilter.cpp:822 src/irc/outputfilter.cpp:827
+#, kde-format
+msgid "Sending CTCP-%1 request to %2."
+msgstr "CTCP-%1 soovi saatmine kasutajale %2."
+
+#: src/irc/outputfilter.cpp:839
+#, fuzzy, c-format, kde-format
+#| msgid "Usage: %1AME text"
+msgid "Usage: %1AME [-LOCAL] text"
+msgstr "Kasutamine: %1AME tekst"
+
+#: src/irc/outputfilter.cpp:852
+#, fuzzy, c-format, kde-format
+#| msgid "Usage: %1AMSG text"
+msgid "Usage: %1AMSG [-LOCAL] text"
+msgstr "Kasutamine: %1AMSG tekst"
+
+#: src/irc/outputfilter.cpp:865
+#, kde-format
+msgid "Usage: %1OMSG text"
+msgstr "Kasutamine: %1OMSG tekst"
+
+#: src/irc/outputfilter.cpp:883
+#, kde-format
+msgid "Sending notice \"%1\" to %2."
+msgstr "Märguande \"%1\" saatmine kasutajale %2."
+
+#: src/irc/outputfilter.cpp:886
+#, kde-format
+msgid "Usage: %1ONOTICE text"
+msgstr "Kasutamine: %1ONOTICE tekst"
+
+#: src/irc/outputfilter.cpp:896
+#, kde-format
+msgid "Usage: %1QUOTE command list"
+msgstr "Kasutamine: %1QUOTE käskude nimekiri"
+
+#: src/irc/outputfilter.cpp:908
+#, c-format, kde-format
+msgid "Usage: %1SAY text"
+msgstr "Kasutamine: %1SAY tekst"
+
+#: src/irc/outputfilter.cpp:964
+#, kde-format
+msgid "File \"%1\" does not exist."
+msgstr "Faili \"%1\" ei ole olemas."
+
+#: src/irc/outputfilter.cpp:968
+#, kde-format
+msgid "Usage: %1DCC [SEND [nickname [filename]]]"
+msgstr "Kasutamine: %1DCC [SEND [hüüdnimi [failinimi]]]"
+
+#: src/irc/outputfilter.cpp:986
+#, kde-format
+msgid "Usage: %1DCC [GET [nickname [filename]]]"
+msgstr "Kasutamine: %1DCC [GET [hüüdnimi [failinimi]]]"
+
+#: src/irc/outputfilter.cpp:1002
+#, kde-format
+msgid "Usage: %1DCC [CHAT [nickname]]"
+msgstr "Kasutamine: %1DCC [CHAT [hüüdnimi]]"
+
+#: src/irc/outputfilter.cpp:1018
+#, kde-format
+msgid "Usage: %1DCC [WHITEBOARD [nickname]]"
+msgstr "Kasutamine: %1DCC [WHITEBOARD [hüüdnimi]]"
+
+#: src/irc/outputfilter.cpp:1023
+#, kde-format
+msgid ""
+"Unrecognized command %1DCC %2. Possible commands are SEND, CHAT, CLOSE, GET, "
+"WHITEBOARD."
+msgstr ""
+"Tundmatu käsk %1DCC %2. Võimalikud käsud on SEND, CHAT, CLOSE, GET, "
+"WHITEBOARD."
+
+#: src/irc/outputfilter.cpp:1166
+#, kde-format
+msgid "Usage: %1INVITE <nick> [channel]"
+msgstr "Kasutamine: %1INVITE <kasutaja> [kanal]"
+
+#: src/irc/outputfilter.cpp:1177
+#, kde-format
+msgid "%1INVITE without channel name works only from within channels."
+msgstr "%1INVITE ilma kanalinimeta toimib ainult kanalitel."
+
+#: src/irc/outputfilter.cpp:1186
+#, kde-format
+msgid "%1 is not a channel."
+msgstr "%1 ei ole kanal."
+
+#: src/irc/outputfilter.cpp:1198
+#, c-format, kde-format
+msgid "Usage: %1EXEC <script> [parameter list]"
+msgstr "Kasutamine: %1EXEC <skript> [parameetrite nimekiri]"
+
+#: src/irc/outputfilter.cpp:1207
+msgid "Script name may not contain \"../\"."
+msgstr "Skripti nimes ei tohi esineda \"../\"."
+
+#: src/irc/outputfilter.cpp:1222
+#, kde-format
+msgid "Usage: %1RAW [OPEN | CLOSE]"
+msgstr "Kasutamine: %1RAW [OPEN | CLOSE]"
+
+#: src/irc/outputfilter.cpp:1263
+msgid "Current notify list is empty."
+msgstr "Aktiivne märguannete nimekiri on tühi."
+
+#: src/irc/outputfilter.cpp:1265
+#, kde-format
+msgid "Current notify list: %1"
+msgstr "Aktiivne märguannete nimekiri: %1"
+
+#: src/irc/outputfilter.cpp:1289
+msgid "Enter username and password for IRC operator privileges:"
+msgstr "Sisesta IRC operaatori õiguste saamiseks nimi ja parool:"
+
+#: src/irc/outputfilter.cpp:1291
+msgid "IRC Operator Password"
+msgstr "IRC operaatori parool"
+
+#: src/irc/outputfilter.cpp:1355
+#, kde-format
+msgid "%1BAN without channel name works only from inside a channel."
+msgstr "%1BAN ilma kanalinimeta toimib ainult kanalil."
+
+#: src/irc/outputfilter.cpp:1358
+#, kde-format
+msgid "%1KICKBAN without channel name works only from inside a channel."
+msgstr "%1KICKBAN ilma kanalinimeta toimib ainult kanalil."
+
+#: src/irc/outputfilter.cpp:1390
+#, kde-format
+msgid ""
+"Usage: %1BAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [channel] <user|"
+"mask>"
+msgstr ""
+"Kasutamine: %1BAN [-MASIN | -DOMEEN | -KASUTAJA_MASIN | -KASUTAJA_DOMEEN] "
+"[kanal] <kasutaja|mask>"
+
+#: src/irc/outputfilter.cpp:1393
+#, kde-format
+msgid ""
+"Usage: %1KICKBAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [channel] <user|"
+"mask> [reason]"
+msgstr ""
+"Kasutamine: %1KICKBAN [-MASIN | -DOMEEN | -KASUTAJA_MASIN | -"
+"KASUTAJA_DOMEEN] [kanal] <kasutaja|mask> [põhjus]"
+
+#: src/irc/outputfilter.cpp:1436
+#, kde-format
+msgid "%1UNBAN without channel name works only from inside a channel."
+msgstr "%1UNBAN ilma kanalinimeta toimib ainult kanalil."
+
+#: src/irc/outputfilter.cpp:1451
+#, kde-format
+msgid "Usage: %1UNBAN [channel] pattern"
+msgstr "Kasutamine: %1UNBAN [kanal] muster"
+
+#: src/irc/outputfilter.cpp:1497
+#, kde-format
+msgid "Added %1 to your ignore list."
+msgstr "%1 lisati sinu ignoreeritavate nimekirja."
+
+#: src/irc/outputfilter.cpp:1507
+#, kde-format
+msgid "Usage: %1IGNORE [ -ALL ] <user 1> <user 2> ... <user n>"
+msgstr ""
+"Kasutamine: %1IGNORE [ -ALL] <kasutaja 1> <kasutaja 2> ... <kasutaja n>"
+
+#: src/irc/outputfilter.cpp:1518
+#, kde-format
+msgid "Usage: %1UNIGNORE <user 1> <user 2> ... <user n>"
+msgstr "Kasutamine: %1UNIGNORE <kasutaja 1> <kasutaja 2> ... <kasutaja n>"
+
+#: src/irc/outputfilter.cpp:1569
+#, kde-format
+msgid "Removed %1 from your ignore list."
+msgstr "%1 eemaldati sinu ignoreeritavate nimekirjast."
+
+#: src/irc/outputfilter.cpp:1577
+#, kde-format
+msgid "No such ignore: %2"
+msgid_plural "No such ignores: %2"
+msgstr[0] "%2: pole sellist ignoreeritavat."
+msgstr[1] "%2: pole selliseid ignoreeritavaid."
+
+#: src/irc/outputfilter.cpp:1629
+#, kde-format
+msgid "Current encoding is: %1"
+msgstr "Aktiivne kodeering: %1"
+
+#: src/irc/outputfilter.cpp:1640
+#, kde-format
+msgid "Switched to %1 encoding."
+msgstr "Lülituti %1 kodeeringule."
+
+#: src/irc/outputfilter.cpp:1643
+#, kde-format
+msgid "%1 is not a valid encoding."
+msgstr "%1 ei ole sobiv kodeering."
+
+#: src/irc/outputfilter.cpp:1663
+#, c-format, kde-format
+msgid ""
+"Usage: %1setkey <nick|channel> <key> sets the encryption key for nick or "
+"channel. %1setkey <key> when in a channel or query tab sets the key for it. "
+"The key field recognizes \"cbc:\" and \"ecb:\" prefixes to set the block "
+"cipher mode of operation to either Cipher-Block Chaining or Electronic "
+"Codebook. The mode it defaults to when no prefix is given can be changed in "
+"the configuration dialog under Behavior -> Connection -> Encryption -> "
+"Default Encryption Type, with the default for that setting being Electronic "
+"Codebook (ECB)."
+msgstr ""
+"Kasutamine: %1setkey <hüüdnimi|kanal> <võti> määrab kasutaja või kanali "
+"krüptovõtme. %1setkey <võti> kanalil või eravestluses viibides määrab võtme "
+"ainult sellele. Võtmeväli tunnustab prefikseid \"cbc:\" ja \"ecb:\", millega "
+"määratakse plokkšifri režiimiks kas šifriplokkide ahel või elektrooniline "
+"koodiraamat. Kui prefiks puudub, kasutatakse vaikimisi esimest võimalust. "
+"Seda saab muuta, kui valida Seadistused->Konversationi seadistamine-"
+">Käitumine->Ühendus->Krüptimine."
+
+#: src/irc/outputfilter.cpp:1681
+#, kde-format
+msgid "The key for %1 has been set."
+msgstr "%1 võti on nüüd määratud."
+
+#: src/irc/outputfilter.cpp:1683 src/irc/outputfilter.cpp:1709
+msgid ""
+"Setting an encryption key requires Konversation to have been built with "
+"support for the Qt Cryptographic Architecture (QCA) library. Contact your "
+"distributor about a Konversation package with QCA support, or rebuild "
+"Konversation with QCA present."
+msgstr ""
+"Krüptovõtme määramine eeldab, et Konversation on paigaldatud Qt "
+"krüptograafiaarhitektuuri (QCA) teegi toega. Võta ühendust oma "
+"distributsiooniga, et nad valmistaksid QCA toetusega paketi, või ehita "
+"Konversation ise ümber."
+
+#: src/irc/outputfilter.cpp:1702
+#, kde-format
+msgid ""
+"Usage: %1keyx <nick|channel> triggers DH1080 key exchange with the target."
+msgstr ""
+"Kasutamine: %1keyx <hüüdnimi|kanal> käivitab DH1080 võtme vahetamise "
+"sihtmärgiga."
+
+#: src/irc/outputfilter.cpp:1707
+#, kde-format
+msgid "Beginning DH1080 key exchange with %1."
+msgstr "DH1080 võtme vahetamise alustamine kasutajaga %1."
+
+#: src/irc/outputfilter.cpp:1727
+#, c-format, kde-format
+msgid ""
+"Usage: %1delkey <nick> or <channel> deletes the encryption key for nick or "
+"channel"
+msgstr ""
+"Kasutamine: %1delkey <kasutaja> või <kanal> kustutab kasutaja või kanali "
+"krüptovõtme"
+
+#: src/irc/outputfilter.cpp:1739
+#, kde-format
+msgid "The key for %1 has been deleted."
+msgstr "%1 võti on nüüd kustutatud."
+
+#: src/irc/outputfilter.cpp:1742 src/irc/outputfilter.cpp:1762
+#, kde-format
+msgid "No key has been set for %1."
+msgstr "%1 võtit ei ole määratud."
+
+#: src/irc/outputfilter.cpp:1759
+#, kde-format
+msgid "The key for %1 is \"%2\"."
+msgstr "%1 võti on \"%2\"."
+
+#: src/irc/outputfilter.cpp:1760
+msgid "Blowfish"
+msgstr "Blowfish"
+
+#: src/irc/outputfilter.cpp:1772
+#, kde-format
+msgid "Usage: %1KILL <nick> [comment]"
+msgstr "Kasutamine: %1KILL <kasutaja> [kommentaar]"
+
+#: src/irc/outputfilter.cpp:1788
+#, kde-format
+msgid "Usage: %1DNS <nick>"
+msgstr "Kasutamine: %1DNS <kasutaja>"
+
+#: src/irc/outputfilter.cpp:1804 src/irc/outputfilter.cpp:1823
+#, kde-format
+msgid "Resolved %1 to: %2"
+msgstr "%1 lahendamine: %2"
+
+#: src/irc/outputfilter.cpp:1808 src/irc/outputfilter.cpp:1827
+#, kde-format
+msgid "Unable to resolve %1"
+msgstr "%1 lahendamine nurjus"
+
+#: src/irc/outputfilter.cpp:1861
+#, c-format, kde-format
+msgid "Usage: %1queuetuner [on | off]"
+msgstr "Kasutamine: %1queuetuner [on | off]"
+
+#: src/konsolepanel.cpp:27 src/viewer/viewcontainer.cpp:2110
+#: src/viewer/viewcontainer.cpp:2111
 msgid "Konsole"
 msgstr "Konsool"
 
@@ -4278,7 +4269,7 @@ msgstr "Sisesta siia võrgu server."
 
 #. i18n: file: src/irc/serverdialogui.ui:43
 #. i18n: ectx: property (text), widget (QLabel, portLbl)
-#: src/quickconnectdialog.cpp:44 rc.cpp:1645
+#: src/quickconnectdialog.cpp:44 rc.cpp:1585
 msgid "&Port:"
 msgstr "&Port:"
 
@@ -4514,7 +4505,7 @@ msgstr "Salvesta logifail"
 msgid "Choose Destination Folder"
 msgstr "Vali sihtkataloog"
 
-#: src/viewer/rawlog.cpp:25 src/viewer/viewcontainer.cpp:2210
+#: src/viewer/rawlog.cpp:25 src/viewer/viewcontainer.cpp:2248
 msgid "Raw Log"
 msgstr "Toorlogi"
 
@@ -4663,7 +4654,7 @@ msgstr "Aseta"
 #. i18n: ectx: property (text), widget (KPushButton, m_editIdentityButton)
 #. i18n: file: src/irc/serverlistdialogui.ui:162
 #. i18n: ectx: property (text), widget (QPushButton, m_editButton)
-#: src/viewer/ircinput.cpp:502 rc.cpp:1669 rc.cpp:1741
+#: src/viewer/ircinput.cpp:502 rc.cpp:1609 rc.cpp:1681
 msgid "&Edit..."
 msgstr "R&edigeeri..."
 
@@ -4696,7 +4687,7 @@ msgid "Open Query"
 msgstr "Ava vestlus"
 
 #: src/viewer/ircview.cpp:1388 src/viewer/topiclabel.cpp:128
-#: src/mainwindow.cpp:422
+#: src/mainwindow.cpp:429
 msgid "&Join Channel..."
 msgstr "Liitu kanali&ga..."
 
@@ -4727,21 +4718,21 @@ msgstr "Liitu kanaliga %1"
 msgid "Edit Multiline Paste"
 msgstr "Redigeeri mitmerealist asetamist"
 
-#: src/viewer/viewcontainer.cpp:212 src/mainwindow.cpp:281
+#: src/viewer/viewcontainer.cpp:212 src/mainwindow.cpp:288
 msgid "Move Tab Up"
 msgstr "Liiguta kaart üles"
 
-#: src/viewer/viewcontainer.cpp:220 src/mainwindow.cpp:292
+#: src/viewer/viewcontainer.cpp:220 src/mainwindow.cpp:299
 msgid "Move Tab Down"
 msgstr "Liiguta kaart alla"
 
-#: src/viewer/viewcontainer.cpp:313 src/mainwindow.cpp:312
-#: src/mainwindow.cpp:324
+#: src/viewer/viewcontainer.cpp:313 src/mainwindow.cpp:319
+#: src/mainwindow.cpp:331
 msgid "Move Tab Left"
 msgstr "Liiguta kaart vasakule"
 
-#: src/viewer/viewcontainer.cpp:321 src/mainwindow.cpp:303
-#: src/mainwindow.cpp:333
+#: src/viewer/viewcontainer.cpp:321 src/mainwindow.cpp:310
+#: src/mainwindow.cpp:340
 msgid "Move Tab Right"
 msgstr "Liiguta kaart paremale"
 
@@ -4759,7 +4750,7 @@ msgid "Channel &List"
 msgstr "Kana&lite nimekiri"
 
 #: src/viewer/viewcontainer.cpp:581 src/mainwindow.cpp:184
-#: src/mainwindow.cpp:734
+#: src/mainwindow.cpp:741
 msgid "&Open Logfile"
 msgstr "&Ava logifail"
 
@@ -4777,44 +4768,44 @@ msgstr "&Kanali valikud %1 jaoks..."
 msgid "&Channel Settings..."
 msgstr "&Kanali seadistused..."
 
-#: src/viewer/viewcontainer.cpp:1605
+#: src/viewer/viewcontainer.cpp:1643
 msgid "Rename Tab"
 msgstr "Kaardi ümbernimetamine"
 
-#: src/viewer/viewcontainer.cpp:1606
+#: src/viewer/viewcontainer.cpp:1644
 msgid "Enter new tab name:"
 msgstr "Uus kaardi nimi:"
 
-#: src/viewer/viewcontainer.cpp:1678
+#: src/viewer/viewcontainer.cpp:1716
 #, kde-format
 msgctxt "Default encoding"
 msgid "Default ( %1 )"
 msgstr "Vaikimisi ( %1 )"
 
-#: src/viewer/viewcontainer.cpp:1712
+#: src/viewer/viewcontainer.cpp:1750
 msgid "&Rename Tab..."
 msgstr "Nimeta kaa&rt ümber..."
 
-#: src/viewer/viewcontainer.cpp:1868
+#: src/viewer/viewcontainer.cpp:1906
 msgid "You can only search in text fields."
 msgstr "Otsida saab ikka ainult teksti."
 
-#: src/viewer/viewcontainer.cpp:1869
+#: src/viewer/viewcontainer.cpp:1907
 msgid "Find Text Information"
 msgstr "Teksti otsimise info"
 
-#: src/viewer/viewcontainer.cpp:2063
+#: src/viewer/viewcontainer.cpp:2101
 #, kde-format
 msgid "Logfile of %1"
 msgstr "%1 logifail"
 
 #. i18n: file: src/urlcatcherui.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, URLCatcherUI)
-#: src/viewer/viewcontainer.cpp:2084 src/urlcatcher.cpp:148 rc.cpp:1894
+#: src/viewer/viewcontainer.cpp:2122 src/urlcatcher.cpp:148 rc.cpp:1891
 msgid "URL Catcher"
 msgstr "URL püüdja"
 
-#: src/viewer/viewcontainer.cpp:2454
+#: src/viewer/viewcontainer.cpp:2492
 msgid ""
 "Using this function may result in a lot of network traffic. If your "
 "connection is not fast enough, it is possible that your client will be "
@@ -4824,11 +4815,11 @@ msgstr ""
 "pole piisavalt kiiret ühendust, on võimalik, et sinu klient lendab serverist "
 "välja!"
 
-#: src/viewer/viewcontainer.cpp:2458
+#: src/viewer/viewcontainer.cpp:2496
 msgid "Channel List Warning"
 msgstr "Kanalite nimekirja hoiatus"
 
-#: src/viewer/viewcontainer.cpp:2482
+#: src/viewer/viewcontainer.cpp:2520
 msgid ""
 "To know which server to display the channel list for, the list can only be "
 "opened from a query, channel or status window."
@@ -4854,12 +4845,6 @@ msgid "Open link in external browser."
 msgstr "Lingi avamine välises veebilehitsejas."
 
 #: src/urlcatcher.cpp:156
-#, fuzzy
-#| msgid ""
-#| "<p>Select a <b>URL</b> above, then click this button to launch the "
-#| "application associated with the mimetype of the URL.</p>\n"
-#| "<p>In the <b>Settings</b>, under <b>Behavior</b> | <b>General</b>, you "
-#| "can specify a custom web browser for web URLs.</p>"
 msgid ""
 "<p>Select a <b>URL</b> above, then click this button to launch the "
 "application associated with the mimetype of the URL.</p>-<p>In the "
@@ -4867,9 +4852,9 @@ msgid ""
 "custom web browser for web URLs.</p>"
 msgstr ""
 "<p>Vali ülal <b>URL</b> ja klõpsa sellele nupule rakenduse käivitamiseks, "
-"mis on seotud antud URL-i MIME tüübiga.</p>\n"
-"<p>Seadistused</b> | <b>Käitumine</b> | <b>Üldine</b> võimaldab määrata "
-"veebi-URL-idele kohandatud veebilehitseja.</p>"
+"mis on seotud antud URL-i MIME tüübiga.</p>-<p><b>Seadistused</b> | "
+"<b>Käitumine</b> | <b>Üldine</b> võimaldab määrata veebi-URL-idele "
+"kohandatud veebilehitseja.</p>"
 
 #: src/urlcatcher.cpp:158
 msgid "&Save..."
@@ -4995,82 +4980,6 @@ msgstr "värvid pole lubatud"
 #: src/common.cpp:48
 msgid "user throttling"
 msgstr "ülekande ahendamine"
-
-#: src/notificationhandler.cpp:89 src/notificationhandler.cpp:335
-#, kde-format
-msgid "[HighLight] (%1) &lt;%2&gt; %3"
-msgstr "[Esiletõst] (%1) &lt;%2&gt; %3"
-
-#: src/notificationhandler.cpp:114
-#, kde-format
-msgid "[Query] &lt;%1&gt; %2"
-msgstr "[Vestlus] &lt;%1&gt; %2"
-
-#: src/notificationhandler.cpp:139 src/notificationhandler.cpp:146
-#, kde-format
-msgid "%1 joined %2"
-msgstr "%1 liitus kanaliga %2"
-
-#: src/notificationhandler.cpp:158 src/notificationhandler.cpp:165
-#, kde-format
-msgid "%1 parted %2"
-msgstr "%1 lahkus kanalilt %2"
-
-#: src/notificationhandler.cpp:177
-#, kde-format
-msgid "%1 quit %2"
-msgstr "%1 väljus kanalilt %2"
-
-#: src/notificationhandler.cpp:188
-#, kde-format
-msgid "%1 changed nickname to %2"
-msgstr "%1 võttis hüüdnimeks %2"
-
-#: src/notificationhandler.cpp:199
-#, kde-format
-msgid "%1 wants to send a file to you"
-msgstr "%1 soovib sulle faili saata"
-
-#: src/notificationhandler.cpp:210
-#, kde-format
-msgid "An Error has occurred in a DCC transfer: %1"
-msgstr "DCC ülekandel tekkis viga: %1"
-
-#: src/notificationhandler.cpp:221
-#, kde-format
-msgctxt "%1 - filename"
-msgid "%1 File Transfer is complete"
-msgstr "%1 ülekanne on valmis"
-
-#: src/notificationhandler.cpp:247
-#, kde-format
-msgid "%1 has started a conversation (query) with you."
-msgstr "%1 alustas sinuga vestlust."
-
-#: src/notificationhandler.cpp:288
-#, kde-format
-msgid "You are kicked by %1 from %2"
-msgstr "%1 viskas sind välja kanalilt %2"
-
-#: src/notificationhandler.cpp:302
-#, kde-format
-msgid "%1 started a dcc chat with you"
-msgstr "%1 alustas sinuga DCC vestlust"
-
-#: src/notificationhandler.cpp:332
-#, kde-format
-msgid "[HighLight] (%1) *** %2"
-msgstr "[Esiletõst] (%1) *** %2"
-
-#: src/notificationhandler.cpp:345
-#, kde-format
-msgid "Failed to connect to %1"
-msgstr "Ühendumine %1-ga nurjus"
-
-#: src/notificationhandler.cpp:358
-#, kde-format
-msgid "You have joined %1."
-msgstr "Sa ühinesid kanaliga %1."
 
 #: src/dbus.cpp:144
 #, kde-format
@@ -5481,11 +5390,11 @@ msgstr "Mitmed veaparandused ja täiustused."
 
 #: src/main.cpp:83
 msgid "Martin Blumenstingl"
-msgstr ""
+msgstr "Martin Blumenstingl"
 
 #: src/main.cpp:83
 msgid "KStatusNotifierItem support, KIdleTime support, other enhancements"
-msgstr ""
+msgstr "KStatusNotifierItemi toetus, KIdleTime'i toetus, muud parandused"
 
 #: src/main.cpp:87
 msgid "irc:// URL or server hostname"
@@ -5571,7 +5480,7 @@ msgstr "Identiteedi kustutamine"
 #. i18n: ectx: property (toolTip), widget (QToolButton, m_removeServerButton)
 #. i18n: file: src/irc/servergroupdialogui.ui:238
 #. i18n: ectx: property (toolTip), widget (QToolButton, m_removeChannelButton)
-#: src/identitydialog.cpp:239 rc.cpp:1696 rc.cpp:1711
+#: src/identitydialog.cpp:239 rc.cpp:1636 rc.cpp:1651
 msgid "Delete"
 msgstr "Kustuta"
 
@@ -5586,6 +5495,82 @@ msgstr "Identiteedile tuleb lisada vähemalt üks hüüdnimi."
 #: src/identitydialog.cpp:305
 msgid "Please enter a real name."
 msgstr "Palun anna tegelik nimi."
+
+#: src/notificationhandler.cpp:89 src/notificationhandler.cpp:335
+#, kde-format
+msgid "[HighLight] (%1) &lt;%2&gt; %3"
+msgstr "[Esiletõst] (%1) &lt;%2&gt; %3"
+
+#: src/notificationhandler.cpp:114
+#, kde-format
+msgid "[Query] &lt;%1&gt; %2"
+msgstr "[Vestlus] &lt;%1&gt; %2"
+
+#: src/notificationhandler.cpp:139 src/notificationhandler.cpp:146
+#, kde-format
+msgid "%1 joined %2"
+msgstr "%1 liitus kanaliga %2"
+
+#: src/notificationhandler.cpp:158 src/notificationhandler.cpp:165
+#, kde-format
+msgid "%1 parted %2"
+msgstr "%1 lahkus kanalilt %2"
+
+#: src/notificationhandler.cpp:177
+#, kde-format
+msgid "%1 quit %2"
+msgstr "%1 väljus kanalilt %2"
+
+#: src/notificationhandler.cpp:188
+#, kde-format
+msgid "%1 changed nickname to %2"
+msgstr "%1 võttis hüüdnimeks %2"
+
+#: src/notificationhandler.cpp:199
+#, kde-format
+msgid "%1 wants to send a file to you"
+msgstr "%1 soovib sulle faili saata"
+
+#: src/notificationhandler.cpp:210
+#, kde-format
+msgid "An Error has occurred in a DCC transfer: %1"
+msgstr "DCC ülekandel tekkis viga: %1"
+
+#: src/notificationhandler.cpp:221
+#, kde-format
+msgctxt "%1 - filename"
+msgid "%1 File Transfer is complete"
+msgstr "%1 ülekanne on valmis"
+
+#: src/notificationhandler.cpp:247
+#, kde-format
+msgid "%1 has started a conversation (query) with you."
+msgstr "%1 alustas sinuga vestlust."
+
+#: src/notificationhandler.cpp:288
+#, kde-format
+msgid "You are kicked by %1 from %2"
+msgstr "%1 viskas sind välja kanalilt %2"
+
+#: src/notificationhandler.cpp:302
+#, kde-format
+msgid "%1 started a dcc chat with you"
+msgstr "%1 alustas sinuga DCC vestlust"
+
+#: src/notificationhandler.cpp:332
+#, kde-format
+msgid "[HighLight] (%1) *** %2"
+msgstr "[Esiletõst] (%1) *** %2"
+
+#: src/notificationhandler.cpp:345
+#, kde-format
+msgid "Failed to connect to %1"
+msgstr "Ühendumine %1-ga nurjus"
+
+#: src/notificationhandler.cpp:358
+#, kde-format
+msgid "You have joined %1."
+msgstr "Sa ühinesid kanaliga %1."
 
 #: src/mainwindow.cpp:126
 msgid "&Server List..."
@@ -5676,99 +5661,103 @@ msgid "Close &Tab"
 msgstr "&Sulge kaart"
 
 #: src/mainwindow.cpp:272
+msgid "Last Focused Tab"
+msgstr ""
+
+#: src/mainwindow.cpp:279
 msgid "Next Active Tab"
 msgstr "Järgmine aktiivne kaart"
 
-#: src/mainwindow.cpp:347
+#: src/mainwindow.cpp:354
 msgid "Rejoin Channel"
 msgstr "Liitu kanaliga uuesti"
 
-#: src/mainwindow.cpp:353 src/mainwindow.cpp:740
+#: src/mainwindow.cpp:360 src/mainwindow.cpp:747
 msgid "Enable Notifications"
 msgstr "Luba märguanded"
 
-#: src/mainwindow.cpp:359
+#: src/mainwindow.cpp:366
 msgid "Join on Connect"
 msgstr "Liitu ühendumisel"
 
-#: src/mainwindow.cpp:364
+#: src/mainwindow.cpp:371
 msgid "Default"
 msgstr "Vaikimisi"
 
-#: src/mainwindow.cpp:369
+#: src/mainwindow.cpp:376
 msgid "Set Encoding"
 msgstr "Määra kodeering"
 
-#: src/mainwindow.cpp:381
+#: src/mainwindow.cpp:388
 #, kde-format
 msgid "Go to Tab %1"
 msgstr "Mine kaardile %1"
 
-#: src/mainwindow.cpp:390
+#: src/mainwindow.cpp:397
 msgid "Clear &Marker Lines"
 msgstr "&Puhasta meelespidamisread"
 
-#: src/mainwindow.cpp:393
+#: src/mainwindow.cpp:400
 msgid "Clear marker lines in the current tab"
 msgstr "Aktiivse kaardi puhastamine meelespidamisridadest"
 
-#: src/mainwindow.cpp:398
+#: src/mainwindow.cpp:405
 msgid "&Clear Window"
 msgstr "&Puhasta aken"
 
-#: src/mainwindow.cpp:401
+#: src/mainwindow.cpp:408
 msgid "Clear the contents of the current tab"
 msgstr "Aktiivse akna sisu puhastamine"
 
-#: src/mainwindow.cpp:406
+#: src/mainwindow.cpp:413
 msgid "Clear &All Windows"
 msgstr "Pu&hasta kõik aknad"
 
-#: src/mainwindow.cpp:409
+#: src/mainwindow.cpp:416
 msgid "Clear the contents of all open tabs"
 msgstr "Kõigi avatud akende sisu puhastamine"
 
-#: src/mainwindow.cpp:414
+#: src/mainwindow.cpp:421
 msgid "Global Away"
 msgstr "Globaalne eemalolek"
 
-#: src/mainwindow.cpp:438 src/mainwindow.cpp:742
+#: src/mainwindow.cpp:445 src/mainwindow.cpp:749
 msgid "&IRC Color..."
 msgstr "Lisa &IRC värv..."
 
-#: src/mainwindow.cpp:442
+#: src/mainwindow.cpp:449
 msgid "Set the color of your current IRC message"
 msgstr "Määrab sinu praeguse IRC sõnumi värvi."
 
-#: src/mainwindow.cpp:447 src/mainwindow.cpp:744
+#: src/mainwindow.cpp:454 src/mainwindow.cpp:751
 msgid "&Marker Line"
 msgstr "&Meelespidamisrida"
 
-#: src/mainwindow.cpp:450
+#: src/mainwindow.cpp:457
 msgid "Insert a horizontal line into the current tab that only you can see"
 msgstr "Lisab aktiivsel kaardil ainult sulle nähtava rõhtjoone"
 
-#: src/mainwindow.cpp:455 src/mainwindow.cpp:743
+#: src/mainwindow.cpp:462 src/mainwindow.cpp:750
 msgid "Special &Character..."
 msgstr "Lisa erisüm&bol..."
 
-#: src/mainwindow.cpp:459
+#: src/mainwindow.cpp:466
 msgid "Insert any character into your current IRC message"
 msgstr "Lisab mis tahes sümboli sinu praegusesse IRC sõnumisse"
 
-#: src/mainwindow.cpp:464
+#: src/mainwindow.cpp:471
 msgid "Close &All Open Queries"
 msgstr "S&ulge kõik avatud vestlused"
 
-#: src/mainwindow.cpp:473
+#: src/mainwindow.cpp:480
 msgid "Show Nicklist"
 msgstr "Näita hüüdnimede nimekirja"
 
-#: src/mainwindow.cpp:479
+#: src/mainwindow.cpp:486
 msgid "Bookmarks"
 msgstr "Järjehoidjad"
 
-#: src/mainwindow.cpp:530
+#: src/mainwindow.cpp:537
 msgid ""
 "<qt>You have active DCC file transfers. Are you sure you want to quit "
 "<b>Konversation</b>?</qt>"
@@ -5776,15 +5765,15 @@ msgstr ""
 "<qt>Sul on pooleli DCC failiülekanne. Kas tõesti soovid <b>Konversationist</"
 "b> väljuda?</qt>"
 
-#: src/mainwindow.cpp:531 src/mainwindow.cpp:541
+#: src/mainwindow.cpp:538 src/mainwindow.cpp:548
 msgid "Confirm Quit"
 msgstr "Väljumise kinnitus"
 
-#: src/mainwindow.cpp:540
+#: src/mainwindow.cpp:547
 msgid "<qt>Are you sure you want to quit <b>Konversation</b>?</qt>"
 msgstr "<qt>Kas tõesti soovid <b>Konversationist</b> väljuda?</qt>"
 
-#: src/mainwindow.cpp:573
+#: src/mainwindow.cpp:580
 msgid ""
 "<p>Closing the main window will keep Konversation running in the system "
 "tray. Use <b>Quit</b> from the <b>Konversation</b> menu to quit the "
@@ -5794,11 +5783,11 @@ msgstr ""
 "Rakendusest väljumiseks kasuta menüüs <b>Konversation</b> leiduvat käsku "
 "<b>Välju</b>.</p>"
 
-#: src/mainwindow.cpp:575
+#: src/mainwindow.cpp:582
 msgid "Docking in System Tray"
 msgstr "Dokkimine süsteemsesse salve"
 
-#: src/mainwindow.cpp:691
+#: src/mainwindow.cpp:698
 #, kde-format
 msgid ""
 "<qt>This will hide the menu bar completely. You can show it again by typing %"
@@ -5806,35 +5795,35 @@ msgid ""
 msgstr ""
 "<qt>See peidab üldse menüüriba. Seda saab näha uuesti, kui kirjutada %1.</qt>"
 
-#: src/mainwindow.cpp:726
+#: src/mainwindow.cpp:733
 msgid "Toggle Notifications"
 msgstr "Märguannete lülitamine"
 
-#: src/mainwindow.cpp:727
+#: src/mainwindow.cpp:734
 msgid "Toggle Away Globally"
 msgstr "Glo&baalse eemaloleku lülitamine"
 
-#: src/mainwindow.cpp:728
+#: src/mainwindow.cpp:735
 msgid "Insert &IRC Color..."
 msgstr "Lisa &IRC värv..."
 
-#: src/mainwindow.cpp:729
+#: src/mainwindow.cpp:736
 msgid "Insert Special &Character..."
 msgstr "Lisa erisüm&bol..."
 
-#: src/mainwindow.cpp:730
+#: src/mainwindow.cpp:737
 msgid "Insert &Marker Line"
 msgstr "Lisa &meelespidamisrida"
 
-#: src/mainwindow.cpp:732
+#: src/mainwindow.cpp:739
 msgid "&Channel List"
 msgstr "Ka&nalite nimekiri"
 
-#: src/mainwindow.cpp:741
+#: src/mainwindow.cpp:748
 msgid "Set &Away Globally"
 msgstr "Määra glo&baalselt eemalolevaks"
 
-#: src/mainwindow.cpp:753
+#: src/mainwindow.cpp:760
 msgid "Server List"
 msgstr "Serverite nimekiri"
 
@@ -5958,7 +5947,7 @@ msgstr "Otsitav:"
 #. i18n: ectx: property (text), widget (KPushButton, patternButton)
 #. i18n: file: src/irc/invitedialog.ui:23
 #. i18n: ectx: property (text), widget (QLabel, m_iconLabel)
-#: rc.cpp:53 rc.cpp:492 rc.cpp:1612
+#: rc.cpp:53 rc.cpp:492 rc.cpp:1552
 msgid "..."
 msgstr "..."
 
@@ -7048,7 +7037,7 @@ msgstr "T&eksti värv:"
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
 #. i18n: file: src/viewer/irccolorchooserui.ui:126
 #. i18n: ectx: property (text), widget (QLabel, m_bgColorLbl)
-#: rc.cpp:936 rc.cpp:1951
+#: rc.cpp:936 rc.cpp:1948
 msgid "&Background color:"
 msgstr "Tausta &värv:"
 
@@ -7608,10 +7597,8 @@ msgstr "Lõ&petamise režiim:"
 #. i18n: file: src/config/generalbehavior_configui.ui:131
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_NickCompletionMode)
 #: rc.cpp:1222
-#, fuzzy
-#| msgid "Online Since:"
 msgid "Inline Cycle"
-msgstr "Võrgus alates:"
+msgstr "Reasisene läbikerimine"
 
 #. i18n: file: src/config/generalbehavior_configui.ui:136
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_NickCompletionMode)
@@ -8246,7 +8233,7 @@ msgstr "Kasutaja katkestas ühenduse"
 #. i18n: ectx: property (text), widget (QLabel, passwordLbl)
 #. i18n: file: src/irc/serverdialogui.ui:75
 #. i18n: ectx: property (text), widget (QLabel, passwordLbl)
-#: rc.cpp:1507 rc.cpp:1651
+#: rc.cpp:1507 rc.cpp:1591
 msgid "Pass&word:"
 msgstr "Pa&rool:"
 
@@ -8254,7 +8241,7 @@ msgstr "Pa&rool:"
 #. i18n: ectx: property (text), widget (QLabel, channelLbl)
 #. i18n: file: src/irc/joinchannelui.ui:26
 #. i18n: ectx: property (text), widget (QLabel, channelLabel)
-#: rc.cpp:1510 rc.cpp:1630
+#: rc.cpp:1510 rc.cpp:1570
 msgid "C&hannel:"
 msgstr "&Kanal:"
 
@@ -8346,125 +8333,9 @@ msgstr ""
 "Kanalite nimekirja saab piirata nende kanalitega, millel on vähem kui "
 "siinmääratud arv kasutajaid. 0 tähendab selle kriteeriumi mittearvestamist."
 
-#. i18n: file: src/irc/channeloptionsui.ui:27
-#. i18n: ectx: attribute (title), widget (QWidget, topicTab)
-#: rc.cpp:1552
-msgid "Topi&c"
-msgstr "Tee&ma"
-
-#. i18n: file: src/irc/channeloptionsui.ui:74
-#. i18n: ectx: attribute (title), widget (QWidget, modesPage)
-#: rc.cpp:1555
-msgid "Mo&des"
-msgstr "Režiimi&d"
-
-#. i18n: file: src/irc/channeloptionsui.ui:80
-#. i18n: ectx: property (text), widget (QCheckBox, topicModeChBox)
-#: rc.cpp:1558
-msgid "&Topic can only be changed by channel operators"
-msgstr "&Teemat saab muuta ainult kanali operaator."
-
-#. i18n: file: src/irc/channeloptionsui.ui:87
-#. i18n: ectx: property (text), widget (QCheckBox, messageModeChBox)
-#: rc.cpp:1561
-msgid "&No messages from outside the channel"
-msgstr "Väljaspoolt ka&nalit teateid ei lubata"
-
-#. i18n: file: src/irc/channeloptionsui.ui:94
-#. i18n: ectx: property (text), widget (QCheckBox, secretModeChBox)
-#: rc.cpp:1564
-msgid "&Secret channel, the channel is not listed in the channel list"
-msgstr "&Salajane kanal, ei näidata kanalite nimekirjas"
-
-#. i18n: file: src/irc/channeloptionsui.ui:101
-#. i18n: ectx: property (text), widget (QCheckBox, inviteModeChBox)
-#: rc.cpp:1567
-msgid "Only &invited are allowed to join the channel"
-msgstr "A&inult kutsetega kanal"
-
-#. i18n: file: src/irc/channeloptionsui.ui:108
-#. i18n: ectx: property (text), widget (QCheckBox, moderatedModeChBox)
-#: rc.cpp:1570
-msgid "&Moderated channel, only people with voice can write to the channel"
-msgstr "&Modereeritav kanal, kus saavad suhelda ainult häälega kasutajad"
-
-#. i18n: file: src/irc/channeloptionsui.ui:115
-#. i18n: ectx: property (text), widget (QCheckBox, userLimitChBox)
-#: rc.cpp:1573
-msgid "User &limit:"
-msgstr "Kasutajate &limiit:"
-
-#. i18n: file: src/irc/channeloptionsui.ui:148
-#. i18n: ectx: property (text), widget (QCheckBox, keyModeChBox)
-#: rc.cpp:1576
-msgid "Channel &password:"
-msgstr "Kanali &parool:"
-
-#. i18n: file: src/irc/channeloptionsui.ui:162
-#. i18n: ectx: property (text), widget (QPushButton, toggleAdvancedModes)
-#: rc.cpp:1579
-msgid "Show &Advanced Modes >>"
-msgstr "Näit&a muid režiime >>"
-
-#. i18n: file: src/irc/channeloptionsui.ui:165
-#. i18n: ectx: property (shortcut), widget (QPushButton, toggleAdvancedModes)
-#: rc.cpp:1582
-msgid "Alt+A, Backspace, Tab, Backspace"
-msgstr "Alt+A, Backspace, Tab, Backspace"
-
-#. i18n: file: src/irc/channeloptionsui.ui:215
-#. i18n: ectx: attribute (title), widget (QWidget, TabPage)
-#: rc.cpp:1585
-msgid "&Ban List"
-msgstr "&Pagendusnimekiri"
-
-#. i18n: file: src/irc/channeloptionsui.ui:229
-#. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#. i18n: file: src/urlcatcherui.ui:42
-#. i18n: ectx: property (text), widget (QLabel, m_searchLbl)
-#: rc.cpp:1588 rc.cpp:1897
-msgid "Search:"
-msgstr "Otsing:"
-
-#. i18n: file: src/irc/channeloptionsui.ui:251
-#. i18n: ectx: property (text), widget (QTreeWidget, banList)
-#: rc.cpp:1591
-msgid "Hostmask"
-msgstr "Masinamask"
-
-#. i18n: file: src/irc/channeloptionsui.ui:256
-#. i18n: ectx: property (text), widget (QTreeWidget, banList)
-#: rc.cpp:1594
-msgid "Set By"
-msgstr "Määras"
-
-#. i18n: file: src/irc/channeloptionsui.ui:261
-#. i18n: ectx: property (text), widget (QTreeWidget, banList)
-#: rc.cpp:1597
-msgid "Time Set"
-msgstr "Määramise aeg"
-
-#. i18n: file: src/irc/channeloptionsui.ui:284
-#. i18n: ectx: property (toolTip), widget (QPushButton, updateBan)
-#: rc.cpp:1603
-msgid "Update Ban"
-msgstr "Uuenda pagendust"
-
-#. i18n: file: src/irc/channeloptionsui.ui:303
-#. i18n: ectx: property (toolTip), widget (QPushButton, addBan)
-#: rc.cpp:1606
-msgid "Add Ban"
-msgstr "Kehtesta pagendus"
-
-#. i18n: file: src/irc/channeloptionsui.ui:322
-#. i18n: ectx: property (toolTip), widget (QPushButton, removeBan)
-#: rc.cpp:1609
-msgid "Remove Ban"
-msgstr "Lõpeta pagendus"
-
 #. i18n: file: src/irc/invitedialog.ui:33
 #. i18n: ectx: property (text), widget (QLabel, m_textLabel)
-#: rc.cpp:1615
+#: rc.cpp:1555
 msgid ""
 "You have received invites for the following channels. Select the channels "
 "you want to join:"
@@ -8472,56 +8343,56 @@ msgstr "Said kutsed järgmistele kanalitele, vali, millistega soovid liituda:"
 
 #. i18n: file: src/irc/invitedialog.ui:44
 #. i18n: ectx: property (text), item, widget (KComboBox, m_joinPreferences)
-#: rc.cpp:1618
+#: rc.cpp:1558
 msgid "Always Ask"
 msgstr "Alati küsitakse"
 
 #. i18n: file: src/irc/invitedialog.ui:49
 #. i18n: ectx: property (text), item, widget (KComboBox, m_joinPreferences)
-#: rc.cpp:1621
+#: rc.cpp:1561
 msgid "Always Join"
 msgstr "Alati ühendatakse"
 
 #. i18n: file: src/irc/invitedialog.ui:54
 #. i18n: ectx: property (text), item, widget (KComboBox, m_joinPreferences)
-#: rc.cpp:1624
+#: rc.cpp:1564
 msgid "Always Ignore"
 msgstr "Alati eiratakse"
 
 #. i18n: file: src/irc/invitedialog.ui:78
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: rc.cpp:1627
+#: rc.cpp:1567
 msgid "From now on:"
 msgstr "Praegusest hetkest alates:"
 
 #. i18n: file: src/irc/joinchannelui.ui:59
 #. i18n: ectx: property (text), widget (QLabel, passwordLabel)
-#: rc.cpp:1633
+#: rc.cpp:1573
 msgid "&Password:"
 msgstr "P&arool:"
 
 #. i18n: file: src/irc/joinchannelui.ui:81
 #. i18n: ectx: property (text), widget (QLabel, textLabel8)
-#: rc.cpp:1636
+#: rc.cpp:1576
 msgid "Connection:"
 msgstr "Ühendus:"
 
 #. i18n: file: src/irc/serverdialogui.ui:23
 #. i18n: ectx: property (text), widget (QLabel, serverLbl)
-#: rc.cpp:1639
+#: rc.cpp:1579
 msgid "&Server:"
 msgstr "&Server:"
 
 #. i18n: file: src/irc/serverdialogui.ui:36
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, m_serverEdit)
-#: rc.cpp:1642
+#: rc.cpp:1582
 msgid ""
 "The name or IP number of the server. irchelp.org maintains a list of servers."
 msgstr "Serveri nimi või IP-aadress. Serverite nimekirja haldab irchelp.org."
 
 #. i18n: file: src/irc/serverdialogui.ui:53
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, m_portSBox)
-#: rc.cpp:1648
+#: rc.cpp:1588
 msgid ""
 "Enter the port number required to connect to the server. For most servers, "
 "this should be <b>6667</b>."
@@ -8531,7 +8402,7 @@ msgstr ""
 
 #. i18n: file: src/irc/serverdialogui.ui:95
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_sslChBox)
-#: rc.cpp:1654
+#: rc.cpp:1594
 msgid ""
 "Check if you want to use the Secure Socket Layer (SSL) protocol to "
 "communicate with the server. This protects the privacy of your "
@@ -8546,25 +8417,25 @@ msgstr ""
 
 #. i18n: file: src/irc/serverdialogui.ui:98
 #. i18n: ectx: property (text), widget (QCheckBox, m_sslChBox)
-#: rc.cpp:1657
+#: rc.cpp:1597
 msgid "S&ecure Connection (SSL)"
 msgstr "Turvalin&e ühendus (SSL)"
 
 #. i18n: file: src/irc/servergroupdialogui.ui:20
 #. i18n: ectx: property (text), widget (QLabel, m_networkLabel)
-#: rc.cpp:1660
+#: rc.cpp:1600
 msgid "Network name:"
 msgstr "Võrgu nimi:"
 
 #. i18n: file: src/irc/servergroupdialogui.ui:36
 #. i18n: ectx: property (text), widget (QLabel, m_identityLabel)
-#: rc.cpp:1663
+#: rc.cpp:1603
 msgid "Identity:"
 msgstr "Identiteet:"
 
 #. i18n: file: src/irc/servergroupdialogui.ui:58
 #. i18n: ectx: property (whatsThis), widget (KComboBox, m_identityCBox)
-#: rc.cpp:1666
+#: rc.cpp:1606
 msgid ""
 "Choose an existing Identity or click the Edit button to add a new Identity "
 "or edit an existing one. The Identity will identify you and determine your "
@@ -8576,13 +8447,13 @@ msgstr ""
 
 #. i18n: file: src/irc/servergroupdialogui.ui:78
 #. i18n: ectx: property (text), widget (QLabel, m_commandsLabel)
-#: rc.cpp:1672
+#: rc.cpp:1612
 msgid "Commands:"
 msgstr "Käsud:"
 
 #. i18n: file: src/irc/servergroupdialogui.ui:94
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, m_commandEdit)
-#: rc.cpp:1675
+#: rc.cpp:1615
 msgid ""
 "<qt>Optional. This command will be sent to the server after connecting. "
 "Example: <b>/msg NickServ IDENTIFY <i>konvirocks</i></b>. This example is "
@@ -8600,7 +8471,7 @@ msgstr ""
 
 #. i18n: file: src/irc/servergroupdialogui.ui:101
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_autoConnectCBox)
-#: rc.cpp:1678
+#: rc.cpp:1618
 msgid ""
 "Check here if you want Konversation to automatically connect to this network "
 "whenever you open Konversation."
@@ -8610,19 +8481,19 @@ msgstr ""
 
 #. i18n: file: src/irc/servergroupdialogui.ui:104
 #. i18n: ectx: property (text), widget (QCheckBox, m_autoConnectCBox)
-#: rc.cpp:1681
+#: rc.cpp:1621
 msgid "Co&nnect on application start up"
 msgstr "Ühendumine rakenduse käivit&amisel"
 
 #. i18n: file: src/irc/servergroupdialogui.ui:111
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: rc.cpp:1684
+#: rc.cpp:1624
 msgid "Servers"
 msgstr "Serverid"
 
 #. i18n: file: src/irc/servergroupdialogui.ui:120
 #. i18n: ectx: property (whatsThis), widget (KListWidget, m_serverLBox)
-#: rc.cpp:1687
+#: rc.cpp:1627
 msgid ""
 "This is a list of IRC Servers in the network. When connecting to the "
 "network, Konversation will attempt to connect to the top server first. If "
@@ -8637,25 +8508,25 @@ msgstr ""
 
 #. i18n: file: src/irc/servergroupdialogui.ui:127
 #. i18n: ectx: property (text), widget (KPushButton, m_addServerButton)
-#: rc.cpp:1690
+#: rc.cpp:1630
 msgid "&Add..."
 msgstr "Lis&a..."
 
 #. i18n: file: src/irc/servergroupdialogui.ui:137
 #. i18n: ectx: property (text), widget (KPushButton, m_changeServerButton)
-#: rc.cpp:1693
+#: rc.cpp:1633
 msgid "E&dit..."
 msgstr "&Muuda..."
 
 #. i18n: file: src/irc/servergroupdialogui.ui:202
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
-#: rc.cpp:1699
+#: rc.cpp:1639
 msgid "Auto Join Channels"
 msgstr "Automaatne liitumine kanalitega"
 
 #. i18n: file: src/irc/servergroupdialogui.ui:211
 #. i18n: ectx: property (whatsThis), widget (KListWidget, m_channelLBox)
-#: rc.cpp:1702
+#: rc.cpp:1642
 msgid ""
 "Optional. This is a list of the channels that will be automatically joined "
 "once Konversation has connected to a server. You may leave this blank if you "
@@ -8667,19 +8538,19 @@ msgstr ""
 
 #. i18n: file: src/irc/servergroupdialogui.ui:218
 #. i18n: ectx: property (text), widget (KPushButton, m_addChannelButton)
-#: rc.cpp:1705
+#: rc.cpp:1645
 msgid "Add..."
 msgstr "Lisa..."
 
 #. i18n: file: src/irc/servergroupdialogui.ui:228
 #. i18n: ectx: property (text), widget (KPushButton, m_changeChannelButton)
-#: rc.cpp:1708
+#: rc.cpp:1648
 msgid "Ed&it..."
 msgstr "M&uuda..."
 
 #. i18n: file: src/irc/servergroupdialogui.ui:293
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, m_nameEdit)
-#: rc.cpp:1714
+#: rc.cpp:1654
 msgid ""
 "Enter the name of the Network here. You may create as many entries in the "
 "Server List screen with the same Network as you like."
@@ -8689,13 +8560,13 @@ msgstr ""
 
 #. i18n: file: src/irc/serverlistdialogui.ui:17
 #. i18n: ectx: property (text), widget (QCheckBox, m_showAtStartup)
-#: rc.cpp:1717
+#: rc.cpp:1657
 msgid "&Show at application startup"
 msgstr "&Näitamine rakenduse käivitamisel"
 
 #. i18n: file: src/irc/serverlistdialogui.ui:36
 #. i18n: ectx: property (whatsThis), widget (ServerListView, m_serverList)
-#: rc.cpp:1720
+#: rc.cpp:1660
 msgid ""
 "This shows the list of configured IRC networks. An IRC network is a "
 "collection of cooperating servers. You need only connect to one of the "
@@ -8713,25 +8584,25 @@ msgstr ""
 
 #. i18n: file: src/irc/serverlistdialogui.ui:97
 #. i18n: ectx: property (text), widget (ServerListView, m_serverList)
-#: rc.cpp:1723
+#: rc.cpp:1663
 msgid "Network"
 msgstr "Võrk"
 
 #. i18n: file: src/irc/serverlistdialogui.ui:102
 #. i18n: ectx: property (text), widget (ServerListView, m_serverList)
-#: rc.cpp:1726
+#: rc.cpp:1666
 msgid "Identity"
 msgstr "Identiteet"
 
 #. i18n: file: src/irc/serverlistdialogui.ui:107
 #. i18n: ectx: property (text), widget (ServerListView, m_serverList)
-#: rc.cpp:1729
+#: rc.cpp:1669
 msgid "Channels"
 msgstr "Kanalid"
 
 #. i18n: file: src/irc/serverlistdialogui.ui:121
 #. i18n: ectx: property (whatsThis), widget (QPushButton, m_addButton)
-#: rc.cpp:1732
+#: rc.cpp:1672
 msgid ""
 "Click here to define a new Network, including the server to connect to, and "
 "the Channels to automatically join once connected."
@@ -8741,55 +8612,165 @@ msgstr ""
 
 #. i18n: file: src/irc/serverlistdialogui.ui:124
 #. i18n: ectx: property (text), widget (QPushButton, m_addButton)
-#: rc.cpp:1735
+#: rc.cpp:1675
 msgid "&New..."
 msgstr "&Uus..."
 
 #. i18n: file: src/irc/serverlistdialogui.ui:146
 #. i18n: ectx: property (text), widget (QPushButton, m_delButton)
-#: rc.cpp:1738
+#: rc.cpp:1678
 msgid "&Delete"
 msgstr "&Kustuta"
 
+#. i18n: file: src/irc/channeloptionsui.ui:27
+#. i18n: ectx: attribute (title), widget (QWidget, topicTab)
+#: rc.cpp:1684
+msgid "Topi&c"
+msgstr "Tee&ma"
+
+#. i18n: file: src/irc/channeloptionsui.ui:74
+#. i18n: ectx: attribute (title), widget (QWidget, modesPage)
+#: rc.cpp:1687
+msgid "Mo&des"
+msgstr "Režiimi&d"
+
+#. i18n: file: src/irc/channeloptionsui.ui:80
+#. i18n: ectx: property (text), widget (QCheckBox, topicModeChBox)
+#: rc.cpp:1690
+msgid "&Topic can only be changed by channel operators"
+msgstr "&Teemat saab muuta ainult kanali operaator."
+
+#. i18n: file: src/irc/channeloptionsui.ui:87
+#. i18n: ectx: property (text), widget (QCheckBox, messageModeChBox)
+#: rc.cpp:1693
+msgid "&No messages from outside the channel"
+msgstr "Väljaspoolt ka&nalit teateid ei lubata"
+
+#. i18n: file: src/irc/channeloptionsui.ui:94
+#. i18n: ectx: property (text), widget (QCheckBox, secretModeChBox)
+#: rc.cpp:1696
+msgid "&Secret channel, the channel is not listed in the channel list"
+msgstr "&Salajane kanal, ei näidata kanalite nimekirjas"
+
+#. i18n: file: src/irc/channeloptionsui.ui:101
+#. i18n: ectx: property (text), widget (QCheckBox, inviteModeChBox)
+#: rc.cpp:1699
+msgid "Only &invited are allowed to join the channel"
+msgstr "A&inult kutsetega kanal"
+
+#. i18n: file: src/irc/channeloptionsui.ui:108
+#. i18n: ectx: property (text), widget (QCheckBox, moderatedModeChBox)
+#: rc.cpp:1702
+msgid "&Moderated channel, only people with voice can write to the channel"
+msgstr "&Modereeritav kanal, kus saavad suhelda ainult häälega kasutajad"
+
+#. i18n: file: src/irc/channeloptionsui.ui:115
+#. i18n: ectx: property (text), widget (QCheckBox, userLimitChBox)
+#: rc.cpp:1705
+msgid "User &limit:"
+msgstr "Kasutajate &limiit:"
+
+#. i18n: file: src/irc/channeloptionsui.ui:148
+#. i18n: ectx: property (text), widget (QCheckBox, keyModeChBox)
+#: rc.cpp:1708
+msgid "Channel &password:"
+msgstr "Kanali &parool:"
+
+#. i18n: file: src/irc/channeloptionsui.ui:162
+#. i18n: ectx: property (text), widget (QPushButton, toggleAdvancedModes)
+#: rc.cpp:1711
+msgid "Show &Advanced Modes >>"
+msgstr "Näit&a muid režiime >>"
+
+#. i18n: file: src/irc/channeloptionsui.ui:212
+#. i18n: ectx: attribute (title), widget (QWidget, TabPage)
+#: rc.cpp:1714
+msgid "&Ban List"
+msgstr "&Pagendusnimekiri"
+
+#. i18n: file: src/irc/channeloptionsui.ui:226
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#. i18n: file: src/urlcatcherui.ui:42
+#. i18n: ectx: property (text), widget (QLabel, m_searchLbl)
+#: rc.cpp:1717 rc.cpp:1894
+msgid "Search:"
+msgstr "Otsing:"
+
+#. i18n: file: src/irc/channeloptionsui.ui:248
+#. i18n: ectx: property (text), widget (QTreeWidget, banList)
+#: rc.cpp:1720
+msgid "Hostmask"
+msgstr "Masinamask"
+
+#. i18n: file: src/irc/channeloptionsui.ui:253
+#. i18n: ectx: property (text), widget (QTreeWidget, banList)
+#: rc.cpp:1723
+msgid "Set By"
+msgstr "Määras"
+
+#. i18n: file: src/irc/channeloptionsui.ui:258
+#. i18n: ectx: property (text), widget (QTreeWidget, banList)
+#: rc.cpp:1726
+msgid "Time Set"
+msgstr "Määramise aeg"
+
+#. i18n: file: src/irc/channeloptionsui.ui:281
+#. i18n: ectx: property (toolTip), widget (QPushButton, updateBan)
+#: rc.cpp:1732
+msgid "Update Ban"
+msgstr "Uuenda pagendust"
+
+#. i18n: file: src/irc/channeloptionsui.ui:300
+#. i18n: ectx: property (toolTip), widget (QPushButton, addBan)
+#: rc.cpp:1735
+msgid "Add Ban"
+msgstr "Kehtesta pagendus"
+
+#. i18n: file: src/irc/channeloptionsui.ui:319
+#. i18n: ectx: property (toolTip), widget (QPushButton, removeBan)
+#: rc.cpp:1738
+msgid "Remove Ban"
+msgstr "Lõpeta pagendus"
+
 #. i18n: file: src/linkaddressbook/linkaddressbookui_base.ui:42
 #. i18n: ectx: property (toolTip), widget (QPushButton, addAddresseeButton)
-#: rc.cpp:1744
+#: rc.cpp:1741
 msgid "Create a new entry in your address book"
 msgstr "Uue kirje loomine sinu aadressiraamatus"
 
 #. i18n: file: src/linkaddressbook/linkaddressbookui_base.ui:45
 #. i18n: ectx: property (text), widget (QPushButton, addAddresseeButton)
-#: rc.cpp:1747
+#: rc.cpp:1744
 msgid "Create New &Entry..."
 msgstr "Loo uus kirj&e..."
 
 #. i18n: file: src/linkaddressbook/linkaddressbookui_base.ui:68
 #. i18n: ectx: property (toolTip), widget (QTreeWidget, addresseeListView)
-#: rc.cpp:1750
+#: rc.cpp:1747
 msgid "Select the contact you want to communicate with via Instant Messaging"
 msgstr "Kontakti valimine, kellega IM vahendusel suhelda"
 
 #. i18n: file: src/linkaddressbook/linkaddressbookui_base.ui:87
 #. i18n: ectx: property (text), widget (QTreeWidget, addresseeListView)
-#: rc.cpp:1753
+#: rc.cpp:1750
 msgid "Photo"
 msgstr "Foto"
 
 #. i18n: file: src/linkaddressbook/linkaddressbookui_base.ui:92
 #. i18n: ectx: property (text), widget (QTreeWidget, addresseeListView)
-#: rc.cpp:1756
+#: rc.cpp:1753
 msgid "Name"
 msgstr "Nimi"
 
 #. i18n: file: src/linkaddressbook/linkaddressbookui_base.ui:113
 #. i18n: ectx: property (text), widget (QLabel, lblSearch)
-#: rc.cpp:1762
+#: rc.cpp:1759
 msgid "S&earch:"
 msgstr "Ots&ing:"
 
 #. i18n: file: src/queuetunerbase.ui:96
 #. i18n: ectx: property (title), widget (QGroupBox, m_slowBox)
-#: rc.cpp:1768
+#: rc.cpp:1765
 msgid "Slow Queue"
 msgstr "Aeglane järjekord"
 
@@ -8799,7 +8780,7 @@ msgstr "Aeglane järjekord"
 #. i18n: ectx: property (text), item, widget (KComboBox, m_normalType)
 #. i18n: file: src/queuetunerbase.ui:469
 #. i18n: ectx: property (text), item, widget (KComboBox, m_fastType)
-#: rc.cpp:1771 rc.cpp:1804 rc.cpp:1837
+#: rc.cpp:1768 rc.cpp:1801 rc.cpp:1834
 msgid "Lines"
 msgstr "rida"
 
@@ -8809,7 +8790,7 @@ msgstr "rida"
 #. i18n: ectx: property (text), item, widget (KComboBox, m_normalType)
 #. i18n: file: src/queuetunerbase.ui:474
 #. i18n: ectx: property (text), item, widget (KComboBox, m_fastType)
-#: rc.cpp:1774 rc.cpp:1807 rc.cpp:1840
+#: rc.cpp:1771 rc.cpp:1804 rc.cpp:1837
 msgid "Bytes"
 msgstr "baiti"
 
@@ -8845,9 +8826,9 @@ msgstr "baiti"
 #. i18n: ectx: property (text), widget (QLabel, m_globalBytes)
 #. i18n: file: src/queuetunerbase.ui:692
 #. i18n: ectx: property (text), widget (QLabel, m_srverBytes)
-#: rc.cpp:1777 rc.cpp:1780 rc.cpp:1795 rc.cpp:1798 rc.cpp:1816 rc.cpp:1819
-#: rc.cpp:1825 rc.cpp:1828 rc.cpp:1846 rc.cpp:1849 rc.cpp:1861 rc.cpp:1864
-#: rc.cpp:1873 rc.cpp:1876 rc.cpp:1885 rc.cpp:1888
+#: rc.cpp:1774 rc.cpp:1777 rc.cpp:1792 rc.cpp:1795 rc.cpp:1813 rc.cpp:1816
+#: rc.cpp:1822 rc.cpp:1825 rc.cpp:1843 rc.cpp:1846 rc.cpp:1858 rc.cpp:1861
+#: rc.cpp:1870 rc.cpp:1873 rc.cpp:1882 rc.cpp:1885
 msgid "888"
 msgstr "888"
 
@@ -8857,7 +8838,7 @@ msgstr "888"
 #. i18n: ectx: property (text), widget (QLabel, m_textLabel3_2_3)
 #. i18n: file: src/queuetunerbase.ui:505
 #. i18n: ectx: property (text), widget (QLabel, m_textLabel3_2_3_2)
-#: rc.cpp:1783 rc.cpp:1831 rc.cpp:1843
+#: rc.cpp:1780 rc.cpp:1828 rc.cpp:1840
 msgid "Age:"
 msgstr "Vanus:"
 
@@ -8867,7 +8848,7 @@ msgstr "Vanus:"
 #. i18n: ectx: property (text), widget (QLabel, m_textLabel3_4)
 #. i18n: file: src/queuetunerbase.ui:541
 #. i18n: ectx: property (text), widget (QLabel, m_textLabel3_4_2)
-#: rc.cpp:1786 rc.cpp:1822 rc.cpp:1852
+#: rc.cpp:1783 rc.cpp:1819 rc.cpp:1849
 msgid "Count:"
 msgstr "Arv:"
 
@@ -8879,7 +8860,7 @@ msgstr "Arv:"
 #. i18n: ectx: property (text), widget (QLabel, textLabel4)
 #. i18n: file: src/queuetunerbase.ui:702
 #. i18n: ectx: property (text), widget (QLabel, textLabel8)
-#: rc.cpp:1789 rc.cpp:1810 rc.cpp:1855 rc.cpp:1891
+#: rc.cpp:1786 rc.cpp:1807 rc.cpp:1852 rc.cpp:1888
 msgid "Lines:"
 msgstr "Read:"
 
@@ -8889,49 +8870,49 @@ msgstr "Read:"
 #. i18n: ectx: property (text), widget (QLabel, textLabel5_2)
 #. i18n: file: src/queuetunerbase.ui:571
 #. i18n: ectx: property (text), widget (QLabel, textLabel5)
-#: rc.cpp:1792 rc.cpp:1813 rc.cpp:1858
+#: rc.cpp:1789 rc.cpp:1810 rc.cpp:1855
 msgid "Bytes:"
 msgstr "Baidid:"
 
 #. i18n: file: src/queuetunerbase.ui:267
 #. i18n: ectx: property (title), widget (QGroupBox, m_normalBox)
-#: rc.cpp:1801
+#: rc.cpp:1798
 msgid "Normal Queue"
 msgstr "Tavaline järjekord"
 
 #. i18n: file: src/queuetunerbase.ui:438
 #. i18n: ectx: property (title), widget (QGroupBox, m_fastBox)
-#: rc.cpp:1834
+#: rc.cpp:1831
 msgid "Fast Queue"
 msgstr "Kiire järjekord"
 
 #. i18n: file: src/queuetunerbase.ui:612
 #. i18n: ectx: property (title), widget (QGroupBox, m_globalBox)
-#: rc.cpp:1867
+#: rc.cpp:1864
 msgid "All Queues"
 msgstr "Kõik järjekorrad"
 
 #. i18n: file: src/queuetunerbase.ui:632
 #. i18n: ectx: property (text), widget (QLabel, textLabel13)
-#: rc.cpp:1870
+#: rc.cpp:1867
 msgid "Received:"
 msgstr "Saadud:"
 
 #. i18n: file: src/queuetunerbase.ui:662
 #. i18n: ectx: property (text), widget (QLabel, textLabel9)
-#: rc.cpp:1879
+#: rc.cpp:1876
 msgid "Bytes (Raw):"
 msgstr "Baidid (toor):"
 
 #. i18n: file: src/queuetunerbase.ui:672
 #. i18n: ectx: property (text), widget (QLabel, textLabel4_3)
-#: rc.cpp:1882
+#: rc.cpp:1879
 msgid "Bytes (Encoded):"
 msgstr "Baidid (kodeeritud):"
 
 #. i18n: file: src/urlcatcherui.ui:52
 #. i18n: ectx: property (whatsThis), widget (QTreeView, m_urlListView)
-#: rc.cpp:1900
+#: rc.cpp:1897
 msgid ""
 "List of Uniform Resource Locators mentioned in any of the Konversation "
 "windows during this session."
@@ -8941,13 +8922,13 @@ msgstr ""
 
 #. i18n: file: src/viewer/irccolorchooserui.ui:20
 #. i18n: ectx: property (toolTip), widget (QLabel, m_previewLbl)
-#: rc.cpp:1903
+#: rc.cpp:1900
 msgid "This is how your message will look with these colors"
 msgstr "Selline hakkab sinu sõnum välja nende värvidega välja nägema"
 
 #. i18n: file: src/viewer/irccolorchooserui.ui:25
 #. i18n: ectx: property (whatsThis), widget (QLabel, m_previewLbl)
-#: rc.cpp:1906
+#: rc.cpp:1903
 msgid ""
 "<qt>This is a preview of how your readers may see view your message if you "
 "select these colors.<br>\n"
@@ -8963,7 +8944,7 @@ msgstr ""
 
 #. i18n: file: src/viewer/irccolorchooserui.ui:34
 #. i18n: ectx: property (text), widget (QLabel, m_previewLbl)
-#: rc.cpp:1911
+#: rc.cpp:1908
 msgid "Preview"
 msgstr "Eelvaatlus"
 
@@ -8971,7 +8952,7 @@ msgstr "Eelvaatlus"
 #. i18n: ectx: property (toolTip), widget (KComboBox, m_fgColorCBox)
 #. i18n: file: src/viewer/irccolorchooserui.ui:70
 #. i18n: ectx: property (toolTip), widget (QLabel, m_fgColorLbl)
-#: rc.cpp:1914 rc.cpp:1921
+#: rc.cpp:1911 rc.cpp:1918
 msgid "The chosen text color is added to the input line."
 msgstr "Valitud teksti värv lisatakse sisendireale."
 
@@ -8979,7 +8960,7 @@ msgstr "Valitud teksti värv lisatakse sisendireale."
 #. i18n: ectx: property (whatsThis), widget (KComboBox, m_fgColorCBox)
 #. i18n: file: src/viewer/irccolorchooserui.ui:74
 #. i18n: ectx: property (whatsThis), widget (QLabel, m_fgColorLbl)
-#: rc.cpp:1917 rc.cpp:1924
+#: rc.cpp:1914 rc.cpp:1921
 msgid ""
 "<qt>Here you choose what color you want you the text in the next message you "
 "send to be.  If you choose a color and click Ok, the chosen color is added "
@@ -8996,7 +8977,7 @@ msgstr ""
 
 #. i18n: file: src/viewer/irccolorchooserui.ui:77
 #. i18n: ectx: property (text), widget (QLabel, m_fgColorLbl)
-#: rc.cpp:1928
+#: rc.cpp:1925
 msgid "&Foreground color:"
 msgstr "&Esiplaani värv:"
 
@@ -9004,7 +8985,7 @@ msgstr "&Esiplaani värv:"
 #. i18n: ectx: property (toolTip), widget (KComboBox, m_bgColorCBox)
 #. i18n: file: src/viewer/irccolorchooserui.ui:116
 #. i18n: ectx: property (toolTip), widget (QLabel, m_bgColorLbl)
-#: rc.cpp:1931 rc.cpp:1941
+#: rc.cpp:1928 rc.cpp:1938
 msgid "The chosen text-background color is added to the input line."
 msgstr "Valitud tekstitausta värv lisatakse sisendireale."
 
@@ -9012,7 +8993,7 @@ msgstr "Valitud tekstitausta värv lisatakse sisendireale."
 #. i18n: ectx: property (whatsThis), widget (KComboBox, m_bgColorCBox)
 #. i18n: file: src/viewer/irccolorchooserui.ui:123
 #. i18n: ectx: property (whatsThis), widget (QLabel, m_bgColorLbl)
-#: rc.cpp:1934 rc.cpp:1944
+#: rc.cpp:1931 rc.cpp:1941
 msgid ""
 "<qt>Here you choose what color you want you background for the text in the "
 "next message you send to be.\n"
@@ -9039,45 +9020,48 @@ msgstr ""
 
 #. i18n: file: src/viewer/pasteeditor.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, PasteEditor)
-#: rc.cpp:1954
+#: rc.cpp:1951
 msgid "Paste Editor"
 msgstr "Asetamise redaktor"
 
 #. i18n: file: src/viewer/pasteeditor.ui:20
 #. i18n: ectx: property (text), widget (KPushButton, m_removeNewlinesButton)
-#: rc.cpp:1957
+#: rc.cpp:1954
 msgid "&Remove Newlines"
 msgstr "&Eemalda reavahetused"
 
 #. i18n: file: src/viewer/pasteeditor.ui:27
 #. i18n: ectx: property (text), widget (KPushButton, m_addQuotesButton)
-#: rc.cpp:1960
+#: rc.cpp:1957
 msgid "Add &Quotation Indicators"
 msgstr "Lisa tsitaadi &indikaatorid"
 
 #. i18n: file: src/viewer/searchbarbase.ui:46
 #. i18n: ectx: property (text), widget (QLabel, m_findLabel)
-#: rc.cpp:1966
+#: rc.cpp:1963
 msgid "F&ind:"
 msgstr "Ots&ing:"
 
 #. i18n: file: src/viewer/searchbarbase.ui:62
 #. i18n: ectx: property (text), widget (KPushButton, m_findNextButton)
-#: rc.cpp:1969
+#: rc.cpp:1966
 msgid "&Next"
 msgstr "&Järgmine"
 
 #. i18n: file: src/viewer/searchbarbase.ui:72
 #. i18n: ectx: property (text), widget (KPushButton, m_findPreviousButton)
-#: rc.cpp:1972
+#: rc.cpp:1969
 msgid "&Previous"
 msgstr "&Eelmine"
 
 #. i18n: file: src/viewer/searchbarbase.ui:98
 #. i18n: ectx: property (text), widget (QToolButton, m_optionsButton)
-#: rc.cpp:1975
+#: rc.cpp:1972
 msgid "&Options"
 msgstr "&Valikud"
+
+#~ msgid "Alt+A, Backspace, Tab, Backspace"
+#~ msgstr "Alt+A, Backspace, Tab, Backspace"
 
 #~ msgid " minutes"
 #~ msgstr " minutit"
