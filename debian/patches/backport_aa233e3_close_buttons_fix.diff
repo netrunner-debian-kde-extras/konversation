@@ -1,0 +1,18 @@
+From: Eike Hein <hein@kde.org>
+Subject: [PATCH] Fix close buttons on tabs preference not being respected for top/bottom tabs.
+Forwarded: not-needed
+Origin: backport, commit:aa233e3b66b675c62a03f1bce793e67b87b732b9
+Last-Update: 2010-05-22
+Applied-Upstream: 1.3-beta2
+
+--- a/src/viewer/viewcontainer.cpp
++++ b/src/viewer/viewcontainer.cpp
+@@ -409,7 +409,7 @@ void ViewContainer::updateTabWidgetAppea
+     else
+         m_tabWidget->cornerWidget()->hide();
+ 
+-    m_tabWidget->tabBar()->setTabsClosable(true);
++    m_tabWidget->tabBar()->setTabsClosable(Preferences::self()->closeButtons());
+ 
+     m_tabWidget->setAutomaticResizeTabs(Preferences::self()->useMaxSizedTabs());
+ }

@@ -7,6 +7,8 @@ konversation (1.3~beta1-1) UNRELEASED; urgency=low
   * Drop topgit support:
     - remove snippet from debian/rules;
     - rewrite debian/README.source.
+  * Backport commit 1.3-beta1-2-gaa233e3 from upstream repository to
+    fix close buttons on tabs (patch backport_aa233e3_close_buttons_fix.diff).
 
  -- Modestas Vainius <modax@debian.org>  Sat, 22 May 2010 22:45:28 +0300
 
