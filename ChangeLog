@@ -1,4 +1,15 @@
-Changes since 1.2.3:
+Changes from 1.2.3 to 1.3-beta1:
+Konversation 1.3-beta1 debuts a major new feature in the area of Direct
+Client-to-Client (DCC) support: An implementation of the DCC Whiteboard
+extension that brings collaborative drawing - think two-player Kolour-
+paint - to IRC. It also brings back the integration with KDE's SSL certi-
+ficate store the KDE 3 version enjoyed and expands support for auto-away
+to the Windows and Mac OS X platforms thanks to both recent advances in
+the KDE 4 platform and new code in Konversation. Interface tweaks, new
+keyboard shortcuts and many bugfixes round things out. Finally, Konversa-
+tion now depends on KDE 4.3 and Qt 4.5.
+
+
 * Konversation now depends on Qt 4.5 and KDE 4.3.
 * Added support for DCC WHITEBOARD, bringing collaborative drawing to
   IRC.
@@ -40,7 +51,7 @@ Changes since 1.2.3:
   status in the channel.
 * Fixed a crash when selecting more than one completed, failed or
   aborted outbound transfer in the "DCC Status" tab and clicking "Re-
-  send" in ther context menu.
+  send" in their context menu.
 * Fixed a bug causing the human-readable mode descriptions used by
   default in channel chat text views as well as the Channel Settings
   dialog's Advanced Modes list not to be translated.
@@ -77,7 +88,7 @@ Changes since 1.2.3:
 * Made it possible again to initate DCC file transfers to a query
   partner by dragging files or URLs onto the chat text area of the
   query.
-* When building against the KDE Platform v4.4 libraries, the auto-
+* When building against the KDE Platform v4.4.3 libraries, the auto-
   away functionality will now make use of the new KIdleTime library
   to determine user activity and inactivity rather than use its own
   code, the primary advantage being that KIdleTime is supported on
@@ -103,6 +114,28 @@ Changes since 1.2.3:
   ion attempts had been exceeded again. This has been fixed: It will
   now make the number of attempts specified as the upper limit in
   the application settings.
+* Fixed a bug that could cause the selection in the transfer list of
+  the DCC Status tab to be lost when a new transfer was added to the
+  list.
+* Fixed a bug causing the information panel in the DCC Status tab to
+  show information for a transfer other than the one selected in the
+  transfer list after sending a file to oneself for the first time
+  in a session.
+* The frame that used to be around the main window's tab widget when
+  the tab bar was located either at the bottom or top position has
+  been removed.
+* Improved compatibility with freedesktop.org-compliant notification
+  frontends other than KDE's. Other frontends could previously show
+  empty notification message contents due to non-standard content in
+  the messages.
+* Added an action to switch to the last focused tab, making it possi-
+  ble to quickly switch forth and back between two tabs. The default
+  keyboard shortcut for this new action is Alt+Space.
+* Added a "-local" parameter to the '/amsg' and '/ame' commands that
+  limits their scope to the channel and query tabs associated with
+  the same connection as the tab the command is issued in.
+* Fixed a bug causing the order of networks in the server list dialog
+  not to be preserved across application restarts.
 
 
 Changes from 1.2.2 to 1.2.3:
