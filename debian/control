@@ -13,9 +13,8 @@ Vcs-Browser: http://git.debian.org/?p=pkg-kde/kde-extras/konversation.git;a=summ
 
 Package: konversation
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, ${perl:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, konversation-data (= ${source:Version})
 Provides: irc
-Recommends: python
 Description: user friendly Internet Relay Chat (IRC) client for KDE
  Konversation is a client for the Internet Relay Chat (IRC) protocol.
  It is easy to use and well-suited for novice IRC users, but novice
@@ -33,6 +32,16 @@ Description: user friendly Internet Relay Chat (IRC) client for KDE
        * Smart logging
        * Traditional or enhanced-shell-style nick completion
        * DCC file transfer with resume support
+
+Package: konversation-data
+Architecture: all
+Depends: ${misc:Depends}, ${perl:Depends}
+Recommends: konversation (>= ${source:Version}), python
+Replaces: konversation (<< 1.3~beta1-2)
+Description: data files for Konversation
+ Konversation is a client for the Internet Relay Chat (IRC) protocol. This
+ package contains data files for Konversation. It is probably of no use if
+ `konversation' package is not installed.
 
 Package: konversation-dbg
 Section: debug

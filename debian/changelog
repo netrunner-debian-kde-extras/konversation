@@ -1,6 +1,11 @@
 konversation (1.3~beta1-2) UNRELEASED; urgency=low
 
   * Improve konversation-dbg description a bit.
+  * Split off data files to a new konversation-data package:
+    - make konversation Depend on konversation-data;
+    - add previous konversation to konversation-data Replaces;
+    - move python Recommends to konversation-data;
+    - move ${perl:Depends} from konversation Depends to konversation-data.
 
  -- Modestas Vainius <modax@debian.org>  Sun, 23 May 2010 21:32:53 +0300
 
