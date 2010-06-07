@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-05-20 04:55+0200\n"
+"POT-Creation-Date: 2010-06-05 04:59+0200\n"
 "PO-Revision-Date: 2010-03-10 23:36+0100\n"
 "Last-Translator: Bram Schoenmakers <bramschoenmakers@kde.nl>\n"
 "Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
@@ -40,7 +40,7 @@ msgstr "Nieuw"
 #: src/config/autoreplace_config.cpp:42 src/config/highlight_config.cpp:165
 #: rc.cpp:489
 msgid "Click to run Regular Expression Editor (KRegExpEditor)"
-msgstr "Klik om de regulier-expressie-bewerker (KRegExpEditor) te starten "
+msgstr "Klik om de reguliere-expressie-bewerker (KRegExpEditor) te starten "
 
 #: src/config/autoreplace_config.cpp:47 src/config/highlight_config.cpp:170
 msgid "The Regular Expression Editor (KRegExpEditor) is not installed"
@@ -373,30 +373,6 @@ msgstr "&Annuleren"
 #: src/dcc/recipientdialog.cpp:65
 msgid "Close the window without changes"
 msgstr "Het venster zonder veranderingen sluiten"
-
-#: src/dcc/resumedialog.cpp:49
-msgid "DCC Receive Question"
-msgstr "DCC-ontvangst-vraag"
-
-#: src/dcc/resumedialog.cpp:74
-msgid "&Resume"
-msgstr "He&rvatten"
-
-#: src/dcc/resumedialog.cpp:94
-msgid "O&riginal Filename"
-msgstr "Oo&rspronkelijke bestandsnaam"
-
-#: src/dcc/resumedialog.cpp:95
-msgid "Suggest &New Filename"
-msgstr "&Nieuwe naam voorstellen"
-
-#: src/dcc/resumedialog.cpp:140
-msgid "&Overwrite"
-msgstr "&Overschrijven"
-
-#: src/dcc/resumedialog.cpp:146
-msgid "R&ename"
-msgstr "H&ernoemen"
 
 #: src/dcc/transferdetailedinfopanel.cpp:34 src/dcc/transferlistmodel.cpp:48
 msgid "Status"
@@ -1211,6 +1187,30 @@ msgstr "Geen gedetailleerde informatie over dit bestand gevonden."
 msgid "Columns"
 msgstr "Kolommen"
 
+#: src/dcc/resumedialog.cpp:50
+msgid "DCC Receive Question"
+msgstr "DCC-ontvangst-vraag"
+
+#: src/dcc/resumedialog.cpp:75
+msgid "&Resume"
+msgstr "He&rvatten"
+
+#: src/dcc/resumedialog.cpp:97
+msgid "O&riginal Filename"
+msgstr "Oo&rspronkelijke bestandsnaam"
+
+#: src/dcc/resumedialog.cpp:98
+msgid "Suggest &New Filename"
+msgstr "&Nieuwe naam voorstellen"
+
+#: src/dcc/resumedialog.cpp:143
+msgid "&Overwrite"
+msgstr "&Overschrijven"
+
+#: src/dcc/resumedialog.cpp:149
+msgid "R&ename"
+msgstr "H&ernoemen"
+
 #: src/irc/channelnick.cpp:199
 msgid "Operator"
 msgstr "Operator"
@@ -1461,108 +1461,6 @@ msgstr " Beheerder"
 msgctxt "(Offline) nickname details (e.g. real name from address book)"
 msgid "(Offline) %1"
 msgstr "(Offline) %1"
-
-#: src/irc/servergroupdialog.cpp:76
-msgid "Change network information"
-msgstr "Netwerkinformatie wijzigen"
-
-#: src/irc/servergroupdialog.cpp:77 src/viewer/editnotifydialog.cpp:73
-#: src/identitydialog.cpp:67
-msgid "Discards all changes made"
-msgstr "Verwerpt alle gemaakte instellingen"
-
-#: src/irc/servergroupdialog.cpp:161
-msgid "Add Server"
-msgstr "Server toevoegen"
-
-#: src/irc/servergroupdialog.cpp:179
-msgid "Edit Server"
-msgstr "Server bewerken"
-
-#: src/irc/servergroupdialog.cpp:273
-msgid "Add Channel"
-msgstr "Kanaal toevoegen"
-
-#: src/irc/servergroupdialog.cpp:291
-msgid "Edit Channel"
-msgstr "Kanaal bewerken"
-
-#: src/irc/servergroupdialog.cpp:395
-msgid "The network name is required."
-msgstr "De naam van het netwerk is vereist."
-
-#: src/irc/servergroupdialog.cpp:399
-msgid "You need to add at least one server to the network."
-msgstr "U hebt tenminste één server in naar netwerk nodig."
-
-#: src/irc/servergroupdialog.cpp:454
-msgid "The server address is required."
-msgstr "Het serveradres is vereist."
-
-#: src/irc/servergroupdialog.cpp:505
-msgid "The channel name is required."
-msgstr "De naam van het kanaal is vereist."
-
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
-msgid "C&onnect"
-msgstr "&Verbinden"
-
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
-msgid "Connect to the server"
-msgstr "Verbinden met server"
-
-#: src/irc/serverlistdialog.cpp:71
-msgid "Click here to connect to the selected IRC network and channel."
-msgstr ""
-"Klik hier om verbinding te maken met het geselecteerde IRC-netwerk en -"
-"kanaal."
-
-#: src/irc/serverlistdialog.cpp:145
-msgid "New Network"
-msgstr "Nieuw netwerk"
-
-#: src/irc/serverlistdialog.cpp:166
-msgid "Edit Network"
-msgstr "Netwerk bewerken"
-
-#: src/irc/serverlistdialog.cpp:222
-#, kde-format
-msgid ""
-"You cannot delete %1.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgstr ""
-"U kunt %1 niet wissen.\n"
-"\n"
-"Het %2-netwerk moet tenminste één server bevatten."
-
-#: src/irc/serverlistdialog.cpp:227
-#, kde-format
-msgid ""
-"You cannot delete the selected server.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgid_plural ""
-"You cannot delete the selected servers.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgstr[0] ""
-"U kunt de geselecteerde server niet wissen.\n"
-"\n"
-"Het %2-netwerk moet tenminste één server bevatten."
-msgstr[1] ""
-"U kunt de geselecteerde servers niet wissen.\n"
-"\n"
-"Het %2-netwerk moet tenminste één server bevatten."
-
-#: src/irc/serverlistdialog.cpp:243
-msgid "Do you really want to delete the selected entries?"
-msgstr "Wilt u de geselecteerde items verwijderen?"
-
-#: src/irc/serverlistdialog.cpp:245
-#, kde-format
-msgid "Do you really want to delete %1?"
-msgstr "Wilt u %1 verwijderen?"
 
 #: src/irc/channeloptionsdialog.cpp:32
 #, kde-format
@@ -4146,6 +4044,108 @@ msgstr "Kon %1 niet opzoeken"
 #, c-format, kde-format
 msgid "Usage: %1queuetuner [on | off]"
 msgstr "Gebruik: %1queuetuner [on | off]"
+
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
+msgid "C&onnect"
+msgstr "&Verbinden"
+
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
+msgid "Connect to the server"
+msgstr "Verbinden met server"
+
+#: src/irc/serverlistdialog.cpp:71
+msgid "Click here to connect to the selected IRC network and channel."
+msgstr ""
+"Klik hier om verbinding te maken met het geselecteerde IRC-netwerk en -"
+"kanaal."
+
+#: src/irc/serverlistdialog.cpp:145
+msgid "New Network"
+msgstr "Nieuw netwerk"
+
+#: src/irc/serverlistdialog.cpp:166
+msgid "Edit Network"
+msgstr "Netwerk bewerken"
+
+#: src/irc/serverlistdialog.cpp:222
+#, kde-format
+msgid ""
+"You cannot delete %1.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgstr ""
+"U kunt %1 niet wissen.\n"
+"\n"
+"Het %2-netwerk moet tenminste één server bevatten."
+
+#: src/irc/serverlistdialog.cpp:227
+#, kde-format
+msgid ""
+"You cannot delete the selected server.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgid_plural ""
+"You cannot delete the selected servers.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgstr[0] ""
+"U kunt de geselecteerde server niet wissen.\n"
+"\n"
+"Het %2-netwerk moet tenminste één server bevatten."
+msgstr[1] ""
+"U kunt de geselecteerde servers niet wissen.\n"
+"\n"
+"Het %2-netwerk moet tenminste één server bevatten."
+
+#: src/irc/serverlistdialog.cpp:243
+msgid "Do you really want to delete the selected entries?"
+msgstr "Wilt u de geselecteerde items verwijderen?"
+
+#: src/irc/serverlistdialog.cpp:245
+#, kde-format
+msgid "Do you really want to delete %1?"
+msgstr "Wilt u %1 verwijderen?"
+
+#: src/irc/servergroupdialog.cpp:76
+msgid "Change network information"
+msgstr "Netwerkinformatie wijzigen"
+
+#: src/irc/servergroupdialog.cpp:77 src/viewer/editnotifydialog.cpp:73
+#: src/identitydialog.cpp:67
+msgid "Discards all changes made"
+msgstr "Verwerpt alle gemaakte instellingen"
+
+#: src/irc/servergroupdialog.cpp:161
+msgid "Add Server"
+msgstr "Server toevoegen"
+
+#: src/irc/servergroupdialog.cpp:179
+msgid "Edit Server"
+msgstr "Server bewerken"
+
+#: src/irc/servergroupdialog.cpp:284
+msgid "Add Channel"
+msgstr "Kanaal toevoegen"
+
+#: src/irc/servergroupdialog.cpp:302
+msgid "Edit Channel"
+msgstr "Kanaal bewerken"
+
+#: src/irc/servergroupdialog.cpp:417
+msgid "The network name is required."
+msgstr "De naam van het netwerk is vereist."
+
+#: src/irc/servergroupdialog.cpp:421
+msgid "You need to add at least one server to the network."
+msgstr "U hebt tenminste één server in naar netwerk nodig."
+
+#: src/irc/servergroupdialog.cpp:476
+msgid "The server address is required."
+msgstr "Het serveradres is vereist."
+
+#: src/irc/servergroupdialog.cpp:527
+msgid "The channel name is required."
+msgstr "De naam van het kanaal is vereist."
 
 #: src/konsolepanel.cpp:27 src/viewer/viewcontainer.cpp:2110
 #: src/viewer/viewcontainer.cpp:2111

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-05-20 04:55+0200\n"
-"PO-Revision-Date: 2010-02-24 17:42+0100\n"
+"POT-Creation-Date: 2010-06-05 04:59+0200\n"
+"PO-Revision-Date: 2010-05-23 10:47+0200\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
@@ -363,30 +363,6 @@ msgstr "&Annullér"
 msgid "Close the window without changes"
 msgstr "Luk vinduet uden ændringer"
 
-#: src/dcc/resumedialog.cpp:49
-msgid "DCC Receive Question"
-msgstr "DCC modtagespørgsmål"
-
-#: src/dcc/resumedialog.cpp:74
-msgid "&Resume"
-msgstr "&Genoptag"
-
-#: src/dcc/resumedialog.cpp:94
-msgid "O&riginal Filename"
-msgstr "&Oprindeligt filnavn"
-
-#: src/dcc/resumedialog.cpp:95
-msgid "Suggest &New Filename"
-msgstr "Foreslå &nyt filnavn"
-
-#: src/dcc/resumedialog.cpp:140
-msgid "&Overwrite"
-msgstr "&Overskriv"
-
-#: src/dcc/resumedialog.cpp:146
-msgid "R&ename"
-msgstr "Om&døb"
-
 #: src/dcc/transferdetailedinfopanel.cpp:34 src/dcc/transferlistmodel.cpp:48
 msgid "Status"
 msgstr "Status"
@@ -413,12 +389,10 @@ msgid "Unknown server"
 msgstr "Ukendt server"
 
 #: src/dcc/transferdetailedinfopanel.cpp:157
-#, fuzzy, kde-format
-#| msgctxt "%1=partnerNick, %2=IRC Servername, %3=partnerIP, %4=partnerPort"
-#| msgid "%1 on %2, %3 (port %4)"
+#, kde-format
 msgctxt "%1=partnerNick, %2=IRC Servername, %3=partnerIP, %4=partnerPort"
 msgid "%1 on %2, %3 (port <numid>%4</numid>)"
-msgstr "%1 på %2, %3 (port %4)"
+msgstr "%1 på %2, %3 (port <numid>%4</numid>)"
 
 #: src/dcc/transferdetailedinfopanel.cpp:163
 #, kde-format
@@ -427,12 +401,10 @@ msgid "%1 on %2"
 msgstr "%1 på %2"
 
 #: src/dcc/transferdetailedinfopanel.cpp:170
-#, fuzzy, kde-format
-#| msgctxt "%1=ownIP, %2=ownPort"
-#| msgid "%1 (port %2)"
+#, kde-format
 msgctxt "%1=ownIP, %2=ownPort"
 msgid "%1 (port <numid>%2</numid>)"
-msgstr "%1 (port %2)"
+msgstr "%1 (port <numid>%2</numid>)"
 
 #: src/dcc/transferdetailedinfopanel.cpp:178
 #, kde-format
@@ -446,11 +418,9 @@ msgid "No"
 msgstr "Nej"
 
 #: src/dcc/transferdetailedinfopanel.cpp:246
-#, fuzzy
-#| msgid "< 1sec"
 msgctxt "less than 1 sec"
 msgid "&lt; 1sec"
-msgstr "< 1 sek."
+msgstr "&lt; 1sek."
 
 #: src/dcc/transferrecv.cpp:195
 msgid "The admin has restricted the right to receive files"
@@ -466,16 +436,14 @@ msgid "Unsupported negotiation (filesize=0)"
 msgstr "Ikke-understøttet forhandling (filstørrelse=0)"
 
 #: src/dcc/transferrecv.cpp:310
-#, fuzzy, kde-format
-#| msgid "<b>Cannot create the folder.</b><br>Folder: %1<br>"
+#, kde-format
 msgid "<b>Cannot create the folder.</b><br/>Folder: %1<br/>"
-msgstr "<b>Kan ikke oprette mappen.</b><br>Mappe: %1<br>"
+msgstr "<b>Kan ikke oprette mappen.</b><br/>Mappe: %1<br/>"
 
 #: src/dcc/transferrecv.cpp:320
-#, fuzzy, kde-format
-#| msgid "<b>The file is used by another transfer.</b><br>%1<br>"
+#, kde-format
 msgid "<b>The file is used by another transfer.</b><br/>%1<br/>"
-msgstr "<b>Filen bruges af en anden overførsel.</b><br>%1<br>"
+msgstr "<b>Filen bruges af en anden overførsel.</b><br/>%1<br/>"
 
 #: src/dcc/transferrecv.cpp:344
 msgid "Could not create a KIO instance"
@@ -495,19 +463,19 @@ msgstr[1] ""
 "<b>En del af en fil findes.</b><br/>%2<br/>Fildelens størrelse: %1 bytes<br/>"
 
 #: src/dcc/transferrecv.cpp:461
-#, fuzzy, kde-format
-#| msgid "<b>The file already exists.</b><br>%1<br>"
+#, kde-format
 msgctxt "%1=fileName, %2=local filesize, %3=sender filesize"
 msgid ""
 "<b>The file already exists.</b><br/>%1 (%2)<br/>Sender reports file size of %"
 "3<br/>"
-msgstr "<b>Filen findes allerede.</b><br>%1<br>"
+msgstr ""
+"<b>Filen findes allerede.</b><br/>%1<br/>%1 (%2)<br/>Afsenderen rapporterer "
+"en filstørrelse på %3<br/>"
 
 #: src/dcc/transferrecv.cpp:470
-#, fuzzy, kde-format
-#| msgid "<b>Could not open the file.<br>Error: %1</b><br>%2<br>"
+#, kde-format
 msgid "<b>Could not open the file.<br/>Error: %1</b><br/>%2<br/>"
-msgstr "<b>Kunne ikke åbne filen.<br>Fejl: %1</b><br>%2<br>"
+msgstr "<b>Kunne ikke åbne filen.<br/>Fejl: %1</b><br/>%2<br/>"
 
 #: src/dcc/transferrecv.cpp:517 src/dcc/transferrecv.cpp:553
 msgid ""
@@ -524,14 +492,13 @@ msgstr "UPnP"
 
 #: src/dcc/transferrecv.cpp:567 src/dcc/transfersend.cpp:350
 #: src/dcc/chat.cpp:304 src/dcc/chat.cpp:335
-#, fuzzy, kde-format
-#| msgid ""
-#| "Failed to forward port %1. Sending DCC request to remote user regardless."
+#, kde-format
 msgid ""
 "Failed to forward port <numid>%1</numid>. Sending DCC request to remote user "
 "regardless."
 msgstr ""
-"Kunne ikke åbne porten %1. Sender DCC-anmodning til ekstern bruger alligevel."
+"Kunne ikke åbne porten <numid>%1</numid>. Sender DCC-anmodning til ekstern "
+"bruger alligevel."
 
 #: src/dcc/transferrecv.cpp:571
 msgid "Waiting for connection"
@@ -570,65 +537,53 @@ msgid "Timed out"
 msgstr "Tidsudløb"
 
 #: src/dcc/whiteboardtoolbar.cpp:41
-#, fuzzy
-#| msgid "Clear Logfile"
 msgid "Clear Image"
-msgstr "Ryd logfil"
+msgstr "Ryd billede"
 
 #: src/dcc/whiteboardtoolbar.cpp:43
-#, fuzzy
-#| msgid "Save As..."
 msgid "Save As.."
 msgstr "Gem som..."
 
 #: src/dcc/whiteboardtoolbar.cpp:46
 msgid "Freehand Drawing"
-msgstr ""
+msgstr "Frihåndstegning"
 
 #: src/dcc/whiteboardtoolbar.cpp:52
 msgid "Draw a straight line"
-msgstr ""
+msgstr "Tegn en lige linje"
 
 #: src/dcc/whiteboardtoolbar.cpp:57
 msgid "Draw a rectangle"
-msgstr ""
+msgstr "Tegn et rektangel"
 
 #: src/dcc/whiteboardtoolbar.cpp:63
 msgid "Draw an ellipse"
-msgstr ""
+msgstr "Tegn en ellipse"
 
 #: src/dcc/whiteboardtoolbar.cpp:69
-#, fuzzy
-#| msgid "Chat text:"
 msgid "Draw text"
-msgstr "Chattekst:"
+msgstr "Tegn tekst"
 
 #: src/dcc/whiteboardtoolbar.cpp:75
-#, fuzzy
-#| msgid "Select Recipient"
 msgctxt "dcc whiteboard selection tool"
 msgid "Selection"
-msgstr "Vælg modtager"
+msgstr "Markering"
 
 #: src/dcc/whiteboardtoolbar.cpp:80
 msgid "Eraser"
-msgstr ""
+msgstr "Viskelæder"
 
 #: src/dcc/whiteboardtoolbar.cpp:85
 msgid "Fill a contiguous area with the foreground color"
-msgstr ""
+msgstr "Udfyld et tilstødende område med forgrundsfarven"
 
 #: src/dcc/whiteboardtoolbar.cpp:90
-#, fuzzy
-#| msgid "&Draw shadows"
 msgid "Draw an arrow"
-msgstr "&Tegn skygger"
+msgstr "Tegn en pil"
 
 #: src/dcc/whiteboardtoolbar.cpp:226
-#, fuzzy
-#| msgid "Save Logfile"
 msgid "Save Image"
-msgstr "Gem logfil"
+msgstr "Gem billede"
 
 #: src/dcc/transferlistmodel.cpp:34
 msgid "File"
@@ -682,15 +637,11 @@ msgid "Preparing"
 msgstr "Forbereder"
 
 #: src/dcc/transferlistmodel.cpp:483
-#, fuzzy
-#| msgid "Pending"
 msgctxt "Transfer is waiting for the partner to accept or reject it"
 msgid "Pending"
 msgstr "Forestående"
 
 #: src/dcc/transferlistmodel.cpp:485
-#, fuzzy
-#| msgid "Connecting"
 msgctxt "Transfer is connecting to the partner"
 msgid "Connecting"
 msgstr "Forbinder"
@@ -704,15 +655,11 @@ msgid "Sending"
 msgstr "Sender"
 
 #: src/dcc/transferlistmodel.cpp:498
-#, fuzzy
-#| msgid "Done"
 msgctxt "Transfer has completed successfully"
 msgid "Done"
 msgstr "Færdig"
 
 #: src/dcc/transferlistmodel.cpp:500
-#, fuzzy
-#| msgid "Failed"
 msgctxt "Transfer failed"
 msgid "Failed"
 msgstr "Mislykkedes"
@@ -795,17 +742,13 @@ msgid "Enter Filename"
 msgstr "Angiv filnavn"
 
 #: src/dcc/transfersend.cpp:199
-#, fuzzy, kde-format
-#| msgid ""
-#| "<qt>The file that you are sending to <i>%1</i> does not have a filename."
-#| "<br>Please enter a filename to be presented to the receiver, or cancel "
-#| "the dcc transfer</qt>"
+#, kde-format
 msgid ""
 "<qt>The file that you are sending to <i>%1</i> does not have a filename.<br/"
 ">Please enter a filename to be presented to the receiver, or cancel the dcc "
 "transfer</qt>"
 msgstr ""
-"<qt>Filen du sender til <i>%1</i> har ikke et filnavn.<br>Angiv et filnavn "
+"<qt>Filen du sender til <i>%1</i> har ikke et filnavn.<br/>Angiv et filnavn "
 "som kan vises til modtageren, eller annullér DCC-overførslen</qt>"
 
 #: src/dcc/transfersend.cpp:203
@@ -826,7 +769,7 @@ msgstr "Kunne ikke sende en DCC SEND-anmodning til partneren via IRC-serveren."
 
 #: src/dcc/transfersend.cpp:329 src/dcc/chat.cpp:123
 msgid "Awaiting acceptance by remote user..."
-msgstr ""
+msgstr "Afventer accept fra ekstern bruger..."
 
 #: src/dcc/transfersend.cpp:524 src/dcc/chat.cpp:490
 #, kde-format
@@ -874,27 +817,22 @@ msgid "Unknown error. Code %1"
 msgstr "Ukendt fejl. Kode %1"
 
 #: src/dcc/chat.cpp:102
-#, fuzzy, kde-format
-#| msgid "Could not send a DCC CHAT request to the partner via the IRC server."
+#, kde-format
 msgctxt "%1=dcc extension like Chat or Whiteboard"
 msgid "Could not send a DCC %1 request to the partner via the IRC server."
-msgstr "Kunne ikke sende en DCC CHAT-anmodning til partneren via IRC-serveren."
+msgstr "Kunne ikke sende en DCC %1-anmodning til partneren via IRC-serveren."
 
 #: src/dcc/chat.cpp:152
-#, fuzzy, kde-format
-#| msgctxt "%1=partnerNick, %2=Servername"
-#| msgid "%1 (on %2) offers to DCC Chat with you"
+#, kde-format
 msgctxt "%1=partnerNick, %2=Servername, %3=dcc extension as chat or wboard"
 msgid "%1 (on %2) offers to DCC %3 with you"
-msgstr "%1 (på %2) tilbyder at DCC-chatte med dig"
+msgstr "%1 (på %2) tilbyder DCC %3 med dig"
 
 #: src/dcc/chat.cpp:153
-#, fuzzy, kde-format
-#| msgctxt "%1=partnerNick"
-#| msgid "DCC Chat offer from %1"
+#, kde-format
 msgctxt "%1=dcc extension as Chat or Whiteboard, %2=partnerNick"
 msgid "DCC %1 offer from %2"
-msgstr "Tilbud om DCC-chat fra %1"
+msgstr "Tilbud om DCC %1 fra %2"
 
 #: src/dcc/chat.cpp:154
 msgid "Accept"
@@ -905,42 +843,34 @@ msgid "Reject"
 msgstr "Afvis"
 
 #: src/dcc/chat.cpp:161
-#, fuzzy, kde-format
-#| msgid "You rejected the DCC Chat offer."
+#, kde-format
 msgctxt "%1=dcc extension like Chat or Whiteboard"
 msgid "You rejected the DCC %1 offer."
-msgstr "Du afviste tilbuddet om DCC-chat."
+msgstr "Du afviste tilbuddet om DCC %1."
 
 #: src/dcc/chat.cpp:200
-#, fuzzy, kde-format
-#| msgid "DCC CHAT request was rejected"
+#, kde-format
 msgctxt "%1=dcc extension as Chat or Whiteboard"
 msgid "DCC %1 request was rejected"
-msgstr "DCC CHAT-anmodningen blev afvist"
+msgstr "Anmodningen om DCC %1 blev afvist"
 
 #: src/dcc/chat.cpp:287
-#, fuzzy, kde-format
-#| msgid ""
-#| "Could not send Reverse DCC SEND acknowledgement to the partner via the "
-#| "IRC server."
+#, kde-format
 msgctxt "%1=dcc extension like Chat or Whiteboard"
 msgid ""
 "Could not send Reverse DCC %1 acknowledgement to the partner via the IRC "
 "server."
 msgstr ""
-"Kunne ikke sende reverse DCC SEND-bekræftelse til partneren via IRC-serveren."
+"Kunne ikke sende reverse DCC %1-bekræftelse til partneren via IRC-serveren."
 
 #: src/dcc/chat.cpp:318
-#, fuzzy, kde-format
-#| msgid ""
-#| "Could not send Reverse DCC SEND acknowledgement to the partner via the "
-#| "IRC server."
+#, kde-format
 msgctxt "%1=extension like Chat or Whiteboard"
 msgid ""
 "Could not send Reverse DCC %1 acknowledgement to the partner via the IRC "
 "server."
 msgstr ""
-"Kunne ikke sende reverse DCC SEND-bekræftelse til partneren via IRC-serveren."
+"Kunne ikke sende reverse DCC %1-bekræftelse til partneren via IRC-serveren."
 
 #: src/dcc/chat.cpp:359
 #, kde-format
@@ -948,74 +878,62 @@ msgid "Could not open a socket for listening: %1"
 msgstr "Kunne ikke åbne en sokkel til lytning: %1"
 
 #: src/dcc/chat.cpp:370
-#, fuzzy, kde-format
-#| msgctxt "%1=partnerNick, %2=port"
-#| msgid "Offering DCC Chat connection to %1 on port %2..."
+#, kde-format
 msgctxt "%1=dcc extension like Chat or Whiteboard,%2=partnerNick, %3=port"
 msgid "Offering DCC %1 connection to %2 on port <numid>%3</numid>..."
-msgstr "Tilbyder DCC-chat-forbindelse til %1 på port %2..."
+msgstr "Tilbyder DCC %1-forbindelse til %2 på port <numid>%3</numid>..."
 
 #: src/dcc/chat.cpp:465
-#, fuzzy, kde-format
-#| msgctxt "%1 = nickname, %2 = IP, %3 = port"
-#| msgid "Establishing DCC Chat connection to %1 (%2:%3)..."
+#, kde-format
 msgctxt ""
 "%1=extension like Chat or Whiteboard ,%2 = nickname, %3 = IP, %4 = port"
 msgid "Establishing DCC %1 connection to %2 (%3:<numid>%4</numid>)..."
-msgstr "Opretter DCC-chat-forbindelse til %1 (%2:%3)..."
+msgstr "Opretter DCC %1-forbindelse til %2 (%3:<numid>%4</numid>)..."
 
 #: src/dcc/chat.cpp:483
-#, fuzzy, kde-format
-#| msgid "Established DCC Chat connection to %1."
+#, kde-format
 msgctxt "%1=extension like Chat or Whiteboard, %2 = partnerNick"
 msgid "Established DCC %1 connection to %2."
-msgstr "Oprettede DCC-chat-forbindelse til %1."
+msgstr "Oprettede DCC %1-forbindelse til %2."
 
 #: src/dcc/chat.cpp:553
 msgid "Could not accept the client."
 msgstr "Kunne ikke acceptere klienten."
 
 #: src/dcc/chat.cpp:577
-#, fuzzy, kde-format
-#| msgid "Established DCC Chat connection to %1."
+#, kde-format
 msgctxt "%1=dcc extension as Chat or Whiteboard, %2=partnerNick"
 msgid "Established DCC %1 connection to %2."
-msgstr "Oprettede DCC-chat-forbindelse til %1."
+msgstr "Oprettede DCC %1-forbindelse til %2."
 
 #: src/dcc/chat.cpp:583
 msgid "Connection closed."
 msgstr "Forbindelse lukket."
 
 #: src/dcc/chatcontainer.cpp:128
-#, fuzzy, kde-format
-#| msgid "DCC chat with %1 on port %2."
+#, kde-format
 msgctxt "%1=extension like Chat or Whiteboard, %2=partnerNick, %3=port"
 msgid "DCC %1 with %2 on port <numid>%3</numid>."
-msgstr "DCC-chat med %1 på port %2."
+msgstr "DCC %1 med %2 på port <numid>%3</numid>."
 
 #: src/dcc/chatcontainer.cpp:135
-#, fuzzy, kde-format
-#| msgctxt "%1 = nickname, %2 = IP, %3 = port"
-#| msgid "DCC chat with %1 on %2:%3."
+#, kde-format
 msgctxt ""
 "%1=extension like Chat or Whiteboard, %2 = nickname, %3 = IP, %4 = port"
 msgid "DCC %1 with %2 on %3:<numid>%4</numid>."
-msgstr "DCC-chat med %1 på %2:%3."
+msgstr "DCC %1 med %2 på %3:<numid>%4</numid>."
 
 #: src/dcc/chatcontainer.cpp:199
-#, fuzzy, kde-format
-#| msgctxt "%1=partnerNick"
-#| msgid "Do you want to close your DCC Chat with %1?"
+#, kde-format
 msgctxt "%1=extension like Chat or Whiteboard, %2=partnerNick"
 msgid "Do you want to close your DCC %1 with %2?"
-msgstr "Vil du lukke din DCC-chat med %1?"
+msgstr "Vil du lukke din DCC %1 med %2?"
 
 #: src/dcc/chatcontainer.cpp:202
-#, fuzzy, kde-format
-#| msgid "Close DCC Chat"
+#, kde-format
 msgctxt "%1=extension like Chat or Whiteboard"
 msgid "Close DCC %1"
-msgstr "Luk DCC-chat"
+msgstr "Luk DCC %1"
 
 #: src/dcc/chatcontainer.cpp:221 src/irc/query.cpp:670
 msgid "Talking to yourself"
@@ -1150,27 +1068,20 @@ msgid "File &Information"
 msgstr "Fil&information"
 
 #: src/dcc/transferpanel.cpp:446
-#, fuzzy, kde-format
-#| msgid ""
-#| "<qt>You have active DCC file transfers. Are you sure you want to quit "
-#| "<b>Konversation</b>?</qt>"
+#, kde-format
 msgid ""
 "You have selected %1 file to execute, are you sure you want to continue?"
 msgid_plural ""
 "You have selected %1 files to execute, are you sure you want to continue?"
-msgstr[0] ""
-"<qt>Du har aktive DCC-filoverførsler. Vil du virkelig afslutte "
-"<b>Konversation</b>?</qt>"
-msgstr[1] ""
-"<qt>Du har aktive DCC-filoverførsler. Vil du virkelig afslutte "
-"<b>Konversation</b>?</qt>"
+msgstr[0] "Du har valgt at køre %1 fil, vil du virkelig fortsætte?"
+msgstr[1] "Du har valgt at køre %1 filer, vil du virkelig fortsætte?"
 
 #: src/dcc/transferpanel.cpp:449
 #, kde-format
 msgid "Execute %1 file"
 msgid_plural "Execute %1 files"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Kør %1 fil"
+msgstr[1] "Kør %1 filer"
 
 #: src/dcc/transferpanel.cpp:589
 #, kde-format
@@ -1189,6 +1100,30 @@ msgstr "Ingen detaljeret information fundet for denne fil."
 #: src/dcc/transferview.cpp:306
 msgid "Columns"
 msgstr "Kolonner"
+
+#: src/dcc/resumedialog.cpp:50
+msgid "DCC Receive Question"
+msgstr "DCC modtagespørgsmål"
+
+#: src/dcc/resumedialog.cpp:75
+msgid "&Resume"
+msgstr "&Genoptag"
+
+#: src/dcc/resumedialog.cpp:97
+msgid "O&riginal Filename"
+msgstr "&Oprindeligt filnavn"
+
+#: src/dcc/resumedialog.cpp:98
+msgid "Suggest &New Filename"
+msgstr "Foreslå &nyt filnavn"
+
+#: src/dcc/resumedialog.cpp:143
+msgid "&Overwrite"
+msgstr "&Overskriv"
+
+#: src/dcc/resumedialog.cpp:149
+msgid "R&ename"
+msgstr "Om&døb"
 
 #: src/irc/channelnick.cpp:199
 msgid "Operator"
@@ -1439,106 +1374,6 @@ msgctxt "(Offline) nickname details (e.g. real name from address book)"
 msgid "(Offline) %1"
 msgstr "(Offline) %1"
 
-#: src/irc/servergroupdialog.cpp:76
-msgid "Change network information"
-msgstr "Ændr netværksinformation"
-
-#: src/irc/servergroupdialog.cpp:77 src/viewer/editnotifydialog.cpp:73
-#: src/identitydialog.cpp:67
-msgid "Discards all changes made"
-msgstr "Kasserer alle udførte ændringer"
-
-#: src/irc/servergroupdialog.cpp:161
-msgid "Add Server"
-msgstr "Tilføj server"
-
-#: src/irc/servergroupdialog.cpp:179
-msgid "Edit Server"
-msgstr "Redigér server"
-
-#: src/irc/servergroupdialog.cpp:273
-msgid "Add Channel"
-msgstr "Tilføj kanal"
-
-#: src/irc/servergroupdialog.cpp:291
-msgid "Edit Channel"
-msgstr "Redigér kanal"
-
-#: src/irc/servergroupdialog.cpp:395
-msgid "The network name is required."
-msgstr "Netværksnavn kræves."
-
-#: src/irc/servergroupdialog.cpp:399
-msgid "You need to add at least one server to the network."
-msgstr "Du skal tilføje mindst én server til netværket."
-
-#: src/irc/servergroupdialog.cpp:454
-msgid "The server address is required."
-msgstr "Serveradressen kræves."
-
-#: src/irc/servergroupdialog.cpp:505
-msgid "The channel name is required."
-msgstr "Kanalnavnet kræves."
-
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
-msgid "C&onnect"
-msgstr "F&orbind"
-
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
-msgid "Connect to the server"
-msgstr "Forbind til serveren"
-
-#: src/irc/serverlistdialog.cpp:71
-msgid "Click here to connect to the selected IRC network and channel."
-msgstr "Klik her for at forbinde til det markerede IRC-netværk samt kanal."
-
-#: src/irc/serverlistdialog.cpp:145
-msgid "New Network"
-msgstr "Nyt netværk"
-
-#: src/irc/serverlistdialog.cpp:166
-msgid "Edit Network"
-msgstr "Redigér netværk"
-
-#: src/irc/serverlistdialog.cpp:222
-#, kde-format
-msgid ""
-"You cannot delete %1.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgstr ""
-"Du kan ikke slette %1.\n"
-"\n"
-"Netværket %2 skal have mindst én server."
-
-#: src/irc/serverlistdialog.cpp:227
-#, kde-format
-msgid ""
-"You cannot delete the selected server.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgid_plural ""
-"You cannot delete the selected servers.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgstr[0] ""
-"Du kan ikke slette den markerede server.\n"
-"\n"
-"Netværket %2 skal have mindst én server."
-msgstr[1] ""
-"Du kan ikke slette de markerede servere.\n"
-"\n"
-"Netværket %2 skal have mindst én server."
-
-#: src/irc/serverlistdialog.cpp:243
-msgid "Do you really want to delete the selected entries?"
-msgstr "Vil du virkelig fjerne de markerede indgange?"
-
-#: src/irc/serverlistdialog.cpp:245
-#, kde-format
-msgid "Do you really want to delete %1?"
-msgstr "Vil du virkelig slette %1?"
-
 #: src/irc/channeloptionsdialog.cpp:32
 #, kde-format
 msgid "Channel Settings for %1"
@@ -1557,9 +1392,7 @@ msgid "Parameter"
 msgstr "Parameter"
 
 #: src/irc/channeloptionsdialog.cpp:304
-#, fuzzy, kde-format
-#| msgctxt "network (nickname)"
-#| msgid "%1 (%2)"
+#, kde-format
 msgctxt "<mode character> (<mode description>)"
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
@@ -2292,8 +2125,6 @@ msgid "End of channel list."
 msgstr "Slut på kanalliste."
 
 #: src/irc/inputfilter.cpp:1944
-#, fuzzy
-#| msgid "(unknown)"
 msgctxt ""
 "The server didn't respond with the identity of the ban creator, so we say "
 "unknown (in brackets to avoid confusion with a real nickname)"
@@ -2316,10 +2147,9 @@ msgid "End of Ban List."
 msgstr "Slut på bandlysningsliste."
 
 #: src/irc/inputfilter.cpp:2000
-#, fuzzy, kde-format
-#| msgid "No such ignores: %1"
+#, kde-format
 msgid "No such server: %1."
-msgstr "Ingen sådan ignoreringer: %1"
+msgstr "Ingen sådan server: %1."
 
 #: src/irc/inputfilter.cpp:2009
 #, kde-format
@@ -2360,10 +2190,9 @@ msgid "Warning"
 msgstr "Advarsel"
 
 #: src/irc/server.cpp:429
-#, fuzzy, kde-format
-#| msgid "Looking for server %1 (port %2) ..."
+#, kde-format
 msgid "Looking for server %1 (port <numid>%2</numid>) ..."
-msgstr "Kigger efter serveren %1 (port %2)..."
+msgstr "Leder efter serveren %1 (port <numid>%2</numid>)..."
 
 #: src/irc/server.cpp:572
 msgid "Server found, connecting..."
@@ -2374,47 +2203,42 @@ msgid "Connected; logging in..."
 msgstr "Forbundet. Logger på..."
 
 #: src/irc/server.cpp:634
-#, fuzzy, kde-format
-#| msgid "Connection to server %1 (port %2) lost: %3."
+#, kde-format
 msgid "Connection to server %1 (port <numid>%2</numid>) lost: %3."
-msgstr "Forbindelse mistet til serven %1 (port %2): %3."
+msgstr "Forbindelse mistet til serven %1 (port <numid>%2</numid>): %3."
 
 #: src/irc/server.cpp:678
-#, fuzzy, kde-format
-#| msgid "Connection to server %1 (port %2) lost: %3."
+#, kde-format
 msgid ""
 "The SSL certificate for the the server %1 (port <numid>%2</numid>) failed "
 "the authenticity check."
-msgstr "Forbindelse mistet til serven %1 (port %2): %3."
+msgstr ""
+"SSL-certifikatet for serveren %1 (port <numid>%2</numid>) klarede ikke "
+"autenticitetstjekket."
 
 #: src/irc/server.cpp:682
-#, fuzzy
-#| msgid "SSL Connection Error"
 msgid "SSL Connection Warning"
-msgstr "SSL-forbindelsesfejl"
+msgstr "Advarsel for SSL-forbindelse"
 
 #: src/irc/server.cpp:693
-#, fuzzy, kde-format
-#| msgid ""
-#| "Could not connect to %1 (port %2) using SSL encryption. Maybe the server "
-#| "does not support SSL, or perhaps you have the wrong port? %3"
+#, kde-format
 msgid ""
 "Could not connect to %1 (port <numid>%2</numid>) using SSL encryption. "
 "Either the server does not support SSL (did you use the correct port?) or "
 "you rejected the certificate. %3"
 msgstr ""
-"Kunne ikke forbinde til %1 (port %2) med SSL-kryptering. Måske understøtter "
-"serveren ikke SSL, eller måske bruger du den forkerte port? %3"
+"Kunne ikke forbinde til %1 (port <numid>%2</numid>) med SSL-kryptering. "
+"Måske understøtter serveren ikke SSL (har du valgt den rigtige port?), eller "
+"måske afviste du certifikatet. %3"
 
 #: src/irc/server.cpp:698
 msgid "SSL Connection Error"
 msgstr "SSL-forbindelsesfejl"
 
 #: src/irc/server.cpp:785
-#, fuzzy, kde-format
-#| msgid "Disconnected from %1 (port %2)."
+#, kde-format
 msgid "Disconnected from %1 (port <numid>%2</numid>)."
-msgstr "Forbindelse til %1 (port %2) afbrudt."
+msgstr "Forbindelse til %1 (port <numid>%2</numid>) afbrudt."
 
 #: src/irc/server.cpp:948
 #, kde-format
@@ -2474,11 +2298,10 @@ msgid "Asking %1 to accept passive upload of \"%2\" (%3)..."
 msgstr "Beder %1 om at acceptere passiv upload af \"%2\" (%3)..."
 
 #: src/irc/server.cpp:2105
-#, fuzzy, kde-format
-#| msgid "Asking %1 to accept chat..."
+#, kde-format
 msgctxt "%1=name, %2=dcc extension, chat or wboard for example"
 msgid "Asking %1 to accept %2..."
-msgstr "Beder %1 om at acceptere chat..."
+msgstr "Beder %1 om at acceptere %2..."
 
 #: src/irc/server.cpp:2164
 #, kde-format
@@ -2596,7 +2419,7 @@ msgstr "Fejl: Kunne ikke køre scriptet \"%1\". Tjek filrettigheder."
 
 #: src/irc/server.cpp:3610
 msgid "Delayed connect aborted."
-msgstr ""
+msgstr "Forsinket forbindelse afbrudt."
 
 #: src/irc/server.cpp:3622
 msgid "Gone away for now"
@@ -3409,10 +3232,8 @@ msgid "Save &List..."
 msgstr "Gem &liste..."
 
 #: src/irc/channellistpanel.cpp:163
-#, fuzzy
-#| msgid "Click to erase the entire list."
 msgid "Click here to save the channel list."
-msgstr "Klik for at rydde hele listen."
+msgstr "Klik her for at gemme kanallisten."
 
 #: src/irc/channellistpanel.cpp:164
 msgctxt "refresh list"
@@ -3420,10 +3241,8 @@ msgid "&Refresh List"
 msgstr "&Genopfrisk liste"
 
 #: src/irc/channellistpanel.cpp:165
-#, fuzzy
-#| msgid "Click to erase the entire list."
 msgid "Click here to refresh the channel list."
-msgstr "Klik for at rydde hele listen."
+msgstr "Klik her for at genopfriske kanallisten."
 
 #: src/irc/channellistpanel.cpp:167
 msgctxt "join channel"
@@ -3575,21 +3394,10 @@ msgstr ""
 "p></qt>"
 
 #: src/irc/nicklistview.cpp:167
-#, fuzzy
-#| msgid "Open DCC &Chat"
 msgid "Open DCC &Whiteboard"
-msgstr "Åbn DCC-&chat"
+msgstr "Åbn DCC &Whiteboard"
 
 #: src/irc/nicklistview.cpp:168
-#, fuzzy
-#| msgid ""
-#| "<qt><p>Start a private <em>D</em>irect <em>C</em>lient <em>C</"
-#| "em>onnection chat between you and this person.</p><p><em>Technical note:</"
-#| "em><br />The conversation between you and this person will be sent "
-#| "directly.  This means it is independent from the server - so if the "
-#| "server connection fails, or use disconnect, your DCC Chat will be "
-#| "unaffected.  It also means that no irc server admin can view or spy on "
-#| "this chat.</p></qt>"
 msgid ""
 "<qt><p>Start a private <em>D</em>irect <em>C</em>lient <em>C</em>onnection "
 "whiteboard between you and this person.</p><p><em>Technical note:</em><br /"
@@ -3599,12 +3407,12 @@ msgid ""
 "that no irc server admin can view or spy on this chat.</p></qt>"
 msgstr ""
 "<qt><p>Start privat <em>d</em>irekte <em>k</em>lient<em>f</em>orbindelse "
-"(DCC-chat) mellem dig og denne person.</p><p><em>Teknisk note:</em><br /"
-">Samtalen mellem dig og denne person vil blive sendt direkte. Det betyder at "
-"den er uafhængig af serveren - så hvis serverforbindelsen fejler eller hvis "
-"du afbryder forbindelsen, vil din DCC-chat ikke blive påvirket. Det betyder "
-"også at ingen IRC-server-administrator kan se eller udspionere denne chat.</"
-"p></qt>"
+"(DCC) Whiteboard mellem dig og denne person.</p><p><em>Teknisk note:</"
+"em><br />Samtalen mellem dig og denne person vil blive sendt direkte. Det "
+"betyder at den er uafhængig af serveren - så hvis serverforbindelsen fejler "
+"eller hvis du afbryder forbindelsen, vil din DCC Whiteboard ikke blive "
+"påvirket. Det betyder også at ingen IRC-server-administrator kan se eller "
+"udspionere denne chat.</p></qt>"
 
 #: src/irc/nicklistview.cpp:173
 msgid ""
@@ -3794,16 +3602,14 @@ msgid "Sending CTCP-%1 request to %2."
 msgstr "Sender CTCP-%1-anmodning til %2."
 
 #: src/irc/outputfilter.cpp:839
-#, fuzzy, c-format, kde-format
-#| msgid "Usage: %1AME text"
+#, c-format, kde-format
 msgid "Usage: %1AME [-LOCAL] text"
-msgstr "Brug: %1AME tekst"
+msgstr "Brug: %1AME [-LOKAL] tekst"
 
 #: src/irc/outputfilter.cpp:852
-#, fuzzy, c-format, kde-format
-#| msgid "Usage: %1AMSG text"
+#, c-format, kde-format
 msgid "Usage: %1AMSG [-LOCAL] text"
-msgstr "Brug: %1AMSG tekst"
+msgstr "Brug: %1AMSG [-LOKAL] tekst"
 
 #: src/irc/outputfilter.cpp:865
 #, kde-format
@@ -3851,21 +3657,18 @@ msgid "Usage: %1DCC [CHAT [nickname]]"
 msgstr "Brug: %1DCC [CHAT [kaldenavn]]"
 
 #: src/irc/outputfilter.cpp:1018
-#, fuzzy, kde-format
-#| msgid "Usage: %1DCC [CHAT [nickname]]"
+#, kde-format
 msgid "Usage: %1DCC [WHITEBOARD [nickname]]"
-msgstr "Brug: %1DCC [CHAT [kaldenavn]]"
+msgstr "Brug: %1DCC [WHITEBOARD [kaldenavn]]"
 
 #: src/irc/outputfilter.cpp:1023
-#, fuzzy, kde-format
-#| msgid ""
-#| "Unrecognized command %1DCC %2. Possible commands are SEND, CHAT, CLOSE, "
-#| "GET."
+#, kde-format
 msgid ""
 "Unrecognized command %1DCC %2. Possible commands are SEND, CHAT, CLOSE, GET, "
 "WHITEBOARD."
 msgstr ""
-"Ikke genkendt kommando %1DCC %2. Mulige kommandoer er SEND, CHAT, CLOSE, GET."
+"Ikke genkendt kommando %1DCC %2. Mulige kommandoer er SEND, CHAT, CLOSE, "
+"GET, WHITEBOARD."
 
 #: src/irc/outputfilter.cpp:1166
 #, kde-format
@@ -4093,6 +3896,106 @@ msgstr "Kunne ikke løse %1"
 #, c-format, kde-format
 msgid "Usage: %1queuetuner [on | off]"
 msgstr "Brug: %1queuetuner [on | off]"
+
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
+msgid "C&onnect"
+msgstr "F&orbind"
+
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
+msgid "Connect to the server"
+msgstr "Forbind til serveren"
+
+#: src/irc/serverlistdialog.cpp:71
+msgid "Click here to connect to the selected IRC network and channel."
+msgstr "Klik her for at forbinde til det markerede IRC-netværk samt kanal."
+
+#: src/irc/serverlistdialog.cpp:145
+msgid "New Network"
+msgstr "Nyt netværk"
+
+#: src/irc/serverlistdialog.cpp:166
+msgid "Edit Network"
+msgstr "Redigér netværk"
+
+#: src/irc/serverlistdialog.cpp:222
+#, kde-format
+msgid ""
+"You cannot delete %1.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgstr ""
+"Du kan ikke slette %1.\n"
+"\n"
+"Netværket %2 skal have mindst én server."
+
+#: src/irc/serverlistdialog.cpp:227
+#, kde-format
+msgid ""
+"You cannot delete the selected server.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgid_plural ""
+"You cannot delete the selected servers.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgstr[0] ""
+"Du kan ikke slette den markerede server.\n"
+"\n"
+"Netværket %2 skal have mindst én server."
+msgstr[1] ""
+"Du kan ikke slette de markerede servere.\n"
+"\n"
+"Netværket %2 skal have mindst én server."
+
+#: src/irc/serverlistdialog.cpp:243
+msgid "Do you really want to delete the selected entries?"
+msgstr "Vil du virkelig fjerne de markerede indgange?"
+
+#: src/irc/serverlistdialog.cpp:245
+#, kde-format
+msgid "Do you really want to delete %1?"
+msgstr "Vil du virkelig slette %1?"
+
+#: src/irc/servergroupdialog.cpp:76
+msgid "Change network information"
+msgstr "Ændr netværksinformation"
+
+#: src/irc/servergroupdialog.cpp:77 src/viewer/editnotifydialog.cpp:73
+#: src/identitydialog.cpp:67
+msgid "Discards all changes made"
+msgstr "Kasserer alle udførte ændringer"
+
+#: src/irc/servergroupdialog.cpp:161
+msgid "Add Server"
+msgstr "Tilføj server"
+
+#: src/irc/servergroupdialog.cpp:179
+msgid "Edit Server"
+msgstr "Redigér server"
+
+#: src/irc/servergroupdialog.cpp:284
+msgid "Add Channel"
+msgstr "Tilføj kanal"
+
+#: src/irc/servergroupdialog.cpp:302
+msgid "Edit Channel"
+msgstr "Redigér kanal"
+
+#: src/irc/servergroupdialog.cpp:417
+msgid "The network name is required."
+msgstr "Netværksnavn kræves."
+
+#: src/irc/servergroupdialog.cpp:421
+msgid "You need to add at least one server to the network."
+msgstr "Du skal tilføje mindst én server til netværket."
+
+#: src/irc/servergroupdialog.cpp:476
+msgid "The server address is required."
+msgstr "Serveradressen kræves."
+
+#: src/irc/servergroupdialog.cpp:527
+msgid "The channel name is required."
+msgstr "Kanalnavnet kræves."
 
 #: src/konsolepanel.cpp:27 src/viewer/viewcontainer.cpp:2110
 #: src/viewer/viewcontainer.cpp:2111
@@ -4963,12 +4866,6 @@ msgid "Open link in external browser."
 msgstr "Åbn link i ekstern browser."
 
 #: src/urlcatcher.cpp:156
-#, fuzzy
-#| msgid ""
-#| "<p>Select a <b>URL</b> above, then click this button to launch the "
-#| "application associated with the mimetype of the URL.</p>\n"
-#| "<p>In the <b>Settings</b>, under <b>Behavior</b> | <b>General</b>, you "
-#| "can specify a custom web browser for web URLs.</p>"
 msgid ""
 "<p>Select a <b>URL</b> above, then click this button to launch the "
 "application associated with the mimetype of the URL.</p>-<p>In the "
@@ -4976,9 +4873,9 @@ msgid ""
 "custom web browser for web URLs.</p>"
 msgstr ""
 "<p>Markér en <b>URL</b> ovenfor, og tryk derefter på knappen for at starte "
-"programmet som hører sammen med URL'ens MIME-type.</p>\n"
-"<p>I <b>Indstillinger</b>, under <b>Opførsel</b> | <b>Generelt</b>, kan du "
-"angive en brugervalgt browser til web-URL'er.</p>"
+"programmet som hører sammen med URL'ens MIME-type.</p>-<p>I "
+"<b>Indstillinger</b>, under <b>Opførsel</b> | <b>Generelt</b>, kan du angive "
+"en brugervalgt browser til web-URL'er.</p>"
 
 #: src/urlcatcher.cpp:158
 msgid "&Save..."
@@ -5117,23 +5014,21 @@ msgstr ""
 "igen."
 
 #: src/connectionmanager.cpp:256
-#, fuzzy, kde-format
-#| msgid "Trying to connect to %2 (port %3) in 1 second."
-#| msgid_plural "Trying to connect to %2 (port %3) in %1 seconds."
+#, kde-format
 msgid "Trying to connect to %2 (port <numid>%3</numid>) in 1 second."
 msgid_plural "Trying to connect to %2 (port <numid>%3</numid>) in %1 seconds."
-msgstr[0] "Prøver at forbinde til %2 (port %3) om 1 sekund."
-msgstr[1] "Prøver at forbinde til %2 (port %3) om %1 sekunder."
+msgstr[0] "Prøver at forbinde til %2 (port <numid>%3</numid>) om 1 sekund."
+msgstr[1] "Prøver at forbinde til %2 (port <numid>%3</numid>) om %1 sekunder."
 
 #: src/connectionmanager.cpp:266
-#, fuzzy, kde-format
-#| msgid "Trying to reconnect to %2 (port %3) in 1 second."
-#| msgid_plural "Trying to reconnect to %2 (port %3) in %1 seconds."
+#, kde-format
 msgid "Trying to reconnect to %2 (port <numid>%3</numid>) in 1 second."
 msgid_plural ""
 "Trying to reconnect to %2 (port <numid>%3</numid>) in %1 seconds."
-msgstr[0] "Prøver at forbinde til %2 (port %3) igen om 1 sekund."
-msgstr[1] "Prøver at forbinde til %2 (port %3) igen om %1 sekunder."
+msgstr[0] ""
+"Prøver at forbinde til %2 (port <numid>%3</numid>) igen om 1 sekund."
+msgstr[1] ""
+"Prøver at forbinde til %2 (port <numid>%3</numid>) igen om %1 sekunder."
 
 #: src/connectionmanager.cpp:279
 msgid "Reconnection attempts exceeded."
@@ -5155,16 +5050,13 @@ msgid "Create connection"
 msgstr "Opret forbindelse"
 
 #: src/connectionmanager.cpp:526
-#, fuzzy, kde-format
-#| msgid ""
-#| "You are presently connected to %1 via '%2' (port %3). Do you want to "
-#| "switch to '%4' (port %5) instead?"
+#, kde-format
 msgid ""
 "You are presently connected to %1 via '%2' (port <numid>%3</numid>). Do you "
 "want to switch to '%4' (port <numid>%5</numid>) instead?"
 msgstr ""
-"Du er i øjeblikket forbundet til %1 via \"%2\" (port %3). Vil du skifte til "
-"\"%4\" (port %5) i stedet?"
+"Du er i øjeblikket forbundet til %1 via \"%2\" (port <numid>%3</numid>). Vil "
+"du skifte til \"%4\" (port <numid>%5</numid>) i stedet?"
 
 #: src/connectionmanager.cpp:533
 msgid "Switch Server"
@@ -5200,10 +5092,8 @@ msgid "A user-friendly IRC client"
 msgstr "En brugervenlig IRC-klient"
 
 #: src/main.cpp:39
-#, fuzzy
-#| msgid "(C) 2002-2009 by the Konversation team"
 msgid "(C) 2002-2010 by the Konversation team"
-msgstr "(C) 2002-2009 af Konversation-holdet"
+msgstr "(C) 2002-2010 af Konversation-holdet"
 
 #: src/main.cpp:40
 msgid ""
@@ -5518,11 +5408,13 @@ msgstr "Diverse fejlrettelser og forbedringer."
 
 #: src/main.cpp:83
 msgid "Martin Blumenstingl"
-msgstr ""
+msgstr "Martin Blumenstingl"
 
 #: src/main.cpp:83
 msgid "KStatusNotifierItem support, KIdleTime support, other enhancements"
 msgstr ""
+"KStatusNotifierItem-understøttelse, KIdleTime-understøttelse, andre "
+"forbedringer"
 
 #: src/main.cpp:87
 msgid "irc:// URL or server hostname"
@@ -5791,7 +5683,7 @@ msgstr "Luk &faneblad"
 
 #: src/mainwindow.cpp:272
 msgid "Last Focused Tab"
-msgstr ""
+msgstr "Seneste faneblad i fokus"
 
 #: src/mainwindow.cpp:279
 msgid "Next Active Tab"
@@ -7728,10 +7620,8 @@ msgstr "Fuldførelses&tilstand:"
 #. i18n: file: src/config/generalbehavior_configui.ui:131
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_NickCompletionMode)
 #: rc.cpp:1222
-#, fuzzy
-#| msgid "Online Since:"
 msgid "Inline Cycle"
-msgstr "Online siden:"
+msgstr "Indlejret cyklus"
 
 #. i18n: file: src/config/generalbehavior_configui.ui:136
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_NickCompletionMode)
@@ -7909,131 +7799,115 @@ msgstr "Afsluttet kl.:"
 #. i18n: ectx: property (windowTitle), widget (QWidget, WhiteBoardFontChooserUi)
 #: rc.cpp:1312
 msgid "Whiteboard Font Chooser"
-msgstr ""
+msgstr "Skrifttypevælger til whiteboard"
 
 #. i18n: file: src/dcc/whiteboardfontchooserui.ui:55
 #. i18n: ectx: property (text), item, widget (KComboBox, m_fontPointComboBox)
 #: rc.cpp:1315
-#, fuzzy
-#| msgid "6:"
 msgid "6"
-msgstr "6:"
+msgstr "6"
 
 #. i18n: file: src/dcc/whiteboardfontchooserui.ui:60
 #. i18n: ectx: property (text), item, widget (KComboBox, m_fontPointComboBox)
 #: rc.cpp:1318
-#, fuzzy
-#| msgid "7:"
 msgid "7"
-msgstr "7:"
+msgstr "7"
 
 #. i18n: file: src/dcc/whiteboardfontchooserui.ui:65
 #. i18n: ectx: property (text), item, widget (KComboBox, m_fontPointComboBox)
 #: rc.cpp:1321
-#, fuzzy
-#| msgid "8:"
 msgid "8"
-msgstr "8:"
+msgstr "8"
 
 #. i18n: file: src/dcc/whiteboardfontchooserui.ui:70
 #. i18n: ectx: property (text), item, widget (KComboBox, m_fontPointComboBox)
 #: rc.cpp:1324
-#, fuzzy
-#| msgid "9:"
 msgid "9"
-msgstr "9:"
+msgstr "9"
 
 #. i18n: file: src/dcc/whiteboardfontchooserui.ui:75
 #. i18n: ectx: property (text), item, widget (KComboBox, m_fontPointComboBox)
 #: rc.cpp:1327
-#, fuzzy
-#| msgid "10:"
 msgid "10"
-msgstr "10:"
+msgstr "10"
 
 #. i18n: file: src/dcc/whiteboardfontchooserui.ui:80
 #. i18n: ectx: property (text), item, widget (KComboBox, m_fontPointComboBox)
 #: rc.cpp:1330
-#, fuzzy
-#| msgid "11:"
 msgid "11"
-msgstr "11:"
+msgstr "11"
 
 #. i18n: file: src/dcc/whiteboardfontchooserui.ui:85
 #. i18n: ectx: property (text), item, widget (KComboBox, m_fontPointComboBox)
 #: rc.cpp:1333
-#, fuzzy
-#| msgid "12:"
 msgid "12"
-msgstr "12:"
+msgstr "12"
 
 #. i18n: file: src/dcc/whiteboardfontchooserui.ui:90
 #. i18n: ectx: property (text), item, widget (KComboBox, m_fontPointComboBox)
 #: rc.cpp:1336
-#, fuzzy
-#| msgid "14:"
 msgid "14"
-msgstr "14:"
+msgstr "14"
 
 #. i18n: file: src/dcc/whiteboardfontchooserui.ui:95
 #. i18n: ectx: property (text), item, widget (KComboBox, m_fontPointComboBox)
 #: rc.cpp:1339
 msgid "16"
-msgstr ""
+msgstr "16"
 
 #. i18n: file: src/dcc/whiteboardfontchooserui.ui:100
 #. i18n: ectx: property (text), item, widget (KComboBox, m_fontPointComboBox)
 #: rc.cpp:1342
 msgid "18"
-msgstr ""
+msgstr "18"
 
 #. i18n: file: src/dcc/whiteboardfontchooserui.ui:105
 #. i18n: ectx: property (text), item, widget (KComboBox, m_fontPointComboBox)
 #: rc.cpp:1345
 msgid "20"
-msgstr ""
+msgstr "20"
 
 #. i18n: file: src/dcc/whiteboardfontchooserui.ui:110
 #. i18n: ectx: property (text), item, widget (KComboBox, m_fontPointComboBox)
 #: rc.cpp:1348
 msgid "22"
-msgstr ""
+msgstr "22"
 
 #. i18n: file: src/dcc/whiteboardfontchooserui.ui:115
 #. i18n: ectx: property (text), item, widget (KComboBox, m_fontPointComboBox)
 #: rc.cpp:1351
 msgid "24"
-msgstr ""
+msgstr "24"
 
 #. i18n: file: src/dcc/whiteboardfontchooserui.ui:120
 #. i18n: ectx: property (text), item, widget (KComboBox, m_fontPointComboBox)
 #: rc.cpp:1354
 msgid "26"
-msgstr ""
+msgstr "26"
 
 #. i18n: file: src/dcc/whiteboardfontchooserui.ui:125
 #. i18n: ectx: property (text), item, widget (KComboBox, m_fontPointComboBox)
 #: rc.cpp:1357
 msgid "28"
-msgstr ""
+msgstr "28"
 
 #. i18n: file: src/dcc/whiteboardfontchooserui.ui:130
 #. i18n: ectx: property (text), item, widget (KComboBox, m_fontPointComboBox)
 #: rc.cpp:1360
 msgid "36"
-msgstr ""
+msgstr "36"
 
 #. i18n: file: src/dcc/whiteboardfontchooserui.ui:135
 #. i18n: ectx: property (text), item, widget (KComboBox, m_fontPointComboBox)
 #: rc.cpp:1363
 msgid "48"
-msgstr ""
+msgstr "48"
 
 #. i18n: file: src/dcc/whiteboardfontchooserui.ui:140
 #. i18n: ectx: property (text), item, widget (KComboBox, m_fontPointComboBox)
 #: rc.cpp:1366
 msgid "72"
-msgstr ""
+msgstr "72"
 
 #. i18n: file: src/identitydialog.ui:25
 #. i18n: ectx: property (text), widget (QLabel, label)

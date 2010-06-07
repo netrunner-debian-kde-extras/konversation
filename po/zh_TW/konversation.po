@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-05-20 04:55+0200\n"
+"POT-Creation-Date: 2010-06-05 04:59+0200\n"
 "PO-Revision-Date: 2009-07-08 13:09+0800\n"
 "Last-Translator: Frank Weng (a.k.a. Franklin) <franklin at goodhorse dot idv "
 "dot tw>\n"
@@ -373,30 +373,6 @@ msgstr "取消(&C)"
 #: src/dcc/recipientdialog.cpp:65
 msgid "Close the window without changes"
 msgstr "不變更而關閉視窗"
-
-#: src/dcc/resumedialog.cpp:49
-msgid "DCC Receive Question"
-msgstr "DCC 接收詢問"
-
-#: src/dcc/resumedialog.cpp:74
-msgid "&Resume"
-msgstr "續傳(&R)"
-
-#: src/dcc/resumedialog.cpp:94
-msgid "O&riginal Filename"
-msgstr "原始檔名(&R)"
-
-#: src/dcc/resumedialog.cpp:95
-msgid "Suggest &New Filename"
-msgstr "建議的新檔名(&N)"
-
-#: src/dcc/resumedialog.cpp:140
-msgid "&Overwrite"
-msgstr "覆寫(&O)"
-
-#: src/dcc/resumedialog.cpp:146
-msgid "R&ename"
-msgstr "重新命名(&E)"
 
 #: src/dcc/transferdetailedinfopanel.cpp:34 src/dcc/transferlistmodel.cpp:48
 msgid "Status"
@@ -1209,6 +1185,30 @@ msgstr "找不到此檔案的詳細資訊。"
 msgid "Columns"
 msgstr "命令："
 
+#: src/dcc/resumedialog.cpp:50
+msgid "DCC Receive Question"
+msgstr "DCC 接收詢問"
+
+#: src/dcc/resumedialog.cpp:75
+msgid "&Resume"
+msgstr "續傳(&R)"
+
+#: src/dcc/resumedialog.cpp:97
+msgid "O&riginal Filename"
+msgstr "原始檔名(&R)"
+
+#: src/dcc/resumedialog.cpp:98
+msgid "Suggest &New Filename"
+msgstr "建議的新檔名(&N)"
+
+#: src/dcc/resumedialog.cpp:143
+msgid "&Overwrite"
+msgstr "覆寫(&O)"
+
+#: src/dcc/resumedialog.cpp:149
+msgid "R&ename"
+msgstr "重新命名(&E)"
+
 #: src/irc/channelnick.cpp:199
 msgid "Operator"
 msgstr "管理員"
@@ -1458,106 +1458,6 @@ msgstr " 總管"
 msgctxt "(Offline) nickname details (e.g. real name from address book)"
 msgid "(Offline) %1"
 msgstr "離線"
-
-#: src/irc/servergroupdialog.cpp:76
-msgid "Change network information"
-msgstr "變更網路資訊"
-
-#: src/irc/servergroupdialog.cpp:77 src/viewer/editnotifydialog.cpp:73
-#: src/identitydialog.cpp:67
-msgid "Discards all changes made"
-msgstr "丟棄所有變動"
-
-#: src/irc/servergroupdialog.cpp:161
-msgid "Add Server"
-msgstr "加入伺服器"
-
-#: src/irc/servergroupdialog.cpp:179
-msgid "Edit Server"
-msgstr "編輯伺服器"
-
-#: src/irc/servergroupdialog.cpp:273
-msgid "Add Channel"
-msgstr "加入頻道"
-
-#: src/irc/servergroupdialog.cpp:291
-msgid "Edit Channel"
-msgstr "編輯頻道"
-
-#: src/irc/servergroupdialog.cpp:395
-msgid "The network name is required."
-msgstr "這裏需要一個網路名稱。"
-
-#: src/irc/servergroupdialog.cpp:399
-msgid "You need to add at least one server to the network."
-msgstr "您需要在此網路中加入到少一個伺服器。"
-
-#: src/irc/servergroupdialog.cpp:454
-msgid "The server address is required."
-msgstr "要求填入伺服器位址。"
-
-#: src/irc/servergroupdialog.cpp:505
-msgid "The channel name is required."
-msgstr "需要一個頻道名稱。"
-
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
-msgid "C&onnect"
-msgstr "連線(&O)"
-
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
-msgid "Connect to the server"
-msgstr "連線到伺服器"
-
-#: src/irc/serverlistdialog.cpp:71
-msgid "Click here to connect to the selected IRC network and channel."
-msgstr "點此連線到選擇的 IRC 網路與頻道。"
-
-#: src/irc/serverlistdialog.cpp:145
-msgid "New Network"
-msgstr "新網路"
-
-#: src/irc/serverlistdialog.cpp:166
-msgid "Edit Network"
-msgstr "編輯網路"
-
-#: src/irc/serverlistdialog.cpp:222
-#, kde-format
-msgid ""
-"You cannot delete %1.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgstr ""
-"您不能刪除 %1。\n"
-"\n"
-"%2 網路需要至少一個伺服器。"
-
-#: src/irc/serverlistdialog.cpp:227
-#, fuzzy, kde-format
-#| msgid ""
-#| "You cannot delete the selected servers.\n"
-#| "\n"
-#| "The network %1 needs to have at least one server."
-msgid ""
-"You cannot delete the selected server.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgid_plural ""
-"You cannot delete the selected servers.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgstr[0] ""
-"您不能刪除選取的伺服器。\n"
-"\n"
-"%1 網路需要至少一個伺服器。"
-
-#: src/irc/serverlistdialog.cpp:243
-msgid "Do you really want to delete the selected entries?"
-msgstr "您真要刪除選取的條目嗎？"
-
-#: src/irc/serverlistdialog.cpp:245
-#, kde-format
-msgid "Do you really want to delete %1?"
-msgstr "您真要刪除 %1 嗎？"
 
 #: src/irc/channeloptionsdialog.cpp:32
 #, kde-format
@@ -4177,6 +4077,106 @@ msgstr "無法解析 %1"
 #, c-format, kde-format
 msgid "Usage: %1queuetuner [on | off]"
 msgstr "用法：%1queuetuner [on | off]"
+
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
+msgid "C&onnect"
+msgstr "連線(&O)"
+
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
+msgid "Connect to the server"
+msgstr "連線到伺服器"
+
+#: src/irc/serverlistdialog.cpp:71
+msgid "Click here to connect to the selected IRC network and channel."
+msgstr "點此連線到選擇的 IRC 網路與頻道。"
+
+#: src/irc/serverlistdialog.cpp:145
+msgid "New Network"
+msgstr "新網路"
+
+#: src/irc/serverlistdialog.cpp:166
+msgid "Edit Network"
+msgstr "編輯網路"
+
+#: src/irc/serverlistdialog.cpp:222
+#, kde-format
+msgid ""
+"You cannot delete %1.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgstr ""
+"您不能刪除 %1。\n"
+"\n"
+"%2 網路需要至少一個伺服器。"
+
+#: src/irc/serverlistdialog.cpp:227
+#, fuzzy, kde-format
+#| msgid ""
+#| "You cannot delete the selected servers.\n"
+#| "\n"
+#| "The network %1 needs to have at least one server."
+msgid ""
+"You cannot delete the selected server.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgid_plural ""
+"You cannot delete the selected servers.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgstr[0] ""
+"您不能刪除選取的伺服器。\n"
+"\n"
+"%1 網路需要至少一個伺服器。"
+
+#: src/irc/serverlistdialog.cpp:243
+msgid "Do you really want to delete the selected entries?"
+msgstr "您真要刪除選取的條目嗎？"
+
+#: src/irc/serverlistdialog.cpp:245
+#, kde-format
+msgid "Do you really want to delete %1?"
+msgstr "您真要刪除 %1 嗎？"
+
+#: src/irc/servergroupdialog.cpp:76
+msgid "Change network information"
+msgstr "變更網路資訊"
+
+#: src/irc/servergroupdialog.cpp:77 src/viewer/editnotifydialog.cpp:73
+#: src/identitydialog.cpp:67
+msgid "Discards all changes made"
+msgstr "丟棄所有變動"
+
+#: src/irc/servergroupdialog.cpp:161
+msgid "Add Server"
+msgstr "加入伺服器"
+
+#: src/irc/servergroupdialog.cpp:179
+msgid "Edit Server"
+msgstr "編輯伺服器"
+
+#: src/irc/servergroupdialog.cpp:284
+msgid "Add Channel"
+msgstr "加入頻道"
+
+#: src/irc/servergroupdialog.cpp:302
+msgid "Edit Channel"
+msgstr "編輯頻道"
+
+#: src/irc/servergroupdialog.cpp:417
+msgid "The network name is required."
+msgstr "這裏需要一個網路名稱。"
+
+#: src/irc/servergroupdialog.cpp:421
+msgid "You need to add at least one server to the network."
+msgstr "您需要在此網路中加入到少一個伺服器。"
+
+#: src/irc/servergroupdialog.cpp:476
+msgid "The server address is required."
+msgstr "要求填入伺服器位址。"
+
+#: src/irc/servergroupdialog.cpp:527
+msgid "The channel name is required."
+msgstr "需要一個頻道名稱。"
 
 #: src/konsolepanel.cpp:27 src/viewer/viewcontainer.cpp:2110
 #: src/viewer/viewcontainer.cpp:2111

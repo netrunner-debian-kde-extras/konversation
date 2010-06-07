@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-05-20 04:55+0200\n"
-"PO-Revision-Date: 2010-05-18 04:43+0300\n"
+"POT-Creation-Date: 2010-06-05 04:59+0200\n"
+"PO-Revision-Date: 2010-05-24 16:53+0300\n"
 "Last-Translator: Marek Laane <bald@smail.ee>\n"
 "Language-Team: Estonian <kde-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -359,30 +359,6 @@ msgstr "&Loobu"
 #: src/dcc/recipientdialog.cpp:65
 msgid "Close the window without changes"
 msgstr "Sulgeb akna muutusi tegemata"
-
-#: src/dcc/resumedialog.cpp:49
-msgid "DCC Receive Question"
-msgstr "DCC saamise küsimus"
-
-#: src/dcc/resumedialog.cpp:74
-msgid "&Resume"
-msgstr "&Jätka"
-
-#: src/dcc/resumedialog.cpp:94
-msgid "O&riginal Filename"
-msgstr "O&riginaalfaili nimi"
-
-#: src/dcc/resumedialog.cpp:95
-msgid "Suggest &New Filename"
-msgstr "Paku uus &nimi"
-
-#: src/dcc/resumedialog.cpp:140
-msgid "&Overwrite"
-msgstr "Kirj&uta üle"
-
-#: src/dcc/resumedialog.cpp:146
-msgid "R&ename"
-msgstr "Nimeta üm&ber"
 
 #: src/dcc/transferdetailedinfopanel.cpp:34 src/dcc/transferlistmodel.cpp:48
 msgid "Status"
@@ -1120,6 +1096,30 @@ msgstr "Faili kohta ei leitud üksikasjalikumat infot."
 msgid "Columns"
 msgstr "Veerud"
 
+#: src/dcc/resumedialog.cpp:50
+msgid "DCC Receive Question"
+msgstr "DCC saamise küsimus"
+
+#: src/dcc/resumedialog.cpp:75
+msgid "&Resume"
+msgstr "&Jätka"
+
+#: src/dcc/resumedialog.cpp:97
+msgid "O&riginal Filename"
+msgstr "O&riginaalfaili nimi"
+
+#: src/dcc/resumedialog.cpp:98
+msgid "Suggest &New Filename"
+msgstr "Paku uus &nimi"
+
+#: src/dcc/resumedialog.cpp:143
+msgid "&Overwrite"
+msgstr "Kirj&uta üle"
+
+#: src/dcc/resumedialog.cpp:149
+msgid "R&ename"
+msgstr "Nimeta üm&ber"
+
 #: src/irc/channelnick.cpp:199
 msgid "Operator"
 msgstr "Operaator"
@@ -1366,106 +1366,6 @@ msgstr " Admin"
 msgctxt "(Offline) nickname details (e.g. real name from address book)"
 msgid "(Offline) %1"
 msgstr "(Pole võrgus) %1"
-
-#: src/irc/servergroupdialog.cpp:76
-msgid "Change network information"
-msgstr "Võrgu info muutmine"
-
-#: src/irc/servergroupdialog.cpp:77 src/viewer/editnotifydialog.cpp:73
-#: src/identitydialog.cpp:67
-msgid "Discards all changes made"
-msgstr "Tühistab kõik tehtud muudatused"
-
-#: src/irc/servergroupdialog.cpp:161
-msgid "Add Server"
-msgstr "Serveri lisamine"
-
-#: src/irc/servergroupdialog.cpp:179
-msgid "Edit Server"
-msgstr "Serveri muutmine"
-
-#: src/irc/servergroupdialog.cpp:273
-msgid "Add Channel"
-msgstr "Kanali lisamine"
-
-#: src/irc/servergroupdialog.cpp:291
-msgid "Edit Channel"
-msgstr "Kanali muutmine"
-
-#: src/irc/servergroupdialog.cpp:395
-msgid "The network name is required."
-msgstr "Võrgu nimi on nõutav."
-
-#: src/irc/servergroupdialog.cpp:399
-msgid "You need to add at least one server to the network."
-msgstr "Võrgule tuleb lisada vähemalt üks server."
-
-#: src/irc/servergroupdialog.cpp:454
-msgid "The server address is required."
-msgstr "Serveri aadress on nõutav."
-
-#: src/irc/servergroupdialog.cpp:505
-msgid "The channel name is required."
-msgstr "Kanali nimi on nõutav."
-
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
-msgid "C&onnect"
-msgstr "Ü&henda"
-
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
-msgid "Connect to the server"
-msgstr "Ühendumine serveriga"
-
-#: src/irc/serverlistdialog.cpp:71
-msgid "Click here to connect to the selected IRC network and channel."
-msgstr "Klõpsa siia ühendumiseks valitud IRC võrgu ja kanaliga."
-
-#: src/irc/serverlistdialog.cpp:145
-msgid "New Network"
-msgstr "Uus võrk"
-
-#: src/irc/serverlistdialog.cpp:166
-msgid "Edit Network"
-msgstr "Võrgu muutmine"
-
-#: src/irc/serverlistdialog.cpp:222
-#, kde-format
-msgid ""
-"You cannot delete %1.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgstr ""
-"%1 kustutamine ei ole võimalik.\n"
-"\n"
-"%2 võrk vajab vähemalt üht serverit."
-
-#: src/irc/serverlistdialog.cpp:227
-#, kde-format
-msgid ""
-"You cannot delete the selected server.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgid_plural ""
-"You cannot delete the selected servers.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgstr[0] ""
-"Valitud serveri kustutamine ei ole võimalik.\n"
-"\n"
-"%2 võrk vajab vähemalt üht serverit."
-msgstr[1] ""
-"Valitud serverite kustutamine ei ole võimalik.\n"
-"\n"
-"%2 võrk vajab vähemalt üht serverit."
-
-#: src/irc/serverlistdialog.cpp:243
-msgid "Do you really want to delete the selected entries?"
-msgstr "Kas tõesti kustutada valitud kirjed?"
-
-#: src/irc/serverlistdialog.cpp:245
-#, kde-format
-msgid "Do you really want to delete %1?"
-msgstr "Kas tõesti kustutada %1?"
 
 #: src/irc/channeloptionsdialog.cpp:32
 #, kde-format
@@ -3692,16 +3592,14 @@ msgid "Sending CTCP-%1 request to %2."
 msgstr "CTCP-%1 soovi saatmine kasutajale %2."
 
 #: src/irc/outputfilter.cpp:839
-#, fuzzy, c-format, kde-format
-#| msgid "Usage: %1AME text"
+#, c-format, kde-format
 msgid "Usage: %1AME [-LOCAL] text"
-msgstr "Kasutamine: %1AME tekst"
+msgstr "Kasutamine: %1AME [-LOCAL] tekst"
 
 #: src/irc/outputfilter.cpp:852
-#, fuzzy, c-format, kde-format
-#| msgid "Usage: %1AMSG text"
+#, c-format, kde-format
 msgid "Usage: %1AMSG [-LOCAL] text"
-msgstr "Kasutamine: %1AMSG tekst"
+msgstr "Kasutamine: %1AMSG [-LOCAL] tekst"
 
 #: src/irc/outputfilter.cpp:865
 #, kde-format
@@ -3991,6 +3889,106 @@ msgstr "%1 lahendamine nurjus"
 #, c-format, kde-format
 msgid "Usage: %1queuetuner [on | off]"
 msgstr "Kasutamine: %1queuetuner [on | off]"
+
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
+msgid "C&onnect"
+msgstr "Ü&henda"
+
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
+msgid "Connect to the server"
+msgstr "Ühendumine serveriga"
+
+#: src/irc/serverlistdialog.cpp:71
+msgid "Click here to connect to the selected IRC network and channel."
+msgstr "Klõpsa siia ühendumiseks valitud IRC võrgu ja kanaliga."
+
+#: src/irc/serverlistdialog.cpp:145
+msgid "New Network"
+msgstr "Uus võrk"
+
+#: src/irc/serverlistdialog.cpp:166
+msgid "Edit Network"
+msgstr "Võrgu muutmine"
+
+#: src/irc/serverlistdialog.cpp:222
+#, kde-format
+msgid ""
+"You cannot delete %1.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgstr ""
+"%1 kustutamine ei ole võimalik.\n"
+"\n"
+"%2 võrk vajab vähemalt üht serverit."
+
+#: src/irc/serverlistdialog.cpp:227
+#, kde-format
+msgid ""
+"You cannot delete the selected server.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgid_plural ""
+"You cannot delete the selected servers.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgstr[0] ""
+"Valitud serveri kustutamine ei ole võimalik.\n"
+"\n"
+"%2 võrk vajab vähemalt üht serverit."
+msgstr[1] ""
+"Valitud serverite kustutamine ei ole võimalik.\n"
+"\n"
+"%2 võrk vajab vähemalt üht serverit."
+
+#: src/irc/serverlistdialog.cpp:243
+msgid "Do you really want to delete the selected entries?"
+msgstr "Kas tõesti kustutada valitud kirjed?"
+
+#: src/irc/serverlistdialog.cpp:245
+#, kde-format
+msgid "Do you really want to delete %1?"
+msgstr "Kas tõesti kustutada %1?"
+
+#: src/irc/servergroupdialog.cpp:76
+msgid "Change network information"
+msgstr "Võrgu info muutmine"
+
+#: src/irc/servergroupdialog.cpp:77 src/viewer/editnotifydialog.cpp:73
+#: src/identitydialog.cpp:67
+msgid "Discards all changes made"
+msgstr "Tühistab kõik tehtud muudatused"
+
+#: src/irc/servergroupdialog.cpp:161
+msgid "Add Server"
+msgstr "Serveri lisamine"
+
+#: src/irc/servergroupdialog.cpp:179
+msgid "Edit Server"
+msgstr "Serveri muutmine"
+
+#: src/irc/servergroupdialog.cpp:284
+msgid "Add Channel"
+msgstr "Kanali lisamine"
+
+#: src/irc/servergroupdialog.cpp:302
+msgid "Edit Channel"
+msgstr "Kanali muutmine"
+
+#: src/irc/servergroupdialog.cpp:417
+msgid "The network name is required."
+msgstr "Võrgu nimi on nõutav."
+
+#: src/irc/servergroupdialog.cpp:421
+msgid "You need to add at least one server to the network."
+msgstr "Võrgule tuleb lisada vähemalt üks server."
+
+#: src/irc/servergroupdialog.cpp:476
+msgid "The server address is required."
+msgstr "Serveri aadress on nõutav."
+
+#: src/irc/servergroupdialog.cpp:527
+msgid "The channel name is required."
+msgstr "Kanali nimi on nõutav."
 
 #: src/konsolepanel.cpp:27 src/viewer/viewcontainer.cpp:2110
 #: src/viewer/viewcontainer.cpp:2111
@@ -5662,7 +5660,7 @@ msgstr "&Sulge kaart"
 
 #: src/mainwindow.cpp:272
 msgid "Last Focused Tab"
-msgstr ""
+msgstr "Viimati fookuses olnud kaart"
 
 #: src/mainwindow.cpp:279
 msgid "Next Active Tab"

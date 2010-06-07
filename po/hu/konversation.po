@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-05-20 04:55+0200\n"
+"POT-Creation-Date: 2010-06-05 04:59+0200\n"
 "PO-Revision-Date: 2009-08-08 03:35+0200\n"
 "Last-Translator: Csanád Tóth <toth.csanad@kde.hu>\n"
 "Language-Team: Magyar <kde-lista@sophia.jpte.hu>\n"
@@ -368,30 +368,6 @@ msgstr "&Mégsem"
 #: src/dcc/recipientdialog.cpp:65
 msgid "Close the window without changes"
 msgstr "Ablak bezárása módosítások nélkül"
-
-#: src/dcc/resumedialog.cpp:49
-msgid "DCC Receive Question"
-msgstr "DCC fogadási kérdés"
-
-#: src/dcc/resumedialog.cpp:74
-msgid "&Resume"
-msgstr "&Ismétlés"
-
-#: src/dcc/resumedialog.cpp:94
-msgid "O&riginal Filename"
-msgstr "&Eredeti fájlnév"
-
-#: src/dcc/resumedialog.cpp:95
-msgid "Suggest &New Filename"
-msgstr "Ú&j fájlnév javaslata"
-
-#: src/dcc/resumedialog.cpp:140
-msgid "&Overwrite"
-msgstr "Fel&ülírás"
-
-#: src/dcc/resumedialog.cpp:146
-msgid "R&ename"
-msgstr "&Átnevezés"
 
 #: src/dcc/transferdetailedinfopanel.cpp:34 src/dcc/transferlistmodel.cpp:48
 msgid "Status"
@@ -1196,6 +1172,30 @@ msgstr "Ehhez a fájlhoz nem érhető el részletes információ."
 msgid "Columns"
 msgstr "Oszlopok"
 
+#: src/dcc/resumedialog.cpp:50
+msgid "DCC Receive Question"
+msgstr "DCC fogadási kérdés"
+
+#: src/dcc/resumedialog.cpp:75
+msgid "&Resume"
+msgstr "&Ismétlés"
+
+#: src/dcc/resumedialog.cpp:97
+msgid "O&riginal Filename"
+msgstr "&Eredeti fájlnév"
+
+#: src/dcc/resumedialog.cpp:98
+msgid "Suggest &New Filename"
+msgstr "Ú&j fájlnév javaslata"
+
+#: src/dcc/resumedialog.cpp:143
+msgid "&Overwrite"
+msgstr "Fel&ülírás"
+
+#: src/dcc/resumedialog.cpp:149
+msgid "R&ename"
+msgstr "&Átnevezés"
+
 #: src/irc/channelnick.cpp:199
 msgid "Operator"
 msgstr "Operátor"
@@ -1452,103 +1452,6 @@ msgstr " Adminisztrátor"
 msgctxt "(Offline) nickname details (e.g. real name from address book)"
 msgid "(Offline) %1"
 msgstr "Nem elérhető"
-
-#: src/irc/servergroupdialog.cpp:76
-msgid "Change network information"
-msgstr "Hálózati információk megváltoztatása"
-
-#: src/irc/servergroupdialog.cpp:77 src/viewer/editnotifydialog.cpp:73
-#: src/identitydialog.cpp:67
-msgid "Discards all changes made"
-msgstr "Összes módosítás elvetése"
-
-#: src/irc/servergroupdialog.cpp:161
-msgid "Add Server"
-msgstr "Kiszolgáló hozzáadása"
-
-#: src/irc/servergroupdialog.cpp:179
-msgid "Edit Server"
-msgstr "Kiszolgáló szerkesztése"
-
-#: src/irc/servergroupdialog.cpp:273
-msgid "Add Channel"
-msgstr "Csatorna hozzáadása"
-
-#: src/irc/servergroupdialog.cpp:291
-msgid "Edit Channel"
-msgstr "Csatorna szerkesztése"
-
-#: src/irc/servergroupdialog.cpp:395
-msgid "The network name is required."
-msgstr "A hálózat neve szükséges."
-
-#: src/irc/servergroupdialog.cpp:399
-msgid "You need to add at least one server to the network."
-msgstr "Legalább egy kiszolgálót hozzá kell adni a hálózathoz."
-
-#: src/irc/servergroupdialog.cpp:454
-msgid "The server address is required."
-msgstr "A kiszolgáló címe szükséges."
-
-#: src/irc/servergroupdialog.cpp:505
-msgid "The channel name is required."
-msgstr "A csatornanév szükséges."
-
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
-msgid "C&onnect"
-msgstr "Kap&csolódás"
-
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
-msgid "Connect to the server"
-msgstr "Kapcsolódás kiszolgálóhoz"
-
-#: src/irc/serverlistdialog.cpp:71
-msgid "Click here to connect to the selected IRC network and channel."
-msgstr ""
-"Kattintson ide a kapcsolódáshoz a kiválasztott IRC hálózathoz és csatornához."
-
-#: src/irc/serverlistdialog.cpp:145
-msgid "New Network"
-msgstr "Új hálózat"
-
-#: src/irc/serverlistdialog.cpp:166
-msgid "Edit Network"
-msgstr "Hálózat szerkesztése"
-
-#: src/irc/serverlistdialog.cpp:222
-#, kde-format
-msgid ""
-"You cannot delete %1.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgstr ""
-"%1 nem törölhető.\n"
-"\n"
-"A(z) %2 hálózatnak szüksége van legalább 1 kiszolgálóra. "
-
-#: src/irc/serverlistdialog.cpp:227
-#, kde-format
-msgid ""
-"You cannot delete the selected server.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgid_plural ""
-"You cannot delete the selected servers.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgstr[0] ""
-"A kijelölt kiszolgálók törlése nem lehetséges.\n"
-"\n"
-"A(z) %2 hálózatnak szüksége van legalább 1 kiszolgálóra. "
-
-#: src/irc/serverlistdialog.cpp:243
-msgid "Do you really want to delete the selected entries?"
-msgstr "Biztosan törölni szeretné a kiválasztott elemeket?"
-
-#: src/irc/serverlistdialog.cpp:245
-#, kde-format
-msgid "Do you really want to delete %1?"
-msgstr "Biztosan törölni szeretné ezt: %1?"
 
 #: src/irc/channeloptionsdialog.cpp:32
 #, kde-format
@@ -4126,6 +4029,103 @@ msgstr "%1 feloldása nem sikerült"
 #, c-format, kde-format
 msgid "Usage: %1queuetuner [on | off]"
 msgstr "Használat: %1queuetuner [on | off]"
+
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
+msgid "C&onnect"
+msgstr "Kap&csolódás"
+
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
+msgid "Connect to the server"
+msgstr "Kapcsolódás kiszolgálóhoz"
+
+#: src/irc/serverlistdialog.cpp:71
+msgid "Click here to connect to the selected IRC network and channel."
+msgstr ""
+"Kattintson ide a kapcsolódáshoz a kiválasztott IRC hálózathoz és csatornához."
+
+#: src/irc/serverlistdialog.cpp:145
+msgid "New Network"
+msgstr "Új hálózat"
+
+#: src/irc/serverlistdialog.cpp:166
+msgid "Edit Network"
+msgstr "Hálózat szerkesztése"
+
+#: src/irc/serverlistdialog.cpp:222
+#, kde-format
+msgid ""
+"You cannot delete %1.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgstr ""
+"%1 nem törölhető.\n"
+"\n"
+"A(z) %2 hálózatnak szüksége van legalább 1 kiszolgálóra. "
+
+#: src/irc/serverlistdialog.cpp:227
+#, kde-format
+msgid ""
+"You cannot delete the selected server.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgid_plural ""
+"You cannot delete the selected servers.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgstr[0] ""
+"A kijelölt kiszolgálók törlése nem lehetséges.\n"
+"\n"
+"A(z) %2 hálózatnak szüksége van legalább 1 kiszolgálóra. "
+
+#: src/irc/serverlistdialog.cpp:243
+msgid "Do you really want to delete the selected entries?"
+msgstr "Biztosan törölni szeretné a kiválasztott elemeket?"
+
+#: src/irc/serverlistdialog.cpp:245
+#, kde-format
+msgid "Do you really want to delete %1?"
+msgstr "Biztosan törölni szeretné ezt: %1?"
+
+#: src/irc/servergroupdialog.cpp:76
+msgid "Change network information"
+msgstr "Hálózati információk megváltoztatása"
+
+#: src/irc/servergroupdialog.cpp:77 src/viewer/editnotifydialog.cpp:73
+#: src/identitydialog.cpp:67
+msgid "Discards all changes made"
+msgstr "Összes módosítás elvetése"
+
+#: src/irc/servergroupdialog.cpp:161
+msgid "Add Server"
+msgstr "Kiszolgáló hozzáadása"
+
+#: src/irc/servergroupdialog.cpp:179
+msgid "Edit Server"
+msgstr "Kiszolgáló szerkesztése"
+
+#: src/irc/servergroupdialog.cpp:284
+msgid "Add Channel"
+msgstr "Csatorna hozzáadása"
+
+#: src/irc/servergroupdialog.cpp:302
+msgid "Edit Channel"
+msgstr "Csatorna szerkesztése"
+
+#: src/irc/servergroupdialog.cpp:417
+msgid "The network name is required."
+msgstr "A hálózat neve szükséges."
+
+#: src/irc/servergroupdialog.cpp:421
+msgid "You need to add at least one server to the network."
+msgstr "Legalább egy kiszolgálót hozzá kell adni a hálózathoz."
+
+#: src/irc/servergroupdialog.cpp:476
+msgid "The server address is required."
+msgstr "A kiszolgáló címe szükséges."
+
+#: src/irc/servergroupdialog.cpp:527
+msgid "The channel name is required."
+msgstr "A csatornanév szükséges."
 
 #: src/konsolepanel.cpp:27 src/viewer/viewcontainer.cpp:2110
 #: src/viewer/viewcontainer.cpp:2111
