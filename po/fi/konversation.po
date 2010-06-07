@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-05-20 04:55+0200\n"
+"POT-Creation-Date: 2010-06-05 04:59+0200\n"
 "PO-Revision-Date: 2010-04-20 21:25+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -366,30 +366,6 @@ msgstr "&Peru"
 #: src/dcc/recipientdialog.cpp:65
 msgid "Close the window without changes"
 msgstr "Sulje ikkuna tekemättä muutoksia"
-
-#: src/dcc/resumedialog.cpp:49
-msgid "DCC Receive Question"
-msgstr "DCC-vastaanottokysymys"
-
-#: src/dcc/resumedialog.cpp:74
-msgid "&Resume"
-msgstr "&Jatka"
-
-#: src/dcc/resumedialog.cpp:94
-msgid "O&riginal Filename"
-msgstr "Alkupe&räinen tiedostonimi"
-
-#: src/dcc/resumedialog.cpp:95
-msgid "Suggest &New Filename"
-msgstr "Ehdota &uutta tiedostonimeä"
-
-#: src/dcc/resumedialog.cpp:140
-msgid "&Overwrite"
-msgstr "&Korvaa"
-
-#: src/dcc/resumedialog.cpp:146
-msgid "R&ename"
-msgstr "&Nimeä uudelleen"
 
 #: src/dcc/transferdetailedinfopanel.cpp:34 src/dcc/transferlistmodel.cpp:48
 msgid "Status"
@@ -1159,6 +1135,30 @@ msgstr "Tästä tiedostosta ei löytynyt tietoja."
 msgid "Columns"
 msgstr "Sarakkeet"
 
+#: src/dcc/resumedialog.cpp:50
+msgid "DCC Receive Question"
+msgstr "DCC-vastaanottokysymys"
+
+#: src/dcc/resumedialog.cpp:75
+msgid "&Resume"
+msgstr "&Jatka"
+
+#: src/dcc/resumedialog.cpp:97
+msgid "O&riginal Filename"
+msgstr "Alkupe&räinen tiedostonimi"
+
+#: src/dcc/resumedialog.cpp:98
+msgid "Suggest &New Filename"
+msgstr "Ehdota &uutta tiedostonimeä"
+
+#: src/dcc/resumedialog.cpp:143
+msgid "&Overwrite"
+msgstr "&Korvaa"
+
+#: src/dcc/resumedialog.cpp:149
+msgid "R&ename"
+msgstr "&Nimeä uudelleen"
+
 #: src/irc/channelnick.cpp:199
 msgid "Operator"
 msgstr "Operaattori"
@@ -1405,106 +1405,6 @@ msgstr " Ylläpitäjä"
 msgctxt "(Offline) nickname details (e.g. real name from address book)"
 msgid "(Offline) %1"
 msgstr "(Poissa) %1"
-
-#: src/irc/servergroupdialog.cpp:76
-msgid "Change network information"
-msgstr "Vaihda verkon tietoja"
-
-#: src/irc/servergroupdialog.cpp:77 src/viewer/editnotifydialog.cpp:73
-#: src/identitydialog.cpp:67
-msgid "Discards all changes made"
-msgstr "Hylkää kaikki tehdyt muutokset"
-
-#: src/irc/servergroupdialog.cpp:161
-msgid "Add Server"
-msgstr "Lisää palvelin"
-
-#: src/irc/servergroupdialog.cpp:179
-msgid "Edit Server"
-msgstr "Muokkaa palvelinta"
-
-#: src/irc/servergroupdialog.cpp:273
-msgid "Add Channel"
-msgstr "Lisää kanava"
-
-#: src/irc/servergroupdialog.cpp:291
-msgid "Edit Channel"
-msgstr "Muokkaa kanavaa"
-
-#: src/irc/servergroupdialog.cpp:395
-msgid "The network name is required."
-msgstr "Verkkonimi vaaditaan."
-
-#: src/irc/servergroupdialog.cpp:399
-msgid "You need to add at least one server to the network."
-msgstr "Verkkoon pitää lisätä vähintään yksi palvelin."
-
-#: src/irc/servergroupdialog.cpp:454
-msgid "The server address is required."
-msgstr "Palvelinosoite vaaditaan."
-
-#: src/irc/servergroupdialog.cpp:505
-msgid "The channel name is required."
-msgstr "Kanavanimi vaaditaan."
-
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
-msgid "C&onnect"
-msgstr "&Yhdistä"
-
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
-msgid "Connect to the server"
-msgstr "Yhdistä palvelimeen"
-
-#: src/irc/serverlistdialog.cpp:71
-msgid "Click here to connect to the selected IRC network and channel."
-msgstr "Napsauta tässä yhdistääksesi valittuun IRC-verkkoon ja kanavaan."
-
-#: src/irc/serverlistdialog.cpp:145
-msgid "New Network"
-msgstr "Uusi verkko"
-
-#: src/irc/serverlistdialog.cpp:166
-msgid "Edit Network"
-msgstr "Muokkaa verkkoa"
-
-#: src/irc/serverlistdialog.cpp:222
-#, kde-format
-msgid ""
-"You cannot delete %1.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgstr ""
-"Ei voi poistaa palvelinta %1.\n"
-"\n"
-"Verkolla %2 on oltava vähintään yksi palvelin."
-
-#: src/irc/serverlistdialog.cpp:227
-#, kde-format
-msgid ""
-"You cannot delete the selected server.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgid_plural ""
-"You cannot delete the selected servers.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgstr[0] ""
-"Et voi poistaa valittua palvelinta.\n"
-"\n"
-"Verkolla %2 on oltava vähintään yksi palvelin."
-msgstr[1] ""
-"Et voi poistaa valittuja palvelimia.\n"
-"\n"
-"Verkolla %2 on oltava vähintään yksi palvelin."
-
-#: src/irc/serverlistdialog.cpp:243
-msgid "Do you really want to delete the selected entries?"
-msgstr "Haluatko todella poistaa valitut kohteet?"
-
-#: src/irc/serverlistdialog.cpp:245
-#, kde-format
-msgid "Do you really want to delete %1?"
-msgstr "Haluatko todella poistaa teeman %1?"
 
 #: src/irc/channeloptionsdialog.cpp:32
 #, kde-format
@@ -4071,6 +3971,106 @@ msgstr "Ei kyetä ratkaisemaan %1"
 #, c-format, kde-format
 msgid "Usage: %1queuetuner [on | off]"
 msgstr "Käyttö: %1queuetuner [on | off]"
+
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
+msgid "C&onnect"
+msgstr "&Yhdistä"
+
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
+msgid "Connect to the server"
+msgstr "Yhdistä palvelimeen"
+
+#: src/irc/serverlistdialog.cpp:71
+msgid "Click here to connect to the selected IRC network and channel."
+msgstr "Napsauta tässä yhdistääksesi valittuun IRC-verkkoon ja kanavaan."
+
+#: src/irc/serverlistdialog.cpp:145
+msgid "New Network"
+msgstr "Uusi verkko"
+
+#: src/irc/serverlistdialog.cpp:166
+msgid "Edit Network"
+msgstr "Muokkaa verkkoa"
+
+#: src/irc/serverlistdialog.cpp:222
+#, kde-format
+msgid ""
+"You cannot delete %1.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgstr ""
+"Ei voi poistaa palvelinta %1.\n"
+"\n"
+"Verkolla %2 on oltava vähintään yksi palvelin."
+
+#: src/irc/serverlistdialog.cpp:227
+#, kde-format
+msgid ""
+"You cannot delete the selected server.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgid_plural ""
+"You cannot delete the selected servers.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgstr[0] ""
+"Et voi poistaa valittua palvelinta.\n"
+"\n"
+"Verkolla %2 on oltava vähintään yksi palvelin."
+msgstr[1] ""
+"Et voi poistaa valittuja palvelimia.\n"
+"\n"
+"Verkolla %2 on oltava vähintään yksi palvelin."
+
+#: src/irc/serverlistdialog.cpp:243
+msgid "Do you really want to delete the selected entries?"
+msgstr "Haluatko todella poistaa valitut kohteet?"
+
+#: src/irc/serverlistdialog.cpp:245
+#, kde-format
+msgid "Do you really want to delete %1?"
+msgstr "Haluatko todella poistaa teeman %1?"
+
+#: src/irc/servergroupdialog.cpp:76
+msgid "Change network information"
+msgstr "Vaihda verkon tietoja"
+
+#: src/irc/servergroupdialog.cpp:77 src/viewer/editnotifydialog.cpp:73
+#: src/identitydialog.cpp:67
+msgid "Discards all changes made"
+msgstr "Hylkää kaikki tehdyt muutokset"
+
+#: src/irc/servergroupdialog.cpp:161
+msgid "Add Server"
+msgstr "Lisää palvelin"
+
+#: src/irc/servergroupdialog.cpp:179
+msgid "Edit Server"
+msgstr "Muokkaa palvelinta"
+
+#: src/irc/servergroupdialog.cpp:284
+msgid "Add Channel"
+msgstr "Lisää kanava"
+
+#: src/irc/servergroupdialog.cpp:302
+msgid "Edit Channel"
+msgstr "Muokkaa kanavaa"
+
+#: src/irc/servergroupdialog.cpp:417
+msgid "The network name is required."
+msgstr "Verkkonimi vaaditaan."
+
+#: src/irc/servergroupdialog.cpp:421
+msgid "You need to add at least one server to the network."
+msgstr "Verkkoon pitää lisätä vähintään yksi palvelin."
+
+#: src/irc/servergroupdialog.cpp:476
+msgid "The server address is required."
+msgstr "Palvelinosoite vaaditaan."
+
+#: src/irc/servergroupdialog.cpp:527
+msgid "The channel name is required."
+msgstr "Kanavanimi vaaditaan."
 
 #: src/konsolepanel.cpp:27 src/viewer/viewcontainer.cpp:2110
 #: src/viewer/viewcontainer.cpp:2111

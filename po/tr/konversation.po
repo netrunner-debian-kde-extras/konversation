@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-05-20 04:55+0200\n"
+"POT-Creation-Date: 2010-06-05 04:59+0200\n"
 "PO-Revision-Date: 2009-11-12 13:45+0200\n"
 "Last-Translator: Serdar Soytetir <tulliana@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -369,30 +369,6 @@ msgstr "İ&ptal"
 #: src/dcc/recipientdialog.cpp:65
 msgid "Close the window without changes"
 msgstr "Pencereyi değişiklik yapmadan kapat"
-
-#: src/dcc/resumedialog.cpp:49
-msgid "DCC Receive Question"
-msgstr "Dosya Alma Sorusu"
-
-#: src/dcc/resumedialog.cpp:74
-msgid "&Resume"
-msgstr "&Devam Et"
-
-#: src/dcc/resumedialog.cpp:94
-msgid "O&riginal Filename"
-msgstr "&Asıl Dosya Adı"
-
-#: src/dcc/resumedialog.cpp:95
-msgid "Suggest &New Filename"
-msgstr "Ye&ni İsim Öner"
-
-#: src/dcc/resumedialog.cpp:140
-msgid "&Overwrite"
-msgstr "Ü&zerine Yaz"
-
-#: src/dcc/resumedialog.cpp:146
-msgid "R&ename"
-msgstr "Y&eniden İsimlendir"
 
 #: src/dcc/transferdetailedinfopanel.cpp:34 src/dcc/transferlistmodel.cpp:48
 msgid "Status"
@@ -1188,6 +1164,30 @@ msgstr "Bu dosya için detaylı bilgi bulunamadı."
 msgid "Columns"
 msgstr "Sütunlar"
 
+#: src/dcc/resumedialog.cpp:50
+msgid "DCC Receive Question"
+msgstr "Dosya Alma Sorusu"
+
+#: src/dcc/resumedialog.cpp:75
+msgid "&Resume"
+msgstr "&Devam Et"
+
+#: src/dcc/resumedialog.cpp:97
+msgid "O&riginal Filename"
+msgstr "&Asıl Dosya Adı"
+
+#: src/dcc/resumedialog.cpp:98
+msgid "Suggest &New Filename"
+msgstr "Ye&ni İsim Öner"
+
+#: src/dcc/resumedialog.cpp:143
+msgid "&Overwrite"
+msgstr "Ü&zerine Yaz"
+
+#: src/dcc/resumedialog.cpp:149
+msgid "R&ename"
+msgstr "Y&eniden İsimlendir"
+
 #: src/irc/channelnick.cpp:199
 msgid "Operator"
 msgstr "Operatör"
@@ -1443,102 +1443,6 @@ msgstr " Yönetici"
 msgctxt "(Offline) nickname details (e.g. real name from address book)"
 msgid "(Offline) %1"
 msgstr "Bağlı Değil"
-
-#: src/irc/servergroupdialog.cpp:76
-msgid "Change network information"
-msgstr "Ağ bilgisini değiştir"
-
-#: src/irc/servergroupdialog.cpp:77 src/viewer/editnotifydialog.cpp:73
-#: src/identitydialog.cpp:67
-msgid "Discards all changes made"
-msgstr "Yapılan tüm değişiklikleri siler"
-
-#: src/irc/servergroupdialog.cpp:161
-msgid "Add Server"
-msgstr "Sunucu Ekle"
-
-#: src/irc/servergroupdialog.cpp:179
-msgid "Edit Server"
-msgstr "Sunucuyu Düzenle"
-
-#: src/irc/servergroupdialog.cpp:273
-msgid "Add Channel"
-msgstr "Kanal Ekle"
-
-#: src/irc/servergroupdialog.cpp:291
-msgid "Edit Channel"
-msgstr "Kanalı Düzenle"
-
-#: src/irc/servergroupdialog.cpp:395
-msgid "The network name is required."
-msgstr "Ağ adı gereklidir."
-
-#: src/irc/servergroupdialog.cpp:399
-msgid "You need to add at least one server to the network."
-msgstr "Ağa en az bir sunucu eklemelisiniz."
-
-#: src/irc/servergroupdialog.cpp:454
-msgid "The server address is required."
-msgstr "Sunucu adresi gerekli."
-
-#: src/irc/servergroupdialog.cpp:505
-msgid "The channel name is required."
-msgstr "Kanal adı gereklidir."
-
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
-msgid "C&onnect"
-msgstr "&Bağlan"
-
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
-msgid "Connect to the server"
-msgstr "Sunucuya bağlan"
-
-#: src/irc/serverlistdialog.cpp:71
-msgid "Click here to connect to the selected IRC network and channel."
-msgstr "Seçili IRC ağı ve kanalına bağlanmak için buraya tıklayın."
-
-#: src/irc/serverlistdialog.cpp:145
-msgid "New Network"
-msgstr "Yeni Ağ"
-
-#: src/irc/serverlistdialog.cpp:166
-msgid "Edit Network"
-msgstr "Ağ Düzenle"
-
-#: src/irc/serverlistdialog.cpp:222
-#, kde-format
-msgid ""
-"You cannot delete %1.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgstr ""
-"%1'i silemezsiniz.\n"
-"\n"
-"%2 ağı en azından bir sunucuya sahip olmalıdır."
-
-#: src/irc/serverlistdialog.cpp:227
-#, kde-format
-msgid ""
-"You cannot delete the selected server.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgid_plural ""
-"You cannot delete the selected servers.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgstr[0] ""
-"Seçili sunucuları silemezsiniz.\n"
-"\n"
-"%2 ağı en azından bir sunucuya sahip olmalıdır."
-
-#: src/irc/serverlistdialog.cpp:243
-msgid "Do you really want to delete the selected entries?"
-msgstr "Seçili girişleri silmek istediğinizden emin misiniz?"
-
-#: src/irc/serverlistdialog.cpp:245
-#, kde-format
-msgid "Do you really want to delete %1?"
-msgstr "%1'i gerçekten silmek istiyor musunuz?"
 
 #: src/irc/channeloptionsdialog.cpp:32
 #, kde-format
@@ -4165,6 +4069,102 @@ msgstr "%1 adresi çözülemedi"
 #, c-format, kde-format
 msgid "Usage: %1queuetuner [on | off]"
 msgstr "Kullanım: %1queuetuner [açık | kapalı]"
+
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
+msgid "C&onnect"
+msgstr "&Bağlan"
+
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
+msgid "Connect to the server"
+msgstr "Sunucuya bağlan"
+
+#: src/irc/serverlistdialog.cpp:71
+msgid "Click here to connect to the selected IRC network and channel."
+msgstr "Seçili IRC ağı ve kanalına bağlanmak için buraya tıklayın."
+
+#: src/irc/serverlistdialog.cpp:145
+msgid "New Network"
+msgstr "Yeni Ağ"
+
+#: src/irc/serverlistdialog.cpp:166
+msgid "Edit Network"
+msgstr "Ağ Düzenle"
+
+#: src/irc/serverlistdialog.cpp:222
+#, kde-format
+msgid ""
+"You cannot delete %1.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgstr ""
+"%1'i silemezsiniz.\n"
+"\n"
+"%2 ağı en azından bir sunucuya sahip olmalıdır."
+
+#: src/irc/serverlistdialog.cpp:227
+#, kde-format
+msgid ""
+"You cannot delete the selected server.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgid_plural ""
+"You cannot delete the selected servers.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgstr[0] ""
+"Seçili sunucuları silemezsiniz.\n"
+"\n"
+"%2 ağı en azından bir sunucuya sahip olmalıdır."
+
+#: src/irc/serverlistdialog.cpp:243
+msgid "Do you really want to delete the selected entries?"
+msgstr "Seçili girişleri silmek istediğinizden emin misiniz?"
+
+#: src/irc/serverlistdialog.cpp:245
+#, kde-format
+msgid "Do you really want to delete %1?"
+msgstr "%1'i gerçekten silmek istiyor musunuz?"
+
+#: src/irc/servergroupdialog.cpp:76
+msgid "Change network information"
+msgstr "Ağ bilgisini değiştir"
+
+#: src/irc/servergroupdialog.cpp:77 src/viewer/editnotifydialog.cpp:73
+#: src/identitydialog.cpp:67
+msgid "Discards all changes made"
+msgstr "Yapılan tüm değişiklikleri siler"
+
+#: src/irc/servergroupdialog.cpp:161
+msgid "Add Server"
+msgstr "Sunucu Ekle"
+
+#: src/irc/servergroupdialog.cpp:179
+msgid "Edit Server"
+msgstr "Sunucuyu Düzenle"
+
+#: src/irc/servergroupdialog.cpp:284
+msgid "Add Channel"
+msgstr "Kanal Ekle"
+
+#: src/irc/servergroupdialog.cpp:302
+msgid "Edit Channel"
+msgstr "Kanalı Düzenle"
+
+#: src/irc/servergroupdialog.cpp:417
+msgid "The network name is required."
+msgstr "Ağ adı gereklidir."
+
+#: src/irc/servergroupdialog.cpp:421
+msgid "You need to add at least one server to the network."
+msgstr "Ağa en az bir sunucu eklemelisiniz."
+
+#: src/irc/servergroupdialog.cpp:476
+msgid "The server address is required."
+msgstr "Sunucu adresi gerekli."
+
+#: src/irc/servergroupdialog.cpp:527
+msgid "The channel name is required."
+msgstr "Kanal adı gereklidir."
 
 #: src/konsolepanel.cpp:27 src/viewer/viewcontainer.cpp:2110
 #: src/viewer/viewcontainer.cpp:2111

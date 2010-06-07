@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-05-20 04:55+0200\n"
+"POT-Creation-Date: 2010-06-05 04:59+0200\n"
 "PO-Revision-Date: 2010-04-27 23:40+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -368,31 +368,6 @@ msgstr "&Otkaži"
 #: src/dcc/recipientdialog.cpp:65
 msgid "Close the window without changes"
 msgstr "Zatvori prozor bez izmena"
-
-#: src/dcc/resumedialog.cpp:49
-msgid "DCC Receive Question"
-msgstr "Pitanje DCC prijema"
-
-#: src/dcc/resumedialog.cpp:74
-msgid "&Resume"
-msgstr "&Nastavi"
-
-#: src/dcc/resumedialog.cpp:94
-msgid "O&riginal Filename"
-msgstr "O&riginalno ime fajla"
-
-# rewrite-msgid: /Filename/Name/
-#: src/dcc/resumedialog.cpp:95
-msgid "Suggest &New Filename"
-msgstr "Predloži &novo ime"
-
-#: src/dcc/resumedialog.cpp:140
-msgid "&Overwrite"
-msgstr "Pre&briši"
-
-#: src/dcc/resumedialog.cpp:146
-msgid "R&ename"
-msgstr "Pre&imenuj"
 
 #: src/dcc/transferdetailedinfopanel.cpp:34 src/dcc/transferlistmodel.cpp:48
 msgid "Status"
@@ -1143,6 +1118,31 @@ msgstr "Nisu pronađene detaljne informacije za ovaj fajl."
 msgid "Columns"
 msgstr "Kolone"
 
+#: src/dcc/resumedialog.cpp:50
+msgid "DCC Receive Question"
+msgstr "Pitanje DCC prijema"
+
+#: src/dcc/resumedialog.cpp:75
+msgid "&Resume"
+msgstr "&Nastavi"
+
+#: src/dcc/resumedialog.cpp:97
+msgid "O&riginal Filename"
+msgstr "O&riginalno ime fajla"
+
+# rewrite-msgid: /Filename/Name/
+#: src/dcc/resumedialog.cpp:98
+msgid "Suggest &New Filename"
+msgstr "Predloži &novo ime"
+
+#: src/dcc/resumedialog.cpp:143
+msgid "&Overwrite"
+msgstr "Pre&briši"
+
+#: src/dcc/resumedialog.cpp:149
+msgid "R&ename"
+msgstr "Pre&imenuj"
+
 #: src/irc/channelnick.cpp:199
 msgid "Operator"
 msgstr "Operater"
@@ -1389,114 +1389,6 @@ msgstr " Admin."
 msgctxt "(Offline) nickname details (e.g. real name from address book)"
 msgid "(Offline) %1"
 msgstr "(van veze) %1"
-
-#: src/irc/servergroupdialog.cpp:76
-msgid "Change network information"
-msgstr "Izmeni podatke o mreži"
-
-#: src/irc/servergroupdialog.cpp:77 src/viewer/editnotifydialog.cpp:73
-#: src/identitydialog.cpp:67
-msgid "Discards all changes made"
-msgstr "Odbacuje sve učinjene izmene"
-
-#: src/irc/servergroupdialog.cpp:161
-msgid "Add Server"
-msgstr "Dodaj server"
-
-#: src/irc/servergroupdialog.cpp:179
-msgid "Edit Server"
-msgstr "Uredi server"
-
-#: src/irc/servergroupdialog.cpp:273
-msgid "Add Channel"
-msgstr "Dodaj kanal"
-
-#: src/irc/servergroupdialog.cpp:291
-msgid "Edit Channel"
-msgstr "Uredi kanal"
-
-#: src/irc/servergroupdialog.cpp:395
-msgid "The network name is required."
-msgstr "Potrebno je ime mreže."
-
-#: src/irc/servergroupdialog.cpp:399
-msgid "You need to add at least one server to the network."
-msgstr "Morate mreži dodati bar jedan server."
-
-#: src/irc/servergroupdialog.cpp:454
-msgid "The server address is required."
-msgstr "Potrebna je adresa servera."
-
-#: src/irc/servergroupdialog.cpp:505
-msgid "The channel name is required."
-msgstr "Potrebno je ime kanala."
-
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
-msgid "C&onnect"
-msgstr "&Poveži se"
-
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
-msgid "Connect to the server"
-msgstr "Poveži se sa serverom"
-
-#: src/irc/serverlistdialog.cpp:71
-msgid "Click here to connect to the selected IRC network and channel."
-msgstr "Kliknite ovde da bi se povezali na izabranu IRC mrežu i kanal."
-
-#: src/irc/serverlistdialog.cpp:145
-msgid "New Network"
-msgstr "Nova mreža"
-
-#: src/irc/serverlistdialog.cpp:166
-msgid "Edit Network"
-msgstr "Uredi mrežu"
-
-#: src/irc/serverlistdialog.cpp:222
-#, kde-format
-msgid ""
-"You cannot delete %1.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgstr ""
-"Ne možete da obrišete %1.\n"
-"\n"
-"Mreža %2 mora imati bar jedan server."
-
-#: src/irc/serverlistdialog.cpp:227
-#, kde-format
-msgid ""
-"You cannot delete the selected server.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgid_plural ""
-"You cannot delete the selected servers.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgstr[0] ""
-"Ne možete izbrisati izabrani server.\n"
-"\n"
-"Mreža %2 mora imati bar jedan server."
-msgstr[1] ""
-"Ne možete izbrisati izabrane servere.\n"
-"\n"
-"Mreža %2 mora imati bar jedan server."
-msgstr[2] ""
-"Ne možete izbrisati izabrane servere.\n"
-"\n"
-"Mreža %2 mora imati bar jedan server."
-msgstr[3] ""
-"Ne možete izbrisati izabrani server.\n"
-"\n"
-"Mreža %2 mora imati bar jedan server."
-
-#: src/irc/serverlistdialog.cpp:243
-msgid "Do you really want to delete the selected entries?"
-msgstr "Želite li zaista da obrišete izabrane unose?"
-
-#: src/irc/serverlistdialog.cpp:245
-#, kde-format
-msgid "Do you really want to delete %1?"
-msgstr "Želite li da uklonite %1?"
 
 #: src/irc/channeloptionsdialog.cpp:32
 #, kde-format
@@ -4054,6 +3946,114 @@ msgstr "Ne mogu da razrešim %1"
 #, c-format, kde-format
 msgid "Usage: %1queuetuner [on | off]"
 msgstr "Upotreba: %1queuetuner [on | off]"
+
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
+msgid "C&onnect"
+msgstr "&Poveži se"
+
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
+msgid "Connect to the server"
+msgstr "Poveži se sa serverom"
+
+#: src/irc/serverlistdialog.cpp:71
+msgid "Click here to connect to the selected IRC network and channel."
+msgstr "Kliknite ovde da bi se povezali na izabranu IRC mrežu i kanal."
+
+#: src/irc/serverlistdialog.cpp:145
+msgid "New Network"
+msgstr "Nova mreža"
+
+#: src/irc/serverlistdialog.cpp:166
+msgid "Edit Network"
+msgstr "Uredi mrežu"
+
+#: src/irc/serverlistdialog.cpp:222
+#, kde-format
+msgid ""
+"You cannot delete %1.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgstr ""
+"Ne možete da obrišete %1.\n"
+"\n"
+"Mreža %2 mora imati bar jedan server."
+
+#: src/irc/serverlistdialog.cpp:227
+#, kde-format
+msgid ""
+"You cannot delete the selected server.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgid_plural ""
+"You cannot delete the selected servers.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgstr[0] ""
+"Ne možete izbrisati izabrani server.\n"
+"\n"
+"Mreža %2 mora imati bar jedan server."
+msgstr[1] ""
+"Ne možete izbrisati izabrane servere.\n"
+"\n"
+"Mreža %2 mora imati bar jedan server."
+msgstr[2] ""
+"Ne možete izbrisati izabrane servere.\n"
+"\n"
+"Mreža %2 mora imati bar jedan server."
+msgstr[3] ""
+"Ne možete izbrisati izabrani server.\n"
+"\n"
+"Mreža %2 mora imati bar jedan server."
+
+#: src/irc/serverlistdialog.cpp:243
+msgid "Do you really want to delete the selected entries?"
+msgstr "Želite li zaista da obrišete izabrane unose?"
+
+#: src/irc/serverlistdialog.cpp:245
+#, kde-format
+msgid "Do you really want to delete %1?"
+msgstr "Želite li da uklonite %1?"
+
+#: src/irc/servergroupdialog.cpp:76
+msgid "Change network information"
+msgstr "Izmeni podatke o mreži"
+
+#: src/irc/servergroupdialog.cpp:77 src/viewer/editnotifydialog.cpp:73
+#: src/identitydialog.cpp:67
+msgid "Discards all changes made"
+msgstr "Odbacuje sve učinjene izmene"
+
+#: src/irc/servergroupdialog.cpp:161
+msgid "Add Server"
+msgstr "Dodaj server"
+
+#: src/irc/servergroupdialog.cpp:179
+msgid "Edit Server"
+msgstr "Uredi server"
+
+#: src/irc/servergroupdialog.cpp:284
+msgid "Add Channel"
+msgstr "Dodaj kanal"
+
+#: src/irc/servergroupdialog.cpp:302
+msgid "Edit Channel"
+msgstr "Uredi kanal"
+
+#: src/irc/servergroupdialog.cpp:417
+msgid "The network name is required."
+msgstr "Potrebno je ime mreže."
+
+#: src/irc/servergroupdialog.cpp:421
+msgid "You need to add at least one server to the network."
+msgstr "Morate mreži dodati bar jedan server."
+
+#: src/irc/servergroupdialog.cpp:476
+msgid "The server address is required."
+msgstr "Potrebna je adresa servera."
+
+#: src/irc/servergroupdialog.cpp:527
+msgid "The channel name is required."
+msgstr "Potrebno je ime kanala."
 
 #: src/konsolepanel.cpp:27 src/viewer/viewcontainer.cpp:2110
 #: src/viewer/viewcontainer.cpp:2111

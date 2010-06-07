@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-05-20 04:55+0200\n"
-"PO-Revision-Date: 2010-04-19 07:35+0200\n"
+"POT-Creation-Date: 2010-06-05 04:59+0200\n"
+"PO-Revision-Date: 2010-05-29 06:37+0200\n"
 "Last-Translator: Manfred Wiese <m.j.wiese@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -368,30 +368,6 @@ msgstr "&Afbreken"
 #: src/dcc/recipientdialog.cpp:65
 msgid "Close the window without changes"
 msgstr "Dat Finster ahn Ännern tomaken"
-
-#: src/dcc/resumedialog.cpp:49
-msgid "DCC Receive Question"
-msgstr "Fraag na DCC-Annahm"
-
-#: src/dcc/resumedialog.cpp:74
-msgid "&Resume"
-msgstr "&Wiedermaken"
-
-#: src/dcc/resumedialog.cpp:94
-msgid "O&riginal Filename"
-msgstr "O&rginaal-Dateinaam"
-
-#: src/dcc/resumedialog.cpp:95
-msgid "Suggest &New Filename"
-msgstr "&Niegen Dateinaam vörslaan"
-
-#: src/dcc/resumedialog.cpp:140
-msgid "&Overwrite"
-msgstr "Ö&verschrieven"
-
-#: src/dcc/resumedialog.cpp:146
-msgid "R&ename"
-msgstr "Ü&mnömen"
 
 #: src/dcc/transferdetailedinfopanel.cpp:34 src/dcc/transferlistmodel.cpp:48
 msgid "Status"
@@ -1195,6 +1171,30 @@ msgstr "Keen verwiedert Informatschonen för disse Datei funnen."
 msgid "Columns"
 msgstr "Striepen"
 
+#: src/dcc/resumedialog.cpp:50
+msgid "DCC Receive Question"
+msgstr "Fraag na DCC-Annahm"
+
+#: src/dcc/resumedialog.cpp:75
+msgid "&Resume"
+msgstr "&Wiedermaken"
+
+#: src/dcc/resumedialog.cpp:97
+msgid "O&riginal Filename"
+msgstr "O&rginaal-Dateinaam"
+
+#: src/dcc/resumedialog.cpp:98
+msgid "Suggest &New Filename"
+msgstr "&Niegen Dateinaam vörslaan"
+
+#: src/dcc/resumedialog.cpp:143
+msgid "&Overwrite"
+msgstr "Ö&verschrieven"
+
+#: src/dcc/resumedialog.cpp:149
+msgid "R&ename"
+msgstr "Ü&mnömen"
+
 #: src/irc/channelnick.cpp:199
 msgid "Operator"
 msgstr "Baas"
@@ -1441,108 +1441,6 @@ msgstr " Pleger"
 msgctxt "(Offline) nickname details (e.g. real name from address book)"
 msgid "(Offline) %1"
 msgstr "(Afkoppelt) %1"
-
-#: src/irc/servergroupdialog.cpp:76
-msgid "Change network information"
-msgstr "Nettwarkinformatschonen ännern"
-
-#: src/irc/servergroupdialog.cpp:77 src/viewer/editnotifydialog.cpp:73
-#: src/identitydialog.cpp:67
-msgid "Discards all changes made"
-msgstr "Smitt all Ännern weg"
-
-#: src/irc/servergroupdialog.cpp:161
-msgid "Add Server"
-msgstr "Server tofögen"
-
-#: src/irc/servergroupdialog.cpp:179
-msgid "Edit Server"
-msgstr "Server bewerken"
-
-#: src/irc/servergroupdialog.cpp:273
-msgid "Add Channel"
-msgstr "Klöönruum tofögen"
-
-#: src/irc/servergroupdialog.cpp:291
-msgid "Edit Channel"
-msgstr "Klöönruum bewerken"
-
-#: src/irc/servergroupdialog.cpp:395
-msgid "The network name is required."
-msgstr "De Naam vun dat Nettwark deit noot."
-
-#: src/irc/servergroupdialog.cpp:399
-msgid "You need to add at least one server to the network."
-msgstr "Du muttst dat Nettwark tominnst een Server tofögen."
-
-#: src/irc/servergroupdialog.cpp:454
-msgid "The server address is required."
-msgstr "De Serveradress deit noot."
-
-#: src/irc/servergroupdialog.cpp:505
-msgid "The channel name is required."
-msgstr "De Naam vun den Klöönruum deit noot."
-
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
-msgid "C&onnect"
-msgstr "T&okoppeln"
-
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
-msgid "Connect to the server"
-msgstr "Na Server tokoppeln"
-
-#: src/irc/serverlistdialog.cpp:71
-msgid "Click here to connect to the selected IRC network and channel."
-msgstr ""
-"Klick hier, wenn Du Di na dat utsöchte Nettwark un den Klöönruum tokoppeln "
-"wullt."
-
-#: src/irc/serverlistdialog.cpp:145
-msgid "New Network"
-msgstr "Nieg Nettwark"
-
-#: src/irc/serverlistdialog.cpp:166
-msgid "Edit Network"
-msgstr "Nettwark bewerken"
-
-#: src/irc/serverlistdialog.cpp:222
-#, kde-format
-msgid ""
-"You cannot delete %1.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgstr ""
-"%1 lett sik nich wegdoon.\n"
-"\n"
-"Nettwark %2 mutt tominnst een Server bargen."
-
-#: src/irc/serverlistdialog.cpp:227
-#, kde-format
-msgid ""
-"You cannot delete the selected server.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgid_plural ""
-"You cannot delete the selected servers.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgstr[0] ""
-"De markeert Server lett sik nich wegdoon.\n"
-"\n"
-"Nettwark %2 mutt tominnst een Server bargen."
-msgstr[1] ""
-"De markeert Servers laat sik nich wegdoon.\n"
-"\n"
-"Nettwark %2 mutt tominnst een Server bargen."
-
-#: src/irc/serverlistdialog.cpp:243
-msgid "Do you really want to delete the selected entries?"
-msgstr "Wullt Du de utsöchten Indrääg redig wegdoon?"
-
-#: src/irc/serverlistdialog.cpp:245
-#, kde-format
-msgid "Do you really want to delete %1?"
-msgstr "Wullt Du \"%1\" redig wegdoon?"
 
 #: src/irc/channeloptionsdialog.cpp:32
 #, kde-format
@@ -2604,9 +2502,6 @@ msgid "Delayed connect aborted."
 msgstr ""
 
 #: src/irc/server.cpp:3622
-#, fuzzy
-#| msgctxt "Fallback default away reason"
-#| msgid "Gone away for now"
 msgid "Gone away for now"
 msgstr "Opstunns weg"
 
@@ -3789,16 +3684,14 @@ msgid "Sending CTCP-%1 request to %2."
 msgstr "CTCP-%1-Anfraag warrt %2 tostüert."
 
 #: src/irc/outputfilter.cpp:839
-#, fuzzy, c-format, kde-format
-#| msgid "Usage: %1AME text"
+#, c-format, kde-format
 msgid "Usage: %1AME [-LOCAL] text"
-msgstr "Bruuk: %1AME Text"
+msgstr "Bruuk: %1AME [-LOCAL] Text"
 
 #: src/irc/outputfilter.cpp:852
-#, fuzzy, c-format, kde-format
-#| msgid "Usage: %1AMSG text"
+#, c-format, kde-format
 msgid "Usage: %1AMSG [-LOCAL] text"
-msgstr "Bruuk: %1AMSG Text"
+msgstr "Bruuk: %1AMSG [-LOCAL] Text"
 
 #: src/irc/outputfilter.cpp:865
 #, kde-format
@@ -4087,6 +3980,108 @@ msgstr "%1 lett sik nich oplösen."
 #, c-format, kde-format
 msgid "Usage: %1queuetuner [on | off]"
 msgstr "Bruuk: %1queuetuner [an | ut]"
+
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
+msgid "C&onnect"
+msgstr "T&okoppeln"
+
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
+msgid "Connect to the server"
+msgstr "Na Server tokoppeln"
+
+#: src/irc/serverlistdialog.cpp:71
+msgid "Click here to connect to the selected IRC network and channel."
+msgstr ""
+"Klick hier, wenn Du Di na dat utsöchte Nettwark un den Klöönruum tokoppeln "
+"wullt."
+
+#: src/irc/serverlistdialog.cpp:145
+msgid "New Network"
+msgstr "Nieg Nettwark"
+
+#: src/irc/serverlistdialog.cpp:166
+msgid "Edit Network"
+msgstr "Nettwark bewerken"
+
+#: src/irc/serverlistdialog.cpp:222
+#, kde-format
+msgid ""
+"You cannot delete %1.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgstr ""
+"%1 lett sik nich wegdoon.\n"
+"\n"
+"Nettwark %2 mutt tominnst een Server bargen."
+
+#: src/irc/serverlistdialog.cpp:227
+#, kde-format
+msgid ""
+"You cannot delete the selected server.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgid_plural ""
+"You cannot delete the selected servers.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgstr[0] ""
+"De markeert Server lett sik nich wegdoon.\n"
+"\n"
+"Nettwark %2 mutt tominnst een Server bargen."
+msgstr[1] ""
+"De markeert Servers laat sik nich wegdoon.\n"
+"\n"
+"Nettwark %2 mutt tominnst een Server bargen."
+
+#: src/irc/serverlistdialog.cpp:243
+msgid "Do you really want to delete the selected entries?"
+msgstr "Wullt Du de utsöchten Indrääg redig wegdoon?"
+
+#: src/irc/serverlistdialog.cpp:245
+#, kde-format
+msgid "Do you really want to delete %1?"
+msgstr "Wullt Du \"%1\" redig wegdoon?"
+
+#: src/irc/servergroupdialog.cpp:76
+msgid "Change network information"
+msgstr "Nettwarkinformatschonen ännern"
+
+#: src/irc/servergroupdialog.cpp:77 src/viewer/editnotifydialog.cpp:73
+#: src/identitydialog.cpp:67
+msgid "Discards all changes made"
+msgstr "Smitt all Ännern weg"
+
+#: src/irc/servergroupdialog.cpp:161
+msgid "Add Server"
+msgstr "Server tofögen"
+
+#: src/irc/servergroupdialog.cpp:179
+msgid "Edit Server"
+msgstr "Server bewerken"
+
+#: src/irc/servergroupdialog.cpp:284
+msgid "Add Channel"
+msgstr "Klöönruum tofögen"
+
+#: src/irc/servergroupdialog.cpp:302
+msgid "Edit Channel"
+msgstr "Klöönruum bewerken"
+
+#: src/irc/servergroupdialog.cpp:417
+msgid "The network name is required."
+msgstr "De Naam vun dat Nettwark deit noot."
+
+#: src/irc/servergroupdialog.cpp:421
+msgid "You need to add at least one server to the network."
+msgstr "Du muttst dat Nettwark tominnst een Server tofögen."
+
+#: src/irc/servergroupdialog.cpp:476
+msgid "The server address is required."
+msgstr "De Serveradress deit noot."
+
+#: src/irc/servergroupdialog.cpp:527
+msgid "The channel name is required."
+msgstr "De Naam vun den Klöönruum deit noot."
 
 #: src/konsolepanel.cpp:27 src/viewer/viewcontainer.cpp:2110
 #: src/viewer/viewcontainer.cpp:2111
@@ -5493,7 +5488,7 @@ msgstr "Verscheden Fehlerrichten un Verbetern."
 
 #: src/main.cpp:83
 msgid "Martin Blumenstingl"
-msgstr ""
+msgstr "Martin Blumenstingl"
 
 #: src/main.cpp:83
 msgid "KStatusNotifierItem support, KIdleTime support, other enhancements"

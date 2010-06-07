@@ -1,14 +1,14 @@
 # Translation of konversation into to Japanese.
 # Shintaro Matsuoka <shin@shoegazed.org>, 2004.
 # Yukiko Bando <ybando@k6.dion.ne.jp>, 2006, 2007, 2008.
-#
+# Fumiaki Okushi <okushi@kde.gr.jp>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-05-20 04:55+0200\n"
-"PO-Revision-Date: 2008-07-06 21:43+0900\n"
-"Last-Translator: Yukiko Bando <ybando@k6.dion.ne.jp>\n"
+"POT-Creation-Date: 2010-06-05 04:59+0200\n"
+"PO-Revision-Date: 2010-05-23 01:46-0700\n"
+"Last-Translator: Fumiaki Okushi <okushi@kde.gr.jp>\n"
 "Language-Team: Japanese <Kdeveloper@kde.gr.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -53,8 +53,6 @@ msgid "Both"
 msgstr "両方"
 
 #: src/config/autoreplace_config.cpp:287
-#, fuzzy
-#| msgid "New"
 msgctxt ""
 "Fallback content for the \"Find:\" field of an auto-replace rule that gets "
 "set when the user leaves the field empty and e.g. switches to another rule "
@@ -64,8 +62,6 @@ msgid "New"
 msgstr "新規"
 
 #: src/config/autoreplace_config.cpp:323
-#, fuzzy
-#| msgid "New"
 msgctxt ""
 "Default content of the \"Find:\" field of a newly-added auto-replace rule."
 msgid "New"
@@ -146,10 +142,8 @@ msgid "Colors"
 msgstr "色"
 
 #: src/config/settingsdialog.cpp:83
-#, fuzzy
-#| msgid "Focus"
 msgid "Fonts"
-msgstr "フォーカス"
+msgstr "フォント"
 
 #: src/config/settingsdialog.cpp:87
 msgid "Quick Buttons"
@@ -260,8 +254,7 @@ msgid "Cannot Install Theme"
 msgstr "テーマをインストールできません"
 
 #: src/config/theme_config.cpp:237
-#, fuzzy, kde-format
-#| msgid "Do you want to remove %1 ?"
+#, kde-format
 msgid "Do you want to remove %1?"
 msgstr "%1 を削除しますか？"
 
@@ -270,10 +263,8 @@ msgid "Remove Theme"
 msgstr "テーマを削除"
 
 #: src/config/warnings_config.cpp:122
-#, fuzzy
-#| msgid "&Show channel topic"
 msgid "Show channel invitation dialog"
-msgstr "チャンネルトピックを表示する(&S)"
+msgstr "チャンネル招待ダイアログを表示"
 
 #: src/config/warnings_config.cpp:123
 msgid "Notice that saving logfiles will save whole file"
@@ -308,10 +299,8 @@ msgid "Close query tab"
 msgstr "クエリータブを閉じるときに確認する"
 
 #: src/config/warnings_config.cpp:131
-#, fuzzy
-#| msgid "Close channel tab"
 msgid "Close DCC Chat tab"
-msgstr "チャンネルタブを閉じるときに確認する"
+msgstr "DCC チャットタブを閉じる"
 
 #: src/config/warnings_config.cpp:132
 msgid "The channel list can only be opened from server-aware tabs"
@@ -372,30 +361,6 @@ msgstr "チャンネル"
 #: src/dcc/recipientdialog.cpp:65
 msgid "Close the window without changes"
 msgstr "変更を破棄してウィンドウを閉じる"
-
-#: src/dcc/resumedialog.cpp:49
-msgid "DCC Receive Question"
-msgstr "DCC 受信 質問"
-
-#: src/dcc/resumedialog.cpp:74
-msgid "&Resume"
-msgstr "レジューム(&R)"
-
-#: src/dcc/resumedialog.cpp:94
-msgid "O&riginal Filename"
-msgstr "元のファイル名(&R)"
-
-#: src/dcc/resumedialog.cpp:95
-msgid "Suggest &New Filename"
-msgstr "新しい名前を提案する(&N)"
-
-#: src/dcc/resumedialog.cpp:140
-msgid "&Overwrite"
-msgstr "上書き(&O)"
-
-#: src/dcc/resumedialog.cpp:146
-msgid "R&ename"
-msgstr "名前を変更(&E)"
 
 #: src/dcc/transferdetailedinfopanel.cpp:34 src/dcc/transferlistmodel.cpp:48
 msgid "Status"
@@ -900,11 +865,10 @@ msgid "Unknown error. Code %1"
 msgstr "未知のエラー。コード %1"
 
 #: src/dcc/chat.cpp:102
-#, fuzzy, kde-format
-#| msgid "Could not send a DCC SEND request to the partner via the IRC server."
+#, kde-format
 msgctxt "%1=dcc extension like Chat or Whiteboard"
 msgid "Could not send a DCC %1 request to the partner via the IRC server."
-msgstr "IRC サーバを介して DCC SEND リクエストを相手に送信できませんでした。"
+msgstr "IRC サーバを介して DCC %1 リクエストを相手に送信できませんでした。"
 
 #: src/dcc/chat.cpp:152
 #, kde-format
@@ -923,10 +887,8 @@ msgid "Accept"
 msgstr "受信"
 
 #: src/dcc/chat.cpp:155
-#, fuzzy
-#| msgid "&Reconnect"
 msgid "Reject"
-msgstr "再接続(&R)"
+msgstr "拒否"
 
 #: src/dcc/chat.cpp:161
 #, kde-format
@@ -1064,7 +1026,7 @@ msgstr "使い方: %1ME テキスト"
 #: src/irc/outputfilter.cpp:1967 src/linkaddressbook/addressbook.cpp:113
 #: src/connectionmanager.cpp:279
 msgid "Error"
-msgstr ""
+msgstr "エラー"
 
 #: src/dcc/chatcontainer.cpp:323
 #, fuzzy
@@ -1219,6 +1181,30 @@ msgstr "このファイルに関する詳細情報はありません。"
 msgid "Columns"
 msgstr "コマンド:"
 
+#: src/dcc/resumedialog.cpp:50
+msgid "DCC Receive Question"
+msgstr "DCC 受信 質問"
+
+#: src/dcc/resumedialog.cpp:75
+msgid "&Resume"
+msgstr "レジューム(&R)"
+
+#: src/dcc/resumedialog.cpp:97
+msgid "O&riginal Filename"
+msgstr "元のファイル名(&R)"
+
+#: src/dcc/resumedialog.cpp:98
+msgid "Suggest &New Filename"
+msgstr "新しいファイル名を提案する(&N)"
+
+#: src/dcc/resumedialog.cpp:143
+msgid "&Overwrite"
+msgstr "上書き(&O)"
+
+#: src/dcc/resumedialog.cpp:149
+msgid "R&ename"
+msgstr "名前変更(&E)"
+
 #: src/irc/channelnick.cpp:199
 msgid "Operator"
 msgstr "オペレータ"
@@ -1294,7 +1280,7 @@ msgstr " (認証済み)"
 #: src/irc/nickinfo.cpp:388 src/linkaddressbook/linkaddressbookui.cpp:59
 #: rc.cpp:1756
 msgid "Email"
-msgstr "Eメール"
+msgstr "メール"
 
 #. i18n: file: src/irc/channeloptionsui.ui:268
 #. i18n: ectx: property (text), widget (QLabel, hostmaskLabel)
@@ -1389,7 +1375,7 @@ msgstr ""
 #: src/irc/nicksonline.cpp:62 src/irc/nicklistview.cpp:175
 #: src/linkaddressbook/addressbook_base.cpp:501
 msgid "&Send Email..."
-msgstr "Eメールを送信(&S)..."
+msgstr "メールを送信(&S)..."
 
 #: src/irc/nicksonline.cpp:64 src/irc/query.cpp:83
 #: src/irc/nicklistview.cpp:115 src/viewer/ircview.cpp:1281
@@ -1475,111 +1461,6 @@ msgstr " 管理者"
 msgctxt "(Offline) nickname details (e.g. real name from address book)"
 msgid "(Offline) %1"
 msgstr "オフライン"
-
-#: src/irc/servergroupdialog.cpp:76
-msgid "Change network information"
-msgstr "ネットワーク情報を変更"
-
-#: src/irc/servergroupdialog.cpp:77 src/viewer/editnotifydialog.cpp:73
-#: src/identitydialog.cpp:67
-msgid "Discards all changes made"
-msgstr "すべての変更を破棄する"
-
-#: src/irc/servergroupdialog.cpp:161
-msgid "Add Server"
-msgstr "サーバを追加"
-
-#: src/irc/servergroupdialog.cpp:179
-msgid "Edit Server"
-msgstr "サーバを編集"
-
-#: src/irc/servergroupdialog.cpp:273
-msgid "Add Channel"
-msgstr "チャンネルを追加"
-
-#: src/irc/servergroupdialog.cpp:291
-msgid "Edit Channel"
-msgstr "チャンネルを編集"
-
-#: src/irc/servergroupdialog.cpp:395
-msgid "The network name is required."
-msgstr "ネットワーク名が必要です。"
-
-#: src/irc/servergroupdialog.cpp:399
-msgid "You need to add at least one server to the network."
-msgstr "少なくとも一つのサーバをネットワークに加える必要があります。"
-
-#: src/irc/servergroupdialog.cpp:454
-msgid "The server address is required."
-msgstr "サーバのアドレスが必要です。"
-
-#: src/irc/servergroupdialog.cpp:505
-msgid "The channel name is required."
-msgstr "チャンネル名が必要です。"
-
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
-msgid "C&onnect"
-msgstr "接続(&O)"
-
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
-msgid "Connect to the server"
-msgstr "サーバに接続"
-
-#: src/irc/serverlistdialog.cpp:71
-msgid "Click here to connect to the selected IRC network and channel."
-msgstr ""
-"選択した IRC ネットワークとチャンネルに接続するにはここをクリックします。"
-
-#: src/irc/serverlistdialog.cpp:145
-msgid "New Network"
-msgstr "新規ネットワーク"
-
-#: src/irc/serverlistdialog.cpp:166
-msgid "Edit Network"
-msgstr "ネットワークを編集"
-
-#: src/irc/serverlistdialog.cpp:222
-#, kde-format
-msgid ""
-"You cannot delete %1.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgstr ""
-"%1 を削除することはできません。\n"
-"\n"
-"ネットワーク %2 には最低一つのサーバが必要です。"
-
-#: src/irc/serverlistdialog.cpp:227
-#, fuzzy, kde-format
-#| msgid ""
-#| "You cannot delete the selected servers.\n"
-#| "\n"
-#| "The network %1 needs to have at least one server."
-msgid ""
-"You cannot delete the selected server.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgid_plural ""
-"You cannot delete the selected servers.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgstr[0] ""
-"選択したサーバを削除することはできません。\n"
-"\n"
-"ネットワーク %1 には最低一つのサーバが必要です。"
-msgstr[1] ""
-"選択したサーバを削除することはできません。\n"
-"\n"
-"ネットワーク %1 には最低一つのサーバが必要です。"
-
-#: src/irc/serverlistdialog.cpp:243
-msgid "Do you really want to delete the selected entries?"
-msgstr "本当に選択したエントリを削除しますか？"
-
-#: src/irc/serverlistdialog.cpp:245
-#, kde-format
-msgid "Do you really want to delete %1?"
-msgstr "本当に %1 を削除しますか？"
 
 #: src/irc/channeloptionsdialog.cpp:32
 #, kde-format
@@ -4264,6 +4145,111 @@ msgstr "%1 を解決できません"
 msgid "Usage: %1queuetuner [on | off]"
 msgstr "使い方: %1queuetuner [on | off]"
 
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
+msgid "C&onnect"
+msgstr "接続(&O)"
+
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
+msgid "Connect to the server"
+msgstr "サーバに接続"
+
+#: src/irc/serverlistdialog.cpp:71
+msgid "Click here to connect to the selected IRC network and channel."
+msgstr ""
+"選択した IRC ネットワークとチャンネルに接続するにはここをクリックします。"
+
+#: src/irc/serverlistdialog.cpp:145
+msgid "New Network"
+msgstr "新しいネットワーク"
+
+#: src/irc/serverlistdialog.cpp:166
+msgid "Edit Network"
+msgstr "ネットワークを編集"
+
+#: src/irc/serverlistdialog.cpp:222
+#, kde-format
+msgid ""
+"You cannot delete %1.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgstr ""
+"%1 を削除することはできません。\n"
+"\n"
+"ネットワーク %2 には最低一つのサーバが必要です。"
+
+#: src/irc/serverlistdialog.cpp:227
+#, fuzzy, kde-format
+#| msgid ""
+#| "You cannot delete the selected servers.\n"
+#| "\n"
+#| "The network %1 needs to have at least one server."
+msgid ""
+"You cannot delete the selected server.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgid_plural ""
+"You cannot delete the selected servers.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgstr[0] ""
+"選択したサーバを削除することはできません。\n"
+"\n"
+"ネットワーク %1 には最低一つのサーバが必要です。"
+msgstr[1] ""
+"選択したサーバを削除することはできません。\n"
+"\n"
+"ネットワーク %1 には最低一つのサーバが必要です。"
+
+#: src/irc/serverlistdialog.cpp:243
+msgid "Do you really want to delete the selected entries?"
+msgstr "本当に選択したエントリを削除しますか？"
+
+#: src/irc/serverlistdialog.cpp:245
+#, kde-format
+msgid "Do you really want to delete %1?"
+msgstr "本当に %1 を削除しますか？"
+
+#: src/irc/servergroupdialog.cpp:76
+msgid "Change network information"
+msgstr "ネットワーク情報を変更"
+
+#: src/irc/servergroupdialog.cpp:77 src/viewer/editnotifydialog.cpp:73
+#: src/identitydialog.cpp:67
+msgid "Discards all changes made"
+msgstr "すべての変更を破棄する"
+
+#: src/irc/servergroupdialog.cpp:161
+msgid "Add Server"
+msgstr "サーバを追加"
+
+#: src/irc/servergroupdialog.cpp:179
+msgid "Edit Server"
+msgstr "サーバを編集"
+
+#: src/irc/servergroupdialog.cpp:284
+msgid "Add Channel"
+msgstr "チャンネルを追加"
+
+#: src/irc/servergroupdialog.cpp:302
+msgid "Edit Channel"
+msgstr "チャンネルを編集"
+
+#: src/irc/servergroupdialog.cpp:417
+msgid "The network name is required."
+msgstr "ネットワーク名が必要です。"
+
+#: src/irc/servergroupdialog.cpp:421
+msgid "You need to add at least one server to the network."
+msgstr "少なくとも一つのサーバをネットワークに加える必要があります。"
+
+#: src/irc/servergroupdialog.cpp:476
+msgid "The server address is required."
+msgstr "サーバのアドレスが必要です。"
+
+#: src/irc/servergroupdialog.cpp:527
+msgid "The channel name is required."
+msgstr "チャンネル名が必要です。"
+
 #: src/konsolepanel.cpp:27 src/viewer/viewcontainer.cpp:2110
 #: src/viewer/viewcontainer.cpp:2111
 msgid "Konsole"
@@ -4377,7 +4363,7 @@ msgstr "選択したコンタクトはメールアドレスと関連付けられ
 #: src/linkaddressbook/addressbook_base.cpp:401
 #: src/linkaddressbook/addressbook_base.cpp:495
 msgid "Cannot Send Email"
-msgstr "Eメール送信不可能"
+msgstr "メール送信不可能"
 
 #: src/linkaddressbook/addressbook_base.cpp:413
 msgid ""
@@ -4385,9 +4371,9 @@ msgid ""
 "installed.  To install the KDE email program (kmail) please install the "
 "'kdepim' packages."
 msgstr ""
-"メーラーを起動できませんでした。おそらくインストールされていないのが原因で"
-"す。KDE のメーラー (kmail) を使うには kdepim パッケージをインストールしてくだ"
-"さい。"
+"メールクライアントを起動できませんでした。おそらくインストールされていないの"
+"が原因です。KDE のメールクライアント (kmail) を使うには kdepim パッケージをイ"
+"ンストールしてください。"
 
 #: src/linkaddressbook/addressbook_base.cpp:457
 #, fuzzy
@@ -4570,11 +4556,11 @@ msgstr ""
 
 #: src/linkaddressbook/linkaddressbookui.cpp:109
 msgid "New Address Book Entry"
-msgstr "新規アドレス帳エントリ"
+msgstr "新しいアドレス帳エントリ"
 
 #: src/linkaddressbook/linkaddressbookui.cpp:110
 msgid "Name the new entry:"
-msgstr "新規エントリの名前:"
+msgstr "新しいエントリの名前:"
 
 #: src/queuetuner.cpp:241
 #, fuzzy
@@ -4874,11 +4860,11 @@ msgstr ""
 
 #: src/viewer/searchbar.cpp:65
 msgid "Whole Words Only"
-msgstr "完全な単語のみ"
+msgstr "単語単位"
 
 #: src/viewer/searchbar.cpp:68
 msgid "From Cursor"
-msgstr "カーソル以降"
+msgstr "カーソル位置から"
 
 #: src/viewer/statuspanel.cpp:259
 #, kde-format
@@ -4934,10 +4920,8 @@ msgstr "文字を挿入"
 #. i18n: file: data/konversationui.rc:23
 #. i18n: ectx: Menu (insert)
 #: src/viewer/insertchardialog.cpp:30 rc.cpp:5
-#, fuzzy
-#| msgid "secret"
 msgid "&Insert"
-msgstr "シークレット"
+msgstr "挿入(&I)"
 
 #: src/viewer/insertchardialog.cpp:30
 msgid "Insert a character"
@@ -5418,21 +5402,19 @@ msgid "Network is down, will reconnect automatically when it is back up."
 msgstr ""
 
 #: src/connectionmanager.cpp:256
-#, fuzzy, kde-format
-#| msgid "Trying to connect to %1 in %2 seconds."
+#, kde-format
 msgid "Trying to connect to %2 (port <numid>%3</numid>) in 1 second."
 msgid_plural "Trying to connect to %2 (port <numid>%3</numid>) in %1 seconds."
-msgstr[0] "%2 秒後に %1 に接続を試みます。"
-msgstr[1] "%2 秒後に %1 に接続を試みます。"
+msgstr[0] "%2 秒後に %1 (ポート <numid>%3</numid>) に接続を試みます。"
+msgstr[1] "%2 秒後に %1 (ポート <numid>%3</numid>) に接続を試みます。"
 
 #: src/connectionmanager.cpp:266
-#, fuzzy, kde-format
-#| msgid "Trying to reconnect to %1 in %2 seconds."
+#, kde-format
 msgid "Trying to reconnect to %2 (port <numid>%3</numid>) in 1 second."
 msgid_plural ""
 "Trying to reconnect to %2 (port <numid>%3</numid>) in %1 seconds."
-msgstr[0] "%2 秒後に %1 に再接続を試みます。"
-msgstr[1] "%2 秒後に %1 に再接続を試みます。"
+msgstr[0] "%2 秒後に %1 (ポート <numid>%3</numid>) に再接続を試みます。"
+msgstr[1] "%2 秒後に %1 (ポート <numid>%3</numid>) に再接続を試みます。"
 
 #: src/connectionmanager.cpp:279
 msgid "Reconnection attempts exceeded."
@@ -5454,44 +5436,34 @@ msgid "Create connection"
 msgstr "接続を確立"
 
 #: src/connectionmanager.cpp:526
-#, fuzzy, kde-format
-#| msgid ""
-#| "You are presently connected to %1 via '%2' (port %3). Do you want to "
-#| "switch to '%4' (port %5) instead?"
+#, kde-format
 msgid ""
 "You are presently connected to %1 via '%2' (port <numid>%3</numid>). Do you "
 "want to switch to '%4' (port <numid>%5</numid>) instead?"
 msgstr ""
-"現在 %2 (ポート %3) を介して %1 に接続しています。%4 (ポート %5) に切り替えま"
-"すか？"
+"現在 %2 (ポート <numid>%3</numid>) を介して %1 に接続しています。%4 (ポート "
+"<numid>%5</numid>) に切り替えますか？"
 
 #: src/connectionmanager.cpp:533
 msgid "Switch Server"
 msgstr "サーバを切り替え"
 
 #: src/connectionmanager.cpp:580
-#, fuzzy
-#| msgid "Please fill in your <b>Ident</b>.<br>"
 msgid "Please fill in your <b>Ident</b>.<br/>"
-msgstr "「個人情報」を入力してください。<br>"
+msgstr "「個人情報」を入力してください。<br/>"
 
 #: src/connectionmanager.cpp:583
-#, fuzzy
-#| msgid "Please fill in your <b>Real name</b>.<br>"
 msgid "Please fill in your <b>Real name</b>.<br/>"
-msgstr "「本名」を入力してください。<br>"
+msgstr "「本名」を入力してください。<br/>"
 
 #: src/connectionmanager.cpp:586
-#, fuzzy
-#| msgid "Please provide at least one <b>Nickname</b>.<br>"
 msgid "Please provide at least one <b>Nickname</b>.<br/>"
-msgstr "少なくとも一つの「ニックネーム」を入力してください。<br>"
+msgstr "少なくとも一つの「ニックネーム」を入力してください。<br/>"
 
 #: src/connectionmanager.cpp:594
-#, fuzzy, kde-format
-#| msgid "<qt>Your identity \"%1\" is not set up correctly:<br>%2</qt>"
+#, kde-format
 msgid "<qt>Your identity \"%1\" is not set up correctly:<br/>%2</qt>"
-msgstr "<qt>個人情報 \"%1\" は正しく設定されていません:<br>%2</qt>"
+msgstr "<qt>個人情報 \"%1\" は正しく設定されていません:<br/>%2</qt>"
 
 #: src/connectionmanager.cpp:595
 msgid "Identity Settings"
@@ -5508,10 +5480,8 @@ msgid "A user-friendly IRC client"
 msgstr "ユーザフレンドリな IRC クライアント"
 
 #: src/main.cpp:39
-#, fuzzy
-#| msgid "(C) 2002-2008 by the Konversation team"
 msgid "(C) 2002-2010 by the Konversation team"
-msgstr "(C) 2002-2008 Konversation 開発チーム"
+msgstr "(C) 2002-2010 Konversation 開発チーム"
 
 #: src/main.cpp:40
 msgid ""
@@ -5525,15 +5495,15 @@ msgstr ""
 
 #: src/main.cpp:45
 msgid "Dario Abatianni"
-msgstr ""
+msgstr "Dario Abatianni"
 
 #: src/main.cpp:45
 msgid "Original Author, Project Founder"
-msgstr "オリジナル作者, プロジェクト創始者"
+msgstr "オリジナル作者、プロジェクト創始者"
 
 #: src/main.cpp:46
 msgid "Peter Simonsson"
-msgstr ""
+msgstr "Peter Simonsson"
 
 #: src/main.cpp:46
 msgid "Maintainer"
@@ -5541,7 +5511,7 @@ msgstr "メンテナ"
 
 #: src/main.cpp:47
 msgid "Eike Hein"
-msgstr ""
+msgstr "Eike Hein"
 
 #: src/main.cpp:47
 #, fuzzy
@@ -5553,15 +5523,15 @@ msgstr "メンテナ, リリースマネージャ, ユーザインターフェ�
 
 #: src/main.cpp:48
 msgid "Shintaro Matsuoka"
-msgstr ""
+msgstr "Shintaro Matsuoka"
 
 #: src/main.cpp:48
 msgid "DCC, Encoding handling, OSD positioning"
-msgstr "DCC, エンコーディングの処理, OSD配置"
+msgstr "DCC、エンコーディングの処理、OSD 配置"
 
 #: src/main.cpp:49
 msgid "Eli MacKenzie"
-msgstr ""
+msgstr "Eli MacKenzie"
 
 #: src/main.cpp:49
 msgid "Protocol handling, Input line"
@@ -5569,16 +5539,16 @@ msgstr "プロトコルの処理、入力ライン"
 
 #: src/main.cpp:50
 msgid "İsmail Dönmez"
-msgstr ""
+msgstr "İsmail Dönmez"
 
 #: src/main.cpp:50
 msgid "Blowfish, SSL support, KNetwork port, Colored nicks, Nicklist themes"
 msgstr ""
-"Blowfish, SSL サポート, KNetwork ポート, カラーニック, ニックリストのテーマ"
+"Blowfish、SSL サポート、KNetwork ポート、カラーニック、ニックリストのテーマ"
 
 #: src/main.cpp:51
 msgid "John Tapsell"
-msgstr ""
+msgstr "John Tapsell"
 
 #: src/main.cpp:51
 msgid "Refactoring, KAddressBook/Kontact integration"
@@ -5586,7 +5556,7 @@ msgstr "再構築, KAddressBook/Kontact 統合"
 
 #: src/main.cpp:52
 msgid "Bernd Buschinski"
-msgstr ""
+msgstr "Bernd Buschinski"
 
 #: src/main.cpp:52
 msgid "DCC port to KDE 4, various DCC improvements"
@@ -5594,7 +5564,7 @@ msgstr ""
 
 #: src/main.cpp:54
 msgid "Olivier Bédard"
-msgstr ""
+msgstr "Olivier Bédard"
 
 #: src/main.cpp:54
 msgid "Website hosting"
@@ -5602,7 +5572,7 @@ msgstr "ウェブサイトのホスティング"
 
 #: src/main.cpp:55
 msgid "Jędrzej Lisowski"
-msgstr ""
+msgstr "Jędrzej Lisowski"
 
 #: src/main.cpp:55
 msgid "Website maintenance"
@@ -5610,33 +5580,33 @@ msgstr "ウェブサイトのメンテナンス"
 
 #: src/main.cpp:56
 msgid "Christian Muehlhaeuser"
-msgstr ""
+msgstr "Christian Muehlhaeuser"
 
 #: src/main.cpp:56
 msgid "Multiple modes extension, Close widget placement, OSD functionality"
-msgstr "マルチモード拡張, クローズボタン配置, OSD機能"
+msgstr "マルチモード拡張、クローズボタン配置、OSD 機能"
 
 #: src/main.cpp:57
 msgid "Gary Cramblitt"
-msgstr ""
+msgstr "Gary Cramblitt"
 
 #: src/main.cpp:57
 msgid ""
 "Documentation, Watched nicks online improvements, Custom web browser "
 "extension"
-msgstr "ドキュメント作成, ニックネーム監視改良, カスタムウェブブラウザ拡張"
+msgstr "ドキュメント作成、ニックネーム監視改良、カスタムウェブブラウザ拡張"
 
 #: src/main.cpp:58
 msgid "Matthias Gierlings"
-msgstr ""
+msgstr "Matthias Gierlings"
 
 #: src/main.cpp:58
 msgid "Color configurator, Highlight dialog"
-msgstr "カラー設定, 強調表示ダイアログ"
+msgstr "カラー設定、強調表示ダイアログ"
 
 #: src/main.cpp:59
 msgid "Alex Zepeda"
-msgstr ""
+msgstr "Alex Zepeda"
 
 #: src/main.cpp:59
 msgid "DCOP interface"
@@ -5644,7 +5614,7 @@ msgstr "DCOP インターフェース"
 
 #: src/main.cpp:60
 msgid "Stanislav Karchebny"
-msgstr ""
+msgstr "Stanislav Karchebny"
 
 #: src/main.cpp:60
 msgid "Non-Latin1-Encodings"
@@ -5652,7 +5622,7 @@ msgstr "非 Latin1 エンコーディング"
 
 #: src/main.cpp:61
 msgid "Mickael Marchand"
-msgstr ""
+msgstr "Mickael Marchand"
 
 #: src/main.cpp:61
 msgid "Konsole part view"
@@ -5660,15 +5630,15 @@ msgstr "Konsole 部分ビュー"
 
 #: src/main.cpp:62
 msgid "Michael Goettsche"
-msgstr ""
+msgstr "Michael Goettsche"
 
 #: src/main.cpp:62
 msgid "Quick connect, Ported new OSD, other features and bugfixes"
-msgstr "クイック接続, 新 OSD ポート, その他機能とバグ修正"
+msgstr "クイック接続、新 OSD ポート、その他機能とバグ修正"
 
 #: src/main.cpp:63
 msgid "Benjamin Meyer"
-msgstr ""
+msgstr "Benjamin Meyer"
 
 #: src/main.cpp:63
 msgid "A Handful of fixes and code cleanup"
@@ -5676,15 +5646,15 @@ msgstr "たくさんの修正とコード清掃"
 
 #: src/main.cpp:64
 msgid "Jakub Stachowski"
-msgstr ""
+msgstr "Jakub Stachowski"
 
 #: src/main.cpp:64
 msgid "Drag&Drop improvements"
-msgstr "ドラッグ&ドロップ改良"
+msgstr "ドラッグ＆ドロップ改良"
 
 #: src/main.cpp:65
 msgid "Sebastian Sariego"
-msgstr ""
+msgstr "Sebastian Sariego"
 
 #: src/main.cpp:65
 msgid "Artwork"
@@ -5692,7 +5662,7 @@ msgstr "アートワーク"
 
 #: src/main.cpp:66
 msgid "Renchi Raju"
-msgstr ""
+msgstr "Renchi Raju"
 
 #: src/main.cpp:66
 msgid "Firefox style searchbar"
@@ -5700,15 +5670,15 @@ msgstr "Firefox スタイルの検索バー"
 
 #: src/main.cpp:67
 msgid "Michael Kreitzer"
-msgstr ""
+msgstr "Michael Kreitzer"
 
 #: src/main.cpp:67
 msgid "Raw modes, Tab grouping per server, Ban list"
-msgstr "Raw モード, サーバによるタブのグループ化, Ban リスト"
+msgstr "Raw モード、サーバによるタブのグループ化、Ban リスト"
 
 #: src/main.cpp:68
 msgid "Frauke Oster"
-msgstr ""
+msgstr "Frauke Oster"
 
 #: src/main.cpp:68
 msgid "System tray patch"
@@ -5716,7 +5686,7 @@ msgstr "システムトレイのパッチ"
 
 #: src/main.cpp:69
 msgid "Lucijan Busch"
-msgstr ""
+msgstr "Lucijan Busch"
 
 #: src/main.cpp:69 src/main.cpp:75 src/main.cpp:78
 msgid "Bug fixes"
@@ -5724,7 +5694,7 @@ msgstr "バグ修正"
 
 #: src/main.cpp:70
 msgid "Sascha Cunz"
-msgstr ""
+msgstr "Sascha Cunz"
 
 #: src/main.cpp:70
 msgid "Extended user modes patch"
@@ -5732,7 +5702,7 @@ msgstr "拡張ユーザモードのパッチ"
 
 #: src/main.cpp:71
 msgid "Steve Wollkind"
-msgstr ""
+msgstr "Steve Wollkind"
 
 #: src/main.cpp:71
 msgid "Close visible tab with shortcut patch"
@@ -5740,7 +5710,7 @@ msgstr "ショートカットで可視タブを閉じるパッチ"
 
 #: src/main.cpp:72
 msgid "Thomas Nagy"
-msgstr ""
+msgstr "Thomas Nagy"
 
 #: src/main.cpp:72
 msgid "Cycle tabs with mouse scroll wheel"
@@ -5748,7 +5718,7 @@ msgstr "マウスホイールでのタブ回転"
 
 #: src/main.cpp:73
 msgid "Tobias Olry"
-msgstr ""
+msgstr "Tobias Olry"
 
 #: src/main.cpp:73
 msgid "Channel ownership mode patch"
@@ -5756,7 +5726,7 @@ msgstr "チャンネル所有モードのパッチ"
 
 #: src/main.cpp:74
 msgid "Ruud Nabben"
-msgstr ""
+msgstr "Ruud Nabben"
 
 #: src/main.cpp:74
 msgid "Option to enable IRC color filtering"
@@ -5764,19 +5734,19 @@ msgstr "IRC カラーフィルタのオプション"
 
 #: src/main.cpp:75
 msgid "Lothar Braun"
-msgstr ""
+msgstr "Lothar Braun"
 
 #: src/main.cpp:76
 msgid "Ivor Hewitt"
-msgstr ""
+msgstr "Ivor Hewitt"
 
 #: src/main.cpp:76
 msgid "Bug fixes, OSD work, clearing topics"
-msgstr "バグ修正, OSD, トピックのクリア"
+msgstr "バグ修正、OSD、トピックのクリア"
 
 #: src/main.cpp:77
 msgid "Emil Obermayr"
-msgstr ""
+msgstr "Emil Obermayr"
 
 #: src/main.cpp:77
 msgid "Sysinfo script"
@@ -5784,11 +5754,11 @@ msgstr "Sysinfo スクリプト"
 
 #: src/main.cpp:78
 msgid "Stanislav Nikolov"
-msgstr ""
+msgstr "Stanislav Nikolov"
 
 #: src/main.cpp:79
 msgid "Juan Carlos Torres"
-msgstr ""
+msgstr "Juan Carlos Torres"
 
 #: src/main.cpp:79
 msgid "Auto-join context menu"
@@ -5796,7 +5766,7 @@ msgstr "コンテキストメニューの「接続と同時にチャンネルに
 
 #: src/main.cpp:80
 msgid "Travis McHenry"
-msgstr ""
+msgstr "Travis McHenry"
 
 #: src/main.cpp:80
 msgid ""
@@ -5805,7 +5775,7 @@ msgstr ""
 
 #: src/main.cpp:81
 msgid "Modestas Vainius"
-msgstr ""
+msgstr "Modestas Vainius"
 
 #: src/main.cpp:81
 msgid "Bug fixes and enhancements."
@@ -5813,7 +5783,7 @@ msgstr ""
 
 #: src/main.cpp:82
 msgid "Abdurrahman AVCI"
-msgstr ""
+msgstr "Abdurrahman AVCI"
 
 #: src/main.cpp:82
 msgid "Various bug fixes and enhancements."
@@ -5821,7 +5791,7 @@ msgstr ""
 
 #: src/main.cpp:83
 msgid "Martin Blumenstingl"
-msgstr ""
+msgstr "Martin Blumenstingl"
 
 #: src/main.cpp:83
 msgid "KStatusNotifierItem support, KIdleTime support, other enhancements"
@@ -6079,7 +6049,7 @@ msgstr "最近言及されたすべての URL を新しいタブに表示"
 
 #: src/mainwindow.cpp:220
 msgid "New &Konsole"
-msgstr "新規 Konsole(&K)"
+msgstr "新しい Konsole(&K)"
 
 #: src/mainwindow.cpp:222
 msgid "Open a terminal in a new tab"
@@ -6318,10 +6288,8 @@ msgstr "新規(&N)"
 #. i18n: file: src/config/watchednicknames_configui.ui:270
 #. i18n: ectx: property (text), widget (KPushButton, removeButton)
 #: rc.cpp:20 rc.cpp:483 rc.cpp:540 rc.cpp:1198
-#, fuzzy
-#| msgid "R&emove"
 msgid "&Remove"
-msgstr "削除(&E)"
+msgstr "削除(&R)"
 
 #. i18n: file: src/config/alias_configui.ui:88
 #. i18n: ectx: property (text), widget (QLabel, aliasLabel)
@@ -6905,18 +6873,14 @@ msgstr "接続時に生ログウィンドウを表示する(&L)"
 #. i18n: file: src/config/connectionbehavior_config.ui:138
 #. i18n: ectx: property (title), widget (QGroupBox, encryptionGBox)
 #: rc.cpp:322
-#, fuzzy
-#| msgid "Exception"
 msgid "Encryption"
-msgstr "例外"
+msgstr "暗号"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:144
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: rc.cpp:325
-#, fuzzy
-#| msgid "Default Identity"
 msgid "Default encryption type:"
-msgstr "デフォルトの個人情報"
+msgstr "デフォルトの暗号タイプ:"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:153
 #. i18n: ectx: property (whatsThis), widget (KComboBox, kcfg_EncryptionType)
@@ -6953,34 +6917,26 @@ msgstr ""
 #. i18n: file: src/config/connectionbehavior_config.ui:198
 #. i18n: ectx: property (text), widget (QLabel, addressLabel)
 #: rc.cpp:342
-#, fuzzy
-#| msgid "Address book:"
 msgid "Address:"
-msgstr "アドレス帳:"
+msgstr "アドレス:"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:212
 #. i18n: ectx: property (text), widget (QLabel, portLabel)
 #: rc.cpp:345
-#, fuzzy
-#| msgid "&Port:"
 msgid "Port:"
-msgstr "ポート(&P):"
+msgstr "ポート:"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:226
 #. i18n: ectx: property (text), widget (QLabel, usernameLabel)
 #: rc.cpp:348
-#, fuzzy
-#| msgid "Filename:"
 msgid "Username:"
-msgstr "ファイル名:"
+msgstr "ユーザ名:"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:240
 #. i18n: ectx: property (text), widget (QLabel, passwordLabel)
 #: rc.cpp:351
-#, fuzzy
-#| msgid "P&assword:"
 msgid "Password:"
-msgstr "パスワード(&A):"
+msgstr "パスワード:"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:260
 #. i18n: ectx: property (text), widget (QLabel, typeLabel)
@@ -6994,13 +6950,13 @@ msgstr "タイプ:"
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_ProxyType)
 #: rc.cpp:357
 msgid "Socks v5"
-msgstr ""
+msgstr "Socks v5"
 
 #. i18n: file: src/config/connectionbehavior_config.ui:276
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_ProxyType)
 #: rc.cpp:360
 msgid "HTTP"
-msgstr ""
+msgstr "HTTP"
 
 #. i18n: file: src/config/dcc_configui.ui:18
 #. i18n: ectx: property (windowTitle), widget (QWidget, DCC_ConfigUI)
@@ -7054,7 +7010,6 @@ msgstr "高速 DCC 送信を使う(&N) (使えないクライアントがある�
 #. i18n: file: src/config/dcc_configui.ui:95
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccPassiveSend)
 #: rc.cpp:387
-#, fuzzy
 msgid "Enable passive DCC send"
 msgstr "パッシブ DCC 送信を有効にする"
 
@@ -7151,10 +7106,8 @@ msgstr ""
 #. i18n: file: src/config/dcc_configui.ui:412
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccChatAutoAccept)
 #: rc.cpp:435
-#, fuzzy
-#| msgid "Automaticall&y accept download offer"
 msgid "Automatically accept DCC chat offer"
-msgstr "自動的にダウンロードの提案を受け入れる(&Y)"
+msgstr "自動的に DCC チャットの提案を受け入れる"
 
 #. i18n: file: src/config/fontappearance_config.ui:25
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_FixedMOTD)
@@ -7297,8 +7250,6 @@ msgstr "すべて削除(&A)"
 #. i18n: file: src/config/konversation.kcfg:22
 #. i18n: ectx: label, entry, group (Appearance)
 #: rc.cpp:548
-#, fuzzy
-#| msgid "Limit the size of the tab labels to fit all on screen"
 msgid "Limit the size of the tab labels to fit them all on screen"
 msgstr "すべてのタブが表示されるようにタブラベルのサイズを制限する"
 
@@ -7327,8 +7278,6 @@ msgstr ""
 #. i18n: file: src/config/konversation.kcfg:276
 #. i18n: ectx: label, entry, group (General Options)
 #: rc.cpp:638
-#, fuzzy
-#| msgid "Start with hidden mainwindow"
 msgid "Start with hidden main window"
 msgstr "メインウィンドウを表示せずに起動する"
 
@@ -7416,7 +7365,7 @@ msgstr "ユーザの状態でソートする(&Y)"
 #. i18n: ectx: property (text), widget (QLabel, orderHintLabel)
 #: rc.cpp:894
 msgid "(Reorder nick sorting order by drag and drop)"
-msgstr "(ドラッグ&ドロップでソート順を変更できます)"
+msgstr "(ドラッグ＆ドロップでソート順を変更できます)"
 
 #. i18n: file: src/config/nicklistbehavior_configui.ui:103
 #. i18n: ectx: property (text), widget (QTreeWidget, sortOrder)
@@ -7447,7 +7396,7 @@ msgstr "影を描画する(&R)"
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: rc.cpp:912
 msgid "OSD font:"
-msgstr "OSDフォント:"
+msgstr "OSD フォント:"
 
 #. i18n: file: src/config/osd_configui.ui:135
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
@@ -7542,10 +7491,8 @@ msgstr "ボタンアクション"
 #. i18n: file: src/identitydialog.ui:158
 #. i18n: ectx: property (toolTip), widget (KPushButton, m_delBtn)
 #: rc.cpp:960 rc.cpp:1381
-#, fuzzy
-#| msgid "R&emove"
 msgid "Remove"
-msgstr "削除(&E)"
+msgstr "削除"
 
 #. i18n: file: src/config/quickbuttons_configui.ui:85
 #. i18n: ectx: property (text), widget (QLabel, nameLabel)
@@ -7661,10 +7608,8 @@ msgstr "チャンネルイベント"
 #. i18n: file: src/config/tabnotifications_config.ui:275
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox10)
 #: rc.cpp:1017
-#, fuzzy
-#| msgid "Exception"
 msgid "Options"
-msgstr "例外"
+msgstr "オプション"
 
 #. i18n: file: src/config/tabnotifications_config.ui:281
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_TabNotificationsOverride)
@@ -7697,24 +7642,20 @@ msgstr "配置:"
 #. i18n: file: src/config/tabs_configui.ui:45
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_TabPlacement)
 #: rc.cpp:1035
-#, fuzzy
-#| msgid "Topic"
 msgid "Top"
-msgstr "トピック"
+msgstr "上"
 
 #. i18n: file: src/config/tabs_configui.ui:50
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_TabPlacement)
 #: rc.cpp:1038
-#, fuzzy
-#| msgid "Both"
 msgid "Bottom"
-msgstr "両方"
+msgstr "下"
 
 #. i18n: file: src/config/tabs_configui.ui:55
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_TabPlacement)
 #: rc.cpp:1041
 msgid "Left"
-msgstr ""
+msgstr "左"
 
 # ACCELERATOR changed by translator
 #. i18n: file: src/config/tabs_configui.ui:81
@@ -7961,10 +7902,6 @@ msgstr "更新間隔(&U):"
 #. i18n: file: src/config/watchednicknames_configui.ui:174
 #. i18n: ectx: property (whatsThis), widget (KComboBox, networkDropdown)
 #: rc.cpp:1162 rc.cpp:1168
-#, fuzzy
-#| msgid ""
-#| "The irc server network (such as 'freenode') that the selected user to "
-#| "watch is on."
 msgid ""
 "The IRC server network (such as 'Freenode') that the selected user to watch "
 "is on."
@@ -8106,7 +8043,7 @@ msgstr "その他の場合(&E):"
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_NickCompletionCaseSensitive)
 #: rc.cpp:1237
 msgid "Case sensitive"
-msgstr "大文字小文字を区別する"
+msgstr "大文字と小文字を区別"
 
 #. i18n: file: src/config/generalbehavior_configui.ui:194
 #. i18n: ectx: property (title), widget (QGroupBox, miscGBox)
@@ -9308,13 +9245,13 @@ msgstr "Ban を解除(&R)"
 #. i18n: ectx: property (toolTip), widget (QPushButton, addAddresseeButton)
 #: rc.cpp:1741
 msgid "Create a new entry in your address book"
-msgstr "アドレス帳に新規エントリを作成します。"
+msgstr "アドレス帳に新しいエントリを作成します。"
 
 #. i18n: file: src/linkaddressbook/linkaddressbookui_base.ui:45
 #. i18n: ectx: property (text), widget (QPushButton, addAddresseeButton)
 #: rc.cpp:1744
 msgid "Create New &Entry..."
-msgstr "新規エントリを作成(&E)..."
+msgstr "新しいエントリを作成(&E)..."
 
 #. i18n: file: src/linkaddressbook/linkaddressbookui_base.ui:68
 #. i18n: ectx: property (toolTip), widget (QTreeWidget, addresseeListView)
@@ -9610,37 +9547,23 @@ msgstr "引用符を追加(&Q)"
 #. i18n: file: src/viewer/searchbarbase.ui:46
 #. i18n: ectx: property (text), widget (QLabel, m_findLabel)
 #: rc.cpp:1963
-#, fuzzy
-#| msgid "Find:"
 msgid "F&ind:"
-msgstr "検索文字列:"
+msgstr "検索文字列(&I):"
 
 #. i18n: file: src/viewer/searchbarbase.ui:62
 #. i18n: ectx: property (text), widget (KPushButton, m_findNextButton)
 #: rc.cpp:1966
-#, fuzzy
-#| msgid "Ne&w"
 msgid "&Next"
-msgstr "新規(&W)"
+msgstr "次へ(&N)"
 
 #. i18n: file: src/viewer/searchbarbase.ui:72
 #. i18n: ectx: property (text), widget (KPushButton, m_findPreviousButton)
 #: rc.cpp:1969
-#, fuzzy
-#| msgid "&Previous Tab"
 msgid "&Previous"
-msgstr "前のタブ(&P)"
+msgstr "前へ(&P)"
 
 #. i18n: file: src/viewer/searchbarbase.ui:98
 #. i18n: ectx: property (text), widget (QToolButton, m_optionsButton)
 #: rc.cpp:1972
-#, fuzzy
-#| msgid "Exception"
 msgid "&Options"
-msgstr "例外"
-
-#~ msgid "Alt+A, Backspace, Tab, Backspace"
-#~ msgstr "Alt+A, Backspace, Tab, Backspace"
-
-#~ msgid " minutes"
-#~ msgstr " 分"
+msgstr "オプション(&O)"

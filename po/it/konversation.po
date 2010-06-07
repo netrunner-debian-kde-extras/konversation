@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-05-20 04:55+0200\n"
+"POT-Creation-Date: 2010-06-05 04:59+0200\n"
 "PO-Revision-Date: 2010-05-22 15:29+0200\n"
 "Last-Translator: Federico Zenith <federico.zenith@member.fsf.org>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -362,30 +362,6 @@ msgstr "&Annulla"
 #: src/dcc/recipientdialog.cpp:65
 msgid "Close the window without changes"
 msgstr "Chiudi la finestra senza cambiamenti"
-
-#: src/dcc/resumedialog.cpp:49
-msgid "DCC Receive Question"
-msgstr "Domanda ricezione DCC"
-
-#: src/dcc/resumedialog.cpp:74
-msgid "&Resume"
-msgstr "&Ripristina"
-
-#: src/dcc/resumedialog.cpp:94
-msgid "O&riginal Filename"
-msgstr "Nome file o&riginale"
-
-#: src/dcc/resumedialog.cpp:95
-msgid "Suggest &New Filename"
-msgstr "Suggerisci &nuovo nome file"
-
-#: src/dcc/resumedialog.cpp:140
-msgid "&Overwrite"
-msgstr "S&ovrascrivi"
-
-#: src/dcc/resumedialog.cpp:146
-msgid "R&ename"
-msgstr "R&inomina"
 
 #: src/dcc/transferdetailedinfopanel.cpp:34 src/dcc/transferlistmodel.cpp:48
 msgid "Status"
@@ -917,7 +893,8 @@ msgstr "Impossibile aprire un socket in ascolto: %1"
 #, kde-format
 msgctxt "%1=dcc extension like Chat or Whiteboard,%2=partnerNick, %3=port"
 msgid "Offering DCC %1 connection to %2 on port <numid>%3</numid>..."
-msgstr "Offerta di connessione per DCC %1 a %2 sulla porta <numid>%3</numid>..."
+msgstr ""
+"Offerta di connessione per DCC %1 a %2 sulla porta <numid>%3</numid>..."
 
 #: src/dcc/chat.cpp:465
 #, kde-format
@@ -1105,11 +1082,14 @@ msgstr "&Informazioni del file"
 
 #: src/dcc/transferpanel.cpp:446
 #, kde-format
-msgid "You have selected %1 file to execute, are you sure you want to continue?"
+msgid ""
+"You have selected %1 file to execute, are you sure you want to continue?"
 msgid_plural ""
 "You have selected %1 files to execute, are you sure you want to continue?"
-msgstr[0] "Hai selezionato un file da eseguire, sei sicuro di voler continuare?"
-msgstr[1] "Hai selezionato %1 file da eseguire, sei sicuro di voler continuare?"
+msgstr[0] ""
+"Hai selezionato un file da eseguire, sei sicuro di voler continuare?"
+msgstr[1] ""
+"Hai selezionato %1 file da eseguire, sei sicuro di voler continuare?"
 
 #: src/dcc/transferpanel.cpp:449
 #, kde-format
@@ -1135,6 +1115,30 @@ msgstr "Nessuna informazione dettagliata trovata per questo file."
 #: src/dcc/transferview.cpp:306
 msgid "Columns"
 msgstr "Colonne"
+
+#: src/dcc/resumedialog.cpp:50
+msgid "DCC Receive Question"
+msgstr "Domanda ricezione DCC"
+
+#: src/dcc/resumedialog.cpp:75
+msgid "&Resume"
+msgstr "&Ripristina"
+
+#: src/dcc/resumedialog.cpp:97
+msgid "O&riginal Filename"
+msgstr "Nome file o&riginale"
+
+#: src/dcc/resumedialog.cpp:98
+msgid "Suggest &New Filename"
+msgstr "Suggerisci &nuovo nome file"
+
+#: src/dcc/resumedialog.cpp:143
+msgid "&Overwrite"
+msgstr "S&ovrascrivi"
+
+#: src/dcc/resumedialog.cpp:149
+msgid "R&ename"
+msgstr "R&inomina"
 
 #: src/irc/channelnick.cpp:199
 msgid "Operator"
@@ -1385,106 +1389,6 @@ msgstr " Amministratore"
 msgctxt "(Offline) nickname details (e.g. real name from address book)"
 msgid "(Offline) %1"
 msgstr "(Non in linea) %1"
-
-#: src/irc/servergroupdialog.cpp:76
-msgid "Change network information"
-msgstr "Cambia le informazioni sulla rete"
-
-#: src/irc/servergroupdialog.cpp:77 src/viewer/editnotifydialog.cpp:73
-#: src/identitydialog.cpp:67
-msgid "Discards all changes made"
-msgstr "Annulla tutte le modifiche fatte"
-
-#: src/irc/servergroupdialog.cpp:161
-msgid "Add Server"
-msgstr "Aggiungi server"
-
-#: src/irc/servergroupdialog.cpp:179
-msgid "Edit Server"
-msgstr "Modifica server"
-
-#: src/irc/servergroupdialog.cpp:273
-msgid "Add Channel"
-msgstr "Aggiungi canale"
-
-#: src/irc/servergroupdialog.cpp:291
-msgid "Edit Channel"
-msgstr "Modifica canale"
-
-#: src/irc/servergroupdialog.cpp:395
-msgid "The network name is required."
-msgstr "È richiesto il nome della rete."
-
-#: src/irc/servergroupdialog.cpp:399
-msgid "You need to add at least one server to the network."
-msgstr "Devi aggiungere almeno un server alla rete."
-
-#: src/irc/servergroupdialog.cpp:454
-msgid "The server address is required."
-msgstr "È richiesto l'indirizzo del server."
-
-#: src/irc/servergroupdialog.cpp:505
-msgid "The channel name is required."
-msgstr "È richiesto il nome del canale."
-
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
-msgid "C&onnect"
-msgstr "C&onnetti"
-
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
-msgid "Connect to the server"
-msgstr "Connetti al server"
-
-#: src/irc/serverlistdialog.cpp:71
-msgid "Click here to connect to the selected IRC network and channel."
-msgstr "Fai clic qui per connetterti alla rete e al canale IRC selezionati."
-
-#: src/irc/serverlistdialog.cpp:145
-msgid "New Network"
-msgstr "Nuova rete"
-
-#: src/irc/serverlistdialog.cpp:166
-msgid "Edit Network"
-msgstr "Modifica rete"
-
-#: src/irc/serverlistdialog.cpp:222
-#, kde-format
-msgid ""
-"You cannot delete %1.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgstr ""
-"Non puoi eliminare %1.\n"
-"\n"
-"La rete %2 deve avere almeno un server."
-
-#: src/irc/serverlistdialog.cpp:227
-#, kde-format
-msgid ""
-"You cannot delete the selected server.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgid_plural ""
-"You cannot delete the selected servers.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgstr[0] ""
-"Non puoi eliminare il server selezionato.\n"
-"\n"
-"La rete %2 deve avere almeno un server."
-msgstr[1] ""
-"Non puoi eliminare i server selezionati.\n"
-"\n"
-"La rete %2 deve avere almeno un server."
-
-#: src/irc/serverlistdialog.cpp:243
-msgid "Do you really want to delete the selected entries?"
-msgstr "Vuoi veramente eliminare le voci selezionate?"
-
-#: src/irc/serverlistdialog.cpp:245
-#, kde-format
-msgid "Do you really want to delete %1?"
-msgstr "Vuoi veramente eliminare %1?"
 
 #: src/irc/channeloptionsdialog.cpp:32
 #, kde-format
@@ -2428,7 +2332,8 @@ msgstr ""
 #: src/irc/server.cpp:2200
 #, kde-format
 msgctxt "%1 = file name, %2 = nickname"
-msgid "Received invalid passive DCC send acceptance message for \"%1\" from %2."
+msgid ""
+"Received invalid passive DCC send acceptance message for \"%1\" from %2."
 msgstr ""
 "Ricevuto messaggio non valido di accettazione di DCC SEND passivo per «%1» da "
 "%2."
@@ -3528,13 +3433,13 @@ msgid ""
 "or use disconnect, your DCC Whiteboard will be unaffected.  It also means "
 "that no irc server admin can view or spy on this chat.</p></qt>"
 msgstr ""
-"<qt><p>Avvia una lavagna (<foreignphrase lang=\"en\">whiteboard</"
-"foreignphrase>) «<em>D</em>irect <em>C</em>lient <em>C</em>onnection» tra te "
-"e questa persona.</p><p><em>Nota tecnica:</em><br />La conversazione verrà "
-"inviata direttamente. Ciò vuol dire che è indipendente dal server: quindi, "
-"se la connessione al server cade o ti sconnetti, la lavagna DCC continuerà "
-"indisturbata. Vuol anche dire che nessun amministratore del server IRC può "
-"vedere o spiare la conversazione.</p></qt>"
+"<qt><p>Avvia una lavagna («whiteboard») «<em>D</em>irect <em>C</em>lient "
+"<em>C</em>onnection» tra te e questa persona.</p><p><em>Nota tecnica:</"
+"em><br />La conversazione verrà inviata direttamente. Ciò vuol dire che è "
+"indipendente dal server: quindi, se la connessione al server cade o ti "
+"sconnetti, la lavagna DCC continuerà indisturbata. Vuol anche dire che "
+"nessun amministratore del server IRC può vedere o spiare la conversazione.</"
+"p></qt>"
 
 #: src/irc/nicklistview.cpp:173
 msgid ""
@@ -3727,13 +3632,11 @@ msgstr "Invio della richiesta CTCP-%1 a %2."
 
 #: src/irc/outputfilter.cpp:839
 #, c-format, kde-format
-#| msgid "Usage: %1AME text"
 msgid "Usage: %1AME [-LOCAL] text"
 msgstr "Uso: %1AME [-LOCAL] testo"
 
 #: src/irc/outputfilter.cpp:852
 #, c-format, kde-format
-#| msgid "Usage: %1AMSG text"
 msgid "Usage: %1AMSG [-LOCAL] text"
 msgstr "Uso: %1AMSG [-LOCAL] testo"
 
@@ -3850,7 +3753,8 @@ msgstr "%1BAN senza nome del canale funziona solo all'interno di un canale."
 #: src/irc/outputfilter.cpp:1358
 #, kde-format
 msgid "%1KICKBAN without channel name works only from inside a channel."
-msgstr "%1KICKBAN senza nome del canale funziona solo all'interno di un canale."
+msgstr ""
+"%1KICKBAN senza nome del canale funziona solo all'interno di un canale."
 
 #: src/irc/outputfilter.cpp:1390
 #, kde-format
@@ -4027,6 +3931,106 @@ msgstr "Impossibile risolvere %1"
 msgid "Usage: %1queuetuner [on | off]"
 msgstr "Uso: %1queuetuner [on | off]"
 
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
+msgid "C&onnect"
+msgstr "C&onnetti"
+
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
+msgid "Connect to the server"
+msgstr "Connetti al server"
+
+#: src/irc/serverlistdialog.cpp:71
+msgid "Click here to connect to the selected IRC network and channel."
+msgstr "Fai clic qui per connetterti alla rete e al canale IRC selezionati."
+
+#: src/irc/serverlistdialog.cpp:145
+msgid "New Network"
+msgstr "Nuova rete"
+
+#: src/irc/serverlistdialog.cpp:166
+msgid "Edit Network"
+msgstr "Modifica rete"
+
+#: src/irc/serverlistdialog.cpp:222
+#, kde-format
+msgid ""
+"You cannot delete %1.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgstr ""
+"Non puoi eliminare %1.\n"
+"\n"
+"La rete %2 deve avere almeno un server."
+
+#: src/irc/serverlistdialog.cpp:227
+#, kde-format
+msgid ""
+"You cannot delete the selected server.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgid_plural ""
+"You cannot delete the selected servers.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgstr[0] ""
+"Non puoi eliminare il server selezionato.\n"
+"\n"
+"La rete %2 deve avere almeno un server."
+msgstr[1] ""
+"Non puoi eliminare i server selezionati.\n"
+"\n"
+"La rete %2 deve avere almeno un server."
+
+#: src/irc/serverlistdialog.cpp:243
+msgid "Do you really want to delete the selected entries?"
+msgstr "Vuoi veramente eliminare le voci selezionate?"
+
+#: src/irc/serverlistdialog.cpp:245
+#, kde-format
+msgid "Do you really want to delete %1?"
+msgstr "Vuoi veramente eliminare %1?"
+
+#: src/irc/servergroupdialog.cpp:76
+msgid "Change network information"
+msgstr "Cambia le informazioni sulla rete"
+
+#: src/irc/servergroupdialog.cpp:77 src/viewer/editnotifydialog.cpp:73
+#: src/identitydialog.cpp:67
+msgid "Discards all changes made"
+msgstr "Annulla tutte le modifiche fatte"
+
+#: src/irc/servergroupdialog.cpp:161
+msgid "Add Server"
+msgstr "Aggiungi server"
+
+#: src/irc/servergroupdialog.cpp:179
+msgid "Edit Server"
+msgstr "Modifica server"
+
+#: src/irc/servergroupdialog.cpp:284
+msgid "Add Channel"
+msgstr "Aggiungi canale"
+
+#: src/irc/servergroupdialog.cpp:302
+msgid "Edit Channel"
+msgstr "Modifica canale"
+
+#: src/irc/servergroupdialog.cpp:417
+msgid "The network name is required."
+msgstr "È richiesto il nome della rete."
+
+#: src/irc/servergroupdialog.cpp:421
+msgid "You need to add at least one server to the network."
+msgstr "Devi aggiungere almeno un server alla rete."
+
+#: src/irc/servergroupdialog.cpp:476
+msgid "The server address is required."
+msgstr "È richiesto l'indirizzo del server."
+
+#: src/irc/servergroupdialog.cpp:527
+msgid "The channel name is required."
+msgstr "È richiesto il nome del canale."
+
 #: src/konsolepanel.cpp:27 src/viewer/viewcontainer.cpp:2110
 #: src/viewer/viewcontainer.cpp:2111
 msgid "Konsole"
@@ -4147,7 +4151,8 @@ msgstr ""
 "di KDE (kmail), installa i pacchetti «kdepim»."
 
 #: src/linkaddressbook/addressbook_base.cpp:457
-msgid "None of the selected contacts are associated with address book entries. "
+msgid ""
+"None of the selected contacts are associated with address book entries. "
 msgstr ""
 "Nessuno dei contatti selezionati sono associati a delle voci della rubrica. "
 
@@ -4293,7 +4298,8 @@ msgid "Reset..."
 msgstr "Azzera..."
 
 #: src/queuetuner.cpp:246
-msgid "This cannot be undone, are you sure you wish to reset to default values?"
+msgid ""
+"This cannot be undone, are you sure you wish to reset to default values?"
 msgstr ""
 "Questo non si può annullare, sei sicuro di voler tornare ai valori "
 "predefiniti?"
@@ -5058,7 +5064,8 @@ msgstr[1] ""
 #: src/connectionmanager.cpp:266
 #, kde-format
 msgid "Trying to reconnect to %2 (port <numid>%3</numid>) in 1 second."
-msgid_plural "Trying to reconnect to %2 (port <numid>%3</numid>) in %1 seconds."
+msgid_plural ""
+"Trying to reconnect to %2 (port <numid>%3</numid>) in %1 seconds."
 msgstr[0] ""
 "Tentativo di riconnessione a %2 (porta <numid>%3</numid>) tra 1 secondo."
 msgstr[1] ""
@@ -5070,7 +5077,8 @@ msgstr "Tentativi di riconnessione esauriti."
 
 #: src/connectionmanager.cpp:509
 #, kde-format
-msgid "You are already connected to %1. Do you want to open another connection?"
+msgid ""
+"You are already connected to %1. Do you want to open another connection?"
 msgstr "Sei già connesso a %1. Vuoi aprire un'altra connessione?"
 
 #: src/connectionmanager.cpp:510 src/connectionmanager.cpp:532
@@ -6645,7 +6653,8 @@ msgstr "C&rea cartella per il mittente"
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpaceToUnderscore)
 #: rc.cpp:375
 msgid "Convert spaces in file names to underscores before sending"
-msgstr "Converti gli spazi nei nomi dei file in sottolineature prima di inviare"
+msgstr ""
+"Converti gli spazi nei nomi dei file in sottolineature prima di inviare"
 
 #. i18n: file: src/config/dcc_configui.ui:74
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAutoGet)

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-05-20 04:55+0200\n"
+"POT-Creation-Date: 2010-06-05 04:59+0200\n"
 "PO-Revision-Date: 2010-03-25 09:50+0100\n"
 "Last-Translator: Vít Pelčák <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -361,30 +361,6 @@ msgstr "&Zrušit"
 #: src/dcc/recipientdialog.cpp:65
 msgid "Close the window without changes"
 msgstr "Zavřít okno beze změn"
-
-#: src/dcc/resumedialog.cpp:49
-msgid "DCC Receive Question"
-msgstr ""
-
-#: src/dcc/resumedialog.cpp:74
-msgid "&Resume"
-msgstr "O&bnovit"
-
-#: src/dcc/resumedialog.cpp:94
-msgid "O&riginal Filename"
-msgstr "Původní název soubo&ru"
-
-#: src/dcc/resumedialog.cpp:95
-msgid "Suggest &New Filename"
-msgstr "&Navrhnout nové jméno"
-
-#: src/dcc/resumedialog.cpp:140
-msgid "&Overwrite"
-msgstr "&Přepsat"
-
-#: src/dcc/resumedialog.cpp:146
-msgid "R&ename"
-msgstr "Př&ejmenovat"
 
 #: src/dcc/transferdetailedinfopanel.cpp:34 src/dcc/transferlistmodel.cpp:48
 msgid "Status"
@@ -1151,6 +1127,30 @@ msgstr ""
 msgid "Columns"
 msgstr "Sloupce:"
 
+#: src/dcc/resumedialog.cpp:50
+msgid "DCC Receive Question"
+msgstr ""
+
+#: src/dcc/resumedialog.cpp:75
+msgid "&Resume"
+msgstr "O&bnovit"
+
+#: src/dcc/resumedialog.cpp:97
+msgid "O&riginal Filename"
+msgstr "Původní název soubo&ru"
+
+#: src/dcc/resumedialog.cpp:98
+msgid "Suggest &New Filename"
+msgstr "&Navrhnout nové jméno"
+
+#: src/dcc/resumedialog.cpp:143
+msgid "&Overwrite"
+msgstr "&Přepsat"
+
+#: src/dcc/resumedialog.cpp:149
+msgid "R&ename"
+msgstr "Př&ejmenovat"
+
 #: src/irc/channelnick.cpp:199
 msgid "Operator"
 msgstr "Operátor"
@@ -1389,98 +1389,6 @@ msgstr " Administrátor"
 msgctxt "(Offline) nickname details (e.g. real name from address book)"
 msgid "(Offline) %1"
 msgstr "Offline"
-
-#: src/irc/servergroupdialog.cpp:76
-msgid "Change network information"
-msgstr "Změnit informace o síti"
-
-#: src/irc/servergroupdialog.cpp:77 src/viewer/editnotifydialog.cpp:73
-#: src/identitydialog.cpp:67
-msgid "Discards all changes made"
-msgstr "Zahodí všechny provedené změny"
-
-#: src/irc/servergroupdialog.cpp:161
-msgid "Add Server"
-msgstr "Přidat server"
-
-#: src/irc/servergroupdialog.cpp:179
-msgid "Edit Server"
-msgstr "Upravit server"
-
-#: src/irc/servergroupdialog.cpp:273
-msgid "Add Channel"
-msgstr "Přidat kanál"
-
-#: src/irc/servergroupdialog.cpp:291
-msgid "Edit Channel"
-msgstr "Upravit kanál"
-
-#: src/irc/servergroupdialog.cpp:395
-msgid "The network name is required."
-msgstr "Je vyžadováno jméno sítě."
-
-#: src/irc/servergroupdialog.cpp:399
-msgid "You need to add at least one server to the network."
-msgstr ""
-
-#: src/irc/servergroupdialog.cpp:454
-msgid "The server address is required."
-msgstr "Je vyžadována adresa serveru."
-
-#: src/irc/servergroupdialog.cpp:505
-msgid "The channel name is required."
-msgstr "Je vyžadováno jméno kanálu."
-
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
-msgid "C&onnect"
-msgstr "Přip&ojit se"
-
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
-msgid "Connect to the server"
-msgstr "Připojit se na server"
-
-#: src/irc/serverlistdialog.cpp:71
-msgid "Click here to connect to the selected IRC network and channel."
-msgstr ""
-
-#: src/irc/serverlistdialog.cpp:145
-msgid "New Network"
-msgstr "Nová síť"
-
-#: src/irc/serverlistdialog.cpp:166
-msgid "Edit Network"
-msgstr "Upravit síť"
-
-#: src/irc/serverlistdialog.cpp:222
-#, kde-format
-msgid ""
-"You cannot delete %1.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgstr ""
-
-#: src/irc/serverlistdialog.cpp:227
-#, kde-format
-msgid ""
-"You cannot delete the selected server.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgid_plural ""
-"You cannot delete the selected servers.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: src/irc/serverlistdialog.cpp:243
-msgid "Do you really want to delete the selected entries?"
-msgstr "Opravdu chcete smazat vybrané položky?"
-
-#: src/irc/serverlistdialog.cpp:245
-#, kde-format
-msgid "Do you really want to delete %1?"
-msgstr "Přejete si skutečně smazat %1?"
 
 #: src/irc/channeloptionsdialog.cpp:32
 #, kde-format
@@ -3902,6 +3810,98 @@ msgstr ""
 #, c-format, kde-format
 msgid "Usage: %1queuetuner [on | off]"
 msgstr ""
+
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
+msgid "C&onnect"
+msgstr "Přip&ojit se"
+
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
+msgid "Connect to the server"
+msgstr "Připojit se na server"
+
+#: src/irc/serverlistdialog.cpp:71
+msgid "Click here to connect to the selected IRC network and channel."
+msgstr ""
+
+#: src/irc/serverlistdialog.cpp:145
+msgid "New Network"
+msgstr "Nová síť"
+
+#: src/irc/serverlistdialog.cpp:166
+msgid "Edit Network"
+msgstr "Upravit síť"
+
+#: src/irc/serverlistdialog.cpp:222
+#, kde-format
+msgid ""
+"You cannot delete %1.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgstr ""
+
+#: src/irc/serverlistdialog.cpp:227
+#, kde-format
+msgid ""
+"You cannot delete the selected server.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgid_plural ""
+"You cannot delete the selected servers.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: src/irc/serverlistdialog.cpp:243
+msgid "Do you really want to delete the selected entries?"
+msgstr "Opravdu chcete smazat vybrané položky?"
+
+#: src/irc/serverlistdialog.cpp:245
+#, kde-format
+msgid "Do you really want to delete %1?"
+msgstr "Přejete si skutečně smazat %1?"
+
+#: src/irc/servergroupdialog.cpp:76
+msgid "Change network information"
+msgstr "Změnit informace o síti"
+
+#: src/irc/servergroupdialog.cpp:77 src/viewer/editnotifydialog.cpp:73
+#: src/identitydialog.cpp:67
+msgid "Discards all changes made"
+msgstr "Zahodí všechny provedené změny"
+
+#: src/irc/servergroupdialog.cpp:161
+msgid "Add Server"
+msgstr "Přidat server"
+
+#: src/irc/servergroupdialog.cpp:179
+msgid "Edit Server"
+msgstr "Upravit server"
+
+#: src/irc/servergroupdialog.cpp:284
+msgid "Add Channel"
+msgstr "Přidat kanál"
+
+#: src/irc/servergroupdialog.cpp:302
+msgid "Edit Channel"
+msgstr "Upravit kanál"
+
+#: src/irc/servergroupdialog.cpp:417
+msgid "The network name is required."
+msgstr "Je vyžadováno jméno sítě."
+
+#: src/irc/servergroupdialog.cpp:421
+msgid "You need to add at least one server to the network."
+msgstr ""
+
+#: src/irc/servergroupdialog.cpp:476
+msgid "The server address is required."
+msgstr "Je vyžadována adresa serveru."
+
+#: src/irc/servergroupdialog.cpp:527
+msgid "The channel name is required."
+msgstr "Je vyžadováno jméno kanálu."
 
 #: src/konsolepanel.cpp:27 src/viewer/viewcontainer.cpp:2110
 #: src/viewer/viewcontainer.cpp:2111

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-05-20 04:55+0200\n"
+"POT-Creation-Date: 2010-06-05 04:59+0200\n"
 "PO-Revision-Date: 2010-04-18 16:53+0200\n"
 "Last-Translator: Josep Ma. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -364,30 +364,6 @@ msgstr "&Cancel·la"
 #: src/dcc/recipientdialog.cpp:65
 msgid "Close the window without changes"
 msgstr "Tanca la finestra sense canvis"
-
-#: src/dcc/resumedialog.cpp:49
-msgid "DCC Receive Question"
-msgstr "Pregunta de recepció DCC"
-
-#: src/dcc/resumedialog.cpp:74
-msgid "&Resume"
-msgstr "&Continua"
-
-#: src/dcc/resumedialog.cpp:94
-msgid "O&riginal Filename"
-msgstr "Nom del fitxer &original"
-
-#: src/dcc/resumedialog.cpp:95
-msgid "Suggest &New Filename"
-msgstr "&Suggereix nou nom de fitxer"
-
-#: src/dcc/resumedialog.cpp:140
-msgid "&Overwrite"
-msgstr "S&obreescriu"
-
-#: src/dcc/resumedialog.cpp:146
-msgid "R&ename"
-msgstr "R&eanomena"
 
 #: src/dcc/transferdetailedinfopanel.cpp:34 src/dcc/transferlistmodel.cpp:48
 msgid "Status"
@@ -1202,6 +1178,30 @@ msgstr "No s'ha trobat informació detallada per aquest fitxer."
 msgid "Columns"
 msgstr "Columnes"
 
+#: src/dcc/resumedialog.cpp:50
+msgid "DCC Receive Question"
+msgstr "Pregunta de recepció DCC"
+
+#: src/dcc/resumedialog.cpp:75
+msgid "&Resume"
+msgstr "&Continua"
+
+#: src/dcc/resumedialog.cpp:97
+msgid "O&riginal Filename"
+msgstr "Nom del fitxer &original"
+
+#: src/dcc/resumedialog.cpp:98
+msgid "Suggest &New Filename"
+msgstr "&Suggereix nou nom de fitxer"
+
+#: src/dcc/resumedialog.cpp:143
+msgid "&Overwrite"
+msgstr "S&obreescriu"
+
+#: src/dcc/resumedialog.cpp:149
+msgid "R&ename"
+msgstr "R&eanomena"
+
 #: src/irc/channelnick.cpp:199
 msgid "Operator"
 msgstr "Operador"
@@ -1452,106 +1452,6 @@ msgstr " Administrador"
 msgctxt "(Offline) nickname details (e.g. real name from address book)"
 msgid "(Offline) %1"
 msgstr "(Desconnectat) %1"
-
-#: src/irc/servergroupdialog.cpp:76
-msgid "Change network information"
-msgstr "Canvia informació de xarxa"
-
-#: src/irc/servergroupdialog.cpp:77 src/viewer/editnotifydialog.cpp:73
-#: src/identitydialog.cpp:67
-msgid "Discards all changes made"
-msgstr "Descarta tots els canvis fets"
-
-#: src/irc/servergroupdialog.cpp:161
-msgid "Add Server"
-msgstr "Afegeix un servidor"
-
-#: src/irc/servergroupdialog.cpp:179
-msgid "Edit Server"
-msgstr "Edita el servidor"
-
-#: src/irc/servergroupdialog.cpp:273
-msgid "Add Channel"
-msgstr "Afegeix un canal"
-
-#: src/irc/servergroupdialog.cpp:291
-msgid "Edit Channel"
-msgstr "Edita el canal"
-
-#: src/irc/servergroupdialog.cpp:395
-msgid "The network name is required."
-msgstr "El nom de la xarxa és necessari."
-
-#: src/irc/servergroupdialog.cpp:399
-msgid "You need to add at least one server to the network."
-msgstr "Cal que afegiu un servidor com a mínim a la xarxa."
-
-#: src/irc/servergroupdialog.cpp:454
-msgid "The server address is required."
-msgstr "Us cal l'adreça del servidor."
-
-#: src/irc/servergroupdialog.cpp:505
-msgid "The channel name is required."
-msgstr "El nom del canal és necessari."
-
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
-msgid "C&onnect"
-msgstr "C&onnecta"
-
-#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
-msgid "Connect to the server"
-msgstr "Connecta al servidor"
-
-#: src/irc/serverlistdialog.cpp:71
-msgid "Click here to connect to the selected IRC network and channel."
-msgstr "Premeu aquí per connectar-vos a la xarxa d'IRC i canal seleccionat."
-
-#: src/irc/serverlistdialog.cpp:145
-msgid "New Network"
-msgstr "Nova xarxa"
-
-#: src/irc/serverlistdialog.cpp:166
-msgid "Edit Network"
-msgstr "Edita xarxa"
-
-#: src/irc/serverlistdialog.cpp:222
-#, kde-format
-msgid ""
-"You cannot delete %1.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgstr ""
-"No podeu eliminar %1.\n"
-"\n"
-"La xarxa %2 ha de tenir com a mínim un servidor."
-
-#: src/irc/serverlistdialog.cpp:227
-#, kde-format
-msgid ""
-"You cannot delete the selected server.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgid_plural ""
-"You cannot delete the selected servers.\n"
-"\n"
-"The network %2 needs to have at least one server."
-msgstr[0] ""
-"No podeu eliminar el servidor seleccionat.\n"
-"\n"
-"La xarxa %2 ha de tenir com a mínim un servidor."
-msgstr[1] ""
-"No podeu eliminar els servidor seleccionats.\n"
-"\n"
-"La xarxa %2 ha de tenir com a mínim un servidor."
-
-#: src/irc/serverlistdialog.cpp:243
-msgid "Do you really want to delete the selected entries?"
-msgstr "Realment voleu eliminar les entrades seleccionades?"
-
-#: src/irc/serverlistdialog.cpp:245
-#, kde-format
-msgid "Do you really want to delete %1?"
-msgstr "Realment voleu esborrar %1?"
 
 #: src/irc/channeloptionsdialog.cpp:32
 #, kde-format
@@ -4126,6 +4026,106 @@ msgstr "Impossible de resoldre %1"
 #, c-format, kde-format
 msgid "Usage: %1queuetuner [on | off]"
 msgstr "Sintaxi: %1queuetuner [engegat | apagat]"
+
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
+msgid "C&onnect"
+msgstr "C&onnecta"
+
+#: src/irc/serverlistdialog.cpp:71 src/quickconnectdialog.cpp:87
+msgid "Connect to the server"
+msgstr "Connecta al servidor"
+
+#: src/irc/serverlistdialog.cpp:71
+msgid "Click here to connect to the selected IRC network and channel."
+msgstr "Premeu aquí per connectar-vos a la xarxa d'IRC i canal seleccionat."
+
+#: src/irc/serverlistdialog.cpp:145
+msgid "New Network"
+msgstr "Nova xarxa"
+
+#: src/irc/serverlistdialog.cpp:166
+msgid "Edit Network"
+msgstr "Edita xarxa"
+
+#: src/irc/serverlistdialog.cpp:222
+#, kde-format
+msgid ""
+"You cannot delete %1.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgstr ""
+"No podeu eliminar %1.\n"
+"\n"
+"La xarxa %2 ha de tenir com a mínim un servidor."
+
+#: src/irc/serverlistdialog.cpp:227
+#, kde-format
+msgid ""
+"You cannot delete the selected server.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgid_plural ""
+"You cannot delete the selected servers.\n"
+"\n"
+"The network %2 needs to have at least one server."
+msgstr[0] ""
+"No podeu eliminar el servidor seleccionat.\n"
+"\n"
+"La xarxa %2 ha de tenir com a mínim un servidor."
+msgstr[1] ""
+"No podeu eliminar els servidor seleccionats.\n"
+"\n"
+"La xarxa %2 ha de tenir com a mínim un servidor."
+
+#: src/irc/serverlistdialog.cpp:243
+msgid "Do you really want to delete the selected entries?"
+msgstr "Realment voleu eliminar les entrades seleccionades?"
+
+#: src/irc/serverlistdialog.cpp:245
+#, kde-format
+msgid "Do you really want to delete %1?"
+msgstr "Realment voleu esborrar %1?"
+
+#: src/irc/servergroupdialog.cpp:76
+msgid "Change network information"
+msgstr "Canvia informació de xarxa"
+
+#: src/irc/servergroupdialog.cpp:77 src/viewer/editnotifydialog.cpp:73
+#: src/identitydialog.cpp:67
+msgid "Discards all changes made"
+msgstr "Descarta tots els canvis fets"
+
+#: src/irc/servergroupdialog.cpp:161
+msgid "Add Server"
+msgstr "Afegeix un servidor"
+
+#: src/irc/servergroupdialog.cpp:179
+msgid "Edit Server"
+msgstr "Edita el servidor"
+
+#: src/irc/servergroupdialog.cpp:284
+msgid "Add Channel"
+msgstr "Afegeix un canal"
+
+#: src/irc/servergroupdialog.cpp:302
+msgid "Edit Channel"
+msgstr "Edita el canal"
+
+#: src/irc/servergroupdialog.cpp:417
+msgid "The network name is required."
+msgstr "El nom de la xarxa és necessari."
+
+#: src/irc/servergroupdialog.cpp:421
+msgid "You need to add at least one server to the network."
+msgstr "Cal que afegiu un servidor com a mínim a la xarxa."
+
+#: src/irc/servergroupdialog.cpp:476
+msgid "The server address is required."
+msgstr "Us cal l'adreça del servidor."
+
+#: src/irc/servergroupdialog.cpp:527
+msgid "The channel name is required."
+msgstr "El nom del canal és necessari."
 
 #: src/konsolepanel.cpp:27 src/viewer/viewcontainer.cpp:2110
 #: src/viewer/viewcontainer.cpp:2111
