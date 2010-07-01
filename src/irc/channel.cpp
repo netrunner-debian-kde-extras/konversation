@@ -48,7 +48,6 @@
 #include <KGlobalSettings>
 #include <KMessageBox>
 #include <KIconLoader>
-#include <KColorScheme>
 #include <KVBox>
 #include <KHBox>
 #include <KComboBox>
@@ -84,6 +83,7 @@ Channel::Channel(QWidget* parent, QString _name) : ChatWindow(parent)
     //HACK I needed the channel name at time of setServer, but setName needs m_server..
     //     This effectively assigns the name twice, but none of the other logic has been moved or updated.
     name=_name;
+    m_ownChannelNick = 0;
     m_processingTimer = 0;
     m_optionsDialog = NULL;
     m_delayedSortTimer = 0;
@@ -436,6 +436,8 @@ ChannelNickPtr Channel::getChannelNick(const QString &ircnick)
 
 void Channel::purgeNicks()
 {
+    m_ownChannelNick = 0;
+
     // Purge nickname list
     qDeleteAll(nicknameList);
     nicknameList.clear();
@@ -1372,6 +1374,9 @@ void Channel::joinNickname(ChannelNickPtr channelNick)
         m_ownChannelNick = channelNick;
         refreshModeButtons();
         setActive(true);
+
+        // Prepare for impending NAMES.
+        nicknameListView->setUpdatesEnabled(false);
 
         //HACK the way the notification priorities work sucks, this forces the tab text color to ungray right now.
         if (m_currentTabNotify == Konversation::tnfNone || (!Preferences::self()->tabNotificationsEvents() && m_currentTabNotify == Konversation::tnfControl))
@@ -2398,29 +2403,16 @@ void Channel::syncSplitters()
 
 void Channel::updateAppearance()
 {
-    QColor fg,bg,abg;
+    QPalette palette;
 
-    if(Preferences::self()->inputFieldsBackgroundColor())
+    if (Preferences::self()->inputFieldsBackgroundColor())
     {
-        fg=Preferences::self()->color(Preferences::ChannelMessage);
-        bg=Preferences::self()->color(Preferences::TextViewBackground);
-        abg=Preferences::self()->color(Preferences::AlternateBackground);
-    }
-    else
-    {
-        fg = palette().windowText().color();
-        bg = palette().base().color();
-        abg = palette().alternateBase().color();
+        palette.setColor(QPalette::Text, Preferences::self()->color(Preferences::ChannelMessage));
+        palette.setColor(QPalette::Base, Preferences::self()->color(Preferences::TextViewBackground));
+        palette.setColor(QPalette::AlternateBase, Preferences::self()->color(Preferences::AlternateBackground));
     }
 
-    QPalette newPalette;
-    newPalette.setColor(QPalette::WindowText, fg);
-    newPalette.setColor(QPalette::Text, fg);
-    newPalette.setColor(QPalette::Base, bg);
-    newPalette.setColor(QPalette::AlternateBase, abg);
-
-    channelInput->setPalette(newPalette);
-    limit->setPalette(newPalette);
+    limit->setPalette(palette);
     topicLine->setPalette(QPalette());
 
     if (Preferences::self()->customTextFont())
@@ -2439,7 +2431,8 @@ void Channel::updateAppearance()
     }
 
     nicknameListView->resort();
-    nicknameListView->setPalette(newPalette);
+    nicknameListView->setPalette(palette);
+    nicknameListView->setAlternatingRowColors(Preferences::self()->inputFieldsBackgroundColor());
 
     if (Preferences::self()->customListFont())
         nicknameListView->setFont(Preferences::self()->listFont());
@@ -2483,12 +2476,6 @@ void Channel::changeNickname(const QString& newNickname)
 {
     if (!newNickname.isEmpty())
         m_server->queue("NICK "+newNickname);
-}
-
-void Channel::resetNickList()
-{
-    nicknameListView->setUpdatesEnabled(false);
-    purgeNicks();
 }
 
 void Channel::addPendingNickList(const QStringList& pendingChannelNickList)

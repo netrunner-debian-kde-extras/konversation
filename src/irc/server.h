@@ -70,7 +70,7 @@ class Server : public QObject
     Q_OBJECT
     friend class IRCQueue;
     friend class QueueTuner;
-void resetNickSelection();
+
     public:
         enum QueuePriority
         {
@@ -104,6 +104,7 @@ void resetNickSelection();
 
         bool isConnected() { return (m_connectionState == Konversation::SSConnected); }
         bool isConnecting() { return (m_connectionState == Konversation::SSConnecting); }
+        bool isScheduledToConnect() { return (m_connectionState == Konversation::SSScheduledToConnect); }
 
         bool getUseSSL() const;
         QString getSSLInfo() const;
@@ -115,7 +116,7 @@ void resetNickSelection();
         QStringList generateJoinCommand(const Konversation::ChannelList &tmpList);
 
         QAbstractItemModel* nickListModel() const;
-        void resetNickList(const QString& channelName);
+        void resetNickSelection();
         void addPendingNickList(const QString& channelName,const QStringList& nickList);
         void addHostmaskToNick(const QString &sourceNick, const QString &sourceHostmask);
         Channel* nickJoinsChannel(const QString &channelName, const QString &nickname, const QString &hostmask);
@@ -453,7 +454,9 @@ void resetNickSelection();
         Query *addQuery(const NickInfoPtr & nickInfo, bool weinitiated);
         void closeQuery(const QString &name);
         void closeChannel(const QString &name);
-        void quitServer();
+        void reconnectServer(const QString& quitMessage = QString());
+        void disconnectServer(const QString& quitMessage = QString());
+        void quitServer(const QString& quitMessage = QString());
         void openDccChat(const QString& nickname);
         void openDccWBoard(const QString& nickname);
         void requestDccChat(const QString& partnerNick, const QString& extension, const QString& numericalOwnIp, quint16 ownPort);
@@ -475,11 +478,8 @@ void resetNickSelection();
         void closeRawLog();
         void addToChannelList(const QString& channel, int users, const QString& topic);
         void closeChannelListPanel();
-        void updateChannelQuickButtons();
         void sendMultiServerCommand(const QString& command, const QString& parameter);
         void executeMultiServerCommand(const QString& command, const QString& parameter);
-        void reconnectServer();
-        void disconnectServer();
         void showSSLDialog();
         void sendToAllChannels(const QString& text);
         void sendToAllChannelsAndQueries(const QString& text);
@@ -736,6 +736,8 @@ void resetNickSelection();
         KProcess m_preShellCommand;
 
     private:
+        void purgeData();
+
         /// Recovers the filename from the dccArguments list from pos 0 to size-offset-1
         /// joining with a space and cleans the filename using cleanDccFileName.
         /// The filename only needs to be recovered if it contains a space, in case
@@ -798,6 +800,8 @@ void resetNickSelection();
         QTime m_lagTime;
         /// Updates the gui when the lag gets too high
         QTimer m_pingResponseTimer;
+        /// Wait before sending the next PING
+        QTimer m_pingSendTimer;
 
         /// Previous ISON reply of the server, needed for comparison with the next reply
         QStringList m_prevISONList;

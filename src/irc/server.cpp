@@ -183,6 +183,18 @@ Server::~Server()
     qDeleteAll(m_queryList);
     m_queryList.clear();
 
+    purgeData();
+
+    //Delete the queues
+    qDeleteAll(m_queues);
+
+    emit destroyed(m_connectionId);
+
+    kDebug() << "~Server done";
+}
+
+void Server::purgeData()
+{
     // Delete all the NickInfos and ChannelNick structures.
     m_allNicks.clear();
 
@@ -197,13 +209,6 @@ Server::~Server()
     m_unjoinedChannels.clear();
 
     m_queryNicks.clear();
-
-    //Delete the queues
-    qDeleteAll(m_queues);
-
-    emit destroyed(m_connectionId);
-
-    kDebug() << "~Server done";
 }
 
 //... so called to match the ChatWindow derivatives.
@@ -235,6 +240,7 @@ void Server::initTimers()
     m_notifyTimer.setObjectName("notify_timer");
     m_notifyTimer.setSingleShot(true);
     m_incomingTimer.setObjectName("incoming_timer");
+    m_pingSendTimer.setSingleShot(true);
 }
 
 void Server::connectSignals()
@@ -243,14 +249,16 @@ void Server::connectSignals()
     connect(&m_incomingTimer, SIGNAL(timeout()), this, SLOT(processIncomingData()));
     connect(&m_notifyTimer, SIGNAL(timeout()), this, SLOT(notifyTimeout()));
     connect(&m_pingResponseTimer, SIGNAL(timeout()), this, SLOT(updateLongPongLag()));
+    connect(&m_pingSendTimer, SIGNAL(timeout()), this, SLOT(sendPing()));
 
     // OutputFilter
     connect(getOutputFilter(), SIGNAL(requestDccSend()), this,SLOT(requestDccSend()), Qt::QueuedConnection);
     connect(getOutputFilter(), SIGNAL(requestDccSend(const QString&)), this, SLOT(requestDccSend(const QString&)), Qt::QueuedConnection);
     connect(getOutputFilter(), SIGNAL(multiServerCommand(const QString&, const QString&)),
         this, SLOT(sendMultiServerCommand(const QString&, const QString&)));
-    connect(getOutputFilter(), SIGNAL(reconnectServer()), this, SLOT(reconnectServer()));
-    connect(getOutputFilter(), SIGNAL(disconnectServer()), this, SLOT(disconnectServer()));
+    connect(getOutputFilter(), SIGNAL(reconnectServer(const QString&)), this, SLOT(reconnectServer(const QString&)));
+    connect(getOutputFilter(), SIGNAL(disconnectServer(const QString&)), this, SLOT(disconnectServer(const QString&)));
+    connect(getOutputFilter(), SIGNAL(quitServer(const QString&)), this, SLOT(quitServer(const QString&)));
     connect(getOutputFilter(), SIGNAL(openDccSend(const QString &, KUrl)), this, SLOT(addDccSend(const QString &, KUrl)), Qt::QueuedConnection);
     connect(getOutputFilter(), SIGNAL(openDccChat(const QString &)), this, SLOT(openDccChat(const QString &)), Qt::QueuedConnection);
     connect(getOutputFilter(), SIGNAL(openDccWBoard(const QString &)), this, SLOT(openDccWBoard(const QString &)), Qt::QueuedConnection);
@@ -440,6 +448,8 @@ void Server::connectToIRCServerIn(uint delay)
 {
     m_delayedConnectTimer->setInterval(delay * 1000);
     m_delayedConnectTimer->start();
+
+    updateConnectionState(Konversation::SSScheduledToConnect);
 }
 
 void Server::showSSLDialog()
@@ -612,6 +622,8 @@ void Server::broken(KTcpSocket::Error error)
     m_inputFilter.setLagMeasuring(false);
     m_currentLag = -1;
 
+    purgeData();
+
     // HACK Only show one nick change dialog at connection time.
     // This hack is a bit nasty as it assumes that the only KDialog
     // child of the statusview will be the nick change dialog.
@@ -722,7 +734,7 @@ void Server::connectionEstablished(const QString& ownHost)
     requestUserhost(getNickname());
 
     // Start the PINGPONG match
-    QTimer::singleShot(1000 /*1 sec*/, this, SLOT(sendPing()));
+    m_pingSendTimer.start(1000 /*1 sec*/);
 
     // Recreate away state if we were set away prior to a reconnect.
     if (m_away)
@@ -764,7 +776,53 @@ void Server::gotOwnResolvedHostByWelcome(const QHostInfo& res)
         kDebug() << "Got error: " << res.errorString();
 }
 
-void Server::quitServer()
+bool Server::isSocketConnected() const
+{
+    if (!m_socket) return false;
+
+    return (m_socket->state() == KTcpSocket::ConnectedState);
+}
+
+void Server::updateConnectionState(Konversation::ConnectionState state)
+{
+    if (state != m_connectionState)
+    {
+        m_connectionState = state;
+
+        if (m_connectionState == Konversation::SSConnected)
+            emit serverOnline(true);
+        else if (m_connectionState != Konversation::SSConnecting)
+            emit serverOnline(false);
+
+       emit connectionStateChanged(this, state);
+    }
+}
+
+void Server::reconnectServer(const QString& quitMessage)
+{
+    if (isConnecting() || isSocketConnected()) quitServer(quitMessage);
+
+    // Use asynchronous invocation so that the broken() that the above
+    // quitServer might cause is delivered before connectToIRCServer
+    // sets SSConnecting and broken() announces a deliberate disconnect
+    // due to the failure allegedly occurring during SSConnecting.
+    QTimer::singleShot(0, this, SLOT(connectToIRCServer()));
+}
+
+void Server::disconnectServer(const QString& quitMessage)
+{
+    getConnectionSettings().setReconnectCount(0);
+
+    if (isScheduledToConnect())
+    {
+        m_delayedConnectTimer->stop();
+        getStatusView()->appendServerMessage(i18n("Info"), i18n("Delayed connect aborted."));
+    }
+
+    if (isSocketConnected()) quitServer(quitMessage);
+}
+
+void Server::quitServer(const QString& quitMessage)
 {
     // Make clear this is deliberate even if the QUIT never actually goes through the queue
     // (i.e. this is not redundant with _send_internal()'s updateConnectionState() call for
@@ -773,10 +831,15 @@ void Server::quitServer()
 
     if (!m_socket) return;
 
-    QString command(Preferences::self()->commandChar()+"QUIT");
-    Konversation::OutputFilterResult result = getOutputFilter()->parse(getNickname(),command, QString());
-    queue(result.toServer, HighPriority);
+    QString toServer = "QUIT :";
 
+    if (quitMessage.isEmpty())
+        toServer += getIdentity()->getQuitReason();
+    else
+        toServer += quitMessage;
+
+    queue(toServer, HighPriority);
+    
     flushQueues();
 
     // Close the socket to allow a dead connection to be reconnected before the socket timeout.
@@ -2450,6 +2513,7 @@ void Server::joinChannel(const QString& name, const QString& hostmask)
         connect(channel,SIGNAL (sendFile()),this,SLOT (requestDccSend()) );
         connect(this, SIGNAL(nicknameChanged(const QString&)), channel, SLOT(setNickname(const QString&)));
     }
+
     // Move channel from unjoined (if present) to joined list and add our own nickname to the joined list.
     ChannelNickPtr channelNick = addNickToJoinedChannelsList(name, getNickname());
 
@@ -2537,14 +2601,6 @@ void Server::updateChannelModeWidgets(const QString &channelName, char mode, con
     if(channel) channel->updateModeWidgets(mode,true,parameter);
 }
 
-void Server::updateChannelQuickButtons()
-{
-    foreach (Channel* channel, m_channelList)
-    {
-        channel->updateQuickButtons(Preferences::quickButtonList());
-    }
-}
-
 Channel* Server::getChannelByName(const QString& name)
 {
     // Convert wanted channel name to lowercase
@@ -2571,12 +2627,6 @@ Query* Server::getQueryByName(const QString& name)
     }
     // No query by that name found? Must be a new query request. Return 0
     return 0;
-}
-
-void Server::resetNickList(const QString& channelName)
-{
-    Channel* outChannel=getChannelByName(channelName);
-    if(outChannel) outChannel->resetNickList();
 }
 
 void Server::addPendingNickList(const QString& channelName,const QStringList& nickList)
@@ -2860,7 +2910,7 @@ void Server::removeChannelNick(const QString& channelName, const QString& nickna
 QStringList Server::getWatchList()
 {
     // no nickinfo ISON for the time being
-    if(getServerGroup())
+    if (getServerGroup())
         return Preferences::notifyListByGroupId(getServerGroup()->id());
     else
         return QStringList();
@@ -2876,7 +2926,7 @@ QString Server::getWatchListString() { return getWatchList().join(" "); }
 QStringList Server::getISONList()
 {
     // no nickinfo ISON for the time being
-    if(getServerGroup())
+    if (getServerGroup())
         return Preferences::notifyListByGroupId(getServerGroup()->id());
     else
         return QStringList();
@@ -3567,52 +3617,6 @@ void Server::sendToAllChannelsAndQueries(const QString& text)
     }
 }
 
-bool Server::isSocketConnected() const
-{
-    if (!m_socket) return false;
-
-    return (m_socket->state() == KTcpSocket::ConnectedState);
-}
-
-void Server::updateConnectionState(Konversation::ConnectionState state)
-{
-    if (state != m_connectionState)
-    {
-        m_connectionState = state;
-
-        if (m_connectionState == Konversation::SSConnected)
-            emit serverOnline(true);
-        else if (m_connectionState != Konversation::SSConnecting)
-            emit serverOnline(false);
-
-       emit connectionStateChanged(this, state);
-    }
-}
-
-void Server::reconnectServer()
-{
-    if (isConnecting() || isSocketConnected()) quitServer();
-
-    // Use asynchronous invocation so that the broken() that the above
-    // quitServer might cause is delivered before connectToIRCServer
-    // sets SSConnecting and broken() announces a deliberate disconnect
-    // due to the failure allegedly occurring during SSConnecting.
-    QTimer::singleShot(0, this, SLOT(connectToIRCServer()));
-}
-
-void Server::disconnectServer()
-{
-    getConnectionSettings().setReconnectCount(0);
-
-    if (m_delayedConnectTimer->isActive())
-    {
-        m_delayedConnectTimer->stop();
-        getStatusView()->appendServerMessage(i18n("Info"), i18n("Delayed connect aborted."));
-    }
-
-    if (isSocketConnected()) quitServer();
-}
-
 void Server::requestAway(const QString& reason)
 {
     QString awayReason = reason;
@@ -3782,14 +3786,18 @@ void Server::sendPing()
 
 void Server::pongReceived()
 {
+    // ignore unrequested PONGs
+    if (m_pingSendTimer.isActive())
+        return;
+
     m_currentLag = m_lagTime.elapsed();
     m_inputFilter.setLagMeasuring(false);
     m_pingResponseTimer.stop();
 
     emit serverLag(this, m_currentLag);
 
-    // Send another PING in 60 seconds
-    QTimer::singleShot(60000 /*60 sec*/, this, SLOT(sendPing()));
+    // Send another PING in 60 seconds 
+    m_pingSendTimer.start(60000 /*60 sec*/);
 }
 
 void Server::updateLongPongLag()
