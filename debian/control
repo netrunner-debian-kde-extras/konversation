@@ -6,7 +6,7 @@ Uploaders: Modestas Vainius <modax@debian.org>
 Build-Depends: debhelper (>= 7.3.16), cmake (>= 2.6.2), pkg-kde-tools (>= 0.5),
  libqt4-dev (>= 4.5), kdelibs5-dev (>= 4:4.4.3), kdepimlibs5-dev (>= 4:4.4.3),
  libqca2-dev
-Standards-Version: 3.8.4
+Standards-Version: 3.9.0
 Homepage: http://konversation.kde.org/
 Vcs-Git: git://git.debian.org/git/pkg-kde/kde-extras/konversation.git
 Vcs-Browser: http://git.debian.org/?p=pkg-kde/kde-extras/konversation.git;a=summary
@@ -38,6 +38,7 @@ Architecture: all
 Depends: ${misc:Depends}, ${perl:Depends}
 Recommends: konversation (>= ${source:Version}), python
 Replaces: konversation (<< 1.3~beta1-2)
+Breaks: konversation (<< 1.3~beta1-2)
 Description: data files for Konversation
  Konversation is a client for the Internet Relay Chat (IRC) protocol. This
  package contains data files for Konversation. It is probably of no use if
