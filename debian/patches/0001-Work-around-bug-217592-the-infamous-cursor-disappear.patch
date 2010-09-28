@@ -1,0 +1,34 @@
+From: Eike Hein <hein@kde.org>
+Last-Update: Mon, 20 Sep 2010 12:35:44 +0200
+Origin: backport commit:0a5bc983c817c24783b9578b0ed236bc3a9c3645
+Subject: [PATCH] Work around bug 217592 (the infamous cursor disappearing act).
+
+The underlying ongoings are that there are two widgets involved,
+the KTextEdit and it's viewport(), both of which KCursor installs
+an event filter on, which on keypress events sets a blank cursor
+on the KTextEdit. On a FocusOut event, such as occurs when the
+paste warning KMessageBox is spawned and assumes focus, KCursor
+then calls unsetCursor() on it. Qt's behavior however seems to
+have changed in such a way that unsetCursor() doesn't affect the
+KTextEdit's viewport(), which QTextEdit originally set the I-Beam
+cursor on. So we do it manually here. But in the end either the
+Qt behavioral change has to be addressed, or KCursor has to be
+equipped to deal with it, since this obviously can happen in all
+KDE apps (and does, as seen in bug 231177).
+CCBUG:217592
+---
+ src/viewer/ircinput.cpp |    3 +++
+ 1 files changed, 3 insertions(+), 0 deletions(-)
+
+--- a/src/viewer/ircinput.cpp
++++ b/src/viewer/ircinput.cpp
+@@ -505,6 +505,9 @@ bool IRCInput::checkPaste(QString& text)
+         QString bytesString = i18np("1 byte", "%1 bytes", text.length());
+         QString linesString = i18np("1 line", "%1 lines", lines+1);
+ 
++        // Work around bug 217592.
++        viewport()->setCursor(Qt::IBeamCursor);
++
+         doPaste=KMessageBox::warningYesNoCancel
+             (this,
+             i18nc(
