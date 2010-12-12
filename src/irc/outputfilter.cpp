@@ -16,9 +16,11 @@
 #include "outputfilter.h"
 #include "application.h"
 #include "mainwindow.h"
+#include "channel.h"
 #include "abstractawaymanager.h"
 #include "ignore.h"
 #include "server.h"
+#include "scriptlauncher.h"
 #include "irccharsets.h"
 #include "linkaddressbook/addressbook.h"
 #include "query.h"
@@ -223,11 +225,12 @@ namespace Konversation
     }
 
     OutputFilterResult OutputFilter::parse(const QString& myNick, const QString& originalLine,
-                                           const QString& destination)
+        const QString& destination, ChatWindow* inputContext)
     {
         OutputFilterInput input;
         input.myNick = myNick;
         input.destination = destination;
+        input.context = inputContext;
 
         OutputFilterResult result;
 
@@ -558,8 +561,6 @@ namespace Konversation
     OutputFilterResult OutputFilter::command_back(const OutputFilterInput& input)
     {
         return command_unaway(input);
-
-        return OutputFilterResult();
     }
 
     OutputFilterResult OutputFilter::command_aaway(const OutputFilterInput& input)
@@ -665,7 +666,9 @@ namespace Konversation
     {
         OutputFilterResult result;
 
-        if (input.destination.isEmpty() || input.parameter.isEmpty())
+        if (input.destination.isEmpty())
+            return error(i18n("%1ME only works from a channel, query or DCC chat tab.", Preferences::self()->commandChar()));
+        else if (input.parameter.isEmpty())
             return usage(i18n("Usage: %1ME text", Preferences::self()->commandChar()));
 
         QString command("PRIVMSGACTION \x01\x01");
@@ -732,18 +735,18 @@ namespace Konversation
         bool recipientIsAChannel = false;
 
         if (recipient.isEmpty())
-            return error(i18n("Error: You need to specify a recipient."));
+            return error(i18n("You need to specify a recipient."));
         else
             recipientIsAChannel = m_server->isAChannel(recipient);
 
         if (commandIsQuery && recipientIsAChannel)
-            return error(i18n("Error: You cannot open queries to channels."));
+            return error(i18n("You cannot open queries to channels."));
 
         if (message.trimmed().isEmpty())
         {
             // Empty result - we don't want to send any message to the server.
             if (!commandIsQuery)
-                return error(i18n("Error: You need to specify a message."));
+                return error(i18n("You need to specify a message."));
         }
         else
         {
@@ -845,7 +848,7 @@ namespace Konversation
         if (input.parameter.isEmpty())
             return usage(i18n("Usage: %1AME [-LOCAL] text", Preferences::self()->commandChar()));
 
-        if (input.parameter.section(' ', 0, 0).toLower() == "-local")
+        if (isParameter("local", input.parameter.section(' ', 0, 0)))
             m_server->sendToAllChannelsAndQueries(Preferences::self()->commandChar() + "me " + input.parameter.section(' ', 1));
         else
             emit multiServerCommand("me", input.parameter);
@@ -858,7 +861,7 @@ namespace Konversation
         if (input.parameter.isEmpty())
             return usage(i18n("Usage: %1AMSG [-LOCAL] text", Preferences::self()->commandChar()));
 
-        if (input.parameter.section(' ', 0, 0).toLower() == "-local")
+        if (isParameter("local", input.parameter.section(' ', 0, 0)))
             m_server->sendToAllChannelsAndQueries(input.parameter.section(' ', 1));
         else
             emit multiServerCommand("msg", input.parameter);
@@ -1149,7 +1152,7 @@ namespace Konversation
         return result;
     }
 
-    OutputFilterResult OutputFilter::passiveChatRequest(const QString& recipient, const QString extension, const QString& address, const QString& token)
+    OutputFilterResult OutputFilter::passiveChatRequest(const QString& recipient, const QString& extension, const QString& address, const QString& token)
     {
         OutputFilterResult result;
         result.toServer = "PRIVMSG " + recipient + " :" + '\x01' + "DCC CHAT " +
@@ -1202,16 +1205,23 @@ namespace Konversation
         OutputFilterResult result;
 
         if (input.parameter.isEmpty())
-            result = usage(i18n("Usage: %1EXEC <script> [parameter list]",
-                                Preferences::self()->commandChar()));
+            result = usage(i18n("Usage: %1EXEC [-SHOWPATH] <script> [parameter list]",
+                Preferences::self()->commandChar()));
         else
         {
             QStringList parameterList = input.parameter.split(' ');
 
-            if (!parameterList[0].contains("../"))
-                emit launchScript(input.destination, input.parameter);
+            if (isParameter("showpath", parameterList[0]) && !parameterList[1].isEmpty())
+            {
+                result = info(i18nc("%2 is a filesystem path to the script file",
+                    "The script file '%1' was found at: %2",
+                    parameterList[1],
+                    ScriptLauncher::scriptPath(parameterList[1])));
+            }
+            else if (!parameterList[0].contains("../"))
+                emit launchScript(m_server->connectionId(), input.destination, input.parameter);
             else
-                result = error(i18n("Script name may not contain \"../\"."));
+                result = error(i18n("The script name may not contain \"../\"."));
         }
 
         return result;
@@ -1330,11 +1340,10 @@ namespace Konversation
             QString channel;
             QString option;
             // check for option
-            QString lowerParameter = parameterList[0].toLower();
-            bool host = (lowerParameter == "-host");
-            bool domain = (lowerParameter == "-domain");
-            bool uhost = (lowerParameter == "-userhost");
-            bool udomain = (lowerParameter == "-userdomain");
+            bool host = isParameter("host", parameterList[0]);
+            bool domain = isParameter("domain", parameterList[0]);
+            bool uhost = isParameter("userhost", parameterList[0]);
+            bool udomain = isParameter("userdomain", parameterList[0]);
 
             // remove possible option
             if (host || domain || uhost || udomain)
@@ -1378,6 +1387,9 @@ namespace Konversation
 
                         QString reason = parameterList.join(" ");
 
+                        if (reason.isEmpty())
+                            reason = m_server->getIdentity()->getKickReason();
+
                         result.toServer = "KICK " + channel + ' ' + victim + " :" + reason;
 
                         emit banUsers(QStringList(victim), channel, option);
@@ -1395,10 +1407,10 @@ namespace Konversation
         {
             if (!kick)
                 result = usage(i18n("Usage: %1BAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] "
-                                    "[channel] <user|mask>", Preferences::self()->commandChar()));
+                                    "[channel] <nickname | mask>", Preferences::self()->commandChar()));
             else
                 result = usage(i18n("Usage: %1KICKBAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] "
-                                    "[channel] <user|mask> [reason]",
+                                    "[channel] <nickname | mask> [reason]",
                                     Preferences::self()->commandChar()));
         }
 
@@ -1483,7 +1495,7 @@ namespace Konversation
             int value = Ignore::Channel | Ignore::Query;
 
             // user specified -all option
-            if (parameterList[0].toLower() == "-all")
+            if (isParameter("all", parameterList[0]))
             {
                 // ignore everything
                 value = Ignore::All;
@@ -1572,19 +1584,14 @@ namespace Konversation
             // Print all successful unignores, in case there were any
             if (succeeded.count() >= 1)
             {
-                //FIXME Why is this not just using the OutputFilterResult?
-                m_server->appendMessageToFrontmost(i18n("Ignore"),i18n("Removed %1 from your ignore list.",
-                                                                       succeeded.join(", ")));
+                result.output = i18n("Removed %1 from your ignore list.", succeeded.join(", "));
+                result.typeString = i18n("Ignore");
+                result.type = Program;
             }
 
             // Any failed unignores
             if (failed.count() >= 1)
-            {
-                //FIXME Why is this not just using the OutputFilterResult?
-                m_server->appendMessageToFrontmost(i18n("Error"),i18np("No such ignore: %2",
-                                                                       "No such ignores: %2",
-                                                                       failed.count(), failed.join(", ")));
-            }
+                result = error(i18np("No such ignore: %2", "No such ignores: %2", failed.count(), failed.join(", ")));
         }
 
         return result;
@@ -1596,21 +1603,21 @@ namespace Konversation
             emit reconnectServer(QString());
         else
         {
-            QStringList splitString = input.parameter.split(' ');
-            QString host = splitString[0];
+            QStringList parameterList = input.parameter.split(' ');
+            QString host = parameterList[0];
             QString password;
 
-            if (splitString.count() == 3)
-                emit connectTo(Konversation::CreateNewConnection, splitString[0], splitString[1], splitString[2]);
-            else if (splitString.count() == 2)
+            if (parameterList.count() == 3)
+                emit connectTo(Konversation::CreateNewConnection, parameterList[0], parameterList[1], parameterList[2]);
+            else if (parameterList.count() == 2)
             {
-                if (splitString[0].contains(QRegExp(":[0-9]+$")))
-                    emit connectTo(Konversation::CreateNewConnection, splitString[0], 0, splitString[1]);
+                if (parameterList[0].contains(QRegExp(":[0-9]+$")))
+                    emit connectTo(Konversation::CreateNewConnection, parameterList[0], 0, parameterList[1]);
                 else
-                    emit connectTo(Konversation::CreateNewConnection, splitString[0], splitString[1]);
+                    emit connectTo(Konversation::CreateNewConnection, parameterList[0], parameterList[1]);
             }
             else
-                emit connectTo(Konversation::CreateNewConnection, splitString[0]);
+                emit connectTo(Konversation::CreateNewConnection, parameterList[0]);
         }
 
         return OutputFilterResult();
@@ -1830,7 +1837,7 @@ namespace Konversation
 
     OutputFilterResult OutputFilter::command_list(const OutputFilterInput& input)
     {
-        emit openChannelList(input.parameter, true);
+        emit openChannelList(input.parameter);
 
         return OutputFilterResult();
     }
@@ -1875,6 +1882,63 @@ namespace Konversation
 
         serverOut << "PRIVMSG " << input.destination << " :" << result.output;
         return result;
+    }
+
+    OutputFilterResult OutputFilter::command_cycle(const OutputFilterInput& input)
+    {
+        if (input.parameter.isEmpty())
+        {
+            if (input.context)
+                input.context->cycle();
+            else
+            {
+                kDebug() << "Parameter-less /cycle without an input context can't work.";
+
+                return OutputFilterResult();
+            }
+        }
+        else
+        {
+            if (isParameter("app", input.parameter))
+            {
+                Application *konvApp = static_cast<Application*>(KApplication::kApplication());
+
+                konvApp->restart();
+            }
+            else if (isParameter("server", input.parameter))
+            {
+                if (m_server)
+                    m_server->cycle();
+                else
+                {
+                    kDebug() << "Told to cycle the server, but current context doesn't have one.";
+
+                    return OutputFilterResult();
+                }
+            }
+            else if (m_server)
+            {
+                if (isAChannel(input.parameter))
+                {
+                    Channel* channel = m_server->getChannelByName(input.parameter);
+
+                    if (channel) channel->cycle();
+                }
+                else if (m_server->getQueryByName(input.parameter))
+                    m_server->getQueryByName(input.parameter)->cycle();
+                else
+                    return usage(i18n("%1CYCLE [-APP | -SERVER] [channel | nickname]", Preferences::self()->commandChar()));
+            }
+        }
+
+        return OutputFilterResult();
+    }
+
+    OutputFilterResult OutputFilter::command_clear(const OutputFilterInput& input)
+    {
+        if (input.context) input.context->clear();
+
+        return OutputFilterResult();
     }
 
     OutputFilterResult OutputFilter::changeMode(const QString &parameter, const QString& destination,
@@ -1996,6 +2060,13 @@ namespace Konversation
         Q_ASSERT(m_server);
                                                   // XXX if we ever see the assert, we need the ternary
         return m_server? m_server->isAChannel(check) : bool(QString("#&").contains(check.at(0)));
+    }
+
+    bool OutputFilter::isParameter(const QString& parameter, const QString& string)
+    {
+        QRegExp rx(QString("^[\\-]{1,2}%1$").arg(parameter), Qt::CaseInsensitive);
+
+        return rx.exactMatch(string);
     }
 }
 #include "outputfilter.moc"

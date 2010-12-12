@@ -31,6 +31,8 @@ class StatusPanel : public ChatWindow
         explicit StatusPanel(QWidget* parent);
         ~StatusPanel();
 
+        virtual void cycle();
+
         virtual void setName(const QString& newName);
 
         virtual QString getTextInLine();
@@ -58,7 +60,6 @@ class StatusPanel : public ChatWindow
         void updateAppearance();
         virtual void appendInputText(const QString&, bool fromCursor);
         void updateName();
-        void serverSaysClose();
 
     protected slots:
         void sendFileMenu();
@@ -70,8 +71,6 @@ class StatusPanel : public ChatWindow
         void nicknameComboboxChanged();
         //Used to disable functions when not connected
         virtual void serverOnline(bool online);
-
-        void popupCommand(int command);
 
     protected:
 

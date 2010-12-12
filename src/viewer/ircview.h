@@ -15,21 +15,18 @@
 #define IRCVIEW_H
 
 #include "common.h"
+#include "irccontextmenus.h"
 
+#include <QAbstractTextDocumentLayout>
 #include <QFontDatabase>
-#include <QList>
 
 #include <KTextBrowser>
 #include <KUrl>
 
+
 class Server;
 class ChatWindow;
 
-
-class KToggleAction;
-class KMenu;
-
-#include <QAbstractTextDocumentLayout>
 
 class IrcViewMarkerLine: public QObject, public QTextObjectInterface
 {
@@ -43,13 +40,29 @@ class IrcViewMarkerLine: public QObject, public QTextObjectInterface
         virtual QSizeF intrinsicSize(QTextDocument *doc, int posInDocument, const QTextFormat &format);
 };
 
+/// Helper struct which remembers the openHtmlTags, the fore and
+/// background color, if the reverse char is set and the defaultcolor (for reverse)
+/// while the ircrichtext -> html generation is in progress
+struct TextHtmlData
+{
+    TextHtmlData()
+        : reverse(false)
+    {
+    }
+
+    QList<QString> openHtmlTags;
+    QString lastFgColor;
+    QString lastBgColor;
+    bool reverse;
+    QString defaultColor;
+};
 
 class IRCView : public KTextBrowser
 {
     Q_OBJECT
 
     public:
-        IRCView(QWidget* parent,Server* newServer);
+        IRCView(QWidget* parent);
         ~IRCView();
 
         //void clear();
@@ -61,13 +74,6 @@ class IRCView : public KTextBrowser
         //! FIXME assumes the IRCView looks at a chatwin
         void setChatWin(ChatWindow* chatWin);
 
-        // Returns the current nick under context menu.
-        const QString& getContextNick() const;
-
-        //!Obtain the context menu popup in order to add things to it
-        KMenu* getPopup() const;
-
-
         bool search(const QString& pattern, bool caseSensitive, bool wholeWords, bool forward, bool fromCursor);
         bool searchNext(bool reversed = false);
 
@@ -76,19 +82,14 @@ class IRCView : public KTextBrowser
 
         void updateAppearance();
 
-        QString currentChannel() { return m_currentChannel; }
-
-        void setNickAndChannelContextMenusEnabled(bool enable);
-
+        void setContextMenuOptions(IrcContextMenus::MenuOptions options, bool on);
 
     signals:
         void gotFocus(); // So we can set focus to input line
         void textToLog(const QString& text); ///< send the to the log file
         void sendFile(); ///< a command for a target to which we can DCC send
-        void extendedPopup(int id); ///< this is for the query/nickname popup
         void autoText(const QString& text); ///< helper for autotext-on-highlight
         void textPasted(bool useSelection); ///< middle button with no m_copyUrlMenu
-        void popupCommand(int); ///< wired to all of the popup menus
         void urlsDropped(const KUrl::List urls);
         void doSearch(); /// Emitted when a search should be started
         void doSearchNext(); /// Emitted when there's a request to go to the next search result.
@@ -193,8 +194,6 @@ class IRCView : public KTextBrowser
     protected:
         void doAppend(const QString& line, bool rtl, bool self=false);
 
-        void updateNickMenuEntries(const QString& nickname);
-
     public slots:
         /// Emits the doSeach signal.
         void findText();
@@ -203,17 +202,10 @@ class IRCView : public KTextBrowser
         /// Emits the doSeachPrevious signal.
         void findPreviousText();
 
-        //! FIXME eh? what is this?
-        void setCurrentChannel(const QString& channel) { m_currentChannel = channel; }
-
         /// Overwritten so the scrollview remains not freaked out
         //virtual void removeSelectedText(int selNum=0);
         //! TODO FIXME meta, derived
         //virtual void scrollToBottom();            // Overwritten for internal reasons
-
-        // Clears context nick
-        //! The name of this method is unclear enough that it needs documentation, but clear enough that the documentation just needs to be a repeat of the name. Thanks for playing, but get some kills next time.
-        void clearContextNick();
 
         // Updates the scrollbar position
         //! Again. Really? Two in a row? Couldn't be more inventive, whoever you are? Come on, show some personality. Let your vocabulary loose! Because right now its looking like you don't know what you're taking about.
@@ -221,31 +213,78 @@ class IRCView : public KTextBrowser
 
     protected slots:
         void highlightedSlot(const QString& link);
-        void saveLinkAs();
         void anchorClicked(const QUrl& url);
-        void copyUrl();
-        void slotBookmark();
-        void handleContextActions();
 
     protected:
         void openLink(const QUrl &url);
 
-        QString filter(const QString& line, const QString& defaultColor, const QString& who=NULL, bool doHighlight=true, bool parseURL=true, bool self=false);
+        QString filter(const QString& line, const QString& defaultColor, const QString& who=QString(), bool doHighlight=true, bool parseURL=true, bool self=false, QChar::Direction* direction = 0);
 
-        void replaceDecoration(QString& line,char decoration,char replacement);
+        void replaceDecoration(QString& line, char decoration, char replacement);
 
+    private:
+
+        /// Returns a string where all irc-richtext chars are replaced with proper
+        /// html tags and all urls are parsed if parseURL is true
+        inline QString ircTextToHtml(const QString& text, bool parseURL, const QString& defaultColor, const QString& whoSent, bool closeAllTags = true, QChar::Direction* direction = 0);
+
+        /// Returns a string that closes all open html tags to <parm>tag</parm>
+        /// The closed tag is removed from opentagList in data
+        inline QString closeToTagString(TextHtmlData* data, const QString& tag);
+
+        /// Returns a html open span line with given backgroundcolor style
+        inline QString spanColorOpenTag(const QString& bgColor);
+
+        /// Returns a html open font line with given foregroundcolor
+        inline QString fontColorOpenTag(const QString& fgColor);
+
+        /// Insert a string that closes as open html tags to <parm>tag</parm> and reopen the remaining ones.
+        /// For the next example I will use [b] as boldchar and [i] as italic char
+        /// If are currently working on text like
+        /// "aa<b>bb<i>cc[b]dd[i]ee"
+        /// it would generate for the next [b], "</i></b><i>".
+        /// <i> is reopened as it is still relevant
+        /// Returns the Length of the inserted String
+        inline int defaultHtmlReplace(QString& htmlText, TextHtmlData* data, int pos, const QString& tag);
+
+        /// Returns a string that opens all tags starting from index <parm>from</parm>
+        inline QString openTags(TextHtmlData* data, int from = 0);
+
+        /// Returns a string that closes all open tags
+        /// but does not remove them from the opentaglist in data
+        inline QString closeTags(TextHtmlData* data);
+
+        /// This function looks in <parm>codes</parm> which tags it open/closes
+        /// and appends/removes them from opentagList in <parm>data</parm>.
+        /// This way we avoid pointless empty tags after the url like "<b></b>"
+        /// The returned string consists of all codes that this function could not deal with,
+        /// which is the best case empty.
+        QString removeDuplicateCodes(const QString& codes, TextHtmlData* data);
+
+        /// Helperfunction for removeDuplicateCodes, for dealing with simple irc richtext
+        /// chars as bold, italic, underline and strikethrou.
+        /// The default behaivor is to look if the <parm>tag</parm> is already in the
+        /// opentagList in <parm>data</parm> and remove it if in case if is in, or
+        /// append it in case it is not.
+        inline void defaultRemoveDuplicateHandling(TextHtmlData* data, const QString& tag);
+
+        /// Changes the ranges in <parm>urlRanges</parm>, that are found in
+        /// <parm>strippedText</parm>, to match in <parm>richText</parm>.
+        /// This is needed for cases were the url is tainted by ircrichtext chars
+        inline void adjustUrlRanges(QList< QPair< int, int > >& urlRanges, const QStringList& fixedUrls, QString& richtext, const QString& strippedText);
+
+        /// Parses the colors in <parm>text</parm> starting from <parm>start</parm>
+        /// and returns them in the given fg and bg string, as well as information
+        /// if the values are valid
+        inline QString getColors(const QString text, int start, QString& _fgColor, QString& _bgColor, bool* invalidFgVal, bool* invalidBgValue);
+
+    protected:
         virtual void resizeEvent(QResizeEvent *event);
         virtual void mouseReleaseEvent(QMouseEvent* ev);
         virtual void mousePressEvent(QMouseEvent* ev);
         virtual void mouseMoveEvent(QMouseEvent* ev);
         virtual void keyPressEvent(QKeyEvent* ev);
         virtual void contextMenuEvent(QContextMenuEvent* ev);
-
-        bool contextMenu(QContextMenuEvent* ce);
-
-        void setupNickPopupMenu(bool isQuery);
-        void updateNickMenuEntries(KMenu* popup, const QString& nickname);
-        void setupChannelPopupMenu();
 
         QChar::Direction basicDirection(const QString &string);
 
@@ -257,8 +296,6 @@ class IRCView : public KTextBrowser
         QString createNickLine(const QString& nick, const QString& defaultColor,
             bool encapsulateNick = true, bool privMsg = false);
 
-
-
         //// Search
         QTextDocument::FindFlags m_searchFlags;
         bool m_forward;
@@ -266,7 +303,6 @@ class IRCView : public KTextBrowser
 
         //used in ::filter
         QColor m_highlightColor;
-
 
         QString m_lastStatusText; //last sent status text to the statusbar. Is empty after clearStatusBarTempText()
 
@@ -278,24 +314,8 @@ class IRCView : public KTextBrowser
         //TODO FIXME light this on fire and send it sailing down an uncharted river riddled with arrows
         Konversation::TabNotifyType m_tabNotification;
 
-
         //QString m_buffer; ///< our text
         Server* m_server; //! FIXME assumes we have a server
-
-        //// Popup menus
-        KMenu* m_popup; ///< text area context menu
-        QAction* copyUrlMenuSeparator;
-        QAction* m_copyUrlClipBoard;
-        QAction* m_bookmark;
-        QAction* m_saveUrl;
-        KToggleAction* m_ignoreAction;
-        QAction* m_addNotifyAction;
-        bool m_copyUrlMenu; ///<the menu we're popping up, is it for copying URI?
-        KMenu* m_nickPopup; ///<menu to show when context-click on a nickname
-        KMenu* m_channelPopup; ///<menu to show when context-click on a channel
-
-
-        QString m_urlToCopy; ///< the URL we might be about to copy
 
         //// RTL hack
         static QChar LRM;
@@ -306,12 +326,10 @@ class IRCView : public KTextBrowser
         static QChar LRO;
         static QChar PDF;
 
-        //// Nickname colorization
-        uint m_offset;
-        QStringList m_colorList;
-
+        IrcContextMenus::MenuOptions m_contextMenuOptions;
         QString m_currentNick;
         QString m_currentChannel;
+        QString m_urlToCopy; ///< the URL we might be about to copy
         bool m_isOnNick; ///< context menu click hit a nickname
         bool m_isOnChannel; ///< context menu click hit a channel
         bool m_mousePressed; ///< currently processing a mouse press

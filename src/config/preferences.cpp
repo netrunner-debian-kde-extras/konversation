@@ -325,14 +325,6 @@ bool Preferences::isNotify(int serverGroupId, const QString& pattern)
     return false;
 }
 
-bool Preferences::hasNotifyList(int serverGroupId)
-{
-    if (self()->mNotifyList.find(serverGroupId) != self()->mNotifyList.end())
-        return true;
-    else
-        return false;
-}
-
 // Default identity functions
 void Preferences::addIdentity(IdentityPtr identity) { self()->mIdentityList.append(identity); }
 void Preferences::removeIdentity(IdentityPtr identity) { self()->mIdentityList.removeOne(identity); }
@@ -420,34 +412,8 @@ QStringList Preferences::defaultAliasList()
     return aliasList;
 }
 
-
-const QString Preferences::realName() { return self()->mIdentityList[0]->getRealName(); }
-void Preferences::setRealName(const QString &name) { self()->mIdentityList[0]->setRealName(name); }
-
-const QString Preferences::ident() { return self()->mIdentityList[0]->getIdent(); }
-void Preferences::setIdent(const QString &ident) { self()->mIdentityList[0]->setIdent(ident); }
-
-const QString Preferences::partReason() { return self()->mIdentityList[0]->getPartReason(); }
-void Preferences::setPartReason(const QString &newReason) { self()->mIdentityList[0]->setPartReason(newReason); }
-
-const QString Preferences::kickReason() { return self()->mIdentityList[0]->getKickReason(); }
-void Preferences::setKickReason(const QString &newReason) { self()->mIdentityList[0]->setKickReason(newReason); }
-
-bool Preferences::showAwayMessage() { return self()->mIdentityList[0]->getShowAwayMessage(); }
-void Preferences::setShowAwayMessage(bool state) { self()->mIdentityList[0]->setShowAwayMessage(state); }
-
-const QString Preferences::awayMessage() { return self()->mIdentityList[0]->getAwayMessage(); }
-void Preferences::setAwayMessage(const QString &newMessage) { self()->mIdentityList[0]->setAwayMessage(newMessage); }
-const QString Preferences::unAwayMessage() { return self()->mIdentityList[0]->getReturnMessage(); }
-void Preferences::setUnAwayMessage(const QString &newMessage) { self()->mIdentityList[0]->setReturnMessage(newMessage); }
-
 void Preferences::clearIgnoreList() { qDeleteAll(self()->mIgnoreList); self()->mIgnoreList.clear(); }
 const QList<Ignore*> Preferences::ignoreList() { return self()->mIgnoreList; }
-
-const QString Preferences::nickname(int index) { return self()->mIdentityList[0]->getNickname(index); }
-const QStringList Preferences::nicknameList() { return self()->mIdentityList[0]->getNicknameList(); }
-void Preferences::setNickname(int index,const QString &newName) { self()->mIdentityList[0]->setNickname(index,newName); }
-void Preferences::setNicknameList(const QStringList &newList) { self()->mIdentityList[0]->setNicknameList(newList); }
 
 void Preferences::setShowTrayIcon(bool state)
 {
@@ -579,7 +545,7 @@ void Preferences::saveColumnState(QTreeView *treeView, QString name)
     group.writeEntry("ColumnSortDescending", treeView->header()->sortIndicatorOrder() == Qt::DescendingOrder ? true : false );
 }
 
-void Preferences::restoreColumnState(QTreeView *treeView, QString name)
+void Preferences::restoreColumnState(QTreeView* treeView, QString name, int defaultColumn , Qt::SortOrder defaultSortOrder)
 {
     KConfigGroup group(KGlobal::config(), name);
 
@@ -588,10 +554,10 @@ void Preferences::restoreColumnState(QTreeView *treeView, QString name)
         if (columnWidths.at(i))
             treeView->setColumnWidth(i, columnWidths.at(i));
 
-    if (group.readEntry("ColumnSortDescending", false))
-        treeView->header()->setSortIndicator(group.readEntry("ColumnSorted", 0), Qt::DescendingOrder);
+    if (group.readEntry("ColumnSortDescending", (defaultSortOrder == Qt::DescendingOrder)))
+        treeView->header()->setSortIndicator(group.readEntry("ColumnSorted", defaultColumn), Qt::DescendingOrder);
     else
-        treeView->header()->setSortIndicator(group.readEntry("ColumnSorted", 0), Qt::AscendingOrder);
+        treeView->header()->setSortIndicator(group.readEntry("ColumnSorted", defaultColumn), Qt::AscendingOrder);
 }
 
 #include "preferences.moc"

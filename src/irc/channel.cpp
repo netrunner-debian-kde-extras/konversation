@@ -11,8 +11,6 @@
   Copyright (C) 2006-2008 Eike Hein <hein@kde.org>
 */
 
-#define QT3_SUPPORT //TODO remove when porting away from Q3*
-
 #include "channel.h"
 #include "channeloptionsdialog.h"
 #include "application.h"
@@ -24,20 +22,11 @@
 #include "ircinput.h"
 #include "ircviewbox.h"
 #include "ircview.h"
-#include <kabc/addressbook.h>
-#include <kabc/stdaddressbook.h>
-#include "common.h"
 #include "topiclabel.h"
 #include "notificationhandler.h"
 #include "viewcontainer.h"
-#include "linkaddressbook/linkaddressbookui.h"
-#include "linkaddressbook/addressbook.h"
 
-#include <QEvent>
-#include <QSizePolicy>
-#include <QRegExp>
 #include <QSplitter>
-#include <QCheckBox>
 #include <QTimer>
 #include <QToolButton>
 #include <QHeaderView>
@@ -45,7 +34,6 @@
 #include <KLineEdit>
 #include <KInputDialog>
 #include <KPasswordDialog>
-#include <KGlobalSettings>
 #include <KMessageBox>
 #include <KIconLoader>
 #include <KVBox>
@@ -76,7 +64,7 @@ bool nickLessThan(const Nick* nick1, const Nick* nick2)
 
 using Konversation::ChannelOptionsDialog;
 
-Channel::Channel(QWidget* parent, QString _name) : ChatWindow(parent)
+Channel::Channel(QWidget* parent, const QString& _name) : ChatWindow(parent)
 {
     // init variables
 
@@ -95,7 +83,6 @@ Channel::Channel(QWidget* parent, QString _name) : ChatWindow(parent)
     ops = 0;
     completionPosition = 0;
     nickChangeDialog = 0;
-    channelCommand = false;
     m_nicknameListViewTextChanged = 0;
 
     m_joined = false;
@@ -146,6 +133,7 @@ Channel::Channel(QWidget* parent, QString _name) : ChatWindow(parent)
     connect(m_topicButton, SIGNAL(clicked()), this, SLOT(showOptionsDialog()));
 
     topicLine = new Konversation::TopicLabel(topicWidget);
+    topicLine->setContextMenuOptions(IrcContextMenus::ShowChannelActions | IrcContextMenus::ShowLogAction, true);
     topicLine->setChannelName(getName());
     topicLine->setWordWrap(true);
     topicLine->setWhatsThis(i18n("<qt><p>Every channel on IRC has a topic associated with it.  This is simply a message that everybody can see.</p><p>If you are an operator, or the channel mode <em>'T'</em> has not been set, then you can change the topic by clicking the Edit Channel Properties button to the left of the topic.  You can also view the history of topics there.</p></qt>"));
@@ -205,10 +193,10 @@ Channel::Channel(QWidget* parent, QString _name) : ChatWindow(parent)
     m_horizSplitter->setOpaqueResize( KGlobalSettings::opaqueResize() );
 
     // Server will be set later in setServer()
-    IRCViewBox* ircViewBox = new IRCViewBox(m_horizSplitter, NULL);
+    IRCViewBox* ircViewBox = new IRCViewBox(m_horizSplitter);
     m_horizSplitter->setStretchFactor(m_horizSplitter->indexOf(ircViewBox), 1);
     setTextView(ircViewBox->ircView());
-    connect(textView,SIGNAL(popupCommand(int)),this,SLOT(popupChannelCommand(int)));
+    ircViewBox->ircView()->setContextMenuOptions(IrcContextMenus::ShowChannelActions, true);
 
     // The box that holds the Nick List and the quick action buttons
     nickListButtons = new KVBox(m_horizSplitter);
@@ -216,13 +204,6 @@ Channel::Channel(QWidget* parent, QString _name) : ChatWindow(parent)
     nickListButtons->setSpacing(spacing());
 
     nicknameListView=new NickListView(nickListButtons, this);
-    nicknameListView->setSelectionMode(QAbstractItemView::ExtendedSelection);
-    nicknameListView->setAllColumnsShowFocus(true);
-
-    nicknameListView->header()->hide();
-
-    nicknameListView->header()->setStretchLastSection(false);
-
     nicknameListView->installEventFilter(this);
 
     // initialize buttons grid, will be set up in updateQuickButtons
@@ -237,7 +218,7 @@ Channel::Channel(QWidget* parent, QString _name) : ChatWindow(parent)
     nicknameCombobox->setSizeAdjustPolicy(KComboBox::AdjustToContents);
     KLineEdit* nicknameComboboxLineEdit = qobject_cast<KLineEdit*>(nicknameCombobox->lineEdit());
     if (nicknameComboboxLineEdit) nicknameComboboxLineEdit->setClearButtonShown(false);
-    nicknameCombobox->setWhatsThis(i18n("<qt><p>This shows your current nick, and any alternatives you have set up.  If you select or type in a different nickname, then a request will be sent to the IRC server to change your nick.  If the server allows it, the new nickname will be selected.  If you type in a new nickname, you need to press 'Enter' at the end.</p><p>You can add change the alternative nicknames from the <em>Identities</em> option in the <em>File</em> menu.</p></qt>"));
+    nicknameCombobox->setWhatsThis(i18n("<qt><p>This shows your current nick, and any alternatives you have set up.  If you select or type in a different nickname, then a request will be sent to the IRC server to change your nick.  If the server allows it, the new nickname will be selected.  If you type in a new nickname, you need to press 'Enter' at the end.</p><p>You can edit the alternative nicknames from the <em>Identities</em> option in the <em>Settings</em> menu.</p></qt>"));
 
     awayLabel = new QLabel(i18n("(away)"), commandLineBox);
     awayLabel->hide();
@@ -290,7 +271,6 @@ Channel::Channel(QWidget* parent, QString _name) : ChatWindow(parent)
     connect(getTextView(),SIGNAL (sendFile()),this,SLOT (sendFileMenu()) );
     connect(getTextView(),SIGNAL (autoText(const QString&)),this,SLOT (sendChannelText(const QString&)) );
 
-    connect(nicknameListView,SIGNAL (popupCommand(int)),this,SLOT (popupCommand(int)) );
     connect(nicknameListView,SIGNAL (itemDoubleClicked(QTreeWidgetItem*,int)),this,SLOT (doubleClickCommand(QTreeWidgetItem*,int)) );
     connect(nicknameCombobox,SIGNAL (activated(int)),this,SLOT(nicknameComboboxChanged()));
 
@@ -299,9 +279,6 @@ Channel::Channel(QWidget* parent, QString _name) : ChatWindow(parent)
 
 
     connect(&userhostTimer,SIGNAL (timeout()),this,SLOT (autoUserhost()));
-
-    // every few seconds try to get more userhosts
-    userhostTimer.start(10000);
 
     m_whoTimer.setSingleShot(true);
     connect(&m_whoTimer,SIGNAL (timeout()),this,SLOT (autoWho()));
@@ -402,12 +379,17 @@ Channel::~Channel()
 
     // Purge nickname list
     purgeNicks();
-    kDebug() << "nicks purged";
+    kDebug() << "Nicks purged.";
 
     // Unlink this channel from channel list
     m_server->removeChannel(this);
     kDebug() << "Channel removed.";
 
+    if (m_recreationScheduled)
+    {
+        QMetaObject::invokeMethod(m_server, "sendJoinCommand", Qt::QueuedConnection,
+            Q_ARG(QString, getName()), Q_ARG(QString, getPassword()));
+    }
 }
 
 bool Channel::rejoinable()
@@ -478,293 +460,6 @@ void Channel::textPasted(const QString& text)
     }
 }
 
-// Will be connected to IRCView::popupCommand(int)
-void Channel::popupChannelCommand(int id)
-{
-    channelCommand = true; // Context menu executed from ircview
-    popupCommand(id);
-    textView->clearContextNick();
-    channelCommand = false;
-}
-
-// Will be connected to NickListView::popupCommand(int)
-void Channel::popupCommand(int id)
-{
-    QString pattern;
-    QString cc = Preferences::self()->commandChar();
-    QString args;
-    QString question;
-    bool raw=false;
-    QString mode;
-    QStringList nickList = getSelectedNickList();
-
-    switch(id)
-    {
-        case Konversation::AddressbookEdit:
-        {
-            ChannelNickList nickList=getSelectedChannelNicks();
-            for(ChannelNickList::ConstIterator it=nickList.constBegin();it!=nickList.constEnd();++it)
-            {
-                KABC::Addressee addressee = (*it)->getNickInfo()->getAddressee();
-                if(addressee.isEmpty()) break;
-
-                Konversation::Addressbook::self()->editAddressee(addressee.uid());
-            }
-            break;
-        }
-        case Konversation::AddressbookNew:
-        case Konversation::AddressbookDelete:
-        {
-            Konversation::Addressbook *addressbook = Konversation::Addressbook::self();
-            ChannelNickList nickList=getSelectedChannelNicks();
-            //Handle all the selected nicks in one go.  Either they all save, or none do.
-            if(addressbook->getAndCheckTicket())
-            {
-                for(ChannelNickList::ConstIterator it=nickList.constBegin();it!=nickList.constEnd();++it)
-                {
-                    if(id == Konversation::AddressbookDelete)
-                    {
-                        KABC::Addressee addr = (*it)->getNickInfo()->getAddressee();
-                        addressbook->unassociateNick(addr, (*it)->getNickname(), m_server->getServerName(), m_server->getDisplayName());
-                    }
-                    else
-                    {
-                        //make new addressbook contact
-                        KABC::Addressee addr;
-                        NickInfoPtr nickInfo = (*it)->getNickInfo();
-                        if(nickInfo->getRealName().isEmpty())
-                            addr.setGivenName(nickInfo->getNickname());
-                        else
-                            addr.setGivenName(nickInfo->getRealName());
-                        addr.setNickName(nickInfo->getNickname());
-                        addressbook->associateNickAndUnassociateFromEveryoneElse(addr, (*it)->getNickname(), m_server->getServerName(), m_server->getDisplayName());
-                    }
-                }
-                addressbook->saveTicket(); // This will refresh the nicks automatically for us. At least, if it doesn't, it's a bug :)
-            }
-            break;
-        }
-        case Konversation::AddressbookChange:
-        {
-            ChannelNickList nickList=getSelectedChannelNicks();
-            for(ChannelNickList::ConstIterator it=nickList.constBegin();it!=nickList.constEnd();++it)
-            {
-                LinkAddressbookUI *linkaddressbookui = new LinkAddressbookUI(this, (*it)->getNickInfo()->getNickname(), m_server->getServerName(),
-                                                                             m_server->getDisplayName(), (*it)->getNickInfo()->getRealName());
-                linkaddressbookui->show();
-            }
-            break;
-        }
-        case Konversation::SendEmail:
-        {
-            Konversation::Addressbook::self()->sendEmail(getSelectedChannelNicks());
-            break;
-        }
-        case Konversation::GiveOp:
-            pattern="MODE %c +%m %l";
-            mode='o';
-            raw=true;
-            break;
-        case Konversation::TakeOp:
-            pattern="MODE %c -%m %l";
-            mode='o';
-            raw=true;
-            break;
-        case Konversation::GiveHalfOp:
-            pattern="MODE %c +%m %l";
-            mode='h';
-            raw=true;
-            break;
-        case Konversation::TakeHalfOp:
-            pattern="MODE %c -%m %l";
-            mode='h';
-            raw=true;
-            break;
-        case Konversation::GiveVoice:
-            pattern="MODE %c +%m %l";
-            mode='v';
-            raw=true;
-            break;
-        case Konversation::TakeVoice:
-            pattern="MODE %c -%m %l";
-            mode='v';
-            raw=true;
-            break;
-        case Konversation::Version:
-            pattern=cc+"CTCP %u VERSION";
-            break;
-        case Konversation::Whois:
-            pattern="WHOIS %u %u";
-            raw=true;
-            break;
-        case Konversation::Topic:
-            m_server->requestTopic(getTextView()->currentChannel());
-            break;
-        case Konversation::Names:
-            m_server->queue("NAMES " + getTextView()->currentChannel(), Server::LowPriority);
-            break;
-        case Konversation::Join:
-            m_server->queue("JOIN " + getTextView()->currentChannel());
-            break;
-        case Konversation::Ping:
-        {
-            unsigned int time_t = QDateTime::currentDateTime().toTime_t();
-            pattern=QString(cc+"CTCP %u PING %1").arg(time_t);
-        }
-        break;
-        case Konversation::Kick:
-            pattern=cc+"KICK %u";
-            break;
-        case Konversation::KickBan:
-            pattern=cc+"BAN %u\n"+
-                cc+"KICK %u";
-            break;
-        case Konversation::BanNick:
-            pattern=cc+"BAN %u";
-            break;
-        case Konversation::BanHost:
-            pattern=cc+"BAN -HOST %u";
-            break;
-        case Konversation::BanDomain:
-            pattern=cc+"BAN -DOMAIN %u";
-            break;
-        case Konversation::BanUserHost:
-            pattern=cc+"BAN -USERHOST %u";
-            break;
-        case Konversation::BanUserDomain:
-            pattern=cc+"BAN -USERDOMAIN %u";
-            break;
-        case Konversation::KickBanHost:
-            pattern=cc+"KICKBAN -HOST %u";
-            break;
-        case Konversation::KickBanDomain:
-            pattern=cc+"KICKBAN -DOMAIN %u";
-            break;
-        case Konversation::KickBanUserHost:
-            pattern=cc+"KICKBAN -USERHOST %u";
-            break;
-        case Konversation::KickBanUserDomain:
-            pattern=cc+"KICKBAN -USERDOMAIN %u";
-            break;
-        case Konversation::OpenQuery:
-            pattern=cc+"QUERY %u";
-            break;
-        case Konversation::StartDccChat:
-            pattern=cc+"DCC CHAT %u";
-            break;
-        case Konversation::StartDccWhiteboard:
-            pattern=cc+"DCC WHITEBOARD %u";
-            break;
-        case Konversation::DccSend:
-            pattern=cc+"DCC SEND %u";
-            break;
-        case Konversation::IgnoreNick:
-            if (nickList.size() == 1)
-                question=i18n("Do you want to ignore %1?", nickList.first());
-            else
-                question = i18n("Do you want to ignore the selected users?");
-            if (KMessageBox::warningContinueCancel(
-                this,
-                question,
-                i18n("Ignore"),
-                KGuiItem(i18n("Ignore")),
-                KStandardGuiItem::cancel(),
-                "IgnoreNick"
-                ) ==
-                KMessageBox::Continue)
-                pattern = cc+"IGNORE -ALL %l";
-            break;
-        case Konversation::UnignoreNick:
-        {
-            QStringList selectedIgnoredNicks;
-
-            for (QStringList::Iterator it=nickList.begin(); it!=nickList.end(); ++it)
-            {
-                if (Preferences::isIgnored((*it)))
-                    selectedIgnoredNicks.append((*it));
-            }
-
-            if (selectedIgnoredNicks.count() == 1)
-                question=i18n("Do you want to stop ignoring %1?", selectedIgnoredNicks.first());
-            else
-                question = i18n("Do you want to stop ignoring the selected users?");
-            if (KMessageBox::warningContinueCancel(
-                this,
-                question,
-                i18n("Unignore"),
-                KGuiItem(i18n("Unignore")),
-                KStandardGuiItem::cancel(),
-                "UnignoreNick") ==
-                KMessageBox::Continue)
-            {
-                sendChannelText(cc+"UNIGNORE "+selectedIgnoredNicks.join(" "));
-            }
-            break;
-        }
-        case Konversation::AddNotify:
-        {
-            if (m_server->getServerGroup())
-            {
-                for (QStringList::Iterator it=nickList.begin(); it!=nickList.end(); ++it)
-                {
-                    if (!Preferences::isNotify(m_server->getServerGroup()->id(), (*it)))
-                        Preferences::addNotify(m_server->getServerGroup()->id(), (*it));
-                }
-            }
-            break;
-        }
-    } // switch
-
-    if (!pattern.isEmpty())
-    {
-        pattern.replace("%c",getName());
-
-        QString command;
-
-        if (pattern.contains("%l"))
-        {
-            QStringList list, partialList;
-            int modesCount = m_server->getModesCount();
-
-            for (QStringList::Iterator it=nickList.begin(); it!=nickList.end(); ++it)
-                list.append((*it));
-
-            for (int index = 0; index<list.count(); index+=modesCount)
-            {
-                command = pattern;
-                partialList = list.mid(index, modesCount);
-                command = command.replace("%l", partialList.join(" "));
-                const QString repeatedMode = mode.repeated(partialList.count());
-
-                command = command.replace("%m", repeatedMode);
-                if (raw)
-                    m_server->queue(command);
-                else
-                    sendChannelText(command);
-            }
-
-        }
-        else
-        {
-            QStringList patternList = pattern.split('\n', QString::SkipEmptyParts);
-
-            for (QStringList::Iterator it=nickList.begin(); it!=nickList.end(); ++it)
-            {
-                for (int index = 0; index<patternList.count(); index++)
-                {
-                    command = patternList[index];
-                    command.replace("%u", (*it));
-
-                    if (raw)
-                        m_server->queue(command);
-                    else
-                        sendChannelText(command);
-                }
-            }
-        }
-    }
-}
-
 // Will be connected to NickListView::doubleClicked()
 void Channel::doubleClickCommand(QTreeWidgetItem *item, int column)
 {
@@ -800,8 +495,8 @@ void Channel::completeNick()
         pos = oldPos;
     }
 
-    // If the cursor is at beginning of line, insert last completion
-    if(pos == 0 && !channelInput->lastCompletion().isEmpty())
+    // If the cursor is at beginning of line, insert last completion if the nick is still around
+    if(pos == 0 && !channelInput->lastCompletion().isEmpty() && nicknameList.containsNick(channelInput->lastCompletion()))
     {
         QString addStart(Preferences::self()->nickCompleteSuffixStart());
         newLine = channelInput->lastCompletion() + addStart;
@@ -1061,21 +756,10 @@ void Channel::sendFileMenu()
 void Channel::channelTextEntered()
 {
     QString line = channelInput->toPlainText();
+
     channelInput->clear();
 
-    if(line.toLower().trimmed() == Preferences::self()->commandChar()+"clear")
-    {
-        textView->clear();
-    }
-    else if(line.toLower().trimmed() == Preferences::self()->commandChar()+"cycle")
-    {
-        cycleChannel();
-    }
-    else
-    {
-        if(!line.isEmpty())
-            sendChannelText(sterilizeUnicode(line));
-    }
+    if (!line.isEmpty()) sendChannelText(sterilizeUnicode(line));
 }
 
 void Channel::channelPassthroughCommand()
@@ -1114,7 +798,7 @@ void Channel::sendChannelText(const QString& sendLine)
         QString output(outList[index]);
 
         // encoding stuff is done in Server()
-        Konversation::OutputFilterResult result = m_server->getOutputFilter()->parse(m_server->getNickname(),output,getName());
+        Konversation::OutputFilterResult result = m_server->getOutputFilter()->parse(m_server->getNickname(), output, getName(), this);
 
         // Is there something we need to display for ourselves?
         if(!result.output.isEmpty())
@@ -1161,41 +845,15 @@ void Channel::setNickname(const QString& newNickname)
 
 QStringList Channel::getSelectedNickList()
 {
-    QStringList result;
-
-    if (channelCommand)
-        result.append(textView->getContextNick());
-    else
-    {
-        foreach (Nick* nick, nicknameList)
-        {
-            if(nick->isSelected()) result.append(nick->getChannelNick()->getNickname());
-        }
-    }
-
-    return result;
-}
-
-ChannelNickList Channel::getSelectedChannelNicks()
-{
-    ChannelNickList result;
+    QStringList selectedNicks;
 
     foreach (Nick* nick, nicknameList)
     {
-        if(channelCommand)
-        {
-            if(nick->getChannelNick()->getNickname() == textView->getContextNick())
-            {
-                result.append(nick->getChannelNick());
-                return result;
-            }
-        }
-        else if(nick->isSelected())
-            result.append(nick->getChannelNick());
+        if (nick->isSelected())
+            selectedNicks << nick->getChannelNick()->getNickname();
     }
 
-    return result;
-
+    return selectedNicks;;
 }
 
 void Channel::channelLimitChanged()
@@ -1631,13 +1289,13 @@ void Channel::setTopic(const QString &newTopic)
     QString topic = Konversation::removeIrcMarkup(newTopic);
     topicLine->setText(topic);
     topicAuthorUnknown=true; // if we only get called with a topic, it was a 332, which usually has a 333 next
-
+    topic = replaceIRCMarkups(newTopic);
     // cut off "nickname" and "time_t" portion of the topic before comparing, otherwise the history
     // list will fill up with the same entries while the user only requests the topic to be seen.
 
-    if(m_topicHistory.isEmpty() || (m_topicHistory.first().section(' ', 2) != newTopic))
+    if(m_topicHistory.isEmpty() || (m_topicHistory.first().section(' ', 2) != topic))
     {
-        m_topicHistory.prepend(QString("%1 "+i18n("unknown")+" %2").arg(QDateTime::currentDateTime().toTime_t()).arg(newTopic));
+        prependTopicHistory(topic);
         emit topicHistoryChanged();
     }
 }
@@ -1653,11 +1311,17 @@ void Channel::setTopic(const QString &nickname, const QString &newTopic) // Over
         appendCommandMessage(i18n("Topic"), i18n("%1 sets the channel topic to \"%2\".", nickname, newTopic));
     }
 
-    m_topicHistory.prepend(QString("%1 %2 %3").arg(QDateTime::currentDateTime().toTime_t()).arg(nickname).arg(newTopic));
+    prependTopicHistory(newTopic, nickname);
     QString topic = Konversation::removeIrcMarkup(newTopic);
     topicLine->setText(topic);
 
     emit topicHistoryChanged();
+}
+
+void Channel::prependTopicHistory(const QString& topic, const QString& nickname, uint time)
+{
+    QString newTopic(replaceIRCMarkups(topic));
+    m_topicHistory.prepend(QString("%1 %2 %3").arg(time).arg(nickname).arg(newTopic));
 }
 
 QStringList Channel::getTopicHistory()
@@ -2537,12 +2201,6 @@ void Channel::refreshModeButtons()
 
 }
 
-void Channel::cycleChannel()
-{
-    closeYourself();
-    m_server->sendJoinCommand(getName(), getPassword());
-}
-
 void Channel::nicknameListViewTextChanged(int textChangedFlags)
 {
     m_nicknameListViewTextChanged |= textChangedFlags;
@@ -2568,12 +2226,10 @@ void Channel::autoUserhost()
         if(!nickString.isEmpty()) m_server->requestUserhost(nickString);
     }
 
-    // Resize columns if needed (on regular basis)
-    if (m_nicknameListViewTextChanged & (1 << Nick::NicknameColumn))
-        nicknameListView->resizeColumnToContents(Nick::NicknameColumn);
-    if (m_nicknameListViewTextChanged & (1 << Nick::HostmaskColumn))
-        nicknameListView->resizeColumnToContents(Nick::HostmaskColumn);
-    m_nicknameListViewTextChanged = 0;
+    if(!nicknameList.isEmpty())
+    {
+        resizeNicknameListViewColumns();
+    }
 }
 
 void Channel::setAutoUserhost(bool state)
@@ -2661,6 +2317,7 @@ void Channel::appendInputText(const QString& s, bool fromCursor)
 bool Channel::closeYourself(bool confirm)
 {
     int result=KMessageBox::Continue;
+
     if (confirm)
         result = KMessageBox::warningContinueCancel(this,
             i18n("Do you want to leave %1?", getName()),
@@ -2673,9 +2330,14 @@ bool Channel::closeYourself(bool confirm)
     {
         m_server->closeChannel(getName());
         m_server->removeChannel(this);
+
         deleteLater();
+
         return true;
     }
+    else
+        m_recreationScheduled = false;
+
     return false;
 }
 
@@ -2688,18 +2350,15 @@ void Channel::serverOnline(bool online)
 void Channel::setActive(bool active)
 {
     if (active)
-    {
-        getTextView()->setNickAndChannelContextMenusEnabled(true);
         nicknameCombobox->setEnabled(true);
-    }
     else
     {
         purgeNicks();
-        getTextView()->setNickAndChannelContextMenusEnabled(false);
         nicknameCombobox->setEnabled(false);
         topicLine->clear();
         clearModeList();
         clearBanList();
+        m_whoTimer.stop();
     }
 }
 
@@ -2778,6 +2437,9 @@ void Channel::processPendingNicks()
         m_processingTimer->stop();
         sortNickList();
         nicknameListView->setUpdatesEnabled(true);
+
+        if (Preferences::self()->autoUserhost())
+            resizeNicknameListViewColumns();
     }
 }
 
@@ -3012,6 +2674,17 @@ void Channel::updateChannelNicks(const QString& channel)
         }
     }
 }
+
+void Channel::resizeNicknameListViewColumns()
+{
+    // Resize columns if needed (on regular basis)
+    if (m_nicknameListViewTextChanged & (1 << Nick::NicknameColumn))
+        nicknameListView->resizeColumnToContents(Nick::NicknameColumn);
+    if (m_nicknameListViewTextChanged & (1 << Nick::HostmaskColumn))
+        nicknameListView->resizeColumnToContents(Nick::HostmaskColumn);
+    m_nicknameListViewTextChanged = 0;
+}
+
 
 //
 // NickList

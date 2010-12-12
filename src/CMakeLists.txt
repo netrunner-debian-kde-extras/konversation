@@ -6,10 +6,6 @@ if (QCA2_FOUND)
     include_directories(${QCA2_INCLUDE_DIR})
 endif (QCA2_FOUND)
 
-if (LIBKNOTIFICATIONITEM-1_FOUND)
-    include_directories(${KNOTIFICATIONITEM_INCLUDE_DIR})
-endif (LIBKNOTIFICATIONITEM-1_FOUND)
-
 set(core_SRCS
     #====================================
     #=== Application
@@ -36,10 +32,6 @@ set(core_SRCS
     urlcatcher.cpp
     queuetuner.cpp
     quickconnectdialog.cpp
-)
-
-kde4_add_ui_files(core_SRCS
-    urlcatcherui.ui
 )
 
 set (irc_SRCS
@@ -154,6 +146,7 @@ set(viewer_SRCS
     viewer/images.cpp
     viewer/quickbutton.cpp
     viewer/searchbar.cpp
+    viewer/irccontextmenus.cpp
 )
 
 kde4_add_ui_files(viewer_SRCS
@@ -259,9 +252,5 @@ endif (X11_Xscreensaver_FOUND)
 if (QCA2_FOUND)
     target_link_libraries(konversation ${QCA2_LIBRARIES})
 endif (QCA2_FOUND)
-
-if (HAVE_KIDLETIME)
-    target_link_libraries(konversation ${KDE4_KUTILS_LIBS})
-endif (HAVE_KIDLETIME)
 
 install(TARGETS konversation ${INSTALL_TARGETS_DEFAULT_ARGS})

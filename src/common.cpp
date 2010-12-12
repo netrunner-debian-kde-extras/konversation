@@ -25,12 +25,6 @@
 
 namespace Konversation
 {
-
-    static QRegExp colorRegExp("((\003([0-9]|0[0-9]|1[0-5])(,([0-9]|0[0-9]|1[0-5])|)|\017)|\x02|\x09|\x13|\x16|\x1f)");
-    static QRegExp urlPattern("((www\\.(?!\\.)|(fish|irc|amarok|(f|sf|ht)tp(|s))://)(\\.?[\\d\\w/,\\':~\\?=;#@\\-\\+\\%\\*\\{\\}\\!\\(\\)\\[\\]]|&)+)|"
-        "([-.\\d\\w]+@[-.\\d\\w]{2,}\\.[\\w]{2,})");
-    static QRegExp tdlPattern("(.*)\\.(\\w+),$");
-
     void initChanModesHash()
     {
         QHash<QChar,QString> myHash;
@@ -60,12 +54,9 @@ namespace Konversation
 
     QString removeIrcMarkup(const QString& text)
     {
-        QString escaped = text;
+        QString escaped(text);
         // Escape text decoration
         escaped.remove(colorRegExp);
-
-        // Remove Mirc's 0x03 characters too, they show up as rectangles
-        escaped.remove(QChar(0x03));
 
         return escaped;
     }
@@ -131,157 +122,129 @@ namespace Konversation
         return line;
     }
 
-    QString tagUrls(const QString& text, const QString& fromNick, bool useCustomColor)
+    QString replaceIRCMarkups(const QString& text)
     {
-        TextUrlData data = extractUrlData(text, fromNick, false, true, useCustomColor);
+        QString line(text);
 
-        return data.htmlText;
+        line.replace('\x02', "%B");      // replace bold char with %B
+        line.replace('\x03', "%C");       // replace color char with %C
+        line.replace('\x07', "%G");       // replace ASCII BEL 0x07 with %G
+        line.replace('\x1d', "%I");       // replace italics char with %I
+        line.replace('\x0f', "%O");       // replace reset to default char with %O
+        line.replace('\x13', "%S");       // replace strikethru char with %S
+        line.replace('\x16', "%R");       // replace reverse char with %R
+        // underline char send by kvirc
+        line.replace('\x1f', "%U");       // replace underline char with %U
+        // underline char send by mirc
+        line.replace('\x15', "%U");       // replace underline char with %U
+
+        return line;
     }
 
     QList<QPair<int, int> > getUrlRanges(const QString& text)
     {
-        TextUrlData data = extractUrlData(text, QString(), true, false, false);
+        TextUrlData data = extractUrlData(text, false);
 
         return data.urlRanges;
     }
 
-    TextUrlData extractUrlData(const QString& text, const QString& fromNick, bool doUrlRanges,
-        bool doHyperlinks, bool useCustomHyperlinkColor)
+    QList< QPair< int, int > > getChannelRanges(const QString& text)
     {
-        // QTime timer;
-        // timer.start();
+        TextChannelData data = extractChannelData(text, false);
 
+        return data.channelRanges;
+    }
+
+    TextUrlData extractUrlData(const QString& text, bool doUrlFixup)
+    {
         TextUrlData data;
-        data.htmlText = text;
+        QString htmlText(text);
+        urlPattern.setCaseSensitivity(Qt::CaseInsensitive);
 
         int pos = 0;
         int urlLen = 0;
 
-        QString link;
-        QString insertText;
         QString protocol;
         QString href;
-        QString append;
 
-        urlPattern.setCaseSensitivity(Qt::CaseInsensitive);
-
-        if (doHyperlinks)
-        {
-            QString linkColor = Preferences::self()->color(Preferences::Hyperlink).name();
-
-            if (useCustomHyperlinkColor)
-                link = "<a href=\"#%1\" style=\"color:" + linkColor + "\">%2</a>";
-            else
-                link = "<a href=\"#%1\">%2</a>";
-
-            if (data.htmlText.contains("#"))
-            {
-                QRegExp chanExp("(^|\\s|^\"|\\s\"|,|'|\\(|\\:|!|@|%|\\+)(#[^,\\s;\\)\\:\\/\\(\\<\\>]*[^.,\\s;\\)\\:\\/\\(\"\''\\<\\>])");
-
-                while ((pos = chanExp.indexIn(data.htmlText, pos)) >= 0)
-                {
-                    href = chanExp.cap(2);
-                    urlLen = href.length();
-                    pos += chanExp.cap(1).length();
-
-                    insertText = link.arg(href, href);
-                    data.htmlText.replace(pos, urlLen, insertText);
-                    pos += insertText.length();
-                }
-            }
-
-            if (useCustomHyperlinkColor)
-                link = "<a href=\"%1%2\" style=\"color:" + linkColor + "\">%3</a>";
-            else
-                link = "<a href=\"%1%2\">%3</a>";
-
-            pos = 0;
-            urlLen = 0;
-        }
-
-        while ((pos = urlPattern.indexIn(data.htmlText, pos)) >= 0)
+        while ((pos = urlPattern.indexIn(htmlText, pos)) >= 0)
         {
             urlLen = urlPattern.matchedLength();
+            href = htmlText.mid(pos, urlLen);
 
-            // check if the matched text is already replaced as a channel
-            if (doHyperlinks && data.htmlText.lastIndexOf("<a", pos ) > data.htmlText.lastIndexOf("</a>", pos))
+            data.urlRanges << QPair<int, int>(pos, href.length());
+            pos += href.length();
+
+            if (doUrlFixup)
             {
-                ++pos;
-                continue;
-            }
-
-            protocol.clear();
-            href = data.htmlText.mid(pos, urlLen);
-            append.clear();
-
-            // Don't consider trailing comma part of link.
-            if (href.right(1) == ",")
-            {
-                href.truncate(href.length()-1);
-                append = ',';
-            }
-
-            // Don't consider trailing semicolon part of link.
-            if (href.right(1) == ";")
-            {
-                href.truncate(href.length()-1);
-                append = ';';
-            }
-
-            // Don't consider trailing closing parenthesis part of link when
-            // there's an opening parenthesis preceding the beginning of the
-            // URL or there is no opening parenthesis in the URL at all.
-            if (href.right(1) == ")" && (data.htmlText.mid(pos-1, 1) == "(" || !href.contains("(")))
-            {
-                href.truncate(href.length()-1);
-                append.prepend(")");
-            }
-
-            if (doHyperlinks)
-            {
-                // Qt doesn't support (?<=pattern) so we do it here
-                if ((pos > 0) && data.htmlText[pos-1].isLetterOrNumber())
+                protocol.clear();
+                if (urlPattern.cap(2).isEmpty())
                 {
-                    pos++;
-                    continue;
+                    QString urlPatternCap1(urlPattern.cap(1));
+                    if (urlPatternCap1.contains('@'))
+                        protocol = "mailto:";
+                    else if (urlPatternCap1.startsWith(QLatin1String("ftp."), Qt::CaseInsensitive))
+                        protocol = "ftp://";
+                    else
+                        protocol = "http://";
                 }
 
-                if (urlPattern.cap(1).startsWith(QLatin1String("www."), Qt::CaseInsensitive))
-                    protocol = "http://";
-                else if (urlPattern.cap(1).isEmpty())
-                    protocol = "mailto:";
-
-                // Use \x0b as a placeholder for & so we can read them after changing all & in the normal text to &amp;
-                insertText = link.arg(protocol, QString(href).replace('&', "\x0b"), href) + append;
-
-                data.htmlText.replace(pos, urlLen, insertText);
-
-                Application::instance()->storeUrl(fromNick, href, QDateTime::currentDateTime());
+                href = protocol + removeIrcMarkup(href);
+                data.fixedUrls.append(href);
             }
-            else
-                insertText = href + append;
-
-            if (doUrlRanges)
-                data.urlRanges << QPair<int, int>(pos, href.length());
-
-            pos += insertText.length();
         }
+        return data;
+    }
 
-        if (doHyperlinks)
+    TextChannelData extractChannelData(const QString& text, bool doChannelFixup)
+    {
+        TextChannelData data;
+        QString ircText(text);
+
+        int pos = 0;
+        int chanLen = 0;
+        QString channel;
+
+        while ((pos = chanExp.indexIn(ircText, pos)) >= 0)
         {
-            // Change & to &amp; to prevent html entities to do strange things to the text
-            data.htmlText.replace('&', "&amp;");
-            data.htmlText.replace("\x0b", "&");
+            channel = chanExp.cap(2);
+            chanLen = channel.length();
+
+            // we want the pos where #channel starts
+            // indexIn gives us the first match and the first match may be
+            // "#test", " #test" or " \"test", so the first Index is off by some chars
+            pos = chanExp.pos(2);
+
+            data.channelRanges << QPair<int, int>(pos, chanLen);
+            pos += chanLen;
+
+            if (doChannelFixup)
+            {
+                channel = removeIrcMarkup(channel);
+                data.fixedChannels.append(channel);
+            }
         }
-
-        // kDebug() << "Took (msecs) : " << timer.elapsed() << " for " << data.htmlText;
-
         return data;
     }
 
     bool isUrl(const QString& text)
     {
         return urlPattern.exactMatch(text);
+    }
+
+    QString extractColorCodes(const QString& _text)
+    {
+        QString text(_text);
+        int pos = 0;
+        QString ret;
+        QString match;
+        while ((pos = colorRegExp.indexIn(text, pos)) >= 0)
+        {
+            match = colorRegExp.cap(0);
+            ret += match;
+            text.remove(pos, match.length());
+        }
+        return ret;
     }
 
     QPixmap overlayPixmaps( const QPixmap &under, const QPixmap &over )

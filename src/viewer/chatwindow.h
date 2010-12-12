@@ -49,6 +49,11 @@ class ChatWindow : public KVBox
             LogFileReader
         };
 
+        /** Clean up and close this tab.  Return false if you want to cancel the close. */
+        virtual bool closeYourself(bool askForConfirmation = true);
+
+        virtual void cycle();
+
         /** This should be called and set with a non-null server as soon
          *  as possibly after ChatWindow is created.
          *  @param newServer The server to set it to.
@@ -84,9 +89,9 @@ class ChatWindow : public KVBox
             bool parseURL = true, bool self = false);
         virtual void appendBacklogMessage(const QString& firstColumn,const QString& message);
 
+        void clear();
+
         virtual QString getTextInLine();
-        /** Clean up and close this tab.  Return false if you want to cancel the close. */
-        virtual bool closeYourself(bool askForConfirmation = true);
         /** Reimplement this to return true in all classes that /can/ become front view.
          */
         virtual bool canBeFrontView();
@@ -203,5 +208,7 @@ class ChatWindow : public KVBox
         bool m_channelEncodingSupported;
 
         Konversation::TabNotifyType m_currentTabNotify;
+
+        bool m_recreationScheduled;
 };
 #endif

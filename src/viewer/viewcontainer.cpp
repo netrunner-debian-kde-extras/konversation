@@ -34,17 +34,13 @@
 #include "irccolorchooser.h"
 #include "joinchanneldialog.h"
 #include "servergroupsettings.h"
-#include "ircviewbox.h"
+#include "irccontextmenus.h"
 
-#include <QList>
 #include <QSplitter>
-#include <QToolButton>
 #include <QTabBar>
 
 #include <KInputDialog>
 #include <KMessageBox>
-#include <KGlobalSettings>
-#include <KVBox>
 #include <KRun>
 #include <KUrl>
 #include <KXMLGUIFactory>
@@ -93,10 +89,23 @@ ViewContainer::ViewContainer(MainWindow* window):
     m_dccPanel->hide();
     m_dccPanelOpen = false;
     connect(m_dccPanel, SIGNAL(updateTabNotification(ChatWindow*,const Konversation::TabNotifyType&)), this, SLOT(setViewNotification(ChatWindow*,const Konversation::TabNotifyType&)));
+
+    // Pre-construct context menus for better responsiveness when then
+    // user opens them the first time. This is optional; the IrcContext-
+    // Menus API would work fine without doing this here.
+    // IrcContextMenus' setup code calls Application::instance(), and
+    // ViewContainer is constructed in the scope of the Application
+    // constructor, so to avoid a crash we need to queue.
+    QMetaObject::invokeMethod(this, "setupIrcContextMenus", Qt::QueuedConnection);
 }
 
 ViewContainer::~ViewContainer()
 {
+}
+
+void ViewContainer::setupIrcContextMenus()
+{
+    IrcContextMenus::self();
 }
 
 void ViewContainer::showQueueTuner(bool p)
@@ -395,7 +404,7 @@ void ViewContainer::updateTabWidgetAppearance()
     m_tabWidget->setTabBarHidden(noTabBar);
 
     m_tabWidget->setDocumentMode(true);
-    
+
     if (Preferences::self()->customTabFont())
         m_tabWidget->setFont(Preferences::self()->tabFont());
     else
@@ -532,6 +541,9 @@ void ViewContainer::updateViewActions(int index)
             if (action) action->setEnabled(insertSupported);
 
             action = actionCollection()->action("irc_colors");
+            if (action) action->setEnabled(insertSupported);
+
+            action = actionCollection()->action("focus_input_box");
             if (action) action->setEnabled(insertSupported);
 
             action = actionCollection()->action("clear_lines");
@@ -1183,6 +1195,8 @@ void ViewContainer::toggleAutoJoin()
 
         emit autoJoinToggled(channel->getServer()->getServerGroup());
     }
+
+    m_popupViewIndex = -1;
 }
 
 void ViewContainer::addView(ChatWindow* view, const QString& label, bool weinitiated)
@@ -1462,7 +1476,6 @@ void ViewContainer::goToView(int page)
 
     if (page >= 0)
         m_tabWidget->setCurrentIndex(page);
-
 
     m_popupViewIndex = -1;
 }
@@ -1745,6 +1758,7 @@ void ViewContainer::showViewContextMenu(QWidget* tab, const QPoint& pos)
     ChatWindow* view = static_cast<ChatWindow*>(tab);
     KToggleAction* autoJoinAction = qobject_cast<KToggleAction*>(actionCollection()->action("tab_autojoin"));
     QAction* rejoinAction = actionCollection()->action("rejoin_channel");
+    QAction* closeAction = actionCollection()->action("close_tab");
 
     QAction* renameAct = new QAction(this);
     renameAct->setText(i18n("&Rename Tab..."));
@@ -1765,7 +1779,7 @@ void ViewContainer::showViewContextMenu(QWidget* tab, const QPoint& pos)
             Channel *channel = static_cast<Channel*>(view);
             if (channel->rejoinable() && rejoinAction)
             {
-                menu->addAction(rejoinAction);
+                menu->insertAction(closeAction, rejoinAction);
                 rejoinAction->setEnabled(true);
             }
         }
@@ -2004,6 +2018,12 @@ void ViewContainer::insertIRCColor()
     delete dlg;
 }
 
+void ViewContainer::focusInputBox()
+{
+    if (m_frontView && m_frontView->isInsertSupported())
+        m_frontView->adjustFocus();
+}
+
 void ViewContainer::clearViewLines()
 {
     if (m_frontView && m_frontView->isInsertSupported())
@@ -2077,13 +2097,10 @@ void ViewContainer::openLogFile()
 {
     if (m_frontView)
     {
-        ChatWindow* view=static_cast<ChatWindow*>(m_frontView);
-        ChatWindow::WindowType viewType=view->getType();
-        if (viewType==ChatWindow::Channel || viewType==ChatWindow::Query ||
-            viewType==ChatWindow::Status || viewType==ChatWindow::DccChat)
-        {
+        ChatWindow* view = static_cast<ChatWindow*>(m_frontView);
+
+        if (!view->logFileName().isEmpty())
             openLogFile(view->getName(), view->logFileName());
-        }
     }
 }
 
@@ -2115,20 +2132,10 @@ void ViewContainer::addKonsolePanel()
 
 void ViewContainer::addUrlCatcher()
 {
-    // if the panel wasn't open yet
-    if (m_urlCatcherPanel==0)
+    if (m_urlCatcherPanel == 0)
     {
         m_urlCatcherPanel=new UrlCatcher(m_tabWidget);
         addView(m_urlCatcherPanel, i18n("URL Catcher"));
-        Application *konvApp=static_cast<Application *>(KApplication::kApplication());
-        connect(konvApp,SIGNAL(catchUrl(const QString&,const QString&,const QDateTime&)),
-            m_urlCatcherPanel, SLOT(addUrl(const QString&,const QString&,const QDateTime&)) );
-        connect(m_urlCatcherPanel, SIGNAL(deleteUrl(const QString&,const QString&,const QDateTime&)),
-            konvApp, SLOT(deleteUrl(const QString&,const QString&,const QDateTime&)) );
-        connect(m_urlCatcherPanel, SIGNAL(clearUrlList()),
-            konvApp, SLOT(clearUrlList()));
-
-        m_urlCatcherPanel->setUrlList(konvApp->getUrlList());
 
         (dynamic_cast<KToggleAction*>(actionCollection()->action("open_url_catcher")))->setChecked(true);
     }
@@ -2138,11 +2145,11 @@ void ViewContainer::addUrlCatcher()
 
 void ViewContainer::closeUrlCatcher()
 {
-    // if there actually is a dcc panel
     if (m_urlCatcherPanel)
     {
         delete m_urlCatcherPanel;
         m_urlCatcherPanel = 0;
+
         (dynamic_cast<KToggleAction*>(actionCollection()->action("open_url_catcher")))->setChecked(false);
     }
 }
@@ -2471,49 +2478,12 @@ ChannelListPanel* ViewContainer::addChannelListPanel(Server* server)
     return channelListPanel;
 }
 
-void ViewContainer::openChannelList(const QString& filter, bool getList)
+void ViewContainer::openChannelList(Server* server, const QString& filter, bool getList)
 {
-    if (m_frontServer)
-    {
-        ChannelListPanel* panel = m_frontServer->getChannelListPanel();
+    if (!server)
+        server = m_frontServer;
 
-        if (panel)
-        {
-            closeView(panel);
-            KToggleAction* action = static_cast<KToggleAction*>(actionCollection()->action("open_channel_list"));
-            if (action) action->setChecked(false);
-        }
-        else
-        {
-            int ret = KMessageBox::Continue;
-
-            if (filter.isEmpty())
-            {
-                ret = KMessageBox::warningContinueCancel(m_window,i18n("Using this function may result in a lot "
-                      "of network traffic. If your connection is not fast "
-                      "enough, it is possible that your client will be "
-                      "disconnected by the server."),
-                      i18n("Channel List Warning"),
-                      KStandardGuiItem::cont(),
-                      KStandardGuiItem::cancel(),
-                      "ChannelListWarning");
-            }
-
-            if (ret != KMessageBox::Continue)
-            {
-                KToggleAction* action = static_cast<KToggleAction*>(actionCollection()->action("open_channel_list"));
-                if (action) action->setChecked(false);
-                return;
-            }
-
-            panel = m_frontServer->addChannelListPanel();
-
-            panel->setFilter(filter);
-
-            if(getList) panel->applyFilterClicked();
-        }
-    }
-    else
+    if (!server)
     {
         KMessageBox::information(m_window,
             i18n(
@@ -2524,6 +2494,55 @@ void ViewContainer::openChannelList(const QString& filter, bool getList)
             i18n("Channel List"),
             "ChannelListNoServerSelected");
     }
+
+    ChannelListPanel* panel = server->getChannelListPanel();
+
+    if (panel && filter.isEmpty())
+    {
+        closeView(panel);
+
+        if (server == m_frontServer)
+        {
+            KToggleAction* action = static_cast<KToggleAction*>(actionCollection()->action("open_channel_list"));
+            if (action) action->setChecked(false);
+        }
+
+        return;
+    }
+
+    if (!panel)
+    {
+        int ret = KMessageBox::Continue;
+
+        if (filter.isEmpty())
+        {
+            ret = KMessageBox::warningContinueCancel(m_window, i18n("Using this function may result in a lot "
+                    "of network traffic. If your connection is not fast "
+                    "enough, it is possible that your client will be "
+                    "disconnected by the server."),
+                    i18n("Channel List Warning"),
+                    KStandardGuiItem::cont(),
+                    KStandardGuiItem::cancel(),
+                    "ChannelListWarning");
+        }
+
+        if (ret != KMessageBox::Continue)
+        {
+            if (server == m_frontServer)
+            {
+                KToggleAction* action = static_cast<KToggleAction*>(actionCollection()->action("open_channel_list"));
+                if (action) action->setChecked(false);
+            }
+
+            return;
+        }
+
+        panel = server->addChannelListPanel();
+    }
+
+    panel->setFilter(filter);
+
+    if (getList) panel->refreshList();
 }
 
 void ViewContainer::openNicksOnlinePanel()

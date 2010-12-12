@@ -18,19 +18,21 @@
 
 #include "preferences.h"
 #include "mainwindow.h"
+#include "server.h"
 #include "osd.h"
 #include "identity.h"
-#include "nickinfo.h"
 #include "ircqueue.h"
 
-#include <kuniqueapplication.h>
+#include <KUniqueApplication>
 
 class ConnectionManager;
 class AbstractAwayManager;
+class ScriptLauncher;
 class Server;
 class QuickConnectDialog;
 class Images;
 class ServerGroupSettings;
+class QStandardItemModel;
 
 namespace Konversation
 {
@@ -43,19 +45,6 @@ namespace Konversation
     {
         class TransferManager;
     }
-
-    // Shared between NickListView and IRCView
-    enum PopupIDs
-    {
-        GiveOp,TakeOp,GiveHalfOp,TakeHalfOp,GiveVoice,TakeVoice,
-        IgnoreNick,UnignoreNick,
-        Kick,KickBan,BanNick,BanHost,BanDomain,BanUserHost,BanUserDomain,
-        KickBanHost,KickBanDomain,KickBanUserHost,KickBanUserDomain,
-        Whois,Version,Ping,OpenQuery,DccSend,Join,Names,Topic,
-        CustomID, AddressbookChange, AddressbookNew, AddressbookDelete,
-        AddressbookEdit, SendEmail, StartDccChat, AddNotify, StartDccWhiteboard
-    };
-
 }
 
 namespace KWallet
@@ -81,14 +70,14 @@ class Application : public KUniqueApplication
 
         ConnectionManager* getConnectionManager() { return m_connectionManager; }
         AbstractAwayManager* getAwayManager() { return m_awayManager; }
+        ScriptLauncher* getScriptLauncher() { return m_scriptLauncher; }
         Konversation::DCC::TransferManager* getDccTransferManager() { return m_dccTransferManager; }
 
         // HACK
         void showQueueTuner(bool);
 
         // URL-Catcher
-        void storeUrl(const QString& who,const QString& url,const QDateTime& datetime);
-        const QStringList& getUrlList();
+        QStandardItemModel* getUrlModel() { return m_urlModel; }
 
         Application();
         ~Application();
@@ -135,12 +124,15 @@ class Application : public KUniqueApplication
         /// The wallet used to store passwords. Opens the wallet if it's closed.
         KWallet::Wallet* wallet();
 
+        void abortScheduledRestart() { m_restartScheduled = false; }
+
     signals:
-        void catchUrl(const QString& who,const QString& url,const QDateTime &datetime);
         void serverGroupsChanged(const Konversation::ServerGroupSettingsPtr serverGroup);
         void appearanceChanged();
 
     public slots:
+        void restart();
+
         void readOptions();
         void saveOptions(bool updateGUI=true);
 
@@ -149,10 +141,9 @@ class Application : public KUniqueApplication
         void resetQueueRates(); ///< when QueueTuner says to
         int countOfQueues() { return Server::_QueueListSize-1; }
 
-        void deleteUrl(const QString& who,const QString& url,const QDateTime& datetime);
-        void clearUrlList();
-
         void prepareShutdown();
+
+        void storeUrl(const QString& origin, const QString& newUrl, const QDateTime& dateTime);
 
     protected slots:
         void openQuickConnectDialog();
@@ -168,20 +159,22 @@ class Application : public KUniqueApplication
         void closeWallet();
 
     private:
+        void implementRestart();
+
         ConnectionManager* m_connectionManager;
         AbstractAwayManager* m_awayManager;
         Konversation::DCC::TransferManager* m_dccTransferManager;
-        QStringList urlList;
+        ScriptLauncher* m_scriptLauncher;
+        QStandardItemModel* m_urlModel;
         Konversation::DBus* dbusObject;
         Konversation::IdentDBus* identDBus;
         QPointer<MainWindow> mainWindow;
         Konversation::Sound* m_sound;
         QuickConnectDialog* quickConnectDialog;
         Images* m_images;
+        bool m_restartScheduled;
 
         Konversation::NotificationHandler* m_notificationHandler;
-
-        QStringList colorList;
 
         KWallet::Wallet* m_wallet;
 };
