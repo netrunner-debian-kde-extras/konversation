@@ -21,20 +21,16 @@
 #include "ircview.h"
 #include "ircviewbox.h"
 #include "common.h"
-#include "topiclabel.h"
 
 #include <QSplitter>
 
-#include <KMessageBox>
-#include <KStringHandler>
-#include <KStandardGuiItem>
-#include <KMenu>
 #include <KHBox>
-#include <KAuthorized>
+#include <KMessageBox>
+#include <KSqueezedTextLabel>
 
 using namespace Konversation;
 
-Query::Query(QWidget* parent, QString _name) : ChatWindow(parent)
+Query::Query(QWidget* parent, const QString& _name) : ChatWindow(parent)
 {
     name=_name; // need the name a little bit earlier for setServer
     // don't setName here! It will break logfiles!
@@ -59,7 +55,8 @@ Query::Query(QWidget* parent, QString _name) : ChatWindow(parent)
     addresseelogoimage->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     addresseelogoimage->hide();
 
-    queryHostmask=new QLabel(box);
+    queryHostmask=new KSqueezedTextLabel(box);
+    queryHostmask->setTextElideMode(Qt::ElideRight);
     queryHostmask->setObjectName("query_hostmask");
 
     QString whatsthis = i18n("<qt><p>Some details of the person you are talking to in this query is shown in this bar.  The full name and hostmask is shown, along with any image or logo this person has associated with them in the KDE Address Book.</p><p>See the <i>Konversation Handbook</i> for information on associating a nick with a contact in the address book, and for an explanation of what the hostmask is.</p></qt>");
@@ -67,34 +64,12 @@ Query::Query(QWidget* parent, QString _name) : ChatWindow(parent)
     addresseelogoimage->setWhatsThis(whatsthis);
     queryHostmask->setWhatsThis(whatsthis);
 
-    IRCViewBox* ircBox = new IRCViewBox(m_headerSplitter,0);
-    m_headerSplitter->setStretchFactor(m_headerSplitter->indexOf(ircBox), 1);
-    setTextView(ircBox->ircView());               // Server will be set later in setServer();
+    IRCViewBox* ircViewBox = new IRCViewBox(m_headerSplitter);
+    m_headerSplitter->setStretchFactor(m_headerSplitter->indexOf(ircViewBox), 1);
+    setTextView(ircViewBox->ircView());               // Server will be set later in setServer();
+    ircViewBox->ircView()->setContextMenuOptions(IrcContextMenus::ShowNickActions, true);
     textView->setAcceptDrops(true);
     connect(textView,SIGNAL(urlsDropped(const KUrl::List)),this,SLOT(urlsDropped(const KUrl::List)));
-    connect(textView,SIGNAL(popupCommand(int)),this,SLOT(popup(int)));
-
-    // link "Whois", "Ignore" ... menu items into ircview popup
-    m_actionGroup = new QActionGroup(this);
-    connect(m_actionGroup, SIGNAL(triggered(QAction*)), this, SLOT(slotActionTriggered(QAction*)));
-
-    KMenu* popup=textView->getPopup();
-    popup->addSeparator();
-    m_whoisAction = createAction(popup,i18n("&Whois"),Konversation::Whois);
-    m_versionAction = createAction(popup,i18n("&Version"),Konversation::Version);
-    m_pingAction = createAction(popup,i18n("&Ping"),Konversation::Ping);
-    popup->addSeparator();
-
-    m_ignoreNickAction = createAction(popup,i18n("Ignore"), Konversation::IgnoreNick);
-    m_unignoreNickAction = createAction(popup,i18n("Unignore"), Konversation::UnignoreNick);
-    m_ignoreNickAction->setVisible(false);
-    m_unignoreNickAction->setVisible(false);
-
-    m_dccAction = createAction(popup,i18n("Send &File..."),Konversation::DccSend);
-    m_dccAction->setIcon(KIcon("arrow-right-double"));
-    m_dccAction->setEnabled(KAuthorized::authorizeKAction("allow_downloading"));
-
-    m_addNotifyAction = createAction(popup,i18n("Add to Watched Nicks"), Konversation::AddNotify);
 
     // This box holds the input line
     KHBox* inputBox=new KHBox(this);
@@ -119,7 +94,6 @@ Query::Query(QWidget* parent, QString _name) : ChatWindow(parent)
     connect(getTextView(),SIGNAL (gotFocus()),queryInput,SLOT (setFocus()) );
 
     connect(textView,SIGNAL (sendFile()),this,SLOT (sendFileMenu()) );
-    connect(textView,SIGNAL (extendedPopup(int)),this,SLOT (popup(int)) );
     connect(textView,SIGNAL (autoText(const QString&)),this,SLOT (sendQueryText(const QString&)) );
 
     updateAppearance();
@@ -131,6 +105,13 @@ Query::Query(QWidget* parent, QString _name) : ChatWindow(parent)
 
 Query::~Query()
 {
+    if (m_recreationScheduled)
+    {
+        qRegisterMetaType<NickInfoPtr>("NickInfoPtr");
+
+        QMetaObject::invokeMethod(m_server, "addQuery", Qt::QueuedConnection,
+            Q_ARG(NickInfoPtr, m_nickInfo), Q_ARG(bool, true));
+    }
 }
 
 void Query::setServer(Server* newServer)
@@ -208,15 +189,10 @@ void Query::setEncryptedOutput(bool e)
 void Query::queryTextEntered()
 {
     QString line=queryInput->toPlainText();
+
     queryInput->clear();
-    if(line.toLower()==Preferences::self()->commandChar()+"clear")
-    {
-        textView->clear();
-    }
-    else if(line.length())
-    {
-         sendQueryText(sterilizeUnicode(line));
-    }
+
+    if (!line.isEmpty()) sendQueryText(sterilizeUnicode(line));
 }
 
 void Query::queryPassthroughCommand()
@@ -254,7 +230,7 @@ void Query::sendQueryText(const QString& sendLine)
         QString output(outList[index]);
 
         // encoding stuff is done in Server()
-        Konversation::OutputFilterResult result = m_server->getOutputFilter()->parse(m_server->getNickname(), output, getName());
+        Konversation::OutputFilterResult result = m_server->getOutputFilter()->parse(m_server->getNickname(), output, getName(), this);
 
         if(!result.output.isEmpty())
         {
@@ -345,99 +321,6 @@ void Query::showEvent(QShowEvent*)
     }
 }
 
-void Query::popup(int id)
-{
-    QString name = getName();
-
-    switch (id)
-    {
-        case Konversation::Whois:
-            sendQueryText(Preferences::self()->commandChar()+"WHOIS "+name+' '+name);
-            break;
-
-        case Konversation::IgnoreNick:
-        {
-            if (KMessageBox::warningContinueCancel(
-                this,
-                i18n("Do you want to ignore %1?",name),
-                i18n("Ignore"),
-                KGuiItem(i18n("Ignore")),
-                KStandardGuiItem::cancel(),
-                "IgnoreNick")
-                == KMessageBox::Continue)
-            {
-                sendQueryText(Preferences::self()->commandChar()+"IGNORE -ALL "+name);
-
-                int rc = KMessageBox::questionYesNo(this,
-                i18n("Do you want to close this query after ignoring this nickname?"),
-                i18n("Close This Query"),
-                KGuiItem(i18n("Close")),
-                KGuiItem(i18n("Keep Open")),
-                "CloseQueryAfterIgnore");
-
-                if (rc == KMessageBox::Yes && m_server)
-                    QTimer::singleShot(0, this, SLOT(closeWithoutAsking()));
-            }
-
-            break;
-        }
-        case Konversation::UnignoreNick:
-        {
-            if (KMessageBox::warningContinueCancel(
-                this,
-                i18n("Do you want to stop ignoring %1?", name),
-                i18n("Unignore"),
-                KGuiItem(i18n("Unignore")),
-                KStandardGuiItem::cancel(),
-                "UnignoreNick")
-                ==
-                KMessageBox::Continue)
-            {
-                sendQueryText(Preferences::self()->commandChar()+"UNIGNORE "+name);
-            }
-
-            break;
-        }
-        case Konversation::AddNotify:
-        {
-            if (m_server->getServerGroup())
-            {
-                if (!Preferences::isNotify(m_server->getServerGroup()->id(), name))
-                    Preferences::addNotify(m_server->getServerGroup()->id(),name);
-            }
-            break;
-        }
-        case Konversation::DccSend:
-            sendQueryText(Preferences::self()->commandChar()+"DCC SEND "+name);
-            break;
-
-        case Konversation::Version:
-            sendQueryText(Preferences::self()->commandChar()+"CTCP "+name+" VERSION");
-            break;
-
-        case Konversation::Ping:
-            sendQueryText(Preferences::self()->commandChar()+"CTCP "+name+" PING");
-            break;
-
-        case Konversation::Topic:
-            m_server->requestTopic(getTextView()->currentChannel());
-            break;
-        case Konversation::Names:
-            m_server->queue("NAMES " + getTextView()->currentChannel(), Server::LowPriority);
-            break;
-        case Konversation::Join:
-            m_server->queue("JOIN " + getTextView()->currentChannel());
-            break;
-
-        default:
-            kDebug() << "Popup id " << id << " does not belong to me!";
-            break;
-    }
-
-    // delete context menu nickname
-    textView->clearContextNick();
-}
-
 void Query::sendFileMenu()
 {
     emit sendFile(getName());
@@ -473,13 +356,13 @@ void Query::nickInfoChanged()
             text += " - ";
         text += m_nickInfo->getHostmask();
         if(m_nickInfo->isAway() && !m_nickInfo->getAwayMessage().isEmpty())
-            text += " (" + KStringHandler::rsqueeze(m_nickInfo->getAwayMessage(),100) + ") ";
+            text += " (" + m_nickInfo->getAwayMessage() + ") ";
         queryHostmask->setText(Konversation::removeIrcMarkup(text));
 
         KABC::Picture pic = m_nickInfo->getAddressee().photo();
         if(pic.isIntern())
         {
-            QPixmap qpixmap = QPixmap::fromImage(pic.data().scaledToHeight(queryHostmask->height()));
+            QPixmap qpixmap = QPixmap::fromImage(pic.data().scaledToHeight(queryHostmask->height(), Qt::SmoothTransformation));
             if(!qpixmap.isNull())
             {
                 addresseeimage->setPixmap(qpixmap);
@@ -497,7 +380,7 @@ void Query::nickInfoChanged()
         KABC::Picture logo = m_nickInfo->getAddressee().logo();
         if(logo.isIntern())
         {
-            QPixmap qpixmap = QPixmap::fromImage(logo.data().scaledToHeight(queryHostmask->height()));
+            QPixmap qpixmap = QPixmap::fromImage(logo.data().scaledToHeight(queryHostmask->height(), Qt::SmoothTransformation));
             if(!qpixmap.isNull())
             {
                 addresseelogoimage->setPixmap(qpixmap);
@@ -518,7 +401,7 @@ void Query::nickInfoChanged()
 
         tooltip << "<qt>";
 
-        tooltip << "<table cellspacing=\"0\" cellpadding=\"0\">";
+        tooltip << "<table cellspacing=\"5\" cellpadding=\"0\">";
 
         m_nickInfo->tooltipTableData(tooltip);
 
@@ -586,6 +469,7 @@ QString Query::getChannelEncodingDefaultDesc()    // virtual
 bool Query::closeYourself(bool confirm)
 {
     int result = KMessageBox::Continue;
+
     if (confirm)
         result=KMessageBox::warningContinueCancel(
             this,
@@ -598,38 +482,18 @@ bool Query::closeYourself(bool confirm)
     if (result == KMessageBox::Continue)
     {
         m_server->removeQuery(this);
+
         return true;
     }
+    else
+        m_recreationScheduled = false;
 
     return false;
-}
-
-void Query::closeWithoutAsking()
-{
-    m_server->removeQuery(this);
 }
 
 void Query::urlsDropped(const KUrl::List urls)
 {
     m_server->sendURIs(urls, getName());
-}
-
-void Query::serverOnline(bool online)
-{
-    //queryInput->setEnabled(online);
-    getTextView()->setNickAndChannelContextMenusEnabled(online);
-
-    KMenu* popup = getTextView()->getPopup();
-
-    if (popup)
-    {
-        m_whoisAction->setEnabled(online);
-        m_versionAction->setEnabled(online);
-        m_ignoreNickAction->setEnabled(online);
-        m_unignoreNickAction->setEnabled(online);
-        m_addNotifyAction->setEnabled(online);
-        m_dccAction->setEnabled(online && KAuthorized::authorizeKAction("allow_downloading"));
-    }
 }
 
 void Query::emitUpdateInfo()
@@ -661,22 +525,6 @@ void Query::quitNick(const QString& reason)
 
         appendCommandMessage(i18n("Quit"),i18n("%1 has left this server (%2).",getName(),displayReason),false);
     }
-}
-
-Q_DECLARE_METATYPE(Konversation::PopupIDs)
-
-KAction* Query::createAction(QMenu* menu, const QString& text, Konversation::PopupIDs id)
-{
-    KAction* action = new KAction(text, menu);
-    menu->addAction(action);
-    action->setData(QVariant::fromValue(id));
-    m_actionGroup->addAction(action);
-    return action;
-}
-
-void Query::slotActionTriggered(QAction* action)
-{
-    popup(action->data().value<Konversation::PopupIDs>());
 }
 
 #ifdef HAVE_QCA2

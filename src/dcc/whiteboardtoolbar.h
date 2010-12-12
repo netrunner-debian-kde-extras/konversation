@@ -13,7 +13,7 @@
 #define WHITEBOARDTOOLBAR_H
 
 #include <QWidget>
-#include <QHash> 
+#include <QHash>
 
 #include "ui_whiteboardtoolbarui.h"
 
@@ -53,6 +53,9 @@ namespace Konversation
                 void setSupportedTextType(Konversation::DCC::WhiteBoardToolBar::TextType textType);
                 Konversation::DCC::WhiteBoardToolBar::TextType textType() const;
 
+                void setForegroundColor(const QColor& foregroundColor);
+                void setBackgroundColor(const QColor& backgroundColor);
+
             signals:
                 void toolChanged(Konversation::DCC::WhiteBoardGlobals::WhiteBoardTool tool);
 
@@ -85,6 +88,7 @@ namespace Konversation
                 void eraseToggled(bool checked);
                 void fillToggled(bool checked);
                 void arrowToggled(bool checked);
+                void colorPickerToggled(bool checked);
 
                 void updateLineWidthPixmap(int lineWidth);
 
@@ -109,7 +113,7 @@ namespace Konversation
 
                 inline void fillFormOptionList(FormOption form);
 
-                QHash<KPushButton*, Konversation::DCC::WhiteBoardGlobals::WhiteBoardTool> m_toggleButtonHash;
+                QHash<Konversation::DCC::WhiteBoardGlobals::WhiteBoardTool, KPushButton*> m_toggleButtonHash;
                 QPixmap m_lineWidthPixmap;
 
                 QPixmap m_rectanglePixmap;

@@ -12,28 +12,15 @@
 
 #include "topiclabel.h"
 #include "application.h"
-#include "connectionmanager.h"
-#include "server.h"
-#include "common.h"
-#include "channel.h"
 
 #include <QClipboard>
-#include <QContextMenuEvent>
 #include <QResizeEvent>
-#include <QMenu>
+#include <QTextCursor>
 #include <QTextDocument>
-
-#include <KBookmarkManager>
-#include <kbookmarkdialog.h>
-#include <KShell>
-#include <KUrl>
-#include <KFileDialog>
-#include <KIO/CopyJob>
 
 
 namespace Konversation
 {
-
     TopicLabel::TopicLabel(QWidget *parent, const char *name)
         : QLabel(parent)
     {
@@ -44,7 +31,6 @@ namespace Konversation
         setTextInteractionFlags(Qt::TextBrowserInteraction);
 
         m_isOnChannel = false;
-        m_copyUrlMenu = false;
         m_server = NULL;
 
         connect(this, SIGNAL(linkActivated(const QString&)), this, SLOT(openLink (const QString&)));
@@ -87,12 +73,7 @@ namespace Konversation
     {
         if (!link.isEmpty())
         {
-            if (link.startsWith(QLatin1String("irc://")))
-            {
-                Application* konvApp = static_cast<Application*>(kapp);
-                konvApp->getConnectionManager()->connectTo(Konversation::SilentlyReuseConnection, link);
-            }
-            else if (link.startsWith('#') && m_server && m_server->isConnected())
+            if (link.startsWith('#') && m_server && m_server->isConnected())
             {
                 QString channel(link);
                 channel.replace("##","#");
@@ -104,51 +85,62 @@ namespace Konversation
         }
     }
 
-    void TopicLabel::contextMenuEvent(QContextMenuEvent* ev)
+    void TopicLabel::setContextMenuOptions(IrcContextMenus::MenuOptions options, bool on)
     {
-        bool block = contextMenu(ev);
-
-        if(!block)
-        {
-            QLabel::contextMenuEvent(ev);
-        }
+        if (on)
+            m_contextMenuOptions |= options;
+        else
+            m_contextMenuOptions &= ~options;
     }
 
-    bool TopicLabel::contextMenu(QContextMenuEvent* ce)
+    void TopicLabel::contextMenuEvent(QContextMenuEvent* ev)
     {
-        QMenu* menu = new QMenu(this);
-        bool actionsAdded = false;
-
-        if (m_isOnChannel)
+        if (m_isOnChannel && m_server)
         {
+            IrcContextMenus::channelMenu(ev->globalPos(), m_server, m_currentChannel);
+
             m_isOnChannel = false;
 
-            if (!m_currentChannel.isEmpty())
-            {
-                QAction* action = menu->addAction(i18n("&Join Channel..."), this, SLOT(joinChannel()));
-                action->setIcon(KIcon("irc-join-channel"));
-                menu->addAction(i18n("Get &user list"), this, SLOT (getChannelUserList()));
-                menu->addAction(i18n("Get &topic"), this, SLOT(getChannelTopic()));
-                actionsAdded = true;
-            }
+            return;
         }
-        else
+
+#if !(QT_VERSION >= QT_VERSION_CHECK(4, 7, 0))
+        if (m_contextMenuOptions.testFlag(IrcContextMenus::ShowLinkActions))
         {
-            if (m_copyUrlMenu)
-            {
-                menu->addAction(KIcon("edit-copy"), i18n("Copy Link Address"), this, SLOT (copyUrl()));
-                menu->addAction(KIcon("bookmark-new"), i18n("Add to Bookmarks"), this, SLOT (bookmarkUrl()));
-                menu->addAction(KIcon("document-save"), i18n("Save Link As..."), this, SLOT(saveLinkAs()));
-                actionsAdded = true;
-            }
+            IrcContextMenus::linkMenu(ev->globalPos(), m_urlToCopy);
+
+            return;
         }
 
-        if (actionsAdded)
-            menu->exec(ce->globalPos());
+        QLabel::contextMenuEvent(ev);
+#else
+        int contextMenuActionId = IrcContextMenus::textMenu(ev->globalPos(), m_contextMenuOptions,
+            m_server, selectedText(), m_urlToCopy);
 
-        delete menu;
+        switch (contextMenuActionId)
+        {
+            case -1:
+                break;
+            case IrcContextMenus::TextCopy:
+            {
+                QClipboard* clipboard = qApp->clipboard();
+                clipboard->setText(selectedText(), QClipboard::Clipboard);
 
-        return actionsAdded;
+                break;
+            }
+            case IrcContextMenus::TextSelectAll:
+            {
+                QTextDocument doc;
+                doc.setHtml(text());
+
+                setSelection(0, doc.toPlainText().length());
+
+                break;
+            }
+            default:
+                break;
+        }
+#endif
     }
 
     void TopicLabel::setText(const QString& text)
@@ -173,7 +165,7 @@ namespace Konversation
         text.replace('<', "\x0blt;"). // tagUrls will replace \x0b with &
             replace('>', "\x0bgt;");
 
-        text = tagUrls(text, m_channelName, false);
+        text = tagUrls(text, m_channelName);
 
         if(height() < (fontMetrics().lineSpacing() * 2))
         {
@@ -244,9 +236,9 @@ namespace Konversation
                 emit clearStatusBarTempText();
                 m_lastStatusText.clear();
             }
-        } else {
-            m_lastStatusText = link;
         }
+        else
+            m_lastStatusText = link;
 
         if (!link.startsWith('#'))
         {
@@ -256,14 +248,12 @@ namespace Konversation
                 //link therefore != m_lastStatusText  so emit with this new text
                 emit setStatusBarTempText(link);
             }
-            if (link.isEmpty() && m_copyUrlMenu)
+            if (link.isEmpty() && m_contextMenuOptions.testFlag(IrcContextMenus::ShowLinkActions))
+                setContextMenuOptions(IrcContextMenus::ShowLinkActions, false);
+            else if (!link.isEmpty() && !m_contextMenuOptions.testFlag(IrcContextMenus::ShowLinkActions))
             {
-                m_copyUrlMenu = false;
-            }
-            else if (!link.isEmpty() && !m_copyUrlMenu)
-            {
-                m_copyUrlMenu = true;
                 m_urlToCopy = link;
+                setContextMenuOptions(IrcContextMenus::ShowLinkActions, true);
             }
         }
         else if (link.startsWith(QLatin1String("##")))
@@ -274,63 +264,45 @@ namespace Konversation
         }
     }
 
-    void TopicLabel::copyUrl()
+    QString TopicLabel::tagUrls(const QString& text, const QString& sender)
     {
-        if (m_urlToCopy.isEmpty())
-            return;
+        QString htmlText(removeIrcMarkup(text));
+        QString link("<a href=\"#%1\">%2</a>");
 
-        QClipboard *cb = QApplication::clipboard();
-        cb->setText(m_urlToCopy,QClipboard::Selection);
-        cb->setText(m_urlToCopy,QClipboard::Clipboard);
-    }
+        QString original;
+        TextChannelData channelData = extractChannelData(htmlText);
 
-    void TopicLabel::bookmarkUrl()
-    {
-        if (m_urlToCopy.isEmpty())
-            return;
+        for (int i = channelData.channelRanges.count()-1; i >= 0 ; --i)
+        {
+            const QPair <int, int>& range = channelData.channelRanges.at(i);
+            original = htmlText.mid(range.first, range.second);
+            htmlText.replace(range.first, range.second, link.arg(channelData.fixedChannels.at(i), original));
+        }
 
-        KBookmarkManager* bm = KBookmarkManager::userBookmarksManager();
-        KBookmarkDialog* dialog = new KBookmarkDialog(bm, this);
-        dialog->addBookmark(m_urlToCopy, m_urlToCopy);
-        delete dialog;
-    }
+        link = "<a href=\"%1\">%2</a>";
+        TextUrlData urlData = extractUrlData(htmlText);
+        for (int i = urlData.urlRanges.count()-1; i >= 0 ; --i)
+        {
+            const QPair <int, int>& range = urlData.urlRanges.at(i);
 
-    void TopicLabel::joinChannel()
-    {
-        if(m_currentChannel.isEmpty() || !m_server || !m_server->isConnected())
-            return;
+            int pos = range.first;
+            // check if the matched text is already replaced as a channel
+            if (htmlText.lastIndexOf("<a", pos ) > htmlText.lastIndexOf("</a>", pos))
+            {
+                continue;
+            }
+            original = htmlText.mid(range.first, range.second);
+            QString fixedUrl = urlData.fixedUrls.at(i);
+            htmlText.replace(range.first, range.second, link.arg(fixedUrl, original));
 
-        m_server->sendJoinCommand(m_currentChannel);
-    }
+            QMetaObject::invokeMethod(Application::instance(), "storeUrl", Qt::QueuedConnection,
+                Q_ARG(QString, sender), Q_ARG(QString, fixedUrl), Q_ARG(QDateTime, QDateTime::currentDateTime()));
+        }
 
-    void TopicLabel::getChannelUserList()
-    {
-        if(m_currentChannel.isEmpty() || !m_server || !m_server->isConnected())
-            return;
-
-        m_server->queue("NAMES " + m_currentChannel, Server::LowPriority);
-    }
-
-    void TopicLabel::getChannelTopic()
-    {
-        if(m_currentChannel.isEmpty() || !m_server || !m_server->isConnected())
-            return;
-
-        m_server->requestTopic(m_currentChannel);
-    }
-
-    void TopicLabel::saveLinkAs()
-    {
-        if(m_urlToCopy.isEmpty())
-            return;
-
-        KUrl srcUrl (m_urlToCopy);
-        KUrl saveUrl = KFileDialog::getSaveUrl(srcUrl.fileName(KUrl::ObeyTrailingSlash), QString(), this, i18n("Save link as"));
-
-        if (saveUrl.isEmpty() || !saveUrl.isValid())
-            return;
-
-        KIO::copy(srcUrl, saveUrl);
+        // Change & to &amp; to prevent html entities to do strange things to the text
+        htmlText.replace('&', "&amp;");
+        htmlText.replace("\x0b", "&");
+        return htmlText;
     }
 }
 

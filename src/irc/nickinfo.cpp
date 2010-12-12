@@ -35,7 +35,6 @@ NickInfo::NickInfo(const QString& nick, Server* server): KShared()
     m_loweredNickname = nick.toLower();
     m_owningServer = server;
     m_away = false;
-    m_notified = false;
     m_identified = false;
     m_printedOnline = true;
     m_changed = false;
@@ -77,21 +76,6 @@ bool NickInfo::isAway() const
 QString NickInfo::getAwayMessage() const
 {
     return m_awayMessage;
-}
-
-QString NickInfo::getIdentdInfo() const
-{
-    return m_identdInfo;
-}
-
-QString NickInfo::getVersionInfo() const
-{
-    return m_versionInfo;
-}
-
-bool NickInfo::isNotified() const
-{
-    return m_notified;
 }
 
 QString NickInfo::getRealName() const
@@ -208,28 +192,6 @@ void NickInfo::setAwayMessage(const QString& newMessage)
     startNickInfoChangedTimer();
 }
 
-void NickInfo::setIdentdInfo(const QString& newIdentdInfo)
-{
-    if(m_identdInfo == newIdentdInfo) return;
-    m_identdInfo = newIdentdInfo;
-    startNickInfoChangedTimer();
-}
-
-void NickInfo::setVersionInfo(const QString& newVersionInfo)
-{
-    if(m_versionInfo == newVersionInfo) return;
-    m_versionInfo = newVersionInfo;
-
-    startNickInfoChangedTimer();
-}
-
-void NickInfo::setNotified(bool state)
-{
-    if(state == m_notified) return;
-    m_notified = state;
-    startNickInfoChangedTimer();
-}
-
 void NickInfo::setRealName(const QString& newRealName)
 {
     if (newRealName.isEmpty() || m_realName == newRealName) return;
@@ -289,7 +251,7 @@ QString NickInfo::tooltip() const
     QTextStream tooltip( &strTooltip, QIODevice::WriteOnly );
     tooltip << "<qt>";
 
-    tooltip << "<table cellspacing=\"0\" cellpadding=\"0\">";
+    tooltip << "<table cellspacing=\"5\" cellpadding=\"0\">";
     tooltipTableData(tooltip);
     tooltip << "</table></qt>";
     return strTooltip;
@@ -320,7 +282,6 @@ void NickInfo::tooltipTableData(QTextStream &tooltip) const
 {
     tooltip << "<tr><td colspan=\"2\" valign=\"top\">";
 
-    bool dirty = false;
     KABC::Picture photo = m_addressee.photo();
     KABC::Picture logo = m_addressee.logo();
     bool isimage=false;
@@ -328,7 +289,6 @@ void NickInfo::tooltipTableData(QTextStream &tooltip) const
     {
         Q3MimeSourceFactory::defaultFactory()->setImage( "photo", photo.data() );
         tooltip << "<img src=\"photo\">";
-        dirty=true;
         isimage=true;
     }
     else if(!photo.url().isEmpty())
@@ -337,14 +297,12 @@ void NickInfo::tooltipTableData(QTextStream &tooltip) const
         //Are there security problems with this?  loading from an external refrence?
         //Assuming not.
         tooltip << "<img src=\"" << photo.url() << "\">";
-        dirty=true;
         isimage=true;
     }
     if(logo.isIntern())
     {
         Q3MimeSourceFactory::defaultFactory()->setImage( "logo", logo.data() );
         tooltip << "<img src=\"logo\">";
-        dirty=true;
         isimage=true;
     }
     else if(!logo.url().isEmpty())
@@ -353,31 +311,26 @@ void NickInfo::tooltipTableData(QTextStream &tooltip) const
         //Are there security problems with this?  loading from an external refrence?
         //Assuming not.
         tooltip << "<img src=\"" << logo.url() << "\">";
-        dirty=true;
         isimage=true;
     }
     tooltip << "<b>" << (isimage?"":"<center>");
     if(!m_addressee.formattedName().isEmpty())
     {
         tooltip << m_addressee.formattedName();
-        dirty = true;
     }
     else if(!m_addressee.realName().isEmpty())
     {
         tooltip << m_addressee.realName();
-        dirty = true;
     }
     else if(!getRealName().isEmpty() && getRealName().toLower() != loweredNickname())
     {
         QString escapedRealName( getRealName() );
         escapedRealName.replace('<',"&lt;").replace('>',"&gt;");
         tooltip << escapedRealName;
-        dirty = true;
     }
     else
     {
         tooltip << getNickname();
-        //Don't set dirty if all we have is their nickname
     }
     if(m_identified) tooltip << i18n(" (identified)");
     tooltip << (isimage?"":"</center>") << "</b>";
@@ -385,52 +338,44 @@ void NickInfo::tooltipTableData(QTextStream &tooltip) const
     tooltip << "</td></tr>";
     if(!m_addressee.emails().isEmpty())
     {
-        tooltip << "<tr><td><b>" << i18n("Email") << ": </b></td><td>";
+        tooltip << "<tr><td><b>" << i18n("Email") << ":</b></td><td>";
         tooltip << m_addressee.emails().join(", ");
         tooltip << "</td></tr>";
-        dirty=true;
     }
 
     if(!m_addressee.organization().isEmpty())
     {
-        tooltip << "<tr><td><b>" << m_addressee.organizationLabel() << ": </b></td><td>" << m_addressee.organization() << "</td></tr>";
-        dirty=true;
+        tooltip << "<tr><td><b>" << m_addressee.organizationLabel() << ":</b></td><td>" << m_addressee.organization() << "</td></tr>";
     }
     if(!m_addressee.role().isEmpty())
     {
-        tooltip << "<tr><td><b>" << m_addressee.roleLabel() << ": </b></td><td>" << m_addressee.role() << "</td></tr>";
-        dirty=true;
+        tooltip << "<tr><td><b>" << m_addressee.roleLabel() << ":</b></td><td>" << m_addressee.role() << "</td></tr>";
     }
     KABC::PhoneNumber::List numbers = m_addressee.phoneNumbers();
     for( KABC::PhoneNumber::List::ConstIterator it = numbers.constBegin(); it != numbers.constEnd(); ++it)
     {
-        tooltip << "<tr><td><b>" << (*it).typeLabel() << ": </b></td><td>" << (*it).number() << "</td></tr>";
-        dirty=true;
+        tooltip << "<tr><td><b>" << (*it).typeLabel() << ":</b></td><td>" << (*it).number() << "</td></tr>";
     }
     if(!m_addressee.birthday().toString().isEmpty() )
     {
-        tooltip << "<tr><td><b>" << m_addressee.birthdayLabel() << ": </b></td><td>" << m_addressee.birthday().toString("ddd d MMMM yyyy") << "</td></tr>";
-        dirty=true;
+        tooltip << "<tr><td><b>" << m_addressee.birthdayLabel() << ":</b></td><td>" << m_addressee.birthday().toString("ddd d MMMM yyyy") << "</td></tr>";
     }
     if(!getHostmask().isEmpty())
     {
-        tooltip << "<tr><td><b>" << i18n("Hostmask:") << " </b></td><td>" << getHostmask() << "</td></tr>";
-        dirty=true;
+        tooltip << "<tr><td><b>" << i18n("Hostmask:") << "</b></td><td>" << getHostmask() << "</td></tr>";
     }
     if(isAway())
     {
-        tooltip << "<tr><td><b>" << i18n("Away Message:") << " </b></td><td>";
+        tooltip << "<tr><td><b>" << i18n("Away&nbsp;Message:") << "</b></td><td>";
         if(!getAwayMessage().isEmpty())
             tooltip << getAwayMessage();
         else
             tooltip << i18n("(unknown)");
         tooltip << "</td></tr>";
-        dirty=true;
     }
     if(!getOnlineSince().toString().isEmpty())
     {
-        tooltip << "<tr><td><b>" << i18n("Online Since:") << " </b></td><td>" << getPrettyOnlineSince() << "</td></tr>";
-        dirty=true;
+        tooltip << "<tr><td><b>" << i18n("Online&nbsp;Since:") << "</b></td><td>" << getPrettyOnlineSince() << "</td></tr>";
     }
 
 }

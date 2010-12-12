@@ -15,8 +15,10 @@
 
 #include "application.h"
 #include "connectionmanager.h"
+#include "scriptlauncher.h"
 #include "transfermanager.h"
 #include "viewcontainer.h"
+#include "urlcatcher.h"
 #include "highlight.h"
 #include "server.h"
 #include "sound.h"
@@ -28,8 +30,6 @@
 #include "channel.h"
 #include "images.h"
 #include "notificationhandler.h"
-#include "commit.h"
-#include "version.h"
 
 #ifdef HAVE_KIDLETIME
 #include "awaymanagerkidletime.h"
@@ -41,6 +41,8 @@
 #include <QRegExp>
 #include <QtDBus/QDBusConnection>
 #include <QNetworkProxy>
+#include <QWaitCondition>
+#include <QStandardItemModel>
 
 #include <KRun>
 #include <KCmdLineArgs>
@@ -58,8 +60,10 @@ Application::Application()
 : KUniqueApplication(true, true)
 {
     mainWindow = 0;
+    m_restartScheduled = false;
     m_connectionManager = 0;
     m_awayManager = 0;
+    m_scriptLauncher = 0;
     quickConnectDialog = 0;
     osd = 0;
     m_wallet = NULL;
@@ -90,6 +94,51 @@ Application::~Application()
     delete osd;
     osd = 0;
     closeWallet();
+
+    if (m_restartScheduled) implementRestart();
+}
+
+void Application::implementRestart()
+{
+    QStringList argumentList;
+
+#if KDE_IS_VERSION(4,5,61)
+    KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
+
+    argumentList = args->allArguments();
+
+    // Pop off the executable name. May not be the first argument in argv
+    // everywhere, so verify first.
+    if (QCoreApplication::applicationFilePath().endsWith(argumentList.first()))
+        argumentList.removeFirst();
+
+    // Don't round-trip --restart.
+    argumentList.removeAll("--restart");
+
+    // Avoid accumulating multiple --startupdelay arguments across multiple
+    // uses of restart().
+    if (argumentList.contains("--startupdelay"))
+    {
+        int index = argumentList.lastIndexOf("--startupdelay");
+
+        if (index < argumentList.count() - 1 && !argumentList.at(index + 1).startsWith('-'))
+        {
+            QString delayArgument = argumentList.at(index + 1);
+
+            bool ok;
+
+            uint delay = delayArgument.toUInt(&ok, 10);
+
+            // If the argument is invalid or too low, raise to at least 2000 msecs.
+            if (!ok || delay < 2000)
+                argumentList.replace(index + 1, "2000");
+        }
+    }
+    else
+#endif
+        argumentList << "--startupdelay" << "2000";
+
+    KProcess::startDetached(QCoreApplication::applicationFilePath(), argumentList);
 }
 
 int Application::newInstance()
@@ -114,6 +163,8 @@ int Application::newInstance()
         connect(Solid::Networking::notifier(), SIGNAL(shouldDisconnect()), m_connectionManager, SLOT(involuntaryQuitServers()));
         connect(Solid::Networking::notifier(), SIGNAL(shouldConnect()), m_connectionManager, SLOT(reconnectInvoluntary()));
 
+        m_scriptLauncher = new ScriptLauncher(this);
+
         // an instance of DccTransferManager needs to be created before GUI class instances' creation.
         m_dccTransferManager = new DCC::TransferManager(this);
 
@@ -131,6 +182,8 @@ int Application::newInstance()
 
         // Images object providing LEDs, NickIcons
         m_images = new Images();
+
+        m_urlModel = new QStandardItemModel(0, 3, this);
 
         // Auto-alias scripts.  This adds any missing aliases
         QStringList aliasList(Preferences::self()->aliasList());
@@ -219,6 +272,12 @@ int Application::newInstance()
 
         connect(this, SIGNAL(appearanceChanged()), this, SLOT(updateProxySettings()));
     }
+    else if (args->isSet("restart"))
+    {
+        restart();
+
+        return KUniqueApplication::newInstance();
+    }
 
     if (!url.isEmpty())
         getConnectionManager()->connectTo(Konversation::SilentlyReuseConnection, url);
@@ -239,6 +298,13 @@ int Application::newInstance()
 Application* Application::instance()
 {
     return static_cast<Application*>(KApplication::kApplication());
+}
+
+void Application::restart()
+{
+    m_restartScheduled = true;
+
+    mainWindow->quitProgram();
 }
 
 void Application::prepareShutdown()
@@ -344,9 +410,9 @@ void Application::readOptions()
             newIdentity->setPassword(cgIdentity.readEntry("Password"));
 
             newIdentity->setInsertRememberLineOnAway(cgIdentity.readEntry("InsertRememberLineOnAway", false));
-            newIdentity->setShowAwayMessage(cgIdentity.readEntry("ShowAwayMessage", false));
-            newIdentity->setAwayMessage(cgIdentity.readEntry("AwayMessage"));
-            newIdentity->setReturnMessage(cgIdentity.readEntry("ReturnMessage"));
+            newIdentity->setRunAwayCommands(cgIdentity.readEntry("ShowAwayMessage", false));
+            newIdentity->setAwayCommand(cgIdentity.readEntry("AwayMessage"));
+            newIdentity->setReturnCommand(cgIdentity.readEntry("ReturnMessage"));
             newIdentity->setAutomaticAway(cgIdentity.readEntry("AutomaticAway", false));
             newIdentity->setAwayInactivity(cgIdentity.readEntry("AwayInactivity", 10));
             newIdentity->setAutomaticUnaway(cgIdentity.readEntry("AutomaticUnaway", false));
@@ -359,7 +425,8 @@ void Application::readOptions()
 
             newIdentity->setCodecName(cgIdentity.readEntry("Codec"));
 
-            newIdentity->setAwayNick(cgIdentity.readEntry("AwayNick"));
+            newIdentity->setAwayMessage(cgIdentity.readEntry("AwayReason"));
+            newIdentity->setAwayNickname(cgIdentity.readEntry("AwayNick"));
 
             Preferences::addIdentity(newIdentity);
 
@@ -680,9 +747,9 @@ void Application::saveOptions(bool updateGUI)
         cgIdentity.writeEntry("Bot",identity->getBot());
         cgIdentity.writeEntry("Password",identity->getPassword());
         cgIdentity.writeEntry("InsertRememberLineOnAway", identity->getInsertRememberLineOnAway());
-        cgIdentity.writeEntry("ShowAwayMessage",identity->getShowAwayMessage());
-        cgIdentity.writeEntry("AwayMessage",identity->getAwayMessage());
-        cgIdentity.writeEntry("ReturnMessage",identity->getReturnMessage());
+        cgIdentity.writeEntry("ShowAwayMessage",identity->getRunAwayCommands());
+        cgIdentity.writeEntry("AwayMessage",identity->getAwayCommand());
+        cgIdentity.writeEntry("ReturnMessage",identity->getReturnCommand());
         cgIdentity.writeEntry("AutomaticAway", identity->getAutomaticAway());
         cgIdentity.writeEntry("AwayInactivity", identity->getAwayInactivity());
         cgIdentity.writeEntry("AutomaticUnaway", identity->getAutomaticUnaway());
@@ -691,7 +758,8 @@ void Application::saveOptions(bool updateGUI)
         cgIdentity.writeEntry("KickReason",identity->getKickReason());
         cgIdentity.writeEntry("PreShellCommand",identity->getShellCommand());
         cgIdentity.writeEntry("Codec",identity->getCodecName());
-        cgIdentity.writeEntry("AwayNick", identity->getAwayNick());
+        cgIdentity.writeEntry("AwayReason",identity->getAwayMessage());
+        cgIdentity.writeEntry("AwayNick", identity->getAwayNickname());
         index++;
     } // endfor
 
@@ -911,36 +979,26 @@ void Application::resetQueueRates()
     }
 }
 
-// FIXME: use KUrl maybe?
-void Application::storeUrl(const QString& who,const QString& newUrl, const QDateTime& datetime)
+void Application::storeUrl(const QString& origin, const QString& newUrl, const QDateTime& dateTime)
 {
     QString url(newUrl);
-    // clean up URL to help KRun() in URL catcher interface
-    if(url.startsWith(QLatin1String("www."))) url="http://"+url;
-    else if(url.startsWith(QLatin1String("ftp."))) url="ftp://"+url;
 
-    url=url.replace("&amp;","&");
+    url = url.replace("&amp;", "&");
 
-    // check that we don't add the same URL twice
-    deleteUrl(who,url,datetime);
-    QDateTime date = QDateTime::currentDateTime();
-    urlList.append(who+' '+url+ ' ' + date.toString());
-    emit catchUrl(who,url,date);
-}
+    QList<QStandardItem*> existing = m_urlModel->findItems(url, Qt::MatchExactly, 1);
 
-const QStringList& Application::getUrlList()
-{
-    return urlList;
-}
+    foreach(QStandardItem* item, existing)
+    {
+        if (m_urlModel->item(item->row(), 0)->data(Qt::DisplayRole).toString() == origin)
+            m_urlModel->removeRow(item->row());
+    }
 
-void Application::deleteUrl(const QString& who,const QString& url, const QDateTime& datetime)
-{
-    urlList.removeOne(who+' '+url + ' ' + datetime.toString());
-}
+    m_urlModel->insertRow(0);
+    m_urlModel->setData(m_urlModel->index(0, 0), origin, Qt::DisplayRole);
+    m_urlModel->setData(m_urlModel->index(0, 1), url, Qt::DisplayRole);
 
-void Application::clearUrlList()
-{
-    urlList.clear();
+    UrlDateItem* dateItem = new UrlDateItem(dateTime);
+    m_urlModel->setItem(0, 2, dateItem);
 }
 
 void Application::openQuickConnectDialog()
@@ -1095,7 +1153,9 @@ void Application::openUrl(const QString& url)
 {
     if (!Preferences::self()->useCustomBrowser() || url.startsWith(QLatin1String("mailto:")) || url.startsWith(QLatin1String("amarok:")))
     {
-        if (url.startsWith(QLatin1String("mailto:")))
+        if (url.startsWith(QLatin1String("irc://")) || url.startsWith(QLatin1String("ircs://")))
+            Application::instance()->getConnectionManager()->connectTo(Konversation::SilentlyReuseConnection, url);
+        else if (url.startsWith(QLatin1String("mailto:")))
             KToolInvocation::invokeMailer(KUrl(url));
         else if (url.startsWith(QLatin1String("amarok:")))
             new KRun(KUrl(url), Application::instance()->getMainWindow());

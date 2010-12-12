@@ -15,7 +15,6 @@
 
 #include "chatwindow.h"
 #include "nickinfo.h"
-#include "application.h" // for PopupIDs...
 
 #include <config-konversation.h>
 
@@ -28,23 +27,20 @@
 /* TODO: Idle counter to close query after XXX minutes of inactivity */
 /* TODO: Use /USERHOST to check if queries are still valid */
 
-class QActionGroup;
-class QMenu;
-class KAction;
+class IRCInput;
+
 class QLabel;
 class QSplitter;
 
-class IRCInput;
+class KSqueezedTextLabel;
 
-namespace Konversation {
-  }
 
 class Query : public ChatWindow
 {
     Q_OBJECT
 
     public:
-        explicit Query(QWidget* parent, QString name);
+        explicit Query(QWidget* parent, const QString& _name);
         virtual void setServer(Server* newServer);
 
         ~Query();
@@ -97,12 +93,8 @@ class Query : public ChatWindow
         void urlsDropped(const KUrl::List urls);
         // connected to IRCInput::textPasted() - used to handle large/multiline pastes
         void textPasted(const QString& text);
-        void popup(int id);
         void nickInfoChanged();
         void updateNickInfo(Server* server, NickInfoPtr nickInfo);
-        void closeWithoutAsking();
-        virtual void serverOnline(bool online);
-        void slotActionTriggered(QAction* action);
 
     protected:
         void setName(const QString& newName);
@@ -111,27 +103,14 @@ class Query : public ChatWindow
         virtual void childAdjustFocus();
 
     private:
-        // TODO use a more specific enum for just our actions?
-        KAction* createAction(QMenu* menu, const QString& text, Konversation::PopupIDs);
-
-        QActionGroup* m_actionGroup;
         bool awayChanged;
         bool awayState;
 
         QString queryName;
         QString buffer;
 
-        KAction* m_whoisAction;
-        KAction* m_versionAction;
-        KAction* m_pingAction;
-        KAction* m_ignoreNickAction;
-        KAction* m_unignoreNickAction;
-        KAction* m_dccAction;
-        KAction* m_watchAction;
-        KAction* m_addNotifyAction;
-
         QSplitter* m_headerSplitter;
-        QLabel* queryHostmask;
+        KSqueezedTextLabel* queryHostmask;
         QLabel* addresseeimage;
         QLabel* addresseelogoimage;
         QLabel* awayLabel;

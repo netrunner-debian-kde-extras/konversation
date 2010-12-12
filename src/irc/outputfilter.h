@@ -22,6 +22,7 @@
 #include <QObject>
 #include <QString>
 #include <QSet>
+#include <QPointer>
 
 #include <KUrl>
 #include <kio/global.h>
@@ -46,6 +47,7 @@ namespace Konversation
         QString parameter;
         QString destination;
         QString myNick;
+        QPointer<ChatWindow> context;
     };
 
     struct OutputFilterResult
@@ -69,7 +71,7 @@ namespace Konversation
             static const QSet<QString>& supportedCommands() { return m_commands; }
 
             QStringList splitForEncoding(const QString& destination, const QString& inputLine, int max, int segments = -1);
-            OutputFilterResult parse(const QString& myNick,const QString& line,const QString& destination);
+            OutputFilterResult parse(const QString& myNick, const QString& line, const QString& destination, ChatWindow* inputContext = 0);
 
             // dcc send
             OutputFilterResult sendRequest(const QString &recipient, const QString &fileName, const QString &address, quint16 port,quint64 size);
@@ -86,7 +88,7 @@ namespace Konversation
             // dcc chat
             OutputFilterResult rejectDccChat(const QString& partnerNick, const QString& extension);
             OutputFilterResult requestDccChat(const QString& partnerNick, const QString& extension, const QString& numericalOwnIp, quint16 ownPort);
-            OutputFilterResult passiveChatRequest(const QString& recipient, const QString extension, const QString& address, const QString& token);
+            OutputFilterResult passiveChatRequest(const QString& recipient, const QString& extension, const QString& address, const QString& token);
             OutputFilterResult acceptPassiveChatRequest(const QString& recipient, const QString& extension, const QString& numericalOwnIp, quint16 ownPort, const QString& token);
 
             static bool replaceAliases(QString& line);
@@ -104,16 +106,16 @@ namespace Konversation
             void openRawLog(bool show);
             void closeRawLog();
             void openKonsolePanel();
-            void openChannelList(const QString& parameter, bool getList);
+            void openChannelList(const QString& parameter);
             void sendToAllChannels(const QString& text);
-            void launchScript(const QString& target, const QString& parameter);
+            void launchScript(int connectionId, const QString& target, const QString& parameter);
             void banUsers(const QStringList& userList,const QString& channel,const QString& option);
             void unbanUsers(const QString& mask,const QString& channel);
             void multiServerCommand(const QString& command, const QString& parameter);
             void reconnectServer(const QString& quitMessage);
             void disconnectServer(const QString& quitMessage);
             void quitServer(const QString& quitMessage);
-            
+
             void connectTo(Konversation::ConnectionFlag flag,
                            const QString& hostName,
                            const QString& port = "",
@@ -193,6 +195,8 @@ namespace Konversation
             OutputFilterResult command_konsole(const OutputFilterInput& input);
             OutputFilterResult command_queuetuner(const OutputFilterInput& input);
             OutputFilterResult command_sayversion(const OutputFilterInput& input);
+            OutputFilterResult command_cycle(const OutputFilterInput& input);
+            OutputFilterResult command_clear(const OutputFilterInput& input);
 
         private:
             static void fillCommandList();
@@ -204,6 +208,7 @@ namespace Konversation
 
             OutputFilterResult changeMode(const QString& parameter, const QString& destination, char mode, char giveTake);
             bool isAChannel(const QString& check);
+            bool isParameter(const QString& parameter, const QString& string);
             OutputFilterResult usage(const QString& check);
             OutputFilterResult info(const QString& check);
             OutputFilterResult error(const QString& check);

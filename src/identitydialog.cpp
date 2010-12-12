@@ -89,10 +89,11 @@ namespace Konversation
         m_passwordEdit->setText(m_currentIdentity->getPassword());
 
         m_insertRememberLineOnAwayChBox->setChecked(m_currentIdentity->getInsertRememberLineOnAway());
-        m_awayNickEdit->setText(m_currentIdentity->getAwayNick());
-        awayMessageGroup->setChecked(m_currentIdentity->getShowAwayMessage());
-        m_awayEdit->setText(m_currentIdentity->getAwayMessage());
-        m_unAwayEdit->setText(m_currentIdentity->getReturnMessage());
+        m_awayMessageEdit->setText(m_currentIdentity->getAwayMessage());
+        m_awayNickEdit->setText(m_currentIdentity->getAwayNickname());
+        awayCommandsGroup->setChecked(m_currentIdentity->getRunAwayCommands());
+        m_awayEdit->setText(m_currentIdentity->getAwayCommand());
+        m_unAwayEdit->setText(m_currentIdentity->getReturnCommand());
         automaticAwayGroup->setChecked(m_currentIdentity->getAutomaticAway());
         m_awayInactivitySpin->setValue(m_currentIdentity->getAwayInactivity());
         m_automaticUnawayChBox->setChecked(m_currentIdentity->getAutomaticUnaway());
@@ -136,10 +137,11 @@ namespace Konversation
         m_currentIdentity->setPassword(m_passwordEdit->text());
 
         m_currentIdentity->setInsertRememberLineOnAway(m_insertRememberLineOnAwayChBox->isChecked());
-        m_currentIdentity->setAwayNick(m_awayNickEdit->text());
-        m_currentIdentity->setShowAwayMessage(awayMessageGroup->isChecked());
-        m_currentIdentity->setAwayMessage(m_awayEdit->text());
-        m_currentIdentity->setReturnMessage(m_unAwayEdit->text());
+        m_currentIdentity->setAwayMessage(m_awayMessageEdit->text());
+        m_currentIdentity->setAwayNickname(m_awayNickEdit->text());
+        m_currentIdentity->setRunAwayCommands(awayCommandsGroup->isChecked());
+        m_currentIdentity->setAwayCommand(m_awayEdit->text());
+        m_currentIdentity->setReturnCommand(m_unAwayEdit->text());
         m_currentIdentity->setAutomaticAway(automaticAwayGroup->isChecked());
         m_currentIdentity->setAwayInactivity(m_awayInactivitySpin->value());
         m_currentIdentity->setAutomaticUnaway(m_automaticUnawayChBox->isChecked());

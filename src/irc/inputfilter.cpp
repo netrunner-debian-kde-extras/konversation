@@ -15,6 +15,7 @@
 #include "server.h"
 #include "replycodes.h"
 #include "application.h"
+#include "commit.h"
 #include "version.h"
 #include "query.h"
 #include "channel.h"
@@ -152,7 +153,7 @@ void InputFilter::parseLine(const QString& line)
     }
 }
 
-#define trailing parameterList.last()
+#define trailing (parameterList.isEmpty() ? QString() : parameterList.last())
 #define plHas(x) _plHas(parameterList.count(), (x))
 
 bool _plHad=false;
@@ -208,9 +209,9 @@ void InputFilter::parseClientCommand(const QString &prefix, const QString &comma
                 ctcpArgument = konv_app->doAutoreplace(ctcpArgument, false);
 
             // If it was a ctcp action, build an action string
-            if (ctcpCommand == "action" && isChan && hasArg)
+            if (ctcpCommand == "action" && isChan)
             {
-                if (!isIgnore(prefix,Ignore::Channel))
+                if (!isIgnore(prefix, Ignore::Channel))
                 {
                     Channel* channel = server->getChannelByName( parameterList.value(0) );
 
@@ -223,7 +224,7 @@ void InputFilter::parseClientCommand(const QString &prefix, const QString &comma
 
                     if (sourceNick != server->getNickname())
                     {
-                        if (ctcpArgument.toLower().contains(QRegExp("(^|[^\\d\\w])"
+                        if (hasArg && ctcpArgument.toLower().contains(QRegExp("(^|[^\\d\\w])"
                             + QRegExp::escape(server->loweredNickname())
                             + "([^\\d\\w]|$)")))
                         {
@@ -237,10 +238,10 @@ void InputFilter::parseClientCommand(const QString &prefix, const QString &comma
                 }
             }
             // If it was a ctcp action, build an action string
-            else if (ctcpCommand == "action" && !isChan && hasArg)
+            else if (ctcpCommand == "action" && !isChan)
             {
                 // Check if we ignore queries from this nick
-                if (!isIgnore(prefix,Ignore::Query))
+                if (!isIgnore(prefix, Ignore::Query))
                 {
                     NickInfoPtr nickinfo = server->obtainNickInfo(sourceNick);
                     nickinfo->setHostmask(sourceHostmask);
@@ -249,12 +250,10 @@ void InputFilter::parseClientCommand(const QString &prefix, const QString &comma
                     query = server->addQuery(nickinfo, false /* we didn't initiate this*/ );
 
                     // send action to query
-                    query->appendAction(sourceNick,ctcpArgument);
+                    query->appendAction(sourceNick, ctcpArgument);
 
-                    if(sourceNick != server->getNickname() && query)
-                    {
+                    if (sourceNick != server->getNickname() && query)
                         konv_app->notificationHandler()->queryMessage(query, sourceNick, ctcpArgument);
-                    }
                 }
             }
 
@@ -309,8 +308,9 @@ void InputFilter::parseClientCommand(const QString &prefix, const QString &comma
                     else
                     {
                         // Do not internationalize the below version string
-                        reply = QString("Konversation %1 (C) 2002-2010 by the Konversation team")
-                            .arg(QString(KONVI_VERSION));
+                        reply = QString("Konversation %1 Build %2 (C) 2002-2010 by the Konversation team")
+                            .arg(QString(KONVI_VERSION))
+                            .arg(QString::number(COMMIT));
 
                     }
                     server->ctcpReply(sourceNick,"VERSION "+reply);
@@ -1092,7 +1092,7 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
             {
                 if (plHas(3))
                 {
-                    QString topic = Konversation::removeIrcMarkup(trailing);
+                    QString topic(trailing);
 
                     // FIXME: This is an abuse of the automaticRequest system: We're
                     // using it in an inverted manner, i.e. the automaticRequest is
@@ -1124,6 +1124,7 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
                         server->appendCommandMessageToChannel(parameterList.value(1), i18n("Topic"),
                             i18n("The topic was set by %1 on %2.",
                             parameterList.value(2), KGlobal::locale()->formatDateTime(when, KLocale::ShortDate)),
+                            false,
                             false);
                     }
                     else
@@ -1131,8 +1132,8 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
                         server->appendMessageToFrontmost(i18n("Topic"),i18n("The topic for %1 was set by %2 on %3.",
                             parameterList.value(1),
                             parameterList.value(2),
-                            KGlobal::locale()->formatDateTime(when, KLocale::ShortDate))
-                            );
+                            KGlobal::locale()->formatDateTime(when, KLocale::ShortDate)),
+                            false);
                         setAutomaticRequest("TOPIC",parameterList.value(1), false);
                     }
                     emit topicAuthor(parameterList.value(1), parameterList.value(2), when);
@@ -1293,6 +1294,14 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
                         server->autoCommandsAndChannels();
 
                     m_connecting = false;
+                }
+                break;
+            }
+            case ERR_CHANOPRIVSNEEDED:
+            {
+                if (plHas(2))
+                {
+                    server->appendMessageToFrontmost(i18n("Error"), i18n("You need to be a channel operator in %1 to do that.", parameterList.value(1)));
                 }
                 break;
             }
@@ -1459,6 +1468,15 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
                         // The above line works fine, but can't be i18n'ised. So use the below instead.. I hope this is okay.
                         server->appendMessageToFrontmost(i18n("Whois"), i18n("%1 is an identified user.", parameterList.value(1)));
                     }
+                }
+                break;
+            }
+            case RPL_WHOISSECURE:
+            {
+                if (plHas(2))
+                {
+                    if (getAutomaticRequest("WHOIS", parameterList.value(1)) == 0)
+                        server->appendMessageToFrontmost(i18n("Whois"), i18n("%1 is using a secure connection.", parameterList.value(1)));
                 }
                 break;
             }
@@ -2059,6 +2077,14 @@ void InputFilter::parseServerCommand(const QString &prefix, const QString &comma
                     {
                         server->appendMessageToFrontmost(command, parameterList.join(" ").section(' ',1) + ' '+trailing);
                     }
+                }
+                break;
+            }
+            case ERR_BADCHANNELKEY:
+            {
+                if (plHas(2))
+                {
+                    server->appendMessageToFrontmost(i18n("Error"), i18n("Cannot join %1: The channel is password-protected and either a wrong or no password was given.", parameterList.value(1)));
                 }
                 break;
             }
