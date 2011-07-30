@@ -45,51 +45,56 @@ namespace Konversation
             m_pencilPushButton->setIcon(KIcon("draw-freehand"));
             m_pencilPushButton->setToolTip(i18n("Freehand Drawing"));
             m_pencilPushButton->setFlat(true);
-            m_toggleButtonHash.insert(m_pencilPushButton, WhiteBoardGlobals::Pencil);
+            m_toggleButtonHash.insert(WhiteBoardGlobals::Pencil, m_pencilPushButton);
             m_pencilPushButton->setChecked(true);
 
             m_linePushButton->setIcon(KIcon("draw-line"));
             m_linePushButton->setToolTip(i18n("Draw a straight line"));
             m_linePushButton->setFlat(true);
-            m_toggleButtonHash.insert(m_linePushButton, WhiteBoardGlobals::Line);
+            m_toggleButtonHash.insert(WhiteBoardGlobals::Line, m_linePushButton);
 
             m_rectanglePushButton->setIcon(KIcon("draw-rectangle"));
             m_rectanglePushButton->setToolTip(i18n("Draw a rectangle"));
             m_rectanglePushButton->setFlat(true);
-            m_toggleButtonHash.insert(m_rectanglePushButton, WhiteBoardGlobals::Rectangle);
-            m_toggleButtonHash.insert(m_rectanglePushButton, WhiteBoardGlobals::FilledRectangle);
+            m_toggleButtonHash.insert(WhiteBoardGlobals::Rectangle, m_rectanglePushButton);
+            m_toggleButtonHash.insert(WhiteBoardGlobals::FilledRectangle, m_rectanglePushButton);
 
             m_ellipsePushButton->setIcon(KIcon("draw-circle"));
             m_ellipsePushButton->setToolTip(i18n("Draw an ellipse"));
             m_ellipsePushButton->setFlat(true);
-            m_toggleButtonHash.insert(m_ellipsePushButton, WhiteBoardGlobals::Ellipse);
-            m_toggleButtonHash.insert(m_ellipsePushButton, WhiteBoardGlobals::FilledEllipse);
+            m_toggleButtonHash.insert(WhiteBoardGlobals::Ellipse, m_ellipsePushButton);
+            m_toggleButtonHash.insert(WhiteBoardGlobals::FilledEllipse, m_ellipsePushButton);
 
             m_textPushButton->setIcon(KIcon("draw-text"));
             m_textPushButton->setToolTip(i18n("Draw text"));
             m_textPushButton->setFlat(true);
-            m_toggleButtonHash.insert(m_textPushButton, WhiteBoardGlobals::Text);
+            m_toggleButtonHash.insert(WhiteBoardGlobals::Text, m_textPushButton);
 
             m_selectionPushButton->setEnabled(false); // it has no function in current whiteboard
             m_selectionPushButton->setIcon(KIcon("select-rectangular"));
             m_selectionPushButton->setToolTip(i18nc("dcc whiteboard selection tool", "Selection"));
             m_selectionPushButton->setFlat(true);
-            m_toggleButtonHash.insert(m_selectionPushButton, WhiteBoardGlobals::Selection);
+            m_toggleButtonHash.insert(WhiteBoardGlobals::Selection, m_selectionPushButton);
 
             m_eraserPushButton->setIcon(KIcon("draw-eraser"));
             m_eraserPushButton->setToolTip(i18n("Eraser"));
             m_eraserPushButton->setFlat(true);
-            m_toggleButtonHash.insert(m_eraserPushButton, WhiteBoardGlobals::Eraser);
+            m_toggleButtonHash.insert(WhiteBoardGlobals::Eraser, m_eraserPushButton);
 
             m_fillPushButton->setIcon(KIcon("fill-color"));
             m_fillPushButton->setToolTip(i18n("Fill a contiguous area with the foreground color"));
             m_fillPushButton->setFlat(true);
-            m_toggleButtonHash.insert(m_fillPushButton, WhiteBoardGlobals::FloodFill);
+            m_toggleButtonHash.insert(WhiteBoardGlobals::FloodFill, m_fillPushButton);
 
             m_arrowPushButton->setIcon(KIcon("draw-arrow-forward"));
             m_arrowPushButton->setToolTip(i18n("Draw an arrow"));
             m_arrowPushButton->setFlat(true);
-            m_toggleButtonHash.insert(m_arrowPushButton, WhiteBoardGlobals::Arrow);
+            m_toggleButtonHash.insert(WhiteBoardGlobals::Arrow, m_arrowPushButton);
+
+            m_colorPickerPushButton->setIcon(KIcon("color-picker"));
+            m_colorPickerPushButton->setToolTip(i18n("Select a color from the image"));
+            m_colorPickerPushButton->setFlat(true);
+            m_toggleButtonHash.insert(WhiteBoardGlobals::ColorPicker, m_colorPickerPushButton);
 
             m_lineWidthSlider->setMaximum(WhiteBoardGlobals::MaxPenWidth);
 
@@ -126,14 +131,24 @@ namespace Konversation
             return m_colorChooser->foregroundColor();
         }
 
+        void WhiteBoardToolBar::setForegroundColor(const QColor& foregroundColor)
+        {
+            m_colorChooser->setForegroundColor(foregroundColor);
+        }
+
         QColor WhiteBoardToolBar::backgroundColor() const
         {
             return m_colorChooser->backgroundColor();
         }
 
+        void WhiteBoardToolBar::setBackgroundColor(const QColor& backgroundColor)
+        {
+            m_colorChooser->setBackgroundColor(backgroundColor);
+        }
+
         void WhiteBoardToolBar::disableTool(WhiteBoardGlobals::WhiteBoardTool tool)
         {
-            KPushButton* button = m_toggleButtonHash.key(tool);
+            KPushButton* button = m_toggleButtonHash.value(tool);
             if (button)
             {
                 button->setEnabled(false);
@@ -146,7 +161,7 @@ namespace Konversation
 
         void WhiteBoardToolBar::enableTool(WhiteBoardGlobals::WhiteBoardTool tool)
         {
-            KPushButton* button = m_toggleButtonHash.key(tool);
+            KPushButton* button = m_toggleButtonHash.value(tool);
             if (button)
             {
                 button->setEnabled(true);
@@ -198,6 +213,7 @@ namespace Konversation
             connect(m_eraserPushButton, SIGNAL(toggled(bool)), this, SLOT(eraseToggled(bool)));
             connect(m_fillPushButton, SIGNAL(toggled(bool)), this, SLOT(fillToggled(bool)));
             connect(m_arrowPushButton, SIGNAL(toggled(bool)), this, SLOT(arrowToggled(bool)));
+            connect(m_colorPickerPushButton, SIGNAL(toggled(bool)), this, SLOT(colorPickerToggled(bool)));
         }
 
         void WhiteBoardToolBar::disconnectToggleButtons()
@@ -212,6 +228,7 @@ namespace Konversation
             disconnect(m_eraserPushButton, 0, 0, 0);
             disconnect(m_fillPushButton, 0, 0, 0);
             disconnect(m_arrowPushButton, 0, 0, 0);
+            disconnect(m_colorPickerPushButton, 0, 0, 0);
         }
 
         void WhiteBoardToolBar::clearClicked()
@@ -234,6 +251,14 @@ namespace Konversation
                 emit save(fileDialog->selectedFile());
             }
             delete fileDialog;
+        }
+
+        void WhiteBoardToolBar::colorPickerToggled(bool checked)
+        {
+            handleToggleButton(m_colorPickerPushButton, checked, WhiteBoardGlobals::ColorPicker);
+            setLineWidthVisible(false);
+            setFormOptionVisible(false);
+            setFontDialogVisible(false);
         }
 
         void WhiteBoardToolBar::arrowToggled (bool checked)
@@ -336,7 +361,7 @@ namespace Konversation
 
         void WhiteBoardToolBar::unCheckOtherButtons(KPushButton* button)
         {
-            foreach (KPushButton* pushButton, m_toggleButtonHash.keys())
+            foreach(KPushButton* pushButton, m_toggleButtonHash)
             {
                 if (pushButton != button && pushButton->isChecked())
                 {

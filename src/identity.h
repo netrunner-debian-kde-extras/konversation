@@ -43,7 +43,7 @@ class Identity : public KShared
         void setIdent(const QString& ident);
         QString getIdent() const;
 
-        void setNickname(uint index,const QString& nick);
+        void setNickname(uint index,const QString& nickname);
         QString getNickname(int index) const;
 
         void setBot(const QString& bot);
@@ -63,13 +63,13 @@ class Identity : public KShared
 
         void setInsertRememberLineOnAway(bool state);
         bool getInsertRememberLineOnAway() const;
-        void setShowAwayMessage(bool state);
-        bool getShowAwayMessage() const;
 
-        void setAwayMessage(const QString& message);
-        QString getAwayMessage() const;
-        void setReturnMessage(const QString& message);
-        QString getReturnMessage() const;
+        void setRunAwayCommands(bool run);
+        bool getRunAwayCommands() const;
+        void setAwayCommand(const QString& command);
+        QString getAwayCommand() const;
+        void setReturnCommand(const QString& command);
+        QString getReturnCommand() const;
 
         void setAutomaticAway(bool automaticAway);
         bool getAutomaticAway() const;
@@ -85,8 +85,11 @@ class Identity : public KShared
         QString getCodecName() const;
         QTextCodec* getCodec() const;
 
-        QString getAwayNick() const;
-        void setAwayNick(const QString& n);
+        void setAwayMessage(const QString& message);
+        QString getAwayMessage() const;
+
+        void setAwayNickname(const QString& nickname);
+        QString getAwayNickname() const;
 
         int id() const { return m_id; }
 
@@ -106,9 +109,9 @@ class Identity : public KShared
         QString kickReason;
 
         bool insertRememberLineOnAway;
-        bool showAwayMessages;
-        QString awayMessage;
-        QString returnMessage;
+        bool runAwayCommands;
+        QString awayCommand;
+        QString returnCommand;
 
         bool m_automaticAway;
         int m_awayInactivity;
@@ -119,7 +122,8 @@ class Identity : public KShared
 
         QString m_shellCommand;
 
-        QString awayNick;
+        QString awayMessage;
+        QString awayNickname;
 
     private:
         int m_id;

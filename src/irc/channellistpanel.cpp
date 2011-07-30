@@ -17,6 +17,7 @@
 #include "preferences.h"
 #include "server.h"
 #include "common.h"
+#include "application.h"
 
 #include <QHeaderView>
 #include <QTextDocument>
@@ -209,6 +210,9 @@ ChannelListPanel::~ChannelListPanel()
 
 void ChannelListPanel::refreshList()
 {
+    if (!m_refreshList->isEnabled())
+        return;
+
     m_numUsers = 0;
     m_numChannels = 0;
     m_visibleUsers = 0;
@@ -432,12 +436,10 @@ void ChannelListPanel::joinChannelClicked()
 
 void ChannelListPanel::applyFilterClicked()
 {
-    //Don't run if they pressed return when the button was disabled
-    if (!m_refreshList->isEnabled()) return;
-
     if (!m_numChannels)
     {
         refreshList();
+
         return;
     }
 }
@@ -445,9 +447,9 @@ void ChannelListPanel::applyFilterClicked()
 void ChannelListPanel::contextMenu(const QPoint& p)
 {
     QModelIndex item = m_channelListView->indexAt(p);
-    if(!item.isValid()) return;
+    if (!item.isValid()) return;
 
-    if(item.column() != 2)
+    if (item.column() != 2)
         item = item.sibling(item.row(),2);
 
     QString filteredLine = item.data().toString();
@@ -464,61 +466,29 @@ void ChannelListPanel::contextMenu(const QPoint& p)
     menu->addSeparator();
 
     // open URL submenu
-    KMenu *showURLmenu = new KMenu("Open URL", menu);
+    KMenu* showURLmenu = new KMenu("Open URL", menu);
 
-    QRegExp pattern("((http://|https://|ftp://|nntp://|news://|gopher://|www\\.|ftp\\.)"
-    // IP Address
-        "([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}|"
-    // Decimal IP address
-        "[0-9]{1,12}|"
-    // Standard host name
-        "[a-z0-9][\\.@%a-z0-9_-]+\\.[a-z]{2,}"
-    // Port number, path to document
-        ")(:[0-9]{1,5})?(/[^)>\"'\\s]*)?|"
-    // eDonkey2000 links need special treatment
-        "ed2k://\\|([^|]+\\|){4})");
+    QList<QPair<int, int> > urlRanges = Konversation::getUrlRanges(filteredLine);
+    QPair<int, int> urlRange;
+    QListIterator<QPair<int, int> > i(urlRanges);
 
-    pattern.setCaseSensitivity(Qt::CaseInsensitive);
-
-    int index=0;
-    while (static_cast<int>(index) < filteredLine.length())
+    while (i.hasNext())
     {
-        if (pattern.indexIn(filteredLine, index) != -1)
-        {
-            // Remember where we found the url
-            index=pattern.pos();
+        urlRange = i.next();
 
-            // Extract url
-            QString url=pattern.capturedTexts()[0];
-            QString href(url);
+        QString url = filteredLine.mid(urlRange.first, urlRange.second);
 
-            // clean up href for browser
-            if(href.startsWith(QLatin1String("www."))) href="http://"+href;
-            else if(href.startsWith(QLatin1String("ftp."))) href="ftp://"+href;
+        QAction* action = new QAction(showURLmenu);
+        action->setText(url);
+        action->setData(url);
 
-            // Replace all spaces with %20 in href
-            href.replace(' ', "%20");
-            href.replace('&', "&&");
+        showURLmenu->addAction(action);
 
-            // next search begins right after the link
-            index += url.length();
-
-            // tell the program that we have found a new url
-            QAction* action = new QAction(showURLmenu);
-            action->setText(href);
-            showURLmenu->addAction(action);
-            connect(action, SIGNAL(triggered()), this, SLOT(openURL()));
-        }
-        else
-        {
-            index++;
-        }
+        connect(action, SIGNAL(triggered()), this, SLOT(openURL()));
     }
 
     if (showURLmenu->actions().count()==0)
-    {
         showURLmenu->setEnabled(false);
-    }
 
     menu->addMenu(showURLmenu);
     menu->exec(QCursor::pos());
@@ -531,7 +501,10 @@ void ChannelListPanel::openURL()
     const QAction* action = static_cast<const QAction*>(sender());
 
     if (action)
-        new KRun(KUrl(action->text().replace("&&","&")), this);
+    {
+        Application* konvApp = static_cast<Application *>(kapp);
+        konvApp->openUrl(action->data().toString());
+    }
 }
 
 bool ChannelListPanel::closeYourself()

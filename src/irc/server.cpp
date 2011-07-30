@@ -25,28 +25,22 @@
 #include "transfermanager.h"
 #include "transfersend.h"
 #include "transferrecv.h"
-#include <chat.h>
+#include "chat.h"
 #include "recipientdialog.h"
 #include "nick.h"
 #include "irccharsets.h"
 #include "viewcontainer.h"
-#include "statuspanel.h"
 #include "rawlog.h"
 #include "channellistpanel.h"
-#include "scriptlauncher.h"
-#include "servergroupsettings.h"
 #include "addressbook.h"
+#include "scriptlauncher.h"
 #include "serverison.h"
-#include "common.h"
 #include "notificationhandler.h"
 #include "abstractawaymanager.h"
 
-#include <QRegExp>
 #include <QTextCodec>
-#include <QDateTime>
 #include <QStringListModel>
 
-#include <KLocale>
 #include <KFileDialog>
 #include <KInputDialog>
 #include <KWindowSystem>
@@ -68,9 +62,13 @@ Server::Server(QObject* parent, ConnectionSettings& settings) : QObject(parent)
 
     m_connectionState = Konversation::SSNeverConnected;
 
+    m_recreationScheduled = false;
+
     m_delayedConnectTimer = new QTimer(this);
     m_delayedConnectTimer->setSingleShot(true);
     connect(m_delayedConnectTimer, SIGNAL(timeout()), this, SLOT(connectToIRCServer()));
+
+    m_reconnectImmediately = false;
 
     for (int i=0; i <= Application::instance()->countOfQueues(); i++)
     {
@@ -120,7 +118,6 @@ Server::Server(QObject* parent, ConnectionSettings& settings) : QObject(parent)
 
     m_inputFilter.setServer(this);
     m_outputFilter = new Konversation::OutputFilter(this);
-    m_scriptLauncher = new ScriptLauncher(this);
 
     // For /msg query completion
     m_completeQueryPosition = 0;
@@ -177,6 +174,18 @@ Server::~Server()
     closeRawLog();
     closeChannelListPanel();
 
+    if (m_recreationScheduled)
+    {
+        Konversation::ChannelList channelList;
+
+        foreach (Channel* channel, m_channelList)
+        {
+            channelList << channel->channelSettings();
+        }
+
+        m_connectionSettings.setOneShotChannelList(channelList);
+    }
+
     qDeleteAll(m_channelList);
     m_channelList.clear();
 
@@ -189,6 +198,18 @@ Server::~Server()
     qDeleteAll(m_queues);
 
     emit destroyed(m_connectionId);
+
+    if (m_recreationScheduled)
+    {
+        qRegisterMetaType<ConnectionSettings>("ConnectionSettings");
+        qRegisterMetaType<Konversation::ConnectionFlag>("Konversation::ConnectionFlag");
+
+        Application* konvApp = static_cast<Application*>(kapp);
+
+        QMetaObject::invokeMethod(konvApp->getConnectionManager(), "connectTo", Qt::QueuedConnection,
+            Q_ARG(Konversation::ConnectionFlag, Konversation::CreateNewConnection),
+            Q_ARG(ConnectionSettings, m_connectionSettings));
+    }
 
     kDebug() << "~Server done";
 }
@@ -212,10 +233,18 @@ void Server::purgeData()
 }
 
 //... so called to match the ChatWindow derivatives.
-bool Server::closeYourself(bool)
+bool Server::closeYourself(bool askForConfirmation)
 {
-    QTimer::singleShot(0, m_statusView, SLOT(serverSaysClose()));
+    m_statusView->closeYourself(askForConfirmation);
+
     return true;
+}
+
+void Server::cycle()
+{
+    m_recreationScheduled = true;
+
+    m_statusView->closeYourself();
 }
 
 void Server::doPreShellCommand()
@@ -290,10 +319,10 @@ void Server::connectSignals()
             getViewContainer(), SLOT(addDccChat(Konversation::DCC::Chat*)), Qt::QueuedConnection);
     connect(this, SIGNAL(serverLag(Server*, int)), getViewContainer(), SIGNAL(updateStatusBarLagLabel(Server*, int)));
     connect(this, SIGNAL(tooLongLag(Server*, int)), getViewContainer(), SIGNAL(setStatusBarLagLabelTooLongLag(Server*, int)));
-    connect(this, SIGNAL(resetLag()), getViewContainer(), SIGNAL(resetStatusBarLagLabel()));
+    connect(this, SIGNAL(resetLag(Server*)), getViewContainer(), SIGNAL(resetStatusBarLagLabel(Server*)));
     connect(getOutputFilter(), SIGNAL(showView(ChatWindow*)), getViewContainer(), SLOT(showView(ChatWindow*)));
     connect(getOutputFilter(), SIGNAL(openKonsolePanel()), getViewContainer(), SLOT(addKonsolePanel()));
-    connect(getOutputFilter(), SIGNAL(openChannelList(const QString&, bool)), getViewContainer(), SLOT(openChannelList(const QString&, bool)));
+    connect(getOutputFilter(), SIGNAL(openChannelList(const QString&)), this, SLOT(requestOpenChannelListPanel(const QString&)));
     connect(getOutputFilter(), SIGNAL(closeDccPanel()), getViewContainer(), SLOT(closeDccPanel()));
     connect(getOutputFilter(), SIGNAL(addDccPanel()), getViewContainer(), SLOT(addDccPanel()));
 
@@ -330,12 +359,12 @@ void Server::connectSignals()
     // Status View
     connect(this, SIGNAL(serverOnline(bool)), getStatusView(), SLOT(serverOnline(bool)));
 
-    // Scripts
-    connect(getOutputFilter(), SIGNAL(launchScript(const QString&, const QString&)),
-        m_scriptLauncher, SLOT(launchScript(const QString&, const QString&)));
-    connect(m_scriptLauncher, SIGNAL(scriptNotFound(const QString&)),
+        // Scripts
+    connect(getOutputFilter(), SIGNAL(launchScript(int, const QString&, const QString&)),
+        konvApp->getScriptLauncher(), SLOT(launchScript(int, const QString&, const QString&)));
+    connect(konvApp->getScriptLauncher(), SIGNAL(scriptNotFound(const QString&)),
         this, SLOT(scriptNotFound(const QString&)));
-    connect(m_scriptLauncher, SIGNAL(scriptExecutionError(const QString&)),
+    connect(konvApp->getScriptLauncher(), SIGNAL(scriptExecutionError(const QString&)),
         this, SLOT(scriptExecutionError(const QString&)));
 
     // Stats
@@ -418,6 +447,10 @@ void Server::connectToIRCServer()
 
         connect(m_socket, SIGNAL(hostFound()), SLOT (hostFound()));
 
+        getStatusView()->appendServerMessage(i18n("Info"),i18n("Looking for server %1 (port <numid>%2</numid>)...",
+            getConnectionSettings().server().host(),
+            QString::number(getConnectionSettings().server().port())));
+
         // connect() will do a async lookup too
         if(!getConnectionSettings().server().SSLEnabled())
         {
@@ -434,9 +467,6 @@ void Server::connectToIRCServer()
 
         // set up the connection details
         setPrefixes(m_serverNickPrefixModes, m_serverNickPrefixes);
-        getStatusView()->appendServerMessage(i18n("Info"),i18n("Looking for server %1 (port <numid>%2</numid>) ...",
-            getConnectionSettings().server().host(),
-            QString::number(getConnectionSettings().server().port())));
         // reset InputFilter (auto request info, /WHO request info)
         m_inputFilter.reset();
     }
@@ -493,7 +523,7 @@ void Server::setPrefixes(const QString &modes, const QString& prefixes)
     m_serverNickPrefixes = prefixes;
 }
 
-void Server::setChanModes(QString modes)
+void Server::setChanModes(const QString& modes)
 {
     QStringList abcd = modes.split(',');
     m_banAddressListModes = abcd.value(0);
@@ -618,6 +648,7 @@ void Server::broken(KTcpSocket::Error error)
     resetQueues();
 
     m_notifyTimer.stop();
+    m_pingSendTimer.stop();
     m_pingResponseTimer.stop();
     m_inputFilter.setLagMeasuring(false);
     m_currentLag = -1;
@@ -634,12 +665,21 @@ void Server::broken(KTcpSocket::Error error)
         if (nickChangeDialog) nickChangeDialog->reject();
     }
 
-    emit resetLag();
-    emit nicksNowOnline(this,QStringList(),true);
+    emit resetLag(this);
+    emit nicksNowOnline(this, QStringList(), true);
 
     updateAutoJoin();
 
-    if (getConnectionState() != Konversation::SSDeliberatelyDisconnected)
+    if (getConnectionState() == Konversation::SSDeliberatelyDisconnected)
+    {
+        if (m_reconnectImmediately)
+        {
+            m_reconnectImmediately = false;
+
+            QMetaObject::invokeMethod(this, "connectToIRCServer", Qt::QueuedConnection);
+        }
+    }
+    else
     {
         static_cast<Application*>(kapp)->notificationHandler()->connectionFailure(getStatusView(), getServerName());
 
@@ -687,7 +727,7 @@ void Server::sslError( const QList<KSslError>& errors )
         m_socket->ignoreSslErrors();
 
         // Show a warning in the chat window that the SSL certificate failed the authenticity check.
-        QString error = i18n("The SSL certificate for the the server %1 (port <numid>%2</numid>) failed the authenticity check.",
+        QString error = i18n("The SSL certificate for the server %1 (port <numid>%2</numid>) failed the authenticity check.",
                             getConnectionSettings().server().host(),
                             QString::number(getConnectionSettings().server().port()));
 
@@ -800,13 +840,14 @@ void Server::updateConnectionState(Konversation::ConnectionState state)
 
 void Server::reconnectServer(const QString& quitMessage)
 {
-    if (isConnecting() || isSocketConnected()) quitServer(quitMessage);
+    if (isConnecting() || isSocketConnected())
+    {
+        m_reconnectImmediately = true;
 
-    // Use asynchronous invocation so that the broken() that the above
-    // quitServer might cause is delivered before connectToIRCServer
-    // sets SSConnecting and broken() announces a deliberate disconnect
-    // due to the failure allegedly occurring during SSConnecting.
-    QTimer::singleShot(0, this, SLOT(connectToIRCServer()));
+        quitServer(quitMessage);
+    }
+    else
+        QMetaObject::invokeMethod(this, "connectToIRCServer", Qt::QueuedConnection);
 }
 
 void Server::disconnectServer(const QString& quitMessage)
@@ -839,7 +880,7 @@ void Server::quitServer(const QString& quitMessage)
         toServer += quitMessage;
 
     queue(toServer, HighPriority);
-    
+
     flushQueues();
 
     // Close the socket to allow a dead connection to be reconnected before the socket timeout.
@@ -1067,13 +1108,15 @@ void Server::incoming()
         QTextCodec* codec = getIdentity()->getCodec();
         QByteArray first = bufferLines.first();
 
+        bufferLines.removeFirst();
+
         QStringList lineSplit = codec->toUnicode(first).split(' ', QString::SkipEmptyParts);
 
-        if( lineSplit.count() >= 1 )
+        if (lineSplit.count() >= 1)
         {
-            if( lineSplit[0][0] == ':' )          // does this message have a prefix?
+            if (lineSplit[0][0] == ':')          // does this message have a prefix?
             {
-                if( !lineSplit[0].contains('!') ) // is this a server(global) message?
+                if(!lineSplit[0].contains('!')) // is this a server(global) message?
                     isServerMessage = true;
                 else
                     senderNick = lineSplit[0].mid(1, lineSplit[0].indexOf('!')-1);
@@ -1081,13 +1124,9 @@ void Server::incoming()
                 lineSplit.removeFirst();          // remove prefix
             }
         }
-        else
-        {
-            // The line contained only spaces (other than CRLF, removed above)
-            // and thus there's nothing more we can do with it.
-            bufferLines.removeFirst();
+
+        if (lineSplit.isEmpty())
             continue;
-        }
 
         // BEGIN pre-parse to know where the message belongs to
         QString command = lineSplit[0].toLower();
@@ -1128,8 +1167,8 @@ void Server::incoming()
         // Decrypt if necessary
 
         //send to raw log before decryption
-        if(m_rawLog)
-            m_rawLog->appendRaw("&gt;&gt; " + QString(first).remove(QChar(0xFDD0)).remove(QChar(0xFDD1)).replace('&',"&amp;").replace('<',"&lt;").replace('>',"&gt;").replace(QRegExp("\\s"), "&nbsp;"));
+        if (m_rawLog)
+            m_rawLog->appendRaw(RawLog::Inbound, first);
 
         #ifdef HAVE_QCA2
         QByteArray cKey = getKeyForRecipient(channelKey);
@@ -1167,8 +1206,10 @@ void Server::incoming()
         #endif
         bool isUtf8 = Konversation::isUtf8(first);
 
+        QString encoded;
+
         if (isUtf8)
-            m_inputBuffer << QString::fromUtf8(first);
+            encoded = QString::fromUtf8(first);
         else
         {
             // check setting
@@ -1190,15 +1231,16 @@ void Server::incoming()
             if (codec->mibEnum() == 106)
                 codec = QTextCodec::codecForMib( 4 /* iso-8859-1 */ );
 
-            m_inputBuffer << codec->toUnicode(first);
+            encoded = codec->toUnicode(first);
         }
-
-        bufferLines.removeFirst();
 
         // Qt uses 0xFDD0 and 0xFDD1 to mark the beginning and end of text frames. Remove
         // these here to avoid fatal errors encountered in QText* and the event loop pro-
         // cessing.
-        sterilizeUnicode(m_inputBuffer.back());
+        sterilizeUnicode(encoded);
+
+        if (!encoded.isEmpty())
+            m_inputBuffer << encoded;
 
         //FIXME: This has nothing to do with bytes, and it's not raw received bytes either. Bogus number.
         //m_bytesReceived+=m_inputBuffer.back().length();
@@ -1328,11 +1370,12 @@ int Server::_send_internal(QString outputLine)
         }
     }
     #endif
-    encoded += '\n';
-    qint64 sout = m_socket->write(encoded, encoded.length());
 
     if (m_rawLog)
-        m_rawLog->appendRaw("&lt;&lt; " + encoded.replace('&',"&amp;").replace('<',"&lt;").replace('>',"&gt;"));
+        m_rawLog->appendRaw(RawLog::Outbound, encoded);
+
+    encoded += '\n';
+    qint64 sout = m_socket->write(encoded, encoded.length());
 
     return sout;
 }
@@ -2775,8 +2818,11 @@ NickInfoPtr Server::setWatchedNickOnline(const QString& nickname)
     KABC::Addressee addressee = nickInfo->getAddressee();
     if (!addressee.isEmpty()) Konversation::Addressbook::self()->emitContactPresenceChanged(addressee.uid());
 
-    appendMessageToFrontmost(i18n("Notify"),"<a class=\"nick\" href=\"#"+nickname+"\">"+
-        i18n("%1 is online (%2).", nickname, getServerName())+"</a>", getStatusView());
+    // FIXME HACK: Until message routing and the ircview are refactored, there's no better
+    // way to pass the nickname down to the ircview than prepending it -- the entire append-
+    // MessageToFrontmost callgraph is pretty inflexible in terms of metadata payload, boo.
+    // The same trick is in Server::setWatchedNickOffline() for the offline notification.
+    appendMessageToFrontmost(i18n("Notify"), nickname + ' ' + i18n("%1 is online (%2).", nickname, getServerName()), getStatusView());
 
     static_cast<Application*>(kapp)->notificationHandler()->nickOnline(getStatusView(), nickname);
 
@@ -2793,7 +2839,11 @@ void Server::setWatchedNickOffline(const QString& nickname, const NickInfoPtr ni
 
     emit watchedNickChanged(this, nickname, false);
 
-    appendMessageToFrontmost(i18n("Notify"), i18n("%1 went offline (%2).", nickname, getServerName()), getStatusView());
+    // FIXME HACK: Until message routing and the ircview are refactored, there's no better
+    // way to pass the nickname down to the ircview than prepending it -- the entire append-
+    // MessageToFrontmost callgraph is pretty inflexible in terms of metadata payload, boo.
+    // The same trick is in Server::setWatchedNickOnline() for the online notification.
+    appendMessageToFrontmost(i18n("Notify"), nickname + ' ' + i18n("%1 went offline (%2).", nickname, getServerName()), getStatusView());
 
     static_cast<Application*>(kapp)->notificationHandler()->nickOffline(getStatusView(), nickname);
 
@@ -3226,12 +3276,12 @@ void Server::appendServerMessageToChannel(const QString& channel,const QString& 
     if (outChannel) outChannel->appendServerMessage(type,message);
 }
 
-void Server::appendCommandMessageToChannel(const QString& channel,const QString& command,const QString& message, bool highlight)
+void Server::appendCommandMessageToChannel(const QString& channel,const QString& command,const QString& message, bool highlight, bool parseURL)
 {
     Channel* outChannel = getChannelByName(channel);
     if (outChannel)
     {
-        outChannel->appendCommandMessage(command,message,true,true,!highlight);
+        outChannel->appendCommandMessage(command,message,true,parseURL,!highlight);
     }
     else
     {
@@ -3458,6 +3508,11 @@ void Server::closeRawLog()
     if (m_rawLog) delete m_rawLog;
 }
 
+void Server::requestOpenChannelListPanel(const QString& filter)
+{
+    getViewContainer()->openChannelList(this, filter, true);
+}
+
 ChannelListPanel* Server::addChannelListPanel()
 {
     if(!m_channelListPanel)
@@ -3557,6 +3612,8 @@ QStringList Server::generateJoinCommand(const Konversation::ChannelList &tmpList
         passwords << password;
     }
 
+    while (!passwords.isEmpty() && passwords.last() == ".") passwords.pop_back();
+
     joinCommands << "JOIN " + channels.join(",") + ' ' + passwords.join(",");
 
     return joinCommands;
@@ -3620,9 +3677,14 @@ void Server::sendToAllChannelsAndQueries(const QString& text)
 void Server::requestAway(const QString& reason)
 {
     QString awayReason = reason;
+
     IdentityPtr identity = getIdentity();
 
-    if (awayReason.isEmpty() || !identity)
+    if (awayReason.isEmpty() && identity)
+        awayReason = identity->getAwayMessage();
+
+    // Fallback in case the identity has no away message set.
+    if (awayReason.isEmpty())
         awayReason = i18n("Gone away for now");
 
     setAwayReason(awayReason);
@@ -3647,17 +3709,17 @@ void Server::setAway(bool away)
 
         emit awayState(true);
 
-        if (identity && !identity->getAwayNick().isEmpty() && identity->getAwayNick() != getNickname())
+        if (identity && !identity->getAwayNickname().isEmpty() && identity->getAwayNickname() != getNickname())
         {
             m_nonAwayNick = getNickname();
-            queue("NICK " + getIdentity()->getAwayNick());
+            queue("NICK " + getIdentity()->getAwayNickname());
         }
 
         appendMessageToFrontmost(i18n("Away"), i18n("You are now marked as being away."));
 
-        if (identity && identity->getShowAwayMessage())
+        if (identity && identity->getRunAwayCommands())
         {
-            QString message = identity->getAwayMessage();
+            QString message = identity->getAwayCommand();
             sendToAllChannels(message.replace(QRegExp("%s", Qt::CaseInsensitive), m_awayReason));
         }
 
@@ -3670,19 +3732,19 @@ void Server::setAway(bool away)
 
         emit awayState(false);
 
-        if (!identity->getAwayNick().isEmpty() && !m_nonAwayNick.isEmpty())
+        if (!identity->getAwayNickname().isEmpty() && !m_nonAwayNick.isEmpty())
         {
             queue("NICK " + m_nonAwayNick);
-            m_nonAwayNick = "";
+            m_nonAwayNick.clear();
         }
 
         if (m_away)
         {
             appendMessageToFrontmost(i18n("Away"), i18n("You are no longer marked as being away."));
 
-            if (identity && identity->getShowAwayMessage())
+            if (identity && identity->getRunAwayCommands())
             {
-                QString message = identity->getReturnMessage();
+                QString message = identity->getReturnCommand();
                 sendToAllChannels(message.replace(QRegExp("%t", Qt::CaseInsensitive), awayTime()));
             }
         }
@@ -3796,7 +3858,7 @@ void Server::pongReceived()
 
     emit serverLag(this, m_currentLag);
 
-    // Send another PING in 60 seconds 
+    // Send another PING in 60 seconds
     m_pingSendTimer.start(60000 /*60 sec*/);
 }
 
@@ -3966,7 +4028,8 @@ void Server::sendChannelNickChangedSignals()
 
 void Server::involuntaryQuit()
 {
-    if(m_connectionState == Konversation::SSConnected || m_connectionState == Konversation::SSConnecting)
+    if((m_connectionState == Konversation::SSConnected || m_connectionState == Konversation::SSConnecting) &&
+       (m_socket->peerAddress() != QHostAddress(QHostAddress::LocalHost) && m_socket->peerAddress() != QHostAddress(QHostAddress::LocalHostIPv6)))
     {
         quitServer();
         updateConnectionState(Konversation::SSInvoluntarilyDisconnected);

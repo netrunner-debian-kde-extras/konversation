@@ -555,6 +555,11 @@ namespace Konversation
         {
             if (transfer->getType() == Transfer::Send || transfer->getStatus() == Transfer::Done)
             {
+#if KDE_IS_VERSION(4, 5, 0)
+                QPointer<FileMetaDataDialog> fileDialog = new FileMetaDataDialog(transfer->getFileURL(), this);
+                fileDialog->exec();
+                delete fileDialog;
+#else
                 QStringList infoList;
 
                 QString path = transfer->getFileURL().path();
@@ -583,26 +588,18 @@ namespace Konversation
                     // display information list if any available
                     if(infoList.count())
                     {
-                        #ifdef USE_INFOLIST
-                        KMessageBox::informationList(
-                            listView(),
-                            i18n("Available information for file %1:", path),
-                            infoList,
-                            i18n("File Information")
-                            );
-                        #else
                         KMessageBox::information(
                             getTransferView(),
                             "<qt>"+infoList.join("<br>")+"</qt>",
                             i18n("File Information")
                             );
-                        #endif
                     }
                 }
                 else
                 {
                     KMessageBox::sorry(getTransferView(), i18n("No detailed information for this file found."), i18n("File Information"));
                 }
+#endif
             }
         }
 

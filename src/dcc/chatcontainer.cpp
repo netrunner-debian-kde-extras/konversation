@@ -23,7 +23,6 @@
 #include <QSplitter>
 
 #include <KLocalizedString>
-#include <KMenu>
 #include <KActionCollection>
 #include <KMessageBox>
 #include <KStandardGuiItem>
@@ -58,7 +57,7 @@ namespace Konversation
                 connect(m_chat, SIGNAL(connected()), m_whiteBoard, SLOT(connected()));
                 //chatSplitter->setStretchFactor(chatSplitter->indexOf(paintLabel), 1);
 
-                IRCViewBox *ircViewBox = new IRCViewBox(chatSplitter, 0);
+                IRCViewBox *ircViewBox = new IRCViewBox(chatSplitter);
                 //chatSplitter->setStretchFactor(chatSplitter->indexOf(ircViewBox), 1);
                 setTextView(ircViewBox->ircView());
 
@@ -66,7 +65,7 @@ namespace Konversation
             }
             else //(m_chat->extension() == Chat::SimpleChat || m_chat->extension() == Chat::Unknown)
             {
-                IRCViewBox *ircViewBox = new IRCViewBox(m_headerSplitter, 0);
+                IRCViewBox *ircViewBox = new IRCViewBox(m_headerSplitter);
                 m_headerSplitter->setStretchFactor(m_headerSplitter->indexOf(ircViewBox), 1);
                 setTextView(ircViewBox->ircView());
             }
@@ -87,17 +86,6 @@ namespace Konversation
             connect(getTextView(), SIGNAL(gotFocus()), m_dccChatInput, SLOT(setFocus()));
             connect(getTextView(), SIGNAL(autoText(const QString&)), this, SLOT(textPasted(const QString&)));
 
-            KMenu *popup = textView->getPopup();
-            if (popup)
-            {
-                QAction *action = Application::instance()->getMainWindow()->actionCollection()->action("open_logfile");
-
-                if (action)
-                {
-                    popup->addSeparator();
-                    action->setMenu(popup);
-                }
-            }
             updateAppearance();
         }
 
@@ -288,7 +276,7 @@ namespace Konversation
                 }
                 else if (cmd == cc + "close")
                 {
-                    deleteLater();
+                    closeYourself(false);
                 }
                 else
                 {

@@ -45,11 +45,9 @@ class QAbstractItemModel;
 class QStringListModel;
 class Channel;
 class Query;
-//class StatusPanel;
 class Identity;
 class RawLog;
 class ChannelListPanel;
-class ScriptLauncher;
 class ServerISON;
 class ChatWindow;
 class ViewContainer;
@@ -88,6 +86,9 @@ class Server : public QObject
 
         Server(QObject* parent, ConnectionSettings& settings);
         ~Server();
+
+        void cycle();
+        void abortScheduledRecreation() { m_recreationScheduled = false; }
 
         int connectionId() { return m_connectionId; }
 
@@ -132,7 +133,7 @@ class Server : public QObject
         int getModesCount();
 
         // extended user modes support
-        void setChanModes(QString);                 //grab modes types from RPL_ISUPPORT CHANMODES
+        void setChanModes(const QString&);                 //grab modes types from RPL_ISUPPORT CHANMODES
         QString banAddressListModes() { return m_banAddressListModes; }     // aka "TYPE A" modes http://tools.ietf.org/html/draft-brocklesby-irc-isupport-03#section-3.3
 
         void setPrefixes(const QString &modes, const QString& prefixes);
@@ -153,7 +154,8 @@ class Server : public QObject
         void joinChannel(const QString& name, const QString& hostmask);
         void removeChannel(Channel* channel);
         void appendServerMessageToChannel(const QString& channel, const QString& type, const QString& message);
-        void appendCommandMessageToChannel(const QString& channel, const QString& command, const QString& message, bool highlight = true);
+        void appendCommandMessageToChannel(const QString& channel, const QString& command, const QString& message,
+                                           bool highlight = true, bool parseURL = true);
         void appendStatusMessage(const QString& type,const QString& message);
         void appendMessageToFrontmost(const QString& type,const QString& message, bool parseURL = true);
 
@@ -383,7 +385,7 @@ class Server : public QObject
         void nicknameChanged(const QString&);
         void serverLag(Server* server,int msec);  /// will be connected to KonversationMainWindow::updateLag()
         void tooLongLag(Server* server, int msec);/// will be connected to KonversationMainWindow::updateLag()
-        void resetLag(); ///< will be emitted when new 303 came in
+        void resetLag(Server* server); ///< will be emitted when new 303 came in
         void nicksNowOnline(Server* server,const QStringList& list,bool changed);
         void awayState(bool away);                /// will be connected to any user input panel;
         void multiServerCommand(const QString& command, const QString& parameter);
@@ -576,6 +578,8 @@ class Server : public QObject
           */
         void sendChannelNickChangedSignals();
 
+        void requestOpenChannelListPanel(const QString& filter);
+
     private slots:
         void collectStats(int bytes, int encodedBytes);
 
@@ -670,11 +674,6 @@ class Server : public QObject
         QStringList getAutoJoinCommands() const { return m_autoJoinCommands; }
         void setAutoJoinCommands(const QStringList& commands) { m_autoJoinCommands = commands; }
 
-        /** Quit the server connection with a given connection state
-         * @param state In what connection state was the quit done.
-         */
-        void quitConnection(Konversation::ConnectionState state);
-
         unsigned int m_completeQueryPosition;
         QList<int> m_nickIndices;
         QStringList m_referenceNicklist;
@@ -695,7 +694,6 @@ class Server : public QObject
 
         KTcpSocket* m_socket;
 
-        QTimer m_reconnectTimer;
         QTimer m_incomingTimer;
         QTimer m_notifyTimer;
         QStringList m_notifyCache;                  // List of users found with ISON
@@ -730,8 +728,6 @@ class Server : public QObject
         Konversation::ConnectionState m_connectionState;
         void updateConnectionState(Konversation::ConnectionState state);
         bool isSocketConnected() const;
-
-        ScriptLauncher* m_scriptLauncher;
 
         KProcess m_preShellCommand;
 
@@ -808,9 +804,11 @@ class Server : public QObject
 
         ConnectionSettings m_connectionSettings;
 
-        /// Used by ConnectionManaer to schedule a reconnect; stopped by /disconnect
+        /// Used by ConnectionManager to schedule a reconnect; stopped by /disconnect
         /// and /quit.
         QTimer* m_delayedConnectTimer;
+
+        bool m_reconnectImmediately;
 
         static int m_availableConnectionId;
         int m_connectionId;
@@ -822,6 +820,8 @@ class Server : public QObject
         QTimer* m_nickInfoChangedTimer;
         QTimer* m_channelNickChangedTimer;
         QStringList m_changedChannels;
+
+        bool m_recreationScheduled;
 };
 
 #endif

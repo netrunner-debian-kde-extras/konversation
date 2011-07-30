@@ -16,10 +16,6 @@
 #include "common.h"
 #include "server.h"
 
-#include <QList>
-#include <QObject>
-#include <QPointer>
-
 #include <KTabWidget>
 
 
@@ -137,6 +133,8 @@ class ViewContainer : public QObject
         void insertChar(const QChar& chr);
         void insertIRCColor();
 
+        void focusInputBox();
+
         void clearViewLines();
         void insertRememberLine();
         void cancelRememberLine();
@@ -177,7 +175,7 @@ class ViewContainer : public QObject
         void closeQueries();
 
         ChannelListPanel* addChannelListPanel(Server* server);
-        void openChannelList(const QString& filter = QString(), bool getList = false);
+        void openChannelList(Server* server = 0, const QString& filter = QString(), bool getList = false);
 
         void openNicksOnlinePanel();
         void closeNicksOnlinePanel();
@@ -195,7 +193,7 @@ class ViewContainer : public QObject
         void clearStatusBarInfoLabel();
         void setStatusBarLagLabelShown(bool shown);
         void updateStatusBarLagLabel(Server* server, int msec);
-        void resetStatusBarLagLabel();
+        void resetStatusBarLagLabel(Server* server);
         void setStatusBarLagLabelTooLongLag(Server* server, int msec);
         void updateStatusBarSSLLabel(Server* server);
         void removeStatusBarSSLLabel();
@@ -204,6 +202,7 @@ class ViewContainer : public QObject
         void frontServerChanging(Server*);
 
     private slots:
+        void setupIrcContextMenus();
         void viewSwitched(int newIndex);
 
     private:

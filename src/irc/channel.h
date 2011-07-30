@@ -72,7 +72,7 @@ class Channel : public ChatWindow
     friend class Nick;
 
     public:
-        explicit Channel(QWidget* parent, QString name);
+        explicit Channel(QWidget* parent, const QString& name);
         ~Channel();
 //META
         virtual bool canBeFrontView();
@@ -147,6 +147,8 @@ class Channel : public ChatWindow
         void adjustOps(int value);
         virtual void emitUpdateInfo();
 
+        void resizeNicknameListViewColumns();
+
     protected slots:
         void purgeNicks();
         void processPendingNicks();
@@ -176,6 +178,9 @@ class Channel : public ChatWindow
         void setTopic(const QString& topic);
         void setTopic(const QString& nickname, const QString& topic);
         void setTopicAuthor(const QString& author, QDateTime t);
+
+    private:
+        inline void prependTopicHistory(const QString& topic, const QString& nickname = "unknown", uint time = QDateTime::currentDateTime().toTime_t());
 
     signals:
         void topicHistoryChanged();
@@ -233,8 +238,6 @@ class Channel : public ChatWindow
 
         bool autoJoin();
 
-        ChannelNickList getSelectedChannelNicks();
-        ///TODO: this looks like a half-arsed overload.
         QStringList getSelectedNickList();
 
         NickListView* getNickListView() const { return nicknameListView; }
@@ -270,8 +273,6 @@ class Channel : public ChatWindow
         void modeButtonClicked(int id,bool on);
         void channelLimitChanged();
 
-        void popupChannelCommand(int id);         ///< Connected to IRCView::popupCommand()
-        void popupCommand(int id);                ///< Connected to NickListView::popupCommand()
         void doubleClickCommand(QTreeWidgetItem *item,int column);  ///< Connected to NickListView::itemDoubleClicked()
         // Dialogs
         void changeNickname(const QString& newNickname);
@@ -295,10 +296,6 @@ class Channel : public ChatWindow
         void syncSplitters();
         /// Called from ChatWindow adjustFocus
         virtual void childAdjustFocus();
-        /// Close the channel then come back in
-        void cycleChannel(); ///< TODO this is definately implemented and hooked incorrectly.
-
-        bool channelCommand;///< True if nick context menu is executed from IRCView
 
         // to take care of redraw problem if hidden
         bool quickButtonsChanged;

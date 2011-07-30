@@ -63,9 +63,9 @@ void Identity::init()
     setPartReason("Konversation terminated!");
     setKickReason("User terminated!");
 
-    setShowAwayMessage(false);
-    setAwayMessage("/me is away: %s");
-    setReturnMessage("/me is back.");
+    setAwayMessage("Gone away for now");
+
+    setRunAwayCommands(false);
 
     setAutomaticAway(false);
     setAwayInactivity(10);
@@ -84,10 +84,11 @@ void Identity::copy(const Identity& original)
     setPartReason(original.getPartReason());
     setKickReason(original.getKickReason());
     setInsertRememberLineOnAway(original.getInsertRememberLineOnAway());
-    setShowAwayMessage(original.getShowAwayMessage());
+    setRunAwayCommands(original.getRunAwayCommands());
+    setAwayCommand(original.getAwayCommand());
     setAwayMessage(original.getAwayMessage());
-    setAwayNick(original.getAwayNick());
-    setReturnMessage(original.getReturnMessage());
+    setAwayNickname(original.getAwayNickname());
+    setReturnCommand(original.getReturnCommand());
     setAutomaticAway(original.getAutomaticAway());
     setAwayInactivity(original.getAwayInactivity());
     setAutomaticUnaway(original.getAutomaticUnaway());
@@ -125,13 +126,13 @@ QString Identity::getKickReason() const                 { return kickReason; }
 
 void Identity::setInsertRememberLineOnAway(bool state) { insertRememberLineOnAway = state; }
 bool Identity::getInsertRememberLineOnAway() const { return insertRememberLineOnAway; }
-void Identity::setShowAwayMessage(bool state)           { showAwayMessages=state; }
-bool Identity::getShowAwayMessage() const               { return showAwayMessages; }
 
-void Identity::setAwayMessage(const QString& message)   { awayMessage=message; }
-QString Identity::getAwayMessage() const                { return awayMessage; }
-void Identity::setReturnMessage(const QString& message) { returnMessage=message; }
-QString Identity::getReturnMessage() const              { return returnMessage; }
+void Identity::setRunAwayCommands(bool run)             { runAwayCommands = run; }
+bool Identity::getRunAwayCommands() const               { return runAwayCommands; }
+void Identity::setAwayCommand(const QString& command)   { awayCommand = command; }
+QString Identity::getAwayCommand() const                { return awayCommand; }
+void Identity::setReturnCommand(const QString& command) { returnCommand = command; }
+QString Identity::getReturnCommand() const              { return returnCommand; }
 
 void Identity::setAutomaticAway(bool automaticAway)     { m_automaticAway = automaticAway; }
 bool Identity::getAutomaticAway() const                 { return m_automaticAway; }
@@ -167,5 +168,8 @@ void Identity::setCodecName(const QString &newCodecName)
     m_codec=Konversation::IRCCharsets::self()->codecForName(codecName);
 }
 
-QString Identity::getAwayNick() const { return awayNick; }
-void Identity::setAwayNick(const QString& n) { awayNick = n; }
+void Identity::setAwayMessage(const QString& message)   { awayMessage = message; }
+QString Identity::getAwayMessage() const                { return awayMessage; }
+
+void Identity::setAwayNickname(const QString& nickname) { awayNickname = nickname; }
+QString Identity::getAwayNickname() const               { return awayNickname; }

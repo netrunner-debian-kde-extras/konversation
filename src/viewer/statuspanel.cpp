@@ -11,7 +11,6 @@
 */
 
 #include "statuspanel.h"
-#include "channel.h"
 #include "application.h"
 #include "ircinput.h"
 #include "ircview.h"
@@ -35,7 +34,7 @@ StatusPanel::StatusPanel(QWidget* parent) : ChatWindow(parent)
     awayState=false;
 
     // set up text view, will automatically take care of logging
-    IRCViewBox* ircBox = new IRCViewBox(this, 0); // Server will be set later in setServer()
+    IRCViewBox* ircBox = new IRCViewBox(this); // Server will be set later in setServer()
     setTextView(ircBox->ircView());
 
     KHBox* commandLineBox=new KHBox(this);
@@ -47,7 +46,7 @@ StatusPanel::StatusPanel(QWidget* parent) : ChatWindow(parent)
     nicknameCombobox->setSizeAdjustPolicy(KComboBox::AdjustToContents);
     KLineEdit* nicknameComboboxLineEdit = qobject_cast<KLineEdit*>(nicknameCombobox->lineEdit());
     if (nicknameComboboxLineEdit) nicknameComboboxLineEdit->setClearButtonShown(false);
-    nicknameCombobox->setWhatsThis(i18n("<qt><p>This shows your current nick, and any alternatives you have set up.  If you select or type in a different nickname, then a request will be sent to the IRC server to change your nick.  If the server allows it, the new nickname will be selected.  If you type in a new nickname, you need to press 'Enter' at the end.</p><p>You can add change the alternative nicknames from the <em>Identities</em> option in the <em>File</em> menu.</p></qt>"));
+    nicknameCombobox->setWhatsThis(i18n("<qt><p>This shows your current nick, and any alternatives you have set up.  If you select or type in a different nickname, then a request will be sent to the IRC server to change your nick.  If the server allows it, the new nickname will be selected.  If you type in a new nickname, you need to press 'Enter' at the end.</p><p>You can edit the alternative nicknames from the <em>Identities</em> option in the <em>Settings</em> menu.</p></qt>"));
 
     awayLabel=new QLabel(i18n("(away)"), commandLineBox);
     awayLabel->hide();
@@ -64,7 +63,6 @@ StatusPanel::StatusPanel(QWidget* parent) : ChatWindow(parent)
     connect(statusInput,SIGNAL (submit()),this,SLOT(statusTextEntered()) );
     connect(statusInput,SIGNAL (textPasted(const QString&)),this,SLOT(textPasted(const QString&)) );
     connect(getTextView(), SIGNAL(textPasted(bool)), statusInput, SLOT(paste(bool)));
-    connect(getTextView(), SIGNAL(popupCommand(int)), this, SLOT(popupCommand(int)));
 
     connect(nicknameCombobox,SIGNAL (activated(int)),this,SLOT(nicknameComboboxChanged()));
     Q_ASSERT(nicknameCombobox->lineEdit());       //it should be editedable.  if we design it so it isn't, remove these lines.
@@ -78,9 +76,9 @@ StatusPanel::~StatusPanel()
 {
 }
 
-void StatusPanel::serverSaysClose()
+void StatusPanel::cycle()
 {
-    closeYourself(false);
+    if (m_server) m_server->cycle();
 }
 
 void StatusPanel::setNickname(const QString& newNickname)
@@ -110,7 +108,7 @@ void StatusPanel::sendStatusText(const QString& sendLine)
         QString output(outList[index]);
 
         // encoding stuff is done in Server()
-        Konversation::OutputFilterResult result = m_server->getOutputFilter()->parse(m_server->getNickname(), output, QString());
+        Konversation::OutputFilterResult result = m_server->getOutputFilter()->parse(m_server->getNickname(), output, QString(), this);
 
         if(!result.output.isEmpty())
         {
@@ -123,14 +121,11 @@ void StatusPanel::sendStatusText(const QString& sendLine)
 
 void StatusPanel::statusTextEntered()
 {
-    QString line=sterilizeUnicode(statusInput->toPlainText());
+    QString line = sterilizeUnicode(statusInput->toPlainText());
+
     statusInput->clear();
 
-    if(line.toLower()==Preferences::self()->commandChar()+"clear") textView->clear();
-    else
-    {
-        if(line.length()) sendStatusText(line);
-    }
+    if (!line.isEmpty()) sendStatusText(line);
 }
 
 void StatusPanel::textPasted(const QString& text)
@@ -228,9 +223,6 @@ bool StatusPanel::closeYourself(bool confirm)
 {
     int result;
 
-    //FIXME: Show "Do you really want to close ..." warnings in
-    // disconnected state instead of closing directly. Can't do
-    // that due to string freeze at the moment.
     if (confirm && !m_server->isConnected())
     {
         result = KMessageBox::warningContinueCancel(
@@ -261,6 +253,13 @@ bool StatusPanel::closeYourself(bool confirm)
         m_server = 0;
         return true;
     }
+    else
+    {
+        m_recreationScheduled = false;
+
+        m_server->abortScheduledRecreation();
+    }
+
     return false;
 }
 
@@ -326,7 +325,6 @@ QString StatusPanel::getChannelEncodingDefaultDesc()
 void StatusPanel::serverOnline(bool online)
 {
     //statusInput->setEnabled(online);
-    getTextView()->setNickAndChannelContextMenusEnabled(online);
     nicknameCombobox->setEnabled(online);
 }
 
@@ -334,22 +332,6 @@ void StatusPanel::setServer(Server* server)
 {
     ChatWindow::setServer(server);
     nicknameCombobox->setModel(m_server->nickListModel());
-}
-
-void StatusPanel::popupCommand(int command)
-{
-    switch(command)
-    {
-        case Konversation::Join:
-            m_server->queue("JOIN " + getTextView()->currentChannel());
-            break;
-        case Konversation::Topic:
-            m_server->requestTopic(getTextView()->currentChannel());
-            break;
-        case Konversation::Names:
-            m_server->queue("NAMES " + getTextView()->currentChannel(), Server::LowPriority);
-            break;
-    }
 }
 
 #include "statuspanel.moc"

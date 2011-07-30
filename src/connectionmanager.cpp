@@ -44,7 +44,7 @@ void ConnectionManager::connectTo(Konversation::ConnectionFlag flag, const QStri
 {
     ConnectionSettings settings;
 
-    if (target.startsWith(QLatin1String("irc://")))
+    if (target.startsWith(QLatin1String("irc://")) || target.startsWith(QLatin1String("ircs://")))
         decodeIrcUrl(target, settings);
     else
     {
@@ -101,33 +101,38 @@ void ConnectionManager::connectTo(Konversation::ConnectionFlag flag, const QList
 
     QList<KUrl>::ConstIterator it = list.constBegin();
     QList<KUrl>::ConstIterator end = list.constEnd();
+
     for (; it != end; ++it)
     {
-        ConnectionSettings cs;
-        decodeIrcUrl(it->url(), cs);
-        kDebug() << cs.name() << " - "
-                 << cs.server().host() << cs.server().port() << cs.server().password()
-                 << " - " << (cs.serverGroup()?cs.serverGroup()->name():"");
-        QString sname = (cs.serverGroup()?
-                         cs.serverGroup()->name():
-                         (cs.server().host()+':'+cs.server().port()) );
+        ConnectionSettings settings;
+
+        decodeIrcUrl(it->url(), settings);
+
+        kDebug() << settings.name() << " - "
+                 << settings.server().host() << settings.server().port()
+                 << settings.server().password() << " - "
+                 << (settings.serverGroup()?settings.serverGroup()->name():"");
+
+        QString sname = (settings.serverGroup() ? settings.serverGroup()->name()
+            : (settings.server().host() + ':' + settings.server().port()));
 
         if (!serverChannels.contains(sname))
-        {
-            serverConnections[sname] = cs;
-        }
-        serverChannels[sname] += cs.oneShotChannelList();
+            serverConnections[sname] = settings;
+
+        serverChannels[sname] += settings.oneShotChannelList();
     }
 
-    // Perform the connection
+    // Perform the connection.
     QMap<QString,Konversation::ChannelList>::ConstIterator s_i = serverChannels.constBegin();
-    for (; s_i != serverChannels.constEnd(); ++s_i) {
+
+    for (; s_i != serverChannels.constEnd(); ++s_i)
+    {
         serverConnections[s_i.key()].setOneShotChannelList(s_i.value());
         connectTo(flag, serverConnections[s_i.key()]);
     }
 }
 
-void ConnectionManager::connectTo(Konversation::ConnectionFlag flag, ConnectionSettings& settings)
+void ConnectionManager::connectTo(Konversation::ConnectionFlag flag, ConnectionSettings settings)
 {
     if (!settings.isValid()) return;
 
@@ -298,11 +303,11 @@ void ConnectionManager::reconnectServers()
 
 void ConnectionManager::decodeIrcUrl(const QString& url, ConnectionSettings& settings)
 {
-    if (!url.startsWith(QLatin1String("irc://"))) return;
+    if (!url.startsWith(QLatin1String("irc://")) && !url.startsWith(QLatin1String("ircs://"))) return;
 
     QString mangledUrl = url;
 
-    mangledUrl.remove(QRegExp("^irc:/+"));
+    mangledUrl.remove(QRegExp("^ircs?:/+"));
 
     if (mangledUrl.isEmpty()) return;
 
@@ -380,6 +385,16 @@ void ConnectionManager::decodeIrcUrl(const QString& url, ConnectionSettings& set
         cl << channelSettings;
 
         settings.setOneShotChannelList(cl);
+    }
+
+    // Override SSL setting state with directive from URL.
+    if (url.startsWith(QLatin1String("ircs://")))
+    {
+        Konversation::ServerSettings server = settings.server();
+
+        server.setSSLEnabled(true);
+
+        settings.setServer(server);
     }
 }
 
@@ -522,7 +537,6 @@ bool ConnectionManager::reuseExistingConnection(ConnectionSettings& settings, bo
         {
             int result = KMessageBox::warningContinueCancel(
                 mainWindow,
-                //my, isn't this fucking ugly
                 i18n("You are presently connected to %1 via '%2' (port <numid>%3</numid>). Do you want to switch to '%4' (port <numid>%5</numid>) instead?",
                     dupe->getDisplayName(),
                     dupe->getServerName(),

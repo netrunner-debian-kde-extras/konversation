@@ -39,6 +39,8 @@ LogfileReader::LogfileReader(QWidget* parent, const QString& log) : ChatWindow(p
 
     fileName = log;
 
+    setSpacing(0);
+
     toolBar = new KToolBar(this, true, true);
     toolBar->setObjectName("logfile_toolbar");
     toolBar->addAction(KIcon("document-save-as"), i18n("Save As..."), this, SLOT(saveLog()));
@@ -56,13 +58,13 @@ LogfileReader::LogfileReader(QWidget* parent, const QString& log) : ChatWindow(p
     sizeSpin->setSuffix(i18n(" KB"));
     sizeSpin->installEventFilter(this);
     toolBar->addWidget(sizeSpin);
+    connect(sizeSpin, SIGNAL(valueChanged(int)), this, SLOT(storeBufferSize(int)));
 
-    IRCViewBox* ircBox = new IRCViewBox(this, 0);
+    IRCViewBox* ircBox = new IRCViewBox(this);
     setTextView(ircBox->ircView());
     getTextView()->setWhatsThis(i18n("The messages in the log file are displayed here. The oldest messages are at the top and the most recent are at the bottom."));
 
     updateView();
-    resize(Preferences::self()->logfileReaderSize());
     ircBox->ircView()->setFocusPolicy(Qt::StrongFocus);
     setFocusPolicy(Qt::StrongFocus);
     setFocusProxy(ircBox->ircView());
@@ -74,10 +76,6 @@ LogfileReader::LogfileReader(QWidget* parent, const QString& log) : ChatWindow(p
 
 LogfileReader::~LogfileReader()
 {
-    Preferences::self()->setLogfileReaderSize(size());
-    Preferences::self()->setLogfileBufferSize(sizeSpin->value());
-
-    delete toolBar;
 }
 
 bool LogfileReader::eventFilter(QObject* /* watched */, QEvent* e)
@@ -97,6 +95,11 @@ bool LogfileReader::eventFilter(QObject* /* watched */, QEvent* e)
     }
 
     return false;
+}
+
+void LogfileReader::storeBufferSize(int kb)
+{
+    Preferences::self()->setLogfileBufferSize(kb);
 }
 
 void LogfileReader::updateView()

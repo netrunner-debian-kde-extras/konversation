@@ -14,6 +14,7 @@
 
 #include "application.h"
 
+#include <QFocusEvent>
 #include <QTimer>
 #include <QShortcut>
 
@@ -27,6 +28,9 @@ SearchBar::SearchBar(QWidget* parent)
 : QWidget(parent), m_goUpSearch("go-up-search"), m_goDownSearch("go-down-search")
 {
     setupUi(this);
+
+    foreach(QWidget* widget, findChildren<QWidget*>())
+        widget->installEventFilter(this);
 
     m_searchFoward = false;
     m_matchCase = false;
@@ -44,7 +48,8 @@ SearchBar::SearchBar(QWidget* parent)
     m_timer = new QTimer(this);
     m_timer->setSingleShot(true);
 
-    new QShortcut(QKeySequence(Qt::Key_Escape), this, SLOT(hide()));
+    m_closeShortcut = new QShortcut(QKeySequence(Qt::Key_Escape), this, SLOT(hide()));
+    m_closeShortcut->setEnabled(false);
 
     connect(m_timer, SIGNAL(timeout()), SLOT(slotFind()));
     connect(m_searchEdit, SIGNAL(textChanged(const QString&)), SLOT(slotTextChanged()));
@@ -74,6 +79,29 @@ SearchBar::SearchBar(QWidget* parent)
 
 SearchBar::~SearchBar()
 {
+}
+
+bool SearchBar::eventFilter(QObject* object, QEvent* e)
+{
+    Q_UNUSED(object);
+
+    QFocusEvent* focusEvent = dynamic_cast<QFocusEvent*>(e);
+
+    if (focusEvent)
+    {
+        Application* konvApp = static_cast<Application*>(kapp);
+        KAction* action = static_cast<KAction*>(konvApp->getMainWindow()->actionCollection()->action("focus_input_box"));
+
+        if (action->isEnabled() && action->shortcut().contains(QKeySequence(Qt::Key_Escape)))
+        {
+            action->setEnabled(focusEvent->lostFocus());
+            m_closeShortcut->setEnabled(focusEvent->gotFocus());
+        }
+        else
+            m_closeShortcut->setEnabled(true);
+    }
+
+    return false;
 }
 
 void SearchBar::showEvent(QShowEvent *e)

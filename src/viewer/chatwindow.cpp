@@ -32,8 +32,9 @@ ChatWindow::ChatWindow(QWidget* parent) : KVBox(parent)
 {
     setName("ChatWindowObject");
     setTextView(0);
-    firstLog=true;
-    m_server=0;
+    firstLog = true;
+    m_server = 0;
+    m_recreationScheduled = false;
     m_notificationsEnabled = true;
     m_channelEncodingSupported = false;
     m_currentTabNotify = Konversation::tnfNone;
@@ -46,6 +47,21 @@ ChatWindow::~ChatWindow()
 {
     emit closing(this);
     m_server=0;
+}
+
+// reimplement this if your window needs special close treatment
+bool ChatWindow::closeYourself(bool /* askForConfirmation */)
+{
+    deleteLater();
+
+    return true;
+}
+
+void ChatWindow::cycle()
+{
+    m_recreationScheduled = true;
+
+    closeYourself(false);
 }
 
 void ChatWindow::updateAppearance()
@@ -87,18 +103,36 @@ QString ChatWindow::getTitle()
 
 QString ChatWindow::getURI(bool passNetwork)
 {
+    QString protocol;
     QString url;
     QString port;
     QString server;
     QString channel;
 
+    if (getServer()->getUseSSL())
+        protocol = "ircs://";
+    else
+        protocol = "irc://";
 
     if (getType() == Channel)
-        channel = getName();
+        channel = getName().replace(QRegExp("^#"), QString());
 
     if (passNetwork)
+    {
         server = getServer()->getDisplayName();
-    else
+
+        QUrl test(protocol+server);
+
+        // QUrl (ultimately used by the bookmark system, which is the
+        // primary consumer here) doesn't like spaces in hostnames as
+        // well as other things which are possible in user-chosen net-
+        // work names, so let's fall back to the hostname if we can't
+        // get the network name by it.
+        if (!test.isValid())
+            passNetwork = false;
+    }
+
+    if (!passNetwork)
     {
         server = getServer()->getServerName();
         port = ':'+QString::number(getServer()->getPort());
@@ -107,7 +141,7 @@ QString ChatWindow::getURI(bool passNetwork)
     if (server.contains(':')) // IPv6
         server = '['+server+']';
 
-    url = "irc://"+server+port+'/'+channel;
+    url = protocol+server+port+'/'+channel;
 
     return url;
 }
@@ -140,7 +174,7 @@ void ChatWindow::setServer(Server* newServer)
             else kDebug() << "textView==0!";
         }
 
-        emit serverOnline(m_server->isConnected());
+        serverOnline(m_server->isConnected());
     }
 }
 
@@ -223,6 +257,13 @@ void ChatWindow::appendBacklogMessage(const QString& firstColumn,const QString& 
     textView->appendBacklogMessage(firstColumn,Konversation::sterilizeUnicode(message));
 }
 
+void ChatWindow::clear()
+{
+    if (!textView) return;
+
+    textView->clear();
+}
+
 void ChatWindow::cdIntoLogPath()
 {
     QString home = KUser(KUser::UseRealUserID).homeDir();
@@ -251,6 +292,9 @@ void ChatWindow::setLogfileName(const QString& name)
     // Only change name of logfile if the window was new.
     if(firstLog)
     {
+        if (getTextView())
+            getTextView()->setContextMenuOptions(IrcContextMenus::ShowLogAction, true);
+
         // status panels get special treatment here, since they have no server at the beginning
         if (getType() == Status || getType() == DccChat)
         {
@@ -473,14 +517,6 @@ void ChatWindow::indicateAway(bool)
 // reimplement this in all panels that have user input
 void ChatWindow::appendInputText(const QString&, bool)
 {
-}
-
-// reimplement this if your window needs special close treatment
-bool ChatWindow::closeYourself(bool /* askForConfirmation */)
-{
-    deleteLater();
-
-    return true;
 }
 
 bool ChatWindow::eventFilter(QObject* watched, QEvent* e)

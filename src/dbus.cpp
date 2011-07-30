@@ -335,16 +335,40 @@ QString IdentDBus::getKickReason(const QString &identity)
     return sterilizeUnicode(Preferences::identityByName(sterilizeUnicode(identity))->getKickReason());
 }
 
-void IdentDBus::setShowAwayMessage(const QString &identity, bool state)
+void IdentDBus::setRunAwayCommands(const QString &identity, bool run)
 {
     const Identity *i = Preferences::identityByName(sterilizeUnicode(identity)).data();
-    const_cast<Identity *>(i)->setShowAwayMessage(state);
+    const_cast<Identity *>(i)->setRunAwayCommands(run);
     static_cast<Application *>(kapp)->saveOptions(true);
 }
 
-bool IdentDBus::getShowAwayMessage(const QString &identity)
+bool IdentDBus::getRunAwayCommands(const QString &identity)
 {
-    return Preferences::identityByName(sterilizeUnicode(identity))->getShowAwayMessage();
+    return Preferences::identityByName(sterilizeUnicode(identity))->getRunAwayCommands();
+}
+
+void IdentDBus::setAwayCommand(const QString &identity, const QString& command)
+{
+    const Identity *i = Preferences::identityByName(sterilizeUnicode(identity)).data();
+    const_cast<Identity *>(i)->setAwayCommand(sterilizeUnicode(command));
+    static_cast<Application *>(kapp)->saveOptions(true);
+}
+
+QString IdentDBus::getAwayCommand(const QString &identity)
+{
+    return sterilizeUnicode(Preferences::identityByName(identity)->getAwayCommand());
+}
+
+void IdentDBus::setReturnCommand(const QString &identity, const QString& command)
+{
+    const Identity *i = Preferences::identityByName(sterilizeUnicode(identity)).data();
+    const_cast<Identity *>(i)->setReturnCommand(sterilizeUnicode(command));
+    static_cast<Application *>(kapp)->saveOptions(true);
+}
+
+QString IdentDBus::getReturnCommand(const QString &identity)
+{
+    return sterilizeUnicode(Preferences::identityByName(sterilizeUnicode(identity))->getReturnCommand());
 }
 
 void IdentDBus::setAwayMessage(const QString &identity, const QString& message)
@@ -356,19 +380,19 @@ void IdentDBus::setAwayMessage(const QString &identity, const QString& message)
 
 QString IdentDBus::getAwayMessage(const QString &identity)
 {
-    return sterilizeUnicode(Preferences::identityByName(identity)->getAwayMessage());
+    return sterilizeUnicode(Preferences::identityByName(sterilizeUnicode(identity))->getAwayMessage());
 }
 
-void IdentDBus::setReturnMessage(const QString &identity, const QString& message)
+void IdentDBus::setAwayNickname(const QString &identity, const QString& nickname)
 {
     const Identity *i = Preferences::identityByName(sterilizeUnicode(identity)).data();
-    const_cast<Identity *>(i)->setReturnMessage(sterilizeUnicode(message));
+    const_cast<Identity *>(i)->setAwayNickname(sterilizeUnicode(nickname));
     static_cast<Application *>(kapp)->saveOptions(true);
 }
 
-QString IdentDBus::getReturnMessage(const QString &identity)
+QString IdentDBus::getAwayNickname(const QString &identity)
 {
-    return sterilizeUnicode(Preferences::identityByName(sterilizeUnicode(identity))->getReturnMessage());
+    return sterilizeUnicode(Preferences::identityByName(sterilizeUnicode(identity))->getAwayNickname());
 }
 
 #include "dbus.moc"

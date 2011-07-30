@@ -45,24 +45,39 @@ namespace Konversation
         if (Preferences::self()->disableNotifyWhileAway() && chatWin->getServer() && chatWin->getServer()->isAway())
             return;
 
-        QString cleanedMessage = removeIrcMarkup(message);
-        QString forKNotify = Qt::escape(cleanedMessage);
+        bool osd = Preferences::self()->oSDShowChannel() &&
+            (!m_mainWindow->isActiveWindow() || (chatWin != m_mainWindow->getViewContainer()->getFrontView()));
 
-        KNotification::event(QString::fromLatin1("message"), QString("<html>&lt;%1&gt; %2</html>").arg(fromNick).arg(forKNotify), QPixmap(), m_mainWindow);
+        if (message.isEmpty())
+        {
+            KNotification::event(QString::fromLatin1("message"), QString("<html>&lt;%1&gt;</html>").arg(fromNick), QPixmap(), m_mainWindow);
 
-        if(!Preferences::self()->trayNotifyOnlyOwnNick())
+            if (osd)
+            {
+                Application* konvApp = static_cast<Application*>(kapp);
+
+                konvApp->osd->show('(' + chatWin->getName() + ") <" + fromNick + '>');
+            }
+        }
+        else
+        {
+            QString cleanedMessage = removeIrcMarkup(message);
+            QString forKNotify = Qt::escape(cleanedMessage);
+
+            KNotification::event(QString::fromLatin1("message"), QString("<html>&lt;%1&gt; %2</html>").arg(fromNick).arg(forKNotify), QPixmap(), m_mainWindow);
+
+            if (osd)
+            {
+                Application* konvApp = static_cast<Application*>(kapp);
+
+                konvApp->osd->show('(' + chatWin->getName() + ") <" + fromNick + "> " + cleanedMessage);
+            }
+        }
+
+        if (!Preferences::self()->trayNotifyOnlyOwnNick())
         {
             startTrayNotification(chatWin);
         }
-
-
-        if(Preferences::self()->oSDShowChannel() &&
-            (!m_mainWindow->isActiveWindow() || (chatWin != m_mainWindow->getViewContainer()->getFrontView())))
-        {
-            Application* konvApp = static_cast<Application*>(kapp);
-            konvApp->osd->show('(' + chatWin->getName() + ") <" + fromNick + "> " + cleanedMessage);
-        }
-
     }
 
     void NotificationHandler::nick(ChatWindow* chatWin, const QString& fromNick, const QString& message)
@@ -73,21 +88,37 @@ namespace Konversation
         if (Preferences::self()->disableNotifyWhileAway() && chatWin->getServer() && chatWin->getServer()->isAway())
             return;
 
-        QString cleanedMessage = removeIrcMarkup(message);
-        QString forKNotify = Qt::escape(cleanedMessage);
+        bool osd = (Preferences::self()->oSDShowChannel() || Preferences::self()->oSDShowOwnNick()) &&
+            (!m_mainWindow->isActiveWindow() ||
+            (chatWin != m_mainWindow->getViewContainer()->getFrontView()));
 
-        KNotification::event(QString::fromLatin1("nick"), QString("<html>&lt;%1&gt; %2</html>").arg(fromNick).arg(forKNotify), QPixmap(), m_mainWindow);
+        if (message.isEmpty())
+        {
+            KNotification::event(QString::fromLatin1("nick"), QString("<html>&lt;%1&gt;</html>").arg(fromNick), QPixmap(), m_mainWindow);
+
+            if (osd)
+            {
+                Application* konvApp = static_cast<Application*>(kapp);
+
+                konvApp->osd->show(i18n("[HighLight] (%1) &lt;%2&gt;", chatWin->getName(), fromNick));
+            }
+        }
+        else
+        {
+            QString cleanedMessage = removeIrcMarkup(message);
+            QString forKNotify = Qt::escape(cleanedMessage);
+
+            KNotification::event(QString::fromLatin1("nick"), QString("<html>&lt;%1&gt; %2</html>").arg(fromNick).arg(forKNotify), QPixmap(), m_mainWindow);
+
+            if (osd)
+            {
+                Application* konvApp = static_cast<Application*>(kapp);
+
+                konvApp->osd->show(i18n("[HighLight] (%1) &lt;%2&gt; %3", chatWin->getName(), fromNick, cleanedMessage));
+            }
+        }
 
         startTrayNotification(chatWin);
-
-        Application* konvApp = static_cast<Application*>(kapp);
-
-        if((Preferences::self()->oSDShowChannel() || Preferences::self()->oSDShowOwnNick()) &&
-            (!m_mainWindow->isActiveWindow() ||
-            (chatWin != m_mainWindow->getViewContainer()->getFrontView())))
-        {
-            konvApp->osd->show(i18n("[HighLight] (%1) &lt;%2&gt; %3",chatWin->getName(),fromNick,cleanedMessage));
-        }
     }
 
     void NotificationHandler::queryMessage(ChatWindow* chatWin,
@@ -99,20 +130,36 @@ namespace Konversation
         if (Preferences::self()->disableNotifyWhileAway() && chatWin->getServer() && chatWin->getServer()->isAway())
             return;
 
-        QString cleanedMessage = removeIrcMarkup(message);
-        QString forKNotify = Qt::escape(cleanedMessage);
+        bool osd = Preferences::self()->oSDShowQuery() && (!m_mainWindow->isActiveWindow() ||
+            (chatWin != m_mainWindow->getViewContainer()->getFrontView()));
 
-        KNotification::event(QString::fromLatin1("queryMessage"), QString("<html>&lt;%1&gt; %2</html>").arg(fromNick).arg(forKNotify), QPixmap(), m_mainWindow);
+        if (message.isEmpty())
+        {
+            KNotification::event(QString::fromLatin1("queryMessage"), QString("<html>&lt;%1&gt;</html>").arg(fromNick), QPixmap(), m_mainWindow);
+
+            if (osd)
+            {
+                Application* konvApp = static_cast<Application*>(kapp);
+
+                konvApp->osd->show(i18n("[Query] &lt;%1&gt;", fromNick));
+            }
+        }
+        else
+        {
+            QString cleanedMessage = removeIrcMarkup(message);
+            QString forKNotify = Qt::escape(cleanedMessage);
+
+            KNotification::event(QString::fromLatin1("queryMessage"), QString("<html>&lt;%1&gt; %2</html>").arg(fromNick).arg(forKNotify), QPixmap(), m_mainWindow);
+
+            if (osd)
+            {
+                Application* konvApp = static_cast<Application*>(kapp);
+
+                konvApp->osd->show(i18n("[Query] &lt;%1&gt; %2", fromNick, cleanedMessage));
+            }
+        }
 
         startTrayNotification(chatWin);
-
-        Application* konvApp = static_cast<Application*>(kapp);
-
-        if(Preferences::self()->oSDShowQuery() && (!m_mainWindow->isActiveWindow() ||
-           (chatWin != m_mainWindow->getViewContainer()->getFrontView())))
-        {
-            konvApp->osd->show(i18n("[Query] &lt;%1&gt; %2",fromNick,cleanedMessage));
-        }
     }
 
     void NotificationHandler::startTrayNotification(ChatWindow* chatWin)
@@ -207,7 +254,7 @@ namespace Konversation
         if (Preferences::self()->disableNotifyWhileAway() && chatWin->getServer() && chatWin->getServer()->isAway())
             return;
 
-        KNotification::event(QString::fromLatin1("dcc_error"), i18n("An Error has occurred in a DCC transfer: %1",error), QPixmap(), m_mainWindow);
+        KNotification::event(QString::fromLatin1("dcc_error"), i18n("An error has occurred in a DCC transfer: %1",error), QPixmap(), m_mainWindow);
     }
 
     void NotificationHandler::dccTransferDone(ChatWindow* chatWin, const QString& file)
@@ -299,7 +346,7 @@ namespace Konversation
             return;
 
         KNotification *ev=new KNotification("dccChat", m_mainWindow);
-        ev->setText(i18n("%1 started a dcc chat with you", nick));
+        ev->setText(i18n("%1 started a DCC chat with you", nick));
         ev->sendEvent();
 
     }

@@ -16,11 +16,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "channel.h"
+#include "common.h"
 #include "preferences.h"
 #include "ssllabel.h"
-#include "nickinfo.h"
-#include "server.h"
 
 #include <QStringList>
 
@@ -30,6 +28,7 @@
 
 class KToggleAction;
 
+class Server;
 class KonviSettingsDialog;
 class ViewContainer;
 
@@ -70,6 +69,8 @@ class MainWindow : public KXmlGuiWindow
         void insertMarkerLine();
 
     public slots:
+        void quitProgram();
+
         void updateTrayIcon();
 
         void openServerList();
@@ -107,7 +108,8 @@ class MainWindow : public KXmlGuiWindow
         void openNotifications();
         void notifyAction(int connectionId,const QString& nick);
 
-        void quitProgram();
+        void toggleVisibility();
+
         void showEvent(QShowEvent* e);
         void hideEvent(QHideEvent* e);
         void leaveEvent(QEvent* e);
