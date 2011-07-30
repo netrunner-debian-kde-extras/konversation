@@ -29,11 +29,11 @@ namespace Konversation
         setCaption(  i18n("Insert Character") );
         setButtonGuiItem(KDialog::Ok, KGuiItem(i18n("&Insert"), "dialog-ok", i18n("Insert a character")));
 
-        m_charTable = new KCharSelect(this,0, KCharSelect::CharacterTable|KCharSelect::FontCombo|KCharSelect::BlockCombos);
+        m_charTable = new KCharSelect(this,0, KCharSelect::CharacterTable|KCharSelect::FontCombo|KCharSelect::BlockCombos|KCharSelect::SearchLine);
 
         m_charTable->setCurrentFont( QFont( font ) );
         setMainWidget(m_charTable);
-        connect( this, SIGNAL( okClicked() ), this, SLOT( slotOk() ) );
+        connect(m_charTable, SIGNAL(charSelected(QChar)), this, SLOT(charSelected()));
     }
 
     InsertCharDialog::~InsertCharDialog()
@@ -50,9 +50,17 @@ namespace Konversation
         return m_charTable->currentChar();
     }
 
-    void InsertCharDialog::slotOk()
+    void InsertCharDialog::charSelected()
     {
         emit insertChar(m_charTable->currentChar());
+    }
+
+    void InsertCharDialog::slotButtonClicked(int button)
+    {
+        if (button == KDialog::Ok)
+            charSelected();
+        else
+            KDialog::slotButtonClicked(button);
     }
 
 }

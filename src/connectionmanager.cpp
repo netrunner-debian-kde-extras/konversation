@@ -114,7 +114,7 @@ void ConnectionManager::connectTo(Konversation::ConnectionFlag flag, const QList
                  << (settings.serverGroup()?settings.serverGroup()->name():"");
 
         QString sname = (settings.serverGroup() ? settings.serverGroup()->name()
-            : (settings.server().host() + ':' + settings.server().port()));
+            : (QString(settings.server().host()) + QString(':') + QString(settings.server().port())));
 
         if (!serverChannels.contains(sname))
             serverConnections[sname] = settings;
@@ -157,20 +157,18 @@ void ConnectionManager::connectTo(Konversation::ConnectionFlag flag, ConnectionS
 
     connect(server, SIGNAL(destroyed(int)), this, SLOT(delistConnection(int)));
 
-    connect(server, SIGNAL(connectionStateChanged(Server*, Konversation::ConnectionState)),
-            this, SLOT(handleConnectionStateChange(Server*, Konversation::ConnectionState)));
+    connect(server, SIGNAL(connectionStateChanged(Server*,Konversation::ConnectionState)),
+            this, SLOT(handleConnectionStateChange(Server*,Konversation::ConnectionState)));
 
     connect(server, SIGNAL(awayState(bool)), this, SIGNAL(connectionChangedAwayState(bool)));
 
-    connect(server, SIGNAL(nicksNowOnline(Server*, const QStringList&, bool)),
-        mainWindow, SLOT(setOnlineList(Server*, const QStringList&,bool)));
+    connect(server, SIGNAL(nicksNowOnline(Server*,QStringList,bool)),
+        mainWindow, SLOT(setOnlineList(Server*,QStringList,bool)));
     connect(server, SIGNAL(awayInsertRememberLine(Server*)),
         mainWindow, SIGNAL(triggerRememberLines(Server*)));
 
-    connect(mainWindow, SIGNAL(startNotifyTimer(int)), server, SLOT(startNotifyTimer(int)));
-
-    connect(server, SIGNAL(multiServerCommand(const QString&, const QString&)),
-        konvApp, SLOT(sendMultiServerCommand(const QString&, const QString&)));
+    connect(server, SIGNAL(multiServerCommand(QString,QString)),
+        konvApp, SLOT(sendMultiServerCommand(QString,QString)));
 }
 
 void ConnectionManager::enlistConnection(int connectionId, Server* server)

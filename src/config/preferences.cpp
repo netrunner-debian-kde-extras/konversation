@@ -104,7 +104,7 @@ const QStringList Preferences::quickButtonList()
   return self()->mQuickButtonList;
 }
 
-void Preferences::setQuickButtonList(const QStringList newList)
+void Preferences::setQuickButtonList(const QStringList& newList)
 {
   self()->mQuickButtonList=newList;
 }
@@ -219,13 +219,11 @@ void Preferences::setHighlightList(QList<Highlight*> newList)
     self()->mHighlightList=newList;
 }
 
-void Preferences::addHighlight(const QString& newHighlight,
-bool regExp,
-const QColor &newColor,
-const QString& sound,
-const QString& autoText)
+void Preferences::addHighlight(const QString& highlight, bool regExp, const QColor& color,
+    const QString& soundURL, const QString& autoText, const QString& chatWindows)
 {
-    self()->mHighlightList.append(new Highlight(newHighlight,regExp,newColor,KUrl(sound),autoText));
+    self()->mHighlightList.append(new Highlight(highlight, regExp, color,
+        KUrl(soundURL), autoText, chatWindows));
 }
 
 void Preferences::setIgnoreList(QList<Ignore*> newList)
@@ -276,10 +274,7 @@ const QMap<int, QStringList> Preferences::notifyList() { return self()->mNotifyL
 
 const QStringList Preferences::notifyListByGroupId(int serverGroupId)
 {
-  if (serverGroupId && self()->mNotifyList.find(serverGroupId) != self()->mNotifyList.end())
-        return self()->mNotifyList.value(serverGroupId);
-  else
-        return QStringList();
+    return self()->mNotifyList.value(serverGroupId);
 }
 
 const QString Preferences::notifyStringByGroupId(int serverGroupId)
@@ -289,39 +284,57 @@ const QString Preferences::notifyStringByGroupId(int serverGroupId)
 
 bool Preferences::addNotify(int serverGroupId, const QString& newPattern)
 {
-    if (!self()->mNotifyList[serverGroupId].contains(newPattern))
+    QStringList& list = self()->mNotifyList[serverGroupId];
+
+    if (!list.contains(newPattern, Qt::CaseInsensitive))
     {
-        QStringList nicknameList = self()->mNotifyList[serverGroupId];
-        nicknameList.append(newPattern);
-        self()->mNotifyList[serverGroupId] = nicknameList;
+        list.append(newPattern);
+
+        if (list.size() == 1)
+            emit self()->notifyListStarted(serverGroupId);
+
         return true;
     }
+
     return false;
 }
 
 bool Preferences::removeNotify(int serverGroupId, const QString& pattern)
 {
-    if (self()->mNotifyList.find(serverGroupId) != self()->mNotifyList.end())
+    if (self()->mNotifyList.contains(serverGroupId))
     {
-        QStringList nicknameList = self()->mNotifyList[serverGroupId];
-        nicknameList.removeAll(pattern); //FIXME: what semantics do you really want here?
-        if (nicknameList.isEmpty())
-            self()->mNotifyList.remove(serverGroupId);
-        else
-            self()->mNotifyList[serverGroupId] = nicknameList;
-        return true;
+        QString lowered = pattern.toLower();
+        QStringList& oldList = self()->mNotifyList[serverGroupId];
+        QStringList newList;
+
+        for (int i = 0; i < oldList.size(); ++i)
+        {
+            const QString& nick = oldList[i];
+
+            if (nick.toLower() != lowered)
+                newList << nick;
+        }
+
+        if (newList.size() < oldList.size())
+        {
+            if (newList.isEmpty())
+                self()->mNotifyList.remove(serverGroupId);
+            else
+                self()->mNotifyList[serverGroupId] = newList;
+
+            return true;
+        }
     }
+
     return false;
 }
 
 bool Preferences::isNotify(int serverGroupId, const QString& pattern)
 {
-    if (self()->mNotifyList.find(serverGroupId) != self()->mNotifyList.end())
-    {
-        QStringList nicknameList = self()->mNotifyList[serverGroupId];
+    if (self()->mNotifyList.contains(serverGroupId))
+        if (self()->mNotifyList.value(serverGroupId).contains(pattern, Qt::CaseInsensitive))
+            return true;
 
-        if (nicknameList.contains(pattern)) return true;
-    }
     return false;
 }
 
@@ -558,6 +571,11 @@ void Preferences::restoreColumnState(QTreeView* treeView, QString name, int defa
         treeView->header()->setSortIndicator(group.readEntry("ColumnSorted", defaultColumn), Qt::DescendingOrder);
     else
         treeView->header()->setSortIndicator(group.readEntry("ColumnSorted", defaultColumn), Qt::AscendingOrder);
+}
+
+void Preferences::slotSetUseOSD(bool use)
+{
+    self()->setUseOSD(use);
 }
 
 #include "preferences.moc"

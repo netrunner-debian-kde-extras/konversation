@@ -33,8 +33,8 @@ namespace Konversation
         m_audioOutput = new Phonon::AudioOutput(Phonon::NotificationCategory, this);
         Phonon::createPath(m_mediaObject, m_audioOutput);
 
-        connect(m_mediaObject, SIGNAL(stateChanged(Phonon::State, Phonon::State)),
-                this, SLOT(tryPlayNext(Phonon::State, Phonon::State)));
+        connect(m_mediaObject, SIGNAL(stateChanged(Phonon::State,Phonon::State)),
+                this, SLOT(tryPlayNext(Phonon::State,Phonon::State)));
 
         m_played = false;
     }
@@ -46,7 +46,11 @@ namespace Konversation
     {
         if(m_played && ((m_mediaObject->state() != Phonon::PausedState && m_mediaObject->state() != Phonon::StoppedState) || !m_playQueue.isEmpty()))
         {
-            m_playQueue.enqueue(url);
+            if(m_mediaObject->currentSource().url() != url)
+            {
+                m_playQueue.enqueue(url);
+            }
+
             return;
         }
 

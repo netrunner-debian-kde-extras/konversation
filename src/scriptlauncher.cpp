@@ -16,13 +16,18 @@
 #include "server.h"
 
 #include <QFileInfo>
-#include <QProcess>
 
+#include <KProcess>
 #include <KStandardDirs>
 
 
 ScriptLauncher::ScriptLauncher(QObject* parent) : QObject(parent)
 {
+    qputenv("KONVERSATION_LANG", KGlobal::locale()->language().toAscii());
+
+    QStringList pythonPath(QProcessEnvironment::systemEnvironment().value("PYTHONPATH").split(':', QString::SkipEmptyParts));
+    pythonPath << KGlobal::dirs()->findDirs("data", "konversation/scripting_support/python");
+    qputenv("PYTHONPATH", pythonPath.join(":").toLocal8Bit());
 }
 
 ScriptLauncher::~ScriptLauncher()
@@ -38,15 +43,26 @@ void ScriptLauncher::launchScript(int connectionId, const QString& target, const
 {
     // send the script all the information it will need
     QStringList parameterList = parameter.split(' ');
+
     // find script path (could be installed for all users in $KDEDIR/share/apps/ or
     // for one user alone in $HOME/.kde/share/apps/
     QString script(parameterList.takeFirst());
     QString path = scriptPath(script);
+
     parameterList.prepend(target);
     parameterList.prepend(QString::number(connectionId));
+
     QFileInfo fileInfo(path);
 
-    if (!QProcess::startDetached(path, parameterList, fileInfo.path()))
+    KProcess proc;
+    proc.setWorkingDirectory(fileInfo.path());
+    proc.setProgram(path, parameterList);
+
+    QStringList pythonPath = QProcessEnvironment::systemEnvironment().value("PYTHONPATH").split(':', QString::SkipEmptyParts);
+    pythonPath << KGlobal::dirs()->findDirs("data", "konversation/scripting_support/python");
+    proc.setEnv("PYTHONPATH", pythonPath.join(":"));
+
+    if (proc.startDetached() == 0)
     {
         if (!fileInfo.exists())
            emit scriptNotFound(script);

@@ -15,7 +15,7 @@
 #include "dbus.h"
 #include "application.h"
 #include "connectionmanager.h"
-#include "abstractawaymanager.h"
+#include "awaymanager.h"
 #include "channel.h"
 #include "identity.h"
 #include "server.h"
@@ -115,13 +115,13 @@ void DBus::info(const QString& string)
 void DBus::debug(const QString& string)
 {
     kDebug();
-    emit dbusInfo(QString("Debug: %1").arg(sterilizeUnicode(string)));
+    emit dbusInfo(i18n("Debug: %1", sterilizeUnicode(string)));
 }
 
 void DBus::error(const QString& string)
 {
     kDebug();
-    emit dbusInfo(QString("Error: %1").arg(sterilizeUnicode(string)));
+    emit dbusInfo(i18n("Error: %1", sterilizeUnicode(string)));
 }
 
 void DBus::insertMarkerLine()

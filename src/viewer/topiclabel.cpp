@@ -30,11 +30,12 @@ namespace Konversation
         setAlignment(Qt::AlignVCenter | Qt::AlignLeft);
         setTextInteractionFlags(Qt::TextBrowserInteraction);
 
+        m_mousePressedOnUrl = false;
         m_isOnChannel = false;
         m_server = NULL;
 
-        connect(this, SIGNAL(linkActivated(const QString&)), this, SLOT(openLink (const QString&)));
-        connect(this, SIGNAL(linkHovered(const QString&)), this, SLOT(highlightedSlot(const QString&)));
+        connect(this, SIGNAL(linkActivated(QString)), this, SLOT(openLink(QString)));
+        connect(this, SIGNAL(linkHovered(QString)), this, SLOT(highlightedSlot(QString)));
     }
 
     TopicLabel::~TopicLabel()
@@ -79,7 +80,6 @@ namespace Konversation
                 channel.replace("##","#");
                 m_server->sendJoinCommand(channel);
             }
-            // Always use KDE default mailer.
             else
                 Application::openUrl(link);
         }
@@ -98,49 +98,107 @@ namespace Konversation
         if (m_isOnChannel && m_server)
         {
             IrcContextMenus::channelMenu(ev->globalPos(), m_server, m_currentChannel);
-
-            m_isOnChannel = false;
-
-            return;
         }
-
+        else
+        {
 #if !(QT_VERSION >= QT_VERSION_CHECK(4, 7, 0))
-        if (m_contextMenuOptions.testFlag(IrcContextMenus::ShowLinkActions))
+            if (m_contextMenuOptions.testFlag(IrcContextMenus::ShowLinkActions))
+            {
+                IrcContextMenus::linkMenu(ev->globalPos(), m_currentUrl);
+            }
+            else
+                QLabel::contextMenuEvent(ev);
+#else
+            int contextMenuActionId = IrcContextMenus::textMenu(ev->globalPos(), m_contextMenuOptions,
+                m_server, selectedText(), m_currentUrl);
+
+            switch (contextMenuActionId)
+            {
+                case -1:
+                    break;
+                case IrcContextMenus::TextCopy:
+                {
+                    QClipboard* clipboard = qApp->clipboard();
+                    clipboard->setText(selectedText(), QClipboard::Clipboard);
+
+                    break;
+                }
+                case IrcContextMenus::TextSelectAll:
+                {
+                    QTextDocument doc;
+                    doc.setHtml(text());
+
+                    setSelection(0, doc.toPlainText().length());
+
+                    break;
+                }
+                default:
+                    break;
+            }
+#endif
+        }
+
+        resetLinkHighlightState();
+    }
+
+    void TopicLabel::mousePressEvent(QMouseEvent* ev)
+    {
+        if (ev->button() == Qt::LeftButton)
         {
-            IrcContextMenus::linkMenu(ev->globalPos(), m_urlToCopy);
+            if (!m_currentUrl.isEmpty())
+            {
+                m_mousePressedOnUrl = true;
+                m_mousePressPosition = ev->pos();
+
+                // We need to keep a copy of the current URL because by the time
+                // the Manhatten length is reached and the drag is initiated the
+                // cursor may have left the link, causing m_currentUrl to be
+                // cleared.
+                m_dragUrl = m_currentUrl;
+            }
+        }
+
+        QLabel::mousePressEvent(ev);
+    }
+
+    void TopicLabel::mouseReleaseEvent(QMouseEvent *ev)
+    {
+        if (ev->button() == Qt::LeftButton)
+        {
+            m_mousePressedOnUrl = false;
+        }
+
+        QLabel::mouseReleaseEvent(ev);
+    }
+
+    void TopicLabel::mouseMoveEvent(QMouseEvent* ev)
+    {
+        if (m_mousePressedOnUrl && (m_mousePressPosition - ev->pos()).manhattanLength() > KApplication::startDragDistance())
+        {
+#if QT_VERSION >= QT_VERSION_CHECK(4, 7, 0)
+            setSelection(0, 0);
+#endif
+
+            QPointer<QDrag> drag = new QDrag(this);
+            QMimeData* mimeData = new QMimeData;
+
+            KUrl url(m_dragUrl);
+            url.populateMimeData(mimeData);
+
+            drag->setMimeData(mimeData);
+
+            QPixmap pixmap = KIO::pixmapForUrl(url, 0, KIconLoader::Desktop, KIconLoader::SizeMedium);
+            drag->setPixmap(pixmap);
+
+            drag->exec();
+
+            m_mousePressedOnUrl = false;
+            m_dragUrl.clear();
 
             return;
         }
 
-        QLabel::contextMenuEvent(ev);
-#else
-        int contextMenuActionId = IrcContextMenus::textMenu(ev->globalPos(), m_contextMenuOptions,
-            m_server, selectedText(), m_urlToCopy);
-
-        switch (contextMenuActionId)
-        {
-            case -1:
-                break;
-            case IrcContextMenus::TextCopy:
-            {
-                QClipboard* clipboard = qApp->clipboard();
-                clipboard->setText(selectedText(), QClipboard::Clipboard);
-
-                break;
-            }
-            case IrcContextMenus::TextSelectAll:
-            {
-                QTextDocument doc;
-                doc.setHtml(text());
-
-                setSelection(0, doc.toPlainText().length());
-
-                break;
-            }
-            default:
-                break;
-        }
-#endif
+        QLabel::mouseMoveEvent(ev);
     }
 
     void TopicLabel::setText(const QString& text)
@@ -225,42 +283,46 @@ namespace Konversation
 
     void TopicLabel::highlightedSlot(const QString& link)
     {
-        //we just saw this a second ago.  no need to reemit.
-        if (link == m_lastStatusText && !link.isEmpty())
-            return;
-
         if (link.isEmpty())
-        {
-            if (!m_lastStatusText.isEmpty())
-            {
-                emit clearStatusBarTempText();
-                m_lastStatusText.clear();
-            }
-        }
+            resetLinkHighlightState();
         else
+        {
+            // We just saw this link, no need to do the work again.
+            if (link == m_lastStatusText)
+                return;
+
             m_lastStatusText = link;
 
-        if (!link.startsWith('#'))
-        {
-            m_isOnChannel = false;
-
-            if (!link.isEmpty()) {
-                //link therefore != m_lastStatusText  so emit with this new text
-                emit setStatusBarTempText(link);
-            }
-            if (link.isEmpty() && m_contextMenuOptions.testFlag(IrcContextMenus::ShowLinkActions))
-                setContextMenuOptions(IrcContextMenus::ShowLinkActions, false);
-            else if (!link.isEmpty() && !m_contextMenuOptions.testFlag(IrcContextMenus::ShowLinkActions))
+            if (link.startsWith(QLatin1String("##")))
             {
-                m_urlToCopy = link;
+                m_isOnChannel = true;
+                m_currentChannel = link.mid(1);
+
+                emit setStatusBarTempText(i18n("Join the channel %1", m_currentChannel));
+            }
+            else
+            {
+                m_currentUrl = link;
+
+                emit setStatusBarTempText(link);
+
                 setContextMenuOptions(IrcContextMenus::ShowLinkActions, true);
             }
         }
-        else if (link.startsWith(QLatin1String("##")))
+    }
+
+    void TopicLabel::resetLinkHighlightState()
+    {
+        m_currentUrl.clear();
+        m_currentChannel.clear();
+        m_isOnChannel = false;
+
+        setContextMenuOptions(IrcContextMenus::ShowLinkActions, false);
+
+        if (!m_lastStatusText.isEmpty())
         {
-            m_currentChannel = link.mid(1);
-            m_isOnChannel = true;
-            emit setStatusBarTempText(i18n("Join the channel %1", m_currentChannel));
+            m_lastStatusText.clear();
+            emit clearStatusBarTempText();
         }
     }
 

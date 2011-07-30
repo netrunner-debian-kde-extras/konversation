@@ -17,6 +17,7 @@
 #include "server.h"
 #include "application.h"
 #include "logfilereader.h"
+#include "viewcontainer.h"
 
 #include <QDateTime>
 #include <QDir>
@@ -79,12 +80,12 @@ void ChatWindow::setName(const QString& newName)
     emit nameChanged(this,newName);
 }
 
-QString ChatWindow::getName()
+QString ChatWindow::getName() const
 {
     return name;
 }
 
-QString ChatWindow::getTitle()
+QString ChatWindow::getTitle() const
 {
     QString title;
     if (getType() == Channel)
@@ -151,7 +152,7 @@ void ChatWindow::setType(WindowType newType)
     type=newType;
 }
 
-ChatWindow::WindowType ChatWindow::getType()
+ChatWindow::WindowType ChatWindow::getType() const
 {
     return type;
 }
@@ -178,7 +179,7 @@ void ChatWindow::setServer(Server* newServer)
     }
 }
 
-Server* ChatWindow::getServer()
+Server* ChatWindow::getServer() const
 {
     return m_server;
 }
@@ -200,8 +201,8 @@ void ChatWindow::setTextView(IRCView* newView)
     textView->setVerticalScrollBarPolicy(Preferences::self()->showIRCViewScrollBar() ? Qt::ScrollBarAlwaysOn : Qt::ScrollBarAlwaysOff);
 
     textView->setChatWin(this);
-    connect(textView,SIGNAL(textToLog(const QString&)), this,SLOT(logText(const QString&)));
-    connect(textView,SIGNAL(setStatusBarTempText(const QString&)), this, SIGNAL(setStatusBarTempText(const QString&)));
+    connect(textView,SIGNAL(textToLog(QString)), this,SLOT(logText(QString)));
+    connect(textView,SIGNAL(setStatusBarTempText(QString)), this, SIGNAL(setStatusBarTempText(QString)));
     connect(textView,SIGNAL(clearStatusBarTempText()), this, SIGNAL(clearStatusBarTempText()));
 }
 
@@ -245,10 +246,10 @@ void ChatWindow::appendServerMessage(const QString& type,const QString& message,
     textView->appendServerMessage(type,message, parseURL);
 }
 
-void ChatWindow::appendCommandMessage(const QString& command,const QString& message, bool important, bool parseURL, bool self)
+void ChatWindow::appendCommandMessage(const QString& command, const QString& message, bool parseURL, bool self)
 {
     if(!textView) return ;
-    textView->appendCommandMessage(command,message,important, parseURL, self);
+    textView->appendCommandMessage(command,message,parseURL,self);
 }
 
 void ChatWindow::appendBacklogMessage(const QString& firstColumn,const QString& message)
@@ -262,6 +263,11 @@ void ChatWindow::clear()
     if (!textView) return;
 
     textView->clear();
+
+    resetTabNotification();
+
+    if (m_server)
+        m_server->getViewContainer()->unsetViewNotification(this);
 }
 
 void ChatWindow::cdIntoLogPath()

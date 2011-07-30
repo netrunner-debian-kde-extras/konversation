@@ -57,7 +57,7 @@ class IrcContextMenusPrivate
         IrcContextMenus instance;
 };
 
-K_GLOBAL_STATIC(IrcContextMenusPrivate, s_ircContextMenusPrivate);
+K_GLOBAL_STATIC(IrcContextMenusPrivate, s_ircContextMenusPrivate)
 
 IrcContextMenusPrivate::IrcContextMenusPrivate()
 {
@@ -276,6 +276,8 @@ void IrcContextMenus::updateWebShortcutsMenu(const QString& selectedText)
             m_webShortcutsMenu->menuAction()->setVisible(true);
         }
     }
+#else
+    Q_UNUSED(selectedText);
 #endif
 }
 
@@ -630,10 +632,7 @@ void IrcContextMenus::processNickAction(int actionId, Server* server, const QStr
             if (!server->getServerGroup()) break;
 
             foreach(const QString& nick, nicks)
-            {
-                if (!Preferences::isNotify(server->getServerGroup()->id(), nick))
-                    Preferences::addNotify(server->getServerGroup()->id(), nick);
-            }
+                Preferences::addNotify(server->getServerGroup()->id(), nick);
 
             break;
         }
@@ -642,10 +641,7 @@ void IrcContextMenus::processNickAction(int actionId, Server* server, const QStr
             if (!server->getServerGroup()) break;
 
             foreach(const QString& nick, nicks)
-            {
-                if (Preferences::isNotify(server->getServerGroup()->id(), nick))
-                    Preferences::removeNotify(server->getServerGroup()->id(), nick);
-            }
+                Preferences::removeNotify(server->getServerGroup()->id(), nick);
 
             break;
         }
@@ -916,6 +912,9 @@ void IrcContextMenus::setupLinkMenu()
 
 void IrcContextMenus::linkMenu(const QPoint& pos, const QString& link)
 {
+    foreach(QAction* action, self()->m_linkActions)
+        action->setVisible(true);
+
     QAction* action = self()->m_linkMenu->exec(pos);
 
     processLinkAction(extractActionId(action), link);

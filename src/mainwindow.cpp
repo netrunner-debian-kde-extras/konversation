@@ -26,7 +26,7 @@
 #include "notificationhandler.h"
 #include "irccharsets.h"
 #include "connectionmanager.h"
-#include "abstractawaymanager.h"
+#include "awaymanager.h"
 #include "transfermanager.h"
 
 #include <QSignalMapper>
@@ -70,14 +70,14 @@ MainWindow::MainWindow() : KXmlGuiWindow(0)
     // Set up view container
     connect(Application::instance(), SIGNAL(appearanceChanged()), m_viewContainer, SLOT(updateAppearance()));
     connect(KGlobalSettings::self(), SIGNAL(iconChanged(int)), m_viewContainer, SLOT(updateViewIcons()));
-    connect(Application::instance(), SIGNAL(serverGroupsChanged(const Konversation::ServerGroupSettingsPtr)),
-            m_viewContainer, SLOT(updateViews(const Konversation::ServerGroupSettingsPtr)));
-    connect(m_viewContainer, SIGNAL(autoJoinToggled(const Konversation::ServerGroupSettingsPtr)),
-            Application::instance(), SIGNAL(serverGroupsChanged(const Konversation::ServerGroupSettingsPtr)));
-    connect(m_viewContainer, SIGNAL(setWindowCaption(const QString&)), this, SLOT(setCaption(const QString&)));
+    connect(Application::instance(), SIGNAL(serverGroupsChanged(Konversation::ServerGroupSettingsPtr)),
+            m_viewContainer, SLOT(updateViews(Konversation::ServerGroupSettingsPtr)));
+    connect(m_viewContainer, SIGNAL(autoJoinToggled(Konversation::ServerGroupSettingsPtr)),
+            Application::instance(), SIGNAL(serverGroupsChanged(Konversation::ServerGroupSettingsPtr)));
+    connect(m_viewContainer, SIGNAL(setWindowCaption(QString)), this, SLOT(setCaption(QString)));
     connect(Application::instance()->getConnectionManager(),
-            SIGNAL(connectionChangedState(Server*, Konversation::ConnectionState)),
-            m_viewContainer, SLOT(connectionStateChanged(Server*, Konversation::ConnectionState)));
+            SIGNAL(connectionChangedState(Server*,Konversation::ConnectionState)),
+            m_viewContainer, SLOT(connectionStateChanged(Server*,Konversation::ConnectionState)));
     connect(this, SIGNAL(triggerRememberLine()), m_viewContainer, SLOT(insertRememberLine()));
     connect(this, SIGNAL(triggerRememberLines(Server*)), m_viewContainer, SLOT(insertRememberLines(Server*)));
     connect(this, SIGNAL(cancelRememberLine()), m_viewContainer, SLOT(cancelRememberLine()));
@@ -90,14 +90,14 @@ MainWindow::MainWindow() : KXmlGuiWindow(0)
     createStandardStatusBarAction();
 
     connect(m_viewContainer, SIGNAL(resetStatusBar()), m_statusBar, SLOT(resetStatusBar()));
-    connect(m_viewContainer, SIGNAL(setStatusBarTempText(const QString&)), m_statusBar, SLOT(setMainLabelTempText(const QString&)));
+    connect(m_viewContainer, SIGNAL(setStatusBarTempText(QString)), m_statusBar, SLOT(setMainLabelTempText(QString)));
     connect(m_viewContainer, SIGNAL(clearStatusBarTempText()), m_statusBar, SLOT(clearMainLabelTempText()));
-    connect(m_viewContainer, SIGNAL(setStatusBarInfoLabel(const QString&)), m_statusBar, SLOT(updateInfoLabel(const QString&)));
+    connect(m_viewContainer, SIGNAL(setStatusBarInfoLabel(QString)), m_statusBar, SLOT(updateInfoLabel(QString)));
     connect(m_viewContainer, SIGNAL(clearStatusBarInfoLabel()), m_statusBar, SLOT(clearInfoLabel()));
     connect(m_viewContainer, SIGNAL(setStatusBarLagLabelShown(bool)), m_statusBar, SLOT(setLagLabelShown(bool)));
-    connect(m_viewContainer, SIGNAL(updateStatusBarLagLabel(Server*, int)), m_statusBar, SLOT(updateLagLabel(Server*, int)));
+    connect(m_viewContainer, SIGNAL(updateStatusBarLagLabel(Server*,int)), m_statusBar, SLOT(updateLagLabel(Server*,int)));
     connect(m_viewContainer, SIGNAL(resetStatusBarLagLabel(Server*)), m_statusBar, SLOT(resetLagLabel(Server*)));
-    connect(m_viewContainer, SIGNAL(setStatusBarLagLabelTooLongLag(Server*, int)), m_statusBar, SLOT(setTooLongLag(Server*, int)));
+    connect(m_viewContainer, SIGNAL(setStatusBarLagLabelTooLongLag(Server*,int)), m_statusBar, SLOT(setTooLongLag(Server*,int)));
     connect(m_viewContainer, SIGNAL(updateStatusBarSSLLabel(Server*)), m_statusBar, SLOT(updateSSLLabel(Server*)));
     connect(m_viewContainer, SIGNAL(removeStatusBarSSLLabel()), m_statusBar, SLOT(removeSSLLabel()));
 
@@ -105,7 +105,7 @@ MainWindow::MainWindow() : KXmlGuiWindow(0)
     // Actions
     KStandardAction::quit(this,SLOT(quitProgram()),actionCollection());
 
-    hideMenuBarAction = KStandardAction::showMenubar(this, SLOT(toggleMenubar()), actionCollection());
+    m_showMenuBarAction = KStandardAction::showMenubar(this, SLOT(toggleMenubar()), actionCollection());
 
     setStandardToolBarMenuEnabled(true);
     KStandardAction::configureToolbars(this, SLOT(configureToolbars()), actionCollection());
@@ -283,6 +283,7 @@ MainWindow::MainWindow() : KXmlGuiWindow(0)
     action->setEnabled(false);
     connect(action, SIGNAL(triggered()), m_viewContainer, SLOT(showNextActiveView()));
     actionCollection()->addAction("next_active_tab", action);
+    action->setGlobalShortcut(KShortcut());
 
     if (Preferences::self()->tabPlacement()==Preferences::Left)
     {
@@ -497,6 +498,14 @@ MainWindow::MainWindow() : KXmlGuiWindow(0)
     actionCollection()->addAction("toggle_mainwindow_visibility", action);
     action->setGlobalShortcut(KShortcut());
 
+    action=new KToggleAction(this);
+    action->setEnabled(true);
+    action->setChecked(Preferences::self()->useOSD());
+    action->setText(i18n("Enable On Screen Display"));
+    action->setIcon(KIcon("video-display"));
+    connect(action, SIGNAL(triggered(bool)), Preferences::self(), SLOT(slotSetUseOSD(bool)));
+    actionCollection()->addAction("toggle_osd", action);
+
     // Bookmarks
     KActionMenu *bookmarkMenu = new KActionMenu(i18n("Bookmarks"), actionCollection());
     new KonviBookmarkHandler(bookmarkMenu->menu(), this);
@@ -511,7 +520,7 @@ MainWindow::MainWindow() : KXmlGuiWindow(0)
     setAutoSaveSettings();
 
     // Apply menubar show/hide pref
-    hideMenuBarAction->setChecked(Preferences::self()->showMenuBar());
+    m_showMenuBarAction->setChecked(Preferences::self()->showMenuBar());
     toggleMenubar(true);
 
 
@@ -686,9 +695,6 @@ void MainWindow::updateTrayIcon()
             m_trayIcon = new Konversation::TrayIcon(this);
             connect(this, SIGNAL(endNotification()), m_trayIcon, SLOT(endNotification()));
             connect(KGlobalSettings::self(), SIGNAL(iconChanged(int)), m_trayIcon, SLOT(updateAppearance()));
-#ifndef HAVE_KSTATUSNOTIFIERITEM
-            connect(m_trayIcon, SIGNAL(quitSelected()), this, SLOT(quitProgram()));
-#endif
             KMenu *trayMenu = qobject_cast<KMenu*>(m_trayIcon->contextMenu());
             trayMenu->addAction(actionCollection()->action(KStandardAction::name(KStandardAction::Preferences)));
             trayMenu->addAction(actionCollection()->action(KStandardAction::name(KStandardAction::ConfigureNotifications)));
@@ -699,24 +705,21 @@ void MainWindow::updateTrayIcon()
     }
     else
     {
-        if (m_trayIcon)
-        {
-            delete m_trayIcon;
-            m_trayIcon = 0;
-        }
+        delete m_trayIcon;
+        m_trayIcon = 0;
     }
 }
 
 void MainWindow::toggleMenubar(bool dontShowWarning)
 {
-    if (hideMenuBarAction->isChecked())
+    if (m_showMenuBarAction->isChecked())
         menuBar()->show();
     else
     {
         bool doit = true;
         if (!dontShowWarning)
         {
-            QString accel = hideMenuBarAction->shortcut().toString();
+            QString accel = m_showMenuBarAction->shortcut().toString();
             doit = KMessageBox::warningContinueCancel(this,
                     i18n("<qt>This will hide the menu bar completely. You can show it again by typing %1.</qt>", accel),
                     i18n("Hide menu bar"),
@@ -726,9 +729,11 @@ void MainWindow::toggleMenubar(bool dontShowWarning)
         }
         if (doit)
             menuBar()->hide();
+        else
+            m_showMenuBarAction->setChecked (true);
     }
 
-    Preferences::self()->setShowMenuBar(hideMenuBarAction->isChecked());
+    Preferences::self()->setShowMenuBar(m_showMenuBarAction->isChecked());
 }
 
 void MainWindow::focusAndShowErrorMessage(const QString &errorMsg)
@@ -787,14 +792,14 @@ void MainWindow::openServerList()
         m_serverListDialog = new Konversation::ServerListDialog(i18n("Server List"), this);
         Application* konvApp = static_cast<Application*>(kapp);
 
-        connect(m_serverListDialog, SIGNAL(serverGroupsChanged(const Konversation::ServerGroupSettingsPtr)),
-                konvApp, SIGNAL(serverGroupsChanged(const Konversation::ServerGroupSettingsPtr)));
-        connect(konvApp, SIGNAL(serverGroupsChanged(const Konversation::ServerGroupSettingsPtr)),
+        connect(m_serverListDialog, SIGNAL(serverGroupsChanged(Konversation::ServerGroupSettingsPtr)),
+                konvApp, SIGNAL(serverGroupsChanged(Konversation::ServerGroupSettingsPtr)));
+        connect(konvApp, SIGNAL(serverGroupsChanged(Konversation::ServerGroupSettingsPtr)),
                 m_serverListDialog, SLOT(updateServerList()));
-        connect(m_serverListDialog, SIGNAL(connectTo(Konversation::ConnectionFlag, int)),
-                konvApp->getConnectionManager(), SLOT(connectTo(Konversation::ConnectionFlag, int)));
-        connect(m_serverListDialog, SIGNAL(connectTo(Konversation::ConnectionFlag, ConnectionSettings)),
-                konvApp->getConnectionManager(), SLOT(connectTo(Konversation::ConnectionFlag, ConnectionSettings)));
+        connect(m_serverListDialog, SIGNAL(connectTo(Konversation::ConnectionFlag,int)),
+                konvApp->getConnectionManager(), SLOT(connectTo(Konversation::ConnectionFlag,int)));
+        connect(m_serverListDialog, SIGNAL(connectTo(Konversation::ConnectionFlag,ConnectionSettings)),
+                konvApp->getConnectionManager(), SLOT(connectTo(Konversation::ConnectionFlag,ConnectionSettings)));
         connect(konvApp->getConnectionManager(), SIGNAL(closeServerList()), m_serverListDialog, SLOT(slotClose()));
     }
 

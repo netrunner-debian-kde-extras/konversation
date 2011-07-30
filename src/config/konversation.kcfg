@@ -712,7 +712,7 @@
   </group>
   <group name="Path Settings">
     <entry key="LogfilePath" type="Url">
-      <default code="true">KUser(KUser::UseRealUserID).homeDir()+"/logs"</default>
+      <default code="true">QString(KUser(KUser::UseRealUserID).homeDir()+"/logs")</default>
     </entry>
     <entry key="DccPath" type="Url">
       <default code="true">KGlobalSettings::downloadPath()</default>
@@ -757,6 +757,16 @@
     </entry>
     <entry key="HideUnimportantEvents" type="Bool">
       <default>false</default>
+      <label></label>
+      <whatsthis></whatsthis>
+    </entry>
+    <entry key="HideUnimportantEventsExcludeActive" type="Bool">
+      <default>true</default>
+      <label></label>
+      <whatsthis></whatsthis>
+    </entry>
+    <entry key="HideUnimportantEventsExcludeActiveThreshold" type="Int">
+      <default>1</default>
       <label></label>
       <whatsthis></whatsthis>
     </entry>

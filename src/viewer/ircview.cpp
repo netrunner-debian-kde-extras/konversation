@@ -85,7 +85,7 @@ class SelectionPin
 IRCView::IRCView(QWidget* parent) : KTextBrowser(parent), m_nextCullIsMarker(false), m_rememberLinePosition(-1), m_rememberLineDirtyBit(false), markerFormatObject(this)
 {
     m_resetScrollbar = true;
-    m_mousePressed = false;
+    m_mousePressedOnUrl = false;
     m_isOnNick = false;
     m_isOnChannel = false;
     m_chatWin = 0;
@@ -94,7 +94,7 @@ IRCView::IRCView(QWidget* parent) : KTextBrowser(parent), m_nextCullIsMarker(fal
     setAcceptDrops(false);
 
     // Marker lines
-    connect(document(), SIGNAL(contentsChange(int, int, int)), SLOT(cullMarkedLine(int, int, int)));
+    connect(document(), SIGNAL(contentsChange(int,int,int)), SLOT(cullMarkedLine(int,int,int)));
 
     //This assert is here because a bad build environment can cause this to fail. There is a note
     // in the Qt source that indicates an error should be output, but there is no such output.
@@ -109,7 +109,7 @@ IRCView::IRCView(QWidget* parent) : KTextBrowser(parent), m_nextCullIsMarker(fal
 
 
     connect(this, SIGNAL(anchorClicked(QUrl)), this, SLOT(anchorClicked(QUrl)));
-    connect( this, SIGNAL( highlighted ( const QString &) ), this, SLOT( highlightedSlot( const QString &) ) );
+    connect( this, SIGNAL(highlighted(QString)), this, SLOT(highlightedSlot(QString)) );
     setOpenLinks(false);
     setUndoRedoEnabled(0);
     document()->setDefaultStyleSheet("a.nick:link {text-decoration: none}");
@@ -509,7 +509,7 @@ void IRCView::updateAppearance()
 
     QPalette p;
     p.setColor(QPalette::Base, Preferences::self()->color(Preferences::TextViewBackground));
-    setPalette(p);
+    viewport()->setPalette(p);
 }
 
 
@@ -700,25 +700,15 @@ void IRCView::appendServerMessage(const QString& type, const QString& message, b
         line += "<font color=\"" + serverColor + "\"" + fixed + ">%1 <b>[</b>%2<b>]</b> %3</font>";
     }
 
-    if(type != i18n("Notify"))
-        line = line.arg(timeStamp(), type, text);
-    else
-    {
-        // See Server::setWatchedNickOnline() for the originating call site.
-        line = "<font color=\"" + serverColor + "\"><a class=\"nick\" href=\"#"+message.section(' ', 0, 0)+"\">"
-            +line.arg(timeStamp(), type, message.section(' ', 1))+"</a></font>";
-    }
+    line = line.arg(timeStamp(), type, text);
 
     emit textToLog(QString("%1\t%2").arg(type, message));
 
     doAppend(line, rtl);
 }
 
-void IRCView::appendCommandMessage(const QString& type,const QString& message, bool important, bool parseURL, bool self)
+void IRCView::appendCommandMessage(const QString& type,const QString& message, bool parseURL, bool self)
 {
-    if (Preferences::self()->hideUnimportantEvents() && !important)
-        return;
-
     QString commandColor = Preferences::self()->color(Preferences::CommandMessage).name();
     QString prefix="***";
     m_tabNotification = Konversation::tnfControl;
@@ -949,7 +939,7 @@ void IRCView::replaceDecoration(QString& line, char decoration, char replacement
 }
 
 QString IRCView::filter(const QString& line, const QString& defaultColor, const QString& whoSent,
-bool doHighlight, bool parseURL, bool self, QChar::Direction* direction)
+    bool doHighlight, bool parseURL, bool self, QChar::Direction* direction)
 {
     QString filteredLine(line);
     Application* konvApp = static_cast<Application*>(kapp);
@@ -958,18 +948,20 @@ bool doHighlight, bool parseURL, bool self, QChar::Direction* direction)
     //  if the line starts with a space turn it into a non-breaking space.
     //    (which magically turns back into a space on copy)
 
-    if (filteredLine[0]==' ')
-        filteredLine[0]='\xA0';
+    if (filteredLine[0] == ' ')
+    {
+        filteredLine[0] = '\xA0';
+    }
 
     // TODO: Use QStyleSheet::escape() here
     // Replace all < with &lt;
-    filteredLine.replace('<',"\x0blt;");
+    filteredLine.replace('<', "\x0blt;");
     // Replace all > with &gt;
     filteredLine.replace('>', "\x0bgt;");
 
-    if(filteredLine.contains('\x07'))
+    if (filteredLine.contains('\x07'))
     {
-        if(Preferences::self()->beep())
+        if (Preferences::self()->beep())
         {
             kapp->beep();
         }
@@ -995,8 +987,8 @@ bool doHighlight, bool parseURL, bool self, QChar::Direction* direction)
     {
         QString highlightColor;
 
-        if(Preferences::self()->highlightNick() &&
-            filteredLine.toLower().contains(QRegExp("(^|[^\\d\\w])" +
+        if (Preferences::self()->highlightNick() &&
+            line.toLower().contains(QRegExp("(^|[^\\d\\w])" +
             QRegExp::escape(ownNick.toLower()) +
             "([^\\d\\w]|$)")))
         {
@@ -1009,45 +1001,53 @@ bool doHighlight, bool parseURL, bool self, QChar::Direction* direction)
             QList<Highlight*> highlightList = Preferences::highlightList();
             QListIterator<Highlight*> it(highlightList);
             Highlight* highlight;
+            QStringList highlightChatWindowList;
             bool patternFound = false;
 
             QStringList captures;
             while (it.hasNext())
             {
                 highlight = it.next();
-                if(highlight->getRegExp())
+                QStringList highlightChatWindowList = highlight->getChatWindowList();
+                if (highlightChatWindowList.isEmpty() ||
+                    highlightChatWindowList.contains(m_chatWin->getName(), Qt::CaseInsensitive))
                 {
-                    QRegExp needleReg(highlight->getPattern());
-                    needleReg.setCaseSensitivity(Qt::CaseInsensitive);
-                                                  // highlight regexp in text
-                    patternFound = ((filteredLine.contains(needleReg)) ||
-                                                  // highlight regexp in nickname
-                        (whoSent.contains(needleReg)));
+                    if (highlight->getRegExp())
+                    {
+                        QRegExp needleReg(highlight->getPattern());
+                        needleReg.setCaseSensitivity(Qt::CaseInsensitive);
+                                                      // highlight regexp in text
+                        patternFound = ((line.contains(needleReg)) ||
+                                                      // highlight regexp in nickname
+                            (whoSent.contains(needleReg)));
 
-                    // remember captured patterns for later
-                    captures=needleReg.capturedTexts();
+                        // remember captured patterns for later
+                        captures = needleReg.capturedTexts();
 
+                    }
+                    else
+                    {
+                        QString needle = highlight->getPattern();
+                                                      // highlight patterns in text
+                        patternFound = ((line.contains(needle, Qt::CaseInsensitive)) ||
+                                                      // highlight patterns in nickname
+                            (whoSent.contains(needle, Qt::CaseInsensitive)));
+                    }
+
+                    if (patternFound)
+                    {
+                        break;
+                    }
                 }
-                else
-                {
-                    QString needle=highlight->getPattern();
-                                                  // highlight patterns in text
-                    patternFound = ((filteredLine.contains(needle, Qt::CaseInsensitive)) ||
-                                                  // highlight patterns in nickname
-                        (whoSent.contains(needle, Qt::CaseInsensitive)));
-                }
-
-                if (patternFound)
-                    break;
             }
 
-            if(patternFound)
+            if (patternFound)
             {
                 highlightColor = highlight->getColor().name();
                 m_highlightColor = highlightColor;
                 m_tabNotification = Konversation::tnfHighlight;
 
-                if(Preferences::self()->highlightSoundsEnabled() && m_chatWin->notificationsEnabled())
+                if (Preferences::self()->highlightSoundsEnabled() && m_chatWin->notificationsEnabled())
                 {
                     konvApp->sound()->play(highlight->getSoundURL());
                 }
@@ -1056,21 +1056,22 @@ bool doHighlight, bool parseURL, bool self, QChar::Direction* direction)
                 m_autoTextToSend = highlight->getAutoText();
 
                 // replace %0 - %9 in regex groups
-                for(int capture=0;capture<captures.count();capture++)
+                for (int capture = 0; capture < captures.count(); capture++)
                 {
-                  m_autoTextToSend.replace(QString("%%1").arg(capture),captures[capture]);
+                    m_autoTextToSend.replace(QString("%%1").arg(capture), captures[capture]);
                 }
                 m_autoTextToSend.remove(QRegExp("%[0-9]"));
             }
         }
 
         // apply found highlight color to line
-        if(!highlightColor.isEmpty())
+        if (!highlightColor.isEmpty())
         {
-            filteredLine = QLatin1String("<font color=\"") + highlightColor + QLatin1String("\">") + filteredLine + QLatin1String("</font>");
+            filteredLine = QLatin1String("<font color=\"") + highlightColor + QLatin1String("\">") + filteredLine +
+                QLatin1String("</font>");
         }
     }
-    else if(doHighlight && (whoSent == ownNick) && Preferences::self()->highlightOwnLines())
+    else if (doHighlight && (whoSent == ownNick) && Preferences::self()->highlightOwnLines())
     {
         // highlight own lines
         filteredLine = QLatin1String("<font color=\"") + Preferences::self()->highlightOwnLinesColor().name() +
@@ -1079,8 +1080,6 @@ bool doHighlight, bool parseURL, bool self, QChar::Direction* direction)
 
     filteredLine = Konversation::Emoticons::parseEmoticons(filteredLine);
 
-    // Replace pairs of spaces with "<space>&nbsp;" to preserve some semblance of text wrapping
-    filteredLine.replace("  "," \xA0");
     return filteredLine;
 }
 
@@ -1164,6 +1163,8 @@ QString IRCView::ircTextToHtml(const QString& text, bool parseURL, const QString
         }
     }
 
+    // Remember last char for pair of spaces situation, see default in switch (htmlText.at(pos)...
+    QChar lastChar;
     int offset;
     for (int pos = 0; pos < htmlText.length(); ++pos)
     {
@@ -1306,6 +1307,8 @@ QString IRCView::ircTextToHtml(const QString& text, bool parseURL, const QString
                     if (!allowColors)
                     {
                         htmlText.remove(pos, colorMatch.length());
+                        pos -= 1;
+                        linkOffset -= colorMatch.length();
                         break;
                     }
                     QString colorString;
@@ -1423,6 +1426,8 @@ QString IRCView::ircTextToHtml(const QString& text, bool parseURL, const QString
                     if (!allowColors)
                     {
                         htmlText.remove(pos, 1);
+                        pos -= 1;
+                        linkOffset -= 1;
                         break;
                     }
 
@@ -1471,6 +1476,28 @@ QString IRCView::ircTextToHtml(const QString& text, bool parseURL, const QString
             default:
                 {
                     const QChar& dirChar = htmlText.at(pos);
+
+                    // Replace pairs of spaces with "<space>&nbsp;" to preserve some semblance of text wrapping
+                    //filteredLine.replace("  ", " \xA0");
+                    // This used to work like above. But just for normal text like "test    test"
+                    // It got replaced as "test \xA0 \xA0test" and QTextEdit showed 4 spaces.
+                    // In case of color/italic/bold codes we don't necessary get a real pair of spaces
+                    // just "test<html> <html> <html> <html> test" and QTextEdit shows it as 1 space.
+                    // Now if we remember the last char, to ignore html tags, and check if current and last ones are spaces
+                    // we replace the current one with \xA0 (a forced space) and get
+                    // "test<html> <html>\xA0<html> <html>\xA0test", which QTextEdit correctly shows as 4 spaces.
+                    //NOTE: replacing all spaces with forced spaces will break text wrapping
+                    if (dirChar == ' ' &&
+                        !lastChar.isNull() && lastChar == ' ')
+                    {
+                        htmlText[pos] = '\xA0';
+                        lastChar = '\xA0';
+                    }
+                    else
+                    {
+                        lastChar = dirChar;
+                    }
+
                     if (!(dirChar.isNumber() || dirChar.isSymbol() ||
                         dirChar.isSpace()  || dirChar.isPunct()  ||
                         dirChar.isMark()))
@@ -1791,7 +1818,7 @@ void IRCView::adjustUrlRanges(QList< QPair<int, int> >& urlRanges, const QString
     }
 }
 
-QString IRCView::getColors(const QString text, int start, QString& _fgColor, QString& _bgColor, bool* fgValueOK, bool* bgValueOK)
+QString IRCView::getColors(const QString& text, int start, QString& _fgColor, QString& _bgColor, bool* fgValueOK, bool* bgValueOK)
 {
     QRegExp ircColorRegExp("(\003([0-9][0-9]|[0-9]|)(,([0-9][0-9]|[0-9]|)|,|)|\017)");
     if (ircColorRegExp.indexIn(text,start) == -1)
@@ -1853,9 +1880,9 @@ void IRCView::resizeEvent(QResizeEvent *event)
 
 void IRCView::mouseMoveEvent(QMouseEvent* ev)
 {
-    if (m_mousePressed && (m_pressPosition - ev->pos()).manhattanLength() > KApplication::startDragDistance())
+    if (m_mousePressedOnUrl && (m_mousePressPosition - ev->pos()).manhattanLength() > KApplication::startDragDistance())
     {
-        m_mousePressed = false;
+        m_mousePressedOnUrl = false;
 
         QTextCursor textCursor = this->textCursor();
         textCursor.clearSelection();
@@ -1865,7 +1892,7 @@ void IRCView::mouseMoveEvent(QMouseEvent* ev)
         QPointer<QDrag> drag = new QDrag(this);
         QMimeData* mimeData = new QMimeData;
 
-        KUrl url(m_urlToDrag);
+        KUrl url(m_dragUrl);
         url.populateMimeData(mimeData);
 
         drag->setMimeData(mimeData);
@@ -1890,12 +1917,12 @@ void IRCView::mousePressEvent(QMouseEvent* ev)
 {
     if (ev->button() == Qt::LeftButton)
     {
-        m_urlToDrag = anchorAt(ev->pos());
+        m_dragUrl = anchorAt(ev->pos());
 
-        if (!m_urlToDrag.isEmpty() && Konversation::isUrl(m_urlToDrag))
+        if (!m_dragUrl.isEmpty() && Konversation::isUrl(m_dragUrl))
         {
-            m_mousePressed = true;
-            m_pressPosition = ev->pos();
+            m_mousePressedOnUrl = true;
+            m_mousePressPosition = ev->pos();
         }
     }
 
@@ -1906,7 +1933,7 @@ void IRCView::mouseReleaseEvent(QMouseEvent *ev)
 {
     if (ev->button() == Qt::LeftButton)
     {
-        m_mousePressed = false;
+        m_mousePressedOnUrl = false;
     }
     else if (ev->button() == Qt::MidButton)
     {
@@ -1944,7 +1971,6 @@ void IRCView::anchorClicked(const QUrl& url)
     openLink(url);
 }
 
-// FIXME do we still care about newtab? looks like konqi has lots of config now..
 void IRCView::openLink(const QUrl& url)
 {
     QString link(url.toString());
@@ -2037,6 +2063,17 @@ void IRCView::setContextMenuOptions(IrcContextMenus::MenuOptions options, bool o
 
 void IRCView::contextMenuEvent(QContextMenuEvent* ev)
 {
+    // Consider the following scenario: (1) context menu opened, (2) mouse
+    // pointer moved, (3) mouse button clicked to dismiss menu, (4) mouse
+    // button clicked to reopen context menu. In this scenario, if there is
+    // no mouse movement between steps (3) and (4), highlighted() is never
+    // emitted, and the data we use here to display the correct context menu
+    // is outdated. Thus what we're going to do here is post a fake mouse
+    // move event using the context menu event coordinate, forcing an update
+    // just before we display the context menu.
+    QMouseEvent fake(QEvent::MouseMove, ev->pos(), Qt::NoButton, Qt::NoButton, Qt::NoModifier);
+    mouseMoveEvent(&fake);
+
     if (m_isOnChannel && m_server)
     {
         IrcContextMenus::channelMenu(ev->globalPos(), m_server, m_currentChannel);

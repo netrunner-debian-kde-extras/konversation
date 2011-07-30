@@ -188,7 +188,7 @@ class IRCView : public KTextBrowser
         void appendChannelAction(const QString& nick, const QString& message);
 
         void appendServerMessage(const QString& type, const QString& message, bool parseURL = true);
-        void appendCommandMessage(const QString& command, const QString& message, bool important, bool parseURL=true, bool self=false);
+        void appendCommandMessage(const QString& command, const QString& message, bool parseURL=true, bool self=false);
         void appendBacklogMessage(const QString& firstColumn, const QString& message);
 
     protected:
@@ -276,7 +276,7 @@ class IRCView : public KTextBrowser
         /// Parses the colors in <parm>text</parm> starting from <parm>start</parm>
         /// and returns them in the given fg and bg string, as well as information
         /// if the values are valid
-        inline QString getColors(const QString text, int start, QString& _fgColor, QString& _bgColor, bool* invalidFgVal, bool* invalidBgValue);
+        inline QString getColors(const QString& text, int start, QString& _fgColor, QString& _bgColor, bool* invalidFgVal, bool* invalidBgValue);
 
     protected:
         virtual void resizeEvent(QResizeEvent *event);
@@ -332,9 +332,9 @@ class IRCView : public KTextBrowser
         QString m_urlToCopy; ///< the URL we might be about to copy
         bool m_isOnNick; ///< context menu click hit a nickname
         bool m_isOnChannel; ///< context menu click hit a channel
-        bool m_mousePressed; ///< currently processing a mouse press
-        QString m_urlToDrag; ///< we took a stab at whatever was clicked on, may or may not actually be a URL
-        QPoint m_pressPosition; ///< x,y of the click, relative to the GPS location of tip of Phantom's left ear
+        bool m_mousePressedOnUrl; ///< currently processing a mouse press
+        QPoint m_mousePressPosition; ///< x,y of the click, relative to the GPS location of tip of Phantom's left ear
+        QString m_dragUrl; ///< we took a stab at whatever was clicked on, may or may not actually be a URL
 
         //! TODO FIXME i'll bite. why do we have this in here?
         QFontDatabase m_fontDataBase;

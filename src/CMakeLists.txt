@@ -22,7 +22,7 @@ set(core_SRCS
     scriptlauncher.cpp
     konsolepanel.cpp
     notificationhandler.cpp
-    abstractawaymanager.cpp
+    awaymanager.cpp
     connectionmanager.cpp
     connectionsettings.cpp
     identity.cpp
@@ -58,6 +58,7 @@ set (irc_SRCS
     #=== Server
     irc/inputfilter.cpp
     irc/outputfilter.cpp
+    irc/outputfilterresolvejob.cpp
     irc/ircqueue.cpp
     irc/servergroupdialog.cpp
     irc/servergroupsettings.cpp
@@ -93,7 +94,6 @@ set(config_SRCS
     config/theme_config.cpp
     config/quickbuttons_config.cpp
     config/warnings_config.cpp
-    config/watchednicknames_config.cpp
     config/connectionbehavior_config.cpp
 )
 
@@ -141,12 +141,14 @@ set(viewer_SRCS
     viewer/insertchardialog.cpp
     viewer/osd.cpp
     viewer/topiclabel.cpp
+    viewer/awaylabel.cpp
     viewer/editnotifydialog.cpp
     viewer/emoticons.cpp
     viewer/images.cpp
     viewer/quickbutton.cpp
     viewer/searchbar.cpp
     viewer/irccontextmenus.cpp
+    viewer/trayicon.cpp
 )
 
 kde4_add_ui_files(viewer_SRCS
@@ -159,6 +161,7 @@ set(dcc_SRCS
     dcc/chat.cpp
     dcc/chatcontainer.cpp
     dcc/dcccommon.cpp
+    dcc/dccfiledialog.cpp
     dcc/recipientdialog.cpp
     dcc/resumedialog.cpp
     dcc/transfer.cpp
@@ -206,23 +209,7 @@ set(upnp_SRCS
     upnp/upnprouter.cpp
 )
 
-if (HAVE_KSTATUSNOTIFIERITEM)
-    set(trayicon_SRCS
-        viewer/trayiconkstatusnotifieritem.cpp)
-else (HAVE_KSTATUSNOTIFIERITEM)
-    set(trayicon_SRCS
-        viewer/trayiconksystemtray.cpp)
-endif (HAVE_KSTATUSNOTIFIERITEM)
-
-if (HAVE_KIDLETIME)
-    set(awaymanager_SRCS
-        awaymanagerkidletime.cpp)
-else (HAVE_KIDLETIME)
-    set(awaymanager_SRCS
-        awaymanager.cpp)
-endif (HAVE_KIDLETIME)
-
-set (completed_SRCS ${core_SRCS} ${awaymanager_SRCS} ${irc_SRCS} ${viewer_SRCS} ${trayicon_SRCS} ${config_SRCS} ${dcc_SRCS} ${linkaddressbook_SRCS} ${cipher_SRCS} ${upnp_SRCS})
+set (completed_SRCS ${core_SRCS} ${irc_SRCS} ${viewer_SRCS} ${config_SRCS} ${dcc_SRCS} ${linkaddressbook_SRCS} ${cipher_SRCS} ${upnp_SRCS})
 set (konversation_SRCS ${completed_SRCS})
 
 kde4_add_ui_files(konversation_SRCS
@@ -237,17 +224,18 @@ kde4_add_app_icon(konversation_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../data/images/
 
 kde4_add_executable(konversation ${konversation_SRCS})
 
-target_link_libraries(konversation ${KDE4_KIO_LIBS} ${KDE4_KUTILS_LIBS} ${KDE4_KPARTS_LIBS}
-                            ${KDE4_KDE3SUPPORT_LIBS} ${KDE4_KABC_LIBS}
-                            ${KDE4_KNOTIFYCONFIG_LIBRARY} ${PHONON_LIBRARY} ${KDE4_SOLID_LIBS})
+target_link_libraries(konversation ${KDE4_KIO_LIBS} ${KDE4_KPARTS_LIBS}
+                                   ${KDE4_KDE3SUPPORT_LIBS} ${KDE4_KABC_LIBS}
+                                   ${KDE4_KNOTIFYCONFIG_LIBRARY} ${PHONON_LIBRARY} ${KDE4_SOLID_LIBS})
 
-if (X11_FOUND AND X11_Xutil_FOUND)
-    target_link_libraries(konversation ${X11_X11_LIB})
-endif (X11_FOUND AND X11_Xutil_FOUND)
 
-if (X11_Xscreensaver_FOUND)
-    target_link_libraries(konversation ${X11_Xscreensaver_LIB})
-endif (X11_Xscreensaver_FOUND)
+macro_ensure_version("4.5.0" ${KDE_VERSION} HAVEKDE4_5)
+
+if (HAVEKDE4_5)
+    target_link_libraries(konversation ${KDE4_KIDLETIME_LIBS} ${KDE4_KEMOTICONS_LIBS})
+else (HAVEKDE4_5)
+    target_link_libraries(konversation ${KDE4_KUTILS_LIBS})
+endif (HAVEKDE4_5)
 
 if (QCA2_FOUND)
     target_link_libraries(konversation ${QCA2_LIBRARIES})

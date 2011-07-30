@@ -40,6 +40,7 @@
 #include <ksharedptr.h>
 #include <kprocess.h>
 #include <ktcpsocket.h>
+#include <preferences.h>
 
 class QAbstractItemModel;
 class QStringListModel;
@@ -189,9 +190,6 @@ class Server : public QObject
 
         QString getOwnIpByNetworkInterface();
         QString getOwnIpByServerMessage();
-
-        void requestAway(const QString& reason = "");
-        void requestUnaway();
 
         bool isAway() { return m_away; }
         void setAway(bool away);
@@ -466,10 +464,14 @@ class Server : public QObject
         void requestBan(const QStringList& users,const QString& channel,const QString& option);
         void requestUnban(const QString& mask,const QString& channel);
 
-        void addDccSend(const QString &recipient,KUrl fileURL, const QString &altFileName = QString(), quint64 fileSize = 0);
+        void addDccSend(const QString &recipient, KUrl fileURL, bool passive = Preferences::self()->dccPassiveSend(), const QString &altFileName = QString(), quint64 fileSize = 0);
         void removeQuery(Query *query);
+        void notifyListStarted(int serverGroupId);
         void startNotifyTimer(int msec=0);
+        void notifyTimeout();
         void sendJoinCommand(const QString& channelName, const QString& password = QString());
+        void requestAway(const QString& reason = "");
+        void requestUnaway();
         void requestChannelList();
         void requestWhois(const QString& nickname);
         void requestWho(const QString& channel);
@@ -485,7 +487,6 @@ class Server : public QObject
         void showSSLDialog();
         void sendToAllChannels(const QString& text);
         void sendToAllChannelsAndQueries(const QString& text);
-        void notifyTimeout();
 
         void enableIdentifyMsg(bool enabled);
         bool identifyMsgEnabled();

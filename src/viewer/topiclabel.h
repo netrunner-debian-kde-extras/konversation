@@ -51,12 +51,17 @@ namespace Konversation
             int textWidth(const QString& text);
             virtual void leaveEvent (QEvent*);
             virtual void contextMenuEvent(QContextMenuEvent* ev);
-            void resizeEvent(QResizeEvent*);
+            virtual void resizeEvent(QResizeEvent*);
+            virtual void mouseReleaseEvent(QMouseEvent* ev);
+            virtual void mousePressEvent(QMouseEvent* ev);
+            virtual void mouseMoveEvent(QMouseEvent* ev);
 
         protected slots:
             void highlightedSlot(const QString&);
 
         private:
+            void resetLinkHighlightState();
+
             inline QString tagUrls(const QString& text, const QString& sender);
 
             Server* m_server;
@@ -68,7 +73,10 @@ namespace Konversation
             IrcContextMenus::MenuOptions m_contextMenuOptions;
             QString m_currentChannel;
             bool m_isOnChannel;
-            QString m_urlToCopy;
+            QString m_currentUrl;
+            QString m_dragUrl;
+            bool m_mousePressedOnUrl;
+            QPoint m_mousePressPosition;
     };
 
 }

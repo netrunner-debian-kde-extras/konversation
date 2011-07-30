@@ -58,9 +58,9 @@ Autoreplace_Config::Autoreplace_Config(QWidget* parent, const char* name)
 
   connect(directionCombo, SIGNAL(activated(int)), this, SLOT(directionChanged(int)));
 
-  connect(patternInput, SIGNAL(textChanged(const QString&)), this, SLOT(patternChanged(const QString&)));
+  connect(patternInput, SIGNAL(textChanged(QString)), this, SLOT(patternChanged(QString)));
   connect(regExpEditorButton, SIGNAL(clicked()), this, SLOT(showRegExpEditor()));
-  connect(replacementInput, SIGNAL(textChanged(const QString&)), this, SLOT(replacementChanged(const QString&)));
+  connect(replacementInput, SIGNAL(textChanged(QString)), this, SLOT(replacementChanged(QString)));
 
   connect(newButton, SIGNAL(clicked()), this, SLOT(addEntry()));
   connect(removeButton, SIGNAL(clicked()), this, SLOT(removeEntry()));
@@ -147,8 +147,8 @@ void Autoreplace_Config::saveSettings()
         QStringList definition = newList[index];
         grp.writeEntry(regexString + indexString,definition.at(0)); //regex status
         grp.writeEntry(directString + indexString,definition.at(1)); //direction
-        grp.writeEntry(patternString + indexString,definition.at(2)+'#'); //pattern
-        grp.writeEntry(replaceString + indexString,definition.at(3)+'#'); //replace
+        grp.writeEntry(patternString + indexString,QString(definition.at(2)+'#')); //pattern
+        grp.writeEntry(replaceString + indexString,QString(definition.at(3)+'#')); //replace
 
     } // for
   }
@@ -312,11 +312,12 @@ void Autoreplace_Config::addEntry()
 {
   // add new item at the bottom of list view
   QTreeWidgetItem* newItem=new QTreeWidgetItem(patternListView);
-  newItem->setFlags(newItem->flags() &~ Qt::ItemIsDropEnabled);
-  newItem->setCheckState(0, Qt::Unchecked);
-  // if successful ...
-  if(newItem)
+
+  if (newItem)
   {
+    newItem->setFlags(newItem->flags() &~ Qt::ItemIsDropEnabled);
+    newItem->setCheckState(0, Qt::Unchecked);
+  
     // set default direction
     newItem->setText(1,directionCombo->itemText(DIRECTION_OUTPUT));
     // set default pattern name
