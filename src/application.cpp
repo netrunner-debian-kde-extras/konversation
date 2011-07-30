@@ -30,12 +30,7 @@
 #include "channel.h"
 #include "images.h"
 #include "notificationhandler.h"
-
-#ifdef HAVE_KIDLETIME
-#include "awaymanagerkidletime.h"
-#else
 #include "awaymanager.h"
-#endif
 
 #include <QTextCodec>
 #include <QRegExp>
@@ -68,8 +63,12 @@ Application::Application()
     osd = 0;
     m_wallet = NULL;
     m_images = 0;
+    m_sound = 0;
     m_dccTransferManager = 0;
     m_notificationHandler = 0;
+    m_urlModel = 0;
+    dbusObject = 0;
+    identDBus = 0;
 }
 
 Application::~Application()
@@ -243,7 +242,7 @@ int Application::newInstance()
 
         if (openServerList) mainWindow->openServerList();
 
-        connect(this, SIGNAL(serverGroupsChanged(const Konversation::ServerGroupSettingsPtr)), this, SLOT(saveOptions()));
+        connect(this, SIGNAL(serverGroupsChanged(Konversation::ServerGroupSettingsPtr)), this, SLOT(saveOptions()));
 
         // prepare dcop interface
         dbusObject = new Konversation::DBus(this);
@@ -254,18 +253,18 @@ int Application::newInstance()
 
         if (dbusObject)
         {
-            connect(dbusObject,SIGNAL (dbusMultiServerRaw(const QString&)),
-                this,SLOT (dbusMultiServerRaw(const QString&)) );
-            connect(dbusObject,SIGNAL (dbusRaw(const QString&,const QString&)),
-                this,SLOT (dbusRaw(const QString&,const QString&)) );
-            connect(dbusObject,SIGNAL (dbusSay(const QString&,const QString&,const QString&)),
-                this,SLOT (dbusSay(const QString&,const QString&,const QString&)) );
-            connect(dbusObject,SIGNAL (dbusInfo(const QString&)),
-                this,SLOT (dbusInfo(const QString&)) );
+            connect(dbusObject,SIGNAL (dbusMultiServerRaw(QString)),
+                this,SLOT (dbusMultiServerRaw(QString)) );
+            connect(dbusObject,SIGNAL (dbusRaw(QString,QString)),
+                this,SLOT (dbusRaw(QString,QString)) );
+            connect(dbusObject,SIGNAL (dbusSay(QString,QString,QString)),
+                this,SLOT (dbusSay(QString,QString,QString)) );
+            connect(dbusObject,SIGNAL (dbusInfo(QString)),
+                this,SLOT (dbusInfo(QString)) );
             connect(dbusObject,SIGNAL (dbusInsertMarkerLine()),
                 mainWindow,SIGNAL(insertMarkerLine()));
-            connect(dbusObject, SIGNAL(connectTo(Konversation::ConnectionFlag, const QString&, const QString&, const QString&, const QString&, const QString&, bool)),
-                m_connectionManager, SLOT(connectTo(Konversation::ConnectionFlag, const QString&, const QString&, const QString&, const QString&, const QString&, bool)));
+            connect(dbusObject, SIGNAL(connectTo(Konversation::ConnectionFlag,QString,QString,QString,QString,QString,bool)),
+                m_connectionManager, SLOT(connectTo(Konversation::ConnectionFlag,QString,QString,QString,QString,QString,bool)));
         }
 
         m_notificationHandler = new Konversation::NotificationHandler(this);
@@ -635,7 +634,7 @@ void Application::readOptions()
 
         for (int hiIndex=0; hiIndex < hiList.count(); hiIndex+=2)
         {
-            Preferences::addHighlight(hiList[hiIndex],false,'#'+hiList[hiIndex+1],QString(),QString());
+            Preferences::addHighlight(hiList[hiIndex], false, QString('#'+hiList[hiIndex+1]), QString(), QString(), QString());
         }
 
         cgDefault.deleteEntry("Highlight");
@@ -652,7 +651,8 @@ void Application::readOptions()
                 cgHilight.readEntry("RegExp", false),
                 cgHilight.readEntry("Color", QColor(Qt::black)),
                 cgHilight.readPathEntry("Sound", QString()),
-                cgHilight.readEntry("AutoText")
+                cgHilight.readEntry("AutoText"),
+                cgHilight.readEntry("ChatWindows")
                 );
             i++;
         }

@@ -17,7 +17,7 @@
 #include "application.h"
 #include "mainwindow.h"
 #include "channel.h"
-#include "abstractawaymanager.h"
+#include "awaymanager.h"
 #include "ignore.h"
 #include "server.h"
 #include "scriptlauncher.h"
@@ -25,7 +25,11 @@
 #include "linkaddressbook/addressbook.h"
 #include "query.h"
 #include "viewcontainer.h"
-#include <config-konversation.h>
+#include "outputfilterresolvejob.h"
+
+#ifdef HAVE_QCA2
+#include "cipher.h"
+#endif
 
 #include <QStringList>
 #include <QFile>
@@ -34,7 +38,7 @@
 #include <QByteArray>
 #include <QTextStream>
 
-#include <KIO/PasswordDialog>
+#include <KPasswordDialog>
 #include <KMessageBox>
 #include <KAboutData>
 
@@ -1250,38 +1254,61 @@ namespace Konversation
         if (m_server->getServerGroup())
             serverGroupId = m_server->getServerGroup()->id();
 
+        QStringList added;
+        QStringList removed;
+
         if (!input.parameter.isEmpty() && serverGroupId != -1)
         {
-            QStringList list = input.parameter.split(' ');
+            QStringList list = input.parameter.split(' ', QString::SkipEmptyParts);
 
-            for (int index = 0; index < list.count(); index++)
+
+            for (int index = 0; index < list.count(); ++index)
             {
-                // Try to remove current pattern
+                // Try to remove current pattern.
                 if (!Preferences::removeNotify(serverGroupId, list[index]))
                 {
-                    // If remove failed, try to add it instead
-                    if (!Preferences::addNotify(serverGroupId, list[index]))
-                        kDebug() << "Adding failed!";
+                    // If remove failed, try to add it instead.
+                    if (Preferences::addNotify(serverGroupId, list[index]))
+                        added << list[index];
                 }
+                else
+                    removed << list[index];
             }
         }
 
-        // show (new) notify list to user
-        //TODO FIXME uh, wtf? my brain has no room in it for this kind of fucking shit
-
-        QString list = Preferences::notifyStringByGroupId(serverGroupId) + ' ' +
-                       Konversation::Addressbook::self()->
-                           allContactsNicksForServer(m_server->getServerName(),
-                                                     m_server->getDisplayName()).join(" ");
-
-        result.typeString = i18n("Notify");
+        QString list = Preferences::notifyListByGroupId(serverGroupId).join(", ");
 
         if (list.isEmpty())
-            result.output = i18n("Current notify list is empty.");
+        {
+            if (removed.count())
+                result.output = i18nc("%1 = Comma-separated list of nicknames",
+                                      "The notify list has been emptied (removed %1).",
+                                      removed.join(", "));
+            else
+                result.output = i18n("The notify list is currently empty.");
+        }
         else
-            result.output = i18n("Current notify list: %1", list);
+        {
+            if (added.count() && !removed.count())
+                result.output = i18nc("%1 and %2 = Comma-separated lists of nicknames",
+                                      "Current notify list: %1 (added %2).",
+                                      list, added.join(", "));
+            else if (removed.count() && !added.count())
+                result.output = i18nc("%1 and %2 = Comma-separated lists of nicknames",
+                                      "Current notify list: %1 (removed %2).",
+                                      list, removed.join(", "));
+            else if (added.count() && removed.count())
+                result.output = i18nc("%1, %2 and %3 = Comma-separated lists of nicknames",
+                                      "Current notify list: %1 (added %2, removed %3).",
+                                      list, added.join(", "), removed.join(", "));
+            else
+                result.output = i18nc("%1 = Comma-separated list of nicknames",
+                                      "Current notify list: %1.",
+                                      list);
+        }
 
         result.type = Program;
+        result.typeString = i18n("Notify");
 
         return result;
     }
@@ -1295,21 +1322,16 @@ namespace Konversation
         if (input.parameter.isEmpty() || parameterList.count() == 1)
         {
             QString nick((parameterList.count() == 1) ? parameterList[0] : input.myNick);
-            QString password;
-            bool keep = false;
 
-            int ret = KIO::PasswordDialog::getNameAndPassword
-                (
-                nick,
-                password,
-                &keep,
-                i18n("Enter username and password for IRC operator privileges:"),
-                false,
-                i18n("IRC Operator Password")
-                );
+            QPointer<KPasswordDialog> dialog = new KPasswordDialog(0, KPasswordDialog::ShowUsernameLine);
+            dialog->setPrompt(i18n("Enter username and password for IRC operator privileges:"));
+            dialog->setUsername(nick);
+            dialog->setCaption(i18n("IRC Operator Password"));
+            if (dialog->exec()) {
+                result.toServer = "OPER " + dialog->username() + ' ' + dialog->password();
+            }
 
-            if (ret == KIO::PasswordDialog::Accepted)
-                result.toServer = "OPER " + nick + ' ' + password;
+            delete dialog;
         }
         else
             result.toServer = "OPER " + input.parameter;
@@ -1652,11 +1674,9 @@ namespace Konversation
 
     OutputFilterResult OutputFilter::command_setkey(const OutputFilterInput& input)
     {
-        OutputFilterResult result;
-
+        #ifdef HAVE_QCA2
         QStringList parms = input.parameter.split(' ', QString::SkipEmptyParts);
 
-        #ifdef HAVE_QCA2
         if (parms.count() == 1 && !input.destination.isEmpty())
             parms.prepend(input.destination);
         else if (parms.count() != 2)
@@ -1671,6 +1691,9 @@ namespace Konversation
                               "Electronic Codebook (ECB).",
                               Preferences::self()->commandChar()));
 
+        if (!Cipher::isFeatureAvailable(Cipher::Blowfish))
+            return error(i18n("Unable to set an encryption key for %1.", parms[0]) + ' ' + Cipher::runtimeError());
+
         m_server->setKeyForRecipient(parms[0], parms[1].toLocal8Bit());
 
         if (isAChannel(parms[0]) && m_server->getChannelByName(parms[0]))
@@ -1678,41 +1701,39 @@ namespace Konversation
         else if (m_server->getQueryByName(parms[0]))
             m_server->getQueryByName(parms[0])->setEncryptedOutput(true);
 
-        result = info(i18n("The key for %1 has been set.", parms[0]));
+        return info(i18n("The key for %1 has been set.", parms[0]));
         #else
-        result = error(i18n("Setting an encryption key requires Konversation to have been built "
-                            "with support for the Qt Cryptographic Architecture (QCA) library. "
-                            "Contact your distributor about a Konversation package with QCA "
-                            "support, or rebuild Konversation with QCA present."));
+        Q_UNUSED(input);
+        return error(i18n("Setting an encryption key requires Konversation to have been built "
+                          "with support for the Qt Cryptographic Architecture (QCA) library. "
+                          "Contact your distributor about a Konversation package with QCA "
+                          "support, or rebuild Konversation with QCA present."));
         #endif
-
-        return result;
     }
 
     OutputFilterResult OutputFilter::command_keyx(const OutputFilterInput& input)
     {
-        OutputFilterResult result;
-
+        #ifdef HAVE_QCA2
         QStringList parms = input.parameter.split(' ', QString::SkipEmptyParts);
 
-        #ifdef HAVE_QCA2
         if (parms.count() == 0 && !input.destination.isEmpty())
             parms.prepend(input.destination);
         else if (parms.count() !=1)
             return usage(i18n("Usage: %1keyx <nick|channel> triggers DH1080 key exchange with the target.",
                               Preferences::self()->commandChar()));
+        if (!Cipher::isFeatureAvailable(Cipher::DH))
+            return error(i18n("Unable to request a key exchange from %1.", parms[0]) + ' ' + Cipher::runtimeError());
 
         m_server->initKeyExchange(parms[0]);
 
-        result = info(i18n("Beginning DH1080 key exchange with %1.", parms[0]));
+        return info(i18n("Beginning DH1080 key exchange with %1.", parms[0]));
         #else
-        result = error(i18n("Setting an encryption key requires Konversation to have been built "
-                            "with support for the Qt Cryptographic Architecture (QCA) library. "
-                            "Contact your distributor about a Konversation package with QCA "
-                            "support, or rebuild Konversation with QCA present."));
+        Q_UNUSED(input);
+        return error(i18n("Setting an encryption key requires Konversation to have been built "
+                          "with support for the Qt Cryptographic Architecture (QCA) library. "
+                          "Contact your distributor about a Konversation package with QCA "
+                          "support, or rebuild Konversation with QCA present."));
         #endif
-
-        return result;
     }
 
     OutputFilterResult OutputFilter::command_delkey(const OutputFilterInput& _input)
@@ -1782,57 +1803,12 @@ namespace Konversation
 
     OutputFilterResult OutputFilter::command_dns(const OutputFilterInput& input)
     {
-        OutputFilterResult result;
-
         if (input.parameter.isEmpty())
-            result = usage(i18n("Usage: %1DNS <nick>", Preferences::self()->commandChar()));
+            return usage(i18n("Usage: %1DNS <nick>", Preferences::self()->commandChar()));
         else
-        {
-            QStringList splitString = input.parameter.split(' ');
-            QString target = splitString[0];
+            new OutputFilterResolveJob(input);
 
-            QHostAddress address(target);
-
-            // Parameter is an IP address
-            if (address != QHostAddress::Null)
-            {
-                QHostInfo resolved = QHostInfo::fromName(address.toString());
-
-                if (resolved.error() == QHostInfo::NoError)
-                {
-                    result.typeString = i18n("DNS");
-                    result.output = i18n("Resolved %1 to: %2", target, resolved.hostName());
-                    result.type = Program;
-                }
-                else
-                    result = error(i18n("Unable to resolve %1", target));
-            }
-            // Parameter is presumed to be a host due to containing a dot. Yeah, it's dumb.
-            // FIXME: The reason we detect the host by occurrence of a dot is the large penalty
-            // we would incur by using inputfilter to find out if there's a user==target on the
-            // server - once we have a better API for this, switch to it.
-            else if (target.contains('.'))
-            {
-                QHostInfo resolved = QHostInfo::fromName(target);
-
-                if (resolved.error() == QHostInfo::NoError && !resolved.addresses().isEmpty())
-                {
-                    QString resolvedTarget = resolved.addresses().first().toString();
-
-                    result.typeString = i18n("DNS");
-                    result.output = i18n("Resolved %1 to: %2", target, resolvedTarget);
-                    result.type = Program;
-                }
-                else
-                    result = error(i18n("Unable to resolve %1", target));
-            }
-            // Parameter is either host nor IP, so request a lookup from server, which in
-            // turn lets inputfilter do the job.
-            else
-                m_server->resolveUserhost(target);
-        }
-
-        return result;
+        return OutputFilterResult();
     }
 
     OutputFilterResult OutputFilter::command_list(const OutputFilterInput& input)
@@ -1891,11 +1867,7 @@ namespace Konversation
             if (input.context)
                 input.context->cycle();
             else
-            {
                 kDebug() << "Parameter-less /cycle without an input context can't work.";
-
-                return OutputFilterResult();
-            }
         }
         else
         {
@@ -1910,11 +1882,7 @@ namespace Konversation
                 if (m_server)
                     m_server->cycle();
                 else
-                {
                     kDebug() << "Told to cycle the server, but current context doesn't have one.";
-
-                    return OutputFilterResult();
-                }
             }
             else if (m_server)
             {
@@ -1936,7 +1904,31 @@ namespace Konversation
 
     OutputFilterResult OutputFilter::command_clear(const OutputFilterInput& input)
     {
-        if (input.context) input.context->clear();
+        if (input.parameter.isEmpty())
+        {
+            if (input.context)
+                input.context->clear();
+            else
+                kDebug() << "Parameter-less /clear without an input context can't work.";
+        }
+        else if (m_server)
+        {
+            if (isParameter("all", input.parameter))
+                m_server->getViewContainer()->clearAllViews();
+            else
+            {
+                if (isAChannel(input.parameter))
+                {
+                    Channel* channel = m_server->getChannelByName(input.parameter);
+
+                    if (channel) channel->clear();
+                }
+                else if (m_server->getQueryByName(input.parameter))
+                    m_server->getQueryByName(input.parameter)->clear();
+                else
+                    return usage(i18n("%1CLEAR [-ALL] [channel | nickname]", Preferences::self()->commandChar()));
+            }
+        }
 
         return OutputFilterResult();
     }

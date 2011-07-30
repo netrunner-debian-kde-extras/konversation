@@ -30,14 +30,14 @@ Ignore_Config::Ignore_Config( QWidget* parent, const char* name, Qt::WFlags fl )
         this,SLOT(removeIgnore()));
     connect(removeAllButton,SIGNAL(clicked()),
 	this,SLOT(removeAllIgnore()));
-    connect(ignoreListView, SIGNAL(currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *)),
+    connect(ignoreListView, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
         this,SLOT(select(QTreeWidgetItem*)));
     connect(chkChannel, SIGNAL(clicked()), this, SLOT(flagCheckboxChanged()));
     connect(chkQuery, SIGNAL(clicked()), this, SLOT(flagCheckboxChanged()));
     connect(chkNotice, SIGNAL(clicked()), this, SLOT(flagCheckboxChanged()));
     connect(chkCTCP, SIGNAL(clicked()), this, SLOT(flagCheckboxChanged()));
     connect(chkDCC, SIGNAL(clicked()), this, SLOT(flagCheckboxChanged()));
-    connect(txtPattern, SIGNAL(textChanged(const QString &)), this, SLOT(flagCheckboxChanged()));
+    connect(txtPattern, SIGNAL(textChanged(QString)), this, SLOT(flagCheckboxChanged()));
 //    connect(chkException, SIGNAL(clicked()), this, SLOT(flagCheckboxChanged()));
     loadSettings();
 
@@ -102,7 +102,7 @@ QStringList Ignore_Config::currentIgnoreList()
     for (int i = 0; i < root->childCount(); ++i)
     {
         IgnoreListViewItem* item = static_cast<IgnoreListViewItem *>(root->child(i));
-        newList.append(item->text(0)+' '+item->getFlags());
+        newList.append(item->text(0)+QLatin1Char(' ')+QString(item->getFlags()));
     }
 
     return newList;

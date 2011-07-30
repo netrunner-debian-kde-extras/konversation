@@ -11,8 +11,14 @@
 */
 #include "identitydialog.h"
 #include "application.h"
-#include "abstractawaymanager.h"
+#include "awaymanager.h"
 #include "irccharsets.h"
+
+#if KDE_IS_VERSION(4, 6, 0)
+#include <KEditListWidget>
+#else
+#include <KEditListBox>
+#endif
 
 #include <KDialog>
 #include <KMessageBox>
@@ -33,6 +39,24 @@ namespace Konversation
         QWidget* w = new QWidget(this);
         setupUi(w);
         setMainWidget(w);
+
+#if KDE_IS_VERSION(4, 6, 0)
+        QGroupBox* nickGroupBox = new QGroupBox(i18n("Nickname"));
+        verticalLayout->insertWidget(1, nickGroupBox);
+        QVBoxLayout* nickGroupBoxLayout = new QVBoxLayout(nickGroupBox);
+        nickGroupBoxLayout->setContentsMargins(0, 0, 0, 0);
+        m_nicknameLBox = new KEditListWidget(nickGroupBox);
+        nickGroupBoxLayout->addWidget(m_nicknameLBox);
+#else
+        m_nicknameLBox = new KEditListBox(i18n("Nickname"), generalWidget);
+        verticalLayout->insertWidget(1, m_nicknameLBox);
+#endif
+        m_nicknameLBox->setWhatsThis(i18n("This is your list of nicknames. A nickname is the name that other users will "
+                                          "know you by. You may use any name you desire. The first character must be a letter.\n\n"
+                                          "Since nicknames must be unique across an entire IRC network, your desired name may be "
+                                          "rejected by the server because someone else is already using that nickname. Enter "
+                                          "alternate nicknames for yourself. If your first choice is rejected by the server, "
+                                          "Konversation will try the alternate nicknames."));
 
         newBtn->setIcon(KIcon("list-add"));
         connect(newBtn, SIGNAL(clicked()), this, SLOT(newIdentity()));
@@ -66,7 +90,7 @@ namespace Konversation
         setButtonGuiItem(KDialog::Ok, KGuiItem(i18n("&OK"), "dialog-ok", i18n("Change identity information")));
         setButtonGuiItem(KDialog::Cancel, KGuiItem(i18n("&Cancel"), "dialog-cancel", i18n("Discards all changes made")));
 
-        AbstractAwayManager* awayManager = static_cast<Application*>(kapp)->getAwayManager();
+        AwayManager* awayManager = static_cast<Application*>(kapp)->getAwayManager();
         connect(m_identityCBox, SIGNAL(currentIndexChanged(int)), this, SLOT(updateIdentity(int)));
         connect(this, SIGNAL(identitiesChanged()), awayManager, SLOT(identitiesChanged()));
     }
@@ -84,7 +108,7 @@ namespace Konversation
 
         m_realNameEdit->setText(m_currentIdentity->getRealName());
         m_nicknameLBox->clear();
-        m_nicknameLBox->insertStringList(m_currentIdentity->getNicknameList(), 0);//0 is workaround for kdelibs < 4.2.2 bug
+        m_nicknameLBox->insertStringList(m_currentIdentity->getNicknameList());
         m_botEdit->setText(m_currentIdentity->getBot());
         m_passwordEdit->setText(m_currentIdentity->getPassword());
 
@@ -125,13 +149,7 @@ namespace Konversation
         }
 
         m_currentIdentity->setRealName(m_realNameEdit->text());
-        QStringList nicks;
-
-        for(int i = 0; i < m_nicknameLBox->count(); ++i)
-        {
-            nicks.append(m_nicknameLBox->text(i));
-        }
-
+        const QStringList nicks = m_nicknameLBox->items();
         m_currentIdentity->setNicknameList(nicks);
         m_currentIdentity->setBot(m_botEdit->text());
         m_currentIdentity->setPassword(m_passwordEdit->text());

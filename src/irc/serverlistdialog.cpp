@@ -15,7 +15,6 @@
 #include "application.h"
 #include "servergroupdialog.h"
 #include "connectionsettings.h"
-#include "ui_serverlistdialogui.h"
 
 #include <QCheckBox>
 #include <QHeaderView>
@@ -55,19 +54,13 @@ namespace Konversation
     }
 
     ServerListDialog::ServerListDialog(const QString& title, QWidget *parent)
-        : KDialog(parent)
+    : KDialog(parent), Ui::ServerListDialogUI()
     {
         setCaption(title);
         setButtons(Ok|Close);
 
-        m_mainWidget = new Ui::ServerListDialogUI();
-        m_mainWidget->setupUi(mainWidget());
+        setupUi(mainWidget());
         mainWidget()->layout()->setMargin(0);
-        m_serverList = m_mainWidget->m_serverList;
-        m_addButton = m_mainWidget->m_addButton;
-        m_delButton = m_mainWidget->m_delButton;
-        m_editButton = m_mainWidget->m_editButton;
-        m_showAtStartup = m_mainWidget->m_showAtStartup;
 
         setButtonGuiItem(Ok, KGuiItem(i18n("C&onnect"), "network-connect", i18n("Connect to the server"), i18n("Click here to connect to the selected IRC network and channel.")));
 
@@ -85,7 +78,7 @@ namespace Konversation
 
         connect(m_serverList, SIGNAL(aboutToMove()), this, SLOT(slotAboutToMove()));
         connect(m_serverList, SIGNAL(moved()), this, SLOT(slotMoved()));
-        connect(m_serverList, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(slotOk()));
+        connect(m_serverList, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(slotOk()));
         connect(m_serverList, SIGNAL(itemSelectionChanged()), this, SLOT(updateButtons()));
         connect(m_serverList, SIGNAL(itemExpanded(QTreeWidgetItem*)), this, SLOT(slotSetGroupExpanded(QTreeWidgetItem*)));
         connect(m_serverList, SIGNAL(itemCollapsed(QTreeWidgetItem*)), this, SLOT(slotSetGroupCollapsed(QTreeWidgetItem*)));
@@ -103,6 +96,7 @@ namespace Konversation
         resize(newSize);
         m_serverList->header()->setMovable(false); // don't let the user reorder the header
         m_serverList->sortItems(0, Qt::AscendingOrder);
+        m_serverList->header()->restoreState(config.readEntry<QByteArray>("ServerListHeaderState", QByteArray()));
         //because it sorts the first column in ascending order by default
         //causing problems and such.
         m_serverList->topLevelItem(0)->setSelected(true);
@@ -112,7 +106,7 @@ namespace Konversation
     {
         KConfigGroup config(KGlobal::config(), "ServerListDialog");
         config.writeEntry("Size", size());
-        delete m_mainWidget;
+        config.writeEntry("ServerListHeaderState", m_serverList->header()->saveState());
     }
 
     void ServerListDialog::slotClose()
@@ -434,7 +428,7 @@ namespace Konversation
                 name += ':' + QString::number((*serverIt).port());
 
             if ((*serverIt).SSLEnabled())
-                name += + " (SSL)";
+                name += " (SSL)";
 
             // Insert the server into the list, as child of the server group list item
             QTreeWidgetItem* serverItem = new ServerListItem(networkItem, QStringList() << name);
@@ -459,11 +453,13 @@ namespace Konversation
 
     int ServerListDialog::selectedChildrenCount(QTreeWidgetItem* item)
     {
-        int count=0;
-        for(int i=0; i< item->childCount(); i++)
+        int count = 0;
+
+        for (int i=0; i< item->childCount(); i++)
         {
-            if(item->child(i)) count++;
+            if (item->child(i)->isSelected()) count++;
         }
+
         return count;
     }
 }

@@ -30,8 +30,8 @@ QuickButtons_Config::QuickButtons_Config(QWidget* parent, const char* name)
 
   connect(buttonListView,SIGNAL (currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),this,SLOT (entrySelected(QTreeWidgetItem*)) );
 
-  connect(nameInput,SIGNAL (textChanged(const QString&)),this,SLOT (nameChanged(const QString&)) );
-  connect(actionInput,SIGNAL (textChanged(const QString&)),this,SLOT (actionChanged(const QString&)) );
+  connect(nameInput,SIGNAL (textChanged(QString)),this,SLOT (nameChanged(QString)) );
+  connect(actionInput,SIGNAL (textChanged(QString)),this,SLOT (actionChanged(QString)) );
 
   connect(newButton,SIGNAL (clicked()),this,SLOT (addEntry()));
   connect(removeButton,SIGNAL (clicked()),this,SLOT (removeEntry()));
@@ -197,11 +197,12 @@ void QuickButtons_Config::addEntry()
 {
   // add new item at the bottom of list view
   QTreeWidgetItem* newItem = new QTreeWidgetItem(buttonListView, buttonListView->topLevelItemCount());
-  newItem->setFlags(newItem->flags() &~ Qt::ItemIsDropEnabled);
-  newItem->setText(0, i18n("New"));
-  // if successful ...
-  if(newItem)
+
+  if (newItem)
   {
+    newItem->setFlags(newItem->flags() &~ Qt::ItemIsDropEnabled);
+    newItem->setText(0, i18n("New"));
+
     // select new item and make it the current one
     buttonListView->setCurrentItem(newItem);
     // set input focus on item name edit

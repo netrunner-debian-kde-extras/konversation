@@ -47,6 +47,7 @@
 #include <KActionCollection>
 #include <KToggleAction>
 #include <KSelectAction>
+#include <KWindowSystem>
 
 using namespace Konversation;
 
@@ -88,7 +89,7 @@ ViewContainer::ViewContainer(MainWindow* window):
     m_dccPanel = new DCC::TransferPanel(m_tabWidget);
     m_dccPanel->hide();
     m_dccPanelOpen = false;
-    connect(m_dccPanel, SIGNAL(updateTabNotification(ChatWindow*,const Konversation::TabNotifyType&)), this, SLOT(setViewNotification(ChatWindow*,const Konversation::TabNotifyType&)));
+    connect(m_dccPanel, SIGNAL(updateTabNotification(ChatWindow*,Konversation::TabNotifyType)), this, SLOT(setViewNotification(ChatWindow*,Konversation::TabNotifyType)));
 
     // Pre-construct context menus for better responsiveness when then
     // user opens them the first time. This is optional; the IrcContext-
@@ -175,8 +176,7 @@ void ViewContainer::setupTabWidget()
     m_queueTuner = new QueueTuner(m_vbox, this);
     m_queueTuner->hide();
 
-    m_tabWidget->setTabReorderingEnabled(true);
-    m_tabWidget->setTabCloseActivatePrevious(true);
+    m_tabWidget->setMovable(true);
     m_tabWidget->tabBar()->setSelectionBehaviorOnRemove(QTabBar::SelectPreviousTab);
 
     m_vbox->hide();    //m_tabWidget->hide();
@@ -189,7 +189,7 @@ void ViewContainer::setupTabWidget()
 
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT (viewSwitched(int)));
     connect(m_tabWidget, SIGNAL(closeRequest(QWidget*)), this, SLOT(closeView(QWidget*)));
-    connect(m_tabWidget, SIGNAL(contextMenu(QWidget*, const QPoint&)), this, SLOT(showViewContextMenu(QWidget*, const QPoint&)));
+    connect(m_tabWidget, SIGNAL(contextMenu(QWidget*,QPoint)), this, SLOT(showViewContextMenu(QWidget*,QPoint)));
     connect(m_tabWidget, SIGNAL(mouseMiddleClick(QWidget*)), this, SLOT(closeViewMiddleClick(QWidget*)));
 
     updateTabWidgetAppearance();
@@ -208,7 +208,7 @@ void ViewContainer::setupViewTree()
     connect(m_viewTree, SIGNAL(setViewTreeShown(bool)), this, SLOT(setViewTreeShown(bool)));
     connect(m_viewTree, SIGNAL(showView(ChatWindow*)), this, SLOT(showView(ChatWindow*)));
     connect(m_viewTree, SIGNAL(closeView(ChatWindow*)), this, SLOT(closeView(ChatWindow*)));
-    connect(m_viewTree, SIGNAL(showViewContextMenu(QWidget*, const QPoint&)), this, SLOT(showViewContextMenu(QWidget*, const QPoint&)));
+    connect(m_viewTree, SIGNAL(showViewContextMenu(QWidget*,QPoint)), this, SLOT(showViewContextMenu(QWidget*,QPoint)));
     connect(m_viewTree, SIGNAL(sizeChanged()), this, SLOT(saveSplitterSizes()));
     connect(m_viewTree, SIGNAL(syncTabBarToTree()), this, SLOT(syncTabBarToTree()));
 
@@ -309,7 +309,7 @@ void ViewContainer::removeViewTree()
     disconnect(m_viewTree, SIGNAL(setViewTreeShown(bool)), this, SLOT(setViewTreeShown(bool)));
     disconnect(m_viewTree, SIGNAL(showView(ChatWindow*)), this, SLOT(showView(ChatWindow*)));
     disconnect(m_viewTree, SIGNAL(closeView(ChatWindow*)), this, SLOT(closeView(ChatWindow*)));
-    disconnect(m_viewTree, SIGNAL(showViewContextMenu(QWidget*, const QPoint&)), this, SLOT(showViewContextMenu(QWidget*, const QPoint&)));
+    disconnect(m_viewTree, SIGNAL(showViewContextMenu(QWidget*,QPoint)), this, SLOT(showViewContextMenu(QWidget*,QPoint)));
     disconnect(m_viewTree, SIGNAL(sizeChanged()), this, SLOT(saveSplitterSizes()));
     disconnect(m_viewTree, SIGNAL(syncTabBarToTree()), this, SLOT(syncTabBarToTree()));
 
@@ -337,9 +337,12 @@ void ViewContainer::removeViewTree()
 
 void ViewContainer::syncTabBarToTree()
 {
+    if (!m_tabWidget)
+        return;
+
     QList<ChatWindow*> viewList = m_viewTree->getSortedViewList();
 
-    if (m_tabWidget && !viewList.isEmpty())
+    if (!viewList.isEmpty())
     {
         QListIterator<ChatWindow*> it(viewList);
         ChatWindow* view;
@@ -714,14 +717,14 @@ void ViewContainer::updateFrontView()
     // Make sure that only views with info output get to be the m_frontView
     if (m_frontView)
     {
-        disconnect(m_frontView, SIGNAL(updateInfo(const QString &)), this, SIGNAL(setStatusBarInfoLabel(const QString &)));
+        disconnect(m_frontView, SIGNAL(updateInfo(QString)), this, SIGNAL(setStatusBarInfoLabel(QString)));
     }
 
     if (view->canBeFrontView())
     {
         m_frontView = view;
 
-        connect(view, SIGNAL(updateInfo(const QString &)), this, SIGNAL(setStatusBarInfoLabel(const QString &)));
+        connect(view, SIGNAL(updateInfo(QString)), this, SIGNAL(setStatusBarInfoLabel(QString)));
         view->emitUpdateInfo();
     }
     else
@@ -1210,7 +1213,7 @@ void ViewContainer::addView(ChatWindow* view, const QString& label, bool weiniti
         iconSet = KIcon("dialog-close");
 
     connect(Application::instance(), SIGNAL(appearanceChanged()), view, SLOT(updateAppearance()));
-    connect(view, SIGNAL(setStatusBarTempText(const QString&)), this, SIGNAL(setStatusBarTempText(const QString&)));
+    connect(view, SIGNAL(setStatusBarTempText(QString)), this, SIGNAL(setStatusBarTempText(QString)));
     connect(view, SIGNAL(clearStatusBarTempText()), this, SIGNAL(clearStatusBarTempText()));
     connect(view, SIGNAL(closing(ChatWindow*)), this, SIGNAL(removeView(ChatWindow*)));
     connect(view, SIGNAL(closing(ChatWindow*)), this, SLOT(cleanupAfterClose(ChatWindow*)));
@@ -1413,7 +1416,7 @@ void ViewContainer::viewSwitched(int newIndex)
     {
         m_frontView->resetTabNotification();
 
-        disconnect(m_frontView, SIGNAL(updateInfo(const QString &)), this, SIGNAL(setStatusBarInfoLabel(const QString &)));
+        disconnect(m_frontView, SIGNAL(updateInfo(QString)), this, SIGNAL(setStatusBarInfoLabel(QString)));
 
         if (Preferences::self()->automaticRememberLine() && m_frontView->isInsertSupported())
             m_frontView->getTextView()->insertRememberLine();
@@ -1492,6 +1495,18 @@ void ViewContainer::showPreviousView()
 
 void ViewContainer::showNextActiveView()
 {
+    if (m_window->isHidden())
+        m_window->show();
+
+    if (m_window->isMinimized())
+        KWindowSystem::unminimizeWindow(m_window->winId());
+
+    if (!m_window->isActiveWindow())
+    {
+        m_window->raise();
+        KWindowSystem::activateWindow(m_window->winId());
+    }
+
     if (!m_activeViewOrderList.isEmpty())
     {
         ChatWindow* prev = m_activeViewOrderList.first();
@@ -1583,8 +1598,6 @@ void ViewContainer::closeView(ChatWindow* view)
     {
         ChatWindow::WindowType viewType = view->getType();
 
-        bool closeConfirmed = true;
-
         switch (viewType)
         {
             case ChatWindow::DccTransferPanel:
@@ -1597,7 +1610,7 @@ void ViewContainer::closeView(ChatWindow* view)
                 closeNicksOnlinePanel();
                 break;
             default:
-                closeConfirmed = view->closeYourself();
+                view->closeYourself();
                 break;
         }
     }
@@ -1651,15 +1664,16 @@ void ViewContainer::closeViewMiddleClick(QWidget* view)
 void ViewContainer::renameKonsole()
 {
     bool ok = false;
+
+    if (!m_tabWidget)
+        return;
+
     int popup = m_popupViewIndex ? m_popupViewIndex : m_tabWidget->currentIndex();
 
     QString label = KInputDialog::getText(i18n("Rename Tab"),
                                           i18n("Enter new tab name:"),
                                           m_tabWidget->tabText(popup),
                                           &ok, m_tabWidget->widget(popup));
-
-    if (!m_tabWidget)
-        return;
 
     if (ok)
     {
@@ -1897,19 +1911,8 @@ void ViewContainer::clearView()
 
 void ViewContainer::clearAllViews()
 {
-    int total=m_tabWidget->count()-1;
-    ChatWindow* nextPage;
-
-    for(int i=0;i<=total;i++)
-    {
-        nextPage=static_cast<ChatWindow*>(m_tabWidget->widget(i));
-
-        if (nextPage && nextPage->getTextView())
-        {
-            nextPage->getTextView()->clear();
-            unsetViewNotification(nextPage);
-        }
-    }
+    for (int i = 0; i < m_tabWidget->count(); i++)
+        static_cast<ChatWindow*>(m_tabWidget->widget(i))->clear();
 }
 
 void ViewContainer::findText()
@@ -1991,7 +1994,7 @@ void ViewContainer::insertCharacter()
     if (!m_insertCharDialog)
     {
         m_insertCharDialog = new Konversation::InsertCharDialog(font.family(), m_window);
-        connect(m_insertCharDialog, SIGNAL(insertChar(const QChar&)), this, SLOT(insertChar(const QChar&)));
+        connect(m_insertCharDialog, SIGNAL(insertChar(QChar)), this, SLOT(insertChar(QChar)));
     }
 
     m_insertCharDialog->setFont(font);
@@ -2126,7 +2129,7 @@ void ViewContainer::addKonsolePanel()
     KonsolePanel* panel=new KonsolePanel(m_tabWidget);
     panel->setName(i18n("Konsole"));
     addView(panel, i18n("Konsole"));
-    connect(panel, SIGNAL(updateTabNotification(ChatWindow*,const Konversation::TabNotifyType&)), this, SLOT(setViewNotification(ChatWindow*,const Konversation::TabNotifyType&)));
+    connect(panel, SIGNAL(updateTabNotification(ChatWindow*,Konversation::TabNotifyType)), this, SLOT(setViewNotification(ChatWindow*,Konversation::TabNotifyType)));
     connect(panel, SIGNAL(closeView(ChatWindow*)), this, SLOT(closeView(ChatWindow*)));
 }
 
@@ -2209,8 +2212,8 @@ void ViewContainer::addDccChat(DCC::Chat* chat)
     }
 
     DCC::ChatContainer *chatcontainer = new DCC::ChatContainer(m_tabWidget,chat);
-    connect(chatcontainer, SIGNAL(updateTabNotification(ChatWindow*,const Konversation::TabNotifyType&)),
-            this, SLOT(setViewNotification(ChatWindow*,const Konversation::TabNotifyType&)));
+    connect(chatcontainer, SIGNAL(updateTabNotification(ChatWindow*,Konversation::TabNotifyType)),
+            this, SLOT(setViewNotification(ChatWindow*,Konversation::TabNotifyType)));
 
     addView(chatcontainer, chatcontainer->getName());
 }
@@ -2233,8 +2236,8 @@ StatusPanel* ViewContainer::addStatusView(Server* server)
     // ... then put it into the tab widget, otherwise we'd have a race with server member
     addView(statusView, label);
 
-    connect(statusView, SIGNAL(updateTabNotification(ChatWindow*,const Konversation::TabNotifyType&)),
-        this, SLOT(setViewNotification(ChatWindow*,const Konversation::TabNotifyType&)));
+    connect(statusView, SIGNAL(updateTabNotification(ChatWindow*,Konversation::TabNotifyType)),
+        this, SLOT(setViewNotification(ChatWindow*,Konversation::TabNotifyType)));
     connect(statusView, SIGNAL(sendFile()), server, SLOT(requestDccSend()));
     connect(server, SIGNAL(awayState(bool)), statusView, SLOT(indicateAway(bool)) );
 
@@ -2254,8 +2257,8 @@ RawLog* ViewContainer::addRawLog(Server* server)
 
     addView(rawLog, i18n("Raw Log"));
 
-    connect(rawLog, SIGNAL(updateTabNotification(ChatWindow*,const Konversation::TabNotifyType&)),
-        this, SLOT(setViewNotification(ChatWindow*,const Konversation::TabNotifyType&)));
+    connect(rawLog, SIGNAL(updateTabNotification(ChatWindow*,Konversation::TabNotifyType)),
+        this, SLOT(setViewNotification(ChatWindow*,Konversation::TabNotifyType)));
 
     return rawLog;
 }
@@ -2359,7 +2362,7 @@ Channel* ViewContainer::addChannel(Server* server, const QString& name)
     addView(channel, name);
 
     connect(this, SIGNAL(updateChannelAppearance()), channel, SLOT(updateAppearance()));
-    connect(channel, SIGNAL(updateTabNotification(ChatWindow*,const Konversation::TabNotifyType&)), this, SLOT(setViewNotification(ChatWindow*,const Konversation::TabNotifyType&)));
+    connect(channel, SIGNAL(updateTabNotification(ChatWindow*,Konversation::TabNotifyType)), this, SLOT(setViewNotification(ChatWindow*,Konversation::TabNotifyType)));
     connect(server, SIGNAL(awayState(bool)), channel, SLOT(indicateAway(bool)) );
     connect(channel, SIGNAL(joined(Channel*)), this, SLOT(channelJoined(Channel*)));
 
@@ -2415,8 +2418,8 @@ Query* ViewContainer::addQuery(Server* server, const NickInfoPtr& nickInfo, bool
 
     ++m_queryViewCount;
 
-    connect(query, SIGNAL(updateTabNotification(ChatWindow*,const Konversation::TabNotifyType&)), this, SLOT(setViewNotification(ChatWindow*,const Konversation::TabNotifyType&)));
-    connect(query, SIGNAL(updateQueryChrome(ChatWindow*, const QString &)), this, SLOT(updateQueryChrome(ChatWindow*, const QString &)));
+    connect(query, SIGNAL(updateTabNotification(ChatWindow*,Konversation::TabNotifyType)), this, SLOT(setViewNotification(ChatWindow*,Konversation::TabNotifyType)));
+    connect(query, SIGNAL(updateQueryChrome(ChatWindow*,QString)), this, SLOT(updateQueryChrome(ChatWindow*,QString)));
     connect(server, SIGNAL(awayState(bool)), query, SLOT(indicateAway(bool)));
 
     return query;
@@ -2493,6 +2496,7 @@ void ViewContainer::openChannelList(Server* server, const QString& filter, bool 
             ),
             i18n("Channel List"),
             "ChannelListNoServerSelected");
+        return;
     }
 
     ChannelListPanel* panel = server->getChannelListPanel();
@@ -2551,7 +2555,7 @@ void ViewContainer::openNicksOnlinePanel()
     {
         m_nicksOnlinePanel=new NicksOnline(m_window);
         addView(m_nicksOnlinePanel, i18n("Watched Nicks Online"));
-        connect(m_nicksOnlinePanel, SIGNAL(doubleClicked(int,const QString&)), m_window, SLOT(notifyAction(int,const QString&)));
+        connect(m_nicksOnlinePanel, SIGNAL(doubleClicked(int,QString)), m_window, SLOT(notifyAction(int,QString)));
         connect(m_nicksOnlinePanel, SIGNAL(showView(ChatWindow*)), this, SLOT(showView(ChatWindow*)));
         connect(m_window, SIGNAL(nicksNowOnline(Server*)), m_nicksOnlinePanel, SLOT(updateServerOnlineList(Server*)));
         (dynamic_cast<KToggleAction*>(actionCollection()->action("open_nicksonline_window")))->setChecked(true);

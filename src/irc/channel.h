@@ -40,6 +40,7 @@ class KVBox;
 class KHBox;
 class KComboBox;
 
+class AwayLabel;
 class NickListView;
 class Nick;
 class QuickButton;
@@ -112,6 +113,7 @@ class Channel : public ChatWindow
         void fastAddNickname(ChannelNickPtr channelnick, Nick *nick=0);
         void setActive(bool active);
         void repositionNick(Nick *nick);
+        bool shouldShowEvent(ChannelNickPtr channelNick);
 
     public slots:
         void setNickname(const QString& newNickname);
@@ -131,8 +133,8 @@ class Channel : public ChatWindow
     public:
         void flushPendingNicks();
 
-        ChannelNickPtr getOwnChannelNick();
-        ChannelNickPtr getChannelNick(const QString &ircnick);
+        ChannelNickPtr getOwnChannelNick() const;
+        ChannelNickPtr getChannelNick(const QString &ircnick) const;
 
         void joinNickname(ChannelNickPtr channelNick);
         void removeNick(ChannelNickPtr channelNick, const QString &reason, bool quit);
@@ -140,8 +142,8 @@ class Channel : public ChatWindow
         void addNickname(ChannelNickPtr channelNick);
         void nickRenamed(const QString &oldNick, const NickInfo& channelnick);
         void addPendingNickList(const QStringList& pendingChannelNickList);
-        Nick *getNickByName(const QString& lookname);
-        NickList getNickList() { return nicknameList; }
+        Nick *getNickByName(const QString& lookname) const;
+        NickList getNickList() const { return nicknameList; }
 
         void adjustNicks(int value);
         void adjustOps(int value);
@@ -335,7 +337,7 @@ class Channel : public ChatWindow
         QWidget* m_buttonsGrid;
         KComboBox* nicknameCombobox;
         QString oldNick; ///< GUI
-        QLabel* awayLabel;
+        AwayLabel* awayLabel;
         QLabel* cipherLabel;
         IRCInput* channelInput;
 
@@ -347,6 +349,7 @@ class Channel : public ChatWindow
         NickList nicknameList;
         QTimer userhostTimer;
         int m_nicknameListViewTextChanged;
+        QHash<QString, Nick*> m_nicknameNickHash;
 
         QStringList m_topicHistory;
         QStringList m_BanList;

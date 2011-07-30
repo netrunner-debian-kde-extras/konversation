@@ -68,16 +68,17 @@ class Preferences : public PreferencesBase
 
         //notifylist is in kconfigxt - FIXME
         static const QMap<int, QStringList> notifyList();
+        static void setNotifyList(const QMap<int, QStringList>& newList);
         static const QStringList notifyListByGroupId(int serverGroupId);
         static const QString notifyStringByGroupId(int serverGroupId);
-        static void setNotifyList(const QMap<int, QStringList>& newList);
         static bool addNotify(int serverGroupId, const QString& newPattern);
         static bool removeNotify(int serverGroupId, const QString& pattern);
         static bool isNotify(int serverGroupId, const QString& pattern);
 
         static const QList<Highlight*> highlightList();
         static void setHighlightList(QList<Highlight*> newList);
-        static void addHighlight(const QString& newHighlight,bool regExp, const QColor &color,const QString& sound,const QString& autoText);
+        static void addHighlight(const QString& highlight, bool regExp, const QColor& color,
+            const QString& soundURL, const QString& autoText,const QString& chatWindows);
 
         /* All of the below work on the first (default) identity in your identity list*/
         static void addIgnore(const QString &newIgnore);
@@ -89,7 +90,7 @@ class Preferences : public PreferencesBase
 
         static const QStringList quickButtonList();
         static const QStringList defaultQuickButtonList();
-        static void setQuickButtonList(const QStringList newList);
+        static void setQuickButtonList(const QStringList& newList);
         static void clearQuickButtonList();
 
         static const QList<QStringList> autoreplaceList();
@@ -126,9 +127,11 @@ class Preferences : public PreferencesBase
         static void restoreColumnState(QTreeView *treeView, QString name, int defaultColumn = 0,
                                        Qt::SortOrder defaultSortOrder = Qt::AscendingOrder);
 
+    public slots:
+        static void slotSetUseOSD(bool use);
+
     signals:
-        void requestServerConnection(int number);
-        void requestSaveOptions();
+        void notifyListStarted(int serverGroupId);
         void autoContinuousWhoChanged();
         void updateTrayIcon();
 

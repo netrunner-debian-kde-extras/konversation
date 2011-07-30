@@ -22,6 +22,7 @@
 #include "ircinput.h"
 #include "ircviewbox.h"
 #include "ircview.h"
+#include "awaylabel.h"
 #include "topiclabel.h"
 #include "notificationhandler.h"
 #include "viewcontainer.h"
@@ -110,9 +111,7 @@ Channel::Channel(QWidget* parent, const QString& _name) : ChatWindow(parent)
     // Build some size policies for the widgets
     QSizePolicy hfixed = QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
     QSizePolicy hmodest = QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
-    QSizePolicy vmodest = QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     QSizePolicy vfixed = QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
-    QSizePolicy modest = QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     QSizePolicy greedy = QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
     m_vertSplitter = new QSplitter(Qt::Vertical, this);
@@ -137,7 +136,7 @@ Channel::Channel(QWidget* parent, const QString& _name) : ChatWindow(parent)
     topicLine->setChannelName(getName());
     topicLine->setWordWrap(true);
     topicLine->setWhatsThis(i18n("<qt><p>Every channel on IRC has a topic associated with it.  This is simply a message that everybody can see.</p><p>If you are an operator, or the channel mode <em>'T'</em> has not been set, then you can change the topic by clicking the Edit Channel Properties button to the left of the topic.  You can also view the history of topics there.</p></qt>"));
-    connect(topicLine, SIGNAL(setStatusBarTempText(const QString&)), this, SIGNAL(setStatusBarTempText(const QString&)));
+    connect(topicLine, SIGNAL(setStatusBarTempText(QString)), this, SIGNAL(setStatusBarTempText(QString)));
     connect(topicLine, SIGNAL(clearStatusBarTempText()), this, SIGNAL(clearStatusBarTempText()));
 
     topicLayout->addWidget(m_topicButton, 0, 0);
@@ -220,7 +219,7 @@ Channel::Channel(QWidget* parent, const QString& _name) : ChatWindow(parent)
     if (nicknameComboboxLineEdit) nicknameComboboxLineEdit->setClearButtonShown(false);
     nicknameCombobox->setWhatsThis(i18n("<qt><p>This shows your current nick, and any alternatives you have set up.  If you select or type in a different nickname, then a request will be sent to the IRC server to change your nick.  If the server allows it, the new nickname will be selected.  If you type in a new nickname, you need to press 'Enter' at the end.</p><p>You can edit the alternative nicknames from the <em>Identities</em> option in the <em>Settings</em> menu.</p></qt>"));
 
-    awayLabel = new QLabel(i18n("(away)"), commandLineBox);
+    awayLabel = new AwayLabel(commandLineBox);
     awayLabel->hide();
     cipherLabel = new QLabel(commandLineBox);
     cipherLabel->hide();
@@ -264,12 +263,12 @@ Channel::Channel(QWidget* parent, const QString& _name) : ChatWindow(parent)
     connect(channelInput,SIGNAL (envelopeCommand()),this,SLOT (channelPassthroughCommand()) );
     connect(channelInput,SIGNAL (nickCompletion()),this,SLOT (completeNick()) );
     connect(channelInput,SIGNAL (endCompletion()),this,SLOT (endCompleteNick()) );
-    connect(channelInput,SIGNAL (textPasted(const QString&)),this,SLOT (textPasted(const QString&)) );
+    connect(channelInput,SIGNAL (textPasted(QString)),this,SLOT (textPasted(QString)) );
 
     connect(getTextView(), SIGNAL(textPasted(bool)), channelInput, SLOT(paste(bool)));
     connect(getTextView(),SIGNAL (gotFocus()),channelInput,SLOT (setFocus()) );
     connect(getTextView(),SIGNAL (sendFile()),this,SLOT (sendFileMenu()) );
-    connect(getTextView(),SIGNAL (autoText(const QString&)),this,SLOT (sendChannelText(const QString&)) );
+    connect(getTextView(),SIGNAL (autoText(QString)),this,SLOT (sendChannelText(QString)) );
 
     connect(nicknameListView,SIGNAL (itemDoubleClicked(QTreeWidgetItem*,int)),this,SLOT (doubleClickCommand(QTreeWidgetItem*,int)) );
     connect(nicknameCombobox,SIGNAL (activated(int)),this,SLOT(nicknameComboboxChanged()));
@@ -297,7 +296,7 @@ Channel::Channel(QWidget* parent, const QString& _name) : ChatWindow(parent)
     m_cipher = 0;
     #endif
     //FIXME JOHNFLUX
-    // connect( Konversation::Addressbook::self()->getAddressBook(), SIGNAL( addressBookChanged( AddressBook * ) ), this, SLOT( slotLoadAddressees() ) );
+    // connect( Konversation::Addressbook::self()->getAddressBook(), SIGNAL(addressBookChanged(AddressBook*)), this, SLOT(slotLoadAddressees()) );
     // connect( Konversation::Addressbook::self(), SIGNAL(addresseesChanged()), this, SLOT(slotLoadAddressees()));
 
     // Setup delayed sort timer
@@ -311,12 +310,12 @@ void Channel::setServer(Server* server)
 {
     if (m_server != server)
     {
-        connect(server, SIGNAL(connectionStateChanged(Server*, Konversation::ConnectionState)),
-                SLOT(connectionStateChanged(Server*, Konversation::ConnectionState)));
+        connect(server, SIGNAL(connectionStateChanged(Server*,Konversation::ConnectionState)),
+                SLOT(connectionStateChanged(Server*,Konversation::ConnectionState)));
         connect(server, SIGNAL(nickInfoChanged()),
                 this, SLOT(updateNickInfos()));
-        connect(server, SIGNAL(channelNickChanged(const QString&)),
-                this, SLOT(updateChannelNicks(const QString&)));
+        connect(server, SIGNAL(channelNickChanged(QString)),
+                this, SLOT(updateChannelNicks(QString)));
     }
 
     ChatWindow::setServer(server);
@@ -325,6 +324,9 @@ void Channel::setServer(Server* server)
     topicLine->setServer(server);
     refreshModeButtons();
     nicknameCombobox->setModel(m_server->nickListModel());
+
+    connect(awayLabel, SIGNAL(unaway()), m_server, SLOT(requestUnaway()));
+    connect(awayLabel, SIGNAL(awayMessageChanged(QString)), m_server, SLOT(requestAway(QString)));
 }
 
 void Channel::connectionStateChanged(Server* server, Konversation::ConnectionState state)
@@ -335,9 +337,15 @@ void Channel::connectionStateChanged(Server* server, Konversation::ConnectionSta
         {
             m_joined = false;
 
+            ViewContainer* viewContainer = Application::instance()->getMainWindow()->getViewContainer();
+
             //HACK the way the notification priorities work sucks, this forces the tab text color to gray right now.
-            if (m_currentTabNotify == Konversation::tnfNone || (!Preferences::self()->tabNotificationsEvents() && m_currentTabNotify == Konversation::tnfControl))
-                Application::instance()->getMainWindow()->getViewContainer()->unsetViewNotification(this);
+            if (viewContainer->getFrontView() == this
+                || m_currentTabNotify == Konversation::tnfNone
+                || (!Preferences::self()->tabNotificationsEvents() && m_currentTabNotify == Konversation::tnfControl))
+            {
+               viewContainer->unsetViewNotification(this);
+            }
         }
     }
 }
@@ -406,12 +414,12 @@ void Channel::rejoin()
         m_server->sendJoinCommand(getName(), getPassword());
 }
 
-ChannelNickPtr Channel::getOwnChannelNick()
+ChannelNickPtr Channel::getOwnChannelNick() const
 {
     return m_ownChannelNick;
 }
 
-ChannelNickPtr Channel::getChannelNick(const QString &ircnick)
+ChannelNickPtr Channel::getChannelNick(const QString &ircnick) const
 {
     return m_server->getChannelNick(getName(), ircnick);
 }
@@ -423,6 +431,7 @@ void Channel::purgeNicks()
     // Purge nickname list
     qDeleteAll(nicknameList);
     nicknameList.clear();
+    m_nicknameNickHash.clear();
 
     // Execute this otherwise it may crash trying to access
     // deleted nicks
@@ -853,7 +862,7 @@ QStringList Channel::getSelectedNickList()
             selectedNicks << nick->getChannelNick()->getNickname();
     }
 
-    return selectedNicks;;
+    return selectedNicks;
 }
 
 void Channel::channelLimitChanged()
@@ -995,40 +1004,87 @@ void Channel::fastAddNickname(ChannelNickPtr channelnick, Nick *nick)
         nicknameList.insert(it, nick);
     }
 
+    m_nicknameNickHash.insert (channelnick->loweredNickname(), nick);
+}
+
+/* Determines whether Nick/Part/Join event should be shown or skipped based on user settings. */
+bool Channel::shouldShowEvent(ChannelNickPtr channelNick)
+{
+    if (Preferences::self()->hideUnimportantEvents())
+    {
+        if (channelNick && Preferences::self()->hideUnimportantEventsExcludeActive())
+        {
+            uint activityThreshold = 3600;
+
+            if (Preferences::self()->hideUnimportantEventsExcludeActiveThreshold() == 0) // last 10 minutes
+                activityThreshold = 600;
+            if (Preferences::self()->hideUnimportantEventsExcludeActiveThreshold() == 1) // last hour
+                activityThreshold = 3600;
+            else if (Preferences::self()->hideUnimportantEventsExcludeActiveThreshold() == 2) // last day
+                activityThreshold = 86400;
+            else if (Preferences::self()->hideUnimportantEventsExcludeActiveThreshold() == 3) // last week
+                activityThreshold = 604800;
+
+            if (m_server->isWatchedNick(channelNick->getNickname()))
+                return true; // nick is on our watched list, so we probably want to see the event
+            else if (channelNick->timeStamp()+activityThreshold > QDateTime::currentDateTime().toTime_t())
+                return true; // the nick has spoken within activity threshold
+            else
+                return false;
+        }
+        else
+            return false; // if hideUnimportantEventsExcludeActive is off, we hide all events
+    }
+    else
+        return true; // if hideUnimportantEvents is off we don't care and just show the event
 }
 
 void Channel::nickRenamed(const QString &oldNick, const NickInfo& nickInfo)
 {
+    QString newNick = nickInfo.getNickname();
+    Nick *nick = getNickByName(oldNick);
+    bool displayCommandMessage;
+
+    if (Preferences::self()->hideUnimportantEventsExcludeActive() && m_server->isWatchedNick(oldNick))
+        displayCommandMessage = true; // this is for displaying watched people NICK events both ways (watched->unwatched and unwatched->watched)
+    else if (nick)
+        displayCommandMessage = shouldShowEvent(nick->getChannelNick());
+    else
+        displayCommandMessage = shouldShowEvent(ChannelNickPtr()); // passing null pointer
 
     /* Did we change our nick name? */
-    QString newNick = nickInfo.getNickname();
-
     if(newNick == m_server->getNickname()) /* Check newNick because  m_server->getNickname() is already updated to new nick */
     {
         setNickname(newNick);
-        appendCommandMessage(i18n("Nick"),i18n("You are now known as %1.", newNick), false, true, true);
+        if (displayCommandMessage)
+            appendCommandMessage(i18n("Nick"),i18n("You are now known as %1.", newNick), true, true);
     }
-    else
+    else if (displayCommandMessage)
     {
         /* No, must've been someone else */
-        appendCommandMessage(i18n("Nick"),i18n("%1 is now known as %2.", oldNick, newNick),false);
+        appendCommandMessage(i18n("Nick"),i18n("%1 is now known as %2.", oldNick, newNick));
     }
 
-    Nick *nick = getNickByName(newNick);
     if (nick)
     {
+        m_nicknameNickHash.remove(oldNick.toLower());
+        m_nicknameNickHash.insert(newNick.toLower(), nick);
+
         repositionNick(nick);
     }
 }
 
 void Channel::joinNickname(ChannelNickPtr channelNick)
 {
+    bool displayCommandMessage = shouldShowEvent(channelNick);
+
     if(channelNick->getNickname() == m_server->getNickname())
     {
         m_joined = true;
         emit joined(this);
-        appendCommandMessage(i18n("Join"), i18nc("%1 is the channel and %2 is our hostmask",
-                             "You have joined the channel %1 (%2).", getName(), channelNick->getHostmask()),false, false, true);
+        if (displayCommandMessage)
+            appendCommandMessage(i18n("Join"), i18nc("%1 is the channel and %2 is our hostmask",
+                                 "You have joined the channel %1 (%2).", getName(), channelNick->getHostmask()), false, true);
         m_ownChannelNick = channelNick;
         refreshModeButtons();
         setActive(true);
@@ -1036,9 +1092,15 @@ void Channel::joinNickname(ChannelNickPtr channelNick)
         // Prepare for impending NAMES.
         nicknameListView->setUpdatesEnabled(false);
 
+        ViewContainer* viewContainer = Application::instance()->getMainWindow()->getViewContainer();
+
         //HACK the way the notification priorities work sucks, this forces the tab text color to ungray right now.
-        if (m_currentTabNotify == Konversation::tnfNone || (!Preferences::self()->tabNotificationsEvents() && m_currentTabNotify == Konversation::tnfControl))
+        if (viewContainer->getFrontView() == this
+            || m_currentTabNotify == Konversation::tnfNone
+            || (!Preferences::self()->tabNotificationsEvents() && m_currentTabNotify == Konversation::tnfControl))
+        {
             Application::instance()->getMainWindow()->getViewContainer()->unsetViewNotification(this);
+        }
 
         Application::instance()->notificationHandler()->channelJoin(this,getName());
     }
@@ -1046,14 +1108,17 @@ void Channel::joinNickname(ChannelNickPtr channelNick)
     {
         QString nick = channelNick->getNickname();
         QString hostname = channelNick->getHostmask();
-        appendCommandMessage(i18n("Join"), i18nc("%1 is the nick joining and %2 the hostmask of that nick",
-                             "%1 has joined this channel (%2).", nick, hostname),false, false);
+        if (displayCommandMessage)
+            appendCommandMessage(i18n("Join"), i18nc("%1 is the nick joining and %2 the hostmask of that nick",
+                                 "%1 has joined this channel (%2).", nick, hostname), false);
         addNickname(channelNick);
     }
 }
 
 void Channel::removeNick(ChannelNickPtr channelNick, const QString &reason, bool quit)
 {
+    bool displayCommandMessage = shouldShowEvent(channelNick);
+
     QString displayReason = reason;
 
     if(!displayReason.isEmpty())
@@ -1065,43 +1130,48 @@ void Channel::removeNick(ChannelNickPtr channelNick, const QString &reason, bool
 
     if(channelNick->getNickname() == m_server->getNickname())
     {
-        //If in the future we can leave a channel, but not close the window, refreshModeButtons() has to be called.
-        if (quit)
+        if (displayCommandMessage)
         {
-            if (displayReason.isEmpty())
-                appendCommandMessage(i18n("Quit"), i18n("You have left this server."), false);
+            //If in the future we can leave a channel, but not close the window, refreshModeButtons() has to be called.
+            if (quit)
+            {
+                if (displayReason.isEmpty())
+                    appendCommandMessage(i18n("Quit"), i18n("You have left this server."));
+                else
+                    appendCommandMessage(i18n("Quit"), i18nc("%1 adds the reason", "You have left this server (%1).", displayReason));
+            }
             else
-                appendCommandMessage(i18n("Quit"), i18nc("%1 adds the reason", "You have left this server (%1).", displayReason), false);
-        }
-        else
-        {
-            if (displayReason.isEmpty())
-                appendCommandMessage(i18n("Part"), i18n("You have left channel %1.", getName()), false);
-            else
-                appendCommandMessage(i18n("Part"), i18nc("%1 adds the channel and %2 the reason",
-                                     "You have left channel %1 (%2).", getName(), displayReason), false);
-
+            {
+                if (displayReason.isEmpty())
+                    appendCommandMessage(i18n("Part"), i18n("You have left channel %1.", getName()));
+                else
+                    appendCommandMessage(i18n("Part"), i18nc("%1 adds the channel and %2 the reason",
+                                "You have left channel %1 (%2).", getName(), displayReason));
+            }
         }
 
         delete this;
     }
     else
     {
-        if (quit)
+        if (displayCommandMessage)
         {
-            if (displayReason.isEmpty())
-                appendCommandMessage(i18n("Quit"), i18n("%1 has left this server.", channelNick->getNickname()), false);
+            if (quit)
+            {
+                if (displayReason.isEmpty())
+                    appendCommandMessage(i18n("Quit"), i18n("%1 has left this server.", channelNick->getNickname()));
+                else
+                    appendCommandMessage(i18n("Quit"), i18nc("%1 adds the nick and %2 the reason",
+                                         "%1 has left this server (%2).", channelNick->getNickname(), displayReason));
+            }
             else
-                appendCommandMessage(i18n("Quit"), i18nc("%1 adds the nick and %2 the reason",
-                                     "%1 has left this server (%2).", channelNick->getNickname(), displayReason), false);
-        }
-        else
-        {
-            if (displayReason.isEmpty())
-                appendCommandMessage(i18n("Part"), i18n("%1 has left this channel.", channelNick->getNickname()), false);
-            else
-                appendCommandMessage(i18n("Part"), i18nc("%1 adds the nick and %2 the reason",
-                                     "%1 has left this channel (%2).", channelNick->getNickname(), displayReason), false);
+            {
+                if (displayReason.isEmpty())
+                    appendCommandMessage(i18n("Part"), i18n("%1 has left this channel.", channelNick->getNickname()));
+                else
+                    appendCommandMessage(i18n("Part"), i18nc("%1 adds the nick and %2 the reason",
+                                         "%1 has left this channel (%2).", channelNick->getNickname(), displayReason));
+            }
         }
 
         if(channelNick->isAnyTypeOfOp())
@@ -1110,11 +1180,12 @@ void Channel::removeNick(ChannelNickPtr channelNick, const QString &reason, bool
         }
 
         adjustNicks(-1);
-        Nick* nick = getNickByName(channelNick->getNickname());
+        Nick* nick = getNickByName(channelNick->loweredNickname());
 
         if(nick)
         {
             nicknameList.removeOne(nick);
+            m_nicknameNickHash.remove(channelNick->loweredNickname());
             delete nick;
             // Execute this otherwise it may crash trying to access deleted nick
             nicknameListView->executeDelayedItemsLayout();
@@ -1165,12 +1236,12 @@ void Channel::kickNick(ChannelNickPtr channelNick, const QString &kicker, const 
             if (displayReason.isEmpty())
             {
                 appendCommandMessage(i18n("Kick"), i18nc("%1 adds the channel, %2 adds the kicker",
-                                              "You have been kicked from channel %1 by %2.", getName(), kicker), true);
+                                              "You have been kicked from channel %1 by %2.", getName(), kicker));
             }
             else
             {
                 appendCommandMessage(i18n("Kick"), i18nc("%1 adds the channel, %2 the kicker and %3 the reason",
-                                              "You have been kicked from channel %1 by %2 (%3).", getName(), kicker, displayReason), true);
+                                              "You have been kicked from channel %1 by %2 (%3).", getName(), kicker, displayReason));
             }
 
             Application::instance()->notificationHandler()->kick(this,getName(), kicker);
@@ -1193,19 +1264,19 @@ void Channel::kickNick(ChannelNickPtr channelNick, const QString &kicker, const 
                 appendCommandMessage(i18n("Kick"), i18n("You have kicked %1 from the channel.", channelNick->getNickname()));
             else
                 appendCommandMessage(i18n("Kick"), i18nc("%1 adds the kicked nick and %2 the reason",
-                                     "You have kicked %1 from the channel (%2).", channelNick->getNickname(), displayReason), true);
+                                     "You have kicked %1 from the channel (%2).", channelNick->getNickname(), displayReason));
         }
         else
         {
             if (displayReason.isEmpty())
             {
                 appendCommandMessage(i18n("Kick"), i18nc("%1 adds the kicked nick, %2 adds the kicker",
-                                     "%1 has been kicked from the channel by %2.", channelNick->getNickname(), kicker), true);
+                                     "%1 has been kicked from the channel by %2.", channelNick->getNickname(), kicker));
             }
             else
             {
                 appendCommandMessage(i18n("Kick"), i18nc("%1 adds the kicked nick, %2 the kicker and %3 the reason",
-                                     "%1 has been kicked from the channel by %2 (%3).", channelNick->getNickname(), kicker, displayReason), true);
+                                     "%1 has been kicked from the channel by %2 (%3).", channelNick->getNickname(), kicker, displayReason));
             }
         }
 
@@ -1213,7 +1284,7 @@ void Channel::kickNick(ChannelNickPtr channelNick, const QString &kicker, const 
             adjustOps(-1);
 
         adjustNicks(-1);
-        Nick* nick = getNickByName(channelNick->getNickname());
+        Nick* nick = getNickByName(channelNick->loweredNickname());
 
         if(nick == 0)
         {
@@ -1222,22 +1293,17 @@ void Channel::kickNick(ChannelNickPtr channelNick, const QString &kicker, const 
         else
         {
             nicknameList.removeOne(nick);
+            m_nicknameNickHash.remove(channelNick->loweredNickname());
             delete nick;
         }
     }
 }
 
-Nick* Channel::getNickByName(const QString &lookname)
+Nick* Channel::getNickByName(const QString &lookname) const
 {
     QString lcLookname(lookname.toLower());
 
-    foreach (Nick* nick, nicknameList)
-    {
-        if(nick->getChannelNick()->loweredNickname() == lcLookname)
-            return nick;
-    }
-
-    return 0;
+    return m_nicknameNickHash.value(lcLookname);
 }
 
 void Channel::adjustNicks(int value)
@@ -1903,7 +1969,7 @@ void Channel::updateQuickButtons(const QStringList &newButtonList)
     qDeleteAll(buttonList);
     buttonList.clear();
 
-    if(m_buttonsGrid) delete m_buttonsGrid;
+    delete m_buttonsGrid;
 
     // the grid that holds the quick action buttons
     m_buttonsGrid = new QWidget (nickListButtons); //Q3Grid(2, nickListButtons);
@@ -1923,7 +1989,7 @@ void Channel::updateQuickButtons(const QStringList &newButtonList)
         row += col;
         buttonList.append(quickButton);
 
-        connect(quickButton, SIGNAL(clicked(const QString &)), this, SLOT(quickButtonClicked(const QString &)));
+        connect(quickButton, SIGNAL(clicked(QString)), this, SLOT(quickButtonClicked(QString)));
 
         // Get the button definition
         QString buttonText=newButtonList[index];
@@ -2627,11 +2693,16 @@ void Channel::nickActive(const QString& nickname) //FIXME reported to crash, can
 {
     ChannelNickPtr channelnick=getChannelNick(nickname);
     //XXX Would be nice to know why it can be null here...
-    if (channelnick) {
+    if (channelnick)
+    {
         channelnick->moreActive();
-        Nick* nick = getNickByName(nickname); // FIXME: begs for map lookup
-        if (nick) {
-            nick->repositionMe();
+        if (Preferences::self()->sortByActivity())
+        {
+            Nick* nick = getNickByName(nickname);
+            if (nick)
+            {
+                nick->repositionMe();
+            }
         }
     }
 }

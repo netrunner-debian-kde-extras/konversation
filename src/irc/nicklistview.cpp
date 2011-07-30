@@ -78,19 +78,10 @@ NickListView::NickListView(QWidget* parent, Channel *chan) : QTreeWidget(parent)
 
     header()->hide();
     header()->setStretchLastSection(false);
-
-    connect(selectionModel(), SIGNAL(currentChanged(const QModelIndex&, const QModelIndex&)),
-        this, SLOT(syncSelectionToCurrent(const QModelIndex&)));
 }
 
 NickListView::~NickListView()
 {
-}
-
-void NickListView::syncSelectionToCurrent(const QModelIndex& index)
-{
-    if (index.isValid())
-        selectionModel()->select(index, QItemSelectionModel::Rows | QItemSelectionModel::ClearAndSelect);
 }
 
 int NickListView::getMinimumRowHeight()
@@ -110,7 +101,7 @@ bool NickListView::event(QEvent *event)
     {
         QHelpEvent* helpEvent = static_cast<QHelpEvent*>( event );
 
-        QTreeWidgetItem *item = itemAt( helpEvent->pos() );
+        QTreeWidgetItem *item = itemAt(viewport()->mapFromParent(helpEvent->pos()));
         if( item )
         {
             Nick *nick = dynamic_cast<Nick*>( item );

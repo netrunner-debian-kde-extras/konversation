@@ -20,6 +20,7 @@
 #include "ircinput.h"
 #include "ircview.h"
 #include "ircviewbox.h"
+#include "awaylabel.h"
 #include "common.h"
 
 #include <QSplitter>
@@ -69,14 +70,14 @@ Query::Query(QWidget* parent, const QString& _name) : ChatWindow(parent)
     setTextView(ircViewBox->ircView());               // Server will be set later in setServer();
     ircViewBox->ircView()->setContextMenuOptions(IrcContextMenus::ShowNickActions, true);
     textView->setAcceptDrops(true);
-    connect(textView,SIGNAL(urlsDropped(const KUrl::List)),this,SLOT(urlsDropped(const KUrl::List)));
+    connect(textView,SIGNAL(urlsDropped(KUrl::List)),this,SLOT(urlsDropped(KUrl::List)));
 
     // This box holds the input line
     KHBox* inputBox=new KHBox(this);
     inputBox->setObjectName("input_log_box");
     inputBox->setSpacing(spacing());
 
-    awayLabel=new QLabel(i18n("(away)"), inputBox);
+    awayLabel=new AwayLabel(inputBox);
     awayLabel->hide();
     blowfishLabel = new QLabel(inputBox);
     blowfishLabel->hide();
@@ -89,12 +90,12 @@ Query::Query(QWidget* parent, const QString& _name) : ChatWindow(parent)
     // connect the signals and slots
     connect(queryInput,SIGNAL (submit()),this,SLOT (queryTextEntered()) );
     connect(queryInput,SIGNAL (envelopeCommand()),this,SLOT (queryPassthroughCommand()) );
-    connect(queryInput,SIGNAL (textPasted(const QString&)),this,SLOT (textPasted(const QString&)) );
+    connect(queryInput,SIGNAL (textPasted(QString)),this,SLOT (textPasted(QString)) );
     connect(getTextView(), SIGNAL(textPasted(bool)), queryInput, SLOT(paste(bool)));
     connect(getTextView(),SIGNAL (gotFocus()),queryInput,SLOT (setFocus()) );
 
     connect(textView,SIGNAL (sendFile()),this,SLOT (sendFileMenu()) );
-    connect(textView,SIGNAL (autoText(const QString&)),this,SLOT (sendQueryText(const QString&)) );
+    connect(textView,SIGNAL (autoText(QString)),this,SLOT (sendQueryText(QString)) );
 
     updateAppearance();
 
@@ -118,33 +119,46 @@ void Query::setServer(Server* newServer)
 {
     if (m_server != newServer)
     {
-        connect(newServer, SIGNAL(connectionStateChanged(Server*, Konversation::ConnectionState)),
-                SLOT(connectionStateChanged(Server*, Konversation::ConnectionState)));
-        connect(newServer, SIGNAL(nickInfoChanged(Server*, NickInfoPtr)),
-                this, SLOT(updateNickInfo(Server*, NickInfoPtr)));
+        connect(newServer, SIGNAL(connectionStateChanged(Server*,Konversation::ConnectionState)),
+                SLOT(connectionStateChanged(Server*,Konversation::ConnectionState)));
+        connect(newServer, SIGNAL(nickInfoChanged(Server*,NickInfoPtr)),
+                this, SLOT(updateNickInfo(Server*,NickInfoPtr)));
     }
 
     ChatWindow::setServer(newServer);
 
     if (!(newServer->getKeyForRecipient(getName()).isEmpty()))
         blowfishLabel->show();
+
+    connect(awayLabel, SIGNAL(unaway()), m_server, SLOT(requestUnaway()));
+    connect(awayLabel, SIGNAL(awayMessageChanged(QString)), m_server, SLOT(requestAway(QString)));
 }
 
 void Query::connectionStateChanged(Server* server, Konversation::ConnectionState state)
 {
     if (server == m_server)
     {
+        ViewContainer* viewContainer = Application::instance()->getMainWindow()->getViewContainer();
+
         if (state ==  Konversation::SSConnected)
         {
             //HACK the way the notification priorities work sucks, this forces the tab text color to ungray right now.
-            if (m_currentTabNotify == Konversation::tnfNone || !Preferences::self()->tabNotificationsEvents())
-                Application::instance()->getMainWindow()->getViewContainer()->unsetViewNotification(this);
+            if (viewContainer->getFrontView() == this
+                || m_currentTabNotify == Konversation::tnfNone
+                || !Preferences::self()->tabNotificationsEvents())
+            {
+                viewContainer->unsetViewNotification(this);
+            }
         }
         else
         {
             //HACK the way the notification priorities work sucks, this forces the tab text color to gray right now.
-            if (m_currentTabNotify == Konversation::tnfNone || (!Preferences::self()->tabNotificationsEvents() && m_currentTabNotify == Konversation::tnfControl))
-                Application::instance()->getMainWindow()->getViewContainer()->unsetViewNotification(this);
+            if (viewContainer->getFrontView() == this
+                || m_currentTabNotify == Konversation::tnfNone
+                || (!Preferences::self()->tabNotificationsEvents() && m_currentTabNotify == Konversation::tnfControl))
+            {
+                viewContainer->unsetViewNotification(this);
+            }
         }
     }
 }
@@ -156,7 +170,7 @@ void Query::setName(const QString& newName)
 
     if(ChatWindow::getName() != newName)
     {
-        appendCommandMessage(i18n("Nick"),i18n("%1 is now known as %2.", getName(), newName),false);
+        appendCommandMessage(i18n("Nick"),i18n("%1 is now known as %2.", getName(), newName));
     }
 
 
@@ -516,14 +530,14 @@ void Query::quitNick(const QString& reason)
 
     if (displayReason.isEmpty())
     {
-        appendCommandMessage(i18n("Quit"),i18n("%1 has left this server.",getName()),false);
+        appendCommandMessage(i18n("Quit"),i18n("%1 has left this server.",getName()));
     }
     else
     {
         if (displayReason.contains(QRegExp("[\\0000-\\0037]")))
             displayReason+="\017";
 
-        appendCommandMessage(i18n("Quit"),i18n("%1 has left this server (%2).",getName(),displayReason),false);
+        appendCommandMessage(i18n("Quit"),i18n("%1 has left this server (%2).",getName(),displayReason));
     }
 }
 

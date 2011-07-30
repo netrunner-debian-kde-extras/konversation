@@ -58,7 +58,6 @@ class MainWindow : public KXmlGuiWindow
         void focusAndShowErrorMessage(const QString &errorMsg);
 
     signals:
-        void startNotifyTimer(int msec);
         void showQuickConnectDialog();
         void nicksNowOnline(Server*);
         void endNotification();
@@ -126,7 +125,7 @@ class MainWindow : public KXmlGuiWindow
         Konversation::StatusBar* m_statusBar;
         Konversation::TrayIcon* m_trayIcon;
 
-        KToggleAction* hideMenuBarAction;
+        KToggleAction* m_showMenuBarAction;
 
         KonviSettingsDialog *m_settingsDialog;
         Konversation::ServerListDialog* m_serverListDialog;
