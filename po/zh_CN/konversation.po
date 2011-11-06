@@ -11,70 +11,141 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2011-07-30 03:52+0200\n"
+"POT-Creation-Date: 2011-11-01 04:23+0100\n"
 "PO-Revision-Date: 2011-03-23 21:26+0800\n"
 "Last-Translator: Feng Chao <rainofchaos@gmail.com>\n"
 "Language-Team: Chinese Simplified <kde-china@kde.org>\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 1.2\n"
-"Language: zh_CN\n"
+
+#: src/connectionmanager.cpp:224 src/connectionmanager.cpp:257
+#: src/connectionmanager.cpp:267 src/irc/inputfilter.cpp:1321
+#: src/irc/outputfilter.cpp:2029 src/irc/server.cpp:253 src/irc/server.cpp:399
+#: src/irc/server.cpp:458 src/irc/server.cpp:622 src/irc/server.cpp:633
+#: src/irc/server.cpp:899 src/irc/server.cpp:929
+msgid "Info"
+msgstr "信息"
+
+#: src/connectionmanager.cpp:224
+msgid "Network is down, will reconnect automatically when it is back up."
+msgstr ""
+
+#: src/connectionmanager.cpp:259
+#, fuzzy, kde-format
+#| msgid "Trying to connect to %2 in 1 second."
+#| msgid_plural "Trying to connect to %2 in %1 seconds."
+msgid "Trying to connect to %2 (port <numid>%3</numid>) in 1 second."
+msgid_plural "Trying to connect to %2 (port <numid>%3</numid>) in %1 seconds."
+msgstr[0] "正尝试在 %1 秒内连接到 %2。"
+
+#: src/connectionmanager.cpp:269
+#, fuzzy, kde-format
+#| msgid "Trying to reconnect to %2 in 1 second."
+#| msgid_plural "Trying to reconnect to %2 in %1 seconds."
+msgid "Trying to reconnect to %2 (port <numid>%3</numid>) in 1 second."
+msgid_plural ""
+"Trying to reconnect to %2 (port <numid>%3</numid>) in %1 seconds."
+msgstr[0] "正重新尝试在 %1 秒内连接到 %2。"
+
+#: src/connectionmanager.cpp:282 src/dcc/chatcontainer.cpp:283
+#: src/irc/outputfilterresolvejob.cpp:85 src/irc/inputfilter.cpp:1164
+#: src/irc/inputfilter.cpp:1168 src/irc/inputfilter.cpp:1181
+#: src/irc/inputfilter.cpp:1252 src/irc/inputfilter.cpp:1305
+#: src/irc/inputfilter.cpp:1439 src/irc/inputfilter.cpp:2018
+#: src/irc/inputfilter.cpp:2028 src/irc/inputfilter.cpp:2065
+#: src/irc/inputfilter.cpp:2073 src/irc/inputfilter.cpp:2081
+#: src/irc/inputfilter.cpp:2105 src/irc/outputfilter.cpp:2038
+#: src/irc/server.cpp:718 src/irc/server.cpp:2083 src/irc/server.cpp:2154
+#: src/irc/server.cpp:2327 src/irc/server.cpp:2363 src/irc/server.cpp:2414
+#: src/irc/server.cpp:2482 src/irc/server.cpp:2501 src/irc/server.cpp:2517
+#: src/irc/server.cpp:3974 src/irc/server.cpp:3986 src/irc/server.cpp:4010
+#: src/irc/server.cpp:4033 src/irc/server.cpp:4049
+#: src/linkaddressbook/addressbook.cpp:113
+msgid "Error"
+msgstr "错误"
+
+#: src/connectionmanager.cpp:282
+msgid "Reconnection attempts exceeded."
+msgstr "重连尝试次数到达上限。"
+
+#: src/connectionmanager.cpp:522
+#, kde-format
+msgid ""
+"You are already connected to %1. Do you want to open another connection?"
+msgstr "您已经连接到了 %1。您想要另外打开连接吗？"
+
+#: src/connectionmanager.cpp:523 src/connectionmanager.cpp:544
+#, kde-format
+msgid "Already connected to %1"
+msgstr "已经连接到 %1"
+
+#: src/connectionmanager.cpp:524
+msgid "Create connection"
+msgstr "创建连接"
+
+#: src/connectionmanager.cpp:538
+#, fuzzy, kde-format
+#| msgid ""
+#| "You are presently connected to %1 via '%2' (port %3). Do you want to "
+#| "switch to '%4' (port %5) instead?"
+msgid ""
+"You are presently connected to %1 via '%2' (port <numid>%3</numid>). Do you "
+"want to switch to '%4' (port <numid>%5</numid>) instead?"
+msgstr "您正通过“%2”(端口 %3)连接到 %1。您想要切换到“%4”(端口 %5)吗？"
+
+#: src/connectionmanager.cpp:545
+msgid "Switch Server"
+msgstr "切换服务器"
+
+#: src/connectionmanager.cpp:592
+msgid "Please fill in your <b>Ident</b>.<br/>"
+msgstr "请填写您的<b>身份</b>。<br/>"
+
+#: src/connectionmanager.cpp:595
+msgid "Please fill in your <b>Real name</b>.<br/>"
+msgstr "请填写您的<b>真实姓名</b>。<br/>"
+
+#: src/connectionmanager.cpp:598
+msgid "Please provide at least one <b>Nickname</b>.<br/>"
+msgstr "请提供至少一个<b>昵称</b>。<br/>"
+
+#: src/connectionmanager.cpp:606
+#, kde-format
+msgid "<qt>Your identity \"%1\" is not set up correctly:<br/>%2</qt>"
+msgstr "<qt>您的身份“%1”设置不正确：<br/>%2</qt>"
+
+#: src/connectionmanager.cpp:607
+msgid "Identity Settings"
+msgstr "身份设置"
+
+#: src/connectionmanager.cpp:608
+msgid "Edit Identity..."
+msgstr "编辑身份..."
+
+#: src/dbus.cpp:141
+#, fuzzy, kde-format
+#| msgid "Debug"
+msgid "Debug: %1"
+msgstr "调试"
+
+#: src/dbus.cpp:147
+#, fuzzy, kde-format
+#| msgid "KIO error: %1"
+msgid "Error: %1"
+msgstr "KIO 错误：%1"
+
+#: src/dbus.cpp:167
+#, kde-format
+msgid "getNickname: Server %1 is not found."
+msgstr "getNickname：找不到服务器 %1。"
 
 #: src/bookmarkhandler.cpp:41
 msgid "Konversation Bookmarks Editor"
 msgstr "Konversation 书签编辑器"
-
-#: src/common.cpp:32
-msgid "topic protection"
-msgstr "话题保护"
-
-#: src/common.cpp:33
-msgid "no messages from outside"
-msgstr "没有外部消息"
-
-#: src/common.cpp:34
-msgid "secret"
-msgstr "机密"
-
-#: src/common.cpp:35
-msgid "invite only"
-msgstr "只接受受邀请的"
-
-#: src/common.cpp:36
-msgid "private"
-msgstr "私人"
-
-#: src/common.cpp:37
-msgid "moderated"
-msgstr "监管的"
-
-#: src/common.cpp:38 src/irc/inputfilter.cpp:962
-msgid "password protected"
-msgstr "密码受保护"
-
-#: src/common.cpp:39
-msgid "anonymous"
-msgstr "匿名"
-
-#: src/common.cpp:40
-msgid "server reop"
-msgstr "服务器重新开放"
-
-#: src/common.cpp:41
-msgid "no colors allowed"
-msgstr "不允许颜色"
-
-#: src/common.cpp:42
-#, fuzzy
-#| msgid "Website hosting"
-msgid "user throttling"
-msgstr "提供了网站主机"
-
-#: src/config/configdialog.cpp:72
-msgid "Configure"
-msgstr "配置"
 
 #: src/config/nicklistbehavior_config.cpp:53
 msgid "Normal Users"
@@ -208,9 +279,9 @@ msgstr "命令别名"
 msgid "Auto Replace"
 msgstr "自动替换"
 
-#: src/config/settingsdialog.cpp:136 src/irc/outputfilter.cpp:1539
-#: src/irc/outputfilter.cpp:1610 src/viewer/irccontextmenus.cpp:421
-#: src/viewer/irccontextmenus.cpp:588 src/viewer/irccontextmenus.cpp:589
+#: src/config/settingsdialog.cpp:136 src/irc/outputfilter.cpp:1546
+#: src/irc/outputfilter.cpp:1617 src/viewer/irccontextmenus.cpp:423
+#: src/viewer/irccontextmenus.cpp:590 src/viewer/irccontextmenus.cpp:591
 msgid "Ignore"
 msgstr "忽略"
 
@@ -225,10 +296,10 @@ msgstr "日志"
 #: src/dcc/chatcontainer.cpp:136 src/irc/inputfilter.cpp:370
 #: src/irc/inputfilter.cpp:385 src/irc/inputfilter.cpp:400
 #: src/irc/inputfilter.cpp:428 src/irc/inputfilter.cpp:436
-#: src/irc/server.cpp:2079 src/irc/server.cpp:2209 src/irc/server.cpp:2221
-#: src/irc/server.cpp:2233 src/irc/server.cpp:2368 src/irc/server.cpp:2424
-#: src/irc/server.cpp:2495 src/irc/server.cpp:2500 src/irc/server.cpp:2512
-#: src/irc/server.cpp:2515 src/irc/server.cpp:2529 src/irc/server.cpp:2536
+#: src/irc/server.cpp:2115 src/irc/server.cpp:2245 src/irc/server.cpp:2257
+#: src/irc/server.cpp:2269 src/irc/server.cpp:2404 src/irc/server.cpp:2460
+#: src/irc/server.cpp:2531 src/irc/server.cpp:2536 src/irc/server.cpp:2548
+#: src/irc/server.cpp:2551 src/irc/server.cpp:2565 src/irc/server.cpp:2572
 #: src/viewer/ignorelistviewitem.cpp:46 rc.cpp:322
 msgid "DCC"
 msgstr "DCC"
@@ -474,6 +545,10 @@ msgctxt ""
 msgid "... closing the window will minimize to the system tray"
 msgstr ""
 
+#: src/config/configdialog.cpp:72
+msgid "Configure"
+msgstr "配置"
+
 #: src/dcc/transferpanel.h:54
 #, fuzzy, kde-format
 #| msgid "File Information"
@@ -490,146 +565,6 @@ msgstr ""
 msgid "Open"
 msgstr "打开"
 
-#: src/dcc/transferlistmodel.cpp:34
-msgid "File"
-msgstr "文件"
-
-#: src/dcc/transferlistmodel.cpp:36
-msgid "Partner"
-msgstr "伙伴"
-
-#: src/dcc/transferlistmodel.cpp:38
-msgid "Started At"
-msgstr "开始自"
-
-#: src/dcc/transferlistmodel.cpp:40
-msgid "Progress"
-msgstr "进度"
-
-#: src/dcc/transferlistmodel.cpp:42
-msgid "Position"
-msgstr "位置"
-
-#: src/dcc/transferlistmodel.cpp:44
-msgid "Speed"
-msgstr "速度"
-
-#: src/dcc/transferlistmodel.cpp:46
-msgid "Sender Address"
-msgstr "发送者地址"
-
-#: src/dcc/transferlistmodel.cpp:48 src/dcc/transferdetailedinfopanel.cpp:34
-msgid "Status"
-msgstr "状态"
-
-#: src/dcc/transferlistmodel.cpp:50
-msgid "Remaining"
-msgstr "剩余"
-
-#. i18n: file: src/config/ignore_configui.ui:50
-#. i18n: ectx: property (text), widget (QTreeWidget, ignoreListView)
-#: src/dcc/transferlistmodel.cpp:52 rc.cpp:307
-msgid "Type"
-msgstr "输入"
-
-#: src/dcc/transferlistmodel.cpp:427
-#, kde-format
-msgid "%1/sec"
-msgstr "%1/秒"
-
-#: src/dcc/transferlistmodel.cpp:482
-msgid "Queued"
-msgstr "已排队"
-
-#: src/dcc/transferlistmodel.cpp:484
-msgid "Preparing"
-msgstr "正准备"
-
-#: src/dcc/transferlistmodel.cpp:486
-msgctxt "Transfer is waiting for the partner to accept or reject it"
-msgid "Pending"
-msgstr "挂起"
-
-#: src/dcc/transferlistmodel.cpp:488
-msgctxt "Transfer is connecting to the partner"
-msgid "Connecting"
-msgstr "正在连接"
-
-#: src/dcc/transferlistmodel.cpp:493
-msgid "Receiving"
-msgstr "接收中"
-
-#: src/dcc/transferlistmodel.cpp:495
-msgid "Sending"
-msgstr "发送中"
-
-#: src/dcc/transferlistmodel.cpp:501
-msgctxt "Transfer has completed successfully"
-msgid "Done"
-msgstr "完成"
-
-#: src/dcc/transferlistmodel.cpp:503
-msgctxt "Transfer failed"
-msgid "Failed"
-msgstr "失败"
-
-#: src/dcc/transferlistmodel.cpp:505
-msgid "Aborted"
-msgstr "已放弃"
-
-#: src/dcc/transferlistmodel.cpp:517
-msgid "Queued - Transfer is waiting for you to accept or reject it"
-msgstr ""
-
-#: src/dcc/transferlistmodel.cpp:522
-msgid "Preparing - Transfer is checking for resumable files"
-msgstr ""
-
-#: src/dcc/transferlistmodel.cpp:524
-msgid "Preparing - Transfer is acquiring the data to send"
-msgstr ""
-
-#: src/dcc/transferlistmodel.cpp:530
-msgid "Pending - Transfer is waiting for the partner to accept or reject it"
-msgstr ""
-
-#: src/dcc/transferlistmodel.cpp:532
-msgid "Connecting - Transfer is connecting to the partner"
-msgstr ""
-
-#: src/dcc/transferlistmodel.cpp:537
-msgid "Receiving - Transfer is receiving data from the partner"
-msgstr ""
-
-#: src/dcc/transferlistmodel.cpp:539
-msgid "Sending - Transfer is sending data to partner"
-msgstr ""
-
-#: src/dcc/transferlistmodel.cpp:545
-msgid "Done - Transfer has completed successfully"
-msgstr ""
-
-#: src/dcc/transferlistmodel.cpp:549
-msgid "Failed - Transfer failed with 'unknown reason'"
-msgstr ""
-
-#: src/dcc/transferlistmodel.cpp:553
-#, kde-format
-msgid "Failed - Transfer failed with reason '%1'"
-msgstr ""
-
-#: src/dcc/transferlistmodel.cpp:556
-msgid "Aborted - Transfer was aborted by the User"
-msgstr ""
-
-#: src/dcc/transferlistmodel.cpp:649
-msgid "Incoming Transfers"
-msgstr "接收"
-
-#: src/dcc/transferlistmodel.cpp:653
-msgid "Outgoing Transfers"
-msgstr "发送"
-
 #: src/dcc/dcccommon.cpp:154
 msgid "No vacant port"
 msgstr "没有空闲端口"
@@ -637,120 +572,6 @@ msgstr "没有空闲端口"
 #: src/dcc/dcccommon.cpp:165
 msgid "Could not open a socket"
 msgstr "无法打开套接字"
-
-#: src/dcc/chat.cpp:102
-#, kde-format
-msgctxt "%1=dcc extension like Chat or Whiteboard"
-msgid "Could not send a DCC %1 request to the partner via the IRC server."
-msgstr "无法通过 IRC 服务器向伙伴发送 DCC %1 请求。"
-
-#: src/dcc/chat.cpp:123 src/dcc/transfersend.cpp:329
-msgid "Awaiting acceptance by remote user..."
-msgstr ""
-
-#: src/dcc/chat.cpp:152
-#, kde-format
-msgctxt "%1=partnerNick, %2=Servername, %3=dcc extension as chat or wboard"
-msgid "%1 (on %2) offers to DCC %3 with you"
-msgstr ""
-
-#: src/dcc/chat.cpp:153
-#, kde-format
-msgctxt "%1=dcc extension as Chat or Whiteboard, %2=partnerNick"
-msgid "DCC %1 offer from %2"
-msgstr ""
-
-#: src/dcc/chat.cpp:154
-msgid "Accept"
-msgstr "接受"
-
-#: src/dcc/chat.cpp:155
-msgid "Reject"
-msgstr "拒绝"
-
-#: src/dcc/chat.cpp:161
-#, kde-format
-msgctxt "%1=dcc extension like Chat or Whiteboard"
-msgid "You rejected the DCC %1 offer."
-msgstr ""
-
-#: src/dcc/chat.cpp:200
-#, kde-format
-msgctxt "%1=dcc extension as Chat or Whiteboard"
-msgid "DCC %1 request was rejected"
-msgstr "DCC %1 请求被拒绝"
-
-#: src/dcc/chat.cpp:287
-#, kde-format
-msgctxt "%1=dcc extension like Chat or Whiteboard"
-msgid ""
-"Could not send Reverse DCC %1 acknowledgement to the partner via the IRC "
-"server."
-msgstr "无法通过 IRC 服务器向伙伴发送反向 DCC %1 确认。"
-
-#: src/dcc/chat.cpp:304 src/dcc/chat.cpp:335 src/dcc/transferrecv.cpp:583
-#: src/dcc/transfersend.cpp:350
-#, kde-format
-msgid ""
-"Failed to forward port <numid>%1</numid>. Sending DCC request to remote user "
-"regardless."
-msgstr ""
-
-#: src/dcc/chat.cpp:318
-#, kde-format
-msgctxt "%1=extension like Chat or Whiteboard"
-msgid ""
-"Could not send Reverse DCC %1 acknowledgement to the partner via the IRC "
-"server."
-msgstr "无法通过 IRC 服务器向伙伴发送反向 DCC %1 确认。"
-
-#: src/dcc/chat.cpp:359
-#, kde-format
-msgid "Could not open a socket for listening: %1"
-msgstr "无法打开监听套接字：%1"
-
-#: src/dcc/chat.cpp:370
-#, fuzzy, kde-format
-#| msgid "Offering DCC Chat connection to %1 on port %2..."
-msgctxt "%1=dcc extension like Chat or Whiteboard,%2=partnerNick, %3=port"
-msgid "Offering DCC %1 connection to %2 on port <numid>%3</numid>..."
-msgstr "在端口 %2 提供到 %1 的 DCC 密聊连接..."
-
-#: src/dcc/chat.cpp:465
-#, fuzzy, kde-format
-#| msgctxt "%1 = nickname, %2 = IP, %3 = port"
-#| msgid "Establishing DCC Chat connection to %1 (%2:%3)..."
-msgctxt ""
-"%1=extension like Chat or Whiteboard ,%2 = nickname, %3 = IP, %4 = port"
-msgid "Establishing DCC %1 connection to %2 (%3:<numid>%4</numid>)..."
-msgstr "正在建立到 %1 (%2：%3) 的 DCC 聊天连接..."
-
-#: src/dcc/chat.cpp:483
-#, fuzzy, kde-format
-#| msgid "Established DCC Chat connection to %1."
-msgctxt "%1=extension like Chat or Whiteboard, %2 = partnerNick"
-msgid "Established DCC %1 connection to %2."
-msgstr "正在建立到 %1 的 DCC 聊天连接。"
-
-#: src/dcc/chat.cpp:490 src/dcc/transfersend.cpp:524
-#, kde-format
-msgid "Socket error: %1"
-msgstr "Socket 出错：%1"
-
-#: src/dcc/chat.cpp:553
-msgid "Could not accept the client."
-msgstr "无法接收客户端。"
-
-#: src/dcc/chat.cpp:577
-#, fuzzy, kde-format
-#| msgid "Established DCC Chat connection to %1."
-msgctxt "%1=dcc extension as Chat or Whiteboard, %2=partnerNick"
-msgid "Established DCC %1 connection to %2."
-msgstr "正在建立到 %1 的 DCC 聊天连接。"
-
-#: src/dcc/chat.cpp:583
-msgid "Connection closed."
-msgstr "连接已关闭。"
 
 #: src/dcc/chatcontainer.cpp:116
 #, fuzzy, kde-format
@@ -797,31 +618,14 @@ msgctxt "%1=Encoding"
 msgid "Default ( %1 )"
 msgstr "默认(%1)"
 
-#: src/dcc/chatcontainer.cpp:269 src/irc/outputfilter.cpp:1982
+#: src/dcc/chatcontainer.cpp:269 src/irc/outputfilter.cpp:2020
 msgid "Usage"
 msgstr "用法"
 
-#: src/dcc/chatcontainer.cpp:269 src/irc/outputfilter.cpp:676
+#: src/dcc/chatcontainer.cpp:269 src/irc/outputfilter.cpp:683
 #, kde-format
 msgid "Usage: %1ME text"
 msgstr "用法：%1ME 文本"
-
-#: src/dcc/chatcontainer.cpp:283 src/irc/outputfilterresolvejob.cpp:85
-#: src/irc/inputfilter.cpp:1164 src/irc/inputfilter.cpp:1168
-#: src/irc/inputfilter.cpp:1181 src/irc/inputfilter.cpp:1252
-#: src/irc/inputfilter.cpp:1305 src/irc/inputfilter.cpp:1439
-#: src/irc/inputfilter.cpp:2018 src/irc/inputfilter.cpp:2028
-#: src/irc/inputfilter.cpp:2065 src/irc/inputfilter.cpp:2073
-#: src/irc/inputfilter.cpp:2081 src/irc/inputfilter.cpp:2105
-#: src/irc/outputfilter.cpp:2000 src/irc/server.cpp:694
-#: src/irc/server.cpp:2047 src/irc/server.cpp:2118 src/irc/server.cpp:2291
-#: src/irc/server.cpp:2327 src/irc/server.cpp:2378 src/irc/server.cpp:2446
-#: src/irc/server.cpp:2465 src/irc/server.cpp:2481 src/irc/server.cpp:3923
-#: src/irc/server.cpp:3935 src/irc/server.cpp:3959 src/irc/server.cpp:3982
-#: src/irc/server.cpp:3998 src/linkaddressbook/addressbook.cpp:113
-#: src/connectionmanager.cpp:282
-msgid "Error"
-msgstr "错误"
 
 #: src/dcc/chatcontainer.cpp:283
 msgid "Unknown command."
@@ -834,7 +638,7 @@ msgstr "未知命令。"
 #: src/irc/inputfilter.cpp:299 src/irc/inputfilter.cpp:447
 #: src/irc/inputfilter.cpp:458 src/irc/inputfilter.cpp:479
 #: src/irc/inputfilter.cpp:527 src/irc/inputfilter.cpp:555
-#: src/irc/outputfilter.cpp:844 src/viewer/ignorelistviewitem.cpp:45
+#: src/irc/outputfilter.cpp:851 src/viewer/ignorelistviewitem.cpp:45
 #: rc.cpp:316
 msgid "CTCP"
 msgstr "CTCP"
@@ -895,6 +699,10 @@ msgstr "覆盖(&O)"
 msgid "R&ename"
 msgstr "重命名(&E)"
 
+#: src/dcc/transferdetailedinfopanel.cpp:34 src/dcc/transferlistmodel.cpp:48
+msgid "Status"
+msgstr "状态"
+
 #: src/dcc/transferdetailedinfopanel.cpp:37
 msgid "Details"
 msgstr "细节"
@@ -951,7 +759,7 @@ msgctxt "less than 1 sec"
 msgid "&lt; 1sec"
 msgstr "&lt; 1秒"
 
-#: src/dcc/transferpanel.cpp:45 src/viewer/viewcontainer.cpp:2183
+#: src/dcc/transferpanel.cpp:45 src/viewer/viewcontainer.cpp:2172
 msgid "DCC Status"
 msgstr "DCC 状态"
 
@@ -1065,8 +873,8 @@ msgstr "不支持的对话(文件大小=0)"
 #, fuzzy, kde-format
 #| msgid "<b>Cannot create the folder.</b><br/>Folder: %1<br/>"
 msgid ""
-"<b>Cannot create the folder or destination is not writable.</b><br/>Folder: %"
-"1<br/>"
+"<b>Cannot create the folder or destination is not writable.</b><br/>Folder: "
+"%1<br/>"
 msgstr "<b>无法创建文件夹。</b><br/>文件夹：%1<br/>"
 
 #: src/dcc/transferrecv.cpp:320
@@ -1092,8 +900,8 @@ msgstr[0] "<b>部分文件已存在。</b><br/>%2<br/>部分文件大小：%1 �
 #, kde-format
 msgctxt "%1=fileName, %2=local filesize, %3=sender filesize"
 msgid ""
-"<b>The file already exists.</b><br/>%1 (%2)<br/>Sender reports file size of %"
-"3<br/>"
+"<b>The file already exists.</b><br/>%1 (%2)<br/>Sender reports file size of "
+"%3<br/>"
 msgstr ""
 "<b>文件已存在。</b><br/>%1 (%2)<br/> <br/>发送方报告的文件大小为 %3<br/>"
 
@@ -1107,6 +915,14 @@ msgid ""
 "Could not send Reverse DCC SEND acknowledgement to the partner via the IRC "
 "server."
 msgstr "无法通过 IRC 服务器向伙伴发送反向 DCC SEND 确认。"
+
+#: src/dcc/transferrecv.cpp:583 src/dcc/transfersend.cpp:350
+#: src/dcc/chat.cpp:304 src/dcc/chat.cpp:335
+#, kde-format
+msgid ""
+"Failed to forward port <numid>%1</numid>. Sending DCC request to remote user "
+"regardless."
+msgstr ""
 
 #: src/dcc/transferrecv.cpp:587
 msgid "Waiting for connection"
@@ -1186,6 +1002,15 @@ msgstr "DCC SEND 请求被拒绝"
 msgid "Could not send a DCC SEND request to the partner via the IRC server."
 msgstr "无法通过 IRC 服务器向伙伴发送 DCC SEND 请求。"
 
+#: src/dcc/transfersend.cpp:329 src/dcc/chat.cpp:123
+msgid "Awaiting acceptance by remote user..."
+msgstr ""
+
+#: src/dcc/transfersend.cpp:524 src/dcc/chat.cpp:490
+#, kde-format
+msgid "Socket error: %1"
+msgstr "Socket 出错：%1"
+
 #: src/dcc/transfersend.cpp:556
 msgid "The operation was successful. Should never happen in an error dialog."
 msgstr "操作成功，应该不会再出现错误对话框。"
@@ -1225,10 +1050,6 @@ msgstr "关闭时发生预料外错误。"
 #, kde-format
 msgid "Unknown error. Code %1"
 msgstr "未知错误。代码 %1"
-
-#: src/dcc/transferview.cpp:311
-msgid "Columns"
-msgstr "列"
 
 #: src/dcc/whiteboardtoolbar.cpp:41
 msgid "Clear Image"
@@ -1283,6 +1104,255 @@ msgstr ""
 msgid "Save Image"
 msgstr "保存图像"
 
+#: src/dcc/chat.cpp:102
+#, kde-format
+msgctxt "%1=dcc extension like Chat or Whiteboard"
+msgid "Could not send a DCC %1 request to the partner via the IRC server."
+msgstr "无法通过 IRC 服务器向伙伴发送 DCC %1 请求。"
+
+#: src/dcc/chat.cpp:152
+#, kde-format
+msgctxt "%1=partnerNick, %2=Servername, %3=dcc extension as chat or wboard"
+msgid "%1 (on %2) offers to DCC %3 with you"
+msgstr ""
+
+#: src/dcc/chat.cpp:153
+#, kde-format
+msgctxt "%1=dcc extension as Chat or Whiteboard, %2=partnerNick"
+msgid "DCC %1 offer from %2"
+msgstr ""
+
+#: src/dcc/chat.cpp:154
+msgid "Accept"
+msgstr "接受"
+
+#: src/dcc/chat.cpp:155
+msgid "Reject"
+msgstr "拒绝"
+
+#: src/dcc/chat.cpp:161
+#, kde-format
+msgctxt "%1=dcc extension like Chat or Whiteboard"
+msgid "You rejected the DCC %1 offer."
+msgstr ""
+
+#: src/dcc/chat.cpp:200
+#, kde-format
+msgctxt "%1=dcc extension as Chat or Whiteboard"
+msgid "DCC %1 request was rejected"
+msgstr "DCC %1 请求被拒绝"
+
+#: src/dcc/chat.cpp:287
+#, kde-format
+msgctxt "%1=dcc extension like Chat or Whiteboard"
+msgid ""
+"Could not send Reverse DCC %1 acknowledgement to the partner via the IRC "
+"server."
+msgstr "无法通过 IRC 服务器向伙伴发送反向 DCC %1 确认。"
+
+#: src/dcc/chat.cpp:318
+#, kde-format
+msgctxt "%1=extension like Chat or Whiteboard"
+msgid ""
+"Could not send Reverse DCC %1 acknowledgement to the partner via the IRC "
+"server."
+msgstr "无法通过 IRC 服务器向伙伴发送反向 DCC %1 确认。"
+
+#: src/dcc/chat.cpp:359
+#, kde-format
+msgid "Could not open a socket for listening: %1"
+msgstr "无法打开监听套接字：%1"
+
+#: src/dcc/chat.cpp:370
+#, fuzzy, kde-format
+#| msgid "Offering DCC Chat connection to %1 on port %2..."
+msgctxt "%1=dcc extension like Chat or Whiteboard,%2=partnerNick, %3=port"
+msgid "Offering DCC %1 connection to %2 on port <numid>%3</numid>..."
+msgstr "在端口 %2 提供到 %1 的 DCC 密聊连接..."
+
+#: src/dcc/chat.cpp:431
+#, fuzzy
+#| msgid "Open DCC Whiteboard"
+msgctxt "DCC extension"
+msgid "Whiteboard"
+msgstr "打开 DCC 白板"
+
+#: src/dcc/chat.cpp:434
+msgctxt "DCC extension"
+msgid "Chat"
+msgstr ""
+
+#: src/dcc/chat.cpp:465
+#, fuzzy, kde-format
+#| msgctxt "%1 = nickname, %2 = IP, %3 = port"
+#| msgid "Establishing DCC Chat connection to %1 (%2:%3)..."
+msgctxt ""
+"%1=extension like Chat or Whiteboard ,%2 = nickname, %3 = IP, %4 = port"
+msgid "Establishing DCC %1 connection to %2 (%3:<numid>%4</numid>)..."
+msgstr "正在建立到 %1 (%2：%3) 的 DCC 聊天连接..."
+
+#: src/dcc/chat.cpp:483
+#, fuzzy, kde-format
+#| msgid "Established DCC Chat connection to %1."
+msgctxt "%1=extension like Chat or Whiteboard, %2 = partnerNick"
+msgid "Established DCC %1 connection to %2."
+msgstr "正在建立到 %1 的 DCC 聊天连接。"
+
+#: src/dcc/chat.cpp:553
+msgid "Could not accept the client."
+msgstr "无法接收客户端。"
+
+#: src/dcc/chat.cpp:577
+#, fuzzy, kde-format
+#| msgid "Established DCC Chat connection to %1."
+msgctxt "%1=dcc extension as Chat or Whiteboard, %2=partnerNick"
+msgid "Established DCC %1 connection to %2."
+msgstr "正在建立到 %1 的 DCC 聊天连接。"
+
+#: src/dcc/chat.cpp:583
+msgid "Connection closed."
+msgstr "连接已关闭。"
+
+#: src/dcc/transferlistmodel.cpp:34
+msgid "File"
+msgstr "文件"
+
+#: src/dcc/transferlistmodel.cpp:36
+msgid "Partner"
+msgstr "伙伴"
+
+#: src/dcc/transferlistmodel.cpp:38
+msgid "Started At"
+msgstr "开始自"
+
+#: src/dcc/transferlistmodel.cpp:40
+msgid "Progress"
+msgstr "进度"
+
+#: src/dcc/transferlistmodel.cpp:42
+msgid "Position"
+msgstr "位置"
+
+#: src/dcc/transferlistmodel.cpp:44
+msgid "Speed"
+msgstr "速度"
+
+#: src/dcc/transferlistmodel.cpp:46
+msgid "Sender Address"
+msgstr "发送者地址"
+
+#: src/dcc/transferlistmodel.cpp:50
+msgid "Remaining"
+msgstr "剩余"
+
+#. i18n: file: src/config/ignore_configui.ui:50
+#. i18n: ectx: property (text), widget (QTreeWidget, ignoreListView)
+#: src/dcc/transferlistmodel.cpp:52 rc.cpp:307
+msgid "Type"
+msgstr "输入"
+
+#: src/dcc/transferlistmodel.cpp:444
+#, kde-format
+msgid "%1/sec"
+msgstr "%1/秒"
+
+#: src/dcc/transferlistmodel.cpp:499
+msgid "Queued"
+msgstr "已排队"
+
+#: src/dcc/transferlistmodel.cpp:501
+msgid "Preparing"
+msgstr "正准备"
+
+#: src/dcc/transferlistmodel.cpp:503
+msgctxt "Transfer is waiting for the partner to accept or reject it"
+msgid "Pending"
+msgstr "挂起"
+
+#: src/dcc/transferlistmodel.cpp:505
+msgctxt "Transfer is connecting to the partner"
+msgid "Connecting"
+msgstr "正在连接"
+
+#: src/dcc/transferlistmodel.cpp:510
+msgid "Receiving"
+msgstr "接收中"
+
+#: src/dcc/transferlistmodel.cpp:512
+msgid "Sending"
+msgstr "发送中"
+
+#: src/dcc/transferlistmodel.cpp:518
+msgctxt "Transfer has completed successfully"
+msgid "Done"
+msgstr "完成"
+
+#: src/dcc/transferlistmodel.cpp:520
+msgctxt "Transfer failed"
+msgid "Failed"
+msgstr "失败"
+
+#: src/dcc/transferlistmodel.cpp:522
+msgid "Aborted"
+msgstr "已放弃"
+
+#: src/dcc/transferlistmodel.cpp:534
+msgid "Queued - Transfer is waiting for you to accept or reject it"
+msgstr ""
+
+#: src/dcc/transferlistmodel.cpp:539
+msgid "Preparing - Transfer is checking for resumable files"
+msgstr ""
+
+#: src/dcc/transferlistmodel.cpp:541
+msgid "Preparing - Transfer is acquiring the data to send"
+msgstr ""
+
+#: src/dcc/transferlistmodel.cpp:547
+msgid "Pending - Transfer is waiting for the partner to accept or reject it"
+msgstr ""
+
+#: src/dcc/transferlistmodel.cpp:549
+msgid "Connecting - Transfer is connecting to the partner"
+msgstr ""
+
+#: src/dcc/transferlistmodel.cpp:554
+msgid "Receiving - Transfer is receiving data from the partner"
+msgstr ""
+
+#: src/dcc/transferlistmodel.cpp:556
+msgid "Sending - Transfer is sending data to partner"
+msgstr ""
+
+#: src/dcc/transferlistmodel.cpp:562
+msgid "Done - Transfer has completed successfully"
+msgstr ""
+
+#: src/dcc/transferlistmodel.cpp:566
+msgid "Failed - Transfer failed with 'unknown reason'"
+msgstr ""
+
+#: src/dcc/transferlistmodel.cpp:570
+#, kde-format
+msgid "Failed - Transfer failed with reason '%1'"
+msgstr ""
+
+#: src/dcc/transferlistmodel.cpp:573
+msgid "Aborted - Transfer was aborted by the User"
+msgstr ""
+
+#: src/dcc/transferlistmodel.cpp:666
+msgid "Incoming Transfers"
+msgstr "接收"
+
+#: src/dcc/transferlistmodel.cpp:670
+msgid "Outgoing Transfers"
+msgstr "发送"
+
+#: src/dcc/transferview.cpp:313
+msgid "Columns"
+msgstr "列"
+
 #: src/irc/channelnick.cpp:199
 msgid "Operator"
 msgstr "操作员"
@@ -1317,7 +1387,7 @@ msgid "Channel Invites"
 msgstr "频道邀请"
 
 #: src/irc/invitedialog.cpp:166 src/irc/channel.cpp:1086
-#: src/irc/channel.cpp:1112 src/viewer/ircview.cpp:716
+#: src/irc/channel.cpp:1112 src/viewer/ircview.cpp:813
 msgid "Join"
 msgstr "加入"
 
@@ -1441,8 +1511,8 @@ msgstr "从 %2 接收到未知的 CTCP-%1 请求。"
 #: src/irc/inputfilter.cpp:504 src/irc/inputfilter.cpp:569
 #: src/irc/inputfilter.cpp:574 src/irc/inputfilter.cpp:597
 #: src/irc/inputfilter.cpp:763 src/irc/inputfilter.cpp:1313
-#: src/irc/outputfilter.cpp:659 src/irc/outputfilter.cpp:895
-#: src/irc/server.cpp:3965 src/irc/server.cpp:3994
+#: src/irc/outputfilter.cpp:666 src/irc/outputfilter.cpp:902
+#: src/irc/server.cpp:4016 src/irc/server.cpp:4045
 #: src/viewer/ignorelistviewitem.cpp:44 rc.cpp:325
 msgid "Notice"
 msgstr "通知"
@@ -1511,6 +1581,10 @@ msgstr "您的个人模式："
 #: src/irc/inputfilter.cpp:946 src/irc/inputfilter.cpp:988
 msgid "Channel modes: "
 msgstr "频道模式： "
+
+#: src/irc/inputfilter.cpp:962 src/common.cpp:39
+msgid "password protected"
+msgstr "密码受保护"
 
 #: src/irc/inputfilter.cpp:968
 #, kde-format
@@ -1640,7 +1714,7 @@ msgid "You are not on %1."
 msgstr "您不在 %1 上。"
 
 #: src/irc/inputfilter.cpp:1263 src/irc/inputfilter.cpp:1272
-#: src/irc/inputfilter.cpp:1281 src/viewer/ircview.cpp:680
+#: src/irc/inputfilter.cpp:1281 src/viewer/ircview.cpp:777
 msgid "MOTD"
 msgstr "MOTD"
 
@@ -1661,14 +1735,6 @@ msgstr "您必须是操作员才能更改此项。"
 #: src/irc/inputfilter.cpp:1313
 msgid "You are now an IRC operator on this server."
 msgstr "您现在是此服务器的 IRC 操作员。"
-
-#: src/irc/inputfilter.cpp:1321 src/irc/outputfilter.cpp:1991
-#: src/irc/server.cpp:253 src/irc/server.cpp:399 src/irc/server.cpp:451
-#: src/irc/server.cpp:615 src/irc/server.cpp:626 src/irc/server.cpp:863
-#: src/irc/server.cpp:893 src/connectionmanager.cpp:224
-#: src/connectionmanager.cpp:257 src/connectionmanager.cpp:267
-msgid "Info"
-msgstr "信息"
 
 #: src/irc/inputfilter.cpp:1321
 #, kde-format
@@ -1693,8 +1759,8 @@ msgstr "当前在 %1 的用户：%2。"
 #. i18n: file: src/identitydialog.ui:250
 #. i18n: ectx: attribute (title), widget (QWidget, awayWidget)
 #: src/irc/inputfilter.cpp:1371 src/irc/nicksonline.cpp:247
-#: src/irc/server.cpp:3736 src/irc/server.cpp:3738 src/irc/server.cpp:3763
-#: src/irc/server.cpp:3772 src/linkaddressbook/addressbook.cpp:109 rc.cpp:1559
+#: src/irc/server.cpp:3787 src/irc/server.cpp:3789 src/irc/server.cpp:3814
+#: src/irc/server.cpp:3823 src/linkaddressbook/addressbook.cpp:109 rc.cpp:1559
 msgid "Away"
 msgstr "离开"
 
@@ -2022,444 +2088,6 @@ msgstr ""
 "态以及任何关联到地址簿里的信息，查看 Konversation 手册可以获得更多相关说明。"
 "</p></qt>"
 
-#: src/irc/outputfilter.cpp:215
-msgid ""
-"The message you are sending includes characters that do not exist in your "
-"current encoding. If you choose to continue anyway those characters will be "
-"replaced by a '?'."
-msgstr ""
-
-#: src/irc/outputfilter.cpp:219
-msgid "Encoding Conflict Warning"
-msgstr "编码冲突警告"
-
-#: src/irc/outputfilter.cpp:324
-msgid "Raw"
-msgstr "Raw"
-
-#: src/irc/outputfilter.cpp:381
-#, kde-format
-msgid "Usage: %1JOIN <channel> [password]"
-msgstr "用法：%1JOIN <频道> [密码]"
-
-#: src/irc/outputfilter.cpp:420
-#, kde-format
-msgid "Usage: %1KICK <nick> [reason]"
-msgstr "用法：%1KICK <昵称> [原因]"
-
-#: src/irc/outputfilter.cpp:434
-#, kde-format
-msgid "%1KICK only works from within channels."
-msgstr "%1KICK 只能在频道内起作用。"
-
-#: src/irc/outputfilter.cpp:454
-#, kde-format
-msgid ""
-"%1PART and %1LEAVE without parameters only work from within a channel or a "
-"query."
-msgstr "不带参数的 %1PART 和 %1LEAVE 只能在频道内起作用。"
-
-#: src/irc/outputfilter.cpp:479
-#, kde-format
-msgid "%1PART without channel name only works from within a channel."
-msgstr "\"%1PART 不带频道名只在频道内起作用。"
-
-#: src/irc/outputfilter.cpp:503
-#, kde-format
-msgid "%1TOPIC without parameters only works from within a channel."
-msgstr "%1TOPIC 不带参数只在频道内起作用。"
-
-#: src/irc/outputfilter.cpp:540
-#, kde-format
-msgid "%1TOPIC without channel name only works from within a channel."
-msgstr "%1TOPIC 不带频道名只在频道内起作用。"
-
-#: src/irc/outputfilter.cpp:596
-#, kde-format
-msgid ""
-"%1NAMES with no target may disconnect you from the server. Specify '*' if "
-"you really want this."
-msgstr ""
-"%1NAMES 不加目标会断开您与服务器的连接，如果您真的要这样做请指定“*”为目标。"
-
-#: src/irc/outputfilter.cpp:619
-#, c-format, kde-format
-msgid ""
-"Usage: %1close [window] closes the named channel or query tab, or the "
-"current tab if none specified."
-msgstr ""
-
-#: src/irc/outputfilter.cpp:655
-#, kde-format
-msgid "Usage: %1NOTICE <recipient> <message>"
-msgstr "用法：%1NOTICE <接收人> <消息>"
-
-#: src/irc/outputfilter.cpp:662
-#, kde-format
-msgctxt "%1 is the message, %2 the recipient nickname"
-msgid "Sending notice \"%1\" to %2."
-msgstr "正在发送提醒“%1”到 %2。"
-
-#: src/irc/outputfilter.cpp:674
-#, fuzzy, kde-format
-#| msgid "%1KICK only works from within channels."
-msgid "%1ME only works from a channel, query or DCC chat tab."
-msgstr "%1KICK 只能在频道内起作用。"
-
-#: src/irc/outputfilter.cpp:742
-msgid "You need to specify a recipient."
-msgstr ""
-
-#: src/irc/outputfilter.cpp:747
-#, fuzzy
-#| msgid "You invited %1 to channel %2."
-msgid "You cannot open queries to channels."
-msgstr "您邀请 %1 加入频道 %2。"
-
-#: src/irc/outputfilter.cpp:753
-#, fuzzy
-#| msgid "You need to give the identity a name."
-msgid "You need to specify a message."
-msgstr "您需要给身份起个名字。"
-
-#: src/irc/outputfilter.cpp:836 src/irc/outputfilter.cpp:841
-#, kde-format
-msgid "Sending CTCP-%1 request to %2."
-msgstr "发送 CTCP-%1 请求到 %2"
-
-#: src/irc/outputfilter.cpp:853
-#, fuzzy, c-format, kde-format
-#| msgid "Usage: %1AME text"
-msgid "Usage: %1AME [-LOCAL] text"
-msgstr "用法：%1AME  [-LOCAL] 文本"
-
-#: src/irc/outputfilter.cpp:866
-#, c-format, kde-format
-msgid "Usage: %1AMSG [-LOCAL] text"
-msgstr "用法：%1AMSG [-LOCAL] 文本"
-
-#: src/irc/outputfilter.cpp:879
-#, kde-format
-msgid "Usage: %1OMSG text"
-msgstr "用法：%1OMSG 文本"
-
-#: src/irc/outputfilter.cpp:897
-#, kde-format
-msgid "Sending notice \"%1\" to %2."
-msgstr "正在发送提醒“%1”到 %2。"
-
-#: src/irc/outputfilter.cpp:900
-#, kde-format
-msgid "Usage: %1ONOTICE text"
-msgstr "用法：%1ONOTICE 文本"
-
-#: src/irc/outputfilter.cpp:910
-#, kde-format
-msgid "Usage: %1QUOTE command list"
-msgstr "用法：%1QUOTE 命令列表"
-
-#: src/irc/outputfilter.cpp:922
-#, c-format, kde-format
-msgid "Usage: %1SAY text"
-msgstr "用法：%1SAY 文本"
-
-#: src/irc/outputfilter.cpp:978
-#, kde-format
-msgid "File \"%1\" does not exist."
-msgstr "文件“%1”不存在。"
-
-#: src/irc/outputfilter.cpp:982
-#, kde-format
-msgid "Usage: %1DCC [SEND [nickname [filename]]]"
-msgstr "用法：%1DCC [SEND [昵称 [文件名]]]"
-
-#: src/irc/outputfilter.cpp:1000
-#, kde-format
-msgid "Usage: %1DCC [GET [nickname [filename]]]"
-msgstr "用法：%1DCC [GET [昵称 [文件名]]]"
-
-#: src/irc/outputfilter.cpp:1016
-#, kde-format
-msgid "Usage: %1DCC [CHAT [nickname]]"
-msgstr "用法：%1DCC [CHAT [昵称]]"
-
-#: src/irc/outputfilter.cpp:1032
-#, kde-format
-msgid "Usage: %1DCC [WHITEBOARD [nickname]]"
-msgstr "用法：%1DCC [WHITEBOARD [昵称]]"
-
-#: src/irc/outputfilter.cpp:1037
-#, fuzzy, kde-format
-#| msgid ""
-#| "Unrecognized command %1DCC %2. Possible commands are SEND, CHAT, CLOSE."
-msgid ""
-"Unrecognized command %1DCC %2. Possible commands are SEND, CHAT, CLOSE, GET, "
-"WHITEBOARD."
-msgstr "未知命令 %1DCC %2。可用的命令有 SEND、CHAT、CLOSE。"
-
-#: src/irc/outputfilter.cpp:1180
-#, kde-format
-msgid "Usage: %1INVITE <nick> [channel]"
-msgstr "用法：%1INVITE <昵称> [频道]"
-
-#: src/irc/outputfilter.cpp:1191
-#, kde-format
-msgid "%1INVITE without channel name works only from within channels."
-msgstr "%1INVITE 不带参数只能在频道内起作用。"
-
-#: src/irc/outputfilter.cpp:1200
-#, kde-format
-msgid "%1 is not a channel."
-msgstr "%1 不是一个频道。"
-
-#: src/irc/outputfilter.cpp:1212
-#, fuzzy, c-format, kde-format
-#| msgid "Usage: %1EXEC <script> [parameter list]"
-msgid "Usage: %1EXEC [-SHOWPATH] <script> [parameter list]"
-msgstr "用法：%1EXEC <脚本> [参数列表]"
-
-#: src/irc/outputfilter.cpp:1221
-#, kde-format
-msgctxt "%2 is a filesystem path to the script file"
-msgid "The script file '%1' was found at: %2"
-msgstr ""
-
-#: src/irc/outputfilter.cpp:1228
-#, fuzzy
-#| msgid "Script name may not contain \"../\"."
-msgid "The script name may not contain \"../\"."
-msgstr "脚本名不能包含“../”。"
-
-#: src/irc/outputfilter.cpp:1243
-#, kde-format
-msgid "Usage: %1RAW [OPEN | CLOSE]"
-msgstr "用法：%1RAW [OPEN | CLOSE]"
-
-#: src/irc/outputfilter.cpp:1285
-#, kde-format
-msgctxt "%1 = Comma-separated list of nicknames"
-msgid "The notify list has been emptied (removed %1)."
-msgstr ""
-
-#: src/irc/outputfilter.cpp:1288
-#, fuzzy
-#| msgid "Current notify list is empty."
-msgid "The notify list is currently empty."
-msgstr "当前通知列表为空。"
-
-#: src/irc/outputfilter.cpp:1294
-#, fuzzy, kde-format
-#| msgid "Current notify list: %1"
-msgctxt "%1 and %2 = Comma-separated lists of nicknames"
-msgid "Current notify list: %1 (added %2)."
-msgstr "当前通知列表：%1"
-
-#: src/irc/outputfilter.cpp:1298
-#, fuzzy, kde-format
-#| msgid "Current notify list: %1"
-msgctxt "%1 and %2 = Comma-separated lists of nicknames"
-msgid "Current notify list: %1 (removed %2)."
-msgstr "当前通知列表：%1"
-
-#: src/irc/outputfilter.cpp:1302
-#, fuzzy, kde-format
-#| msgid "Current notify list: %1"
-msgctxt "%1, %2 and %3 = Comma-separated lists of nicknames"
-msgid "Current notify list: %1 (added %2, removed %3)."
-msgstr "当前通知列表：%1"
-
-#: src/irc/outputfilter.cpp:1306
-#, fuzzy, kde-format
-#| msgid "Current notify list: %1"
-msgctxt "%1 = Comma-separated list of nicknames"
-msgid "Current notify list: %1."
-msgstr "当前通知列表：%1"
-
-#: src/irc/outputfilter.cpp:1311 src/irc/server.cpp:2844
-#: src/irc/server.cpp:2861
-msgid "Notify"
-msgstr "通知"
-
-#: src/irc/outputfilter.cpp:1327
-msgid "Enter username and password for IRC operator privileges:"
-msgstr "输入有 IRC 操作员权限的用户名和密码："
-
-#: src/irc/outputfilter.cpp:1329
-msgid "IRC Operator Password"
-msgstr "IRC 操作员密码"
-
-#: src/irc/outputfilter.cpp:1393
-#, kde-format
-msgid "%1BAN without channel name works only from inside a channel."
-msgstr "%1BAN 不带频道名只能在频道内起作用。"
-
-#: src/irc/outputfilter.cpp:1396
-#, kde-format
-msgid "%1KICKBAN without channel name works only from inside a channel."
-msgstr "不带频道名的 %1KICKBAN 指令只能在频道内使用。"
-
-#: src/irc/outputfilter.cpp:1431
-#, kde-format
-msgid ""
-"Usage: %1BAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [channel] <nickname "
-"| mask>"
-msgstr ""
-"用法：%1BAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [频道] <昵称|掩码>"
-
-#: src/irc/outputfilter.cpp:1434
-#, kde-format
-msgid ""
-"Usage: %1KICKBAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [channel] "
-"<nickname | mask> [reason]"
-msgstr ""
-"用法：%1KICKBAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [频道名] <昵称|主"
-"机掩码> [封禁原因]"
-
-#: src/irc/outputfilter.cpp:1477
-#, kde-format
-msgid "%1UNBAN without channel name works only from inside a channel."
-msgstr "%1UNBAN 不带频道名只能在频道内起作用。"
-
-#: src/irc/outputfilter.cpp:1492
-#, kde-format
-msgid "Usage: %1UNBAN [channel] pattern"
-msgstr "用法：%1UNBAN [频道] 模式"
-
-#: src/irc/outputfilter.cpp:1538
-#, kde-format
-msgid "Added %1 to your ignore list."
-msgstr "添加 %1 到您的忽略列表。"
-
-#: src/irc/outputfilter.cpp:1548
-#, kde-format
-msgid "Usage: %1IGNORE [ -ALL ] <user 1> <user 2> ... <user n>"
-msgstr "用法：%1IGNORE [ -ALL ] <用户 1> <用户 2> ... <用户 n>"
-
-#: src/irc/outputfilter.cpp:1559
-#, kde-format
-msgid "Usage: %1UNIGNORE <user 1> <user 2> ... <user n>"
-msgstr "用法：%1UNIGNORE [ -ALL ] <用户 1> <用户 2> ... <用户 n>"
-
-#: src/irc/outputfilter.cpp:1609
-#, kde-format
-msgid "Removed %1 from your ignore list."
-msgstr "已从忽略列表中移除 %1。"
-
-#: src/irc/outputfilter.cpp:1616
-#, kde-format
-msgid "No such ignore: %2"
-msgid_plural "No such ignores: %2"
-msgstr[0] "没有此忽略对象：%2"
-
-#: src/irc/outputfilter.cpp:1651
-#, kde-format
-msgid "Current encoding is: %1"
-msgstr "当前编码：%1"
-
-#: src/irc/outputfilter.cpp:1662
-#, kde-format
-msgid "Switched to %1 encoding."
-msgstr "切换到编码 %1。"
-
-#: src/irc/outputfilter.cpp:1665
-#, kde-format
-msgid "%1 is not a valid encoding."
-msgstr "%1 不是一个有效编码。"
-
-#: src/irc/outputfilter.cpp:1683
-#, c-format, kde-format
-msgid ""
-"Usage: %1setkey <nick|channel> <key> sets the encryption key for nick or "
-"channel. %1setkey <key> when in a channel or query tab sets the key for it. "
-"The key field recognizes \"cbc:\" and \"ecb:\" prefixes to set the block "
-"cipher mode of operation to either Cipher-Block Chaining or Electronic "
-"Codebook. The mode it defaults to when no prefix is given can be changed in "
-"the configuration dialog under Behavior -> Connection -> Encryption -> "
-"Default Encryption Type, with the default for that setting being Electronic "
-"Codebook (ECB)."
-msgstr ""
-
-#: src/irc/outputfilter.cpp:1695
-#, fuzzy, kde-format
-#| msgid "You set a ban exception on %1."
-msgid "Unable to set an encryption key for %1."
-msgstr "您对 %1 设置了封禁例外。"
-
-#: src/irc/outputfilter.cpp:1704
-#, kde-format
-msgid "The key for %1 has been set."
-msgstr "已设定 %1 的密钥。"
-
-#: src/irc/outputfilter.cpp:1707 src/irc/outputfilter.cpp:1732
-msgid ""
-"Setting an encryption key requires Konversation to have been built with "
-"support for the Qt Cryptographic Architecture (QCA) library. Contact your "
-"distributor about a Konversation package with QCA support, or rebuild "
-"Konversation with QCA present."
-msgstr ""
-
-#: src/irc/outputfilter.cpp:1722
-#, kde-format
-msgid ""
-"Usage: %1keyx <nick|channel> triggers DH1080 key exchange with the target."
-msgstr ""
-
-#: src/irc/outputfilter.cpp:1725
-#, kde-format
-msgid "Unable to request a key exchange from %1."
-msgstr ""
-
-#: src/irc/outputfilter.cpp:1729
-#, kde-format
-msgid "Beginning DH1080 key exchange with %1."
-msgstr ""
-
-#: src/irc/outputfilter.cpp:1748
-#, c-format, kde-format
-msgid ""
-"Usage: %1delkey <nick> or <channel> deletes the encryption key for nick or "
-"channel"
-msgstr "用法：%1delkey <昵称> 或 <频道名> 可删除特定昵称或频道的加密密钥。"
-
-#: src/irc/outputfilter.cpp:1760
-#, kde-format
-msgid "The key for %1 has been deleted."
-msgstr "%1 的密钥已被删除。"
-
-#: src/irc/outputfilter.cpp:1763 src/irc/outputfilter.cpp:1783
-#, kde-format
-msgid "No key has been set for %1."
-msgstr ""
-
-#: src/irc/outputfilter.cpp:1780
-#, kde-format
-msgid "The key for %1 is \"%2\"."
-msgstr "%1 的密钥是“%2”。"
-
-#: src/irc/outputfilter.cpp:1781
-msgid "Blowfish"
-msgstr "Blowfish"
-
-#: src/irc/outputfilter.cpp:1793
-#, kde-format
-msgid "Usage: %1KILL <nick> [comment]"
-msgstr "用法：%1KILL <昵称> [注释]"
-
-#: src/irc/outputfilter.cpp:1807
-#, kde-format
-msgid "Usage: %1DNS <nick>"
-msgstr "用法：%1DNS <昵称>"
-
-#: src/irc/outputfilter.cpp:1837
-#, c-format, kde-format
-msgid "Usage: %1queuetuner [on | off]"
-msgstr "用法：%1queuetuner [on | off]"
-
-#: src/irc/outputfilter.cpp:1906
-#, c-format, kde-format
-msgid "%1CYCLE [-APP | -SERVER] [channel | nickname]"
-msgstr ""
-
 #: src/irc/channel.cpp:130
 msgid "Edit Channel Settings"
 msgstr "编辑频道设定"
@@ -2562,7 +2190,7 @@ msgstr "%1 已经加入此频道 (%2)。"
 
 #: src/irc/channel.cpp:1139 src/irc/channel.cpp:1141 src/irc/channel.cpp:1162
 #: src/irc/channel.cpp:1164 src/irc/query.cpp:533 src/irc/query.cpp:540
-#: src/viewer/ircview.cpp:721
+#: src/viewer/ircview.cpp:818
 msgid "Quit"
 msgstr "退出"
 
@@ -2577,7 +2205,7 @@ msgid "You have left this server (%1)."
 msgstr "您已经离开了此服务器 (%1)。"
 
 #: src/irc/channel.cpp:1146 src/irc/channel.cpp:1148 src/irc/channel.cpp:1170
-#: src/irc/channel.cpp:1172 src/viewer/ircview.cpp:721
+#: src/irc/channel.cpp:1172 src/viewer/ircview.cpp:818
 msgid "Part"
 msgstr "离开"
 
@@ -2617,7 +2245,7 @@ msgstr "%1 已经离开了此频道 (%2)。"
 #: src/irc/channel.cpp:1229 src/irc/channel.cpp:1231 src/irc/channel.cpp:1238
 #: src/irc/channel.cpp:1243 src/irc/channel.cpp:1264 src/irc/channel.cpp:1266
 #: src/irc/channel.cpp:1273 src/irc/channel.cpp:1278
-#: src/viewer/irccontextmenus.cpp:387
+#: src/viewer/irccontextmenus.cpp:389
 msgid "Kick"
 msgstr "踢出"
 
@@ -3225,8 +2853,8 @@ msgstr "频道话题"
 
 #. i18n: file: src/irc/channellistpanelui.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, ChannelListWidgetUI)
-#: src/irc/channellistpanel.cpp:146 src/viewer/viewcontainer.cpp:2487
-#: src/viewer/viewcontainer.cpp:2508 rc.cpp:1070
+#: src/irc/channellistpanel.cpp:146 src/viewer/viewcontainer.cpp:2476
+#: src/viewer/viewcontainer.cpp:2497 rc.cpp:1070
 msgid "Channel List"
 msgstr "频道列表"
 
@@ -3428,7 +3056,7 @@ msgctxt "network (nickname)"
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
 
-#: src/irc/nicksonline.cpp:42 src/viewer/viewcontainer.cpp:2568
+#: src/irc/nicksonline.cpp:42
 msgid "Watched Nicks Online"
 msgstr "监视的在线昵称"
 
@@ -3495,7 +3123,7 @@ msgstr "点此可删除您选中的昵称与 KDE 地址簿条目间的关联。"
 msgid "&Send Email..."
 msgstr "发送邮件(&S)..."
 
-#: src/irc/nicksonline.cpp:64 src/viewer/irccontextmenus.cpp:414
+#: src/irc/nicksonline.cpp:64 src/viewer/irccontextmenus.cpp:416
 msgid "&Whois"
 msgstr "Whois(&W)"
 
@@ -3596,307 +3224,6 @@ msgstr "关闭对话"
 msgid "%1 has left this server (%2)."
 msgstr "%1 离开了此服务器(%2)。"
 
-#: src/irc/server.cpp:401 src/irc/server.cpp:411
-msgid "Warning"
-msgstr "警告"
-
-#: src/irc/server.cpp:451
-#, fuzzy, kde-format
-#| msgid "Looking for server %1:%2..."
-msgid "Looking for server %1 (port <numid>%2</numid>)..."
-msgstr "寻找服务器 %1:%2..."
-
-#: src/irc/server.cpp:615
-msgid "Server found, connecting..."
-msgstr "服务器找到，正在连接..."
-
-#: src/irc/server.cpp:626
-msgid "Connected; logging in..."
-msgstr "连接已建立，正在登录..."
-
-#: src/irc/server.cpp:689
-#, fuzzy, kde-format
-#| msgid "Connection to Server %1 lost: %2."
-msgid "Connection to server %1 (port <numid>%2</numid>) lost: %3."
-msgstr "与服务器 %1 失去连接：%2。"
-
-#: src/irc/server.cpp:733
-#, fuzzy, kde-format
-#| msgid "Connection to Server %1 lost: %2."
-msgid ""
-"The SSL certificate for the server %1 (port <numid>%2</numid>) failed the "
-"authenticity check."
-msgstr "与服务器 %1 失去连接：%2。"
-
-#: src/irc/server.cpp:737
-msgid "SSL Connection Warning"
-msgstr "SSL 连接警告"
-
-#: src/irc/server.cpp:748
-#, fuzzy, kde-format
-#| msgid ""
-#| "Could not connect to %1:%2 using SSL encryption. Maybe the server does "
-#| "not support SSL, or perhaps you have the wrong port? %3"
-msgid ""
-"Could not connect to %1 (port <numid>%2</numid>) using SSL encryption. "
-"Either the server does not support SSL (did you use the correct port?) or "
-"you rejected the certificate. %3"
-msgstr ""
-"无法使用 SSL 加密连接到 %1:%2，也许此服务器不支持 SSL 或是您指定了错误的端"
-"口？%3"
-
-#: src/irc/server.cpp:753
-msgid "SSL Connection Error"
-msgstr "SSL 连接出错"
-
-#: src/irc/server.cpp:863
-msgid "Delayed connect aborted."
-msgstr ""
-
-#: src/irc/server.cpp:893
-#, fuzzy, kde-format
-#| msgid "Disconnected from %1."
-msgid "Disconnected from %1 (port <numid>%2</numid>)."
-msgstr "从 %1 断开连接。"
-
-#: src/irc/server.cpp:1065
-#, kde-format
-msgid ""
-"No nicknames from the \"%1\" identity were accepted by the connection \"%2"
-"\".\n"
-"Please enter a new one or press Cancel to disconnect:"
-msgstr ""
-"身份“%1”所属的昵称不接受连接“%2”。\n"
-"请输入一个新的昵称或按“取消”中断连接："
-
-#: src/irc/server.cpp:1066
-msgid "Nickname error"
-msgstr "昵称错误"
-
-#: src/irc/server.cpp:1529 src/irc/server.cpp:3498 src/irc/server.cpp:3503
-#: src/application.cpp:371
-msgid "D-Bus"
-msgstr "D-Bus"
-
-#: src/irc/server.cpp:1875
-#, kde-format
-msgid "Select File(s) to Send to %1"
-msgstr "选择要发送给 %1 的文件"
-
-#: src/irc/server.cpp:2048
-#, kde-format
-msgctxt "%1=nickname"
-msgid "Received invalid DCC SEND request from %1."
-msgstr "收到来自 %1 的无效 DCC SEND 请求。"
-
-#: src/irc/server.cpp:2083 src/irc/server.cpp:2213 src/irc/server.cpp:2225
-#: src/irc/server.cpp:2374 src/irc/server.cpp:2430 src/irc/server.cpp:2539
-msgid "unknown size"
-msgstr "文件大小未知"
-
-#: src/irc/server.cpp:2080
-#, kde-format
-msgid "%1 offers to send you \"%2\" (%3)..."
-msgstr "%1 向您提供了文件“%2”(%3) 的传输..."
-
-#: src/irc/server.cpp:2119
-#, kde-format
-msgctxt "%1=nickname"
-msgid "Received invalid DCC CHAT request from %1."
-msgstr "收到来自 %1 的无效 DCC CHAT 请求。"
-
-#: src/irc/server.cpp:2210
-#, kde-format
-msgid "Asking %1 to accept upload of \"%2\" (%3)..."
-msgstr "正在询问 %1 是否接受“%2”(%3) 的上传..."
-
-#: src/irc/server.cpp:2222
-#, kde-format
-msgid "Asking %1 to accept passive upload of \"%2\" (%3)..."
-msgstr "正在询问 %1 是否接受“%2”(%3) 的被动上传..."
-
-#: src/irc/server.cpp:2234
-#, fuzzy, kde-format
-#| msgid "Asking %1 to accept upload of \"%2\" (%3)..."
-msgctxt "%1=name, %2=dcc extension, chat or wboard for example"
-msgid "Asking %1 to accept %2..."
-msgstr "正在询问 %1 是否接受“%2”(%3) 的上传..."
-
-#: src/irc/server.cpp:2293
-#, fuzzy, kde-format
-#| msgctxt "%1 = file name, %2 = nickname"
-#| msgid ""
-#| "Received invalid passive DCC send acceptance message for \"%1\" from %2."
-msgctxt "%1 = nickname"
-msgid "Received invalid passive DCC chat acceptance message from %1."
-msgstr "从 %2 接收到对文件“%1”无效的被动 DCC 接受请求。"
-
-#: src/irc/server.cpp:2329
-#, kde-format
-msgctxt "%1 = file name, %2 = nickname"
-msgid ""
-"Received invalid passive DCC send acceptance message for \"%1\" from %2."
-msgstr "从 %2 接收到对文件“%1”无效的被动 DCC 接受请求。"
-
-#: src/irc/server.cpp:2370
-#, kde-format
-msgctxt ""
-"%1 = file name, %2 = nickname of sender, %3 = percentage of file size, %4 = "
-"file size"
-msgid "Resuming download of \"%1\" from %2 starting at %3% of %4..."
-msgstr "正在续传来自 %2 的文件“%1”，接续于 %4 的 %3%..."
-
-#: src/irc/server.cpp:2380
-#, kde-format
-msgctxt "%1 = file name, %2 = nickname"
-msgid "Received invalid resume acceptance message for \"%1\" from %2."
-msgstr "从 %2 接收到对文件“%1”的无效续传请求。"
-
-#: src/irc/server.cpp:2426
-#, kde-format
-msgctxt ""
-"%1 = file name, %2 = nickname of recipient, %3 = percentage of file size, %4 "
-"= file size"
-msgid "Resuming upload of \"%1\" to %2 starting at %3% of %4..."
-msgstr "正在续传发送给 %2 的文件“%1”，现已传送了 %4 的 %3%..."
-
-#: src/irc/server.cpp:2448
-#, kde-format
-msgctxt "%1 = file name, %2 = nickname"
-msgid "Received invalid resume request for \"%1\" from %2."
-msgstr "从 %2 接收到对文件“%1”的无效续传请求。"
-
-#: src/irc/server.cpp:2467
-#, kde-format
-msgctxt "%1 = file name, %2 = nickname"
-msgid "Received invalid reject request for \"%1\" from %2."
-msgstr "从 %2 接收到对文件“%1”的无效拒绝请求。"
-
-#: src/irc/server.cpp:2483
-#, fuzzy, kde-format
-#| msgctxt "%1 = file name, %2 = nickname"
-#| msgid "Received invalid reject request for \"%1\" from %2."
-msgctxt "%1 = nickname"
-msgid "Received invalid reject request from %1."
-msgstr "从 %2 接收到对文件“%1”的无效拒绝请求。"
-
-#: src/irc/server.cpp:2496
-#, kde-format
-msgctxt "%1 = file name, %2 = nickname of sender"
-msgid "Download of \"%1\" from %2 finished."
-msgstr "从 %2 处下载文件“%1”已完成。"
-
-#: src/irc/server.cpp:2501
-#, kde-format
-msgctxt "%1 = file name, %2 = nickname of sender"
-msgid "Download of \"%1\" from %2 failed. Reason: %3."
-msgstr "从 %2 处下载文件“%1”失败，原因：%3。"
-
-#: src/irc/server.cpp:2513
-#, kde-format
-msgctxt "%1 = file name, %2 = nickname of recipient"
-msgid "Upload of \"%1\" to %2 finished."
-msgstr "将文件“%1”上传至 %2 已完成。"
-
-#: src/irc/server.cpp:2516
-#, kde-format
-msgctxt "%1 = file name, %2 = nickname of recipient"
-msgid "Upload of \"%1\" to %2 failed. Reason: %3."
-msgstr "将文件“%1”上传至 %2 失败，原因：%3。"
-
-#: src/irc/server.cpp:2530
-#, kde-format
-msgctxt "%1 = file name, %2 nickname of recipient"
-msgid "Sending \"%1\" to %2..."
-msgstr "正在发送“%1”到 %2..."
-
-#: src/irc/server.cpp:2537
-#, kde-format
-msgctxt "%1 = file name, %2 = file size, %3 = nickname of sender"
-msgid "Downloading \"%1\" (%2) from %3..."
-msgstr "正在从 %3 处下载文件“%1”(%2)..."
-
-#: src/irc/server.cpp:2844 src/notificationhandler.cpp:307
-#, kde-format
-msgid "%1 is online (%2)."
-msgstr "%1 在线(%2)。"
-
-#: src/irc/server.cpp:2861 src/notificationhandler.cpp:321
-#, kde-format
-msgid "%1 went offline (%2)."
-msgstr "%1 离线(%2)。"
-
-#: src/irc/server.cpp:3498
-#, kde-format
-msgid "Error: Could not find script \"%1\"."
-msgstr "错误：无法找到脚本“%1”。"
-
-#: src/irc/server.cpp:3503
-#, kde-format
-msgid "Error: Could not execute script \"%1\". Check file permissions."
-msgstr "错误：无法执行脚本“%1”，请检查文件权限。"
-
-#: src/irc/server.cpp:3705
-msgid "Gone away for now"
-msgstr "现在离开"
-
-#: src/irc/server.cpp:3736
-#, fuzzy, kde-format
-#| msgid "You are now marked as being away."
-msgid "You are now marked as being away (reason: %1)."
-msgstr "您已经标记为离开。"
-
-#: src/irc/server.cpp:3738
-msgid "You are now marked as being away."
-msgstr "您已经标记为离开。"
-
-#: src/irc/server.cpp:3763
-msgid "You are no longer marked as being away."
-msgstr "您不再标记为离开。"
-
-#: src/irc/server.cpp:3772
-msgid "You are not marked as being away."
-msgstr "您不再标记为离开。"
-
-#: src/irc/server.cpp:3923
-#, kde-format
-msgid "Failed to initiate key exchange with %1."
-msgstr ""
-
-#: src/irc/server.cpp:3935
-#, kde-format
-msgid "Unable to perform key exchange with %1."
-msgstr ""
-
-#: src/irc/server.cpp:3959
-#, kde-format
-msgid "Failed to parse the DH1080_INIT of %1. Key exchange failed."
-msgstr ""
-
-#: src/irc/server.cpp:3965
-#, kde-format
-msgid ""
-"Your key is set and your messages will now be encrypted, sending "
-"DH1080_FINISH to %1."
-msgstr ""
-
-#: src/irc/server.cpp:3982
-#, kde-format
-msgid "Unable to complete key exchange with %1."
-msgstr ""
-
-#: src/irc/server.cpp:3994
-#, kde-format
-msgid ""
-"Successfully parsed DH1080_FINISH sent by %1. Your key is set and your "
-"messages will now be encrypted."
-msgstr ""
-
-#: src/irc/server.cpp:3998
-#, kde-format
-msgid "Failed to parse DH1080_FINISH sent by %1. Key exchange failed."
-msgstr ""
-
 #: src/irc/servergroupdialog.cpp:79
 msgid "Change network information"
 msgstr "改变网络信息"
@@ -3992,6 +3319,757 @@ msgstr "您真要删除选中的条目吗？"
 #, kde-format
 msgid "Do you really want to delete %1?"
 msgstr "您真要删除 %1 吗？"
+
+#: src/irc/outputfilter.cpp:222
+msgid ""
+"The message you are sending includes characters that do not exist in your "
+"current encoding. If you choose to continue anyway those characters will be "
+"replaced by a '?'."
+msgstr ""
+
+#: src/irc/outputfilter.cpp:226
+msgid "Encoding Conflict Warning"
+msgstr "编码冲突警告"
+
+#: src/irc/outputfilter.cpp:331
+msgid "Raw"
+msgstr "Raw"
+
+#: src/irc/outputfilter.cpp:388
+#, kde-format
+msgid "Usage: %1JOIN <channel> [password]"
+msgstr "用法：%1JOIN <频道> [密码]"
+
+#: src/irc/outputfilter.cpp:427
+#, kde-format
+msgid "Usage: %1KICK <nick> [reason]"
+msgstr "用法：%1KICK <昵称> [原因]"
+
+#: src/irc/outputfilter.cpp:441
+#, kde-format
+msgid "%1KICK only works from within channels."
+msgstr "%1KICK 只能在频道内起作用。"
+
+#: src/irc/outputfilter.cpp:461
+#, kde-format
+msgid ""
+"%1PART and %1LEAVE without parameters only work from within a channel or a "
+"query."
+msgstr "不带参数的 %1PART 和 %1LEAVE 只能在频道内起作用。"
+
+#: src/irc/outputfilter.cpp:486
+#, kde-format
+msgid "%1PART without channel name only works from within a channel."
+msgstr "\"%1PART 不带频道名只在频道内起作用。"
+
+#: src/irc/outputfilter.cpp:510
+#, kde-format
+msgid "%1TOPIC without parameters only works from within a channel."
+msgstr "%1TOPIC 不带参数只在频道内起作用。"
+
+#: src/irc/outputfilter.cpp:547
+#, kde-format
+msgid "%1TOPIC without channel name only works from within a channel."
+msgstr "%1TOPIC 不带频道名只在频道内起作用。"
+
+#: src/irc/outputfilter.cpp:603
+#, kde-format
+msgid ""
+"%1NAMES with no target may disconnect you from the server. Specify '*' if "
+"you really want this."
+msgstr ""
+"%1NAMES 不加目标会断开您与服务器的连接，如果您真的要这样做请指定“*”为目标。"
+
+#: src/irc/outputfilter.cpp:626
+#, c-format, kde-format
+msgid ""
+"Usage: %1close [window] closes the named channel or query tab, or the "
+"current tab if none specified."
+msgstr ""
+
+#: src/irc/outputfilter.cpp:662
+#, kde-format
+msgid "Usage: %1NOTICE <recipient> <message>"
+msgstr "用法：%1NOTICE <接收人> <消息>"
+
+#: src/irc/outputfilter.cpp:669
+#, kde-format
+msgctxt "%1 is the message, %2 the recipient nickname"
+msgid "Sending notice \"%1\" to %2."
+msgstr "正在发送提醒“%1”到 %2。"
+
+#: src/irc/outputfilter.cpp:681
+#, fuzzy, kde-format
+#| msgid "%1KICK only works from within channels."
+msgid "%1ME only works from a channel, query or DCC chat tab."
+msgstr "%1KICK 只能在频道内起作用。"
+
+#: src/irc/outputfilter.cpp:749
+msgid "You need to specify a recipient."
+msgstr ""
+
+#: src/irc/outputfilter.cpp:754
+#, fuzzy
+#| msgid "You invited %1 to channel %2."
+msgid "You cannot open queries to channels."
+msgstr "您邀请 %1 加入频道 %2。"
+
+#: src/irc/outputfilter.cpp:760
+#, fuzzy
+#| msgid "You need to give the identity a name."
+msgid "You need to specify a message."
+msgstr "您需要给身份起个名字。"
+
+#: src/irc/outputfilter.cpp:843 src/irc/outputfilter.cpp:848
+#, kde-format
+msgid "Sending CTCP-%1 request to %2."
+msgstr "发送 CTCP-%1 请求到 %2"
+
+#: src/irc/outputfilter.cpp:860
+#, fuzzy, c-format, kde-format
+#| msgid "Usage: %1AME text"
+msgid "Usage: %1AME [-LOCAL] text"
+msgstr "用法：%1AME  [-LOCAL] 文本"
+
+#: src/irc/outputfilter.cpp:873
+#, c-format, kde-format
+msgid "Usage: %1AMSG [-LOCAL] text"
+msgstr "用法：%1AMSG [-LOCAL] 文本"
+
+#: src/irc/outputfilter.cpp:886
+#, kde-format
+msgid "Usage: %1OMSG text"
+msgstr "用法：%1OMSG 文本"
+
+#: src/irc/outputfilter.cpp:904
+#, kde-format
+msgid "Sending notice \"%1\" to %2."
+msgstr "正在发送提醒“%1”到 %2。"
+
+#: src/irc/outputfilter.cpp:907
+#, kde-format
+msgid "Usage: %1ONOTICE text"
+msgstr "用法：%1ONOTICE 文本"
+
+#: src/irc/outputfilter.cpp:917
+#, kde-format
+msgid "Usage: %1QUOTE command list"
+msgstr "用法：%1QUOTE 命令列表"
+
+#: src/irc/outputfilter.cpp:929
+#, c-format, kde-format
+msgid "Usage: %1SAY text"
+msgstr "用法：%1SAY 文本"
+
+#: src/irc/outputfilter.cpp:985
+#, kde-format
+msgid "File \"%1\" does not exist."
+msgstr "文件“%1”不存在。"
+
+#: src/irc/outputfilter.cpp:989
+#, kde-format
+msgid "Usage: %1DCC [SEND [nickname [filename]]]"
+msgstr "用法：%1DCC [SEND [昵称 [文件名]]]"
+
+#: src/irc/outputfilter.cpp:1007
+#, kde-format
+msgid "Usage: %1DCC [GET [nickname [filename]]]"
+msgstr "用法：%1DCC [GET [昵称 [文件名]]]"
+
+#: src/irc/outputfilter.cpp:1023
+#, kde-format
+msgid "Usage: %1DCC [CHAT [nickname]]"
+msgstr "用法：%1DCC [CHAT [昵称]]"
+
+#: src/irc/outputfilter.cpp:1039
+#, kde-format
+msgid "Usage: %1DCC [WHITEBOARD [nickname]]"
+msgstr "用法：%1DCC [WHITEBOARD [昵称]]"
+
+#: src/irc/outputfilter.cpp:1044
+#, fuzzy, kde-format
+#| msgid ""
+#| "Unrecognized command %1DCC %2. Possible commands are SEND, CHAT, CLOSE."
+msgid ""
+"Unrecognized command %1DCC %2. Possible commands are SEND, CHAT, CLOSE, GET, "
+"WHITEBOARD."
+msgstr "未知命令 %1DCC %2。可用的命令有 SEND、CHAT、CLOSE。"
+
+#: src/irc/outputfilter.cpp:1187
+#, kde-format
+msgid "Usage: %1INVITE <nick> [channel]"
+msgstr "用法：%1INVITE <昵称> [频道]"
+
+#: src/irc/outputfilter.cpp:1198
+#, kde-format
+msgid "%1INVITE without channel name works only from within channels."
+msgstr "%1INVITE 不带参数只能在频道内起作用。"
+
+#: src/irc/outputfilter.cpp:1207
+#, kde-format
+msgid "%1 is not a channel."
+msgstr "%1 不是一个频道。"
+
+#: src/irc/outputfilter.cpp:1219
+#, fuzzy, c-format, kde-format
+#| msgid "Usage: %1EXEC <script> [parameter list]"
+msgid "Usage: %1EXEC [-SHOWPATH] <script> [parameter list]"
+msgstr "用法：%1EXEC <脚本> [参数列表]"
+
+#: src/irc/outputfilter.cpp:1228
+#, kde-format
+msgctxt "%2 is a filesystem path to the script file"
+msgid "The script file '%1' was found at: %2"
+msgstr ""
+
+#: src/irc/outputfilter.cpp:1235
+#, fuzzy
+#| msgid "Script name may not contain \"../\"."
+msgid "The script name may not contain \"../\"."
+msgstr "脚本名不能包含“../”。"
+
+#: src/irc/outputfilter.cpp:1250
+#, kde-format
+msgid "Usage: %1RAW [OPEN | CLOSE]"
+msgstr "用法：%1RAW [OPEN | CLOSE]"
+
+#: src/irc/outputfilter.cpp:1292
+#, kde-format
+msgctxt "%1 = Comma-separated list of nicknames"
+msgid "The notify list has been emptied (removed %1)."
+msgstr ""
+
+#: src/irc/outputfilter.cpp:1295
+#, fuzzy
+#| msgid "Current notify list is empty."
+msgid "The notify list is currently empty."
+msgstr "当前通知列表为空。"
+
+#: src/irc/outputfilter.cpp:1301
+#, fuzzy, kde-format
+#| msgid "Current notify list: %1"
+msgctxt "%1 and %2 = Comma-separated lists of nicknames"
+msgid "Current notify list: %1 (added %2)."
+msgstr "当前通知列表：%1"
+
+#: src/irc/outputfilter.cpp:1305
+#, fuzzy, kde-format
+#| msgid "Current notify list: %1"
+msgctxt "%1 and %2 = Comma-separated lists of nicknames"
+msgid "Current notify list: %1 (removed %2)."
+msgstr "当前通知列表：%1"
+
+#: src/irc/outputfilter.cpp:1309
+#, fuzzy, kde-format
+#| msgid "Current notify list: %1"
+msgctxt "%1, %2 and %3 = Comma-separated lists of nicknames"
+msgid "Current notify list: %1 (added %2, removed %3)."
+msgstr "当前通知列表：%1"
+
+#: src/irc/outputfilter.cpp:1313
+#, fuzzy, kde-format
+#| msgid "Current notify list: %1"
+msgctxt "%1 = Comma-separated list of nicknames"
+msgid "Current notify list: %1."
+msgstr "当前通知列表：%1"
+
+#: src/irc/outputfilter.cpp:1318 src/irc/server.cpp:2883
+#: src/irc/server.cpp:2900
+msgid "Notify"
+msgstr "通知"
+
+#: src/irc/outputfilter.cpp:1334
+msgid "Enter username and password for IRC operator privileges:"
+msgstr "输入有 IRC 操作员权限的用户名和密码："
+
+#: src/irc/outputfilter.cpp:1336
+msgid "IRC Operator Password"
+msgstr "IRC 操作员密码"
+
+#: src/irc/outputfilter.cpp:1400
+#, kde-format
+msgid "%1BAN without channel name works only from inside a channel."
+msgstr "%1BAN 不带频道名只能在频道内起作用。"
+
+#: src/irc/outputfilter.cpp:1403
+#, kde-format
+msgid "%1KICKBAN without channel name works only from inside a channel."
+msgstr "不带频道名的 %1KICKBAN 指令只能在频道内使用。"
+
+#: src/irc/outputfilter.cpp:1438
+#, kde-format
+msgid ""
+"Usage: %1BAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [channel] <nickname "
+"| mask>"
+msgstr ""
+"用法：%1BAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [频道] <昵称|掩码>"
+
+#: src/irc/outputfilter.cpp:1441
+#, kde-format
+msgid ""
+"Usage: %1KICKBAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [channel] "
+"<nickname | mask> [reason]"
+msgstr ""
+"用法：%1KICKBAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [频道名] <昵称|主"
+"机掩码> [封禁原因]"
+
+#: src/irc/outputfilter.cpp:1484
+#, kde-format
+msgid "%1UNBAN without channel name works only from inside a channel."
+msgstr "%1UNBAN 不带频道名只能在频道内起作用。"
+
+#: src/irc/outputfilter.cpp:1499
+#, kde-format
+msgid "Usage: %1UNBAN [channel] pattern"
+msgstr "用法：%1UNBAN [频道] 模式"
+
+#: src/irc/outputfilter.cpp:1545
+#, kde-format
+msgid "Added %1 to your ignore list."
+msgstr "添加 %1 到您的忽略列表。"
+
+#: src/irc/outputfilter.cpp:1555
+#, kde-format
+msgid "Usage: %1IGNORE [ -ALL ] <user 1> <user 2> ... <user n>"
+msgstr "用法：%1IGNORE [ -ALL ] <用户 1> <用户 2> ... <用户 n>"
+
+#: src/irc/outputfilter.cpp:1566
+#, kde-format
+msgid "Usage: %1UNIGNORE <user 1> <user 2> ... <user n>"
+msgstr "用法：%1UNIGNORE [ -ALL ] <用户 1> <用户 2> ... <用户 n>"
+
+#: src/irc/outputfilter.cpp:1616
+#, kde-format
+msgid "Removed %1 from your ignore list."
+msgstr "已从忽略列表中移除 %1。"
+
+#: src/irc/outputfilter.cpp:1623
+#, kde-format
+msgid "No such ignore: %2"
+msgid_plural "No such ignores: %2"
+msgstr[0] "没有此忽略对象：%2"
+
+#: src/irc/outputfilter.cpp:1658
+#, kde-format
+msgid "Current encoding is: %1"
+msgstr "当前编码：%1"
+
+#: src/irc/outputfilter.cpp:1669
+#, kde-format
+msgid "Switched to %1 encoding."
+msgstr "切换到编码 %1。"
+
+#: src/irc/outputfilter.cpp:1672
+#, kde-format
+msgid "%1 is not a valid encoding."
+msgstr "%1 不是一个有效编码。"
+
+#: src/irc/outputfilter.cpp:1690
+#, c-format, kde-format
+msgid ""
+"Usage: %1setkey <nick|channel> <key> sets the encryption key for nick or "
+"channel. %1setkey <key> when in a channel or query tab sets the key for it. "
+"The key field recognizes \"cbc:\" and \"ecb:\" prefixes to set the block "
+"cipher mode of operation to either Cipher-Block Chaining or Electronic "
+"Codebook. The mode it defaults to when no prefix is given can be changed in "
+"the configuration dialog under Behavior -> Connection -> Encryption -> "
+"Default Encryption Type, with the default for that setting being Electronic "
+"Codebook (ECB)."
+msgstr ""
+
+#: src/irc/outputfilter.cpp:1702
+#, fuzzy, kde-format
+#| msgid "You set a ban exception on %1."
+msgid "Unable to set an encryption key for %1."
+msgstr "您对 %1 设置了封禁例外。"
+
+#: src/irc/outputfilter.cpp:1711
+#, kde-format
+msgid "The key for %1 has been set."
+msgstr "已设定 %1 的密钥。"
+
+#: src/irc/outputfilter.cpp:1714 src/irc/outputfilter.cpp:1739
+msgid ""
+"Setting an encryption key requires Konversation to have been built with "
+"support for the Qt Cryptographic Architecture (QCA) library. Contact your "
+"distributor about a Konversation package with QCA support, or rebuild "
+"Konversation with QCA present."
+msgstr ""
+
+#: src/irc/outputfilter.cpp:1729
+#, kde-format
+msgid ""
+"Usage: %1keyx <nick|channel> triggers DH1080 key exchange with the target."
+msgstr ""
+
+#: src/irc/outputfilter.cpp:1732
+#, kde-format
+msgid "Unable to request a key exchange from %1."
+msgstr ""
+
+#: src/irc/outputfilter.cpp:1736
+#, kde-format
+msgid "Beginning DH1080 key exchange with %1."
+msgstr ""
+
+#: src/irc/outputfilter.cpp:1755
+#, c-format, kde-format
+msgid ""
+"Usage: %1delkey <nick> or <channel> deletes the encryption key for nick or "
+"channel"
+msgstr "用法：%1delkey <昵称> 或 <频道名> 可删除特定昵称或频道的加密密钥。"
+
+#: src/irc/outputfilter.cpp:1767
+#, kde-format
+msgid "The key for %1 has been deleted."
+msgstr "%1 的密钥已被删除。"
+
+#: src/irc/outputfilter.cpp:1770 src/irc/outputfilter.cpp:1790
+#, kde-format
+msgid "No key has been set for %1."
+msgstr ""
+
+#: src/irc/outputfilter.cpp:1787
+#, kde-format
+msgid "The key for %1 is \"%2\"."
+msgstr "%1 的密钥是“%2”。"
+
+#: src/irc/outputfilter.cpp:1788
+msgid "Blowfish"
+msgstr "Blowfish"
+
+#: src/irc/outputfilter.cpp:1800
+#, kde-format
+msgid "Usage: %1KILL <nick> [comment]"
+msgstr "用法：%1KILL <昵称> [注释]"
+
+#: src/irc/outputfilter.cpp:1814
+#, kde-format
+msgid "Usage: %1DNS <nick>"
+msgstr "用法：%1DNS <昵称>"
+
+#: src/irc/outputfilter.cpp:1844
+#, c-format, kde-format
+msgid "Usage: %1queuetuner [on | off]"
+msgstr "用法：%1queuetuner [on | off]"
+
+#: src/irc/outputfilter.cpp:1905
+#, c-format, kde-format
+msgid "%1CYCLE [-APP | -SERVER] [channel | nickname]"
+msgstr ""
+
+#: src/irc/outputfilter.cpp:1936
+#, c-format, kde-format
+msgid "%1CLEAR [-ALL] [channel | nickname]"
+msgstr ""
+
+#: src/irc/server.cpp:401 src/irc/server.cpp:411
+msgid "Warning"
+msgstr "警告"
+
+#: src/irc/server.cpp:458
+#, fuzzy, kde-format
+#| msgid "Looking for server %1:%2..."
+msgid "Looking for server %1 (port <numid>%2</numid>)..."
+msgstr "寻找服务器 %1:%2..."
+
+#: src/irc/server.cpp:622
+msgid "Server found, connecting..."
+msgstr "服务器找到，正在连接..."
+
+#: src/irc/server.cpp:633
+msgid "Connected; logging in..."
+msgstr "连接已建立，正在登录..."
+
+#: src/irc/server.cpp:692 src/irc/server.cpp:789
+msgid "SSL Connection Error"
+msgstr "SSL 连接出错"
+
+#: src/irc/server.cpp:693
+#, kde-format
+msgid ""
+"Connection to server %1 (port <numid>%2</numid>) lost while waiting for user "
+"response to an SSL error. Will automatically reconnect if error is ignored."
+msgstr ""
+
+#: src/irc/server.cpp:713
+#, fuzzy, kde-format
+#| msgid "Connection to Server %1 lost: %2."
+msgid "Connection to server %1 (port <numid>%2</numid>) lost: %3."
+msgstr "与服务器 %1 失去连接：%2。"
+
+#: src/irc/server.cpp:750
+#, fuzzy, kde-format
+#| msgid "Connection to Server %1 lost: %2."
+msgid ""
+"The SSL certificate for the server %1 (port <numid>%2</numid>) failed the "
+"authenticity check."
+msgstr "与服务器 %1 失去连接：%2。"
+
+#: src/irc/server.cpp:754
+msgid "SSL Connection Warning"
+msgstr "SSL 连接警告"
+
+#: src/irc/server.cpp:784
+#, fuzzy, kde-format
+#| msgid ""
+#| "Could not connect to %1:%2 using SSL encryption. Maybe the server does "
+#| "not support SSL, or perhaps you have the wrong port? %3"
+msgid ""
+"Could not connect to %1 (port <numid>%2</numid>) using SSL encryption. "
+"Either the server does not support SSL (did you use the correct port?) or "
+"you rejected the certificate. %3"
+msgstr ""
+"无法使用 SSL 加密连接到 %1:%2，也许此服务器不支持 SSL 或是您指定了错误的端"
+"口？%3"
+
+#: src/irc/server.cpp:899
+msgid "Delayed connect aborted."
+msgstr ""
+
+#: src/irc/server.cpp:929
+#, fuzzy, kde-format
+#| msgid "Disconnected from %1."
+msgid "Disconnected from %1 (port <numid>%2</numid>)."
+msgstr "从 %1 断开连接。"
+
+#: src/irc/server.cpp:1101
+#, kde-format
+msgid ""
+"No nicknames from the \"%1\" identity were accepted by the connection "
+"\"%2\".\n"
+"Please enter a new one or press Cancel to disconnect:"
+msgstr ""
+"身份“%1”所属的昵称不接受连接“%2”。\n"
+"请输入一个新的昵称或按“取消”中断连接："
+
+#: src/irc/server.cpp:1102
+msgid "Nickname error"
+msgstr "昵称错误"
+
+#: src/irc/server.cpp:1565 src/irc/server.cpp:3537 src/irc/server.cpp:3542
+#: src/application.cpp:357
+msgid "D-Bus"
+msgstr "D-Bus"
+
+#: src/irc/server.cpp:1911
+#, kde-format
+msgid "Select File(s) to Send to %1"
+msgstr "选择要发送给 %1 的文件"
+
+#: src/irc/server.cpp:2084
+#, kde-format
+msgctxt "%1=nickname"
+msgid "Received invalid DCC SEND request from %1."
+msgstr "收到来自 %1 的无效 DCC SEND 请求。"
+
+#: src/irc/server.cpp:2119 src/irc/server.cpp:2249 src/irc/server.cpp:2261
+#: src/irc/server.cpp:2410 src/irc/server.cpp:2466 src/irc/server.cpp:2575
+msgid "unknown size"
+msgstr "文件大小未知"
+
+#: src/irc/server.cpp:2116
+#, kde-format
+msgid "%1 offers to send you \"%2\" (%3)..."
+msgstr "%1 向您提供了文件“%2”(%3) 的传输..."
+
+#: src/irc/server.cpp:2155
+#, kde-format
+msgctxt "%1=nickname"
+msgid "Received invalid DCC CHAT request from %1."
+msgstr "收到来自 %1 的无效 DCC CHAT 请求。"
+
+#: src/irc/server.cpp:2246
+#, kde-format
+msgid "Asking %1 to accept upload of \"%2\" (%3)..."
+msgstr "正在询问 %1 是否接受“%2”(%3) 的上传..."
+
+#: src/irc/server.cpp:2258
+#, kde-format
+msgid "Asking %1 to accept passive upload of \"%2\" (%3)..."
+msgstr "正在询问 %1 是否接受“%2”(%3) 的被动上传..."
+
+#: src/irc/server.cpp:2270
+#, fuzzy, kde-format
+#| msgid "Asking %1 to accept upload of \"%2\" (%3)..."
+msgctxt "%1=name, %2=dcc extension, chat or wboard for example"
+msgid "Asking %1 to accept %2..."
+msgstr "正在询问 %1 是否接受“%2”(%3) 的上传..."
+
+#: src/irc/server.cpp:2329
+#, fuzzy, kde-format
+#| msgctxt "%1 = file name, %2 = nickname"
+#| msgid ""
+#| "Received invalid passive DCC send acceptance message for \"%1\" from %2."
+msgctxt "%1 = nickname"
+msgid "Received invalid passive DCC chat acceptance message from %1."
+msgstr "从 %2 接收到对文件“%1”无效的被动 DCC 接受请求。"
+
+#: src/irc/server.cpp:2365
+#, kde-format
+msgctxt "%1 = file name, %2 = nickname"
+msgid ""
+"Received invalid passive DCC send acceptance message for \"%1\" from %2."
+msgstr "从 %2 接收到对文件“%1”无效的被动 DCC 接受请求。"
+
+#: src/irc/server.cpp:2406
+#, kde-format
+msgctxt ""
+"%1 = file name, %2 = nickname of sender, %3 = percentage of file size, %4 = "
+"file size"
+msgid "Resuming download of \"%1\" from %2 starting at %3% of %4..."
+msgstr "正在续传来自 %2 的文件“%1”，接续于 %4 的 %3%..."
+
+#: src/irc/server.cpp:2416
+#, kde-format
+msgctxt "%1 = file name, %2 = nickname"
+msgid "Received invalid resume acceptance message for \"%1\" from %2."
+msgstr "从 %2 接收到对文件“%1”的无效续传请求。"
+
+#: src/irc/server.cpp:2462
+#, kde-format
+msgctxt ""
+"%1 = file name, %2 = nickname of recipient, %3 = percentage of file size, %4 "
+"= file size"
+msgid "Resuming upload of \"%1\" to %2 starting at %3% of %4..."
+msgstr "正在续传发送给 %2 的文件“%1”，现已传送了 %4 的 %3%..."
+
+#: src/irc/server.cpp:2484
+#, kde-format
+msgctxt "%1 = file name, %2 = nickname"
+msgid "Received invalid resume request for \"%1\" from %2."
+msgstr "从 %2 接收到对文件“%1”的无效续传请求。"
+
+#: src/irc/server.cpp:2503
+#, kde-format
+msgctxt "%1 = file name, %2 = nickname"
+msgid "Received invalid reject request for \"%1\" from %2."
+msgstr "从 %2 接收到对文件“%1”的无效拒绝请求。"
+
+#: src/irc/server.cpp:2519
+#, fuzzy, kde-format
+#| msgctxt "%1 = file name, %2 = nickname"
+#| msgid "Received invalid reject request for \"%1\" from %2."
+msgctxt "%1 = nickname"
+msgid "Received invalid reject request from %1."
+msgstr "从 %2 接收到对文件“%1”的无效拒绝请求。"
+
+#: src/irc/server.cpp:2532
+#, kde-format
+msgctxt "%1 = file name, %2 = nickname of sender"
+msgid "Download of \"%1\" from %2 finished."
+msgstr "从 %2 处下载文件“%1”已完成。"
+
+#: src/irc/server.cpp:2537
+#, kde-format
+msgctxt "%1 = file name, %2 = nickname of sender"
+msgid "Download of \"%1\" from %2 failed. Reason: %3."
+msgstr "从 %2 处下载文件“%1”失败，原因：%3。"
+
+#: src/irc/server.cpp:2549
+#, kde-format
+msgctxt "%1 = file name, %2 = nickname of recipient"
+msgid "Upload of \"%1\" to %2 finished."
+msgstr "将文件“%1”上传至 %2 已完成。"
+
+#: src/irc/server.cpp:2552
+#, kde-format
+msgctxt "%1 = file name, %2 = nickname of recipient"
+msgid "Upload of \"%1\" to %2 failed. Reason: %3."
+msgstr "将文件“%1”上传至 %2 失败，原因：%3。"
+
+#: src/irc/server.cpp:2566
+#, kde-format
+msgctxt "%1 = file name, %2 nickname of recipient"
+msgid "Sending \"%1\" to %2..."
+msgstr "正在发送“%1”到 %2..."
+
+#: src/irc/server.cpp:2573
+#, kde-format
+msgctxt "%1 = file name, %2 = file size, %3 = nickname of sender"
+msgid "Downloading \"%1\" (%2) from %3..."
+msgstr "正在从 %3 处下载文件“%1”(%2)..."
+
+#: src/irc/server.cpp:2883 src/notificationhandler.cpp:307
+#, kde-format
+msgid "%1 is online (%2)."
+msgstr "%1 在线(%2)。"
+
+#: src/irc/server.cpp:2900 src/notificationhandler.cpp:321
+#, kde-format
+msgid "%1 went offline (%2)."
+msgstr "%1 离线(%2)。"
+
+#: src/irc/server.cpp:3537
+#, kde-format
+msgid "Error: Could not find script \"%1\"."
+msgstr "错误：无法找到脚本“%1”。"
+
+#: src/irc/server.cpp:3542
+#, kde-format
+msgid "Error: Could not execute script \"%1\". Check file permissions."
+msgstr "错误：无法执行脚本“%1”，请检查文件权限。"
+
+#: src/irc/server.cpp:3756
+msgid "Gone away for now"
+msgstr "现在离开"
+
+#: src/irc/server.cpp:3787
+#, fuzzy, kde-format
+#| msgid "You are now marked as being away."
+msgid "You are now marked as being away (reason: %1)."
+msgstr "您已经标记为离开。"
+
+#: src/irc/server.cpp:3789
+msgid "You are now marked as being away."
+msgstr "您已经标记为离开。"
+
+#: src/irc/server.cpp:3814
+msgid "You are no longer marked as being away."
+msgstr "您不再标记为离开。"
+
+#: src/irc/server.cpp:3823
+msgid "You are not marked as being away."
+msgstr "您不再标记为离开。"
+
+#: src/irc/server.cpp:3974
+#, kde-format
+msgid "Failed to initiate key exchange with %1."
+msgstr ""
+
+#: src/irc/server.cpp:3986
+#, kde-format
+msgid "Unable to perform key exchange with %1."
+msgstr ""
+
+#: src/irc/server.cpp:4010
+#, kde-format
+msgid "Failed to parse the DH1080_INIT of %1. Key exchange failed."
+msgstr ""
+
+#: src/irc/server.cpp:4016
+#, kde-format
+msgid ""
+"Your key is set and your messages will now be encrypted, sending "
+"DH1080_FINISH to %1."
+msgstr ""
+
+#: src/irc/server.cpp:4033
+#, kde-format
+msgid "Unable to complete key exchange with %1."
+msgstr ""
+
+#: src/irc/server.cpp:4045
+#, kde-format
+msgid ""
+"Successfully parsed DH1080_FINISH sent by %1. Your key is set and your "
+"messages will now be encrypted."
+msgstr ""
+
+#: src/irc/server.cpp:4049
+#, kde-format
+msgid "Failed to parse DH1080_FINISH sent by %1. Key exchange failed."
+msgstr ""
 
 #: src/linkaddressbook/addressbook.cpp:105
 msgid "Offline"
@@ -4234,9 +4312,1058 @@ msgstr "新建地址簿条目"
 msgid "Name the new entry:"
 msgstr "命名新条目："
 
-#: src/main.cpp:37 src/viewer/trayicon.cpp:24
+#: src/statusbar.cpp:40 src/statusbar.cpp:75 src/statusbar.cpp:143
+msgid "Ready."
+msgstr "就绪。"
+
+#: src/statusbar.cpp:46
+msgid ""
+"<qt><p>This shows the number of users in the channel, and the number of "
+"those that are operators (ops).</p><p>A channel operator is a user that has "
+"special privileges, such as the ability to kick and ban users, change the "
+"channel modes, make other users operators</p></qt>"
+msgstr ""
+"<qt><p>这里显示频道内的用户以及管理员(ops)数量。</p><p>频道管理员是拥有特殊权"
+"限的用户，具备诸如踢出并封禁用户、改变频道模式、赋予其它用户管理权限等能力。"
+"</p></qt>"
+
+#: src/statusbar.cpp:48 src/statusbar.cpp:148 src/statusbar.cpp:164
+msgid "Lag: Unknown"
+msgstr "延迟：未知"
+
+#: src/statusbar.cpp:56
+msgid ""
+"All communication with the server is encrypted.  This makes it harder for "
+"someone to listen in on your communications."
+msgstr "所有和服务器间的通讯已被加密，这可以使他人难以监听到您对话里的内容。"
+
+#: src/statusbar.cpp:63
+msgid ""
+"<qt>The status bar shows various messages, including any problems connecting "
+"to the server.  On the far right the current delay to the server is shown.  "
+"The delay is the time it takes for messages from you to reach the server, "
+"and from the server back to you.</qt>"
+msgstr ""
+"<qt>此状态栏可显示多类消息，包括连接服务器时的错误提示，更多的则是显示到服务"
+"器的延迟。此延迟是您的消息从发出到到达服务器，以及服务器的反馈到达您的电脑的"
+"间隔时间。</qt>"
+
+#: src/statusbar.cpp:150
+#, kde-format
+msgid "Lag: %1 ms"
+msgstr "延迟：%1 毫秒"
+
+#: src/statusbar.cpp:152 src/statusbar.cpp:213
+#, kde-format
+msgid "Lag: %1 s"
+msgstr "延迟：%1 秒"
+
+#: src/statusbar.cpp:184
+#, kde-format
+msgctxt ""
+"%1 = name of server, %2 = (x days), %3 = (x hours), %4 = (x minutes), %5 = "
+"(x seconds)"
+msgid "No answer from server %1 for more than %2, %3, %4, and %5."
+msgstr "服务器 %1 已有超过 %2 天、%3 小时、%4 分钟和 %5 秒没有回应。"
+
+#: src/statusbar.cpp:192
+#, kde-format
+msgctxt ""
+"%1 = name of server, %2 = (x hours), %3 = (x minutes), %4 = (x seconds)"
+msgid "No answer from server %1 for more than %2, %3, and %4."
+msgstr "服务器 %1 已有超过 %2 小时、%3 分钟 和 %4 秒没有回应。"
+
+#: src/statusbar.cpp:199
+#, kde-format
+msgctxt "%1 = name of server, %2 = (x minutes), %3 = (x seconds)"
+msgid "No answer from server %1 for more than %2 and %3."
+msgstr "服务器 %1 已有超过 %2 分钟和 %3 秒没有回应。"
+
+#: src/statusbar.cpp:204
+#, kde-format
+msgid "No answer from server %2 for more than 1 second."
+msgid_plural "No answer from server %2 for more than %1 seconds."
+msgstr[0] "服务器 %2 已有超过 %1 秒没有回应。"
+
+#: src/upnp/upnprouter.cpp:134
+#, fuzzy, kde-format
+#| msgid "Failed to download %1 : %2"
+msgid "Failed to download %1: %2"
+msgstr "下载 %1 失败：%2"
+
+#: src/upnp/upnprouter.cpp:145
+msgid "Error parsing router description."
+msgstr "解析路由描述出错。"
+
+#: src/viewer/awaylabel.cpp:22
+msgid "(away)"
+msgstr "(离开)"
+
+#: src/viewer/awaylabel.cpp:25
+#, fuzzy
+#| msgid "(away)"
+msgid "&Unaway"
+msgstr "(离开)"
+
+#: src/viewer/awaylabel.cpp:28
+#, fuzzy
+#| msgid "Channel &message:"
+msgid "&Change away message..."
+msgstr "频道消息(&M)："
+
+#: src/viewer/awaylabel.cpp:39
+#, fuzzy
+#| msgid "Channel &message:"
+msgid "Change away message"
+msgstr "频道消息(&M)："
+
+#: src/viewer/awaylabel.cpp:39
+#, fuzzy
+#| msgid "Enter Filename"
+msgid "Enter new away message:"
+msgstr "输入文件名"
+
+#. i18n: file: src/config/ignore_configui.ui:111
+#. i18n: ectx: property (text), widget (QCheckBox, chkQuery)
+#: src/viewer/ignorelistviewitem.cpp:43 rc.cpp:328
+msgid "Query"
+msgstr "对话"
+
+#: src/viewer/ignorelistviewitem.cpp:47
+msgid "Exception"
+msgstr "异常"
+
+#: src/viewer/irccolorchooser.cpp:28
+msgid "IRC Color Chooser"
+msgstr "IRC 颜色选择器"
+
+#: src/viewer/irccolorchooser.cpp:33
+msgid "None"
+msgstr "空"
+
+#: src/viewer/logfilereader.cpp:46
+msgid "Save As..."
+msgstr "另存为..."
+
+#: src/viewer/logfilereader.cpp:47
+msgid "Reload"
+msgstr "刷新"
+
+#: src/viewer/logfilereader.cpp:48 src/viewer/logfilereader.cpp:145
+msgid "Clear Logfile"
+msgstr "清除日志文件"
+
+#: src/viewer/logfilereader.cpp:50
+msgid "Show last:"
+msgstr "显示上一个："
+
+#: src/viewer/logfilereader.cpp:56
+msgid ""
+"Use this box to set the maximum size of the log file. This setting does not "
+"take effect until you restart Konversation. Each log file may have a "
+"separate setting."
+msgstr ""
+"使用此设置框可设定允许的日志文件最大尺寸。这些设定的更改在重新启动 "
+"Konversation 前不会生效，每一个日志文件可以有自己独立的设定。"
+
+#: src/viewer/logfilereader.cpp:58
+msgid " KB"
+msgstr " KB"
+
+#: src/viewer/logfilereader.cpp:65
+msgid ""
+"The messages in the log file are displayed here. The oldest messages are at "
+"the top and the most recent are at the bottom."
+msgstr ""
+"日志文件中的信息会显示在这里，置于顶端的是最旧的信息，置于底端的则是最新的消"
+"息。"
+
+#: src/viewer/logfilereader.cpp:144
+msgid ""
+"Do you really want to permanently discard all log information of this file?"
+msgstr "您真要永久丢弃文件的所有日志信息吗？"
+
+#: src/viewer/logfilereader.cpp:158
+msgid ""
+"Note: By saving the logfile you will save all data in the file, not only the "
+"part you can see in this viewer."
+msgstr "注意：保存日志会保存文件的所有数据，不仅限于您在当前视图所见部分。"
+
+#: src/viewer/logfilereader.cpp:159
+msgid "Save Logfile"
+msgstr "保存日志文件"
+
+#: src/viewer/logfilereader.cpp:165
+msgid "Choose Destination Folder"
+msgstr "选择目标文件夹"
+
+#: src/viewer/pasteeditor.cpp:29
+msgid "Edit Multiline Paste"
+msgstr "编辑多行粘贴"
+
+#: src/viewer/pasteeditor.cpp:32
+msgid "&Send"
+msgstr "发送(&S)"
+
+#: src/viewer/rawlog.cpp:25 src/viewer/viewcontainer.cpp:2258
+msgid "Raw Log"
+msgstr "原始日志"
+
+#: src/viewer/editnotifydialog.cpp:31
+msgid "Edit Watched Nickname"
+msgstr "编辑被监视的昵称"
+
+#: src/viewer/editnotifydialog.cpp:39
+msgid "&Network name:"
+msgstr "网络名称(&N)："
+
+#: src/viewer/editnotifydialog.cpp:41
+msgid "Pick the server network you will connect to here."
+msgstr "在此选取您想要连接到的服务器网络。"
+
+#: src/viewer/editnotifydialog.cpp:48
+msgid "N&ickname:"
+msgstr "昵称(&I)："
+
+#: src/viewer/editnotifydialog.cpp:50
+msgid ""
+"<qt>The nickname to watch for when connected to a server in the network.</qt>"
+msgstr "<qt>连接到服务器时要监视的昵称。</qt>"
+
+#: src/viewer/editnotifydialog.cpp:58
+msgid "All Networks"
+msgstr "所有网络"
+
+#: src/viewer/editnotifydialog.cpp:72
+msgid "Change notify information"
+msgstr "更改通知信息"
+
+#: src/viewer/insertchardialog.cpp:29
+msgid "Insert Character"
+msgstr "插入字符"
+
+#: src/viewer/insertchardialog.cpp:30
+msgid "&Insert"
+msgstr "插入(&I)"
+
+#: src/viewer/insertchardialog.cpp:30
+msgid "Insert a character"
+msgstr "插入一个字符"
+
+#: src/viewer/ircinput.cpp:59
+msgid ""
+"<qt><p>The input line is where you type messages to be sent the channel, "
+"query, or server.  A message sent to a channel is seen by everyone on the "
+"channel, whereas a message in a query is sent only to the person in the "
+"query with you.</p><p>To automatically complete the nickname you began "
+"typing, press Tab. If you have not begun typing, the last successfully "
+"completed nickname will be used.</p><p>You can also send special commands:</"
+"p><table><tr><th>/me <i>action</i></th><td>shows up as an action in the "
+"channel or query.  For example:  <em>/me sings a song</em> will show up in "
+"the channel as 'Nick sings a song'.</td></tr><tr><th>/whois <i>nickname</i></"
+"th><td>shows information about this person, including what channels they are "
+"in.</td></tr></table><p>For more commands, see the Konversation Handbook.</"
+"p><p>A message cannot contain multiple lines.</p></qt>"
+msgstr ""
+"<qt><p>这条输入行是供您键入要发送给频道、对话或服务器的消息的地方。发送给频道"
+"的消息可以被频道内的所有人读到，然而在对话中的消息只会被和您对话的人所读到。"
+"</p><p>要自动补全昵称，请按 Tab。如果您还没有开始打字，将使用最后一次补全过的"
+"昵称。</p><p>您也可以发送一些特殊的命令：</p><table><tr><th>/me <i>动作</i></"
+"th><td>在频道或对话中表露出某种动作。例：<em>/me 唱了首歌</em> 将会被显示"
+"为“昵称 唱了首歌”。</td></tr><tr><th>/whois <i>昵称</i></th><td>显示此人的相"
+"关信息，包括他已加入的所有频道清单等。</td></tr></table><p>查询更多的命令，请"
+"参看 Konversation 手册。</p><p>一条消息不能跨越多行。</p></qt>"
+
+#: src/viewer/ircinput.cpp:499
+#, kde-format
+msgid "1 byte"
+msgid_plural "%1 bytes"
+msgstr[0] "%1 字节"
+
+#: src/viewer/ircinput.cpp:500
+#, kde-format
+msgid "1 line"
+msgid_plural "%1 lines"
+msgstr[0] "%1 行"
+
+#: src/viewer/ircinput.cpp:506
+#, fuzzy, kde-format
+#| msgid ""
+#| "<qt>You are attempting to paste a large portion of text (%1 bytes or %2 "
+#| "lines) into the chat. This can cause connection resets or flood kills. Do "
+#| "you really want to continue?</qt>"
+msgctxt ""
+"%1 is, for instance, '200 bytes'.  %2 is, for instance, '7 lines'.  Both are "
+"localised (see the two previous messages)."
+msgid ""
+"<qt>You are attempting to paste a large portion of text (%1 or %2) into the "
+"chat. This can cause connection resets or flood kills. Do you really want to "
+"continue?</qt>"
+msgstr ""
+"<qt>您正试图粘贴一大段文本(%1 字节或 %2 行)进入聊天栏，这可能引起连接重置或过"
+"量信息发送中止，您真要继续吗？</qt>"
+
+#: src/viewer/ircinput.cpp:509
+msgid "Large Paste Warning"
+msgstr "巨量粘贴警告"
+
+#: src/viewer/ircinput.cpp:510
+msgid "Paste"
+msgstr "粘贴"
+
+#. i18n: file: src/irc/servergroupdialogui.ui:71
+#. i18n: ectx: property (text), widget (KPushButton, m_editIdentityButton)
+#. i18n: file: src/irc/serverlistdialogui.ui:162
+#. i18n: ectx: property (text), widget (QPushButton, m_editButton)
+#: src/viewer/ircinput.cpp:511 rc.cpp:1223 rc.cpp:1295
+msgid "&Edit..."
+msgstr "编辑(&E)..."
+
+#: src/viewer/osd.cpp:337
+msgid "OSD Preview - drag to reposition"
+msgstr "OSD 预览 - 拖曳可重新定位"
+
+#: src/viewer/searchbar.cpp:64
+msgid "Find Forward"
+msgstr "查找上一个"
+
+#: src/viewer/searchbar.cpp:67
+msgid "Match Case"
+msgstr "匹配大小写"
+
+#: src/viewer/searchbar.cpp:70
+msgid "Whole Words Only"
+msgstr "完整单词匹配"
+
+#: src/viewer/searchbar.cpp:73
+msgid "From Cursor"
+msgstr "从光标处开始"
+
+#: src/viewer/statuspanel.cpp:231
+#, kde-format
+msgid ""
+"Do you really want to close '%1'?\n"
+"\n"
+" All associated tabs will be closed as well."
+msgstr ""
+"您真的要关闭“%1”吗？\n"
+"\n"
+" 所有相关标签都会被一起关闭。"
+
+#: src/viewer/statuspanel.cpp:232
+msgid "Close Tab"
+msgstr "关闭标签"
+
+#: src/viewer/statuspanel.cpp:241
+#, kde-format
+msgid ""
+"Do you want to disconnect from '%1'?\n"
+"\n"
+" All associated tabs will be closed as well."
+msgstr ""
+"您真要断开与“%1”的连接吗？\n"
+"\n"
+" 所有相关标签都会被一起关闭。"
+
+#: src/viewer/statuspanel.cpp:242
+msgid "Disconnect From Server"
+msgstr "从服务器断开连接"
+
+#: src/viewer/statuspanel.cpp:243
+msgid "Disconnect"
+msgstr "断开"
+
+#: src/viewer/topiclabel.cpp:301 src/viewer/ircview.cpp:2151
+#, kde-format
+msgid "Join the channel %1"
+msgstr "加入频道 %1"
+
+#: src/viewer/chatwindow.cpp:444
+#, kde-format
+msgid ""
+"\n"
+"*** Logfile started\n"
+"*** on %1\n"
+"\n"
+msgstr ""
+"\n"
+"*** 日志文件开始\n"
+"*** 在 %1\n"
+"\n"
+
+#: src/viewer/trayicon.cpp:23 src/main.cpp:37
 msgid "Konversation"
 msgstr "Konversation"
+
+#: src/viewer/trayicon.cpp:23
+msgid "Konversation - IRC Client"
+msgstr "Konversation - IRC 客户端"
+
+#: src/viewer/viewcontainer.cpp:221 src/mainwindow.cpp:291
+msgid "Move Tab Up"
+msgstr "上移标签"
+
+#: src/viewer/viewcontainer.cpp:229 src/mainwindow.cpp:302
+msgid "Move Tab Down"
+msgstr "下移标签"
+
+#: src/viewer/viewcontainer.cpp:322 src/mainwindow.cpp:322
+#: src/mainwindow.cpp:334
+msgid "Move Tab Left"
+msgstr "向左移动标签"
+
+#: src/viewer/viewcontainer.cpp:330 src/mainwindow.cpp:313
+#: src/mainwindow.cpp:343
+msgid "Move Tab Right"
+msgstr "向右移动标签"
+
+#: src/viewer/viewcontainer.cpp:561
+msgid "Find Text..."
+msgstr "查找文本..."
+
+#: src/viewer/viewcontainer.cpp:563
+msgid "Search for text in the current tab"
+msgstr "在当前标签中搜索文本"
+
+#: src/viewer/viewcontainer.cpp:581
+#, kde-format
+msgid "Channel &List for %1"
+msgstr "%1 的频道列表(&L)"
+
+#: src/viewer/viewcontainer.cpp:587 src/mainwindow.cpp:203
+msgid "Channel &List"
+msgstr "频道列表(&L)"
+
+#: src/viewer/viewcontainer.cpp:596 src/mainwindow.cpp:186
+#: src/mainwindow.cpp:773
+msgid "&Open Logfile"
+msgstr "打开日志文件(&O)"
+
+#: src/viewer/viewcontainer.cpp:601
+#, kde-format
+msgid "&Open Logfile for %1"
+msgstr "打开 %1 的日志文件(&O)"
+
+#: src/viewer/viewcontainer.cpp:612
+#, kde-format
+msgid "&Channel Settings for %1..."
+msgstr "%1 的频道设置(&C)..."
+
+#: src/viewer/viewcontainer.cpp:617 src/mainwindow.cpp:195
+msgid "&Channel Settings..."
+msgstr "频道设置(&C)..."
+
+#: src/viewer/viewcontainer.cpp:1673
+msgid "Rename Tab"
+msgstr "重命名标签"
+
+#: src/viewer/viewcontainer.cpp:1674
+#, fuzzy
+#| msgid "Enter Filename"
+msgid "Enter new tab name:"
+msgstr "输入文件名"
+
+#: src/viewer/viewcontainer.cpp:1743
+#, kde-format
+msgctxt "Default encoding"
+msgid "Default ( %1 )"
+msgstr "默认 (%1)"
+
+#: src/viewer/viewcontainer.cpp:1778
+msgid "&Rename Tab..."
+msgstr "重命名标签(&R)..."
+
+#: src/viewer/viewcontainer.cpp:1923
+msgid "You can only search in text fields."
+msgstr "您只能在文本栏搜索。"
+
+#: src/viewer/viewcontainer.cpp:1924
+msgid "Find Text Information"
+msgstr "查找文本信息"
+
+#: src/viewer/viewcontainer.cpp:2121
+#, kde-format
+msgid "Logfile of %1"
+msgstr "%1 的日志文件"
+
+#: src/viewer/viewcontainer.cpp:2130 src/viewer/viewcontainer.cpp:2131
+#: src/konsolepanel.cpp:27
+msgid "Konsole"
+msgstr "Konsole"
+
+#: src/viewer/viewcontainer.cpp:2141 src/urlcatcher.cpp:84
+msgid "URL Catcher"
+msgstr "URL 捕捉器"
+
+#: src/viewer/viewcontainer.cpp:2493
+#, fuzzy
+#| msgid ""
+#| "The channel list can only be opened from a query, channel or status "
+#| "window to find out, which server this list belongs to."
+msgid ""
+"To know which server to display the channel list for, the list can only be "
+"opened from a query, channel or status window."
+msgstr "频道列表只能从查询，频道或状态窗口打开，以找出列表属于哪一个服务器。"
+
+#: src/viewer/viewcontainer.cpp:2523
+msgid ""
+"Using this function may result in a lot of network traffic. If your "
+"connection is not fast enough, it is possible that your client will be "
+"disconnected by the server."
+msgstr ""
+"使用这项功能可能导致大量的网络流量。如果您的网络连接不够迅速，您的客户端连接"
+"有可能被服务器中断。"
+
+#: src/viewer/viewcontainer.cpp:2527
+msgid "Channel List Warning"
+msgstr "频道列表警告"
+
+#: src/viewer/viewcontainer.cpp:2557
+#, fuzzy
+#| msgid "Watched Nicknames"
+msgid "Watched Nicks"
+msgstr "被监视的昵称"
+
+#: src/viewer/irccontextmenus.cpp:112
+msgid "Copy Link Address"
+msgstr "复制链接地址"
+
+#: src/viewer/irccontextmenus.cpp:116
+msgid "Add to Bookmarks"
+msgstr "添加到书签"
+
+#: src/viewer/irccontextmenus.cpp:117
+msgid "Open With..."
+msgstr ""
+
+#: src/viewer/irccontextmenus.cpp:118
+msgid "Save Link As..."
+msgstr "链接另存为..."
+
+#: src/viewer/irccontextmenus.cpp:258
+#, fuzzy, kde-format
+msgid "Search for '%1' with"
+msgstr "搜索“%1”于"
+
+#: src/viewer/irccontextmenus.cpp:273
+msgid "Configure Web Shortcuts..."
+msgstr "配置网页快捷方式..."
+
+#: src/viewer/irccontextmenus.cpp:316 src/mainwindow.cpp:432
+msgid "&Join Channel..."
+msgstr "加入频道(&J)..."
+
+#: src/viewer/irccontextmenus.cpp:319
+msgid "Get &topic"
+msgstr "获取话题(&T)"
+
+#: src/viewer/irccontextmenus.cpp:320
+msgid "Get &user list"
+msgstr "获取用户列表(&U)"
+
+#: src/viewer/irccontextmenus.cpp:366
+msgid "Open Query"
+msgstr "打开对话"
+
+#: src/viewer/irccontextmenus.cpp:378
+msgid "Modes"
+msgstr "模式"
+
+#: src/viewer/irccontextmenus.cpp:379
+msgid "Give Op"
+msgstr "给予操作权限"
+
+#: src/viewer/irccontextmenus.cpp:380
+msgid "Take Op"
+msgstr "撤除操作权限"
+
+#: src/viewer/irccontextmenus.cpp:381
+msgid "Give HalfOp"
+msgstr "给予助理权限"
+
+#: src/viewer/irccontextmenus.cpp:382
+msgid "Take HalfOp"
+msgstr "撤除助理权限"
+
+#: src/viewer/irccontextmenus.cpp:383
+msgid "Give Voice"
+msgstr "给予发言权限"
+
+#: src/viewer/irccontextmenus.cpp:384
+msgid "Take Voice"
+msgstr "撤除发言权限"
+
+#: src/viewer/irccontextmenus.cpp:388
+msgid "Kick / Ban"
+msgstr "踢出/封禁"
+
+#: src/viewer/irccontextmenus.cpp:390
+msgid "Kickban"
+msgstr "踢出并封禁"
+
+#: src/viewer/irccontextmenus.cpp:391
+msgid "Ban Nickname"
+msgstr "封禁此昵称"
+
+#: src/viewer/irccontextmenus.cpp:393
+msgid "Ban *!*@*.host"
+msgstr "封禁 *!*@*.host"
+
+#: src/viewer/irccontextmenus.cpp:394
+msgid "Ban *!*@domain"
+msgstr "封禁 *!*@domain"
+
+#: src/viewer/irccontextmenus.cpp:395
+msgid "Ban *!user@*.host"
+msgstr "封禁 *!user@*.host"
+
+#: src/viewer/irccontextmenus.cpp:396
+msgid "Ban *!user@domain"
+msgstr "封禁 *!user@domain"
+
+#: src/viewer/irccontextmenus.cpp:398
+msgid "Kickban *!*@*.host"
+msgstr "踢出并封禁 *!*@*.host"
+
+#: src/viewer/irccontextmenus.cpp:399
+msgid "Kickban *!*@domain"
+msgstr "踢出并封禁 *!*@domain"
+
+#: src/viewer/irccontextmenus.cpp:400
+msgid "Kickban *!user@*.host"
+msgstr "踢出并封禁 *!user@*.host"
+
+#: src/viewer/irccontextmenus.cpp:401
+msgid "Kickban *!user@domain"
+msgstr "踢出并封禁 *!user@domain"
+
+#: src/viewer/irccontextmenus.cpp:417
+msgid "&Version"
+msgstr "版本(&V)"
+
+#: src/viewer/irccontextmenus.cpp:418
+msgid "&Ping"
+msgstr "Ping(&P)"
+
+#: src/viewer/irccontextmenus.cpp:425 src/viewer/irccontextmenus.cpp:621
+#: src/viewer/irccontextmenus.cpp:622
+msgid "Unignore"
+msgstr "取消忽略"
+
+#: src/viewer/irccontextmenus.cpp:428
+msgid "Add to Watched Nicks"
+msgstr "添加到监视昵称列表"
+
+#: src/viewer/irccontextmenus.cpp:430
+#, fuzzy
+#| msgid "Add to Watched Nicks"
+msgid "Remove From Watched Nicks"
+msgstr "添加到监视昵称列表"
+
+#: src/viewer/irccontextmenus.cpp:448
+msgid "Send &File..."
+msgstr "发送文件(&F)..."
+
+#: src/viewer/irccontextmenus.cpp:450
+msgid "Open DCC Chat"
+msgstr "打开 DCC 对话"
+
+#: src/viewer/irccontextmenus.cpp:451
+msgid "Open DCC Whiteboard"
+msgstr "打开 DCC 白板"
+
+#: src/viewer/irccontextmenus.cpp:583
+#, kde-format
+msgid "Do you want to ignore %1?"
+msgstr "您想要忽略 %1 吗？"
+
+#: src/viewer/irccontextmenus.cpp:585
+msgid "Do you want to ignore the selected users?"
+msgstr "您想要忽略已选中的用户吗？"
+
+#: src/viewer/irccontextmenus.cpp:614
+#, kde-format
+msgid "Do you want to stop ignoring %1?"
+msgstr "您想要停止忽略 %1 吗？"
+
+#: src/viewer/irccontextmenus.cpp:616
+msgid "Do you want to stop ignoring the selected users?"
+msgstr "您想要停止忽略已选中的用户吗？"
+
+#: src/viewer/irccontextmenus.cpp:825
+msgid "Address Book Association"
+msgid_plural "Address Book Associations"
+msgstr[0] "地址簿关联"
+
+#: src/viewer/irccontextmenus.cpp:862
+#, fuzzy
+#| msgid "Edit Contact..."
+msgid "Edit Contact..."
+msgid_plural "Edit Contacts..."
+msgstr[0] "编辑联系人..."
+
+#: src/viewer/irccontextmenus.cpp:870
+msgid "Choose/Change Association..."
+msgid_plural "Choose/Change Associations..."
+msgstr[0] "选择/更改关联..."
+
+#: src/viewer/irccontextmenus.cpp:876
+#, fuzzy
+#| msgid "Choose Contact..."
+msgid "Choose Contact..."
+msgid_plural "Choose Contacts..."
+msgstr[0] "选择联系人..."
+
+#: src/viewer/irccontextmenus.cpp:882
+#, fuzzy
+#| msgid "Change Association..."
+msgid "Change Association..."
+msgid_plural "Change Associations..."
+msgstr[0] "更改关联..."
+
+#: src/viewer/irccontextmenus.cpp:889
+#, fuzzy
+#| msgid "Create New Contact..."
+msgid "Create New Contact..."
+msgid_plural "Create New Contacts..."
+msgstr[0] "创建新联系人..."
+
+#: src/viewer/irccontextmenus.cpp:896
+#, fuzzy
+#| msgid "Delete Association"
+msgid "Delete Association"
+msgid_plural "Delete Associations"
+msgstr[0] "删除关联"
+
+#: src/viewer/irccontextmenus.cpp:963 src/urlcatcher.cpp:272
+msgid "Save link as"
+msgstr "链接另存为"
+
+#: src/viewer/ircview.cpp:2142
+#, kde-format
+msgid "Open a query with %1"
+msgstr "打开一个和 %1 的对话"
+
+#: src/queuetuner.cpp:234
+msgid "Reset..."
+msgstr "重置..."
+
+#: src/queuetuner.cpp:239
+msgid ""
+"This cannot be undone, are you sure you wish to reset to default values?"
+msgstr ""
+
+#: src/queuetuner.cpp:240
+msgid "Reset Values"
+msgstr "重置值"
+
+#: src/identitydialog.cpp:34
+msgid "Identities"
+msgstr "身份"
+
+#: src/identitydialog.cpp:54
+msgid ""
+"This is your list of nicknames. A nickname is the name that other users will "
+"know you by. You may use any name you desire. The first character must be a "
+"letter.\n"
+"\n"
+"Since nicknames must be unique across an entire IRC network, your desired "
+"name may be rejected by the server because someone else is already using "
+"that nickname. Enter alternate nicknames for yourself. If your first choice "
+"is rejected by the server, Konversation will try the alternate nicknames."
+msgstr ""
+"这里是您的昵称的列表。昵称是一种能让其它用户识别您的名字，您可在此使用任何您"
+"愿意的名字，不过首字符必须是一个字母。\n"
+"\n"
+"由于昵称在通行于一个完整 IRC 网络中时必须是唯一的，所以您想用的名字可能会被服"
+"务器拒绝，这是因为有人正在使用相同的昵称。输入您的可选昵称，如果首选的昵称被"
+"服务器拒绝，Konversation 可以自动尝试使用备选的昵称。"
+
+#: src/identitydialog.cpp:82
+msgid " minute"
+msgid_plural " minutes"
+msgstr[0] " 分钟"
+
+#: src/identitydialog.cpp:90
+msgid "Change identity information"
+msgstr "更改身份信息"
+
+#: src/identitydialog.cpp:193
+msgid "Add Identity"
+msgstr "添加身份"
+
+#: src/identitydialog.cpp:193 src/identitydialog.cpp:216
+#: src/identitydialog.cpp:271
+msgid "Identity name:"
+msgstr "身份名称："
+
+#: src/identitydialog.cpp:207 src/identitydialog.cpp:225
+#: src/identitydialog.cpp:284
+msgid "You need to give the identity a name."
+msgstr "您需要给身份起个名字。"
+
+#: src/identitydialog.cpp:216
+msgid "Rename Identity"
+msgstr "重命名身份"
+
+#: src/identitydialog.cpp:250
+msgid ""
+"This identity is in use, if you remove it the network settings using it will "
+"fall back to the default identity. Should it be deleted anyway?"
+msgstr ""
+"此身份正被使用中，如果您将其删除，使用它的网络将会回溯到默认身份的设定。确认"
+"无论如何都要删除吗？"
+
+#: src/identitydialog.cpp:255
+msgid "Are you sure you want to delete all information for this identity?"
+msgstr "您确定要删除这个身份的所有信息吗？"
+
+#: src/identitydialog.cpp:258
+msgid "Delete Identity"
+msgstr "删除身份"
+
+#. i18n: file: src/irc/servergroupdialogui.ui:168
+#. i18n: ectx: property (toolTip), widget (QToolButton, m_removeServerButton)
+#. i18n: file: src/irc/servergroupdialogui.ui:253
+#. i18n: ectx: property (toolTip), widget (QToolButton, m_removeChannelButton)
+#: src/identitydialog.cpp:259 rc.cpp:1256 rc.cpp:1268
+msgid "Delete"
+msgstr "删除"
+
+#: src/identitydialog.cpp:271
+msgid "Duplicate Identity"
+msgstr "复制身份"
+
+#: src/identitydialog.cpp:314
+msgid "You must add at least one nick to the identity."
+msgstr "您必须在身份信息内添加至少一个昵称。"
+
+#: src/identitydialog.cpp:325
+msgid "Please enter a real name."
+msgstr "请输入真实姓名。"
+
+#: src/cipher.cpp:471
+msgid ""
+"Diffie-Hellman key exchange is not supported by your installation of the Qt "
+"Cryptographic Architecture (QCA). You likely need to install an additional "
+"provider plugin. Diffie-Hellman key exchange support is usually provided by "
+"the qca-ossl plugin."
+msgstr ""
+
+#: src/cipher.cpp:484
+msgid ""
+"Blowfish in cipher-block chaining (CBC) mode is not supported by your "
+"installation of the Qt Cryptographic Architecture (QCA). You likely need to "
+"install an additional provider plugin for QCA. Blowfish support is usually "
+"provided by the qca-ossl plugin."
+msgstr ""
+
+#: src/cipher.cpp:496
+msgid ""
+"Blowfish in electronic codebook (ECB) mode is not supported by your "
+"installation of the Qt Cryptographic Architecture (QCA). You likely need to "
+"install an additional provider plugin for QCA. Blowfish support is usually "
+"provided by the qca-ossl plugin."
+msgstr ""
+
+#: src/konsolepanel.cpp:39
+msgid "Manage Konsole Profiles"
+msgstr ""
+
+#: src/quickconnectdialog.cpp:29
+msgid "Quick Connect"
+msgstr "快速连接"
+
+#: src/quickconnectdialog.cpp:36
+msgid "&Server host:"
+msgstr "服务器主机(&S)："
+
+#: src/quickconnectdialog.cpp:37
+msgid "Enter the host of the network here."
+msgstr "在此输入网络上的主机。"
+
+#. i18n: file: src/irc/serverdialogui.ui:43
+#. i18n: ectx: property (text), widget (QLabel, portLbl)
+#: src/quickconnectdialog.cpp:44 rc.cpp:1199
+msgid "&Port:"
+msgstr "端口(&P)："
+
+#: src/quickconnectdialog.cpp:45
+msgid "The port that the IRC server is using."
+msgstr "IRC 服务器所使用的端口。"
+
+#: src/quickconnectdialog.cpp:52
+msgid "&Nick:"
+msgstr "昵称(&N)："
+
+#: src/quickconnectdialog.cpp:53
+msgid "The nick you want to use."
+msgstr "您打算使用的昵称。"
+
+#: src/quickconnectdialog.cpp:60
+msgid "P&assword:"
+msgstr "密码(&A)："
+
+#: src/quickconnectdialog.cpp:61
+msgid ""
+"If the IRC server requires a password, enter it here (most servers do not "
+"require a password.)"
+msgstr "如果 IRC 服务器要求密码认证，请在此输入(大多数的服务器不需要密码)。"
+
+#: src/quickconnectdialog.cpp:71
+msgid "&Use SSL"
+msgstr "使用 SSL(&U)"
+
+#: src/urlcatcher.cpp:105
+msgctxt "open url"
+msgid "&Open"
+msgstr "打开(&O)"
+
+#: src/urlcatcher.cpp:108
+#, fuzzy
+#| msgid "Open link in external browser."
+msgid "Open URLs in external browser."
+msgstr "在外部浏览器中打开链接。"
+
+#: src/urlcatcher.cpp:109
+#, fuzzy
+#| msgid ""
+#| "<p>Select a <b>URL</b> above, then click this button to launch the "
+#| "application associated with the mimetype of the URL.</p><p>In the "
+#| "<b>Settings</b>, under <b>Behavior</b> | <b>General</b>, you can specify "
+#| "a custom web browser for web URLs.</p>"
+msgid ""
+"<p>Select one or several <b>URLs</b> below, then click this button to launch "
+"the application associated with the mimetype of the URL.</p>-<p>In the "
+"<b>Settings</b>, under <b>Behavior</b> | <b>General</b>, you can specify a "
+"custom web browser for web URLs.</p>"
+msgstr ""
+"<p>在上面选择一个 <b>URL</b>，点击它即可调用关联到 URL 这个MIME 类型的程序。"
+"</p><p>在<b>设置</b>对话框里的<b>行为</b>><b>常规</b>选项卡中，您可以自行定义"
+"一个用于打开 Web 目标的网络浏览器。</p>"
+
+#: src/urlcatcher.cpp:112
+msgid "&Save..."
+msgstr "保存(&S)..."
+
+#: src/urlcatcher.cpp:115
+msgid "Save selected URLs to the disk."
+msgstr ""
+
+#: src/urlcatcher.cpp:118
+msgid "Add Bookmark..."
+msgstr "添加书签..."
+
+#: src/urlcatcher.cpp:126
+msgctxt "copy url"
+msgid "&Copy"
+msgstr "复制(&C)"
+
+#: src/urlcatcher.cpp:129
+msgid "Copy URLs to the clipboard."
+msgstr ""
+
+#: src/urlcatcher.cpp:130
+#, fuzzy
+#| msgid ""
+#| "Select a <b>URL</b> above, then click this button to copy the URL to the "
+#| "clipboard."
+msgid ""
+"Select one or several <b>URLs</b> above, then click this button to copy them "
+"to the clipboard."
+msgstr "在上面选择一个 <b>URL</b>，点击此按钮可将其复制到剪贴板。"
+
+#: src/urlcatcher.cpp:133
+msgctxt "delete url"
+msgid "&Delete"
+msgstr "删除(&D)"
+
+#: src/urlcatcher.cpp:136
+#, fuzzy
+#| msgid ""
+#| "Select a <b>URL</b> above, then click this button to delete the URL from "
+#| "the list."
+msgid ""
+"Select one or several <b>URLs</b> above, then click this button to delete "
+"them from the list."
+msgstr "在上面选择一个 <b>URL</b>，点击此按钮可将其从列表中删除。"
+
+#: src/urlcatcher.cpp:137
+msgid "Delete selected link."
+msgstr "删除所选链接。"
+
+#: src/urlcatcher.cpp:143
+msgctxt "save url list"
+msgid "&Save List..."
+msgstr "保存列表(&S)..."
+
+#: src/urlcatcher.cpp:145
+msgid "Save list."
+msgstr "保存列表。"
+
+#: src/urlcatcher.cpp:146
+msgid "Click to save the entire list to a file."
+msgstr "点此将 URL 条目列表保存到文件。"
+
+#: src/urlcatcher.cpp:149
+msgctxt "clear url list"
+msgid "&Clear List"
+msgstr "清除列表(&C)"
+
+#: src/urlcatcher.cpp:151
+msgid "Clear list."
+msgstr "清除列表。"
+
+#: src/urlcatcher.cpp:152
+msgid "Click to erase the entire list."
+msgstr "点此擦除 URL 条目列表。"
+
+#: src/urlcatcher.cpp:163
+msgid ""
+"List of Uniform Resource Locators mentioned in any of the Konversation "
+"windows during this session."
+msgstr "统一资源标识符列表会给出当前 Konversation 会话窗口中所有的 URL。"
+
+#: src/urlcatcher.cpp:176
+#, fuzzy
+#| msgid "&Format:"
+msgid "From"
+msgstr "从："
+
+#: src/urlcatcher.cpp:180
+msgid "Date"
+msgstr "日期"
+
+#: src/urlcatcher.cpp:235
+msgid ""
+"You have selected more than one URL. Do you really want to open several URLs "
+"at once?"
+msgstr ""
+
+#: src/urlcatcher.cpp:236 src/urlcatcher.cpp:258
+#, fuzzy
+#| msgid "Open URL"
+msgid "Open URLs"
+msgstr "打开 URL"
+
+#: src/urlcatcher.cpp:256
+msgid ""
+"You have selected more than one URL. A file dialog to set the destination "
+"will open for each. Do you really want to save several URLs at once?"
+msgstr ""
+
+#: src/urlcatcher.cpp:337
+msgid "Save URL List"
+msgstr "保存 URL 列表"
+
+#: src/urlcatcher.cpp:364
+#, kde-format
+msgid ""
+"Konversation URL List: %1\n"
+"\n"
+msgstr ""
+"Konversation URL 列表：%1\n"
+"\n"
 
 #: src/main.cpp:39
 msgid "A user-friendly IRC client"
@@ -4350,9 +5477,11 @@ msgid "Gary Cramblitt"
 msgstr "Gary Cramblitt"
 
 #: src/main.cpp:59
-msgid ""
-"Documentation, Watched nicks online improvements, Custom web browser "
-"extension"
+#, fuzzy
+#| msgid ""
+#| "Documentation, Watched nicks online improvements, Custom web browser "
+#| "extension"
+msgid "Documentation, Watched Nicks improvements, Custom web browser extension"
 msgstr "文档、在线昵称监视改进、Web 浏览器自定义扩展"
 
 #: src/main.cpp:60
@@ -4597,1033 +5726,6 @@ msgstr ""
 msgid "Quits and restarts Konversation (if running, otherwise has no effect)"
 msgstr ""
 
-#: src/statusbar.cpp:40 src/statusbar.cpp:75 src/statusbar.cpp:143
-msgid "Ready."
-msgstr "就绪。"
-
-#: src/statusbar.cpp:46
-msgid ""
-"<qt><p>This shows the number of users in the channel, and the number of "
-"those that are operators (ops).</p><p>A channel operator is a user that has "
-"special privileges, such as the ability to kick and ban users, change the "
-"channel modes, make other users operators</p></qt>"
-msgstr ""
-"<qt><p>这里显示频道内的用户以及管理员(ops)数量。</p><p>频道管理员是拥有特殊权"
-"限的用户，具备诸如踢出并封禁用户、改变频道模式、赋予其它用户管理权限等能力。"
-"</p></qt>"
-
-#: src/statusbar.cpp:48 src/statusbar.cpp:148 src/statusbar.cpp:164
-msgid "Lag: Unknown"
-msgstr "延迟：未知"
-
-#: src/statusbar.cpp:56
-msgid ""
-"All communication with the server is encrypted.  This makes it harder for "
-"someone to listen in on your communications."
-msgstr "所有和服务器间的通讯已被加密，这可以使他人难以监听到您对话里的内容。"
-
-#: src/statusbar.cpp:63
-msgid ""
-"<qt>The status bar shows various messages, including any problems connecting "
-"to the server.  On the far right the current delay to the server is shown.  "
-"The delay is the time it takes for messages from you to reach the server, "
-"and from the server back to you.</qt>"
-msgstr ""
-"<qt>此状态栏可显示多类消息，包括连接服务器时的错误提示，更多的则是显示到服务"
-"器的延迟。此延迟是您的消息从发出到到达服务器，以及服务器的反馈到达您的电脑的"
-"间隔时间。</qt>"
-
-#: src/statusbar.cpp:150
-#, kde-format
-msgid "Lag: %1 ms"
-msgstr "延迟：%1 毫秒"
-
-#: src/statusbar.cpp:152 src/statusbar.cpp:213
-#, kde-format
-msgid "Lag: %1 s"
-msgstr "延迟：%1 秒"
-
-#: src/statusbar.cpp:184
-#, kde-format
-msgctxt ""
-"%1 = name of server, %2 = (x days), %3 = (x hours), %4 = (x minutes), %5 = "
-"(x seconds)"
-msgid "No answer from server %1 for more than %2, %3, %4, and %5."
-msgstr "服务器 %1 已有超过 %2 天、%3 小时、%4 分钟和 %5 秒没有回应。"
-
-#: src/statusbar.cpp:192
-#, kde-format
-msgctxt ""
-"%1 = name of server, %2 = (x hours), %3 = (x minutes), %4 = (x seconds)"
-msgid "No answer from server %1 for more than %2, %3, and %4."
-msgstr "服务器 %1 已有超过 %2 小时、%3 分钟 和 %4 秒没有回应。"
-
-#: src/statusbar.cpp:199
-#, kde-format
-msgctxt "%1 = name of server, %2 = (x minutes), %3 = (x seconds)"
-msgid "No answer from server %1 for more than %2 and %3."
-msgstr "服务器 %1 已有超过 %2 分钟和 %3 秒没有回应。"
-
-#: src/statusbar.cpp:204
-#, kde-format
-msgid "No answer from server %2 for more than 1 second."
-msgid_plural "No answer from server %2 for more than %1 seconds."
-msgstr[0] "服务器 %2 已有超过 %1 秒没有回应。"
-
-#: src/upnp/upnprouter.cpp:134
-#, fuzzy, kde-format
-#| msgid "Failed to download %1 : %2"
-msgid "Failed to download %1: %2"
-msgstr "下载 %1 失败：%2"
-
-#: src/upnp/upnprouter.cpp:145
-msgid "Error parsing router description."
-msgstr "解析路由描述出错。"
-
-#: src/viewer/awaylabel.cpp:22
-msgid "(away)"
-msgstr "(离开)"
-
-#: src/viewer/awaylabel.cpp:25
-#, fuzzy
-#| msgid "(away)"
-msgid "&Unaway"
-msgstr "(离开)"
-
-#: src/viewer/awaylabel.cpp:28
-#, fuzzy
-#| msgid "Channel &message:"
-msgid "&Change away message..."
-msgstr "频道消息(&M)："
-
-#: src/viewer/awaylabel.cpp:39
-#, fuzzy
-#| msgid "Channel &message:"
-msgid "Change away message"
-msgstr "频道消息(&M)："
-
-#: src/viewer/awaylabel.cpp:39
-#, fuzzy
-#| msgid "Enter Filename"
-msgid "Enter new away message:"
-msgstr "输入文件名"
-
-#. i18n: file: src/config/ignore_configui.ui:111
-#. i18n: ectx: property (text), widget (QCheckBox, chkQuery)
-#: src/viewer/ignorelistviewitem.cpp:43 rc.cpp:328
-msgid "Query"
-msgstr "对话"
-
-#: src/viewer/ignorelistviewitem.cpp:47
-msgid "Exception"
-msgstr "异常"
-
-#: src/viewer/irccolorchooser.cpp:28
-msgid "IRC Color Chooser"
-msgstr "IRC 颜色选择器"
-
-#: src/viewer/irccolorchooser.cpp:33
-msgid "None"
-msgstr "空"
-
-#: src/viewer/logfilereader.cpp:46
-msgid "Save As..."
-msgstr "另存为..."
-
-#: src/viewer/logfilereader.cpp:47
-msgid "Reload"
-msgstr "刷新"
-
-#: src/viewer/logfilereader.cpp:48 src/viewer/logfilereader.cpp:145
-msgid "Clear Logfile"
-msgstr "清除日志文件"
-
-#: src/viewer/logfilereader.cpp:50
-msgid "Show last:"
-msgstr "显示上一个："
-
-#: src/viewer/logfilereader.cpp:56
-msgid ""
-"Use this box to set the maximum size of the log file. This setting does not "
-"take effect until you restart Konversation. Each log file may have a "
-"separate setting."
-msgstr ""
-"使用此设置框可设定允许的日志文件最大尺寸。这些设定的更改在重新启动 "
-"Konversation 前不会生效，每一个日志文件可以有自己独立的设定。"
-
-#: src/viewer/logfilereader.cpp:58
-msgid " KB"
-msgstr " KB"
-
-#: src/viewer/logfilereader.cpp:65
-msgid ""
-"The messages in the log file are displayed here. The oldest messages are at "
-"the top and the most recent are at the bottom."
-msgstr ""
-"日志文件中的信息会显示在这里，置于顶端的是最旧的信息，置于底端的则是最新的消"
-"息。"
-
-#: src/viewer/logfilereader.cpp:144
-msgid ""
-"Do you really want to permanently discard all log information of this file?"
-msgstr "您真要永久丢弃文件的所有日志信息吗？"
-
-#: src/viewer/logfilereader.cpp:158
-msgid ""
-"Note: By saving the logfile you will save all data in the file, not only the "
-"part you can see in this viewer."
-msgstr "注意：保存日志会保存文件的所有数据，不仅限于您在当前视图所见部分。"
-
-#: src/viewer/logfilereader.cpp:159
-msgid "Save Logfile"
-msgstr "保存日志文件"
-
-#: src/viewer/logfilereader.cpp:165
-msgid "Choose Destination Folder"
-msgstr "选择目标文件夹"
-
-#: src/viewer/pasteeditor.cpp:29
-msgid "Edit Multiline Paste"
-msgstr "编辑多行粘贴"
-
-#: src/viewer/pasteeditor.cpp:32
-msgid "&Send"
-msgstr "发送(&S)"
-
-#: src/viewer/rawlog.cpp:25 src/viewer/viewcontainer.cpp:2269
-msgid "Raw Log"
-msgstr "原始日志"
-
-#: src/viewer/trayicon.cpp:24
-msgid "Konversation - IRC Client"
-msgstr "Konversation - IRC 客户端"
-
-#: src/viewer/irccontextmenus.cpp:111
-msgid "Copy Link Address"
-msgstr "复制链接地址"
-
-#: src/viewer/irccontextmenus.cpp:115
-msgid "Add to Bookmarks"
-msgstr "添加到书签"
-
-#: src/viewer/irccontextmenus.cpp:116
-msgid "Save Link As..."
-msgstr "链接另存为..."
-
-#: src/viewer/irccontextmenus.cpp:256
-#, fuzzy, kde-format
-msgid "Search for '%1' with"
-msgstr "搜索“%1”于"
-
-#: src/viewer/irccontextmenus.cpp:271
-msgid "Configure Web Shortcuts..."
-msgstr "配置网页快捷方式..."
-
-#: src/viewer/irccontextmenus.cpp:314 src/mainwindow.cpp:432
-msgid "&Join Channel..."
-msgstr "加入频道(&J)..."
-
-#: src/viewer/irccontextmenus.cpp:317
-msgid "Get &topic"
-msgstr "获取话题(&T)"
-
-#: src/viewer/irccontextmenus.cpp:318
-msgid "Get &user list"
-msgstr "获取用户列表(&U)"
-
-#: src/viewer/irccontextmenus.cpp:364
-msgid "Open Query"
-msgstr "打开对话"
-
-#: src/viewer/irccontextmenus.cpp:376
-msgid "Modes"
-msgstr "模式"
-
-#: src/viewer/irccontextmenus.cpp:377
-msgid "Give Op"
-msgstr "给予操作权限"
-
-#: src/viewer/irccontextmenus.cpp:378
-msgid "Take Op"
-msgstr "撤除操作权限"
-
-#: src/viewer/irccontextmenus.cpp:379
-msgid "Give HalfOp"
-msgstr "给予助理权限"
-
-#: src/viewer/irccontextmenus.cpp:380
-msgid "Take HalfOp"
-msgstr "撤除助理权限"
-
-#: src/viewer/irccontextmenus.cpp:381
-msgid "Give Voice"
-msgstr "给予发言权限"
-
-#: src/viewer/irccontextmenus.cpp:382
-msgid "Take Voice"
-msgstr "撤除发言权限"
-
-#: src/viewer/irccontextmenus.cpp:386
-msgid "Kick / Ban"
-msgstr "踢出/封禁"
-
-#: src/viewer/irccontextmenus.cpp:388
-msgid "Kickban"
-msgstr "踢出并封禁"
-
-#: src/viewer/irccontextmenus.cpp:389
-msgid "Ban Nickname"
-msgstr "封禁此昵称"
-
-#: src/viewer/irccontextmenus.cpp:391
-msgid "Ban *!*@*.host"
-msgstr "封禁 *!*@*.host"
-
-#: src/viewer/irccontextmenus.cpp:392
-msgid "Ban *!*@domain"
-msgstr "封禁 *!*@domain"
-
-#: src/viewer/irccontextmenus.cpp:393
-msgid "Ban *!user@*.host"
-msgstr "封禁 *!user@*.host"
-
-#: src/viewer/irccontextmenus.cpp:394
-msgid "Ban *!user@domain"
-msgstr "封禁 *!user@domain"
-
-#: src/viewer/irccontextmenus.cpp:396
-msgid "Kickban *!*@*.host"
-msgstr "踢出并封禁 *!*@*.host"
-
-#: src/viewer/irccontextmenus.cpp:397
-msgid "Kickban *!*@domain"
-msgstr "踢出并封禁 *!*@domain"
-
-#: src/viewer/irccontextmenus.cpp:398
-msgid "Kickban *!user@*.host"
-msgstr "踢出并封禁 *!user@*.host"
-
-#: src/viewer/irccontextmenus.cpp:399
-msgid "Kickban *!user@domain"
-msgstr "踢出并封禁 *!user@domain"
-
-#: src/viewer/irccontextmenus.cpp:415
-msgid "&Version"
-msgstr "版本(&V)"
-
-#: src/viewer/irccontextmenus.cpp:416
-msgid "&Ping"
-msgstr "Ping(&P)"
-
-#: src/viewer/irccontextmenus.cpp:423 src/viewer/irccontextmenus.cpp:619
-#: src/viewer/irccontextmenus.cpp:620
-msgid "Unignore"
-msgstr "取消忽略"
-
-#: src/viewer/irccontextmenus.cpp:426
-msgid "Add to Watched Nicks"
-msgstr "添加到监视昵称列表"
-
-#: src/viewer/irccontextmenus.cpp:428
-#, fuzzy
-#| msgid "Add to Watched Nicks"
-msgid "Remove From Watched Nicks"
-msgstr "添加到监视昵称列表"
-
-#: src/viewer/irccontextmenus.cpp:446
-msgid "Send &File..."
-msgstr "发送文件(&F)..."
-
-#: src/viewer/irccontextmenus.cpp:448
-msgid "Open DCC Chat"
-msgstr "打开 DCC 对话"
-
-#: src/viewer/irccontextmenus.cpp:449
-msgid "Open DCC Whiteboard"
-msgstr "打开 DCC 白板"
-
-#: src/viewer/irccontextmenus.cpp:581
-#, kde-format
-msgid "Do you want to ignore %1?"
-msgstr "您想要忽略 %1 吗？"
-
-#: src/viewer/irccontextmenus.cpp:583
-msgid "Do you want to ignore the selected users?"
-msgstr "您想要忽略已选中的用户吗？"
-
-#: src/viewer/irccontextmenus.cpp:612
-#, kde-format
-msgid "Do you want to stop ignoring %1?"
-msgstr "您想要停止忽略 %1 吗？"
-
-#: src/viewer/irccontextmenus.cpp:614
-msgid "Do you want to stop ignoring the selected users?"
-msgstr "您想要停止忽略已选中的用户吗？"
-
-#: src/viewer/irccontextmenus.cpp:823
-msgid "Address Book Association"
-msgid_plural "Address Book Associations"
-msgstr[0] "地址簿关联"
-
-#: src/viewer/irccontextmenus.cpp:860
-#, fuzzy
-#| msgid "Edit Contact..."
-msgid "Edit Contact..."
-msgid_plural "Edit Contacts..."
-msgstr[0] "编辑联系人..."
-
-#: src/viewer/irccontextmenus.cpp:868
-msgid "Choose/Change Association..."
-msgid_plural "Choose/Change Associations..."
-msgstr[0] "选择/更改关联..."
-
-#: src/viewer/irccontextmenus.cpp:874
-#, fuzzy
-#| msgid "Choose Contact..."
-msgid "Choose Contact..."
-msgid_plural "Choose Contacts..."
-msgstr[0] "选择联系人..."
-
-#: src/viewer/irccontextmenus.cpp:880
-#, fuzzy
-#| msgid "Change Association..."
-msgid "Change Association..."
-msgid_plural "Change Associations..."
-msgstr[0] "更改关联..."
-
-#: src/viewer/irccontextmenus.cpp:887
-#, fuzzy
-#| msgid "Create New Contact..."
-msgid "Create New Contact..."
-msgid_plural "Create New Contacts..."
-msgstr[0] "创建新联系人..."
-
-#: src/viewer/irccontextmenus.cpp:894
-#, fuzzy
-#| msgid "Delete Association"
-msgid "Delete Association"
-msgid_plural "Delete Associations"
-msgstr[0] "删除关联"
-
-#: src/viewer/irccontextmenus.cpp:955 src/urlcatcher.cpp:272
-msgid "Save link as"
-msgstr "链接另存为"
-
-#: src/viewer/chatwindow.cpp:438
-#, kde-format
-msgid ""
-"\n"
-"*** Logfile started\n"
-"*** on %1\n"
-"\n"
-msgstr ""
-"\n"
-"*** 日志文件开始\n"
-"*** 在 %1\n"
-"\n"
-
-#: src/viewer/editnotifydialog.cpp:31
-msgid "Edit Watched Nickname"
-msgstr "编辑被监视的昵称"
-
-#: src/viewer/editnotifydialog.cpp:39
-msgid "&Network name:"
-msgstr "网络名称(&N)："
-
-#: src/viewer/editnotifydialog.cpp:41
-msgid "Pick the server network you will connect to here."
-msgstr "在此选取您想要连接到的服务器网络。"
-
-#: src/viewer/editnotifydialog.cpp:48
-msgid "N&ickname:"
-msgstr "昵称(&I)："
-
-#: src/viewer/editnotifydialog.cpp:50
-msgid ""
-"<qt>The nickname to watch for when connected to a server in the network.</qt>"
-msgstr "<qt>连接到服务器时要监视的昵称。</qt>"
-
-#: src/viewer/editnotifydialog.cpp:58
-msgid "All Networks"
-msgstr "所有网络"
-
-#: src/viewer/editnotifydialog.cpp:72
-msgid "Change notify information"
-msgstr "更改通知信息"
-
-#: src/viewer/insertchardialog.cpp:29
-msgid "Insert Character"
-msgstr "插入字符"
-
-#: src/viewer/insertchardialog.cpp:30
-msgid "&Insert"
-msgstr "插入(&I)"
-
-#: src/viewer/insertchardialog.cpp:30
-msgid "Insert a character"
-msgstr "插入一个字符"
-
-#: src/viewer/ircinput.cpp:59
-msgid ""
-"<qt><p>The input line is where you type messages to be sent the channel, "
-"query, or server.  A message sent to a channel is seen by everyone on the "
-"channel, whereas a message in a query is sent only to the person in the "
-"query with you.</p><p>To automatically complete the nickname you began "
-"typing, press Tab. If you have not begun typing, the last successfully "
-"completed nickname will be used.</p><p>You can also send special commands:</"
-"p><table><tr><th>/me <i>action</i></th><td>shows up as an action in the "
-"channel or query.  For example:  <em>/me sings a song</em> will show up in "
-"the channel as 'Nick sings a song'.</td></tr><tr><th>/whois <i>nickname</i></"
-"th><td>shows information about this person, including what channels they are "
-"in.</td></tr></table><p>For more commands, see the Konversation Handbook.</"
-"p><p>A message cannot contain multiple lines.</p></qt>"
-msgstr ""
-"<qt><p>这条输入行是供您键入要发送给频道、对话或服务器的消息的地方。发送给频道"
-"的消息可以被频道内的所有人读到，然而在对话中的消息只会被和您对话的人所读到。"
-"</p><p>要自动补全昵称，请按 Tab。如果您还没有开始打字，将使用最后一次补全过的"
-"昵称。</p><p>您也可以发送一些特殊的命令：</p><table><tr><th>/me <i>动作</i></"
-"th><td>在频道或对话中表露出某种动作。例：<em>/me 唱了首歌</em> 将会被显示"
-"为“昵称 唱了首歌”。</td></tr><tr><th>/whois <i>昵称</i></th><td>显示此人的相"
-"关信息，包括他已加入的所有频道清单等。</td></tr></table><p>查询更多的命令，请"
-"参看 Konversation 手册。</p><p>一条消息不能跨越多行。</p></qt>"
-
-#: src/viewer/ircinput.cpp:499
-#, kde-format
-msgid "1 byte"
-msgid_plural "%1 bytes"
-msgstr[0] "%1 字节"
-
-#: src/viewer/ircinput.cpp:500
-#, kde-format
-msgid "1 line"
-msgid_plural "%1 lines"
-msgstr[0] "%1 行"
-
-#: src/viewer/ircinput.cpp:506
-#, fuzzy, kde-format
-#| msgid ""
-#| "<qt>You are attempting to paste a large portion of text (%1 bytes or %2 "
-#| "lines) into the chat. This can cause connection resets or flood kills. Do "
-#| "you really want to continue?</qt>"
-msgctxt ""
-"%1 is, for instance, '200 bytes'.  %2 is, for instance, '7 lines'.  Both are "
-"localised (see the two previous messages)."
-msgid ""
-"<qt>You are attempting to paste a large portion of text (%1 or %2) into the "
-"chat. This can cause connection resets or flood kills. Do you really want to "
-"continue?</qt>"
-msgstr ""
-"<qt>您正试图粘贴一大段文本(%1 字节或 %2 行)进入聊天栏，这可能引起连接重置或过"
-"量信息发送中止，您真要继续吗？</qt>"
-
-#: src/viewer/ircinput.cpp:509
-msgid "Large Paste Warning"
-msgstr "巨量粘贴警告"
-
-#: src/viewer/ircinput.cpp:510
-msgid "Paste"
-msgstr "粘贴"
-
-#. i18n: file: src/irc/servergroupdialogui.ui:71
-#. i18n: ectx: property (text), widget (KPushButton, m_editIdentityButton)
-#. i18n: file: src/irc/serverlistdialogui.ui:162
-#. i18n: ectx: property (text), widget (QPushButton, m_editButton)
-#: src/viewer/ircinput.cpp:511 rc.cpp:1223 rc.cpp:1295
-msgid "&Edit..."
-msgstr "编辑(&E)..."
-
-#: src/viewer/ircview.cpp:2043
-#, kde-format
-msgid "Open a query with %1"
-msgstr "打开一个和 %1 的对话"
-
-#: src/viewer/ircview.cpp:2052 src/viewer/topiclabel.cpp:301
-#, kde-format
-msgid "Join the channel %1"
-msgstr "加入频道 %1"
-
-#: src/viewer/osd.cpp:337
-msgid "OSD Preview - drag to reposition"
-msgstr "OSD 预览 - 拖曳可重新定位"
-
-#: src/viewer/searchbar.cpp:64
-msgid "Find Forward"
-msgstr "查找上一个"
-
-#: src/viewer/searchbar.cpp:67
-msgid "Match Case"
-msgstr "匹配大小写"
-
-#: src/viewer/searchbar.cpp:70
-msgid "Whole Words Only"
-msgstr "完整单词匹配"
-
-#: src/viewer/searchbar.cpp:73
-msgid "From Cursor"
-msgstr "从光标处开始"
-
-#: src/viewer/statuspanel.cpp:231
-#, kde-format
-msgid ""
-"Do you really want to close '%1'?\n"
-"\n"
-" All associated tabs will be closed as well."
-msgstr ""
-"您真的要关闭“%1”吗？\n"
-"\n"
-" 所有相关标签都会被一起关闭。"
-
-#: src/viewer/statuspanel.cpp:232
-msgid "Close Tab"
-msgstr "关闭标签"
-
-#: src/viewer/statuspanel.cpp:241
-#, kde-format
-msgid ""
-"Do you want to disconnect from '%1'?\n"
-"\n"
-" All associated tabs will be closed as well."
-msgstr ""
-"您真要断开与“%1”的连接吗？\n"
-"\n"
-" 所有相关标签都会被一起关闭。"
-
-#: src/viewer/statuspanel.cpp:242
-msgid "Disconnect From Server"
-msgstr "从服务器断开连接"
-
-#: src/viewer/statuspanel.cpp:243
-msgid "Disconnect"
-msgstr "断开"
-
-#: src/viewer/viewcontainer.cpp:221 src/mainwindow.cpp:291
-msgid "Move Tab Up"
-msgstr "上移标签"
-
-#: src/viewer/viewcontainer.cpp:229 src/mainwindow.cpp:302
-msgid "Move Tab Down"
-msgstr "下移标签"
-
-#: src/viewer/viewcontainer.cpp:322 src/mainwindow.cpp:322
-#: src/mainwindow.cpp:334
-msgid "Move Tab Left"
-msgstr "向左移动标签"
-
-#: src/viewer/viewcontainer.cpp:330 src/mainwindow.cpp:313
-#: src/mainwindow.cpp:343
-msgid "Move Tab Right"
-msgstr "向右移动标签"
-
-#: src/viewer/viewcontainer.cpp:561
-msgid "Find Text..."
-msgstr "查找文本..."
-
-#: src/viewer/viewcontainer.cpp:563
-msgid "Search for text in the current tab"
-msgstr "在当前标签中搜索文本"
-
-#: src/viewer/viewcontainer.cpp:581
-#, kde-format
-msgid "Channel &List for %1"
-msgstr "%1 的频道列表(&L)"
-
-#: src/viewer/viewcontainer.cpp:587 src/mainwindow.cpp:203
-msgid "Channel &List"
-msgstr "频道列表(&L)"
-
-#: src/viewer/viewcontainer.cpp:596 src/mainwindow.cpp:186
-#: src/mainwindow.cpp:773
-msgid "&Open Logfile"
-msgstr "打开日志文件(&O)"
-
-#: src/viewer/viewcontainer.cpp:601
-#, kde-format
-msgid "&Open Logfile for %1"
-msgstr "打开 %1 的日志文件(&O)"
-
-#: src/viewer/viewcontainer.cpp:612
-#, kde-format
-msgid "&Channel Settings for %1..."
-msgstr "%1 的频道设置(&C)..."
-
-#: src/viewer/viewcontainer.cpp:617 src/mainwindow.cpp:195
-msgid "&Channel Settings..."
-msgstr "频道设置(&C)..."
-
-#: src/viewer/viewcontainer.cpp:1673
-msgid "Rename Tab"
-msgstr "重命名标签"
-
-#: src/viewer/viewcontainer.cpp:1674
-#, fuzzy
-#| msgid "Enter Filename"
-msgid "Enter new tab name:"
-msgstr "输入文件名"
-
-#: src/viewer/viewcontainer.cpp:1743
-#, kde-format
-msgctxt "Default encoding"
-msgid "Default ( %1 )"
-msgstr "默认 (%1)"
-
-#: src/viewer/viewcontainer.cpp:1778
-msgid "&Rename Tab..."
-msgstr "重命名标签(&R)..."
-
-#: src/viewer/viewcontainer.cpp:1934
-msgid "You can only search in text fields."
-msgstr "您只能在文本栏搜索。"
-
-#: src/viewer/viewcontainer.cpp:1935
-msgid "Find Text Information"
-msgstr "查找文本信息"
-
-#: src/viewer/viewcontainer.cpp:2132
-#, kde-format
-msgid "Logfile of %1"
-msgstr "%1 的日志文件"
-
-#: src/viewer/viewcontainer.cpp:2141 src/viewer/viewcontainer.cpp:2142
-#: src/konsolepanel.cpp:27
-msgid "Konsole"
-msgstr "Konsole"
-
-#: src/viewer/viewcontainer.cpp:2152 src/urlcatcher.cpp:84
-msgid "URL Catcher"
-msgstr "URL 捕捉器"
-
-#: src/viewer/viewcontainer.cpp:2504
-#, fuzzy
-#| msgid ""
-#| "The channel list can only be opened from a query, channel or status "
-#| "window to find out, which server this list belongs to."
-msgid ""
-"To know which server to display the channel list for, the list can only be "
-"opened from a query, channel or status window."
-msgstr "频道列表只能从查询，频道或状态窗口打开，以找出列表属于哪一个服务器。"
-
-#: src/viewer/viewcontainer.cpp:2534
-msgid ""
-"Using this function may result in a lot of network traffic. If your "
-"connection is not fast enough, it is possible that your client will be "
-"disconnected by the server."
-msgstr ""
-"使用这项功能可能导致大量的网络流量。如果您的网络连接不够迅速，您的客户端连接"
-"有可能被服务器中断。"
-
-#: src/viewer/viewcontainer.cpp:2538
-msgid "Channel List Warning"
-msgstr "频道列表警告"
-
-#: src/notificationhandler.cpp:103
-#, kde-format
-msgid "[HighLight] (%1) &lt;%2&gt;"
-msgstr "[HighLight] (%1) &lt;%2&gt; "
-
-#: src/notificationhandler.cpp:117 src/notificationhandler.cpp:382
-#, kde-format
-msgid "[HighLight] (%1) &lt;%2&gt; %3"
-msgstr "[HighLight] (%1) &lt;%2&gt; %3"
-
-#: src/notificationhandler.cpp:144
-#, fuzzy, kde-format
-#| msgid "[Query] &lt;%1&gt; %2"
-msgid "[Query] &lt;%1&gt;"
-msgstr "[对话] &lt;%1&gt; %2"
-
-#: src/notificationhandler.cpp:158
-#, kde-format
-msgid "[Query] &lt;%1&gt; %2"
-msgstr "[对话] &lt;%1&gt; %2"
-
-#: src/notificationhandler.cpp:186 src/notificationhandler.cpp:193
-#, kde-format
-msgid "%1 joined %2"
-msgstr "%1 加入了 %2"
-
-#: src/notificationhandler.cpp:205 src/notificationhandler.cpp:212
-#, kde-format
-msgid "%1 parted %2"
-msgstr "%1 离开了 %2"
-
-#: src/notificationhandler.cpp:224
-#, kde-format
-msgid "%1 quit %2"
-msgstr "%1 退出了 %2"
-
-#: src/notificationhandler.cpp:235
-#, kde-format
-msgid "%1 changed nickname to %2"
-msgstr "%1 已将昵称改为 %2"
-
-#: src/notificationhandler.cpp:246
-#, kde-format
-msgid "%1 wants to send a file to you"
-msgstr "%1 要向您发送文件"
-
-#: src/notificationhandler.cpp:257
-#, kde-format
-msgid "An error has occurred in a DCC transfer: %1"
-msgstr "DCC 传输中发生一个错误：%1"
-
-#: src/notificationhandler.cpp:268
-#, kde-format
-msgctxt "%1 - filename"
-msgid "%1 File Transfer is complete"
-msgstr "%1 文件传输完成"
-
-#: src/notificationhandler.cpp:294
-#, kde-format
-msgid "%1 has started a conversation (query) with you."
-msgstr "%1 已向您打开了一个对话。"
-
-#: src/notificationhandler.cpp:335
-#, kde-format
-msgid "You are kicked by %1 from %2"
-msgstr "您已经被 %1 从 %2 踢出。"
-
-#: src/notificationhandler.cpp:349
-#, kde-format
-msgid "%1 started a DCC chat with you"
-msgstr "%1 已对您发起了 DCC 密聊"
-
-#: src/notificationhandler.cpp:379
-#, kde-format
-msgid "[HighLight] (%1) *** %2"
-msgstr "[HighLight](%1)*** %2"
-
-#: src/notificationhandler.cpp:392
-#, kde-format
-msgid "Failed to connect to %1"
-msgstr "无法连接到 %1"
-
-#: src/notificationhandler.cpp:405
-#, kde-format
-msgid "You have joined %1."
-msgstr "您已经加入了 %1。"
-
-#: src/queuetuner.cpp:234
-msgid "Reset..."
-msgstr "重置..."
-
-#: src/queuetuner.cpp:239
-msgid ""
-"This cannot be undone, are you sure you wish to reset to default values?"
-msgstr ""
-
-#: src/queuetuner.cpp:240
-msgid "Reset Values"
-msgstr "重置值"
-
-#: src/dbus.cpp:118
-#, fuzzy, kde-format
-#| msgid "Debug"
-msgid "Debug: %1"
-msgstr "调试"
-
-#: src/dbus.cpp:124
-#, fuzzy, kde-format
-#| msgid "KIO error: %1"
-msgid "Error: %1"
-msgstr "KIO 错误：%1"
-
-#: src/dbus.cpp:144
-#, kde-format
-msgid "getNickname: Server %1 is not found."
-msgstr "getNickname：找不到服务器 %1。"
-
-#: src/identitydialog.cpp:34
-msgid "Identities"
-msgstr "身份"
-
-#: src/identitydialog.cpp:54
-msgid ""
-"This is your list of nicknames. A nickname is the name that other users will "
-"know you by. You may use any name you desire. The first character must be a "
-"letter.\n"
-"\n"
-"Since nicknames must be unique across an entire IRC network, your desired "
-"name may be rejected by the server because someone else is already using "
-"that nickname. Enter alternate nicknames for yourself. If your first choice "
-"is rejected by the server, Konversation will try the alternate nicknames."
-msgstr ""
-"这里是您的昵称的列表。昵称是一种能让其它用户识别您的名字，您可在此使用任何您"
-"愿意的名字，不过首字符必须是一个字母。\n"
-"\n"
-"由于昵称在通行于一个完整 IRC 网络中时必须是唯一的，所以您想用的名字可能会被服"
-"务器拒绝，这是因为有人正在使用相同的昵称。输入您的可选昵称，如果首选的昵称被"
-"服务器拒绝，Konversation 可以自动尝试使用备选的昵称。"
-
-#: src/identitydialog.cpp:82
-msgid " minute"
-msgid_plural " minutes"
-msgstr[0] " 分钟"
-
-#: src/identitydialog.cpp:90
-msgid "Change identity information"
-msgstr "更改身份信息"
-
-#: src/identitydialog.cpp:193
-msgid "Add Identity"
-msgstr "添加身份"
-
-#: src/identitydialog.cpp:193 src/identitydialog.cpp:216
-#: src/identitydialog.cpp:271
-msgid "Identity name:"
-msgstr "身份名称："
-
-#: src/identitydialog.cpp:207 src/identitydialog.cpp:225
-#: src/identitydialog.cpp:284
-msgid "You need to give the identity a name."
-msgstr "您需要给身份起个名字。"
-
-#: src/identitydialog.cpp:216
-msgid "Rename Identity"
-msgstr "重命名身份"
-
-#: src/identitydialog.cpp:250
-msgid ""
-"This identity is in use, if you remove it the network settings using it will "
-"fall back to the default identity. Should it be deleted anyway?"
-msgstr ""
-"此身份正被使用中，如果您将其删除，使用它的网络将会回溯到默认身份的设定。确认"
-"无论如何都要删除吗？"
-
-#: src/identitydialog.cpp:255
-msgid "Are you sure you want to delete all information for this identity?"
-msgstr "您确定要删除这个身份的所有信息吗？"
-
-#: src/identitydialog.cpp:258
-msgid "Delete Identity"
-msgstr "删除身份"
-
-#. i18n: file: src/irc/servergroupdialogui.ui:168
-#. i18n: ectx: property (toolTip), widget (QToolButton, m_removeServerButton)
-#. i18n: file: src/irc/servergroupdialogui.ui:253
-#. i18n: ectx: property (toolTip), widget (QToolButton, m_removeChannelButton)
-#: src/identitydialog.cpp:259 rc.cpp:1256 rc.cpp:1268
-msgid "Delete"
-msgstr "删除"
-
-#: src/identitydialog.cpp:271
-msgid "Duplicate Identity"
-msgstr "复制身份"
-
-#: src/identitydialog.cpp:314
-msgid "You must add at least one nick to the identity."
-msgstr "您必须在身份信息内添加至少一个昵称。"
-
-#: src/identitydialog.cpp:325
-msgid "Please enter a real name."
-msgstr "请输入真实姓名。"
-
-#: src/cipher.cpp:471
-msgid ""
-"Diffie-Hellman key exchange is not supported by your installation of the Qt "
-"Cryptographic Architecture (QCA). You likely need to install an additional "
-"provider plugin. Diffie-Hellman key exchange support is usually provided by "
-"the qca-ossl plugin."
-msgstr ""
-
-#: src/cipher.cpp:484
-msgid ""
-"Blowfish in cipher-block chaining (CBC) mode is not supported by your "
-"installation of the Qt Cryptographic Architecture (QCA). You likely need to "
-"install an additional provider plugin for QCA. Blowfish support is usually "
-"provided by the qca-ossl plugin."
-msgstr ""
-
-#: src/cipher.cpp:496
-msgid ""
-"Blowfish in electronic codebook (ECB) mode is not supported by your "
-"installation of the Qt Cryptographic Architecture (QCA). You likely need to "
-"install an additional provider plugin for QCA. Blowfish support is usually "
-"provided by the qca-ossl plugin."
-msgstr ""
-
-#: src/connectionmanager.cpp:224
-msgid "Network is down, will reconnect automatically when it is back up."
-msgstr ""
-
-#: src/connectionmanager.cpp:259
-#, fuzzy, kde-format
-#| msgid "Trying to connect to %2 in 1 second."
-#| msgid_plural "Trying to connect to %2 in %1 seconds."
-msgid "Trying to connect to %2 (port <numid>%3</numid>) in 1 second."
-msgid_plural "Trying to connect to %2 (port <numid>%3</numid>) in %1 seconds."
-msgstr[0] "正尝试在 %1 秒内连接到 %2。"
-
-#: src/connectionmanager.cpp:269
-#, fuzzy, kde-format
-#| msgid "Trying to reconnect to %2 in 1 second."
-#| msgid_plural "Trying to reconnect to %2 in %1 seconds."
-msgid "Trying to reconnect to %2 (port <numid>%3</numid>) in 1 second."
-msgid_plural ""
-"Trying to reconnect to %2 (port <numid>%3</numid>) in %1 seconds."
-msgstr[0] "正重新尝试在 %1 秒内连接到 %2。"
-
-#: src/connectionmanager.cpp:282
-msgid "Reconnection attempts exceeded."
-msgstr "重连尝试次数到达上限。"
-
-#: src/connectionmanager.cpp:522
-#, kde-format
-msgid ""
-"You are already connected to %1. Do you want to open another connection?"
-msgstr "您已经连接到了 %1。您想要另外打开连接吗？"
-
-#: src/connectionmanager.cpp:523 src/connectionmanager.cpp:544
-#, kde-format
-msgid "Already connected to %1"
-msgstr "已经连接到 %1"
-
-#: src/connectionmanager.cpp:524
-msgid "Create connection"
-msgstr "创建连接"
-
-#: src/connectionmanager.cpp:538
-#, fuzzy, kde-format
-#| msgid ""
-#| "You are presently connected to %1 via '%2' (port %3). Do you want to "
-#| "switch to '%4' (port %5) instead?"
-msgid ""
-"You are presently connected to %1 via '%2' (port <numid>%3</numid>). Do you "
-"want to switch to '%4' (port <numid>%5</numid>) instead?"
-msgstr "您正通过“%2”(端口 %3)连接到 %1。您想要切换到“%4”(端口 %5)吗？"
-
-#: src/connectionmanager.cpp:545
-msgid "Switch Server"
-msgstr "切换服务器"
-
-#: src/connectionmanager.cpp:592
-msgid "Please fill in your <b>Ident</b>.<br/>"
-msgstr "请填写您的<b>身份</b>。<br/>"
-
-#: src/connectionmanager.cpp:595
-msgid "Please fill in your <b>Real name</b>.<br/>"
-msgstr "请填写您的<b>真实姓名</b>。<br/>"
-
-#: src/connectionmanager.cpp:598
-msgid "Please provide at least one <b>Nickname</b>.<br/>"
-msgstr "请提供至少一个<b>昵称</b>。<br/>"
-
-#: src/connectionmanager.cpp:606
-#, kde-format
-msgid "<qt>Your identity \"%1\" is not set up correctly:<br/>%2</qt>"
-msgstr "<qt>您的身份“%1”设置不正确：<br/>%2</qt>"
-
-#: src/connectionmanager.cpp:607
-msgid "Identity Settings"
-msgstr "身份设置"
-
-#: src/connectionmanager.cpp:608
-msgid "Edit Identity..."
-msgstr "编辑身份..."
-
-#: src/konsolepanel.cpp:39
-msgid "Manage Konsole Profiles"
-msgstr ""
-
 #: src/mainwindow.cpp:121
 msgid "Restart"
 msgstr "重启"
@@ -5673,8 +5775,10 @@ msgid "Manage your nick, away and other identity settings"
 msgstr "管理您的昵称，离开消息和其它身份设定"
 
 #: src/mainwindow.cpp:169
-msgid "&Watched Nicks Online"
-msgstr "监视的在线昵称(&W)"
+#, fuzzy
+#| msgid "Watched Nicknames"
+msgid "&Watched Nicks"
+msgstr "被监视的昵称"
 
 #: src/mainwindow.cpp:177
 msgid "&DCC Status"
@@ -5864,8 +5968,8 @@ msgstr "在系统托盘中显示图标"
 #: src/mainwindow.cpp:724
 #, kde-format
 msgid ""
-"<qt>This will hide the menu bar completely. You can show it again by typing %"
-"1.</qt>"
+"<qt>This will hide the menu bar completely. You can show it again by typing "
+"%1.</qt>"
 msgstr "<qt>这将完全隐藏程序的菜单栏。您可以输入 %1 使其重新显示。</qt>"
 
 #: src/mainwindow.cpp:725
@@ -5904,200 +6008,134 @@ msgstr "设定全局离开状态(&A)"
 msgid "Server List"
 msgstr "服务器列表"
 
-#: src/quickconnectdialog.cpp:29
-msgid "Quick Connect"
-msgstr "快速连接"
-
-#: src/quickconnectdialog.cpp:36
-msgid "&Server host:"
-msgstr "服务器主机(&S)："
-
-#: src/quickconnectdialog.cpp:37
-msgid "Enter the host of the network here."
-msgstr "在此输入网络上的主机。"
-
-#. i18n: file: src/irc/serverdialogui.ui:43
-#. i18n: ectx: property (text), widget (QLabel, portLbl)
-#: src/quickconnectdialog.cpp:44 rc.cpp:1199
-msgid "&Port:"
-msgstr "端口(&P)："
-
-#: src/quickconnectdialog.cpp:45
-msgid "The port that the IRC server is using."
-msgstr "IRC 服务器所使用的端口。"
-
-#: src/quickconnectdialog.cpp:52
-msgid "&Nick:"
-msgstr "昵称(&N)："
-
-#: src/quickconnectdialog.cpp:53
-msgid "The nick you want to use."
-msgstr "您打算使用的昵称。"
-
-#: src/quickconnectdialog.cpp:60
-msgid "P&assword:"
-msgstr "密码(&A)："
-
-#: src/quickconnectdialog.cpp:61
-msgid ""
-"If the IRC server requires a password, enter it here (most servers do not "
-"require a password.)"
-msgstr "如果 IRC 服务器要求密码认证，请在此输入(大多数的服务器不需要密码)。"
-
-#: src/quickconnectdialog.cpp:71
-msgid "&Use SSL"
-msgstr "使用 SSL(&U)"
-
-#: src/urlcatcher.cpp:105
-msgctxt "open url"
-msgid "&Open"
-msgstr "打开(&O)"
-
-#: src/urlcatcher.cpp:108
-#, fuzzy
-#| msgid "Open link in external browser."
-msgid "Open URLs in external browser."
-msgstr "在外部浏览器中打开链接。"
-
-#: src/urlcatcher.cpp:109
-#, fuzzy
-#| msgid ""
-#| "<p>Select a <b>URL</b> above, then click this button to launch the "
-#| "application associated with the mimetype of the URL.</p><p>In the "
-#| "<b>Settings</b>, under <b>Behavior</b> | <b>General</b>, you can specify "
-#| "a custom web browser for web URLs.</p>"
-msgid ""
-"<p>Select one or several <b>URLs</b> below, then click this button to launch "
-"the application associated with the mimetype of the URL.</p>-<p>In the "
-"<b>Settings</b>, under <b>Behavior</b> | <b>General</b>, you can specify a "
-"custom web browser for web URLs.</p>"
-msgstr ""
-"<p>在上面选择一个 <b>URL</b>，点击它即可调用关联到 URL 这个MIME 类型的程序。"
-"</p><p>在<b>设置</b>对话框里的<b>行为</b>><b>常规</b>选项卡中，您可以自行定义"
-"一个用于打开 Web 目标的网络浏览器。</p>"
-
-#: src/urlcatcher.cpp:112
-msgid "&Save..."
-msgstr "保存(&S)..."
-
-#: src/urlcatcher.cpp:115
-msgid "Save selected URLs to the disk."
-msgstr ""
-
-#: src/urlcatcher.cpp:118
-msgid "Add Bookmark..."
-msgstr "添加书签..."
-
-#: src/urlcatcher.cpp:126
-msgctxt "copy url"
-msgid "&Copy"
-msgstr "复制(&C)"
-
-#: src/urlcatcher.cpp:129
-msgid "Copy URLs to the clipboard."
-msgstr ""
-
-#: src/urlcatcher.cpp:130
-#, fuzzy
-#| msgid ""
-#| "Select a <b>URL</b> above, then click this button to copy the URL to the "
-#| "clipboard."
-msgid ""
-"Select one or several <b>URLs</b> above, then click this button to copy them "
-"to the clipboard."
-msgstr "在上面选择一个 <b>URL</b>，点击此按钮可将其复制到剪贴板。"
-
-#: src/urlcatcher.cpp:133
-msgctxt "delete url"
-msgid "&Delete"
-msgstr "删除(&D)"
-
-#: src/urlcatcher.cpp:136
-#, fuzzy
-#| msgid ""
-#| "Select a <b>URL</b> above, then click this button to delete the URL from "
-#| "the list."
-msgid ""
-"Select one or several <b>URLs</b> above, then click this button to delete "
-"them from the list."
-msgstr "在上面选择一个 <b>URL</b>，点击此按钮可将其从列表中删除。"
-
-#: src/urlcatcher.cpp:137
-msgid "Delete selected link."
-msgstr "删除所选链接。"
-
-#: src/urlcatcher.cpp:143
-msgctxt "save url list"
-msgid "&Save List..."
-msgstr "保存列表(&S)..."
-
-#: src/urlcatcher.cpp:145
-msgid "Save list."
-msgstr "保存列表。"
-
-#: src/urlcatcher.cpp:146
-msgid "Click to save the entire list to a file."
-msgstr "点此将 URL 条目列表保存到文件。"
-
-#: src/urlcatcher.cpp:149
-msgctxt "clear url list"
-msgid "&Clear List"
-msgstr "清除列表(&C)"
-
-#: src/urlcatcher.cpp:151
-msgid "Clear list."
-msgstr "清除列表。"
-
-#: src/urlcatcher.cpp:152
-msgid "Click to erase the entire list."
-msgstr "点此擦除 URL 条目列表。"
-
-#: src/urlcatcher.cpp:163
-msgid ""
-"List of Uniform Resource Locators mentioned in any of the Konversation "
-"windows during this session."
-msgstr "统一资源标识符列表会给出当前 Konversation 会话窗口中所有的 URL。"
-
-#: src/urlcatcher.cpp:176
-#, fuzzy
-#| msgid "&Format:"
-msgid "From"
-msgstr "从："
-
-#: src/urlcatcher.cpp:180
-msgid "Date"
-msgstr "日期"
-
-#: src/urlcatcher.cpp:235
-msgid ""
-"You have selected more than one URL. Do you really want to open several URLs "
-"at once?"
-msgstr ""
-
-#: src/urlcatcher.cpp:236 src/urlcatcher.cpp:258
-#, fuzzy
-#| msgid "Open URL"
-msgid "Open URLs"
-msgstr "打开 URL"
-
-#: src/urlcatcher.cpp:256
-msgid ""
-"You have selected more than one URL. A file dialog to set the destination "
-"will open for each. Do you really want to save several URLs at once?"
-msgstr ""
-
-#: src/urlcatcher.cpp:337
-msgid "Save URL List"
-msgstr "保存 URL 列表"
-
-#: src/urlcatcher.cpp:364
+#: src/notificationhandler.cpp:103
 #, kde-format
-msgid ""
-"Konversation URL List: %1\n"
-"\n"
-msgstr ""
-"Konversation URL 列表：%1\n"
-"\n"
+msgid "[HighLight] (%1) &lt;%2&gt;"
+msgstr "[HighLight] (%1) &lt;%2&gt; "
+
+#: src/notificationhandler.cpp:117 src/notificationhandler.cpp:382
+#, kde-format
+msgid "[HighLight] (%1) &lt;%2&gt; %3"
+msgstr "[HighLight] (%1) &lt;%2&gt; %3"
+
+#: src/notificationhandler.cpp:144
+#, fuzzy, kde-format
+#| msgid "[Query] &lt;%1&gt; %2"
+msgid "[Query] &lt;%1&gt;"
+msgstr "[对话] &lt;%1&gt; %2"
+
+#: src/notificationhandler.cpp:158
+#, kde-format
+msgid "[Query] &lt;%1&gt; %2"
+msgstr "[对话] &lt;%1&gt; %2"
+
+#: src/notificationhandler.cpp:186 src/notificationhandler.cpp:193
+#, kde-format
+msgid "%1 joined %2"
+msgstr "%1 加入了 %2"
+
+#: src/notificationhandler.cpp:205 src/notificationhandler.cpp:212
+#, kde-format
+msgid "%1 parted %2"
+msgstr "%1 离开了 %2"
+
+#: src/notificationhandler.cpp:224
+#, kde-format
+msgid "%1 quit %2"
+msgstr "%1 退出了 %2"
+
+#: src/notificationhandler.cpp:235
+#, kde-format
+msgid "%1 changed nickname to %2"
+msgstr "%1 已将昵称改为 %2"
+
+#: src/notificationhandler.cpp:246
+#, kde-format
+msgid "%1 wants to send a file to you"
+msgstr "%1 要向您发送文件"
+
+#: src/notificationhandler.cpp:257
+#, kde-format
+msgid "An error has occurred in a DCC transfer: %1"
+msgstr "DCC 传输中发生一个错误：%1"
+
+#: src/notificationhandler.cpp:268
+#, kde-format
+msgctxt "%1 - filename"
+msgid "%1 File Transfer is complete"
+msgstr "%1 文件传输完成"
+
+#: src/notificationhandler.cpp:294
+#, kde-format
+msgid "%1 has started a conversation (query) with you."
+msgstr "%1 已向您打开了一个对话。"
+
+#: src/notificationhandler.cpp:335
+#, kde-format
+msgid "You are kicked by %1 from %2"
+msgstr "您已经被 %1 从 %2 踢出。"
+
+#: src/notificationhandler.cpp:349
+#, kde-format
+msgid "%1 started a DCC chat with you"
+msgstr "%1 已对您发起了 DCC 密聊"
+
+#: src/notificationhandler.cpp:379
+#, kde-format
+msgid "[HighLight] (%1) *** %2"
+msgstr "[HighLight](%1)*** %2"
+
+#: src/notificationhandler.cpp:392
+#, kde-format
+msgid "Failed to connect to %1"
+msgstr "无法连接到 %1"
+
+#: src/notificationhandler.cpp:405
+#, kde-format
+msgid "You have joined %1."
+msgstr "您已经加入了 %1。"
+
+#: src/common.cpp:33
+msgid "topic protection"
+msgstr "话题保护"
+
+#: src/common.cpp:34
+msgid "no messages from outside"
+msgstr "没有外部消息"
+
+#: src/common.cpp:35
+msgid "secret"
+msgstr "机密"
+
+#: src/common.cpp:36
+msgid "invite only"
+msgstr "只接受受邀请的"
+
+#: src/common.cpp:37
+msgid "private"
+msgstr "私人"
+
+#: src/common.cpp:38
+msgid "moderated"
+msgstr "监管的"
+
+#: src/common.cpp:40
+msgid "anonymous"
+msgstr "匿名"
+
+#: src/common.cpp:41
+msgid "server reop"
+msgstr "服务器重新开放"
+
+#: src/common.cpp:42
+msgid "no colors allowed"
+msgstr "不允许颜色"
+
+#: src/common.cpp:43
+#, fuzzy
+#| msgid "Website hosting"
+msgid "user throttling"
+msgstr "提供了网站主机"
 
 #: rc.cpp:1
 msgctxt "NAME OF TRANSLATORS"
@@ -7581,17 +7619,219 @@ msgstr "频道内最大用户数量："
 msgid "Update interval:"
 msgstr "检查间隔："
 
+#. i18n: file: src/config/dcc_configui.ui:18
+#. i18n: ectx: property (windowTitle), widget (QWidget, DCC_ConfigUI)
+#: rc.cpp:780
+msgid "DCC_Settings"
+msgstr "DCC 设定"
+
+#. i18n: file: src/config/dcc_configui.ui:27
+#. i18n: ectx: property (text), widget (QLabel, dccPathLbl)
+#: rc.cpp:783
+msgid "Download &folder:"
+msgstr "下载文件夹(&F)："
+
+#. i18n: file: src/config/dcc_configui.ui:50
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAddPartner)
+#: rc.cpp:786
+msgid "&Add sender to file name"
+msgstr "为文件名添加发送者(&A)"
+
+#. i18n: file: src/config/dcc_configui.ui:57
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccCreateFolder)
+#: rc.cpp:789
+msgid "Cr&eate folder for sender"
+msgstr "为发送者创建文件夹(&E)"
+
+#. i18n: file: src/config/dcc_configui.ui:64
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpaceToUnderscore)
+#: rc.cpp:792
+msgid "Convert spaces in file names to underscores before sending"
+msgstr "在传送文件前将文件名中的空格转换为下划线"
+
+#. i18n: file: src/config/dcc_configui.ui:74
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAutoGet)
+#: rc.cpp:795
+msgid "Automaticall&y accept download offer"
+msgstr "自动接受下载(&Y)"
+
+#. i18n: file: src/config/dcc_configui.ui:81
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAutoResume)
+#: rc.cpp:798
+msgid "Au&tomatically resume download"
+msgstr "自动续传(&T)"
+
+#. i18n: file: src/config/dcc_configui.ui:88
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccFastSend)
+#: rc.cpp:801
+msgid "Enable fast DCC send (Might &not work with all clients)"
+msgstr "启用快速 DCC 发送(不是所有客户端都能正常工作)(&N)"
+
+#. i18n: file: src/config/dcc_configui.ui:95
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccPassiveSend)
+#: rc.cpp:804
+msgid "Enable passive DCC send"
+msgstr "启用被动的 DCC 发送"
+
+#. i18n: file: src/config/dcc_configui.ui:105
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DccIPv4Fallback)
+#: rc.cpp:807
+msgid ""
+"If this option enabled dcc transfers for IPv6 connections will be done over "
+"IPv4 interface set here"
+msgstr "如果此选项被启用，为 IPv6 建立的 DCC 传输连接会改由 IPv4 界面来操作"
+
+#. i18n: file: src/config/dcc_configui.ui:108
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccIPv4Fallback)
+#: rc.cpp:810
+msgid "Fallback to an IPv&4 interface for DCC send:"
+msgstr "DCC 传输时使用 IPv4 网络接口(&4)："
+
+#. i18n: file: src/config/dcc_configui.ui:115
+#. i18n: ectx: property (text), widget (QLabel, textLabel7)
+#: rc.cpp:813
+msgid "DCC send t&imeout:"
+msgstr "DCC 发送超时(&I)："
+
+#. i18n: file: src/config/dcc_configui.ui:154
+#. i18n: ectx: property (text), widget (QLabel, textLabel6)
+#: rc.cpp:816
+msgid "Buffer si&ze:"
+msgstr "缓冲区大小(&Z)："
+
+#. i18n: file: src/config/dcc_configui.ui:196
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox1)
+#: rc.cpp:819
+msgid "IP"
+msgstr "IP"
+
+#. i18n: file: src/config/dcc_configui.ui:202
+#. i18n: ectx: property (text), widget (QLabel, textLabel4)
+#: rc.cpp:822
+msgid "&Method to get own IP:"
+msgstr "获取本机 IP 的方式(&M)："
+
+#. i18n: file: src/config/dcc_configui.ui:218
+#. i18n: ectx: property (text), widget (QLabel, ownIP)
+#: rc.cpp:825
+msgid "O&wn IP:"
+msgstr "本机 IP(&W)："
+
+#. i18n: file: src/config/dcc_configui.ui:237
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
+#: rc.cpp:828
+msgid "Ports"
+msgstr "端口"
+
+#. i18n: file: src/config/dcc_configui.ui:243
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpecificChatPorts)
+#: rc.cpp:831
+msgid "Enable specific p&orts for DCC chat:"
+msgstr "允许指定 DCC 密聊端口(&O)："
+
+#. i18n: file: src/config/dcc_configui.ui:282
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
+#. i18n: file: src/config/dcc_configui.ui:347
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#: rc.cpp:834 rc.cpp:840
+msgid "to"
+msgstr "到"
+
+#. i18n: file: src/config/dcc_configui.ui:308
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpecificSendPorts)
+#: rc.cpp:837
+msgid "Enable specific &ports for DCC transfer server:"
+msgstr "允许指定 DCC 发送服务器的端口(&P)："
+
+#. i18n: file: src/config/dcc_configui.ui:392
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccUPnP)
+#: rc.cpp:843
+msgid "Enable UPnP for NAT traversal"
+msgstr ""
+
+#. i18n: file: src/config/dcc_configui.ui:399
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccChatAutoAccept)
+#: rc.cpp:846
+msgid "Automatically accept DCC chat offer"
+msgstr "自动接受 DCC 聊天请求"
+
+#. i18n: file: src/config/konversation.kcfg:22
+#. i18n: ectx: label, entry, group (Appearance)
+#: rc.cpp:849
+msgid "Limit the size of the tab labels to fit them all on screen"
+msgstr "限定标签最大长度为填满整个屏幕"
+
+#. i18n: file: src/config/konversation.kcfg:227
+#. i18n: ectx: label, entry, group (Appearance)
+#: rc.cpp:852
+msgid "Hide the scrollbar"
+msgstr "隐藏滚动条"
+
+#. i18n: file: src/config/konversation.kcfg:233
+#. i18n: ectx: whatsthis, entry, group (General Options)
+#: rc.cpp:855
+msgid ""
+"Enable if you want all the IRC input lines to check your spelling as you type"
+msgstr "如果您想要对每行输入都自动执行拼写检查，请选中此项。"
+
+#. i18n: file: src/config/konversation.kcfg:242
+#. i18n: ectx: whatsthis, entry, group (General Options)
+#: rc.cpp:858
+msgid ""
+"Enabling this will cause the input box to grow vertically when it fills up."
+msgstr "启用此选项会使得在文本输入框内填写内容时，它的长度将自动垂直延伸。"
+
+#. i18n: file: src/config/konversation.kcfg:276
+#. i18n: ectx: label, entry, group (General Options)
+#: rc.cpp:861
+msgid "Start with hidden main window"
+msgstr "启动时隐藏主窗口"
+
+#. i18n: file: src/config/konversation.kcfg:315
+#. i18n: ectx: label, entry, group (General Options)
+#: rc.cpp:864
+msgid "&Show real names next to nicknames"
+msgstr "在昵称旁显示真实姓名(&S)"
+
+#. i18n: file: src/config/konversation.kcfg:529
+#. i18n: ectx: label, entry (OpenWatchedNicksAtStartup), group (Notify List)
+#: rc.cpp:867
+msgid "Open Watched Nicks tab at application startup"
+msgstr "在程序启动时自动打开昵称监视列表"
+
+#. i18n: file: src/config/konversation.kcfg:846
+#. i18n: ectx: label, entry, group (Themes)
+#: rc.cpp:870
+msgid "Enable emoticons"
+msgstr "启用表情"
+
+#. i18n: file: src/config/konversation.kcfg:850
+#. i18n: ectx: label, entry, group (Themes)
+#: rc.cpp:873
+msgid "Emoticons theme"
+msgstr "表情主题"
+
 #. i18n: file: src/config/watchednicknames_configui.ui:24
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_UseNotify)
-#: rc.cpp:780
+#: rc.cpp:904
+#, fuzzy
+#| msgid ""
+#| "<qt>\n"
+#| "<p>\n"
+#| "When the nickname watcher is turned on, you will be notified when the "
+#| "nicknames appearing in the <b>Watched Networks/Nicknames</b> list come "
+#| "online or go offline.</p>\n"
+#| "<p>You can also open the <b>Nicks Online</b> window to see the status of "
+#| "all the watched nicknames.</p>\n"
+#| "</qt>"
 msgid ""
 "<qt>\n"
 "<p>\n"
 "When the nickname watcher is turned on, you will be notified when the "
 "nicknames appearing in the <b>Watched Networks/Nicknames</b> list come "
 "online or go offline.</p>\n"
-"<p>You can also open the <b>Nicks Online</b> window to see the status of all "
-"the watched nicknames.</p>\n"
+"<p>You can also open the <b>Watched Nicks</b> window to see the status of "
+"all the watched nicknames.</p>\n"
 "</qt>"
 msgstr ""
 "<qt>\n"
@@ -7603,15 +7843,19 @@ msgstr ""
 
 #. i18n: file: src/config/watchednicknames_configui.ui:27
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseNotify)
-#: rc.cpp:787
+#: rc.cpp:911
 msgid "Enable nic&kname watcher"
 msgstr "启用昵称监视器(&K)"
 
 #. i18n: file: src/config/watchednicknames_configui.ui:37
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_OpenWatchedNicksAtStartup)
-#: rc.cpp:790
+#: rc.cpp:914
+#, fuzzy
+#| msgid ""
+#| "<qt>When checked, the <b>Nicks Online</b> window will be automatically "
+#| "opened when starting Konversation.</qt>"
 msgid ""
-"<qt>When checked, the <b>Nicks Online</b> window will be automatically "
+"<qt>When checked, the <b>Watched Nicks</b> window will be automatically "
 "opened when starting Konversation.</qt>"
 msgstr ""
 "<qt>当此项被选中时，<b>在线昵称</b>窗口会在 Konversation 程序开启后自动打开。"
@@ -7619,17 +7863,32 @@ msgstr ""
 
 #. i18n: file: src/config/watchednicknames_configui.ui:40
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_OpenWatchedNicksAtStartup)
-#: rc.cpp:793
-msgid "Show watched nicks online tab on &application startup"
+#: rc.cpp:917
+#, fuzzy
+#| msgid "Show watched nicks online tab on &application startup"
+msgid "Show watched Watched Nicks tab on &application startup"
 msgstr "在程序启动时显示被监视在线昵称的标签"
 
 #. i18n: file: src/config/watchednicknames_configui.ui:66
 #. i18n: ectx: property (whatsThis), widget (QLabel, notifyActionLabel)
-#: rc.cpp:797
-#, no-c-format
+#: rc.cpp:921
+#, fuzzy, no-c-format
+#| msgid ""
+#| "<qt>\n"
+#| "<p>When you double click a nickname in the <b>Nicks Online</b> window, "
+#| "this\n"
+#| "command is placed in the <b>Input Line</b> on the server window.</p>\n"
+#| "<p>The following symbols can be used in the command:</p><ul>\n"
+#| "<li>%u: The nickname double clicked.</li>\n"
+#| "<li>%K: Server password.</li>\n"
+#| "<li>%n: Send command directly to the server instead of your input line.</"
+#| "li>\"\n"
+#| "</ul>\n"
+#| "</qt>"
 msgid ""
 "<qt>\n"
-"<p>When you double click a nickname in the <b>Nicks Online</b> window, this\n"
+"<p>When you double click a nickname in the <b>Watched Nicks</b> window, "
+"this\n"
 "command is placed in the <b>Input Line</b> on the server window.</p>\n"
 "<p>The following symbols can be used in the command:</p><ul>\n"
 "<li>%u: The nickname double clicked.</li>\n"
@@ -7651,17 +7910,30 @@ msgstr ""
 
 #. i18n: file: src/config/watchednicknames_configui.ui:69
 #. i18n: ectx: property (text), widget (QLabel, notifyActionLabel)
-#: rc.cpp:808
+#: rc.cpp:932
 msgid "Command e&xecuted when nickname is double clicked:"
 msgstr "双击昵称时执行的命令(&X)："
 
 #. i18n: file: src/config/watchednicknames_configui.ui:99
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, kcfg_NotifyDoubleClickAction)
-#: rc.cpp:812
-#, no-c-format
+#: rc.cpp:936
+#, fuzzy, no-c-format
+#| msgid ""
+#| "<qt>\n"
+#| "<p>When you double click a nickname in the <b>Nicks Online</b> window, "
+#| "this\n"
+#| " command is placed in the <b>Input Line</b> on the server window.</p>\n"
+#| "<p>The following symbols can be used in the command:</p><ul>\n"
+#| "<li>%u: The nickname double clicked.</li>\n"
+#| "<li>%K: Server password.</li>\n"
+#| "<li>%n: Send command directly to the server instead of your input line.</"
+#| "li>\n"
+#| "</ul>\n"
+#| "</qt>"
 msgid ""
 "<qt>\n"
-"<p>When you double click a nickname in the <b>Nicks Online</b> window, this\n"
+"<p>When you double click a nickname in the <b>Watched Nicks</b> window, "
+"this\n"
 " command is placed in the <b>Input Line</b> on the server window.</p>\n"
 "<p>The following symbols can be used in the command:</p><ul>\n"
 "<li>%u: The nickname double clicked.</li>\n"
@@ -7685,7 +7957,7 @@ msgstr ""
 #. i18n: ectx: property (whatsThis), widget (QLabel, notifyDelayLabel)
 #. i18n: file: src/config/watchednicknames_configui.ui:134
 #. i18n: ectx: property (whatsThis), widget (KIntSpinBox, kcfg_NotifyDelay)
-#: rc.cpp:823 rc.cpp:829
+#: rc.cpp:947 rc.cpp:953
 msgid ""
 "Konversation will check the status of the nicknames listed below at this "
 "interval."
@@ -7693,201 +7965,9 @@ msgstr "Konversation 可以每相隔一段时间检查一次以下列出的昵�
 
 #. i18n: file: src/config/watchednicknames_configui.ui:112
 #. i18n: ectx: property (text), widget (QLabel, notifyDelayLabel)
-#: rc.cpp:826
+#: rc.cpp:950
 msgid "&Update interval:"
 msgstr "更新间隔(&U)："
-
-#. i18n: file: src/config/konversation.kcfg:22
-#. i18n: ectx: label, entry, group (Appearance)
-#: rc.cpp:832
-msgid "Limit the size of the tab labels to fit them all on screen"
-msgstr "限定标签最大长度为填满整个屏幕"
-
-#. i18n: file: src/config/konversation.kcfg:227
-#. i18n: ectx: label, entry, group (Appearance)
-#: rc.cpp:835
-msgid "Hide the scrollbar"
-msgstr "隐藏滚动条"
-
-#. i18n: file: src/config/konversation.kcfg:233
-#. i18n: ectx: whatsthis, entry, group (General Options)
-#: rc.cpp:838
-msgid ""
-"Enable if you want all the IRC input lines to check your spelling as you type"
-msgstr "如果您想要对每行输入都自动执行拼写检查，请选中此项。"
-
-#. i18n: file: src/config/konversation.kcfg:242
-#. i18n: ectx: whatsthis, entry, group (General Options)
-#: rc.cpp:841
-msgid ""
-"Enabling this will cause the input box to grow vertically when it fills up."
-msgstr "启用此选项会使得在文本输入框内填写内容时，它的长度将自动垂直延伸。"
-
-#. i18n: file: src/config/konversation.kcfg:276
-#. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:844
-msgid "Start with hidden main window"
-msgstr "启动时隐藏主窗口"
-
-#. i18n: file: src/config/konversation.kcfg:315
-#. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:847
-msgid "&Show real names next to nicknames"
-msgstr "在昵称旁显示真实姓名(&S)"
-
-#. i18n: file: src/config/konversation.kcfg:529
-#. i18n: ectx: label, entry (OpenWatchedNicksAtStartup), group (Notify List)
-#: rc.cpp:850
-msgid "Open Watched Nicks tab at application startup"
-msgstr "在程序启动时自动打开昵称监视列表"
-
-#. i18n: file: src/config/konversation.kcfg:846
-#. i18n: ectx: label, entry, group (Themes)
-#: rc.cpp:853
-msgid "Enable emoticons"
-msgstr "启用表情"
-
-#. i18n: file: src/config/konversation.kcfg:850
-#. i18n: ectx: label, entry, group (Themes)
-#: rc.cpp:856
-msgid "Emoticons theme"
-msgstr "表情主题"
-
-#. i18n: file: src/config/dcc_configui.ui:18
-#. i18n: ectx: property (windowTitle), widget (QWidget, DCC_ConfigUI)
-#: rc.cpp:887
-msgid "DCC_Settings"
-msgstr "DCC 设定"
-
-#. i18n: file: src/config/dcc_configui.ui:27
-#. i18n: ectx: property (text), widget (QLabel, dccPathLbl)
-#: rc.cpp:890
-msgid "Download &folder:"
-msgstr "下载文件夹(&F)："
-
-#. i18n: file: src/config/dcc_configui.ui:50
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAddPartner)
-#: rc.cpp:893
-msgid "&Add sender to file name"
-msgstr "为文件名添加发送者(&A)"
-
-#. i18n: file: src/config/dcc_configui.ui:57
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccCreateFolder)
-#: rc.cpp:896
-msgid "Cr&eate folder for sender"
-msgstr "为发送者创建文件夹(&E)"
-
-#. i18n: file: src/config/dcc_configui.ui:64
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpaceToUnderscore)
-#: rc.cpp:899
-msgid "Convert spaces in file names to underscores before sending"
-msgstr "在传送文件前将文件名中的空格转换为下划线"
-
-#. i18n: file: src/config/dcc_configui.ui:74
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAutoGet)
-#: rc.cpp:902
-msgid "Automaticall&y accept download offer"
-msgstr "自动接受下载(&Y)"
-
-#. i18n: file: src/config/dcc_configui.ui:81
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAutoResume)
-#: rc.cpp:905
-msgid "Au&tomatically resume download"
-msgstr "自动续传(&T)"
-
-#. i18n: file: src/config/dcc_configui.ui:88
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccFastSend)
-#: rc.cpp:908
-msgid "Enable fast DCC send (Might &not work with all clients)"
-msgstr "启用快速 DCC 发送(不是所有客户端都能正常工作)(&N)"
-
-#. i18n: file: src/config/dcc_configui.ui:95
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccPassiveSend)
-#: rc.cpp:911
-msgid "Enable passive DCC send"
-msgstr "启用被动的 DCC 发送"
-
-#. i18n: file: src/config/dcc_configui.ui:105
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DccIPv4Fallback)
-#: rc.cpp:914
-msgid ""
-"If this option enabled dcc transfers for IPv6 connections will be done over "
-"IPv4 interface set here"
-msgstr "如果此选项被启用，为 IPv6 建立的 DCC 传输连接会改由 IPv4 界面来操作"
-
-#. i18n: file: src/config/dcc_configui.ui:108
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccIPv4Fallback)
-#: rc.cpp:917
-msgid "Fallback to an IPv&4 interface for DCC send:"
-msgstr "DCC 传输时使用 IPv4 网络接口(&4)："
-
-#. i18n: file: src/config/dcc_configui.ui:115
-#. i18n: ectx: property (text), widget (QLabel, textLabel7)
-#: rc.cpp:920
-msgid "DCC send t&imeout:"
-msgstr "DCC 发送超时(&I)："
-
-#. i18n: file: src/config/dcc_configui.ui:154
-#. i18n: ectx: property (text), widget (QLabel, textLabel6)
-#: rc.cpp:923
-msgid "Buffer si&ze:"
-msgstr "缓冲区大小(&Z)："
-
-#. i18n: file: src/config/dcc_configui.ui:196
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox1)
-#: rc.cpp:926
-msgid "IP"
-msgstr "IP"
-
-#. i18n: file: src/config/dcc_configui.ui:202
-#. i18n: ectx: property (text), widget (QLabel, textLabel4)
-#: rc.cpp:929
-msgid "&Method to get own IP:"
-msgstr "获取本机 IP 的方式(&M)："
-
-#. i18n: file: src/config/dcc_configui.ui:218
-#. i18n: ectx: property (text), widget (QLabel, ownIP)
-#: rc.cpp:932
-msgid "O&wn IP:"
-msgstr "本机 IP(&W)："
-
-#. i18n: file: src/config/dcc_configui.ui:237
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
-#: rc.cpp:935
-msgid "Ports"
-msgstr "端口"
-
-#. i18n: file: src/config/dcc_configui.ui:243
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpecificChatPorts)
-#: rc.cpp:938
-msgid "Enable specific p&orts for DCC chat:"
-msgstr "允许指定 DCC 密聊端口(&O)："
-
-#. i18n: file: src/config/dcc_configui.ui:282
-#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
-#. i18n: file: src/config/dcc_configui.ui:347
-#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:941 rc.cpp:947
-msgid "to"
-msgstr "到"
-
-#. i18n: file: src/config/dcc_configui.ui:308
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpecificSendPorts)
-#: rc.cpp:944
-msgid "Enable specific &ports for DCC transfer server:"
-msgstr "允许指定 DCC 发送服务器的端口(&P)："
-
-#. i18n: file: src/config/dcc_configui.ui:392
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccUPnP)
-#: rc.cpp:950
-msgid "Enable UPnP for NAT traversal"
-msgstr ""
-
-#. i18n: file: src/config/dcc_configui.ui:399
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccChatAutoAccept)
-#: rc.cpp:953
-msgid "Automatically accept DCC chat offer"
-msgstr "自动接受 DCC 聊天请求"
 
 #. i18n: file: src/dcc/transferdetailedtimeinfopanelui.ui:28
 #. i18n: ectx: property (text), widget (QLabel, textLabel19)
@@ -9327,6 +9407,9 @@ msgstr ""
 #: data/scripts/media:494
 msgid "video"
 msgstr ""
+
+#~ msgid "&Watched Nicks Online"
+#~ msgstr "监视的在线昵称(&W)"
 
 #, fuzzy
 #~| msgid ""

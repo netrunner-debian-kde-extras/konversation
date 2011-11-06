@@ -115,6 +115,15 @@ class Server : public QObject
 
         void updateAutoJoin(Konversation::ChannelList channels = Konversation::ChannelList());
 
+        /**
+         * Generates the JOIN commands for the given channel list.
+         * This takes care of splitting too long commands into mutliple ones and
+         * filtering out invalid channels (because they are not prefixed with any of the
+         * CHANTYPES).
+         *
+         * @param tmpList The list of channels for which the JOIN command(s) will be generated.
+         * @return A list of QStrings with the JOIN commands.
+         */
         QStringList generateJoinCommand(const Konversation::ChannelList &tmpList);
 
         QAbstractItemModel* nickListModel() const;
@@ -756,14 +765,6 @@ class Server : public QObject
         /// Creates a list of known users and returns the one chosen by the user
         inline QString recipientNick() const;
 
-        /**
-          * shows a dialog to the user where he is asked if he wants to
-          * ignore SSL certificate errors
-          *
-          @ @return true if the user accepted the invalid SSL certificate, otherwise false
-          */
-        bool askUserToIgnoreSslErrors();
-
         /// Helper object to construct ISON (notify) list and map offline nicks to
         /// addressbook.
         ServerISON* m_serverISON;
@@ -790,10 +791,12 @@ class Server : public QObject
         bool m_identifyMsg;
         bool m_autoIdentifyLock;
 
+        bool m_sslErrorLock;
+
         /// Used to lock incomingTimer while processing message.
         bool m_processingIncoming;
 
-        /// Meassures the lag between PING and PONG
+        /// Measures the lag between PING and PONG
         QTime m_lagTime;
         /// Updates the gui when the lag gets too high
         QTimer m_pingResponseTimer;
@@ -813,8 +816,6 @@ class Server : public QObject
 
         static int m_availableConnectionId;
         int m_connectionId;
-
-        bool m_showSSLConfirmation;
 
         QPointer<InviteDialog> m_inviteDialog;
 

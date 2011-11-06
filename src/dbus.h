@@ -31,7 +31,6 @@ class DBus : public QObject
         DBus(QObject *parent = 0);
 
         QString getNickname (const QString &server);
-        QString getAnyNickname ();
         QString getChannelEncoding(const QString& server, const QString& channel);
 
     signals:
@@ -63,6 +62,7 @@ class DBus : public QObject
         void connectToServer(const QString& address, int port, const QString& channel, const QString& password);
         QStringList listServers();
         QStringList listConnectedServers();
+        QStringList listJoinedChannels(const QString& server);
 
     private slots:
         void changeAwayStatus(bool away);

@@ -64,6 +64,29 @@ QStringList DBus::listConnectedServers()
     return connectedHosts;
 }
 
+QStringList DBus::listJoinedChannels(const QString& serverName)
+{
+    QStringList joinedChannels;
+
+    ConnectionManager* connectionManager = Application::instance()->getConnectionManager();
+
+    Server* server = connectionManager->getServerByName(serverName, ConnectionManager::MatchByIdThenName);
+
+    if (server)
+    {
+        const QList<Channel*>& channelList = server->getChannelList();
+        joinedChannels.reserve(channelList.size());
+
+        foreach(Channel* channel, channelList)
+        {
+            if (channel->joined())
+                joinedChannels.append(channel->getName());
+        }
+    }
+
+    return joinedChannels;
+}
+
 void DBus::setAway(const QString& awaymessage)
 {
     static_cast<Application*>(kapp)->getAwayManager()->requestAllAway(sterilizeUnicode(awaymessage));
@@ -146,17 +169,6 @@ QString DBus::getNickname(const QString& server_Name)
     }
 
     return server->getNickname();
-}
-
-QString DBus::getAnyNickname()
-{
-    Application* konvApp = static_cast<Application*>(kapp);
-
-    Server* server = konvApp->getConnectionManager()->getAnyServer();
-
-    if (server) return server->getNickname();
-
-    return QString();
 }
 
 QString DBus::getChannelEncoding(const QString& server, const QString& channel)

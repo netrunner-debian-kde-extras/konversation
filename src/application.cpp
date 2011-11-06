@@ -244,7 +244,7 @@ int Application::newInstance()
 
         connect(this, SIGNAL(serverGroupsChanged(Konversation::ServerGroupSettingsPtr)), this, SLOT(saveOptions()));
 
-        // prepare dcop interface
+        // prepare dbus interface
         dbusObject = new Konversation::DBus(this);
         QDBusConnection::sessionBus().registerObject("/irc", dbusObject, QDBusConnection::ExportNonScriptableSlots);
         identDBus = new Konversation::IdentDBus(this);
@@ -339,14 +339,7 @@ void Application::dbusMultiServerRaw(const QString &command)
 
 void Application::dbusRaw(const QString& connection, const QString &command)
 {
-    Server* server = 0;
-
-    bool conversion = false;
-    int connectionId = connection.toInt(&conversion);
-
-    if (conversion) server = getConnectionManager()->getServerByConnectionId(connectionId);
-
-    if (!server) server = getConnectionManager()->getServerByName(connection);
+    Server* server = getConnectionManager()->getServerByName(connection, ConnectionManager::MatchByIdThenName);
 
     if (server) server->dbusRaw(command);
 }
@@ -354,14 +347,7 @@ void Application::dbusRaw(const QString& connection, const QString &command)
 
 void Application::dbusSay(const QString& connection, const QString& target, const QString& command)
 {
-    Server* server = 0;
-
-    bool conversion = false;
-    int connectionId = connection.toInt(&conversion);
-
-    if (conversion) server = getConnectionManager()->getServerByConnectionId(connectionId);
-
-    if (!server) server = getConnectionManager()->getServerByName(connection);
+    Server* server = getConnectionManager()->getServerByName(connection, ConnectionManager::MatchByIdThenName);
 
     if (server) server->dbusSay(target, command);
 }
