@@ -10,68 +10,139 @@ msgid ""
 msgstr ""
 "Project-Id-Version: konversation\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2011-07-30 03:52+0200\n"
-"PO-Revision-Date: 2011-07-29 22:09+0200\n"
+"POT-Creation-Date: 2011-11-01 04:23+0100\n"
+"PO-Revision-Date: 2011-10-25 17:09+0200\n"
 "Last-Translator: Stefan Asserhall <stefan.asserhall@comhem.se>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 1.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"Language: sv\n"
+
+#: src/connectionmanager.cpp:224 src/connectionmanager.cpp:257
+#: src/connectionmanager.cpp:267 src/irc/inputfilter.cpp:1321
+#: src/irc/outputfilter.cpp:2029 src/irc/server.cpp:253 src/irc/server.cpp:399
+#: src/irc/server.cpp:458 src/irc/server.cpp:622 src/irc/server.cpp:633
+#: src/irc/server.cpp:899 src/irc/server.cpp:929
+msgid "Info"
+msgstr "Information"
+
+#: src/connectionmanager.cpp:224
+msgid "Network is down, will reconnect automatically when it is back up."
+msgstr ""
+"Nätverket är nerkopplat. Det kommer att anslutas automatiskt när det är "
+"uppkopplat igen."
+
+#: src/connectionmanager.cpp:259
+#, kde-format
+msgid "Trying to connect to %2 (port <numid>%3</numid>) in 1 second."
+msgid_plural "Trying to connect to %2 (port <numid>%3</numid>) in %1 seconds."
+msgstr[0] "Försöker ansluta till %2 (port <numid>%3</numid>) om 1 sekund."
+msgstr[1] "Försöker ansluta till %2 (port <numid>%3</numid>) om %1 sekunder."
+
+#: src/connectionmanager.cpp:269
+#, kde-format
+msgid "Trying to reconnect to %2 (port <numid>%3</numid>) in 1 second."
+msgid_plural ""
+"Trying to reconnect to %2 (port <numid>%3</numid>) in %1 seconds."
+msgstr[0] "Försöker återansluta till %2 (port <numid>%3</numid>) om 1 sekund."
+msgstr[1] ""
+"Försöker återansluta till %2 (port <numid>%3</numid>) om %1 sekunder."
+
+#: src/connectionmanager.cpp:282 src/dcc/chatcontainer.cpp:283
+#: src/irc/outputfilterresolvejob.cpp:85 src/irc/inputfilter.cpp:1164
+#: src/irc/inputfilter.cpp:1168 src/irc/inputfilter.cpp:1181
+#: src/irc/inputfilter.cpp:1252 src/irc/inputfilter.cpp:1305
+#: src/irc/inputfilter.cpp:1439 src/irc/inputfilter.cpp:2018
+#: src/irc/inputfilter.cpp:2028 src/irc/inputfilter.cpp:2065
+#: src/irc/inputfilter.cpp:2073 src/irc/inputfilter.cpp:2081
+#: src/irc/inputfilter.cpp:2105 src/irc/outputfilter.cpp:2038
+#: src/irc/server.cpp:718 src/irc/server.cpp:2083 src/irc/server.cpp:2154
+#: src/irc/server.cpp:2327 src/irc/server.cpp:2363 src/irc/server.cpp:2414
+#: src/irc/server.cpp:2482 src/irc/server.cpp:2501 src/irc/server.cpp:2517
+#: src/irc/server.cpp:3974 src/irc/server.cpp:3986 src/irc/server.cpp:4010
+#: src/irc/server.cpp:4033 src/irc/server.cpp:4049
+#: src/linkaddressbook/addressbook.cpp:113
+msgid "Error"
+msgstr "Fel"
+
+#: src/connectionmanager.cpp:282
+msgid "Reconnection attempts exceeded."
+msgstr "Antal försök att återansluta överskridna."
+
+#: src/connectionmanager.cpp:522
+#, kde-format
+msgid ""
+"You are already connected to %1. Do you want to open another connection?"
+msgstr "Du är redan ansluten till %1. Vill du öppna en annan anslutning?"
+
+#: src/connectionmanager.cpp:523 src/connectionmanager.cpp:544
+#, kde-format
+msgid "Already connected to %1"
+msgstr "Redan ansluten till %1"
+
+#: src/connectionmanager.cpp:524
+msgid "Create connection"
+msgstr "Skapa anslutning"
+
+#: src/connectionmanager.cpp:538
+#, kde-format
+msgid ""
+"You are presently connected to %1 via '%2' (port <numid>%3</numid>). Do you "
+"want to switch to '%4' (port <numid>%5</numid>) instead?"
+msgstr ""
+"Du är för närvarande ansluten till %1 via '%2' (port <numid>%3</numid>). "
+"Vill du byta till '%4' (port <numid>%5</numid>) istället?"
+
+#: src/connectionmanager.cpp:545
+msgid "Switch Server"
+msgstr "Byt server"
+
+#: src/connectionmanager.cpp:592
+msgid "Please fill in your <b>Ident</b>.<br/>"
+msgstr "Fyll i din <b>identitet</b>.<br/>"
+
+#: src/connectionmanager.cpp:595
+msgid "Please fill in your <b>Real name</b>.<br/>"
+msgstr "Fyll i ditt <b>Riktiga namn</b>.<br/>"
+
+#: src/connectionmanager.cpp:598
+msgid "Please provide at least one <b>Nickname</b>.<br/>"
+msgstr "Tillhandahåll minst ett <b>Smeknamn</b>.<br/>"
+
+#: src/connectionmanager.cpp:606
+#, kde-format
+msgid "<qt>Your identity \"%1\" is not set up correctly:<br/>%2</qt>"
+msgstr "<qt>Din identitet \"%1\" är inte riktigt inställd:<br/>%2</qt>"
+
+#: src/connectionmanager.cpp:607
+msgid "Identity Settings"
+msgstr "Identitetsinställningar"
+
+#: src/connectionmanager.cpp:608
+msgid "Edit Identity..."
+msgstr "Redigera identitet..."
+
+#: src/dbus.cpp:141
+#, kde-format
+msgid "Debug: %1"
+msgstr "Felsökning: %1"
+
+#: src/dbus.cpp:147
+#, kde-format
+msgid "Error: %1"
+msgstr "Fel: %1"
+
+#: src/dbus.cpp:167
+#, kde-format
+msgid "getNickname: Server %1 is not found."
+msgstr "hämta smeknamn: Servern %1 hittades inte."
 
 #: src/bookmarkhandler.cpp:41
 msgid "Konversation Bookmarks Editor"
 msgstr "Bokmärkeseditor för Konversation"
-
-#: src/common.cpp:32
-msgid "topic protection"
-msgstr "ämnesskydd"
-
-#: src/common.cpp:33
-msgid "no messages from outside"
-msgstr "inga meddelanden från utsidan"
-
-#: src/common.cpp:34
-msgid "secret"
-msgstr "hemlig"
-
-#: src/common.cpp:35
-msgid "invite only"
-msgstr "endast inbjudan"
-
-#: src/common.cpp:36
-msgid "private"
-msgstr "privat"
-
-#: src/common.cpp:37
-msgid "moderated"
-msgstr "modererad"
-
-#: src/common.cpp:38 src/irc/inputfilter.cpp:962
-msgid "password protected"
-msgstr "nyckelskyddad"
-
-#: src/common.cpp:39
-msgid "anonymous"
-msgstr "anonym"
-
-#: src/common.cpp:40
-msgid "server reop"
-msgstr "server återop."
-
-#: src/common.cpp:41
-msgid "no colors allowed"
-msgstr "inga färgkoder tillåtna"
-
-#: src/common.cpp:42
-msgid "user throttling"
-msgstr "användare ställer in hastighetsgräns"
-
-#: src/config/configdialog.cpp:72
-msgid "Configure"
-msgstr "Anpassa"
 
 #: src/config/nicklistbehavior_config.cpp:53
 msgid "Normal Users"
@@ -208,9 +279,9 @@ msgstr "Kommandoalias"
 msgid "Auto Replace"
 msgstr "Ersätt automatiskt"
 
-#: src/config/settingsdialog.cpp:136 src/irc/outputfilter.cpp:1539
-#: src/irc/outputfilter.cpp:1610 src/viewer/irccontextmenus.cpp:421
-#: src/viewer/irccontextmenus.cpp:588 src/viewer/irccontextmenus.cpp:589
+#: src/config/settingsdialog.cpp:136 src/irc/outputfilter.cpp:1546
+#: src/irc/outputfilter.cpp:1617 src/viewer/irccontextmenus.cpp:423
+#: src/viewer/irccontextmenus.cpp:590 src/viewer/irccontextmenus.cpp:591
 msgid "Ignore"
 msgstr "Ignorera"
 
@@ -225,10 +296,10 @@ msgstr "Loggning"
 #: src/dcc/chatcontainer.cpp:136 src/irc/inputfilter.cpp:370
 #: src/irc/inputfilter.cpp:385 src/irc/inputfilter.cpp:400
 #: src/irc/inputfilter.cpp:428 src/irc/inputfilter.cpp:436
-#: src/irc/server.cpp:2079 src/irc/server.cpp:2209 src/irc/server.cpp:2221
-#: src/irc/server.cpp:2233 src/irc/server.cpp:2368 src/irc/server.cpp:2424
-#: src/irc/server.cpp:2495 src/irc/server.cpp:2500 src/irc/server.cpp:2512
-#: src/irc/server.cpp:2515 src/irc/server.cpp:2529 src/irc/server.cpp:2536
+#: src/irc/server.cpp:2115 src/irc/server.cpp:2245 src/irc/server.cpp:2257
+#: src/irc/server.cpp:2269 src/irc/server.cpp:2404 src/irc/server.cpp:2460
+#: src/irc/server.cpp:2531 src/irc/server.cpp:2536 src/irc/server.cpp:2548
+#: src/irc/server.cpp:2551 src/irc/server.cpp:2565 src/irc/server.cpp:2572
 #: src/viewer/ignorelistviewitem.cpp:46 rc.cpp:322
 msgid "DCC"
 msgstr "DCC"
@@ -471,6 +542,10 @@ msgctxt ""
 msgid "... closing the window will minimize to the system tray"
 msgstr "... fönstret minimeras i systembrickan när det stängs"
 
+#: src/config/configdialog.cpp:72
+msgid "Configure"
+msgstr "Anpassa"
+
 #: src/dcc/transferpanel.h:54
 #, kde-format
 msgctxt "%1=filename"
@@ -486,147 +561,6 @@ msgstr "Passiv sändning"
 msgid "Open"
 msgstr "Öppna"
 
-#: src/dcc/transferlistmodel.cpp:34
-msgid "File"
-msgstr "Fil"
-
-#: src/dcc/transferlistmodel.cpp:36
-msgid "Partner"
-msgstr "Motpart"
-
-#: src/dcc/transferlistmodel.cpp:38
-msgid "Started At"
-msgstr "Påbörjad den"
-
-#: src/dcc/transferlistmodel.cpp:40
-msgid "Progress"
-msgstr "Förlopp"
-
-#: src/dcc/transferlistmodel.cpp:42
-msgid "Position"
-msgstr "Position"
-
-#: src/dcc/transferlistmodel.cpp:44
-msgid "Speed"
-msgstr "Hastighet"
-
-#: src/dcc/transferlistmodel.cpp:46
-msgid "Sender Address"
-msgstr "Avsändaradress"
-
-#: src/dcc/transferlistmodel.cpp:48 src/dcc/transferdetailedinfopanel.cpp:34
-msgid "Status"
-msgstr "Status"
-
-#: src/dcc/transferlistmodel.cpp:50
-msgid "Remaining"
-msgstr "Återstår"
-
-#. i18n: file: src/config/ignore_configui.ui:50
-#. i18n: ectx: property (text), widget (QTreeWidget, ignoreListView)
-#: src/dcc/transferlistmodel.cpp:52 rc.cpp:307
-msgid "Type"
-msgstr "Typ"
-
-#: src/dcc/transferlistmodel.cpp:427
-#, kde-format
-msgid "%1/sec"
-msgstr "%1/sekund"
-
-#: src/dcc/transferlistmodel.cpp:482
-msgid "Queued"
-msgstr "Köad"
-
-#: src/dcc/transferlistmodel.cpp:484
-msgid "Preparing"
-msgstr "Förbereder"
-
-#: src/dcc/transferlistmodel.cpp:486
-msgctxt "Transfer is waiting for the partner to accept or reject it"
-msgid "Pending"
-msgstr "Vilande"
-
-#: src/dcc/transferlistmodel.cpp:488
-msgctxt "Transfer is connecting to the partner"
-msgid "Connecting"
-msgstr "Ansluter"
-
-#: src/dcc/transferlistmodel.cpp:493
-msgid "Receiving"
-msgstr "Tar emot"
-
-#: src/dcc/transferlistmodel.cpp:495
-msgid "Sending"
-msgstr "Skickar"
-
-#: src/dcc/transferlistmodel.cpp:501
-msgctxt "Transfer has completed successfully"
-msgid "Done"
-msgstr "Klar"
-
-#: src/dcc/transferlistmodel.cpp:503
-msgctxt "Transfer failed"
-msgid "Failed"
-msgstr "Misslyckad"
-
-#: src/dcc/transferlistmodel.cpp:505
-msgid "Aborted"
-msgstr "Avbruten"
-
-#: src/dcc/transferlistmodel.cpp:517
-msgid "Queued - Transfer is waiting for you to accept or reject it"
-msgstr "Köad: Överföringen väntar på att du ska acceptera eller avslå den"
-
-#: src/dcc/transferlistmodel.cpp:522
-msgid "Preparing - Transfer is checking for resumable files"
-msgstr "Förbereder: Överföringen kontrollerar filer som kan återupptas"
-
-#: src/dcc/transferlistmodel.cpp:524
-msgid "Preparing - Transfer is acquiring the data to send"
-msgstr "Förbereder: Överföringen hämtar data att skicka"
-
-#: src/dcc/transferlistmodel.cpp:530
-msgid "Pending - Transfer is waiting for the partner to accept or reject it"
-msgstr ""
-"Vilar: Överföringen väntar på att motparten ska acceptera eller avslå den"
-
-#: src/dcc/transferlistmodel.cpp:532
-msgid "Connecting - Transfer is connecting to the partner"
-msgstr "Ansluter: Överföringen ansluter till motparten"
-
-#: src/dcc/transferlistmodel.cpp:537
-msgid "Receiving - Transfer is receiving data from the partner"
-msgstr "Tar emot: Överföringen tar emot data från motparten"
-
-#: src/dcc/transferlistmodel.cpp:539
-msgid "Sending - Transfer is sending data to partner"
-msgstr "Skickar: Överföringen skickar data till motparten"
-
-#: src/dcc/transferlistmodel.cpp:545
-msgid "Done - Transfer has completed successfully"
-msgstr "Klar: Överföringen är klar med lyckat resultat"
-
-#: src/dcc/transferlistmodel.cpp:549
-msgid "Failed - Transfer failed with 'unknown reason'"
-msgstr "Misslyckades: Överföringen misslyckades av 'okänd anledning'"
-
-#: src/dcc/transferlistmodel.cpp:553
-#, kde-format
-msgid "Failed - Transfer failed with reason '%1'"
-msgstr "Misslyckades: Överföringen misslyckades av följande orsak: '%1'"
-
-#: src/dcc/transferlistmodel.cpp:556
-msgid "Aborted - Transfer was aborted by the User"
-msgstr "Avbruten: Överföringen avbröts av användaren"
-
-#: src/dcc/transferlistmodel.cpp:649
-msgid "Incoming Transfers"
-msgstr "Inkommande överföringar"
-
-#: src/dcc/transferlistmodel.cpp:653
-msgid "Outgoing Transfers"
-msgstr "Utgående överföringar"
-
 #: src/dcc/dcccommon.cpp:154
 msgid "No vacant port"
 msgstr "Ingen ledig port"
@@ -634,121 +568,6 @@ msgstr "Ingen ledig port"
 #: src/dcc/dcccommon.cpp:165
 msgid "Could not open a socket"
 msgstr "Kunde inte öppna ett uttag"
-
-#: src/dcc/chat.cpp:102
-#, kde-format
-msgctxt "%1=dcc extension like Chat or Whiteboard"
-msgid "Could not send a DCC %1 request to the partner via the IRC server."
-msgstr "Kunde inte skicka begäran om DCC %1 till motparten via IRC-servern."
-
-#: src/dcc/chat.cpp:123 src/dcc/transfersend.cpp:329
-msgid "Awaiting acceptance by remote user..."
-msgstr "Väntar på godkännande av fjärranvändare..."
-
-#: src/dcc/chat.cpp:152
-#, kde-format
-msgctxt "%1=partnerNick, %2=Servername, %3=dcc extension as chat or wboard"
-msgid "%1 (on %2) offers to DCC %3 with you"
-msgstr "%1 (på %2) erbjuder att använda DCC %3 med dig"
-
-#: src/dcc/chat.cpp:153
-#, kde-format
-msgctxt "%1=dcc extension as Chat or Whiteboard, %2=partnerNick"
-msgid "DCC %1 offer from %2"
-msgstr "Erbjudande om DCC %1 från %2 "
-
-#: src/dcc/chat.cpp:154
-msgid "Accept"
-msgstr "Acceptera"
-
-#: src/dcc/chat.cpp:155
-msgid "Reject"
-msgstr "Avslå"
-
-#: src/dcc/chat.cpp:161
-#, kde-format
-msgctxt "%1=dcc extension like Chat or Whiteboard"
-msgid "You rejected the DCC %1 offer."
-msgstr "Du avslog erbjudan om DCC %1."
-
-#: src/dcc/chat.cpp:200
-#, kde-format
-msgctxt "%1=dcc extension as Chat or Whiteboard"
-msgid "DCC %1 request was rejected"
-msgstr "Begäran om DCC %1 avslogs"
-
-#: src/dcc/chat.cpp:287
-#, kde-format
-msgctxt "%1=dcc extension like Chat or Whiteboard"
-msgid ""
-"Could not send Reverse DCC %1 acknowledgement to the partner via the IRC "
-"server."
-msgstr ""
-"Kunde inte skicka omvänd bekräftelse av DCC %1 till motparten via IRC-"
-"servern."
-
-#: src/dcc/chat.cpp:304 src/dcc/chat.cpp:335 src/dcc/transferrecv.cpp:583
-#: src/dcc/transfersend.cpp:350
-#, kde-format
-msgid ""
-"Failed to forward port <numid>%1</numid>. Sending DCC request to remote user "
-"regardless."
-msgstr ""
-"Misslyckades vidarebefordra port <numid>%1</numid>. Skickar DCC-begäran till "
-"fjärranvändare ändå."
-
-#: src/dcc/chat.cpp:318
-#, kde-format
-msgctxt "%1=extension like Chat or Whiteboard"
-msgid ""
-"Could not send Reverse DCC %1 acknowledgement to the partner via the IRC "
-"server."
-msgstr ""
-"Kunde inte skicka omvänd bekräftelse av DCC %1 till motparten via IRC-"
-"servern."
-
-#: src/dcc/chat.cpp:359
-#, kde-format
-msgid "Could not open a socket for listening: %1"
-msgstr "Kunde inte öppna ett uttag för att lyssna: %1"
-
-#: src/dcc/chat.cpp:370
-#, kde-format
-msgctxt "%1=dcc extension like Chat or Whiteboard,%2=partnerNick, %3=port"
-msgid "Offering DCC %1 connection to %2 on port <numid>%3</numid>..."
-msgstr "Erbjuder anslutning för DCC %1 till %2 via port <numid>%3</numid>..."
-
-#: src/dcc/chat.cpp:465
-#, kde-format
-msgctxt ""
-"%1=extension like Chat or Whiteboard ,%2 = nickname, %3 = IP, %4 = port"
-msgid "Establishing DCC %1 connection to %2 (%3:<numid>%4</numid>)..."
-msgstr "Upprättar anslutning för DCC %1 till %2 (%3:<numid>%4</numid>)..."
-
-#: src/dcc/chat.cpp:483
-#, kde-format
-msgctxt "%1=extension like Chat or Whiteboard, %2 = partnerNick"
-msgid "Established DCC %1 connection to %2."
-msgstr "Upprättade anslutning för DCC %1 till %2."
-
-#: src/dcc/chat.cpp:490 src/dcc/transfersend.cpp:524
-#, kde-format
-msgid "Socket error: %1"
-msgstr "Uttagsfel: %1"
-
-#: src/dcc/chat.cpp:553
-msgid "Could not accept the client."
-msgstr "Kunde inte acceptera klienten."
-
-#: src/dcc/chat.cpp:577
-#, kde-format
-msgctxt "%1=dcc extension as Chat or Whiteboard, %2=partnerNick"
-msgid "Established DCC %1 connection to %2."
-msgstr "Upprättade anslutning för DCC %1 till %2."
-
-#: src/dcc/chat.cpp:583
-msgid "Connection closed."
-msgstr "Anslutning nerkopplad."
 
 #: src/dcc/chatcontainer.cpp:116
 #, kde-format
@@ -791,31 +610,14 @@ msgctxt "%1=Encoding"
 msgid "Default ( %1 )"
 msgstr "Standard (%1)"
 
-#: src/dcc/chatcontainer.cpp:269 src/irc/outputfilter.cpp:1982
+#: src/dcc/chatcontainer.cpp:269 src/irc/outputfilter.cpp:2020
 msgid "Usage"
 msgstr "Användning"
 
-#: src/dcc/chatcontainer.cpp:269 src/irc/outputfilter.cpp:676
+#: src/dcc/chatcontainer.cpp:269 src/irc/outputfilter.cpp:683
 #, kde-format
 msgid "Usage: %1ME text"
 msgstr "Användning: %1ME text"
-
-#: src/dcc/chatcontainer.cpp:283 src/irc/outputfilterresolvejob.cpp:85
-#: src/irc/inputfilter.cpp:1164 src/irc/inputfilter.cpp:1168
-#: src/irc/inputfilter.cpp:1181 src/irc/inputfilter.cpp:1252
-#: src/irc/inputfilter.cpp:1305 src/irc/inputfilter.cpp:1439
-#: src/irc/inputfilter.cpp:2018 src/irc/inputfilter.cpp:2028
-#: src/irc/inputfilter.cpp:2065 src/irc/inputfilter.cpp:2073
-#: src/irc/inputfilter.cpp:2081 src/irc/inputfilter.cpp:2105
-#: src/irc/outputfilter.cpp:2000 src/irc/server.cpp:694
-#: src/irc/server.cpp:2047 src/irc/server.cpp:2118 src/irc/server.cpp:2291
-#: src/irc/server.cpp:2327 src/irc/server.cpp:2378 src/irc/server.cpp:2446
-#: src/irc/server.cpp:2465 src/irc/server.cpp:2481 src/irc/server.cpp:3923
-#: src/irc/server.cpp:3935 src/irc/server.cpp:3959 src/irc/server.cpp:3982
-#: src/irc/server.cpp:3998 src/linkaddressbook/addressbook.cpp:113
-#: src/connectionmanager.cpp:282
-msgid "Error"
-msgstr "Fel"
 
 #: src/dcc/chatcontainer.cpp:283
 msgid "Unknown command."
@@ -828,7 +630,7 @@ msgstr "Okänt kommando."
 #: src/irc/inputfilter.cpp:299 src/irc/inputfilter.cpp:447
 #: src/irc/inputfilter.cpp:458 src/irc/inputfilter.cpp:479
 #: src/irc/inputfilter.cpp:527 src/irc/inputfilter.cpp:555
-#: src/irc/outputfilter.cpp:844 src/viewer/ignorelistviewitem.cpp:45
+#: src/irc/outputfilter.cpp:851 src/viewer/ignorelistviewitem.cpp:45
 #: rc.cpp:316
 msgid "CTCP"
 msgstr "CTCP"
@@ -889,6 +691,10 @@ msgstr "Skriv &över"
 msgid "R&ename"
 msgstr "&Byt namn"
 
+#: src/dcc/transferdetailedinfopanel.cpp:34 src/dcc/transferlistmodel.cpp:48
+msgid "Status"
+msgstr "Status"
+
 #: src/dcc/transferdetailedinfopanel.cpp:37
 msgid "Details"
 msgstr "Detaljinformation"
@@ -944,7 +750,7 @@ msgctxt "less than 1 sec"
 msgid "&lt; 1sec"
 msgstr "&lt; 1 sek"
 
-#: src/dcc/transferpanel.cpp:45 src/viewer/viewcontainer.cpp:2183
+#: src/dcc/transferpanel.cpp:45 src/viewer/viewcontainer.cpp:2172
 msgid "DCC Status"
 msgstr "DCC Status"
 
@@ -1054,11 +860,11 @@ msgstr "Förhandling som inte stöds (filstorlek = 0)"
 #: src/dcc/transferrecv.cpp:310
 #, kde-format
 msgid ""
-"<b>Cannot create the folder or destination is not writable.</b><br/>Folder: %"
-"1<br/>"
+"<b>Cannot create the folder or destination is not writable.</b><br/>Folder: "
+"%1<br/>"
 msgstr ""
-"<b>Kan inte skapa katalogen eller målet är inte skrivbart.</b><br/>Katalog: %"
-"1<br/>"
+"<b>Kan inte skapa katalogen eller målet är inte skrivbart.</b><br/>Katalog: "
+"%1<br/>"
 
 #: src/dcc/transferrecv.cpp:320
 #, kde-format
@@ -1086,8 +892,8 @@ msgstr[1] ""
 #, kde-format
 msgctxt "%1=fileName, %2=local filesize, %3=sender filesize"
 msgid ""
-"<b>The file already exists.</b><br/>%1 (%2)<br/>Sender reports file size of %"
-"3<br/>"
+"<b>The file already exists.</b><br/>%1 (%2)<br/>Sender reports file size of "
+"%3<br/>"
 msgstr ""
 "<b>Filen finns redan.</b><br/>%1 (%2)<br/>Avsändaren rapporterar "
 "filstorleken %3<br/>"
@@ -1103,6 +909,16 @@ msgid ""
 "server."
 msgstr ""
 "Kunde inte skicka omvänd DCC-sändningsbekräftelse motparten via IRC-servern."
+
+#: src/dcc/transferrecv.cpp:583 src/dcc/transfersend.cpp:350
+#: src/dcc/chat.cpp:304 src/dcc/chat.cpp:335
+#, kde-format
+msgid ""
+"Failed to forward port <numid>%1</numid>. Sending DCC request to remote user "
+"regardless."
+msgstr ""
+"Misslyckades vidarebefordra port <numid>%1</numid>. Skickar DCC-begäran till "
+"fjärranvändare ändå."
 
 #: src/dcc/transferrecv.cpp:587
 msgid "Waiting for connection"
@@ -1185,6 +1001,15 @@ msgid "Could not send a DCC SEND request to the partner via the IRC server."
 msgstr ""
 "Kunde inte skicka begäran om DCC-sändning till motparten via IRC-servern."
 
+#: src/dcc/transfersend.cpp:329 src/dcc/chat.cpp:123
+msgid "Awaiting acceptance by remote user..."
+msgstr "Väntar på godkännande av fjärranvändare..."
+
+#: src/dcc/transfersend.cpp:524 src/dcc/chat.cpp:490
+#, kde-format
+msgid "Socket error: %1"
+msgstr "Uttagsfel: %1"
+
 #: src/dcc/transfersend.cpp:556
 msgid "The operation was successful. Should never happen in an error dialog."
 msgstr "Åtgärden lyckades. Bör aldrig inträffa i en feldialogruta."
@@ -1224,10 +1049,6 @@ msgstr "Ett ospecificerat fel uppstod vid stängning."
 #, kde-format
 msgid "Unknown error. Code %1"
 msgstr "Okänt fel. Kod %1"
-
-#: src/dcc/transferview.cpp:311
-msgid "Columns"
-msgstr "Kolumner"
 
 #: src/dcc/whiteboardtoolbar.cpp:41
 msgid "Clear Image"
@@ -1282,6 +1103,253 @@ msgstr "Välja en färg från bilden"
 msgid "Save Image"
 msgstr "Spara bild"
 
+#: src/dcc/chat.cpp:102
+#, kde-format
+msgctxt "%1=dcc extension like Chat or Whiteboard"
+msgid "Could not send a DCC %1 request to the partner via the IRC server."
+msgstr "Kunde inte skicka begäran om DCC %1 till motparten via IRC-servern."
+
+#: src/dcc/chat.cpp:152
+#, kde-format
+msgctxt "%1=partnerNick, %2=Servername, %3=dcc extension as chat or wboard"
+msgid "%1 (on %2) offers to DCC %3 with you"
+msgstr "%1 (på %2) erbjuder att använda DCC %3 med dig"
+
+#: src/dcc/chat.cpp:153
+#, kde-format
+msgctxt "%1=dcc extension as Chat or Whiteboard, %2=partnerNick"
+msgid "DCC %1 offer from %2"
+msgstr "Erbjudande om DCC %1 från %2 "
+
+#: src/dcc/chat.cpp:154
+msgid "Accept"
+msgstr "Acceptera"
+
+#: src/dcc/chat.cpp:155
+msgid "Reject"
+msgstr "Avslå"
+
+#: src/dcc/chat.cpp:161
+#, kde-format
+msgctxt "%1=dcc extension like Chat or Whiteboard"
+msgid "You rejected the DCC %1 offer."
+msgstr "Du avslog erbjudan om DCC %1."
+
+#: src/dcc/chat.cpp:200
+#, kde-format
+msgctxt "%1=dcc extension as Chat or Whiteboard"
+msgid "DCC %1 request was rejected"
+msgstr "Begäran om DCC %1 avslogs"
+
+#: src/dcc/chat.cpp:287
+#, kde-format
+msgctxt "%1=dcc extension like Chat or Whiteboard"
+msgid ""
+"Could not send Reverse DCC %1 acknowledgement to the partner via the IRC "
+"server."
+msgstr ""
+"Kunde inte skicka omvänd bekräftelse av DCC %1 till motparten via IRC-"
+"servern."
+
+#: src/dcc/chat.cpp:318
+#, kde-format
+msgctxt "%1=extension like Chat or Whiteboard"
+msgid ""
+"Could not send Reverse DCC %1 acknowledgement to the partner via the IRC "
+"server."
+msgstr ""
+"Kunde inte skicka omvänd bekräftelse av DCC %1 till motparten via IRC-"
+"servern."
+
+#: src/dcc/chat.cpp:359
+#, kde-format
+msgid "Could not open a socket for listening: %1"
+msgstr "Kunde inte öppna ett uttag för att lyssna: %1"
+
+#: src/dcc/chat.cpp:370
+#, kde-format
+msgctxt "%1=dcc extension like Chat or Whiteboard,%2=partnerNick, %3=port"
+msgid "Offering DCC %1 connection to %2 on port <numid>%3</numid>..."
+msgstr "Erbjuder anslutning för DCC %1 till %2 via port <numid>%3</numid>..."
+
+#: src/dcc/chat.cpp:431
+msgctxt "DCC extension"
+msgid "Whiteboard"
+msgstr "Skrivtavla"
+
+#: src/dcc/chat.cpp:434
+msgctxt "DCC extension"
+msgid "Chat"
+msgstr "Chatt"
+
+#: src/dcc/chat.cpp:465
+#, kde-format
+msgctxt ""
+"%1=extension like Chat or Whiteboard ,%2 = nickname, %3 = IP, %4 = port"
+msgid "Establishing DCC %1 connection to %2 (%3:<numid>%4</numid>)..."
+msgstr "Upprättar anslutning för DCC %1 till %2 (%3:<numid>%4</numid>)..."
+
+#: src/dcc/chat.cpp:483
+#, kde-format
+msgctxt "%1=extension like Chat or Whiteboard, %2 = partnerNick"
+msgid "Established DCC %1 connection to %2."
+msgstr "Upprättade anslutning för DCC %1 till %2."
+
+#: src/dcc/chat.cpp:553
+msgid "Could not accept the client."
+msgstr "Kunde inte acceptera klienten."
+
+#: src/dcc/chat.cpp:577
+#, kde-format
+msgctxt "%1=dcc extension as Chat or Whiteboard, %2=partnerNick"
+msgid "Established DCC %1 connection to %2."
+msgstr "Upprättade anslutning för DCC %1 till %2."
+
+#: src/dcc/chat.cpp:583
+msgid "Connection closed."
+msgstr "Anslutning nerkopplad."
+
+#: src/dcc/transferlistmodel.cpp:34
+msgid "File"
+msgstr "Fil"
+
+#: src/dcc/transferlistmodel.cpp:36
+msgid "Partner"
+msgstr "Motpart"
+
+#: src/dcc/transferlistmodel.cpp:38
+msgid "Started At"
+msgstr "Påbörjad den"
+
+#: src/dcc/transferlistmodel.cpp:40
+msgid "Progress"
+msgstr "Förlopp"
+
+#: src/dcc/transferlistmodel.cpp:42
+msgid "Position"
+msgstr "Position"
+
+#: src/dcc/transferlistmodel.cpp:44
+msgid "Speed"
+msgstr "Hastighet"
+
+#: src/dcc/transferlistmodel.cpp:46
+msgid "Sender Address"
+msgstr "Avsändaradress"
+
+#: src/dcc/transferlistmodel.cpp:50
+msgid "Remaining"
+msgstr "Återstår"
+
+#. i18n: file: src/config/ignore_configui.ui:50
+#. i18n: ectx: property (text), widget (QTreeWidget, ignoreListView)
+#: src/dcc/transferlistmodel.cpp:52 rc.cpp:307
+msgid "Type"
+msgstr "Typ"
+
+#: src/dcc/transferlistmodel.cpp:444
+#, kde-format
+msgid "%1/sec"
+msgstr "%1/sekund"
+
+#: src/dcc/transferlistmodel.cpp:499
+msgid "Queued"
+msgstr "Köad"
+
+#: src/dcc/transferlistmodel.cpp:501
+msgid "Preparing"
+msgstr "Förbereder"
+
+#: src/dcc/transferlistmodel.cpp:503
+msgctxt "Transfer is waiting for the partner to accept or reject it"
+msgid "Pending"
+msgstr "Vilande"
+
+#: src/dcc/transferlistmodel.cpp:505
+msgctxt "Transfer is connecting to the partner"
+msgid "Connecting"
+msgstr "Ansluter"
+
+#: src/dcc/transferlistmodel.cpp:510
+msgid "Receiving"
+msgstr "Tar emot"
+
+#: src/dcc/transferlistmodel.cpp:512
+msgid "Sending"
+msgstr "Skickar"
+
+#: src/dcc/transferlistmodel.cpp:518
+msgctxt "Transfer has completed successfully"
+msgid "Done"
+msgstr "Klar"
+
+#: src/dcc/transferlistmodel.cpp:520
+msgctxt "Transfer failed"
+msgid "Failed"
+msgstr "Misslyckad"
+
+#: src/dcc/transferlistmodel.cpp:522
+msgid "Aborted"
+msgstr "Avbruten"
+
+#: src/dcc/transferlistmodel.cpp:534
+msgid "Queued - Transfer is waiting for you to accept or reject it"
+msgstr "Köad: Överföringen väntar på att du ska acceptera eller avslå den"
+
+#: src/dcc/transferlistmodel.cpp:539
+msgid "Preparing - Transfer is checking for resumable files"
+msgstr "Förbereder: Överföringen kontrollerar filer som kan återupptas"
+
+#: src/dcc/transferlistmodel.cpp:541
+msgid "Preparing - Transfer is acquiring the data to send"
+msgstr "Förbereder: Överföringen hämtar data att skicka"
+
+#: src/dcc/transferlistmodel.cpp:547
+msgid "Pending - Transfer is waiting for the partner to accept or reject it"
+msgstr ""
+"Vilar: Överföringen väntar på att motparten ska acceptera eller avslå den"
+
+#: src/dcc/transferlistmodel.cpp:549
+msgid "Connecting - Transfer is connecting to the partner"
+msgstr "Ansluter: Överföringen ansluter till motparten"
+
+#: src/dcc/transferlistmodel.cpp:554
+msgid "Receiving - Transfer is receiving data from the partner"
+msgstr "Tar emot: Överföringen tar emot data från motparten"
+
+#: src/dcc/transferlistmodel.cpp:556
+msgid "Sending - Transfer is sending data to partner"
+msgstr "Skickar: Överföringen skickar data till motparten"
+
+#: src/dcc/transferlistmodel.cpp:562
+msgid "Done - Transfer has completed successfully"
+msgstr "Klar: Överföringen är klar med lyckat resultat"
+
+#: src/dcc/transferlistmodel.cpp:566
+msgid "Failed - Transfer failed with 'unknown reason'"
+msgstr "Misslyckades: Överföringen misslyckades av 'okänd anledning'"
+
+#: src/dcc/transferlistmodel.cpp:570
+#, kde-format
+msgid "Failed - Transfer failed with reason '%1'"
+msgstr "Misslyckades: Överföringen misslyckades av följande orsak: '%1'"
+
+#: src/dcc/transferlistmodel.cpp:573
+msgid "Aborted - Transfer was aborted by the User"
+msgstr "Avbruten: Överföringen avbröts av användaren"
+
+#: src/dcc/transferlistmodel.cpp:666
+msgid "Incoming Transfers"
+msgstr "Inkommande överföringar"
+
+#: src/dcc/transferlistmodel.cpp:670
+msgid "Outgoing Transfers"
+msgstr "Utgående överföringar"
+
+#: src/dcc/transferview.cpp:313
+msgid "Columns"
+msgstr "Kolumner"
+
 #: src/irc/channelnick.cpp:199
 msgid "Operator"
 msgstr "Operatör"
@@ -1316,7 +1384,7 @@ msgid "Channel Invites"
 msgstr "Kanalinbjudningar"
 
 #: src/irc/invitedialog.cpp:166 src/irc/channel.cpp:1086
-#: src/irc/channel.cpp:1112 src/viewer/ircview.cpp:716
+#: src/irc/channel.cpp:1112 src/viewer/ircview.cpp:813
 msgid "Join"
 msgstr "Gå med"
 
@@ -1437,8 +1505,8 @@ msgstr "Tog emot okänd CTCP %1-begäran från %2."
 #: src/irc/inputfilter.cpp:504 src/irc/inputfilter.cpp:569
 #: src/irc/inputfilter.cpp:574 src/irc/inputfilter.cpp:597
 #: src/irc/inputfilter.cpp:763 src/irc/inputfilter.cpp:1313
-#: src/irc/outputfilter.cpp:659 src/irc/outputfilter.cpp:895
-#: src/irc/server.cpp:3965 src/irc/server.cpp:3994
+#: src/irc/outputfilter.cpp:666 src/irc/outputfilter.cpp:902
+#: src/irc/server.cpp:4016 src/irc/server.cpp:4045
 #: src/viewer/ignorelistviewitem.cpp:44 rc.cpp:325
 msgid "Notice"
 msgstr "Notis"
@@ -1508,6 +1576,10 @@ msgstr "Dina personliga lägen är:"
 #: src/irc/inputfilter.cpp:946 src/irc/inputfilter.cpp:988
 msgid "Channel modes: "
 msgstr "Kanallägen: "
+
+#: src/irc/inputfilter.cpp:962 src/common.cpp:39
+msgid "password protected"
+msgstr "nyckelskyddad"
 
 #: src/irc/inputfilter.cpp:968
 #, kde-format
@@ -1638,7 +1710,7 @@ msgid "You are not on %1."
 msgstr "Du är nu inte på %1."
 
 #: src/irc/inputfilter.cpp:1263 src/irc/inputfilter.cpp:1272
-#: src/irc/inputfilter.cpp:1281 src/viewer/ircview.cpp:680
+#: src/irc/inputfilter.cpp:1281 src/viewer/ircview.cpp:777
 msgid "MOTD"
 msgstr "Dagens-meddelande"
 
@@ -1658,14 +1730,6 @@ msgstr ".Du måste vara kanaloperatör i %1 för att göra det"
 #: src/irc/inputfilter.cpp:1313
 msgid "You are now an IRC operator on this server."
 msgstr "Du är nu en IRC-operatör på den här servern."
-
-#: src/irc/inputfilter.cpp:1321 src/irc/outputfilter.cpp:1991
-#: src/irc/server.cpp:253 src/irc/server.cpp:399 src/irc/server.cpp:451
-#: src/irc/server.cpp:615 src/irc/server.cpp:626 src/irc/server.cpp:863
-#: src/irc/server.cpp:893 src/connectionmanager.cpp:224
-#: src/connectionmanager.cpp:257 src/connectionmanager.cpp:267
-msgid "Info"
-msgstr "Information"
 
 #: src/irc/inputfilter.cpp:1321
 #, kde-format
@@ -1690,8 +1754,8 @@ msgstr "Nuvarande användare på %1: %2."
 #. i18n: file: src/identitydialog.ui:250
 #. i18n: ectx: attribute (title), widget (QWidget, awayWidget)
 #: src/irc/inputfilter.cpp:1371 src/irc/nicksonline.cpp:247
-#: src/irc/server.cpp:3736 src/irc/server.cpp:3738 src/irc/server.cpp:3763
-#: src/irc/server.cpp:3772 src/linkaddressbook/addressbook.cpp:109 rc.cpp:1559
+#: src/irc/server.cpp:3787 src/irc/server.cpp:3789 src/irc/server.cpp:3814
+#: src/irc/server.cpp:3823 src/linkaddressbook/addressbook.cpp:109 rc.cpp:1559
 msgid "Away"
 msgstr "Borta"
 
@@ -2028,453 +2092,6 @@ msgstr ""
 "nuvarande status, samt eventuell information i adressboken för personen. Se "
 "Konversations handbok för mer information.</p></qt>"
 
-#: src/irc/outputfilter.cpp:215
-msgid ""
-"The message you are sending includes characters that do not exist in your "
-"current encoding. If you choose to continue anyway those characters will be "
-"replaced by a '?'."
-msgstr ""
-"Meddelandet du skickar innehåller tecken som inte finns i den nuvarande "
-"kodningen. Om du väljer att fortsätta ändå kommer dessa tecken att ersättas "
-"med ett '?'."
-
-#: src/irc/outputfilter.cpp:219
-msgid "Encoding Conflict Warning"
-msgstr "Varning för kodningskonflikt"
-
-#: src/irc/outputfilter.cpp:324
-msgid "Raw"
-msgstr "Obehandlad"
-
-#: src/irc/outputfilter.cpp:381
-#, kde-format
-msgid "Usage: %1JOIN <channel> [password]"
-msgstr "Användning: %1JOIN <kanal> [nyckel]"
-
-#: src/irc/outputfilter.cpp:420
-#, kde-format
-msgid "Usage: %1KICK <nick> [reason]"
-msgstr "Användning: %1KICK <smeknamn> [skäl]"
-
-#: src/irc/outputfilter.cpp:434
-#, kde-format
-msgid "%1KICK only works from within channels."
-msgstr "%1KICK fungerar endast inifrån kanaler."
-
-#: src/irc/outputfilter.cpp:454
-#, kde-format
-msgid ""
-"%1PART and %1LEAVE without parameters only work from within a channel or a "
-"query."
-msgstr ""
-"%1PART och %1LEAVE utan parametrar fungerar endast inifrån en kanal eller en "
-"frågekanal."
-
-#: src/irc/outputfilter.cpp:479
-#, kde-format
-msgid "%1PART without channel name only works from within a channel."
-msgstr "%1PART utan kanalnamn fungerar endast inifrån kanaler."
-
-#: src/irc/outputfilter.cpp:503
-#, kde-format
-msgid "%1TOPIC without parameters only works from within a channel."
-msgstr "%1TOPIC utan parametrar fungerar endast inifrån kanaler."
-
-#: src/irc/outputfilter.cpp:540
-#, kde-format
-msgid "%1TOPIC without channel name only works from within a channel."
-msgstr "%1TOPIC utan kanalnamn fungerar endast inifrån en kanal."
-
-#: src/irc/outputfilter.cpp:596
-#, kde-format
-msgid ""
-"%1NAMES with no target may disconnect you from the server. Specify '*' if "
-"you really want this."
-msgstr ""
-"%1NAMES utan mål kan koppla ner dig från servern. Ange  '*' om du verkligen "
-"vill det."
-
-#: src/irc/outputfilter.cpp:619
-#, c-format, kde-format
-msgid ""
-"Usage: %1close [window] closes the named channel or query tab, or the "
-"current tab if none specified."
-msgstr ""
-"Användning: %1close [fönster] stänger namngiven kanal eller frågeflik, eller "
-"den nuvarande fliken om ingen anges."
-
-#: src/irc/outputfilter.cpp:655
-#, kde-format
-msgid "Usage: %1NOTICE <recipient> <message>"
-msgstr "Användning: %1NOTICE <mottagare> <meddelande>"
-
-#: src/irc/outputfilter.cpp:662
-#, kde-format
-msgctxt "%1 is the message, %2 the recipient nickname"
-msgid "Sending notice \"%1\" to %2."
-msgstr "Sänder notis \"%1\" till %2."
-
-#: src/irc/outputfilter.cpp:674
-#, kde-format
-msgid "%1ME only works from a channel, query or DCC chat tab."
-msgstr "%1ME fungerar endast inifrån en kanal, en frågekanal eller DCC-chatt."
-
-#: src/irc/outputfilter.cpp:742
-msgid "You need to specify a recipient."
-msgstr "Du måste ange en mottagare."
-
-#: src/irc/outputfilter.cpp:747
-msgid "You cannot open queries to channels."
-msgstr "Du kan inte öppna förfrågan till kanaler."
-
-#: src/irc/outputfilter.cpp:753
-msgid "You need to specify a message."
-msgstr "Du måste ange ett meddelande."
-
-#: src/irc/outputfilter.cpp:836 src/irc/outputfilter.cpp:841
-#, kde-format
-msgid "Sending CTCP-%1 request to %2."
-msgstr "Sänder CTCP %1-begäran till %2."
-
-#: src/irc/outputfilter.cpp:853
-#, c-format, kde-format
-msgid "Usage: %1AME [-LOCAL] text"
-msgstr "Användning: %1AME [-LOCAL] text"
-
-#: src/irc/outputfilter.cpp:866
-#, c-format, kde-format
-msgid "Usage: %1AMSG [-LOCAL] text"
-msgstr "Användning: %1AMSG [-LOCAL] text"
-
-#: src/irc/outputfilter.cpp:879
-#, kde-format
-msgid "Usage: %1OMSG text"
-msgstr "Användning: %1OMSG text"
-
-#: src/irc/outputfilter.cpp:897
-#, kde-format
-msgid "Sending notice \"%1\" to %2."
-msgstr "Sänder notis \"%1\" till %2."
-
-#: src/irc/outputfilter.cpp:900
-#, kde-format
-msgid "Usage: %1ONOTICE text"
-msgstr "Användning: %1ONOTICE text"
-
-#: src/irc/outputfilter.cpp:910
-#, kde-format
-msgid "Usage: %1QUOTE command list"
-msgstr "Användning: %1QUOTE kommandolista"
-
-#: src/irc/outputfilter.cpp:922
-#, c-format, kde-format
-msgid "Usage: %1SAY text"
-msgstr "Användning: %1SAY text"
-
-#: src/irc/outputfilter.cpp:978
-#, kde-format
-msgid "File \"%1\" does not exist."
-msgstr "Filen \"%1\" finns inte."
-
-#: src/irc/outputfilter.cpp:982
-#, kde-format
-msgid "Usage: %1DCC [SEND [nickname [filename]]]"
-msgstr "Användning: %1DCC [SEND smeknamn [filnamn]]]"
-
-#: src/irc/outputfilter.cpp:1000
-#, kde-format
-msgid "Usage: %1DCC [GET [nickname [filename]]]"
-msgstr "Användning: %1DCC [GET [smeknamn [filnamn]]]"
-
-#: src/irc/outputfilter.cpp:1016
-#, kde-format
-msgid "Usage: %1DCC [CHAT [nickname]]"
-msgstr "Användning: %1DCC [CHAT [smeknamn]]"
-
-#: src/irc/outputfilter.cpp:1032
-#, kde-format
-msgid "Usage: %1DCC [WHITEBOARD [nickname]]"
-msgstr "Användning: %1DCC [WHITEBOARD [smeknamn]]"
-
-#: src/irc/outputfilter.cpp:1037
-#, kde-format
-msgid ""
-"Unrecognized command %1DCC %2. Possible commands are SEND, CHAT, CLOSE, GET, "
-"WHITEBOARD."
-msgstr ""
-"Okänt kommando %1DCC %2. Möjliga kommandon är SEND, CHAT, CLOSE, GET, "
-"WHITEBOARD."
-
-#: src/irc/outputfilter.cpp:1180
-#, kde-format
-msgid "Usage: %1INVITE <nick> [channel]"
-msgstr "Användning: %1INVITE <smeknamn> [kanal]"
-
-#: src/irc/outputfilter.cpp:1191
-#, kde-format
-msgid "%1INVITE without channel name works only from within channels."
-msgstr "%1INVITE utan kanalnamn fungerar endast inifrån kanaler."
-
-#: src/irc/outputfilter.cpp:1200
-#, kde-format
-msgid "%1 is not a channel."
-msgstr "%1 är inte en kanal."
-
-#: src/irc/outputfilter.cpp:1212
-#, c-format, kde-format
-msgid "Usage: %1EXEC [-SHOWPATH] <script> [parameter list]"
-msgstr "Användning: %1EXEC [-SHOWPATH] <skript> [parameterlista]"
-
-#: src/irc/outputfilter.cpp:1221
-#, kde-format
-msgctxt "%2 is a filesystem path to the script file"
-msgid "The script file '%1' was found at: %2"
-msgstr "Skriptfilen '%1' hittades i: %2"
-
-#: src/irc/outputfilter.cpp:1228
-msgid "The script name may not contain \"../\"."
-msgstr "Skriptnamnet får inte innehålla \"../\"."
-
-#: src/irc/outputfilter.cpp:1243
-#, kde-format
-msgid "Usage: %1RAW [OPEN | CLOSE]"
-msgstr "Användning: %1RAW [OPEN | CLOSE]"
-
-#: src/irc/outputfilter.cpp:1285
-#, kde-format
-msgctxt "%1 = Comma-separated list of nicknames"
-msgid "The notify list has been emptied (removed %1)."
-msgstr "Underrättelselistan har tömts (%1 borttagna)."
-
-#: src/irc/outputfilter.cpp:1288
-msgid "The notify list is currently empty."
-msgstr "Underrättelselistan är för närvarande tom."
-
-#: src/irc/outputfilter.cpp:1294
-#, kde-format
-msgctxt "%1 and %2 = Comma-separated lists of nicknames"
-msgid "Current notify list: %1 (added %2)."
-msgstr "Aktuell underrättelselista: %1 (%2 tillagda)"
-
-#: src/irc/outputfilter.cpp:1298
-#, kde-format
-msgctxt "%1 and %2 = Comma-separated lists of nicknames"
-msgid "Current notify list: %1 (removed %2)."
-msgstr "Aktuell underrättelselista: %1 (%2 borttagna)"
-
-#: src/irc/outputfilter.cpp:1302
-#, kde-format
-msgctxt "%1, %2 and %3 = Comma-separated lists of nicknames"
-msgid "Current notify list: %1 (added %2, removed %3)."
-msgstr "Aktuell underrättelselista: %1 (%2 tillagda, %3 borttagna)"
-
-#: src/irc/outputfilter.cpp:1306
-#, kde-format
-msgctxt "%1 = Comma-separated list of nicknames"
-msgid "Current notify list: %1."
-msgstr "Aktuell underrättelselista: %1."
-
-#: src/irc/outputfilter.cpp:1311 src/irc/server.cpp:2844
-#: src/irc/server.cpp:2861
-msgid "Notify"
-msgstr "Underrättelse"
-
-#: src/irc/outputfilter.cpp:1327
-msgid "Enter username and password for IRC operator privileges:"
-msgstr "Skriv in användarnamn och nyckel för IRC-operatörsprivilegier:"
-
-#: src/irc/outputfilter.cpp:1329
-msgid "IRC Operator Password"
-msgstr "Nyckel för IRC-operatörsprivilegier"
-
-#: src/irc/outputfilter.cpp:1393
-#, kde-format
-msgid "%1BAN without channel name works only from inside a channel."
-msgstr "%1BAN utan kanalnamn fungerar endast inifrån kanaler."
-
-#: src/irc/outputfilter.cpp:1396
-#, kde-format
-msgid "%1KICKBAN without channel name works only from inside a channel."
-msgstr "%1KICKBAN utan kanalnamn fungerar endast inifrån en kanal."
-
-#: src/irc/outputfilter.cpp:1431
-#, kde-format
-msgid ""
-"Usage: %1BAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [channel] <nickname "
-"| mask>"
-msgstr ""
-"Användning: %1BAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [kanal] "
-"<smeknamn|mask>"
-
-#: src/irc/outputfilter.cpp:1434
-#, kde-format
-msgid ""
-"Usage: %1KICKBAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [channel] "
-"<nickname | mask> [reason]"
-msgstr ""
-"Användning: %1KICKBAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [kanal] "
-"<smeknamn | mask> [orsak]"
-
-#: src/irc/outputfilter.cpp:1477
-#, kde-format
-msgid "%1UNBAN without channel name works only from inside a channel."
-msgstr "%1UNBAN utan kanalnamn fungerar endast inifrån kanaler."
-
-#: src/irc/outputfilter.cpp:1492
-#, kde-format
-msgid "Usage: %1UNBAN [channel] pattern"
-msgstr "Användning: %1UNBAN [kanal] mönster"
-
-#: src/irc/outputfilter.cpp:1538
-#, kde-format
-msgid "Added %1 to your ignore list."
-msgstr "Lägger till %1 i din ignorera-lista."
-
-#: src/irc/outputfilter.cpp:1548
-#, kde-format
-msgid "Usage: %1IGNORE [ -ALL ] <user 1> <user 2> ... <user n>"
-msgstr "Användning: %1IGNORE [ -ALL ] användarlista"
-
-#: src/irc/outputfilter.cpp:1559
-#, kde-format
-msgid "Usage: %1UNIGNORE <user 1> <user 2> ... <user n>"
-msgstr "Användning: %1UNIGNORE <användare 1> <användare 2> ... <användare n>"
-
-#: src/irc/outputfilter.cpp:1609
-#, kde-format
-msgid "Removed %1 from your ignore list."
-msgstr "Tog bort %1 från din ignorera-lista."
-
-#: src/irc/outputfilter.cpp:1616
-#, kde-format
-msgid "No such ignore: %2"
-msgid_plural "No such ignores: %2"
-msgstr[0] "Inget sådant att ignorera: %2"
-msgstr[1] "Inga sådana att ignorera: %2"
-
-#: src/irc/outputfilter.cpp:1651
-#, kde-format
-msgid "Current encoding is: %1"
-msgstr "Aktuell kodning är: %1"
-
-#: src/irc/outputfilter.cpp:1662
-#, kde-format
-msgid "Switched to %1 encoding."
-msgstr "Byte till kodningen %1."
-
-#: src/irc/outputfilter.cpp:1665
-#, kde-format
-msgid "%1 is not a valid encoding."
-msgstr "%1 är inte en giltig kodning."
-
-#: src/irc/outputfilter.cpp:1683
-#, c-format, kde-format
-msgid ""
-"Usage: %1setkey <nick|channel> <key> sets the encryption key for nick or "
-"channel. %1setkey <key> when in a channel or query tab sets the key for it. "
-"The key field recognizes \"cbc:\" and \"ecb:\" prefixes to set the block "
-"cipher mode of operation to either Cipher-Block Chaining or Electronic "
-"Codebook. The mode it defaults to when no prefix is given can be changed in "
-"the configuration dialog under Behavior -> Connection -> Encryption -> "
-"Default Encryption Type, with the default for that setting being Electronic "
-"Codebook (ECB)."
-msgstr ""
-"Användning: %1setkey <smeknamn|kanal> <key> anger krypteringsnyckeln för "
-"smeknamn eller kanal. %1setkey <nyckel> i en kanal eller frågeflik anger "
-"nyckeln för den. Nyckelfältet känner igen prefixen \"cbc:\" och \"ecb:\" för "
-"att ställa in blockkodsläget vid användning till antingen kedjning av "
-"chifferblock (cbc) eller elektronisk kodbok (ecb). Standardvärdet när inget "
-"prefix anges kan ändras i inställningsdialogrutan med Beteende -> Anslutning "
-"-> Kryptering -> Standardkrypteringstyp, där inställningens normalvärde är "
-"elektronisk kodbok (ECB)."
-
-#: src/irc/outputfilter.cpp:1695
-#, kde-format
-msgid "Unable to set an encryption key for %1."
-msgstr "Kan inte ställa in krypteringsnyckel för %1."
-
-#: src/irc/outputfilter.cpp:1704
-#, kde-format
-msgid "The key for %1 has been set."
-msgstr "Nyckeln för %1 är angiven."
-
-#: src/irc/outputfilter.cpp:1707 src/irc/outputfilter.cpp:1732
-msgid ""
-"Setting an encryption key requires Konversation to have been built with "
-"support for the Qt Cryptographic Architecture (QCA) library. Contact your "
-"distributor about a Konversation package with QCA support, or rebuild "
-"Konversation with QCA present."
-msgstr ""
-"Att ange en krypteringsnyckel kräver att Konversation har byggts med stöd "
-"för Qt:s kryptografiska arkitekturbiblioteket (QCA). Kontakta din "
-"distributör om ett paket för Konversation med stöd för QCA, eller bygg om "
-"Konversation med QCA närvarande."
-
-#: src/irc/outputfilter.cpp:1722
-#, kde-format
-msgid ""
-"Usage: %1keyx <nick|channel> triggers DH1080 key exchange with the target."
-msgstr ""
-"Användning: %1keyx <smeknamn|kanal> utlöser DH1080-nyckelutbyte med målet."
-
-#: src/irc/outputfilter.cpp:1725
-#, kde-format
-msgid "Unable to request a key exchange from %1."
-msgstr "Kan inte begära ett nyckelutbyte med %1."
-
-#: src/irc/outputfilter.cpp:1729
-#, kde-format
-msgid "Beginning DH1080 key exchange with %1."
-msgstr "Börjar DH1080-nyckelutbyte med %1."
-
-#: src/irc/outputfilter.cpp:1748
-#, c-format, kde-format
-msgid ""
-"Usage: %1delkey <nick> or <channel> deletes the encryption key for nick or "
-"channel"
-msgstr ""
-"Användning: %1delkey <smeknamn> eller <kanal> Tar bort krypteringsnyckeln "
-"för smeknamnet eller kanalen"
-
-#: src/irc/outputfilter.cpp:1760
-#, kde-format
-msgid "The key for %1 has been deleted."
-msgstr "Nyckeln för %1 har tagits bort."
-
-#: src/irc/outputfilter.cpp:1763 src/irc/outputfilter.cpp:1783
-#, kde-format
-msgid "No key has been set for %1."
-msgstr "Någon nyckel har inte angivits för %1."
-
-#: src/irc/outputfilter.cpp:1780
-#, kde-format
-msgid "The key for %1 is \"%2\"."
-msgstr "Nyckeln för %1 är \"%2\"."
-
-#: src/irc/outputfilter.cpp:1781
-msgid "Blowfish"
-msgstr "Blowfish"
-
-#: src/irc/outputfilter.cpp:1793
-#, kde-format
-msgid "Usage: %1KILL <nick> [comment]"
-msgstr "Användning: %1KILL <smeknamn> [kommentar]"
-
-#: src/irc/outputfilter.cpp:1807
-#, kde-format
-msgid "Usage: %1DNS <nick>"
-msgstr "Användning: %1DNS <smeknamn>"
-
-#: src/irc/outputfilter.cpp:1837
-#, c-format, kde-format
-msgid "Usage: %1queuetuner [on | off]"
-msgstr "Användning: %1queuetuner [on | off]"
-
-#: src/irc/outputfilter.cpp:1906
-#, c-format, kde-format
-msgid "%1CYCLE [-APP | -SERVER] [channel | nickname]"
-msgstr "%1CYCLE [-APP | -SERVER] [kanal | smeknamn]"
-
 #: src/irc/channel.cpp:130
 msgid "Edit Channel Settings"
 msgstr "Redigera kanalinställningar"
@@ -2571,7 +2188,7 @@ msgstr "%1 har gått med i kanalen (%2)."
 
 #: src/irc/channel.cpp:1139 src/irc/channel.cpp:1141 src/irc/channel.cpp:1162
 #: src/irc/channel.cpp:1164 src/irc/query.cpp:533 src/irc/query.cpp:540
-#: src/viewer/ircview.cpp:721
+#: src/viewer/ircview.cpp:818
 msgid "Quit"
 msgstr "Avsluta"
 
@@ -2586,7 +2203,7 @@ msgid "You have left this server (%1)."
 msgstr "Du har lämnat den här servern (%1)."
 
 #: src/irc/channel.cpp:1146 src/irc/channel.cpp:1148 src/irc/channel.cpp:1170
-#: src/irc/channel.cpp:1172 src/viewer/ircview.cpp:721
+#: src/irc/channel.cpp:1172 src/viewer/ircview.cpp:818
 msgid "Part"
 msgstr "Lämna"
 
@@ -2626,7 +2243,7 @@ msgstr "%1 har lämnat den här kanalen (%2)."
 #: src/irc/channel.cpp:1229 src/irc/channel.cpp:1231 src/irc/channel.cpp:1238
 #: src/irc/channel.cpp:1243 src/irc/channel.cpp:1264 src/irc/channel.cpp:1266
 #: src/irc/channel.cpp:1273 src/irc/channel.cpp:1278
-#: src/viewer/irccontextmenus.cpp:387
+#: src/viewer/irccontextmenus.cpp:389
 msgid "Kick"
 msgstr "Sparka ut"
 
@@ -3234,8 +2851,8 @@ msgstr "Kanalämne"
 
 #. i18n: file: src/irc/channellistpanelui.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, ChannelListWidgetUI)
-#: src/irc/channellistpanel.cpp:146 src/viewer/viewcontainer.cpp:2487
-#: src/viewer/viewcontainer.cpp:2508 rc.cpp:1070
+#: src/irc/channellistpanel.cpp:146 src/viewer/viewcontainer.cpp:2476
+#: src/viewer/viewcontainer.cpp:2497 rc.cpp:1070
 msgid "Channel List"
 msgstr "Kanaler"
 
@@ -3439,7 +3056,7 @@ msgctxt "network (nickname)"
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
 
-#: src/irc/nicksonline.cpp:42 src/viewer/viewcontainer.cpp:2568
+#: src/irc/nicksonline.cpp:42
 msgid "Watched Nicks Online"
 msgstr "Bevakade uppkopplade smeknamn"
 
@@ -3512,7 +3129,7 @@ msgstr ""
 msgid "&Send Email..."
 msgstr "&Skicka e-post..."
 
-#: src/irc/nicksonline.cpp:64 src/viewer/irccontextmenus.cpp:414
+#: src/irc/nicksonline.cpp:64 src/viewer/irccontextmenus.cpp:416
 msgid "&Whois"
 msgstr "&Vem-är-det"
 
@@ -3618,303 +3235,6 @@ msgstr "Stäng frågekanal"
 msgid "%1 has left this server (%2)."
 msgstr "%1 har lämnat den här servern (%2)."
 
-#: src/irc/server.cpp:401 src/irc/server.cpp:411
-msgid "Warning"
-msgstr "Varning"
-
-#: src/irc/server.cpp:451
-#, kde-format
-msgid "Looking for server %1 (port <numid>%2</numid>)..."
-msgstr "Söker efter server %1 (port <numid>%2</numid>)..."
-
-#: src/irc/server.cpp:615
-msgid "Server found, connecting..."
-msgstr "Servern hittades, ansluter..."
-
-#: src/irc/server.cpp:626
-msgid "Connected; logging in..."
-msgstr "Ansluten. Loggar in..."
-
-#: src/irc/server.cpp:689
-#, kde-format
-msgid "Connection to server %1 (port <numid>%2</numid>) lost: %3."
-msgstr "Anslutning till server %1 (port <numid>%2</numid>) förlorad: %3."
-
-#: src/irc/server.cpp:733
-#, kde-format
-msgid ""
-"The SSL certificate for the server %1 (port <numid>%2</numid>) failed the "
-"authenticity check."
-msgstr ""
-"Behörighetskontroll av SSL-certifikatet för servern %1 (port <numid>%2</"
-"numid>) misslyckades."
-
-#: src/irc/server.cpp:737
-msgid "SSL Connection Warning"
-msgstr "SSL-anslutningsvarning"
-
-#: src/irc/server.cpp:748
-#, kde-format
-msgid ""
-"Could not connect to %1 (port <numid>%2</numid>) using SSL encryption. "
-"Either the server does not support SSL (did you use the correct port?) or "
-"you rejected the certificate. %3"
-msgstr ""
-"Kunde inte ansluta till %1 (port <numid>%2</numid>) med SSL-kryptering. "
-"Antingen stöder inte servern SSL (användes rätt port?), eller förkastade du "
-"certifikatet. %3"
-
-#: src/irc/server.cpp:753
-msgid "SSL Connection Error"
-msgstr "SSL-anslutningsfel"
-
-#: src/irc/server.cpp:863
-msgid "Delayed connect aborted."
-msgstr "Fördröjd anslutning avbruten."
-
-#: src/irc/server.cpp:893
-#, kde-format
-msgid "Disconnected from %1 (port <numid>%2</numid>)."
-msgstr "Nerkopplad från %1 (port <numid>%2</numid>)."
-
-#: src/irc/server.cpp:1065
-#, kde-format
-msgid ""
-"No nicknames from the \"%1\" identity were accepted by the connection \"%2"
-"\".\n"
-"Please enter a new one or press Cancel to disconnect:"
-msgstr ""
-"Några smeknamn för identiteten \"%1\" accepterades inte av anslutningen \"%2"
-"\".\n"
-"Skriv in ett nytt, eller klicka på Avbryt för att koppla ner:"
-
-#: src/irc/server.cpp:1066
-msgid "Nickname error"
-msgstr "Smeknamnsfel"
-
-#: src/irc/server.cpp:1529 src/irc/server.cpp:3498 src/irc/server.cpp:3503
-#: src/application.cpp:371
-msgid "D-Bus"
-msgstr "D-Bus"
-
-#: src/irc/server.cpp:1875
-#, kde-format
-msgid "Select File(s) to Send to %1"
-msgstr "Välj fil(er) att sända till %1"
-
-#: src/irc/server.cpp:2048
-#, kde-format
-msgctxt "%1=nickname"
-msgid "Received invalid DCC SEND request from %1."
-msgstr "Tog emot ogiltig DCC-sändningsbegäran från %1."
-
-#: src/irc/server.cpp:2083 src/irc/server.cpp:2213 src/irc/server.cpp:2225
-#: src/irc/server.cpp:2374 src/irc/server.cpp:2430 src/irc/server.cpp:2539
-msgid "unknown size"
-msgstr "okänd storlek"
-
-#: src/irc/server.cpp:2080
-#, kde-format
-msgid "%1 offers to send you \"%2\" (%3)..."
-msgstr "%1 erbjuder sig att skicka dig \"%2\" (%3)..."
-
-#: src/irc/server.cpp:2119
-#, kde-format
-msgctxt "%1=nickname"
-msgid "Received invalid DCC CHAT request from %1."
-msgstr "Tog emot ogiltig begäran om DCC chatt från %1."
-
-#: src/irc/server.cpp:2210
-#, kde-format
-msgid "Asking %1 to accept upload of \"%2\" (%3)..."
-msgstr "Frågar om %1 accepterar uppladdning av \"%2\" (%3)..."
-
-#: src/irc/server.cpp:2222
-#, kde-format
-msgid "Asking %1 to accept passive upload of \"%2\" (%3)..."
-msgstr "Frågar om %1 accepterar uppladdning av \"%2\" (%3)..."
-
-#: src/irc/server.cpp:2234
-#, kde-format
-msgctxt "%1=name, %2=dcc extension, chat or wboard for example"
-msgid "Asking %1 to accept %2..."
-msgstr "Frågar om %1 accepterar %2..."
-
-#: src/irc/server.cpp:2293
-#, kde-format
-msgctxt "%1 = nickname"
-msgid "Received invalid passive DCC chat acceptance message from %1."
-msgstr "Mottog ogiltig meddelande med acceptans av passiv DCC chatt från %1."
-
-#: src/irc/server.cpp:2329
-#, kde-format
-msgctxt "%1 = file name, %2 = nickname"
-msgid ""
-"Received invalid passive DCC send acceptance message for \"%1\" from %2."
-msgstr ""
-"Mottog ogiltig meddelande med acceptans av passiv DCC-sändning för \"%1\" "
-"från %2."
-
-#: src/irc/server.cpp:2370
-#, kde-format
-msgctxt ""
-"%1 = file name, %2 = nickname of sender, %3 = percentage of file size, %4 = "
-"file size"
-msgid "Resuming download of \"%1\" from %2 starting at %3% of %4..."
-msgstr "Återupptar nerladdning av \"%1\" från %2 med början på %3 % av %4..."
-
-#: src/irc/server.cpp:2380
-#, kde-format
-msgctxt "%1 = file name, %2 = nickname"
-msgid "Received invalid resume acceptance message for \"%1\" from %2."
-msgstr "Mottog ogiltig begäran om att återuppta \"%1\" från %2."
-
-#: src/irc/server.cpp:2426
-#, kde-format
-msgctxt ""
-"%1 = file name, %2 = nickname of recipient, %3 = percentage of file size, %4 "
-"= file size"
-msgid "Resuming upload of \"%1\" to %2 starting at %3% of %4..."
-msgstr "Återupptar uppladdning av \"%1\" till %2 med början på %3 % av %4..."
-
-#: src/irc/server.cpp:2448
-#, kde-format
-msgctxt "%1 = file name, %2 = nickname"
-msgid "Received invalid resume request for \"%1\" from %2."
-msgstr "Mottog ogiltig begäran om att återuppta \"%1\" från %2."
-
-#: src/irc/server.cpp:2467
-#, kde-format
-msgctxt "%1 = file name, %2 = nickname"
-msgid "Received invalid reject request for \"%1\" from %2."
-msgstr "Mottog ogiltig begäran om att avslå \"%1\" från %2."
-
-#: src/irc/server.cpp:2483
-#, kde-format
-msgctxt "%1 = nickname"
-msgid "Received invalid reject request from %1."
-msgstr "Mottog ogiltig begäran om att avslå från %1."
-
-#: src/irc/server.cpp:2496
-#, kde-format
-msgctxt "%1 = file name, %2 = nickname of sender"
-msgid "Download of \"%1\" from %2 finished."
-msgstr "Nerladdning av \"%1\" från %2 klar."
-
-#: src/irc/server.cpp:2501
-#, kde-format
-msgctxt "%1 = file name, %2 = nickname of sender"
-msgid "Download of \"%1\" from %2 failed. Reason: %3."
-msgstr "Nerladdning av \"%1\" från %2 misslyckades. Orsak: %3."
-
-#: src/irc/server.cpp:2513
-#, kde-format
-msgctxt "%1 = file name, %2 = nickname of recipient"
-msgid "Upload of \"%1\" to %2 finished."
-msgstr "Uppladdning av \"%1\" till %2 klar."
-
-#: src/irc/server.cpp:2516
-#, kde-format
-msgctxt "%1 = file name, %2 = nickname of recipient"
-msgid "Upload of \"%1\" to %2 failed. Reason: %3."
-msgstr "Uppladdning av \"%1\" till %2 misslyckades. Orsak: %3."
-
-#: src/irc/server.cpp:2530
-#, kde-format
-msgctxt "%1 = file name, %2 nickname of recipient"
-msgid "Sending \"%1\" to %2..."
-msgstr "Skickar \"%1\" till %2."
-
-#: src/irc/server.cpp:2537
-#, kde-format
-msgctxt "%1 = file name, %2 = file size, %3 = nickname of sender"
-msgid "Downloading \"%1\" (%2) from %3..."
-msgstr "Nerladdning av \"%1\" (%2) från %3..."
-
-#: src/irc/server.cpp:2844 src/notificationhandler.cpp:307
-#, kde-format
-msgid "%1 is online (%2)."
-msgstr "%1 är uppkopplad (%2)."
-
-#: src/irc/server.cpp:2861 src/notificationhandler.cpp:321
-#, kde-format
-msgid "%1 went offline (%2)."
-msgstr "%1 kopplade ner (%2)."
-
-#: src/irc/server.cpp:3498
-#, kde-format
-msgid "Error: Could not find script \"%1\"."
-msgstr "Fel: Kunde inte hitta skriptet \"%1\"."
-
-#: src/irc/server.cpp:3503
-#, kde-format
-msgid "Error: Could not execute script \"%1\". Check file permissions."
-msgstr "Fel: Kunde inte köra skriptet \"%1\". Kontrollera filrättigheter."
-
-#: src/irc/server.cpp:3705
-msgid "Gone away for now"
-msgstr "Borta för tillfället"
-
-#: src/irc/server.cpp:3736
-#, kde-format
-msgid "You are now marked as being away (reason: %1)."
-msgstr "Du anges nu som borta (orsak: %1)."
-
-#: src/irc/server.cpp:3738
-msgid "You are now marked as being away."
-msgstr "Du anges nu som borta."
-
-#: src/irc/server.cpp:3763
-msgid "You are no longer marked as being away."
-msgstr "Du anges inte längre som borta."
-
-#: src/irc/server.cpp:3772
-msgid "You are not marked as being away."
-msgstr "Du anges inte som borta."
-
-#: src/irc/server.cpp:3923
-#, kde-format
-msgid "Failed to initiate key exchange with %1."
-msgstr "Misslyckades påbörja nyckelutbyte med %1."
-
-#: src/irc/server.cpp:3935
-#, kde-format
-msgid "Unable to perform key exchange with %1."
-msgstr "Kan inte utföra nyckelutbyte med %1."
-
-#: src/irc/server.cpp:3959
-#, kde-format
-msgid "Failed to parse the DH1080_INIT of %1. Key exchange failed."
-msgstr "Misslyckades tolka DH1080_INIT från %1. Nyckelutbyte misslyckades."
-
-#: src/irc/server.cpp:3965
-#, kde-format
-msgid ""
-"Your key is set and your messages will now be encrypted, sending "
-"DH1080_FINISH to %1."
-msgstr ""
-"Din nyckel är inställd, och dina meddelanden kommer nu att vara krypterade. "
-"Skickar DH1080_FINISH till %1."
-
-#: src/irc/server.cpp:3982
-#, kde-format
-msgid "Unable to complete key exchange with %1."
-msgstr "Kan inte slutföra nyckelutbyte med %1."
-
-#: src/irc/server.cpp:3994
-#, kde-format
-msgid ""
-"Successfully parsed DH1080_FINISH sent by %1. Your key is set and your "
-"messages will now be encrypted."
-msgstr ""
-"Tolkade DH1080_FINISH skickat av %1 med lyckat resultat. Din nyckel är "
-"inställd, och dina meddelanden kommer nu att vara krypterade."
-
-#: src/irc/server.cpp:3998
-#, kde-format
-msgid "Failed to parse DH1080_FINISH sent by %1. Key exchange failed."
-msgstr "Misslyckades tolka DH1080_FINISH från %1. Nyckelutbyte misslyckades."
-
 #: src/irc/servergroupdialog.cpp:79
 msgid "Change network information"
 msgstr "Ändra nätverksinformation"
@@ -4014,6 +3334,765 @@ msgstr "Vill du verkligen ta bort de markerade posterna?"
 #, kde-format
 msgid "Do you really want to delete %1?"
 msgstr "Vill du verkligen ta bort %1?"
+
+#: src/irc/outputfilter.cpp:222
+msgid ""
+"The message you are sending includes characters that do not exist in your "
+"current encoding. If you choose to continue anyway those characters will be "
+"replaced by a '?'."
+msgstr ""
+"Meddelandet du skickar innehåller tecken som inte finns i den nuvarande "
+"kodningen. Om du väljer att fortsätta ändå kommer dessa tecken att ersättas "
+"med ett '?'."
+
+#: src/irc/outputfilter.cpp:226
+msgid "Encoding Conflict Warning"
+msgstr "Varning för kodningskonflikt"
+
+#: src/irc/outputfilter.cpp:331
+msgid "Raw"
+msgstr "Obehandlad"
+
+#: src/irc/outputfilter.cpp:388
+#, kde-format
+msgid "Usage: %1JOIN <channel> [password]"
+msgstr "Användning: %1JOIN <kanal> [nyckel]"
+
+#: src/irc/outputfilter.cpp:427
+#, kde-format
+msgid "Usage: %1KICK <nick> [reason]"
+msgstr "Användning: %1KICK <smeknamn> [skäl]"
+
+#: src/irc/outputfilter.cpp:441
+#, kde-format
+msgid "%1KICK only works from within channels."
+msgstr "%1KICK fungerar endast inifrån kanaler."
+
+#: src/irc/outputfilter.cpp:461
+#, kde-format
+msgid ""
+"%1PART and %1LEAVE without parameters only work from within a channel or a "
+"query."
+msgstr ""
+"%1PART och %1LEAVE utan parametrar fungerar endast inifrån en kanal eller en "
+"frågekanal."
+
+#: src/irc/outputfilter.cpp:486
+#, kde-format
+msgid "%1PART without channel name only works from within a channel."
+msgstr "%1PART utan kanalnamn fungerar endast inifrån kanaler."
+
+#: src/irc/outputfilter.cpp:510
+#, kde-format
+msgid "%1TOPIC without parameters only works from within a channel."
+msgstr "%1TOPIC utan parametrar fungerar endast inifrån kanaler."
+
+#: src/irc/outputfilter.cpp:547
+#, kde-format
+msgid "%1TOPIC without channel name only works from within a channel."
+msgstr "%1TOPIC utan kanalnamn fungerar endast inifrån en kanal."
+
+#: src/irc/outputfilter.cpp:603
+#, kde-format
+msgid ""
+"%1NAMES with no target may disconnect you from the server. Specify '*' if "
+"you really want this."
+msgstr ""
+"%1NAMES utan mål kan koppla ner dig från servern. Ange  '*' om du verkligen "
+"vill det."
+
+#: src/irc/outputfilter.cpp:626
+#, c-format, kde-format
+msgid ""
+"Usage: %1close [window] closes the named channel or query tab, or the "
+"current tab if none specified."
+msgstr ""
+"Användning: %1close [fönster] stänger namngiven kanal eller frågeflik, eller "
+"den nuvarande fliken om ingen anges."
+
+#: src/irc/outputfilter.cpp:662
+#, kde-format
+msgid "Usage: %1NOTICE <recipient> <message>"
+msgstr "Användning: %1NOTICE <mottagare> <meddelande>"
+
+#: src/irc/outputfilter.cpp:669
+#, kde-format
+msgctxt "%1 is the message, %2 the recipient nickname"
+msgid "Sending notice \"%1\" to %2."
+msgstr "Sänder notis \"%1\" till %2."
+
+#: src/irc/outputfilter.cpp:681
+#, kde-format
+msgid "%1ME only works from a channel, query or DCC chat tab."
+msgstr "%1ME fungerar endast inifrån en kanal, en frågekanal eller DCC-chatt."
+
+#: src/irc/outputfilter.cpp:749
+msgid "You need to specify a recipient."
+msgstr "Du måste ange en mottagare."
+
+#: src/irc/outputfilter.cpp:754
+msgid "You cannot open queries to channels."
+msgstr "Du kan inte öppna förfrågan till kanaler."
+
+#: src/irc/outputfilter.cpp:760
+msgid "You need to specify a message."
+msgstr "Du måste ange ett meddelande."
+
+#: src/irc/outputfilter.cpp:843 src/irc/outputfilter.cpp:848
+#, kde-format
+msgid "Sending CTCP-%1 request to %2."
+msgstr "Sänder CTCP %1-begäran till %2."
+
+#: src/irc/outputfilter.cpp:860
+#, c-format, kde-format
+msgid "Usage: %1AME [-LOCAL] text"
+msgstr "Användning: %1AME [-LOCAL] text"
+
+#: src/irc/outputfilter.cpp:873
+#, c-format, kde-format
+msgid "Usage: %1AMSG [-LOCAL] text"
+msgstr "Användning: %1AMSG [-LOCAL] text"
+
+#: src/irc/outputfilter.cpp:886
+#, kde-format
+msgid "Usage: %1OMSG text"
+msgstr "Användning: %1OMSG text"
+
+#: src/irc/outputfilter.cpp:904
+#, kde-format
+msgid "Sending notice \"%1\" to %2."
+msgstr "Sänder notis \"%1\" till %2."
+
+#: src/irc/outputfilter.cpp:907
+#, kde-format
+msgid "Usage: %1ONOTICE text"
+msgstr "Användning: %1ONOTICE text"
+
+#: src/irc/outputfilter.cpp:917
+#, kde-format
+msgid "Usage: %1QUOTE command list"
+msgstr "Användning: %1QUOTE kommandolista"
+
+#: src/irc/outputfilter.cpp:929
+#, c-format, kde-format
+msgid "Usage: %1SAY text"
+msgstr "Användning: %1SAY text"
+
+#: src/irc/outputfilter.cpp:985
+#, kde-format
+msgid "File \"%1\" does not exist."
+msgstr "Filen \"%1\" finns inte."
+
+#: src/irc/outputfilter.cpp:989
+#, kde-format
+msgid "Usage: %1DCC [SEND [nickname [filename]]]"
+msgstr "Användning: %1DCC [SEND smeknamn [filnamn]]]"
+
+#: src/irc/outputfilter.cpp:1007
+#, kde-format
+msgid "Usage: %1DCC [GET [nickname [filename]]]"
+msgstr "Användning: %1DCC [GET [smeknamn [filnamn]]]"
+
+#: src/irc/outputfilter.cpp:1023
+#, kde-format
+msgid "Usage: %1DCC [CHAT [nickname]]"
+msgstr "Användning: %1DCC [CHAT [smeknamn]]"
+
+#: src/irc/outputfilter.cpp:1039
+#, kde-format
+msgid "Usage: %1DCC [WHITEBOARD [nickname]]"
+msgstr "Användning: %1DCC [WHITEBOARD [smeknamn]]"
+
+#: src/irc/outputfilter.cpp:1044
+#, kde-format
+msgid ""
+"Unrecognized command %1DCC %2. Possible commands are SEND, CHAT, CLOSE, GET, "
+"WHITEBOARD."
+msgstr ""
+"Okänt kommando %1DCC %2. Möjliga kommandon är SEND, CHAT, CLOSE, GET, "
+"WHITEBOARD."
+
+#: src/irc/outputfilter.cpp:1187
+#, kde-format
+msgid "Usage: %1INVITE <nick> [channel]"
+msgstr "Användning: %1INVITE <smeknamn> [kanal]"
+
+#: src/irc/outputfilter.cpp:1198
+#, kde-format
+msgid "%1INVITE without channel name works only from within channels."
+msgstr "%1INVITE utan kanalnamn fungerar endast inifrån kanaler."
+
+#: src/irc/outputfilter.cpp:1207
+#, kde-format
+msgid "%1 is not a channel."
+msgstr "%1 är inte en kanal."
+
+#: src/irc/outputfilter.cpp:1219
+#, c-format, kde-format
+msgid "Usage: %1EXEC [-SHOWPATH] <script> [parameter list]"
+msgstr "Användning: %1EXEC [-SHOWPATH] <skript> [parameterlista]"
+
+#: src/irc/outputfilter.cpp:1228
+#, kde-format
+msgctxt "%2 is a filesystem path to the script file"
+msgid "The script file '%1' was found at: %2"
+msgstr "Skriptfilen '%1' hittades i: %2"
+
+#: src/irc/outputfilter.cpp:1235
+msgid "The script name may not contain \"../\"."
+msgstr "Skriptnamnet får inte innehålla \"../\"."
+
+#: src/irc/outputfilter.cpp:1250
+#, kde-format
+msgid "Usage: %1RAW [OPEN | CLOSE]"
+msgstr "Användning: %1RAW [OPEN | CLOSE]"
+
+#: src/irc/outputfilter.cpp:1292
+#, kde-format
+msgctxt "%1 = Comma-separated list of nicknames"
+msgid "The notify list has been emptied (removed %1)."
+msgstr "Underrättelselistan har tömts (%1 borttagna)."
+
+#: src/irc/outputfilter.cpp:1295
+msgid "The notify list is currently empty."
+msgstr "Underrättelselistan är för närvarande tom."
+
+#: src/irc/outputfilter.cpp:1301
+#, kde-format
+msgctxt "%1 and %2 = Comma-separated lists of nicknames"
+msgid "Current notify list: %1 (added %2)."
+msgstr "Aktuell underrättelselista: %1 (%2 tillagda)"
+
+#: src/irc/outputfilter.cpp:1305
+#, kde-format
+msgctxt "%1 and %2 = Comma-separated lists of nicknames"
+msgid "Current notify list: %1 (removed %2)."
+msgstr "Aktuell underrättelselista: %1 (%2 borttagna)"
+
+#: src/irc/outputfilter.cpp:1309
+#, kde-format
+msgctxt "%1, %2 and %3 = Comma-separated lists of nicknames"
+msgid "Current notify list: %1 (added %2, removed %3)."
+msgstr "Aktuell underrättelselista: %1 (%2 tillagda, %3 borttagna)"
+
+#: src/irc/outputfilter.cpp:1313
+#, kde-format
+msgctxt "%1 = Comma-separated list of nicknames"
+msgid "Current notify list: %1."
+msgstr "Aktuell underrättelselista: %1."
+
+#: src/irc/outputfilter.cpp:1318 src/irc/server.cpp:2883
+#: src/irc/server.cpp:2900
+msgid "Notify"
+msgstr "Underrättelse"
+
+#: src/irc/outputfilter.cpp:1334
+msgid "Enter username and password for IRC operator privileges:"
+msgstr "Skriv in användarnamn och nyckel för IRC-operatörsprivilegier:"
+
+#: src/irc/outputfilter.cpp:1336
+msgid "IRC Operator Password"
+msgstr "Nyckel för IRC-operatörsprivilegier"
+
+#: src/irc/outputfilter.cpp:1400
+#, kde-format
+msgid "%1BAN without channel name works only from inside a channel."
+msgstr "%1BAN utan kanalnamn fungerar endast inifrån kanaler."
+
+#: src/irc/outputfilter.cpp:1403
+#, kde-format
+msgid "%1KICKBAN without channel name works only from inside a channel."
+msgstr "%1KICKBAN utan kanalnamn fungerar endast inifrån en kanal."
+
+#: src/irc/outputfilter.cpp:1438
+#, kde-format
+msgid ""
+"Usage: %1BAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [channel] <nickname "
+"| mask>"
+msgstr ""
+"Användning: %1BAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [kanal] "
+"<smeknamn|mask>"
+
+#: src/irc/outputfilter.cpp:1441
+#, kde-format
+msgid ""
+"Usage: %1KICKBAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [channel] "
+"<nickname | mask> [reason]"
+msgstr ""
+"Användning: %1KICKBAN [-HOST | -DOMAIN | -USERHOST | -USERDOMAIN] [kanal] "
+"<smeknamn | mask> [orsak]"
+
+#: src/irc/outputfilter.cpp:1484
+#, kde-format
+msgid "%1UNBAN without channel name works only from inside a channel."
+msgstr "%1UNBAN utan kanalnamn fungerar endast inifrån kanaler."
+
+#: src/irc/outputfilter.cpp:1499
+#, kde-format
+msgid "Usage: %1UNBAN [channel] pattern"
+msgstr "Användning: %1UNBAN [kanal] mönster"
+
+#: src/irc/outputfilter.cpp:1545
+#, kde-format
+msgid "Added %1 to your ignore list."
+msgstr "Lägger till %1 i din ignorera-lista."
+
+#: src/irc/outputfilter.cpp:1555
+#, kde-format
+msgid "Usage: %1IGNORE [ -ALL ] <user 1> <user 2> ... <user n>"
+msgstr "Användning: %1IGNORE [ -ALL ] användarlista"
+
+#: src/irc/outputfilter.cpp:1566
+#, kde-format
+msgid "Usage: %1UNIGNORE <user 1> <user 2> ... <user n>"
+msgstr "Användning: %1UNIGNORE <användare 1> <användare 2> ... <användare n>"
+
+#: src/irc/outputfilter.cpp:1616
+#, kde-format
+msgid "Removed %1 from your ignore list."
+msgstr "Tog bort %1 från din ignorera-lista."
+
+#: src/irc/outputfilter.cpp:1623
+#, kde-format
+msgid "No such ignore: %2"
+msgid_plural "No such ignores: %2"
+msgstr[0] "Inget sådant att ignorera: %2"
+msgstr[1] "Inga sådana att ignorera: %2"
+
+#: src/irc/outputfilter.cpp:1658
+#, kde-format
+msgid "Current encoding is: %1"
+msgstr "Aktuell kodning är: %1"
+
+#: src/irc/outputfilter.cpp:1669
+#, kde-format
+msgid "Switched to %1 encoding."
+msgstr "Byte till kodningen %1."
+
+#: src/irc/outputfilter.cpp:1672
+#, kde-format
+msgid "%1 is not a valid encoding."
+msgstr "%1 är inte en giltig kodning."
+
+#: src/irc/outputfilter.cpp:1690
+#, c-format, kde-format
+msgid ""
+"Usage: %1setkey <nick|channel> <key> sets the encryption key for nick or "
+"channel. %1setkey <key> when in a channel or query tab sets the key for it. "
+"The key field recognizes \"cbc:\" and \"ecb:\" prefixes to set the block "
+"cipher mode of operation to either Cipher-Block Chaining or Electronic "
+"Codebook. The mode it defaults to when no prefix is given can be changed in "
+"the configuration dialog under Behavior -> Connection -> Encryption -> "
+"Default Encryption Type, with the default for that setting being Electronic "
+"Codebook (ECB)."
+msgstr ""
+"Användning: %1setkey <smeknamn|kanal> <key> anger krypteringsnyckeln för "
+"smeknamn eller kanal. %1setkey <nyckel> i en kanal eller frågeflik anger "
+"nyckeln för den. Nyckelfältet känner igen prefixen \"cbc:\" och \"ecb:\" för "
+"att ställa in blockkodsläget vid användning till antingen kedjning av "
+"chifferblock (cbc) eller elektronisk kodbok (ecb). Standardvärdet när inget "
+"prefix anges kan ändras i inställningsdialogrutan med Beteende -> Anslutning "
+"-> Kryptering -> Standardkrypteringstyp, där inställningens normalvärde är "
+"elektronisk kodbok (ECB)."
+
+#: src/irc/outputfilter.cpp:1702
+#, kde-format
+msgid "Unable to set an encryption key for %1."
+msgstr "Kan inte ställa in krypteringsnyckel för %1."
+
+#: src/irc/outputfilter.cpp:1711
+#, kde-format
+msgid "The key for %1 has been set."
+msgstr "Nyckeln för %1 är angiven."
+
+#: src/irc/outputfilter.cpp:1714 src/irc/outputfilter.cpp:1739
+msgid ""
+"Setting an encryption key requires Konversation to have been built with "
+"support for the Qt Cryptographic Architecture (QCA) library. Contact your "
+"distributor about a Konversation package with QCA support, or rebuild "
+"Konversation with QCA present."
+msgstr ""
+"Att ange en krypteringsnyckel kräver att Konversation har byggts med stöd "
+"för Qt:s kryptografiska arkitekturbiblioteket (QCA). Kontakta din "
+"distributör om ett paket för Konversation med stöd för QCA, eller bygg om "
+"Konversation med QCA närvarande."
+
+#: src/irc/outputfilter.cpp:1729
+#, kde-format
+msgid ""
+"Usage: %1keyx <nick|channel> triggers DH1080 key exchange with the target."
+msgstr ""
+"Användning: %1keyx <smeknamn|kanal> utlöser DH1080-nyckelutbyte med målet."
+
+#: src/irc/outputfilter.cpp:1732
+#, kde-format
+msgid "Unable to request a key exchange from %1."
+msgstr "Kan inte begära ett nyckelutbyte med %1."
+
+#: src/irc/outputfilter.cpp:1736
+#, kde-format
+msgid "Beginning DH1080 key exchange with %1."
+msgstr "Börjar DH1080-nyckelutbyte med %1."
+
+#: src/irc/outputfilter.cpp:1755
+#, c-format, kde-format
+msgid ""
+"Usage: %1delkey <nick> or <channel> deletes the encryption key for nick or "
+"channel"
+msgstr ""
+"Användning: %1delkey <smeknamn> eller <kanal> Tar bort krypteringsnyckeln "
+"för smeknamnet eller kanalen"
+
+#: src/irc/outputfilter.cpp:1767
+#, kde-format
+msgid "The key for %1 has been deleted."
+msgstr "Nyckeln för %1 har tagits bort."
+
+#: src/irc/outputfilter.cpp:1770 src/irc/outputfilter.cpp:1790
+#, kde-format
+msgid "No key has been set for %1."
+msgstr "Någon nyckel har inte angivits för %1."
+
+#: src/irc/outputfilter.cpp:1787
+#, kde-format
+msgid "The key for %1 is \"%2\"."
+msgstr "Nyckeln för %1 är \"%2\"."
+
+#: src/irc/outputfilter.cpp:1788
+msgid "Blowfish"
+msgstr "Blowfish"
+
+#: src/irc/outputfilter.cpp:1800
+#, kde-format
+msgid "Usage: %1KILL <nick> [comment]"
+msgstr "Användning: %1KILL <smeknamn> [kommentar]"
+
+#: src/irc/outputfilter.cpp:1814
+#, kde-format
+msgid "Usage: %1DNS <nick>"
+msgstr "Användning: %1DNS <smeknamn>"
+
+#: src/irc/outputfilter.cpp:1844
+#, c-format, kde-format
+msgid "Usage: %1queuetuner [on | off]"
+msgstr "Användning: %1queuetuner [on | off]"
+
+#: src/irc/outputfilter.cpp:1905
+#, c-format, kde-format
+msgid "%1CYCLE [-APP | -SERVER] [channel | nickname]"
+msgstr "%1CYCLE [-APP | -SERVER] [kanal | smeknamn]"
+
+#: src/irc/outputfilter.cpp:1936
+#, c-format, kde-format
+msgid "%1CLEAR [-ALL] [channel | nickname]"
+msgstr "%1CLEAR [-ALL] [kanal | smeknamn]"
+
+#: src/irc/server.cpp:401 src/irc/server.cpp:411
+msgid "Warning"
+msgstr "Varning"
+
+#: src/irc/server.cpp:458
+#, kde-format
+msgid "Looking for server %1 (port <numid>%2</numid>)..."
+msgstr "Söker efter server %1 (port <numid>%2</numid>)..."
+
+#: src/irc/server.cpp:622
+msgid "Server found, connecting..."
+msgstr "Servern hittades, ansluter..."
+
+#: src/irc/server.cpp:633
+msgid "Connected; logging in..."
+msgstr "Ansluten. Loggar in..."
+
+#: src/irc/server.cpp:692 src/irc/server.cpp:789
+msgid "SSL Connection Error"
+msgstr "SSL-anslutningsfel"
+
+#: src/irc/server.cpp:693
+#, kde-format
+msgid ""
+"Connection to server %1 (port <numid>%2</numid>) lost while waiting for user "
+"response to an SSL error. Will automatically reconnect if error is ignored."
+msgstr ""
+"Anslutning till server %1 (port <numid>%2</numid>) förlorades vid väntan på "
+"användarens svar på ett SSL-fel. Anslutar automatiskt igen om felet "
+"ignoreras."
+
+#: src/irc/server.cpp:713
+#, kde-format
+msgid "Connection to server %1 (port <numid>%2</numid>) lost: %3."
+msgstr "Anslutning till server %1 (port <numid>%2</numid>) förlorad: %3."
+
+#: src/irc/server.cpp:750
+#, kde-format
+msgid ""
+"The SSL certificate for the server %1 (port <numid>%2</numid>) failed the "
+"authenticity check."
+msgstr ""
+"Behörighetskontroll av SSL-certifikatet för servern %1 (port <numid>%2</"
+"numid>) misslyckades."
+
+#: src/irc/server.cpp:754
+msgid "SSL Connection Warning"
+msgstr "SSL-anslutningsvarning"
+
+#: src/irc/server.cpp:784
+#, kde-format
+msgid ""
+"Could not connect to %1 (port <numid>%2</numid>) using SSL encryption. "
+"Either the server does not support SSL (did you use the correct port?) or "
+"you rejected the certificate. %3"
+msgstr ""
+"Kunde inte ansluta till %1 (port <numid>%2</numid>) med SSL-kryptering. "
+"Antingen stöder inte servern SSL (användes rätt port?), eller förkastade du "
+"certifikatet. %3"
+
+#: src/irc/server.cpp:899
+msgid "Delayed connect aborted."
+msgstr "Fördröjd anslutning avbruten."
+
+#: src/irc/server.cpp:929
+#, kde-format
+msgid "Disconnected from %1 (port <numid>%2</numid>)."
+msgstr "Nerkopplad från %1 (port <numid>%2</numid>)."
+
+#: src/irc/server.cpp:1101
+#, kde-format
+msgid ""
+"No nicknames from the \"%1\" identity were accepted by the connection "
+"\"%2\".\n"
+"Please enter a new one or press Cancel to disconnect:"
+msgstr ""
+"Några smeknamn för identiteten \"%1\" accepterades inte av anslutningen "
+"\"%2\".\n"
+"Skriv in ett nytt, eller klicka på Avbryt för att koppla ner:"
+
+#: src/irc/server.cpp:1102
+msgid "Nickname error"
+msgstr "Smeknamnsfel"
+
+#: src/irc/server.cpp:1565 src/irc/server.cpp:3537 src/irc/server.cpp:3542
+#: src/application.cpp:357
+msgid "D-Bus"
+msgstr "D-Bus"
+
+#: src/irc/server.cpp:1911
+#, kde-format
+msgid "Select File(s) to Send to %1"
+msgstr "Välj fil(er) att sända till %1"
+
+#: src/irc/server.cpp:2084
+#, kde-format
+msgctxt "%1=nickname"
+msgid "Received invalid DCC SEND request from %1."
+msgstr "Tog emot ogiltig DCC-sändningsbegäran från %1."
+
+#: src/irc/server.cpp:2119 src/irc/server.cpp:2249 src/irc/server.cpp:2261
+#: src/irc/server.cpp:2410 src/irc/server.cpp:2466 src/irc/server.cpp:2575
+msgid "unknown size"
+msgstr "okänd storlek"
+
+#: src/irc/server.cpp:2116
+#, kde-format
+msgid "%1 offers to send you \"%2\" (%3)..."
+msgstr "%1 erbjuder sig att skicka dig \"%2\" (%3)..."
+
+#: src/irc/server.cpp:2155
+#, kde-format
+msgctxt "%1=nickname"
+msgid "Received invalid DCC CHAT request from %1."
+msgstr "Tog emot ogiltig begäran om DCC chatt från %1."
+
+#: src/irc/server.cpp:2246
+#, kde-format
+msgid "Asking %1 to accept upload of \"%2\" (%3)..."
+msgstr "Frågar om %1 accepterar uppladdning av \"%2\" (%3)..."
+
+#: src/irc/server.cpp:2258
+#, kde-format
+msgid "Asking %1 to accept passive upload of \"%2\" (%3)..."
+msgstr "Frågar om %1 accepterar uppladdning av \"%2\" (%3)..."
+
+#: src/irc/server.cpp:2270
+#, kde-format
+msgctxt "%1=name, %2=dcc extension, chat or wboard for example"
+msgid "Asking %1 to accept %2..."
+msgstr "Frågar om %1 accepterar %2..."
+
+#: src/irc/server.cpp:2329
+#, kde-format
+msgctxt "%1 = nickname"
+msgid "Received invalid passive DCC chat acceptance message from %1."
+msgstr "Mottog ogiltig meddelande med acceptans av passiv DCC chatt från %1."
+
+#: src/irc/server.cpp:2365
+#, kde-format
+msgctxt "%1 = file name, %2 = nickname"
+msgid ""
+"Received invalid passive DCC send acceptance message for \"%1\" from %2."
+msgstr ""
+"Mottog ogiltig meddelande med acceptans av passiv DCC-sändning för \"%1\" "
+"från %2."
+
+#: src/irc/server.cpp:2406
+#, kde-format
+msgctxt ""
+"%1 = file name, %2 = nickname of sender, %3 = percentage of file size, %4 = "
+"file size"
+msgid "Resuming download of \"%1\" from %2 starting at %3% of %4..."
+msgstr "Återupptar nerladdning av \"%1\" från %2 med början på %3 % av %4..."
+
+#: src/irc/server.cpp:2416
+#, kde-format
+msgctxt "%1 = file name, %2 = nickname"
+msgid "Received invalid resume acceptance message for \"%1\" from %2."
+msgstr "Mottog ogiltig begäran om att återuppta \"%1\" från %2."
+
+#: src/irc/server.cpp:2462
+#, kde-format
+msgctxt ""
+"%1 = file name, %2 = nickname of recipient, %3 = percentage of file size, %4 "
+"= file size"
+msgid "Resuming upload of \"%1\" to %2 starting at %3% of %4..."
+msgstr "Återupptar uppladdning av \"%1\" till %2 med början på %3 % av %4..."
+
+#: src/irc/server.cpp:2484
+#, kde-format
+msgctxt "%1 = file name, %2 = nickname"
+msgid "Received invalid resume request for \"%1\" from %2."
+msgstr "Mottog ogiltig begäran om att återuppta \"%1\" från %2."
+
+#: src/irc/server.cpp:2503
+#, kde-format
+msgctxt "%1 = file name, %2 = nickname"
+msgid "Received invalid reject request for \"%1\" from %2."
+msgstr "Mottog ogiltig begäran om att avslå \"%1\" från %2."
+
+#: src/irc/server.cpp:2519
+#, kde-format
+msgctxt "%1 = nickname"
+msgid "Received invalid reject request from %1."
+msgstr "Mottog ogiltig begäran om att avslå från %1."
+
+#: src/irc/server.cpp:2532
+#, kde-format
+msgctxt "%1 = file name, %2 = nickname of sender"
+msgid "Download of \"%1\" from %2 finished."
+msgstr "Nerladdning av \"%1\" från %2 klar."
+
+#: src/irc/server.cpp:2537
+#, kde-format
+msgctxt "%1 = file name, %2 = nickname of sender"
+msgid "Download of \"%1\" from %2 failed. Reason: %3."
+msgstr "Nerladdning av \"%1\" från %2 misslyckades. Orsak: %3."
+
+#: src/irc/server.cpp:2549
+#, kde-format
+msgctxt "%1 = file name, %2 = nickname of recipient"
+msgid "Upload of \"%1\" to %2 finished."
+msgstr "Uppladdning av \"%1\" till %2 klar."
+
+#: src/irc/server.cpp:2552
+#, kde-format
+msgctxt "%1 = file name, %2 = nickname of recipient"
+msgid "Upload of \"%1\" to %2 failed. Reason: %3."
+msgstr "Uppladdning av \"%1\" till %2 misslyckades. Orsak: %3."
+
+#: src/irc/server.cpp:2566
+#, kde-format
+msgctxt "%1 = file name, %2 nickname of recipient"
+msgid "Sending \"%1\" to %2..."
+msgstr "Skickar \"%1\" till %2."
+
+#: src/irc/server.cpp:2573
+#, kde-format
+msgctxt "%1 = file name, %2 = file size, %3 = nickname of sender"
+msgid "Downloading \"%1\" (%2) from %3..."
+msgstr "Nerladdning av \"%1\" (%2) från %3..."
+
+#: src/irc/server.cpp:2883 src/notificationhandler.cpp:307
+#, kde-format
+msgid "%1 is online (%2)."
+msgstr "%1 är uppkopplad (%2)."
+
+#: src/irc/server.cpp:2900 src/notificationhandler.cpp:321
+#, kde-format
+msgid "%1 went offline (%2)."
+msgstr "%1 kopplade ner (%2)."
+
+#: src/irc/server.cpp:3537
+#, kde-format
+msgid "Error: Could not find script \"%1\"."
+msgstr "Fel: Kunde inte hitta skriptet \"%1\"."
+
+#: src/irc/server.cpp:3542
+#, kde-format
+msgid "Error: Could not execute script \"%1\". Check file permissions."
+msgstr "Fel: Kunde inte köra skriptet \"%1\". Kontrollera filrättigheter."
+
+#: src/irc/server.cpp:3756
+msgid "Gone away for now"
+msgstr "Borta för tillfället"
+
+#: src/irc/server.cpp:3787
+#, kde-format
+msgid "You are now marked as being away (reason: %1)."
+msgstr "Du anges nu som borta (orsak: %1)."
+
+#: src/irc/server.cpp:3789
+msgid "You are now marked as being away."
+msgstr "Du anges nu som borta."
+
+#: src/irc/server.cpp:3814
+msgid "You are no longer marked as being away."
+msgstr "Du anges inte längre som borta."
+
+#: src/irc/server.cpp:3823
+msgid "You are not marked as being away."
+msgstr "Du anges inte som borta."
+
+#: src/irc/server.cpp:3974
+#, kde-format
+msgid "Failed to initiate key exchange with %1."
+msgstr "Misslyckades påbörja nyckelutbyte med %1."
+
+#: src/irc/server.cpp:3986
+#, kde-format
+msgid "Unable to perform key exchange with %1."
+msgstr "Kan inte utföra nyckelutbyte med %1."
+
+#: src/irc/server.cpp:4010
+#, kde-format
+msgid "Failed to parse the DH1080_INIT of %1. Key exchange failed."
+msgstr "Misslyckades tolka DH1080_INIT från %1. Nyckelutbyte misslyckades."
+
+#: src/irc/server.cpp:4016
+#, kde-format
+msgid ""
+"Your key is set and your messages will now be encrypted, sending "
+"DH1080_FINISH to %1."
+msgstr ""
+"Din nyckel är inställd, och dina meddelanden kommer nu att vara krypterade. "
+"Skickar DH1080_FINISH till %1."
+
+#: src/irc/server.cpp:4033
+#, kde-format
+msgid "Unable to complete key exchange with %1."
+msgstr "Kan inte slutföra nyckelutbyte med %1."
+
+#: src/irc/server.cpp:4045
+#, kde-format
+msgid ""
+"Successfully parsed DH1080_FINISH sent by %1. Your key is set and your "
+"messages will now be encrypted."
+msgstr ""
+"Tolkade DH1080_FINISH skickat av %1 med lyckat resultat. Din nyckel är "
+"inställd, och dina meddelanden kommer nu att vara krypterade."
+
+#: src/irc/server.cpp:4049
+#, kde-format
+msgid "Failed to parse DH1080_FINISH sent by %1. Key exchange failed."
+msgstr "Misslyckades tolka DH1080_FINISH från %1. Nyckelutbyte misslyckades."
 
 #: src/linkaddressbook/addressbook.cpp:105
 msgid "Offline"
@@ -4263,9 +4342,1065 @@ msgstr "Ny adressbokspost"
 msgid "Name the new entry:"
 msgstr "Namnge ny post:"
 
-#: src/main.cpp:37 src/viewer/trayicon.cpp:24
+#: src/statusbar.cpp:40 src/statusbar.cpp:75 src/statusbar.cpp:143
+msgid "Ready."
+msgstr "Klar."
+
+#: src/statusbar.cpp:46
+msgid ""
+"<qt><p>This shows the number of users in the channel, and the number of "
+"those that are operators (ops).</p><p>A channel operator is a user that has "
+"special privileges, such as the ability to kick and ban users, change the "
+"channel modes, make other users operators</p></qt>"
+msgstr ""
+"<qt><p>Det här visar antal användare i kanalen, och antalet av dem som är "
+"operatörer (ops).</p><p>En kanaloperatör är en användare som har särskilda "
+"rättigheter, som möjligheten att sparka ut och bannlysa användare, ändra "
+"kanallägen och göra andra användare till operatörer.</p></qt>"
+
+#: src/statusbar.cpp:48 src/statusbar.cpp:148 src/statusbar.cpp:164
+msgid "Lag: Unknown"
+msgstr "Fördröjning: Okänd"
+
+#: src/statusbar.cpp:56
+msgid ""
+"All communication with the server is encrypted.  This makes it harder for "
+"someone to listen in on your communications."
+msgstr ""
+"All kommunikation med servern är krypterad. Det gör det svårare för någon "
+"att avlyssna kommunikationen."
+
+#: src/statusbar.cpp:63
+msgid ""
+"<qt>The status bar shows various messages, including any problems connecting "
+"to the server.  On the far right the current delay to the server is shown.  "
+"The delay is the time it takes for messages from you to reach the server, "
+"and from the server back to you.</qt>"
+msgstr ""
+"<qt>Statusraden visar diverse meddelanden, inklusive eventuella "
+"anslutningsproblem till servern. Längst till höger visas nuvarande "
+"fördröjning till servern. Fördröjningen är tiden det tar för meddelanden "
+"från dig att nå servern, och från servern tillbaka till dig.</qt>"
+
+#: src/statusbar.cpp:150
+#, kde-format
+msgid "Lag: %1 ms"
+msgstr "Fördröjning: %1 ms"
+
+#: src/statusbar.cpp:152 src/statusbar.cpp:213
+#, kde-format
+msgid "Lag: %1 s"
+msgstr "Fördröjning: %1 s"
+
+#: src/statusbar.cpp:184
+#, kde-format
+msgctxt ""
+"%1 = name of server, %2 = (x days), %3 = (x hours), %4 = (x minutes), %5 = "
+"(x seconds)"
+msgid "No answer from server %1 for more than %2, %3, %4, and %5."
+msgstr "Inget svar från servern %1 under mer än %2, %3, %4 och %5."
+
+#: src/statusbar.cpp:192
+#, kde-format
+msgctxt ""
+"%1 = name of server, %2 = (x hours), %3 = (x minutes), %4 = (x seconds)"
+msgid "No answer from server %1 for more than %2, %3, and %4."
+msgstr "Inget svar från servern %1 under mer än %2, %3 och %4."
+
+#: src/statusbar.cpp:199
+#, kde-format
+msgctxt "%1 = name of server, %2 = (x minutes), %3 = (x seconds)"
+msgid "No answer from server %1 for more than %2 and %3."
+msgstr "Inget svar från servern %1 under mer än %2 och %3."
+
+#: src/statusbar.cpp:204
+#, kde-format
+msgid "No answer from server %2 for more than 1 second."
+msgid_plural "No answer from server %2 for more than %1 seconds."
+msgstr[0] "Inget svar från servern %2 under mer än 1 sekund."
+msgstr[1] "Inget svar från servern %2 under mer än %1 sekunder."
+
+#: src/upnp/upnprouter.cpp:134
+#, kde-format
+msgid "Failed to download %1: %2"
+msgstr "Misslyckades ladda ner %1: %2"
+
+#: src/upnp/upnprouter.cpp:145
+msgid "Error parsing router description."
+msgstr "Fel vid tolkning av routerbeskrivning."
+
+#: src/viewer/awaylabel.cpp:22
+msgid "(away)"
+msgstr "(borta)"
+
+#: src/viewer/awaylabel.cpp:25
+msgid "&Unaway"
+msgstr "&Inte borta"
+
+#: src/viewer/awaylabel.cpp:28
+msgid "&Change away message..."
+msgstr "Ändra &frånvaromeddelande..."
+
+#: src/viewer/awaylabel.cpp:39
+msgid "Change away message"
+msgstr "Ändra frånvaromeddelande"
+
+#: src/viewer/awaylabel.cpp:39
+msgid "Enter new away message:"
+msgstr "Skriv in nytt frånvaromeddelande:"
+
+#. i18n: file: src/config/ignore_configui.ui:111
+#. i18n: ectx: property (text), widget (QCheckBox, chkQuery)
+#: src/viewer/ignorelistviewitem.cpp:43 rc.cpp:328
+msgid "Query"
+msgstr "Fråga"
+
+#: src/viewer/ignorelistviewitem.cpp:47
+msgid "Exception"
+msgstr "Undantag"
+
+#: src/viewer/irccolorchooser.cpp:28
+msgid "IRC Color Chooser"
+msgstr "IRC-färgväljare"
+
+#: src/viewer/irccolorchooser.cpp:33
+msgid "None"
+msgstr "Ingen"
+
+#: src/viewer/logfilereader.cpp:46
+msgid "Save As..."
+msgstr "Spara som..."
+
+#: src/viewer/logfilereader.cpp:47
+msgid "Reload"
+msgstr "Uppdatera"
+
+#: src/viewer/logfilereader.cpp:48 src/viewer/logfilereader.cpp:145
+msgid "Clear Logfile"
+msgstr "Töm loggfil"
+
+#: src/viewer/logfilereader.cpp:50
+msgid "Show last:"
+msgstr "Visa senaste:"
+
+#: src/viewer/logfilereader.cpp:56
+msgid ""
+"Use this box to set the maximum size of the log file. This setting does not "
+"take effect until you restart Konversation. Each log file may have a "
+"separate setting."
+msgstr ""
+"Använd rutan för att ställa in loggfilens maximala storlek. Inställningen "
+"får ingen effekt förrän du startar om Konversation. Varje loggfil kan ha en "
+"separat inställning."
+
+#: src/viewer/logfilereader.cpp:58
+msgid " KB"
+msgstr " Kibyte"
+
+#: src/viewer/logfilereader.cpp:65
+msgid ""
+"The messages in the log file are displayed here. The oldest messages are at "
+"the top and the most recent are at the bottom."
+msgstr ""
+"Meddelanden från loggfilen visas här. De äldsta meddelandena är längst upp "
+"och de senaste längst ner."
+
+#: src/viewer/logfilereader.cpp:144
+msgid ""
+"Do you really want to permanently discard all log information of this file?"
+msgstr "Vill du verkligen permanent ta bort all logginformation från filen?"
+
+#: src/viewer/logfilereader.cpp:158
+msgid ""
+"Note: By saving the logfile you will save all data in the file, not only the "
+"part you can see in this viewer."
+msgstr ""
+"Observera: Genom att spara loggfilen kommer du att spara all data i filen, "
+"inte bara den del som visas."
+
+#: src/viewer/logfilereader.cpp:159
+msgid "Save Logfile"
+msgstr "Spara loggfil"
+
+#: src/viewer/logfilereader.cpp:165
+msgid "Choose Destination Folder"
+msgstr "Välj målkatalog"
+
+#: src/viewer/pasteeditor.cpp:29
+msgid "Edit Multiline Paste"
+msgstr "Redigera flerraders inklistring"
+
+#: src/viewer/pasteeditor.cpp:32
+msgid "&Send"
+msgstr "&Skicka"
+
+#: src/viewer/rawlog.cpp:25 src/viewer/viewcontainer.cpp:2258
+msgid "Raw Log"
+msgstr "Obehandlad logg"
+
+#: src/viewer/editnotifydialog.cpp:31
+msgid "Edit Watched Nickname"
+msgstr "Redigera bevakat smeknamn"
+
+#: src/viewer/editnotifydialog.cpp:39
+msgid "&Network name:"
+msgstr "&Nätverksnamn:"
+
+#: src/viewer/editnotifydialog.cpp:41
+msgid "Pick the server network you will connect to here."
+msgstr "Välj servernätverket du vill ansluta till här."
+
+#: src/viewer/editnotifydialog.cpp:48
+msgid "N&ickname:"
+msgstr "Sm&eknamn:"
+
+#: src/viewer/editnotifydialog.cpp:50
+msgid ""
+"<qt>The nickname to watch for when connected to a server in the network.</qt>"
+msgstr ""
+"<qt>Smeknamnet att bevaka vid anslutning till en server i nätverket.</qt>"
+
+#: src/viewer/editnotifydialog.cpp:58
+msgid "All Networks"
+msgstr "Alla nätverk"
+
+#: src/viewer/editnotifydialog.cpp:72
+msgid "Change notify information"
+msgstr "Ändra underrättelseinformation"
+
+#: src/viewer/insertchardialog.cpp:29
+msgid "Insert Character"
+msgstr "Infoga tecken"
+
+#: src/viewer/insertchardialog.cpp:30
+msgid "&Insert"
+msgstr "&Infoga"
+
+#: src/viewer/insertchardialog.cpp:30
+msgid "Insert a character"
+msgstr "Infoga ett tecken"
+
+#: src/viewer/ircinput.cpp:59
+msgid ""
+"<qt><p>The input line is where you type messages to be sent the channel, "
+"query, or server.  A message sent to a channel is seen by everyone on the "
+"channel, whereas a message in a query is sent only to the person in the "
+"query with you.</p><p>To automatically complete the nickname you began "
+"typing, press Tab. If you have not begun typing, the last successfully "
+"completed nickname will be used.</p><p>You can also send special commands:</"
+"p><table><tr><th>/me <i>action</i></th><td>shows up as an action in the "
+"channel or query.  For example:  <em>/me sings a song</em> will show up in "
+"the channel as 'Nick sings a song'.</td></tr><tr><th>/whois <i>nickname</i></"
+"th><td>shows information about this person, including what channels they are "
+"in.</td></tr></table><p>For more commands, see the Konversation Handbook.</"
+"p><p>A message cannot contain multiple lines.</p></qt>"
+msgstr ""
+"<qt><p>Inmatningsraden är stället där du skriver meddelanden som ska skickas "
+"på kanalen, via en förfrågan eller till servern. Ett meddelande som skickas "
+"på en kanal ses av alla på kanalen, medan ett meddelande i en förfrågan bara "
+"skickas till personen i förfrågan.</p><p>För att automatiskt fylla i "
+"smeknamnet du har börjat skriva, tryck på tabulatortangenten. Om du ännu "
+"inte har skrivit någonting, används det senast riktigt ifyllda smeknamnet.</"
+"p><p>Du kan också skicka specialkommandon: </p><table><tr><th>/me <i>åtgärd</"
+"i></th><td>visas som en åtgärd på kanalen eller i förfrågan. Till exempel: "
+"<em>/me sjunger en sång</em> visas på kanalen som 'Smeknamn sjunger en sång'."
+"</td></tr><tr><th>/whois <i>smeknamn</i> </th><td>visar information om "
+"personen, inklusive vilken kanal de deltar i.</td></tr></table><p>Se "
+"Konversations handbok för fler kommandon.</p><p>Ett meddelande kan inte "
+"innehålla flera rader.</p></qt>"
+
+#: src/viewer/ircinput.cpp:499
+#, kde-format
+msgid "1 byte"
+msgid_plural "%1 bytes"
+msgstr[0] "1 byte"
+msgstr[1] "%1 byte"
+
+#: src/viewer/ircinput.cpp:500
+#, kde-format
+msgid "1 line"
+msgid_plural "%1 lines"
+msgstr[0] "1 rad"
+msgstr[1] "%1 rader"
+
+#: src/viewer/ircinput.cpp:506
+#, kde-format
+msgctxt ""
+"%1 is, for instance, '200 bytes'.  %2 is, for instance, '7 lines'.  Both are "
+"localised (see the two previous messages)."
+msgid ""
+"<qt>You are attempting to paste a large portion of text (%1 or %2) into the "
+"chat. This can cause connection resets or flood kills. Do you really want to "
+"continue?</qt>"
+msgstr ""
+"<qt>Du försöker klistra in en stor mängd text i chatten (%1 eller %2). Det "
+"kan orsaka återställning av anslutningen eller flöden med försök att "
+"avbryta. Vill du verkligen fortsätta?</qt>"
+
+#: src/viewer/ircinput.cpp:509
+msgid "Large Paste Warning"
+msgstr "Varning för stor inklistring"
+
+#: src/viewer/ircinput.cpp:510
+msgid "Paste"
+msgstr "Klistra in"
+
+#. i18n: file: src/irc/servergroupdialogui.ui:71
+#. i18n: ectx: property (text), widget (KPushButton, m_editIdentityButton)
+#. i18n: file: src/irc/serverlistdialogui.ui:162
+#. i18n: ectx: property (text), widget (QPushButton, m_editButton)
+#: src/viewer/ircinput.cpp:511 rc.cpp:1223 rc.cpp:1295
+msgid "&Edit..."
+msgstr "&Redigera..."
+
+#: src/viewer/osd.cpp:337
+msgid "OSD Preview - drag to reposition"
+msgstr "Förhandsgranskning av skärmmeddelande. Dra för att byta plats."
+
+#: src/viewer/searchbar.cpp:64
+msgid "Find Forward"
+msgstr "Sök nästa"
+
+#: src/viewer/searchbar.cpp:67
+msgid "Match Case"
+msgstr "Skiftlägeskänslig"
+
+#: src/viewer/searchbar.cpp:70
+msgid "Whole Words Only"
+msgstr "Bara hela ord"
+
+#: src/viewer/searchbar.cpp:73
+msgid "From Cursor"
+msgstr "Från markör"
+
+#: src/viewer/statuspanel.cpp:231
+#, kde-format
+msgid ""
+"Do you really want to close '%1'?\n"
+"\n"
+" All associated tabs will be closed as well."
+msgstr ""
+"Vill du verkligen stänga '%1'?\n"
+"\n"
+" Alla tillhörande flikar kommer också att stängas."
+
+#: src/viewer/statuspanel.cpp:232
+msgid "Close Tab"
+msgstr "Stäng flik"
+
+#: src/viewer/statuspanel.cpp:241
+#, kde-format
+msgid ""
+"Do you want to disconnect from '%1'?\n"
+"\n"
+" All associated tabs will be closed as well."
+msgstr ""
+"Vill du koppla ner från '%1'?\n"
+"\n"
+" Alla tillhörande flikar kommer också att stängas."
+
+#: src/viewer/statuspanel.cpp:242
+msgid "Disconnect From Server"
+msgstr "Koppla ner från servern"
+
+#: src/viewer/statuspanel.cpp:243
+msgid "Disconnect"
+msgstr "Koppla ner"
+
+#: src/viewer/topiclabel.cpp:301 src/viewer/ircview.cpp:2151
+#, kde-format
+msgid "Join the channel %1"
+msgstr "Gå med i kanal %1"
+
+#: src/viewer/chatwindow.cpp:444
+#, kde-format
+msgid ""
+"\n"
+"*** Logfile started\n"
+"*** on %1\n"
+"\n"
+msgstr ""
+"\n"
+"*** Loggfil startad\n"
+"*** den %1\n"
+"\n"
+
+#: src/viewer/trayicon.cpp:23 src/main.cpp:37
 msgid "Konversation"
 msgstr "Konversation"
+
+#: src/viewer/trayicon.cpp:23
+msgid "Konversation - IRC Client"
+msgstr "Konversation - IRC-klient"
+
+#: src/viewer/viewcontainer.cpp:221 src/mainwindow.cpp:291
+msgid "Move Tab Up"
+msgstr "Flytta flik uppåt"
+
+#: src/viewer/viewcontainer.cpp:229 src/mainwindow.cpp:302
+msgid "Move Tab Down"
+msgstr "Flytta flik neråt"
+
+#: src/viewer/viewcontainer.cpp:322 src/mainwindow.cpp:322
+#: src/mainwindow.cpp:334
+msgid "Move Tab Left"
+msgstr "Flytta flik åt vänster"
+
+#: src/viewer/viewcontainer.cpp:330 src/mainwindow.cpp:313
+#: src/mainwindow.cpp:343
+msgid "Move Tab Right"
+msgstr "Flytta flik åt höger"
+
+#: src/viewer/viewcontainer.cpp:561
+msgid "Find Text..."
+msgstr "Sök text..."
+
+#: src/viewer/viewcontainer.cpp:563
+msgid "Search for text in the current tab"
+msgstr "Sök efter text i nuvarande flik"
+
+#: src/viewer/viewcontainer.cpp:581
+#, kde-format
+msgid "Channel &List for %1"
+msgstr "Kanal&lista för %1"
+
+#: src/viewer/viewcontainer.cpp:587 src/mainwindow.cpp:203
+msgid "Channel &List"
+msgstr "Kanal&lista"
+
+#: src/viewer/viewcontainer.cpp:596 src/mainwindow.cpp:186
+#: src/mainwindow.cpp:773
+msgid "&Open Logfile"
+msgstr "Ö&ppna loggfil"
+
+#: src/viewer/viewcontainer.cpp:601
+#, kde-format
+msgid "&Open Logfile for %1"
+msgstr "Ö&ppna loggfil för %1"
+
+#: src/viewer/viewcontainer.cpp:612
+#, kde-format
+msgid "&Channel Settings for %1..."
+msgstr "&Kanalalternativ för %1..."
+
+#: src/viewer/viewcontainer.cpp:617 src/mainwindow.cpp:195
+msgid "&Channel Settings..."
+msgstr "&Kanalinställningar..."
+
+#: src/viewer/viewcontainer.cpp:1673
+msgid "Rename Tab"
+msgstr "Byt namn på flik"
+
+#: src/viewer/viewcontainer.cpp:1674
+msgid "Enter new tab name:"
+msgstr "Skriv in nytt fliknamn:"
+
+#: src/viewer/viewcontainer.cpp:1743
+#, kde-format
+msgctxt "Default encoding"
+msgid "Default ( %1 )"
+msgstr "Standard (%1)"
+
+#: src/viewer/viewcontainer.cpp:1778
+msgid "&Rename Tab..."
+msgstr "&Byt namn på flik..."
+
+#: src/viewer/viewcontainer.cpp:1923
+msgid "You can only search in text fields."
+msgstr "Du kan bara söka i textfält."
+
+#: src/viewer/viewcontainer.cpp:1924
+msgid "Find Text Information"
+msgstr "Sök textinformation"
+
+#: src/viewer/viewcontainer.cpp:2121
+#, kde-format
+msgid "Logfile of %1"
+msgstr "Loggfil för %1"
+
+#: src/viewer/viewcontainer.cpp:2130 src/viewer/viewcontainer.cpp:2131
+#: src/konsolepanel.cpp:27
+msgid "Konsole"
+msgstr "Terminal"
+
+#: src/viewer/viewcontainer.cpp:2141 src/urlcatcher.cpp:84
+msgid "URL Catcher"
+msgstr "Webbadressinfångning"
+
+#: src/viewer/viewcontainer.cpp:2493
+msgid ""
+"To know which server to display the channel list for, the list can only be "
+"opened from a query, channel or status window."
+msgstr ""
+"Kanallistan kan bara öppnas från ett frågekanal-, kanal- eller "
+"statusfönster, för att ta reda på vilken server som listan hör till."
+
+#: src/viewer/viewcontainer.cpp:2523
+msgid ""
+"Using this function may result in a lot of network traffic. If your "
+"connection is not fast enough, it is possible that your client will be "
+"disconnected by the server."
+msgstr ""
+"Användning av den här funktionen kan orsaka mycket trafik på nätet. Om din "
+"anslutning inte är snabb nog, är det möjligt att din klient kopplas ner av "
+"servern."
+
+#: src/viewer/viewcontainer.cpp:2527
+msgid "Channel List Warning"
+msgstr "Varning för kanaler"
+
+#: src/viewer/viewcontainer.cpp:2557
+msgid "Watched Nicks"
+msgstr "Bevakade smeknamn"
+
+#: src/viewer/irccontextmenus.cpp:112
+msgid "Copy Link Address"
+msgstr "Kopiera länkadress"
+
+#: src/viewer/irccontextmenus.cpp:116
+msgid "Add to Bookmarks"
+msgstr "Lägg till bokmärke"
+
+#: src/viewer/irccontextmenus.cpp:117
+msgid "Open With..."
+msgstr "Öppna med..."
+
+#: src/viewer/irccontextmenus.cpp:118
+msgid "Save Link As..."
+msgstr "Spara länk som..."
+
+#: src/viewer/irccontextmenus.cpp:258
+#, kde-format
+msgid "Search for '%1' with"
+msgstr "Sök efter '%1' med"
+
+#: src/viewer/irccontextmenus.cpp:273
+msgid "Configure Web Shortcuts..."
+msgstr "Anpassa webbgenvägar..."
+
+#: src/viewer/irccontextmenus.cpp:316 src/mainwindow.cpp:432
+msgid "&Join Channel..."
+msgstr "&Gå med i kanal..."
+
+#: src/viewer/irccontextmenus.cpp:319
+msgid "Get &topic"
+msgstr "&Hämta ämne"
+
+#: src/viewer/irccontextmenus.cpp:320
+msgid "Get &user list"
+msgstr "Hämta &användarlista"
+
+#: src/viewer/irccontextmenus.cpp:366
+msgid "Open Query"
+msgstr "Öppna frågekanal"
+
+#: src/viewer/irccontextmenus.cpp:378
+msgid "Modes"
+msgstr "Lägen"
+
+#: src/viewer/irccontextmenus.cpp:379
+msgid "Give Op"
+msgstr "Ge operatörsprivilegier"
+
+#: src/viewer/irccontextmenus.cpp:380
+msgid "Take Op"
+msgstr "Ta operatörsprivilegier"
+
+#: src/viewer/irccontextmenus.cpp:381
+msgid "Give HalfOp"
+msgstr "Ge deloperatörsprivilegier"
+
+#: src/viewer/irccontextmenus.cpp:382
+msgid "Take HalfOp"
+msgstr "Ta deloperatörsprivilegier"
+
+#: src/viewer/irccontextmenus.cpp:383
+msgid "Give Voice"
+msgstr "Ge röst"
+
+#: src/viewer/irccontextmenus.cpp:384
+msgid "Take Voice"
+msgstr "Ta röst"
+
+#: src/viewer/irccontextmenus.cpp:388
+msgid "Kick / Ban"
+msgstr "Utsparkning/bannlysning"
+
+#: src/viewer/irccontextmenus.cpp:390
+msgid "Kickban"
+msgstr "Utsparka och bannlys"
+
+#: src/viewer/irccontextmenus.cpp:391
+msgid "Ban Nickname"
+msgstr "Bannlys smeknamn"
+
+#: src/viewer/irccontextmenus.cpp:393
+msgid "Ban *!*@*.host"
+msgstr "Bannlys *|*@*.värddator"
+
+#: src/viewer/irccontextmenus.cpp:394
+msgid "Ban *!*@domain"
+msgstr "Bannlys *|*@domän"
+
+#: src/viewer/irccontextmenus.cpp:395
+msgid "Ban *!user@*.host"
+msgstr "Bannlys *|användare@*.värddator"
+
+#: src/viewer/irccontextmenus.cpp:396
+msgid "Ban *!user@domain"
+msgstr "Bannlys *|användare@domän"
+
+#: src/viewer/irccontextmenus.cpp:398
+msgid "Kickban *!*@*.host"
+msgstr "Utsparka och bannlys *|*@*.värddator"
+
+#: src/viewer/irccontextmenus.cpp:399
+msgid "Kickban *!*@domain"
+msgstr "Utsparka och bannlys *|*@domän"
+
+#: src/viewer/irccontextmenus.cpp:400
+msgid "Kickban *!user@*.host"
+msgstr "Utsparka och bannlys *|användare@*.värddator"
+
+#: src/viewer/irccontextmenus.cpp:401
+msgid "Kickban *!user@domain"
+msgstr "Utsparka och bannlys *|användare@domän"
+
+#: src/viewer/irccontextmenus.cpp:417
+msgid "&Version"
+msgstr "&Version"
+
+#: src/viewer/irccontextmenus.cpp:418
+msgid "&Ping"
+msgstr "&Pinga"
+
+#: src/viewer/irccontextmenus.cpp:425 src/viewer/irccontextmenus.cpp:621
+#: src/viewer/irccontextmenus.cpp:622
+msgid "Unignore"
+msgstr "Ignorera inte"
+
+#: src/viewer/irccontextmenus.cpp:428
+msgid "Add to Watched Nicks"
+msgstr "Lägg till i bevakade smeknamn"
+
+#: src/viewer/irccontextmenus.cpp:430
+msgid "Remove From Watched Nicks"
+msgstr "Ta bort från bevakade smeknamn"
+
+#: src/viewer/irccontextmenus.cpp:448
+msgid "Send &File..."
+msgstr "Skicka &fil..."
+
+#: src/viewer/irccontextmenus.cpp:450
+msgid "Open DCC Chat"
+msgstr "Öppna DCC-chatt"
+
+#: src/viewer/irccontextmenus.cpp:451
+msgid "Open DCC Whiteboard"
+msgstr "Öppna DCC-skrivtavla"
+
+#: src/viewer/irccontextmenus.cpp:583
+#, kde-format
+msgid "Do you want to ignore %1?"
+msgstr "Vill du ignorera %1?"
+
+#: src/viewer/irccontextmenus.cpp:585
+msgid "Do you want to ignore the selected users?"
+msgstr "Vill du verkligen ignorera de markerade användarna?"
+
+#: src/viewer/irccontextmenus.cpp:614
+#, kde-format
+msgid "Do you want to stop ignoring %1?"
+msgstr "Vill du sluta ignorera %1?"
+
+#: src/viewer/irccontextmenus.cpp:616
+msgid "Do you want to stop ignoring the selected users?"
+msgstr "Vill du verkligen sluta ignorera de markerade användarna?"
+
+#: src/viewer/irccontextmenus.cpp:825
+msgid "Address Book Association"
+msgid_plural "Address Book Associations"
+msgstr[0] "Adressbokskoppling"
+msgstr[1] "Adressbokskopplingar"
+
+#: src/viewer/irccontextmenus.cpp:862
+msgid "Edit Contact..."
+msgid_plural "Edit Contacts..."
+msgstr[0] "...Redigera kontakt"
+msgstr[1] "...Redigera kontakter"
+
+#: src/viewer/irccontextmenus.cpp:870
+msgid "Choose/Change Association..."
+msgid_plural "Choose/Change Associations..."
+msgstr[0] "...Välj eller ändra koppling"
+msgstr[1] "...Välj eller ändra kopplingar"
+
+#: src/viewer/irccontextmenus.cpp:876
+msgid "Choose Contact..."
+msgid_plural "Choose Contacts..."
+msgstr[0] "...Välj kontakt"
+msgstr[1] "...Välj kontakter"
+
+#: src/viewer/irccontextmenus.cpp:882
+msgid "Change Association..."
+msgid_plural "Change Associations..."
+msgstr[0] "...Ändra koppling"
+msgstr[1] "...Ändra kopplingar"
+
+#: src/viewer/irccontextmenus.cpp:889
+msgid "Create New Contact..."
+msgid_plural "Create New Contacts..."
+msgstr[0] "...Skapa ny kontakt"
+msgstr[1] "...Skapa nya kontakter"
+
+#: src/viewer/irccontextmenus.cpp:896
+msgid "Delete Association"
+msgid_plural "Delete Associations"
+msgstr[0] "Ta bort koppling"
+msgstr[1] "Ta bort kopplingar"
+
+#: src/viewer/irccontextmenus.cpp:963 src/urlcatcher.cpp:272
+msgid "Save link as"
+msgstr "Spara länk som"
+
+#: src/viewer/ircview.cpp:2142
+#, kde-format
+msgid "Open a query with %1"
+msgstr "Öppna frågekanal med %1"
+
+#: src/queuetuner.cpp:234
+msgid "Reset..."
+msgstr "Återställ..."
+
+#: src/queuetuner.cpp:239
+msgid ""
+"This cannot be undone, are you sure you wish to reset to default values?"
+msgstr ""
+"Det går inte att ångra detta. Är du säker på att du vill återställa till "
+"förvalda värden?"
+
+#: src/queuetuner.cpp:240
+msgid "Reset Values"
+msgstr "Återställ värden"
+
+#: src/identitydialog.cpp:34
+msgid "Identities"
+msgstr "Identiteter"
+
+#: src/identitydialog.cpp:54
+msgid ""
+"This is your list of nicknames. A nickname is the name that other users will "
+"know you by. You may use any name you desire. The first character must be a "
+"letter.\n"
+"\n"
+"Since nicknames must be unique across an entire IRC network, your desired "
+"name may be rejected by the server because someone else is already using "
+"that nickname. Enter alternate nicknames for yourself. If your first choice "
+"is rejected by the server, Konversation will try the alternate nicknames."
+msgstr ""
+"Det här är din lista med smeknamn. Ett smeknamn är namnet som andra "
+"användare känner dig som. Du kan använda vilket namn du vill. Det första "
+"tecknet måste vara en bokstav.\n"
+"\n"
+"Eftersom smeknamn måste vara unika i ett helt IRC-nätverk, kan ditt önskade "
+"namn förkastas av servern eftersom någon annan redan använder det. Skriv in "
+"alternativa smeknamn för dig själv. Om ditt första val förkastas av servern, "
+"försöker Konversation med de alternativa smeknamnen."
+
+#: src/identitydialog.cpp:82
+msgid " minute"
+msgid_plural " minutes"
+msgstr[0] " minut"
+msgstr[1] " minuter"
+
+#: src/identitydialog.cpp:90
+msgid "Change identity information"
+msgstr "Ändra identitetsinformation"
+
+#: src/identitydialog.cpp:193
+msgid "Add Identity"
+msgstr "Lägg till identitet"
+
+#: src/identitydialog.cpp:193 src/identitydialog.cpp:216
+#: src/identitydialog.cpp:271
+msgid "Identity name:"
+msgstr "Identitetsnamn:"
+
+#: src/identitydialog.cpp:207 src/identitydialog.cpp:225
+#: src/identitydialog.cpp:284
+msgid "You need to give the identity a name."
+msgstr "Du måste ge identiteten ett namn."
+
+#: src/identitydialog.cpp:216
+msgid "Rename Identity"
+msgstr "Byt namn på identitet"
+
+#: src/identitydialog.cpp:250
+msgid ""
+"This identity is in use, if you remove it the network settings using it will "
+"fall back to the default identity. Should it be deleted anyway?"
+msgstr ""
+"Den här identiteten används. Om du tar bort den kommer "
+"nätverksinställningarna som använder den återgå till förvald identitet. Ska "
+"den tas bort ändå?"
+
+#: src/identitydialog.cpp:255
+msgid "Are you sure you want to delete all information for this identity?"
+msgstr "Är du säker på att du vill ta bort all information för identiteten?"
+
+#: src/identitydialog.cpp:258
+msgid "Delete Identity"
+msgstr "Ta bort identitet"
+
+#. i18n: file: src/irc/servergroupdialogui.ui:168
+#. i18n: ectx: property (toolTip), widget (QToolButton, m_removeServerButton)
+#. i18n: file: src/irc/servergroupdialogui.ui:253
+#. i18n: ectx: property (toolTip), widget (QToolButton, m_removeChannelButton)
+#: src/identitydialog.cpp:259 rc.cpp:1256 rc.cpp:1268
+msgid "Delete"
+msgstr "Ta bort"
+
+#: src/identitydialog.cpp:271
+msgid "Duplicate Identity"
+msgstr "Duplicera identitet"
+
+#: src/identitydialog.cpp:314
+msgid "You must add at least one nick to the identity."
+msgstr "Du måste åtminstone lägga till ett smeknamn i identiteten."
+
+#: src/identitydialog.cpp:325
+msgid "Please enter a real name."
+msgstr "Skriv in ett riktigt namn."
+
+#: src/cipher.cpp:471
+msgid ""
+"Diffie-Hellman key exchange is not supported by your installation of the Qt "
+"Cryptographic Architecture (QCA). You likely need to install an additional "
+"provider plugin. Diffie-Hellman key exchange support is usually provided by "
+"the qca-ossl plugin."
+msgstr ""
+"Diffie-Hellman nyckelutbyte stöds inte av installationen av Qt:s "
+"kryptografiska arkitektur (QCA). Troligen behöver du installera ytterligare "
+"ett insticksprogram från leverantören. Stöd för Diffie-Hellman nyckelutbyte "
+"tillhandahålls oftast av insticksprogrammet qca-ossl."
+
+#: src/cipher.cpp:484
+msgid ""
+"Blowfish in cipher-block chaining (CBC) mode is not supported by your "
+"installation of the Qt Cryptographic Architecture (QCA). You likely need to "
+"install an additional provider plugin for QCA. Blowfish support is usually "
+"provided by the qca-ossl plugin."
+msgstr ""
+"Kedjning av chifferblock (CBC) i Blowfish stöds inte av installationen av Qt:"
+"s kryptografiska arkitektur (QCA). Troligen behöver du installera "
+"ytterligare ett insticksprogram från leverantören för QCA. Stöd för Blowfish "
+"tillhandahålls oftast av insticksprogrammet qca-ossl."
+
+#: src/cipher.cpp:496
+msgid ""
+"Blowfish in electronic codebook (ECB) mode is not supported by your "
+"installation of the Qt Cryptographic Architecture (QCA). You likely need to "
+"install an additional provider plugin for QCA. Blowfish support is usually "
+"provided by the qca-ossl plugin."
+msgstr ""
+"Elektroniskt kodboksläge (ECB) i Blowfish stöds inte av installationen av Qt:"
+"s kryptografiska arkitektur (QCA). Troligen behöver du installera "
+"ytterligare ett insticksprogram från leverantören för QCA. Stöd för Blowfish "
+"tillhandahålls oftast av insticksprogrammet qca-ossl."
+
+#: src/konsolepanel.cpp:39
+msgid "Manage Konsole Profiles"
+msgstr "Hantera terminalprofiler"
+
+#: src/quickconnectdialog.cpp:29
+msgid "Quick Connect"
+msgstr "Snabbanslutning"
+
+#: src/quickconnectdialog.cpp:36
+msgid "&Server host:"
+msgstr "&Servervärddator:"
+
+#: src/quickconnectdialog.cpp:37
+msgid "Enter the host of the network here."
+msgstr "Skriv in nätverkets värddator här."
+
+#. i18n: file: src/irc/serverdialogui.ui:43
+#. i18n: ectx: property (text), widget (QLabel, portLbl)
+#: src/quickconnectdialog.cpp:44 rc.cpp:1199
+msgid "&Port:"
+msgstr "&Port:"
+
+#: src/quickconnectdialog.cpp:45
+msgid "The port that the IRC server is using."
+msgstr "Porten som IRC-servern använder."
+
+#: src/quickconnectdialog.cpp:52
+msgid "&Nick:"
+msgstr "Smek&namn:"
+
+#: src/quickconnectdialog.cpp:53
+msgid "The nick you want to use."
+msgstr "Smeknamnet du vill använda."
+
+#: src/quickconnectdialog.cpp:60
+msgid "P&assword:"
+msgstr "&Lösenord:"
+
+#: src/quickconnectdialog.cpp:61
+msgid ""
+"If the IRC server requires a password, enter it here (most servers do not "
+"require a password.)"
+msgstr ""
+"Om IRC-servern kräver ett lösenord, skriv in det här (de flesta servrar "
+"kräver inte ett lösenord)."
+
+#: src/quickconnectdialog.cpp:71
+msgid "&Use SSL"
+msgstr "An&vänd SSL"
+
+#: src/urlcatcher.cpp:105
+msgctxt "open url"
+msgid "&Open"
+msgstr "Ö&ppna"
+
+#: src/urlcatcher.cpp:108
+msgid "Open URLs in external browser."
+msgstr "Öppna webbadresser i extern webbläsare."
+
+#: src/urlcatcher.cpp:109
+msgid ""
+"<p>Select one or several <b>URLs</b> below, then click this button to launch "
+"the application associated with the mimetype of the URL.</p>-<p>In the "
+"<b>Settings</b>, under <b>Behavior</b> | <b>General</b>, you can specify a "
+"custom web browser for web URLs.</p>"
+msgstr ""
+"<p>Markera en eller flera <b>webbadresser</b> nedan, och klicka därefter på "
+"knappen för att starta programmet som hör ihop med webbadressens MIME-typ.</"
+"p>\n"
+"<p>Du kan ange en egen webbläsare för webbadresser med <b>Inställningar</b>, "
+"under <b>Beteende</b> | <b>Allmänt</b>.</p>"
+
+#: src/urlcatcher.cpp:112
+msgid "&Save..."
+msgstr "&Spara..."
+
+#: src/urlcatcher.cpp:115
+msgid "Save selected URLs to the disk."
+msgstr "Spara markerade webbadresser på disk."
+
+#: src/urlcatcher.cpp:118
+msgid "Add Bookmark..."
+msgstr "Lägg till bokmärke..."
+
+#: src/urlcatcher.cpp:126
+msgctxt "copy url"
+msgid "&Copy"
+msgstr "K&opiera"
+
+#: src/urlcatcher.cpp:129
+msgid "Copy URLs to the clipboard."
+msgstr "Kopiera webbadresser till klippbordet."
+
+#: src/urlcatcher.cpp:130
+msgid ""
+"Select one or several <b>URLs</b> above, then click this button to copy them "
+"to the clipboard."
+msgstr ""
+"Markera en eller flera <b>webbadresser</b> ovan, och klicka därefter på "
+"knappen för att kopiera dem till klippbordet."
+
+#: src/urlcatcher.cpp:133
+msgctxt "delete url"
+msgid "&Delete"
+msgstr "&Ta bort"
+
+#: src/urlcatcher.cpp:136
+msgid ""
+"Select one or several <b>URLs</b> above, then click this button to delete "
+"them from the list."
+msgstr ""
+"Markera en eller flera <b>webbadresser</b> ovan, och klicka därefter på "
+"knappen för att ta bort dem från listan."
+
+#: src/urlcatcher.cpp:137
+msgid "Delete selected link."
+msgstr "Ta bort markerad länk."
+
+#: src/urlcatcher.cpp:143
+msgctxt "save url list"
+msgid "&Save List..."
+msgstr "&Spara lista..."
+
+#: src/urlcatcher.cpp:145
+msgid "Save list."
+msgstr "Spara lista."
+
+#: src/urlcatcher.cpp:146
+msgid "Click to save the entire list to a file."
+msgstr "Klicka för att spara hela listan i en fil."
+
+#: src/urlcatcher.cpp:149
+msgctxt "clear url list"
+msgid "&Clear List"
+msgstr "&Rensa lista"
+
+#: src/urlcatcher.cpp:151
+msgid "Clear list."
+msgstr "Rensa lista."
+
+#: src/urlcatcher.cpp:152
+msgid "Click to erase the entire list."
+msgstr "Klicka för att rensa hela listan."
+
+#: src/urlcatcher.cpp:163
+msgid ""
+"List of Uniform Resource Locators mentioned in any of the Konversation "
+"windows during this session."
+msgstr ""
+"Lista med webbadresser som nämns i något av fönstren i Konversation under "
+"den här sessionen."
+
+#: src/urlcatcher.cpp:176
+msgid "From"
+msgstr "Från"
+
+#: src/urlcatcher.cpp:180
+msgid "Date"
+msgstr "Datum"
+
+#: src/urlcatcher.cpp:235
+msgid ""
+"You have selected more than one URL. Do you really want to open several URLs "
+"at once?"
+msgstr ""
+"Du har markerat mer än en webbadress. Vill du verkligen öppna flera "
+"webbadresser på en gång?"
+
+#: src/urlcatcher.cpp:236 src/urlcatcher.cpp:258
+msgid "Open URLs"
+msgstr "Öppna webbadresser"
+
+#: src/urlcatcher.cpp:256
+msgid ""
+"You have selected more than one URL. A file dialog to set the destination "
+"will open for each. Do you really want to save several URLs at once?"
+msgstr ""
+"Du har markerat mer än en webbadress. En fildialogruta för att ange målet "
+"kommer att öppnas för var och en av dem. Vill du verkligen spara flera "
+"webbadresser på en gång?"
+
+#: src/urlcatcher.cpp:337
+msgid "Save URL List"
+msgstr "Spara webbadresslista"
+
+#: src/urlcatcher.cpp:364
+#, kde-format
+msgid ""
+"Konversation URL List: %1\n"
+"\n"
+msgstr ""
+"Konversation webbadresslista: %1\n"
+"\n"
 
 #: src/main.cpp:39
 msgid "A user-friendly IRC client"
@@ -4386,12 +5521,10 @@ msgid "Gary Cramblitt"
 msgstr "Gary Cramblitt"
 
 #: src/main.cpp:59
-msgid ""
-"Documentation, Watched nicks online improvements, Custom web browser "
-"extension"
+msgid "Documentation, Watched Nicks improvements, Custom web browser extension"
 msgstr ""
-"Dokumentation, förbättringar av bevakade uppkopplade smeknamn, utökning med "
-"egen webbläsare"
+"Dokumentation, förbättringar av bevakade smeknamn, utökning med egen "
+"webbläsare"
 
 #: src/main.cpp:60
 msgid "Matthias Gierlings"
@@ -4644,1044 +5777,6 @@ msgstr ""
 "Avslutar och startar om Konversation (om det kör, annars har det ingen "
 "effekt)"
 
-#: src/statusbar.cpp:40 src/statusbar.cpp:75 src/statusbar.cpp:143
-msgid "Ready."
-msgstr "Klar."
-
-#: src/statusbar.cpp:46
-msgid ""
-"<qt><p>This shows the number of users in the channel, and the number of "
-"those that are operators (ops).</p><p>A channel operator is a user that has "
-"special privileges, such as the ability to kick and ban users, change the "
-"channel modes, make other users operators</p></qt>"
-msgstr ""
-"<qt><p>Det här visar antal användare i kanalen, och antalet av dem som är "
-"operatörer (ops).</p><p>En kanaloperatör är en användare som har särskilda "
-"rättigheter, som möjligheten att sparka ut och bannlysa användare, ändra "
-"kanallägen och göra andra användare till operatörer.</p></qt>"
-
-#: src/statusbar.cpp:48 src/statusbar.cpp:148 src/statusbar.cpp:164
-msgid "Lag: Unknown"
-msgstr "Fördröjning: Okänd"
-
-#: src/statusbar.cpp:56
-msgid ""
-"All communication with the server is encrypted.  This makes it harder for "
-"someone to listen in on your communications."
-msgstr ""
-"All kommunikation med servern är krypterad. Det gör det svårare för någon "
-"att avlyssna kommunikationen."
-
-#: src/statusbar.cpp:63
-msgid ""
-"<qt>The status bar shows various messages, including any problems connecting "
-"to the server.  On the far right the current delay to the server is shown.  "
-"The delay is the time it takes for messages from you to reach the server, "
-"and from the server back to you.</qt>"
-msgstr ""
-"<qt>Statusraden visar diverse meddelanden, inklusive eventuella "
-"anslutningsproblem till servern. Längst till höger visas nuvarande "
-"fördröjning till servern. Fördröjningen är tiden det tar för meddelanden "
-"från dig att nå servern, och från servern tillbaka till dig.</qt>"
-
-#: src/statusbar.cpp:150
-#, kde-format
-msgid "Lag: %1 ms"
-msgstr "Fördröjning: %1 ms"
-
-#: src/statusbar.cpp:152 src/statusbar.cpp:213
-#, kde-format
-msgid "Lag: %1 s"
-msgstr "Fördröjning: %1 s"
-
-#: src/statusbar.cpp:184
-#, kde-format
-msgctxt ""
-"%1 = name of server, %2 = (x days), %3 = (x hours), %4 = (x minutes), %5 = "
-"(x seconds)"
-msgid "No answer from server %1 for more than %2, %3, %4, and %5."
-msgstr "Inget svar från servern %1 under mer än %2, %3, %4 och %5."
-
-#: src/statusbar.cpp:192
-#, kde-format
-msgctxt ""
-"%1 = name of server, %2 = (x hours), %3 = (x minutes), %4 = (x seconds)"
-msgid "No answer from server %1 for more than %2, %3, and %4."
-msgstr "Inget svar från servern %1 under mer än %2, %3 och %4."
-
-#: src/statusbar.cpp:199
-#, kde-format
-msgctxt "%1 = name of server, %2 = (x minutes), %3 = (x seconds)"
-msgid "No answer from server %1 for more than %2 and %3."
-msgstr "Inget svar från servern %1 under mer än %2 och %3."
-
-#: src/statusbar.cpp:204
-#, kde-format
-msgid "No answer from server %2 for more than 1 second."
-msgid_plural "No answer from server %2 for more than %1 seconds."
-msgstr[0] "Inget svar från servern %2 under mer än 1 sekund."
-msgstr[1] "Inget svar från servern %2 under mer än %1 sekunder."
-
-#: src/upnp/upnprouter.cpp:134
-#, kde-format
-msgid "Failed to download %1: %2"
-msgstr "Misslyckades ladda ner %1: %2"
-
-#: src/upnp/upnprouter.cpp:145
-msgid "Error parsing router description."
-msgstr "Fel vid tolkning av routerbeskrivning."
-
-#: src/viewer/awaylabel.cpp:22
-msgid "(away)"
-msgstr "(borta)"
-
-#: src/viewer/awaylabel.cpp:25
-msgid "&Unaway"
-msgstr "&Inte borta"
-
-#: src/viewer/awaylabel.cpp:28
-msgid "&Change away message..."
-msgstr "Ändra &frånvaromeddelande..."
-
-#: src/viewer/awaylabel.cpp:39
-msgid "Change away message"
-msgstr "Ändra frånvaromeddelande"
-
-#: src/viewer/awaylabel.cpp:39
-msgid "Enter new away message:"
-msgstr "Skriv in nytt frånvaromeddelande:"
-
-#. i18n: file: src/config/ignore_configui.ui:111
-#. i18n: ectx: property (text), widget (QCheckBox, chkQuery)
-#: src/viewer/ignorelistviewitem.cpp:43 rc.cpp:328
-msgid "Query"
-msgstr "Fråga"
-
-#: src/viewer/ignorelistviewitem.cpp:47
-msgid "Exception"
-msgstr "Undantag"
-
-#: src/viewer/irccolorchooser.cpp:28
-msgid "IRC Color Chooser"
-msgstr "IRC-färgväljare"
-
-#: src/viewer/irccolorchooser.cpp:33
-msgid "None"
-msgstr "Ingen"
-
-#: src/viewer/logfilereader.cpp:46
-msgid "Save As..."
-msgstr "Spara som..."
-
-#: src/viewer/logfilereader.cpp:47
-msgid "Reload"
-msgstr "Uppdatera"
-
-#: src/viewer/logfilereader.cpp:48 src/viewer/logfilereader.cpp:145
-msgid "Clear Logfile"
-msgstr "Töm loggfil"
-
-#: src/viewer/logfilereader.cpp:50
-msgid "Show last:"
-msgstr "Visa senaste:"
-
-#: src/viewer/logfilereader.cpp:56
-msgid ""
-"Use this box to set the maximum size of the log file. This setting does not "
-"take effect until you restart Konversation. Each log file may have a "
-"separate setting."
-msgstr ""
-"Använd rutan för att ställa in loggfilens maximala storlek. Inställningen "
-"får ingen effekt förrän du startar om Konversation. Varje loggfil kan ha en "
-"separat inställning."
-
-#: src/viewer/logfilereader.cpp:58
-msgid " KB"
-msgstr " Kibyte"
-
-#: src/viewer/logfilereader.cpp:65
-msgid ""
-"The messages in the log file are displayed here. The oldest messages are at "
-"the top and the most recent are at the bottom."
-msgstr ""
-"Meddelanden från loggfilen visas här. De äldsta meddelandena är längst upp "
-"och de senaste längst ner."
-
-#: src/viewer/logfilereader.cpp:144
-msgid ""
-"Do you really want to permanently discard all log information of this file?"
-msgstr "Vill du verkligen permanent ta bort all logginformation från filen?"
-
-#: src/viewer/logfilereader.cpp:158
-msgid ""
-"Note: By saving the logfile you will save all data in the file, not only the "
-"part you can see in this viewer."
-msgstr ""
-"Observera: Genom att spara loggfilen kommer du att spara all data i filen, "
-"inte bara den del som visas."
-
-#: src/viewer/logfilereader.cpp:159
-msgid "Save Logfile"
-msgstr "Spara loggfil"
-
-#: src/viewer/logfilereader.cpp:165
-msgid "Choose Destination Folder"
-msgstr "Välj målkatalog"
-
-#: src/viewer/pasteeditor.cpp:29
-msgid "Edit Multiline Paste"
-msgstr "Redigera flerraders inklistring"
-
-#: src/viewer/pasteeditor.cpp:32
-msgid "&Send"
-msgstr "&Skicka"
-
-#: src/viewer/rawlog.cpp:25 src/viewer/viewcontainer.cpp:2269
-msgid "Raw Log"
-msgstr "Obehandlad logg"
-
-#: src/viewer/trayicon.cpp:24
-msgid "Konversation - IRC Client"
-msgstr "Konversation - IRC-klient"
-
-#: src/viewer/irccontextmenus.cpp:111
-msgid "Copy Link Address"
-msgstr "Kopiera länkadress"
-
-#: src/viewer/irccontextmenus.cpp:115
-msgid "Add to Bookmarks"
-msgstr "Lägg till bokmärke"
-
-#: src/viewer/irccontextmenus.cpp:116
-msgid "Save Link As..."
-msgstr "Spara länk som..."
-
-#: src/viewer/irccontextmenus.cpp:256
-#, kde-format
-msgid "Search for '%1' with"
-msgstr "Sök efter '%1' med"
-
-#: src/viewer/irccontextmenus.cpp:271
-msgid "Configure Web Shortcuts..."
-msgstr "Anpassa webbgenvägar..."
-
-#: src/viewer/irccontextmenus.cpp:314 src/mainwindow.cpp:432
-msgid "&Join Channel..."
-msgstr "&Gå med i kanal..."
-
-#: src/viewer/irccontextmenus.cpp:317
-msgid "Get &topic"
-msgstr "&Hämta ämne"
-
-#: src/viewer/irccontextmenus.cpp:318
-msgid "Get &user list"
-msgstr "Hämta &användarlista"
-
-#: src/viewer/irccontextmenus.cpp:364
-msgid "Open Query"
-msgstr "Öppna frågekanal"
-
-#: src/viewer/irccontextmenus.cpp:376
-msgid "Modes"
-msgstr "Lägen"
-
-#: src/viewer/irccontextmenus.cpp:377
-msgid "Give Op"
-msgstr "Ge operatörsprivilegier"
-
-#: src/viewer/irccontextmenus.cpp:378
-msgid "Take Op"
-msgstr "Ta operatörsprivilegier"
-
-#: src/viewer/irccontextmenus.cpp:379
-msgid "Give HalfOp"
-msgstr "Ge deloperatörsprivilegier"
-
-#: src/viewer/irccontextmenus.cpp:380
-msgid "Take HalfOp"
-msgstr "Ta deloperatörsprivilegier"
-
-#: src/viewer/irccontextmenus.cpp:381
-msgid "Give Voice"
-msgstr "Ge röst"
-
-#: src/viewer/irccontextmenus.cpp:382
-msgid "Take Voice"
-msgstr "Ta röst"
-
-#: src/viewer/irccontextmenus.cpp:386
-msgid "Kick / Ban"
-msgstr "Utsparkning/bannlysning"
-
-#: src/viewer/irccontextmenus.cpp:388
-msgid "Kickban"
-msgstr "Utsparka och bannlys"
-
-#: src/viewer/irccontextmenus.cpp:389
-msgid "Ban Nickname"
-msgstr "Bannlys smeknamn"
-
-#: src/viewer/irccontextmenus.cpp:391
-msgid "Ban *!*@*.host"
-msgstr "Bannlys *|*@*.värddator"
-
-#: src/viewer/irccontextmenus.cpp:392
-msgid "Ban *!*@domain"
-msgstr "Bannlys *|*@domän"
-
-#: src/viewer/irccontextmenus.cpp:393
-msgid "Ban *!user@*.host"
-msgstr "Bannlys *|användare@*.värddator"
-
-#: src/viewer/irccontextmenus.cpp:394
-msgid "Ban *!user@domain"
-msgstr "Bannlys *|användare@domän"
-
-#: src/viewer/irccontextmenus.cpp:396
-msgid "Kickban *!*@*.host"
-msgstr "Utsparka och bannlys *|*@*.värddator"
-
-#: src/viewer/irccontextmenus.cpp:397
-msgid "Kickban *!*@domain"
-msgstr "Utsparka och bannlys *|*@domän"
-
-#: src/viewer/irccontextmenus.cpp:398
-msgid "Kickban *!user@*.host"
-msgstr "Utsparka och bannlys *|användare@*.värddator"
-
-#: src/viewer/irccontextmenus.cpp:399
-msgid "Kickban *!user@domain"
-msgstr "Utsparka och bannlys *|användare@domän"
-
-#: src/viewer/irccontextmenus.cpp:415
-msgid "&Version"
-msgstr "&Version"
-
-#: src/viewer/irccontextmenus.cpp:416
-msgid "&Ping"
-msgstr "&Pinga"
-
-#: src/viewer/irccontextmenus.cpp:423 src/viewer/irccontextmenus.cpp:619
-#: src/viewer/irccontextmenus.cpp:620
-msgid "Unignore"
-msgstr "Ignorera inte"
-
-#: src/viewer/irccontextmenus.cpp:426
-msgid "Add to Watched Nicks"
-msgstr "Lägg till i bevakade smeknamn"
-
-#: src/viewer/irccontextmenus.cpp:428
-msgid "Remove From Watched Nicks"
-msgstr "Ta bort från bevakade smeknamn"
-
-#: src/viewer/irccontextmenus.cpp:446
-msgid "Send &File..."
-msgstr "Skicka &fil..."
-
-#: src/viewer/irccontextmenus.cpp:448
-msgid "Open DCC Chat"
-msgstr "Öppna DCC-chatt"
-
-#: src/viewer/irccontextmenus.cpp:449
-msgid "Open DCC Whiteboard"
-msgstr "Öppna DCC-skrivtavla"
-
-#: src/viewer/irccontextmenus.cpp:581
-#, kde-format
-msgid "Do you want to ignore %1?"
-msgstr "Vill du ignorera %1?"
-
-#: src/viewer/irccontextmenus.cpp:583
-msgid "Do you want to ignore the selected users?"
-msgstr "Vill du verkligen ignorera de markerade användarna?"
-
-#: src/viewer/irccontextmenus.cpp:612
-#, kde-format
-msgid "Do you want to stop ignoring %1?"
-msgstr "Vill du sluta ignorera %1?"
-
-#: src/viewer/irccontextmenus.cpp:614
-msgid "Do you want to stop ignoring the selected users?"
-msgstr "Vill du verkligen sluta ignorera de markerade användarna?"
-
-#: src/viewer/irccontextmenus.cpp:823
-msgid "Address Book Association"
-msgid_plural "Address Book Associations"
-msgstr[0] "Adressbokskoppling"
-msgstr[1] "Adressbokskopplingar"
-
-#: src/viewer/irccontextmenus.cpp:860
-msgid "Edit Contact..."
-msgid_plural "Edit Contacts..."
-msgstr[0] "...Redigera kontakt"
-msgstr[1] "...Redigera kontakter"
-
-#: src/viewer/irccontextmenus.cpp:868
-msgid "Choose/Change Association..."
-msgid_plural "Choose/Change Associations..."
-msgstr[0] "...Välj eller ändra koppling"
-msgstr[1] "...Välj eller ändra kopplingar"
-
-#: src/viewer/irccontextmenus.cpp:874
-msgid "Choose Contact..."
-msgid_plural "Choose Contacts..."
-msgstr[0] "...Välj kontakt"
-msgstr[1] "...Välj kontakter"
-
-#: src/viewer/irccontextmenus.cpp:880
-msgid "Change Association..."
-msgid_plural "Change Associations..."
-msgstr[0] "...Ändra koppling"
-msgstr[1] "...Ändra kopplingar"
-
-#: src/viewer/irccontextmenus.cpp:887
-msgid "Create New Contact..."
-msgid_plural "Create New Contacts..."
-msgstr[0] "...Skapa ny kontakt"
-msgstr[1] "...Skapa nya kontakter"
-
-#: src/viewer/irccontextmenus.cpp:894
-msgid "Delete Association"
-msgid_plural "Delete Associations"
-msgstr[0] "Ta bort koppling"
-msgstr[1] "Ta bort kopplingar"
-
-#: src/viewer/irccontextmenus.cpp:955 src/urlcatcher.cpp:272
-msgid "Save link as"
-msgstr "Spara länk som"
-
-#: src/viewer/chatwindow.cpp:438
-#, kde-format
-msgid ""
-"\n"
-"*** Logfile started\n"
-"*** on %1\n"
-"\n"
-msgstr ""
-"\n"
-"*** Loggfil startad\n"
-"*** den %1\n"
-"\n"
-
-#: src/viewer/editnotifydialog.cpp:31
-msgid "Edit Watched Nickname"
-msgstr "Redigera bevakat smeknamn"
-
-#: src/viewer/editnotifydialog.cpp:39
-msgid "&Network name:"
-msgstr "&Nätverksnamn:"
-
-#: src/viewer/editnotifydialog.cpp:41
-msgid "Pick the server network you will connect to here."
-msgstr "Välj servernätverket du vill ansluta till här."
-
-#: src/viewer/editnotifydialog.cpp:48
-msgid "N&ickname:"
-msgstr "Sm&eknamn:"
-
-#: src/viewer/editnotifydialog.cpp:50
-msgid ""
-"<qt>The nickname to watch for when connected to a server in the network.</qt>"
-msgstr ""
-"<qt>Smeknamnet att bevaka vid anslutning till en server i nätverket.</qt>"
-
-#: src/viewer/editnotifydialog.cpp:58
-msgid "All Networks"
-msgstr "Alla nätverk"
-
-#: src/viewer/editnotifydialog.cpp:72
-msgid "Change notify information"
-msgstr "Ändra underrättelseinformation"
-
-#: src/viewer/insertchardialog.cpp:29
-msgid "Insert Character"
-msgstr "Infoga tecken"
-
-#: src/viewer/insertchardialog.cpp:30
-msgid "&Insert"
-msgstr "&Infoga"
-
-#: src/viewer/insertchardialog.cpp:30
-msgid "Insert a character"
-msgstr "Infoga ett tecken"
-
-#: src/viewer/ircinput.cpp:59
-msgid ""
-"<qt><p>The input line is where you type messages to be sent the channel, "
-"query, or server.  A message sent to a channel is seen by everyone on the "
-"channel, whereas a message in a query is sent only to the person in the "
-"query with you.</p><p>To automatically complete the nickname you began "
-"typing, press Tab. If you have not begun typing, the last successfully "
-"completed nickname will be used.</p><p>You can also send special commands:</"
-"p><table><tr><th>/me <i>action</i></th><td>shows up as an action in the "
-"channel or query.  For example:  <em>/me sings a song</em> will show up in "
-"the channel as 'Nick sings a song'.</td></tr><tr><th>/whois <i>nickname</i></"
-"th><td>shows information about this person, including what channels they are "
-"in.</td></tr></table><p>For more commands, see the Konversation Handbook.</"
-"p><p>A message cannot contain multiple lines.</p></qt>"
-msgstr ""
-"<qt><p>Inmatningsraden är stället där du skriver meddelanden som ska skickas "
-"på kanalen, via en förfrågan eller till servern. Ett meddelande som skickas "
-"på en kanal ses av alla på kanalen, medan ett meddelande i en förfrågan bara "
-"skickas till personen i förfrågan.</p><p>För att automatiskt fylla i "
-"smeknamnet du har börjat skriva, tryck på tabulatortangenten. Om du ännu "
-"inte har skrivit någonting, används det senast riktigt ifyllda smeknamnet.</"
-"p><p>Du kan också skicka specialkommandon: </p><table><tr><th>/me <i>åtgärd</"
-"i></th><td>visas som en åtgärd på kanalen eller i förfrågan. Till exempel: "
-"<em>/me sjunger en sång</em> visas på kanalen som 'Smeknamn sjunger en sång'."
-"</td></tr><tr><th>/whois <i>smeknamn</i> </th><td>visar information om "
-"personen, inklusive vilken kanal de deltar i.</td></tr></table><p>Se "
-"Konversations handbok för fler kommandon.</p><p>Ett meddelande kan inte "
-"innehålla flera rader.</p></qt>"
-
-#: src/viewer/ircinput.cpp:499
-#, kde-format
-msgid "1 byte"
-msgid_plural "%1 bytes"
-msgstr[0] "1 byte"
-msgstr[1] "%1 byte"
-
-#: src/viewer/ircinput.cpp:500
-#, kde-format
-msgid "1 line"
-msgid_plural "%1 lines"
-msgstr[0] "1 rad"
-msgstr[1] "%1 rader"
-
-#: src/viewer/ircinput.cpp:506
-#, kde-format
-msgctxt ""
-"%1 is, for instance, '200 bytes'.  %2 is, for instance, '7 lines'.  Both are "
-"localised (see the two previous messages)."
-msgid ""
-"<qt>You are attempting to paste a large portion of text (%1 or %2) into the "
-"chat. This can cause connection resets or flood kills. Do you really want to "
-"continue?</qt>"
-msgstr ""
-"<qt>Du försöker klistra in en stor mängd text i chatten (%1 eller %2). Det "
-"kan orsaka återställning av anslutningen eller flöden med försök att "
-"avbryta. Vill du verkligen fortsätta?</qt>"
-
-#: src/viewer/ircinput.cpp:509
-msgid "Large Paste Warning"
-msgstr "Varning för stor inklistring"
-
-#: src/viewer/ircinput.cpp:510
-msgid "Paste"
-msgstr "Klistra in"
-
-#. i18n: file: src/irc/servergroupdialogui.ui:71
-#. i18n: ectx: property (text), widget (KPushButton, m_editIdentityButton)
-#. i18n: file: src/irc/serverlistdialogui.ui:162
-#. i18n: ectx: property (text), widget (QPushButton, m_editButton)
-#: src/viewer/ircinput.cpp:511 rc.cpp:1223 rc.cpp:1295
-msgid "&Edit..."
-msgstr "&Redigera..."
-
-#: src/viewer/ircview.cpp:2043
-#, kde-format
-msgid "Open a query with %1"
-msgstr "Öppna frågekanal med %1"
-
-#: src/viewer/ircview.cpp:2052 src/viewer/topiclabel.cpp:301
-#, kde-format
-msgid "Join the channel %1"
-msgstr "Gå med i kanal %1"
-
-#: src/viewer/osd.cpp:337
-msgid "OSD Preview - drag to reposition"
-msgstr "Förhandsgranskning av skärmmeddelande. Dra för att byta plats."
-
-#: src/viewer/searchbar.cpp:64
-msgid "Find Forward"
-msgstr "Sök nästa"
-
-#: src/viewer/searchbar.cpp:67
-msgid "Match Case"
-msgstr "Skiftlägeskänslig"
-
-#: src/viewer/searchbar.cpp:70
-msgid "Whole Words Only"
-msgstr "Bara hela ord"
-
-#: src/viewer/searchbar.cpp:73
-msgid "From Cursor"
-msgstr "Från markör"
-
-#: src/viewer/statuspanel.cpp:231
-#, kde-format
-msgid ""
-"Do you really want to close '%1'?\n"
-"\n"
-" All associated tabs will be closed as well."
-msgstr ""
-"Vill du verkligen stänga '%1'?\n"
-"\n"
-" Alla tillhörande flikar kommer också att stängas."
-
-#: src/viewer/statuspanel.cpp:232
-msgid "Close Tab"
-msgstr "Stäng flik"
-
-#: src/viewer/statuspanel.cpp:241
-#, kde-format
-msgid ""
-"Do you want to disconnect from '%1'?\n"
-"\n"
-" All associated tabs will be closed as well."
-msgstr ""
-"Vill du koppla ner från '%1'?\n"
-"\n"
-" Alla tillhörande flikar kommer också att stängas."
-
-#: src/viewer/statuspanel.cpp:242
-msgid "Disconnect From Server"
-msgstr "Koppla ner från servern"
-
-#: src/viewer/statuspanel.cpp:243
-msgid "Disconnect"
-msgstr "Koppla ner"
-
-#: src/viewer/viewcontainer.cpp:221 src/mainwindow.cpp:291
-msgid "Move Tab Up"
-msgstr "Flytta flik uppåt"
-
-#: src/viewer/viewcontainer.cpp:229 src/mainwindow.cpp:302
-msgid "Move Tab Down"
-msgstr "Flytta flik neråt"
-
-#: src/viewer/viewcontainer.cpp:322 src/mainwindow.cpp:322
-#: src/mainwindow.cpp:334
-msgid "Move Tab Left"
-msgstr "Flytta flik åt vänster"
-
-#: src/viewer/viewcontainer.cpp:330 src/mainwindow.cpp:313
-#: src/mainwindow.cpp:343
-msgid "Move Tab Right"
-msgstr "Flytta flik åt höger"
-
-#: src/viewer/viewcontainer.cpp:561
-msgid "Find Text..."
-msgstr "Sök text..."
-
-#: src/viewer/viewcontainer.cpp:563
-msgid "Search for text in the current tab"
-msgstr "Sök efter text i nuvarande flik"
-
-#: src/viewer/viewcontainer.cpp:581
-#, kde-format
-msgid "Channel &List for %1"
-msgstr "Kanal&lista för %1"
-
-#: src/viewer/viewcontainer.cpp:587 src/mainwindow.cpp:203
-msgid "Channel &List"
-msgstr "Kanal&lista"
-
-#: src/viewer/viewcontainer.cpp:596 src/mainwindow.cpp:186
-#: src/mainwindow.cpp:773
-msgid "&Open Logfile"
-msgstr "Ö&ppna loggfil"
-
-#: src/viewer/viewcontainer.cpp:601
-#, kde-format
-msgid "&Open Logfile for %1"
-msgstr "Ö&ppna loggfil för %1"
-
-#: src/viewer/viewcontainer.cpp:612
-#, kde-format
-msgid "&Channel Settings for %1..."
-msgstr "&Kanalalternativ för %1..."
-
-#: src/viewer/viewcontainer.cpp:617 src/mainwindow.cpp:195
-msgid "&Channel Settings..."
-msgstr "&Kanalinställningar..."
-
-#: src/viewer/viewcontainer.cpp:1673
-msgid "Rename Tab"
-msgstr "Byt namn på flik"
-
-#: src/viewer/viewcontainer.cpp:1674
-msgid "Enter new tab name:"
-msgstr "Skriv in nytt fliknamn:"
-
-#: src/viewer/viewcontainer.cpp:1743
-#, kde-format
-msgctxt "Default encoding"
-msgid "Default ( %1 )"
-msgstr "Standard (%1)"
-
-#: src/viewer/viewcontainer.cpp:1778
-msgid "&Rename Tab..."
-msgstr "&Byt namn på flik..."
-
-#: src/viewer/viewcontainer.cpp:1934
-msgid "You can only search in text fields."
-msgstr "Du kan bara söka i textfält."
-
-#: src/viewer/viewcontainer.cpp:1935
-msgid "Find Text Information"
-msgstr "Sök textinformation"
-
-#: src/viewer/viewcontainer.cpp:2132
-#, kde-format
-msgid "Logfile of %1"
-msgstr "Loggfil för %1"
-
-#: src/viewer/viewcontainer.cpp:2141 src/viewer/viewcontainer.cpp:2142
-#: src/konsolepanel.cpp:27
-msgid "Konsole"
-msgstr "Terminal"
-
-#: src/viewer/viewcontainer.cpp:2152 src/urlcatcher.cpp:84
-msgid "URL Catcher"
-msgstr "Webbadressinfångning"
-
-#: src/viewer/viewcontainer.cpp:2504
-msgid ""
-"To know which server to display the channel list for, the list can only be "
-"opened from a query, channel or status window."
-msgstr ""
-"Kanallistan kan bara öppnas från ett frågekanal-, kanal- eller "
-"statusfönster, för att ta reda på vilken server som listan hör till."
-
-#: src/viewer/viewcontainer.cpp:2534
-msgid ""
-"Using this function may result in a lot of network traffic. If your "
-"connection is not fast enough, it is possible that your client will be "
-"disconnected by the server."
-msgstr ""
-"Användning av den här funktionen kan orsaka mycket trafik på nätet. Om din "
-"anslutning inte är snabb nog, är det möjligt att din klient kopplas ner av "
-"servern."
-
-#: src/viewer/viewcontainer.cpp:2538
-msgid "Channel List Warning"
-msgstr "Varning för kanaler"
-
-#: src/notificationhandler.cpp:103
-#, kde-format
-msgid "[HighLight] (%1) &lt;%2&gt;"
-msgstr "[Markerad] (%1) &lt;%2&gt;"
-
-#: src/notificationhandler.cpp:117 src/notificationhandler.cpp:382
-#, kde-format
-msgid "[HighLight] (%1) &lt;%2&gt; %3"
-msgstr "[Markerad] (%1) &lt;%2&gt; %3"
-
-#: src/notificationhandler.cpp:144
-#, kde-format
-msgid "[Query] &lt;%1&gt;"
-msgstr "[Fråga] &lt;%1&gt;"
-
-#: src/notificationhandler.cpp:158
-#, kde-format
-msgid "[Query] &lt;%1&gt; %2"
-msgstr "[Fråga] &lt;%1&gt; %2"
-
-#: src/notificationhandler.cpp:186 src/notificationhandler.cpp:193
-#, kde-format
-msgid "%1 joined %2"
-msgstr "%1 gick med %2"
-
-#: src/notificationhandler.cpp:205 src/notificationhandler.cpp:212
-#, kde-format
-msgid "%1 parted %2"
-msgstr "%1 lämnade %2"
-
-#: src/notificationhandler.cpp:224
-#, kde-format
-msgid "%1 quit %2"
-msgstr "%1 lämnade %2"
-
-#: src/notificationhandler.cpp:235
-#, kde-format
-msgid "%1 changed nickname to %2"
-msgstr "%1 ändrade smeknamn till %2"
-
-#: src/notificationhandler.cpp:246
-#, kde-format
-msgid "%1 wants to send a file to you"
-msgstr "%1 vill skicka en fil till dig"
-
-#: src/notificationhandler.cpp:257
-#, kde-format
-msgid "An error has occurred in a DCC transfer: %1"
-msgstr "Ett fel uppstod under en DCC-överföring: %1"
-
-#: src/notificationhandler.cpp:268
-#, kde-format
-msgctxt "%1 - filename"
-msgid "%1 File Transfer is complete"
-msgstr "%1 filöverföring är färdig"
-
-#: src/notificationhandler.cpp:294
-#, kde-format
-msgid "%1 has started a conversation (query) with you."
-msgstr "%1 har startat en konversation med (ställt en fråga till) dig."
-
-#: src/notificationhandler.cpp:335
-#, kde-format
-msgid "You are kicked by %1 from %2"
-msgstr "Du är utsparkad av %1 från %2"
-
-#: src/notificationhandler.cpp:349
-#, kde-format
-msgid "%1 started a DCC chat with you"
-msgstr "%1 har startat en DCC-chatt med dig"
-
-#: src/notificationhandler.cpp:379
-#, kde-format
-msgid "[HighLight] (%1) *** %2"
-msgstr "[Markerad] (%1) *** %2"
-
-#: src/notificationhandler.cpp:392
-#, kde-format
-msgid "Failed to connect to %1"
-msgstr "Misslyckades ansluta till %1"
-
-#: src/notificationhandler.cpp:405
-#, kde-format
-msgid "You have joined %1."
-msgstr "Du har gått med i %1."
-
-#: src/queuetuner.cpp:234
-msgid "Reset..."
-msgstr "Återställ..."
-
-#: src/queuetuner.cpp:239
-msgid ""
-"This cannot be undone, are you sure you wish to reset to default values?"
-msgstr ""
-"Det går inte att ångra detta. Är du säker på att du vill återställa till "
-"förvalda värden?"
-
-#: src/queuetuner.cpp:240
-msgid "Reset Values"
-msgstr "Återställ värden"
-
-#: src/dbus.cpp:118
-#, kde-format
-msgid "Debug: %1"
-msgstr "Felsökning: %1"
-
-#: src/dbus.cpp:124
-#, kde-format
-msgid "Error: %1"
-msgstr "Fel: %1"
-
-#: src/dbus.cpp:144
-#, kde-format
-msgid "getNickname: Server %1 is not found."
-msgstr "hämta smeknamn: Servern %1 hittades inte."
-
-#: src/identitydialog.cpp:34
-msgid "Identities"
-msgstr "Identiteter"
-
-#: src/identitydialog.cpp:54
-msgid ""
-"This is your list of nicknames. A nickname is the name that other users will "
-"know you by. You may use any name you desire. The first character must be a "
-"letter.\n"
-"\n"
-"Since nicknames must be unique across an entire IRC network, your desired "
-"name may be rejected by the server because someone else is already using "
-"that nickname. Enter alternate nicknames for yourself. If your first choice "
-"is rejected by the server, Konversation will try the alternate nicknames."
-msgstr ""
-"Det här är din lista med smeknamn. Ett smeknamn är namnet som andra "
-"användare känner dig som. Du kan använda vilket namn du vill. Det första "
-"tecknet måste vara en bokstav.\n"
-"\n"
-"Eftersom smeknamn måste vara unika i ett helt IRC-nätverk, kan ditt önskade "
-"namn förkastas av servern eftersom någon annan redan använder det. Skriv in "
-"alternativa smeknamn för dig själv. Om ditt första val förkastas av servern, "
-"försöker Konversation med de alternativa smeknamnen."
-
-#: src/identitydialog.cpp:82
-msgid " minute"
-msgid_plural " minutes"
-msgstr[0] " minut"
-msgstr[1] " minuter"
-
-#: src/identitydialog.cpp:90
-msgid "Change identity information"
-msgstr "Ändra identitetsinformation"
-
-#: src/identitydialog.cpp:193
-msgid "Add Identity"
-msgstr "Lägg till identitet"
-
-#: src/identitydialog.cpp:193 src/identitydialog.cpp:216
-#: src/identitydialog.cpp:271
-msgid "Identity name:"
-msgstr "Identitetsnamn:"
-
-#: src/identitydialog.cpp:207 src/identitydialog.cpp:225
-#: src/identitydialog.cpp:284
-msgid "You need to give the identity a name."
-msgstr "Du måste ge identiteten ett namn."
-
-#: src/identitydialog.cpp:216
-msgid "Rename Identity"
-msgstr "Byt namn på identitet"
-
-#: src/identitydialog.cpp:250
-msgid ""
-"This identity is in use, if you remove it the network settings using it will "
-"fall back to the default identity. Should it be deleted anyway?"
-msgstr ""
-"Den här identiteten används. Om du tar bort den kommer "
-"nätverksinställningarna som använder den återgå till förvald identitet. Ska "
-"den tas bort ändå?"
-
-#: src/identitydialog.cpp:255
-msgid "Are you sure you want to delete all information for this identity?"
-msgstr "Är du säker på att du vill ta bort all information för identiteten?"
-
-#: src/identitydialog.cpp:258
-msgid "Delete Identity"
-msgstr "Ta bort identitet"
-
-#. i18n: file: src/irc/servergroupdialogui.ui:168
-#. i18n: ectx: property (toolTip), widget (QToolButton, m_removeServerButton)
-#. i18n: file: src/irc/servergroupdialogui.ui:253
-#. i18n: ectx: property (toolTip), widget (QToolButton, m_removeChannelButton)
-#: src/identitydialog.cpp:259 rc.cpp:1256 rc.cpp:1268
-msgid "Delete"
-msgstr "Ta bort"
-
-#: src/identitydialog.cpp:271
-msgid "Duplicate Identity"
-msgstr "Duplicera identitet"
-
-#: src/identitydialog.cpp:314
-msgid "You must add at least one nick to the identity."
-msgstr "Du måste åtminstone lägga till ett smeknamn i identiteten."
-
-#: src/identitydialog.cpp:325
-msgid "Please enter a real name."
-msgstr "Skriv in ett riktigt namn."
-
-#: src/cipher.cpp:471
-msgid ""
-"Diffie-Hellman key exchange is not supported by your installation of the Qt "
-"Cryptographic Architecture (QCA). You likely need to install an additional "
-"provider plugin. Diffie-Hellman key exchange support is usually provided by "
-"the qca-ossl plugin."
-msgstr ""
-"Diffie-Hellman nyckelutbyte stöds inte av installationen av Qt:s "
-"kryptografiska arkitektur (QCA). Troligen behöver du installera ytterligare "
-"ett insticksprogram från leverantören. Stöd för Diffie-Hellman nyckelutbyte "
-"tillhandahålls oftast av insticksprogrammet qca-ossl."
-
-#: src/cipher.cpp:484
-msgid ""
-"Blowfish in cipher-block chaining (CBC) mode is not supported by your "
-"installation of the Qt Cryptographic Architecture (QCA). You likely need to "
-"install an additional provider plugin for QCA. Blowfish support is usually "
-"provided by the qca-ossl plugin."
-msgstr ""
-"Kedjning av chifferblock (CBC) i Blowfish stöds inte av installationen av Qt:"
-"s kryptografiska arkitektur (QCA). Troligen behöver du installera "
-"ytterligare ett insticksprogram från leverantören för QCA. Stöd för Blowfish "
-"tillhandahålls oftast av insticksprogrammet qca-ossl."
-
-#: src/cipher.cpp:496
-msgid ""
-"Blowfish in electronic codebook (ECB) mode is not supported by your "
-"installation of the Qt Cryptographic Architecture (QCA). You likely need to "
-"install an additional provider plugin for QCA. Blowfish support is usually "
-"provided by the qca-ossl plugin."
-msgstr ""
-"Elektroniskt kodboksläge (ECB) i Blowfish stöds inte av installationen av Qt:"
-"s kryptografiska arkitektur (QCA). Troligen behöver du installera "
-"ytterligare ett insticksprogram från leverantören för QCA. Stöd för Blowfish "
-"tillhandahålls oftast av insticksprogrammet qca-ossl."
-
-#: src/connectionmanager.cpp:224
-msgid "Network is down, will reconnect automatically when it is back up."
-msgstr ""
-"Nätverket är nerkopplat. Det kommer att anslutas automatiskt när det är "
-"uppkopplat igen."
-
-#: src/connectionmanager.cpp:259
-#, kde-format
-msgid "Trying to connect to %2 (port <numid>%3</numid>) in 1 second."
-msgid_plural "Trying to connect to %2 (port <numid>%3</numid>) in %1 seconds."
-msgstr[0] "Försöker ansluta till %2 (port <numid>%3</numid>) om 1 sekund."
-msgstr[1] "Försöker ansluta till %2 (port <numid>%3</numid>) om %1 sekunder."
-
-#: src/connectionmanager.cpp:269
-#, kde-format
-msgid "Trying to reconnect to %2 (port <numid>%3</numid>) in 1 second."
-msgid_plural ""
-"Trying to reconnect to %2 (port <numid>%3</numid>) in %1 seconds."
-msgstr[0] "Försöker återansluta till %2 (port <numid>%3</numid>) om 1 sekund."
-msgstr[1] ""
-"Försöker återansluta till %2 (port <numid>%3</numid>) om %1 sekunder."
-
-#: src/connectionmanager.cpp:282
-msgid "Reconnection attempts exceeded."
-msgstr "Antal försök att återansluta överskridna."
-
-#: src/connectionmanager.cpp:522
-#, kde-format
-msgid ""
-"You are already connected to %1. Do you want to open another connection?"
-msgstr "Du är redan ansluten till %1. Vill du öppna en annan anslutning?"
-
-#: src/connectionmanager.cpp:523 src/connectionmanager.cpp:544
-#, kde-format
-msgid "Already connected to %1"
-msgstr "Redan ansluten till %1"
-
-#: src/connectionmanager.cpp:524
-msgid "Create connection"
-msgstr "Skapa anslutning"
-
-#: src/connectionmanager.cpp:538
-#, kde-format
-msgid ""
-"You are presently connected to %1 via '%2' (port <numid>%3</numid>). Do you "
-"want to switch to '%4' (port <numid>%5</numid>) instead?"
-msgstr ""
-"Du är för närvarande ansluten till %1 via '%2' (port <numid>%3</numid>). "
-"Vill du byta till '%4' (port <numid>%5</numid>) istället?"
-
-#: src/connectionmanager.cpp:545
-msgid "Switch Server"
-msgstr "Byt server"
-
-#: src/connectionmanager.cpp:592
-msgid "Please fill in your <b>Ident</b>.<br/>"
-msgstr "Fyll i din <b>identitet</b>.<br/>"
-
-#: src/connectionmanager.cpp:595
-msgid "Please fill in your <b>Real name</b>.<br/>"
-msgstr "Fyll i ditt <b>Riktiga namn</b>.<br/>"
-
-#: src/connectionmanager.cpp:598
-msgid "Please provide at least one <b>Nickname</b>.<br/>"
-msgstr "Tillhandahåll minst ett <b>Smeknamn</b>.<br/>"
-
-#: src/connectionmanager.cpp:606
-#, kde-format
-msgid "<qt>Your identity \"%1\" is not set up correctly:<br/>%2</qt>"
-msgstr "<qt>Din identitet \"%1\" är inte riktigt inställd:<br/>%2</qt>"
-
-#: src/connectionmanager.cpp:607
-msgid "Identity Settings"
-msgstr "Identitetsinställningar"
-
-#: src/connectionmanager.cpp:608
-msgid "Edit Identity..."
-msgstr "Redigera identitet..."
-
-#: src/konsolepanel.cpp:39
-msgid "Manage Konsole Profiles"
-msgstr "Hantera terminalprofiler"
-
 #: src/mainwindow.cpp:121
 msgid "Restart"
 msgstr "Starta om"
@@ -5731,8 +5826,8 @@ msgid "Manage your nick, away and other identity settings"
 msgstr "Hantera smeknamn, frånvaro och andra identitetsinställningar"
 
 #: src/mainwindow.cpp:169
-msgid "&Watched Nicks Online"
-msgstr "&Bevakade uppkopplade smeknamn"
+msgid "&Watched Nicks"
+msgstr "&Bevakade smeknamn"
 
 #: src/mainwindow.cpp:177
 msgid "&DCC Status"
@@ -5920,8 +6015,8 @@ msgstr "Dockning i systembrickan"
 #: src/mainwindow.cpp:724
 #, kde-format
 msgid ""
-"<qt>This will hide the menu bar completely. You can show it again by typing %"
-"1.</qt>"
+"<qt>This will hide the menu bar completely. You can show it again by typing "
+"%1.</qt>"
 msgstr ""
 "<qt>Det här döljer menyraden helt och hållet. Du kan visa den igen genom att "
 "skriva %1.</qt>"
@@ -5962,195 +6057,131 @@ msgstr "&Ange som borta globalt"
 msgid "Server List"
 msgstr "Serverlista"
 
-#: src/quickconnectdialog.cpp:29
-msgid "Quick Connect"
-msgstr "Snabbanslutning"
-
-#: src/quickconnectdialog.cpp:36
-msgid "&Server host:"
-msgstr "&Servervärddator:"
-
-#: src/quickconnectdialog.cpp:37
-msgid "Enter the host of the network here."
-msgstr "Skriv in nätverkets värddator här."
-
-#. i18n: file: src/irc/serverdialogui.ui:43
-#. i18n: ectx: property (text), widget (QLabel, portLbl)
-#: src/quickconnectdialog.cpp:44 rc.cpp:1199
-msgid "&Port:"
-msgstr "&Port:"
-
-#: src/quickconnectdialog.cpp:45
-msgid "The port that the IRC server is using."
-msgstr "Porten som IRC-servern använder."
-
-#: src/quickconnectdialog.cpp:52
-msgid "&Nick:"
-msgstr "Smek&namn:"
-
-#: src/quickconnectdialog.cpp:53
-msgid "The nick you want to use."
-msgstr "Smeknamnet du vill använda."
-
-#: src/quickconnectdialog.cpp:60
-msgid "P&assword:"
-msgstr "&Lösenord:"
-
-#: src/quickconnectdialog.cpp:61
-msgid ""
-"If the IRC server requires a password, enter it here (most servers do not "
-"require a password.)"
-msgstr ""
-"Om IRC-servern kräver ett lösenord, skriv in det här (de flesta servrar "
-"kräver inte ett lösenord)."
-
-#: src/quickconnectdialog.cpp:71
-msgid "&Use SSL"
-msgstr "An&vänd SSL"
-
-#: src/urlcatcher.cpp:105
-msgctxt "open url"
-msgid "&Open"
-msgstr "Ö&ppna"
-
-#: src/urlcatcher.cpp:108
-msgid "Open URLs in external browser."
-msgstr "Öppna webbadresser i extern webbläsare."
-
-#: src/urlcatcher.cpp:109
-msgid ""
-"<p>Select one or several <b>URLs</b> below, then click this button to launch "
-"the application associated with the mimetype of the URL.</p>-<p>In the "
-"<b>Settings</b>, under <b>Behavior</b> | <b>General</b>, you can specify a "
-"custom web browser for web URLs.</p>"
-msgstr ""
-"<p>Markera en eller flera <b>webbadresser</b> nedan, och klicka därefter på "
-"knappen för att starta programmet som hör ihop med webbadressens MIME-typ.</"
-"p>\n"
-"<p>Du kan ange en egen webbläsare för webbadresser med <b>Inställningar</b>, "
-"under <b>Beteende</b> | <b>Allmänt</b>.</p>"
-
-#: src/urlcatcher.cpp:112
-msgid "&Save..."
-msgstr "&Spara..."
-
-#: src/urlcatcher.cpp:115
-msgid "Save selected URLs to the disk."
-msgstr "Spara markerade webbadresser på disk."
-
-#: src/urlcatcher.cpp:118
-msgid "Add Bookmark..."
-msgstr "Lägg till bokmärke..."
-
-#: src/urlcatcher.cpp:126
-msgctxt "copy url"
-msgid "&Copy"
-msgstr "K&opiera"
-
-#: src/urlcatcher.cpp:129
-msgid "Copy URLs to the clipboard."
-msgstr "Kopiera webbadresser till klippbordet."
-
-#: src/urlcatcher.cpp:130
-msgid ""
-"Select one or several <b>URLs</b> above, then click this button to copy them "
-"to the clipboard."
-msgstr ""
-"Markera en eller flera <b>webbadresser</b> ovan, och klicka därefter på "
-"knappen för att kopiera dem till klippbordet."
-
-#: src/urlcatcher.cpp:133
-msgctxt "delete url"
-msgid "&Delete"
-msgstr "&Ta bort"
-
-#: src/urlcatcher.cpp:136
-msgid ""
-"Select one or several <b>URLs</b> above, then click this button to delete "
-"them from the list."
-msgstr ""
-"Markera en eller flera <b>webbadresser</b> ovan, och klicka därefter på "
-"knappen för att ta bort dem från listan."
-
-#: src/urlcatcher.cpp:137
-msgid "Delete selected link."
-msgstr "Ta bort markerad länk."
-
-#: src/urlcatcher.cpp:143
-msgctxt "save url list"
-msgid "&Save List..."
-msgstr "&Spara lista..."
-
-#: src/urlcatcher.cpp:145
-msgid "Save list."
-msgstr "Spara lista."
-
-#: src/urlcatcher.cpp:146
-msgid "Click to save the entire list to a file."
-msgstr "Klicka för att spara hela listan i en fil."
-
-#: src/urlcatcher.cpp:149
-msgctxt "clear url list"
-msgid "&Clear List"
-msgstr "&Rensa lista"
-
-#: src/urlcatcher.cpp:151
-msgid "Clear list."
-msgstr "Rensa lista."
-
-#: src/urlcatcher.cpp:152
-msgid "Click to erase the entire list."
-msgstr "Klicka för att rensa hela listan."
-
-#: src/urlcatcher.cpp:163
-msgid ""
-"List of Uniform Resource Locators mentioned in any of the Konversation "
-"windows during this session."
-msgstr ""
-"Lista med webbadresser som nämns i något av fönstren i Konversation under "
-"den här sessionen."
-
-#: src/urlcatcher.cpp:176
-msgid "From"
-msgstr "Från"
-
-#: src/urlcatcher.cpp:180
-msgid "Date"
-msgstr "Datum"
-
-#: src/urlcatcher.cpp:235
-msgid ""
-"You have selected more than one URL. Do you really want to open several URLs "
-"at once?"
-msgstr ""
-"Du har markerat mer än en webbadress. Vill du verkligen öppna flera "
-"webbadresser på en gång?"
-
-#: src/urlcatcher.cpp:236 src/urlcatcher.cpp:258
-msgid "Open URLs"
-msgstr "Öppna webbadresser"
-
-#: src/urlcatcher.cpp:256
-msgid ""
-"You have selected more than one URL. A file dialog to set the destination "
-"will open for each. Do you really want to save several URLs at once?"
-msgstr ""
-"Du har markerat mer än en webbadress. En fildialogruta för att ange målet "
-"kommer att öppnas för var och en av dem. Vill du verkligen spara flera "
-"webbadresser på en gång?"
-
-#: src/urlcatcher.cpp:337
-msgid "Save URL List"
-msgstr "Spara webbadresslista"
-
-#: src/urlcatcher.cpp:364
+#: src/notificationhandler.cpp:103
 #, kde-format
-msgid ""
-"Konversation URL List: %1\n"
-"\n"
-msgstr ""
-"Konversation webbadresslista: %1\n"
-"\n"
+msgid "[HighLight] (%1) &lt;%2&gt;"
+msgstr "[Markerad] (%1) &lt;%2&gt;"
+
+#: src/notificationhandler.cpp:117 src/notificationhandler.cpp:382
+#, kde-format
+msgid "[HighLight] (%1) &lt;%2&gt; %3"
+msgstr "[Markerad] (%1) &lt;%2&gt; %3"
+
+#: src/notificationhandler.cpp:144
+#, kde-format
+msgid "[Query] &lt;%1&gt;"
+msgstr "[Fråga] &lt;%1&gt;"
+
+#: src/notificationhandler.cpp:158
+#, kde-format
+msgid "[Query] &lt;%1&gt; %2"
+msgstr "[Fråga] &lt;%1&gt; %2"
+
+#: src/notificationhandler.cpp:186 src/notificationhandler.cpp:193
+#, kde-format
+msgid "%1 joined %2"
+msgstr "%1 gick med %2"
+
+#: src/notificationhandler.cpp:205 src/notificationhandler.cpp:212
+#, kde-format
+msgid "%1 parted %2"
+msgstr "%1 lämnade %2"
+
+#: src/notificationhandler.cpp:224
+#, kde-format
+msgid "%1 quit %2"
+msgstr "%1 lämnade %2"
+
+#: src/notificationhandler.cpp:235
+#, kde-format
+msgid "%1 changed nickname to %2"
+msgstr "%1 ändrade smeknamn till %2"
+
+#: src/notificationhandler.cpp:246
+#, kde-format
+msgid "%1 wants to send a file to you"
+msgstr "%1 vill skicka en fil till dig"
+
+#: src/notificationhandler.cpp:257
+#, kde-format
+msgid "An error has occurred in a DCC transfer: %1"
+msgstr "Ett fel uppstod under en DCC-överföring: %1"
+
+#: src/notificationhandler.cpp:268
+#, kde-format
+msgctxt "%1 - filename"
+msgid "%1 File Transfer is complete"
+msgstr "%1 filöverföring är färdig"
+
+#: src/notificationhandler.cpp:294
+#, kde-format
+msgid "%1 has started a conversation (query) with you."
+msgstr "%1 har startat en konversation med (ställt en fråga till) dig."
+
+#: src/notificationhandler.cpp:335
+#, kde-format
+msgid "You are kicked by %1 from %2"
+msgstr "Du är utsparkad av %1 från %2"
+
+#: src/notificationhandler.cpp:349
+#, kde-format
+msgid "%1 started a DCC chat with you"
+msgstr "%1 har startat en DCC-chatt med dig"
+
+#: src/notificationhandler.cpp:379
+#, kde-format
+msgid "[HighLight] (%1) *** %2"
+msgstr "[Markerad] (%1) *** %2"
+
+#: src/notificationhandler.cpp:392
+#, kde-format
+msgid "Failed to connect to %1"
+msgstr "Misslyckades ansluta till %1"
+
+#: src/notificationhandler.cpp:405
+#, kde-format
+msgid "You have joined %1."
+msgstr "Du har gått med i %1."
+
+#: src/common.cpp:33
+msgid "topic protection"
+msgstr "ämnesskydd"
+
+#: src/common.cpp:34
+msgid "no messages from outside"
+msgstr "inga meddelanden från utsidan"
+
+#: src/common.cpp:35
+msgid "secret"
+msgstr "hemlig"
+
+#: src/common.cpp:36
+msgid "invite only"
+msgstr "endast inbjudan"
+
+#: src/common.cpp:37
+msgid "private"
+msgstr "privat"
+
+#: src/common.cpp:38
+msgid "moderated"
+msgstr "modererad"
+
+#: src/common.cpp:40
+msgid "anonymous"
+msgstr "anonym"
+
+#: src/common.cpp:41
+msgid "server reop"
+msgstr "server återop."
+
+#: src/common.cpp:42
+msgid "no colors allowed"
+msgstr "inga färgkoder tillåtna"
+
+#: src/common.cpp:43
+msgid "user throttling"
+msgstr "användare ställer in hastighetsgräns"
 
 #: rc.cpp:1
 msgctxt "NAME OF TRANSLATORS"
@@ -7647,17 +7678,214 @@ msgstr "Maximalt antal användare i en kanal:"
 msgid "Update interval:"
 msgstr "Uppdateringsintervall:"
 
+#. i18n: file: src/config/dcc_configui.ui:18
+#. i18n: ectx: property (windowTitle), widget (QWidget, DCC_ConfigUI)
+#: rc.cpp:780
+msgid "DCC_Settings"
+msgstr "DCC-inställningar"
+
+#. i18n: file: src/config/dcc_configui.ui:27
+#. i18n: ectx: property (text), widget (QLabel, dccPathLbl)
+#: rc.cpp:783
+msgid "Download &folder:"
+msgstr "Ladda ner &katalog:"
+
+#. i18n: file: src/config/dcc_configui.ui:50
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAddPartner)
+#: rc.cpp:786
+msgid "&Add sender to file name"
+msgstr "Lägg till &avsändare till filnamn"
+
+#. i18n: file: src/config/dcc_configui.ui:57
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccCreateFolder)
+#: rc.cpp:789
+msgid "Cr&eate folder for sender"
+msgstr "Skapa katalog &för avsändare"
+
+#. i18n: file: src/config/dcc_configui.ui:64
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpaceToUnderscore)
+#: rc.cpp:792
+msgid "Convert spaces in file names to underscores before sending"
+msgstr "Omvandla mellanslag i filnamn till understreck innan den skickas"
+
+#. i18n: file: src/config/dcc_configui.ui:74
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAutoGet)
+#: rc.cpp:795
+msgid "Automaticall&y accept download offer"
+msgstr "Acceptera a&utomatiskt begäran om nerladdning"
+
+#. i18n: file: src/config/dcc_configui.ui:81
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAutoResume)
+#: rc.cpp:798
+msgid "Au&tomatically resume download"
+msgstr "Å&teruppta nerladdning automatiskt"
+
+#. i18n: file: src/config/dcc_configui.ui:88
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccFastSend)
+#: rc.cpp:801
+msgid "Enable fast DCC send (Might &not work with all clients)"
+msgstr "Aktivera s&nabb DCC-sändning (fungerar kanske inte med alla klienter)"
+
+#. i18n: file: src/config/dcc_configui.ui:95
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccPassiveSend)
+#: rc.cpp:804
+msgid "Enable passive DCC send"
+msgstr "Aktivera passiv DCC-sändning"
+
+#. i18n: file: src/config/dcc_configui.ui:105
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DccIPv4Fallback)
+#: rc.cpp:807
+msgid ""
+"If this option enabled dcc transfers for IPv6 connections will be done over "
+"IPv4 interface set here"
+msgstr ""
+"Om det här alternativet är aktiverat, utförs DCC-överföringar med IPv6-"
+"anslutningar med IPv4-gränssnittet som anges här"
+
+#. i18n: file: src/config/dcc_configui.ui:108
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccIPv4Fallback)
+#: rc.cpp:810
+msgid "Fallback to an IPv&4 interface for DCC send:"
+msgstr "Återgå till IPv&4-gränssnitt för DCC-sändning:"
+
+#. i18n: file: src/config/dcc_configui.ui:115
+#. i18n: ectx: property (text), widget (QLabel, textLabel7)
+#: rc.cpp:813
+msgid "DCC send t&imeout:"
+msgstr "T&idsgräns vid DCC-sändning:"
+
+#. i18n: file: src/config/dcc_configui.ui:154
+#. i18n: ectx: property (text), widget (QLabel, textLabel6)
+#: rc.cpp:816
+msgid "Buffer si&ze:"
+msgstr "B&ufferstorlek:"
+
+#. i18n: file: src/config/dcc_configui.ui:196
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox1)
+#: rc.cpp:819
+msgid "IP"
+msgstr "IP"
+
+#. i18n: file: src/config/dcc_configui.ui:202
+#. i18n: ectx: property (text), widget (QLabel, textLabel4)
+#: rc.cpp:822
+msgid "&Method to get own IP:"
+msgstr "&Metod för att få egen IP-adress:"
+
+#. i18n: file: src/config/dcc_configui.ui:218
+#. i18n: ectx: property (text), widget (QLabel, ownIP)
+#: rc.cpp:825
+msgid "O&wn IP:"
+msgstr "E&gen IP-adress:"
+
+#. i18n: file: src/config/dcc_configui.ui:237
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
+#: rc.cpp:828
+msgid "Ports"
+msgstr "Portar"
+
+#. i18n: file: src/config/dcc_configui.ui:243
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpecificChatPorts)
+#: rc.cpp:831
+msgid "Enable specific p&orts for DCC chat:"
+msgstr "Aktivera specifika p&ortar för DCC chatt:"
+
+#. i18n: file: src/config/dcc_configui.ui:282
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
+#. i18n: file: src/config/dcc_configui.ui:347
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#: rc.cpp:834 rc.cpp:840
+msgid "to"
+msgstr "till"
+
+#. i18n: file: src/config/dcc_configui.ui:308
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpecificSendPorts)
+#: rc.cpp:837
+msgid "Enable specific &ports for DCC transfer server:"
+msgstr "Aktivera specifika &portar för DCC-överföringsservern:"
+
+#. i18n: file: src/config/dcc_configui.ui:392
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccUPnP)
+#: rc.cpp:843
+msgid "Enable UPnP for NAT traversal"
+msgstr "Aktivera UPnP för NAT-genomkorsning"
+
+#. i18n: file: src/config/dcc_configui.ui:399
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccChatAutoAccept)
+#: rc.cpp:846
+msgid "Automatically accept DCC chat offer"
+msgstr "Acceptera automatiskt begäran om DCC chatt"
+
+#. i18n: file: src/config/konversation.kcfg:22
+#. i18n: ectx: label, entry, group (Appearance)
+#: rc.cpp:849
+msgid "Limit the size of the tab labels to fit them all on screen"
+msgstr "Begränsa flikarnas textstorlek så att alla får plats på skärmen"
+
+#. i18n: file: src/config/konversation.kcfg:227
+#. i18n: ectx: label, entry, group (Appearance)
+#: rc.cpp:852
+msgid "Hide the scrollbar"
+msgstr "Dölj rullningslist"
+
+#. i18n: file: src/config/konversation.kcfg:233
+#. i18n: ectx: whatsthis, entry, group (General Options)
+#: rc.cpp:855
+msgid ""
+"Enable if you want all the IRC input lines to check your spelling as you type"
+msgstr ""
+"Aktivera om du vill att alla IRC-inmatningsrader ska kontrollera stavning "
+"medan du skriver"
+
+#. i18n: file: src/config/konversation.kcfg:242
+#. i18n: ectx: whatsthis, entry, group (General Options)
+#: rc.cpp:858
+msgid ""
+"Enabling this will cause the input box to grow vertically when it fills up."
+msgstr ""
+"Att aktivera det här gör att indatarutan växer vertikalt när den fylls."
+
+#. i18n: file: src/config/konversation.kcfg:276
+#. i18n: ectx: label, entry, group (General Options)
+#: rc.cpp:861
+msgid "Start with hidden main window"
+msgstr "Starta med dolt huvudfönster"
+
+#. i18n: file: src/config/konversation.kcfg:315
+#. i18n: ectx: label, entry, group (General Options)
+#: rc.cpp:864
+msgid "&Show real names next to nicknames"
+msgstr "Visa r&iktiga namn intill smeknamn"
+
+#. i18n: file: src/config/konversation.kcfg:529
+#. i18n: ectx: label, entry (OpenWatchedNicksAtStartup), group (Notify List)
+#: rc.cpp:867
+msgid "Open Watched Nicks tab at application startup"
+msgstr "Visa flik med bevakade smeknamn vid programstart"
+
+#. i18n: file: src/config/konversation.kcfg:846
+#. i18n: ectx: label, entry, group (Themes)
+#: rc.cpp:870
+msgid "Enable emoticons"
+msgstr "Aktivera smilisar"
+
+#. i18n: file: src/config/konversation.kcfg:850
+#. i18n: ectx: label, entry, group (Themes)
+#: rc.cpp:873
+msgid "Emoticons theme"
+msgstr "Smilistema"
+
 #. i18n: file: src/config/watchednicknames_configui.ui:24
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_UseNotify)
-#: rc.cpp:780
+#: rc.cpp:904
 msgid ""
 "<qt>\n"
 "<p>\n"
 "When the nickname watcher is turned on, you will be notified when the "
 "nicknames appearing in the <b>Watched Networks/Nicknames</b> list come "
 "online or go offline.</p>\n"
-"<p>You can also open the <b>Nicks Online</b> window to see the status of all "
-"the watched nicknames.</p>\n"
+"<p>You can also open the <b>Watched Nicks</b> window to see the status of "
+"all the watched nicknames.</p>\n"
 "</qt>"
 msgstr ""
 "<qt>\n"
@@ -7665,21 +7893,21 @@ msgstr ""
 "När smeknamnsbevakning är aktiverad, blir du underrättad när smeknamnen som "
 "finns i listan <b>Bevakade nätverk eller smeknamn</b> kopplas upp eller ner."
 "</p>\n"
-"<p>Du kan också öppna fönstret <b>Uppkopplade smeknamn</b> för att se status "
+"<p>Du kan också öppna fönstret <b>Bevakade smeknamn</b> för att se status "
 "för alla bevakade smeknamn.</p>\n"
 "</qt>"
 
 #. i18n: file: src/config/watchednicknames_configui.ui:27
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseNotify)
-#: rc.cpp:787
+#: rc.cpp:911
 msgid "Enable nic&kname watcher"
 msgstr "Använd sme&knamnsbevakning"
 
 #. i18n: file: src/config/watchednicknames_configui.ui:37
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_OpenWatchedNicksAtStartup)
-#: rc.cpp:790
+#: rc.cpp:914
 msgid ""
-"<qt>When checked, the <b>Nicks Online</b> window will be automatically "
+"<qt>When checked, the <b>Watched Nicks</b> window will be automatically "
 "opened when starting Konversation.</qt>"
 msgstr ""
 "<qt>Om markerad, visas fönstret <b>Bevakade smeknamn</b> automatiskt när "
@@ -7687,17 +7915,18 @@ msgstr ""
 
 #. i18n: file: src/config/watchednicknames_configui.ui:40
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_OpenWatchedNicksAtStartup)
-#: rc.cpp:793
-msgid "Show watched nicks online tab on &application startup"
-msgstr "Visa flik med bev&akade uppkopplade smeknamn vid start"
+#: rc.cpp:917
+msgid "Show watched Watched Nicks tab on &application startup"
+msgstr "Visa flik med bev&akade smeknamn vid start"
 
 #. i18n: file: src/config/watchednicknames_configui.ui:66
 #. i18n: ectx: property (whatsThis), widget (QLabel, notifyActionLabel)
-#: rc.cpp:797
+#: rc.cpp:921
 #, no-c-format
 msgid ""
 "<qt>\n"
-"<p>When you double click a nickname in the <b>Nicks Online</b> window, this\n"
+"<p>When you double click a nickname in the <b>Watched Nicks</b> window, "
+"this\n"
 "command is placed in the <b>Input Line</b> on the server window.</p>\n"
 "<p>The following symbols can be used in the command:</p><ul>\n"
 "<li>%u: The nickname double clicked.</li>\n"
@@ -7708,8 +7937,8 @@ msgid ""
 "</qt>"
 msgstr ""
 "<qt>\n"
-"<p>När du dubbelklickar på ett smeknamn i fönstret <b>Uppkopplade smeknamn</"
-"b> läggs det här kommandot till på <b>inmatningsraden</b> i serverfönstret.</"
+"<p>När du dubbelklickar på ett smeknamn i fönstret <b>Bevakade smeknamn</b> "
+"läggs det här kommandot till på <b>inmatningsraden</b> i serverfönstret.</"
 "p>\n"
 "<p>Följande symboler kan användas i kommandot:</p><ul>\n"
 "<li>%u: Det dubbelklickade smeknamnet.</li>\n"
@@ -7721,17 +7950,18 @@ msgstr ""
 
 #. i18n: file: src/config/watchednicknames_configui.ui:69
 #. i18n: ectx: property (text), widget (QLabel, notifyActionLabel)
-#: rc.cpp:808
+#: rc.cpp:932
 msgid "Command e&xecuted when nickname is double clicked:"
 msgstr "Kommando att &köra när smeknamn dubbelklickas:"
 
 #. i18n: file: src/config/watchednicknames_configui.ui:99
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, kcfg_NotifyDoubleClickAction)
-#: rc.cpp:812
+#: rc.cpp:936
 #, no-c-format
 msgid ""
 "<qt>\n"
-"<p>When you double click a nickname in the <b>Nicks Online</b> window, this\n"
+"<p>When you double click a nickname in the <b>Watched Nicks</b> window, "
+"this\n"
 " command is placed in the <b>Input Line</b> on the server window.</p>\n"
 "<p>The following symbols can be used in the command:</p><ul>\n"
 "<li>%u: The nickname double clicked.</li>\n"
@@ -7742,8 +7972,8 @@ msgid ""
 "</qt>"
 msgstr ""
 "<qt>\n"
-"<p>När du dubbelklickar på ett smeknamn i fönstret <b>Uppkopplade smeknamn</"
-"b> läggs det här kommandot till på <b>inmatningsraden</b> i serverfönstret.</"
+"<p>När du dubbelklickar på ett smeknamn i fönstret <b>Bevakade smeknamn</b> "
+"läggs det här kommandot till på <b>inmatningsraden</b> i serverfönstret.</"
 "p>\n"
 "<p>Följande symboler kan användas i kommandot:</p><ul>\n"
 "<li>%u: Det dubbelklickade smeknamnet.</li>\n"
@@ -7757,7 +7987,7 @@ msgstr ""
 #. i18n: ectx: property (whatsThis), widget (QLabel, notifyDelayLabel)
 #. i18n: file: src/config/watchednicknames_configui.ui:134
 #. i18n: ectx: property (whatsThis), widget (KIntSpinBox, kcfg_NotifyDelay)
-#: rc.cpp:823 rc.cpp:829
+#: rc.cpp:947 rc.cpp:953
 msgid ""
 "Konversation will check the status of the nicknames listed below at this "
 "interval."
@@ -7767,206 +7997,9 @@ msgstr ""
 
 #. i18n: file: src/config/watchednicknames_configui.ui:112
 #. i18n: ectx: property (text), widget (QLabel, notifyDelayLabel)
-#: rc.cpp:826
+#: rc.cpp:950
 msgid "&Update interval:"
 msgstr "&Uppdateringsintervall:"
-
-#. i18n: file: src/config/konversation.kcfg:22
-#. i18n: ectx: label, entry, group (Appearance)
-#: rc.cpp:832
-msgid "Limit the size of the tab labels to fit them all on screen"
-msgstr "Begränsa flikarnas textstorlek så att alla får plats på skärmen"
-
-#. i18n: file: src/config/konversation.kcfg:227
-#. i18n: ectx: label, entry, group (Appearance)
-#: rc.cpp:835
-msgid "Hide the scrollbar"
-msgstr "Dölj rullningslist"
-
-#. i18n: file: src/config/konversation.kcfg:233
-#. i18n: ectx: whatsthis, entry, group (General Options)
-#: rc.cpp:838
-msgid ""
-"Enable if you want all the IRC input lines to check your spelling as you type"
-msgstr ""
-"Aktivera om du vill att alla IRC-inmatningsrader ska kontrollera stavning "
-"medan du skriver"
-
-#. i18n: file: src/config/konversation.kcfg:242
-#. i18n: ectx: whatsthis, entry, group (General Options)
-#: rc.cpp:841
-msgid ""
-"Enabling this will cause the input box to grow vertically when it fills up."
-msgstr ""
-"Att aktivera det här gör att indatarutan växer vertikalt när den fylls."
-
-#. i18n: file: src/config/konversation.kcfg:276
-#. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:844
-msgid "Start with hidden main window"
-msgstr "Starta med dolt huvudfönster"
-
-#. i18n: file: src/config/konversation.kcfg:315
-#. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:847
-msgid "&Show real names next to nicknames"
-msgstr "Visa r&iktiga namn intill smeknamn"
-
-#. i18n: file: src/config/konversation.kcfg:529
-#. i18n: ectx: label, entry (OpenWatchedNicksAtStartup), group (Notify List)
-#: rc.cpp:850
-msgid "Open Watched Nicks tab at application startup"
-msgstr "Visa flik med bevakade smeknamn vid programstart"
-
-#. i18n: file: src/config/konversation.kcfg:846
-#. i18n: ectx: label, entry, group (Themes)
-#: rc.cpp:853
-msgid "Enable emoticons"
-msgstr "Aktivera smilisar"
-
-#. i18n: file: src/config/konversation.kcfg:850
-#. i18n: ectx: label, entry, group (Themes)
-#: rc.cpp:856
-msgid "Emoticons theme"
-msgstr "Smilistema"
-
-#. i18n: file: src/config/dcc_configui.ui:18
-#. i18n: ectx: property (windowTitle), widget (QWidget, DCC_ConfigUI)
-#: rc.cpp:887
-msgid "DCC_Settings"
-msgstr "DCC-inställningar"
-
-#. i18n: file: src/config/dcc_configui.ui:27
-#. i18n: ectx: property (text), widget (QLabel, dccPathLbl)
-#: rc.cpp:890
-msgid "Download &folder:"
-msgstr "Ladda ner &katalog:"
-
-#. i18n: file: src/config/dcc_configui.ui:50
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAddPartner)
-#: rc.cpp:893
-msgid "&Add sender to file name"
-msgstr "Lägg till &avsändare till filnamn"
-
-#. i18n: file: src/config/dcc_configui.ui:57
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccCreateFolder)
-#: rc.cpp:896
-msgid "Cr&eate folder for sender"
-msgstr "Skapa katalog &för avsändare"
-
-#. i18n: file: src/config/dcc_configui.ui:64
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpaceToUnderscore)
-#: rc.cpp:899
-msgid "Convert spaces in file names to underscores before sending"
-msgstr "Omvandla mellanslag i filnamn till understreck innan den skickas"
-
-#. i18n: file: src/config/dcc_configui.ui:74
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAutoGet)
-#: rc.cpp:902
-msgid "Automaticall&y accept download offer"
-msgstr "Acceptera a&utomatiskt begäran om nerladdning"
-
-#. i18n: file: src/config/dcc_configui.ui:81
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccAutoResume)
-#: rc.cpp:905
-msgid "Au&tomatically resume download"
-msgstr "Å&teruppta nerladdning automatiskt"
-
-#. i18n: file: src/config/dcc_configui.ui:88
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccFastSend)
-#: rc.cpp:908
-msgid "Enable fast DCC send (Might &not work with all clients)"
-msgstr "Aktivera s&nabb DCC-sändning (fungerar kanske inte med alla klienter)"
-
-#. i18n: file: src/config/dcc_configui.ui:95
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccPassiveSend)
-#: rc.cpp:911
-msgid "Enable passive DCC send"
-msgstr "Aktivera passiv DCC-sändning"
-
-#. i18n: file: src/config/dcc_configui.ui:105
-#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DccIPv4Fallback)
-#: rc.cpp:914
-msgid ""
-"If this option enabled dcc transfers for IPv6 connections will be done over "
-"IPv4 interface set here"
-msgstr ""
-"Om det här alternativet är aktiverat, utförs DCC-överföringar med IPv6-"
-"anslutningar med IPv4-gränssnittet som anges här"
-
-#. i18n: file: src/config/dcc_configui.ui:108
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccIPv4Fallback)
-#: rc.cpp:917
-msgid "Fallback to an IPv&4 interface for DCC send:"
-msgstr "Återgå till IPv&4-gränssnitt för DCC-sändning:"
-
-#. i18n: file: src/config/dcc_configui.ui:115
-#. i18n: ectx: property (text), widget (QLabel, textLabel7)
-#: rc.cpp:920
-msgid "DCC send t&imeout:"
-msgstr "T&idsgräns vid DCC-sändning:"
-
-#. i18n: file: src/config/dcc_configui.ui:154
-#. i18n: ectx: property (text), widget (QLabel, textLabel6)
-#: rc.cpp:923
-msgid "Buffer si&ze:"
-msgstr "B&ufferstorlek:"
-
-#. i18n: file: src/config/dcc_configui.ui:196
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox1)
-#: rc.cpp:926
-msgid "IP"
-msgstr "IP"
-
-#. i18n: file: src/config/dcc_configui.ui:202
-#. i18n: ectx: property (text), widget (QLabel, textLabel4)
-#: rc.cpp:929
-msgid "&Method to get own IP:"
-msgstr "&Metod för att få egen IP-adress:"
-
-#. i18n: file: src/config/dcc_configui.ui:218
-#. i18n: ectx: property (text), widget (QLabel, ownIP)
-#: rc.cpp:932
-msgid "O&wn IP:"
-msgstr "E&gen IP-adress:"
-
-#. i18n: file: src/config/dcc_configui.ui:237
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
-#: rc.cpp:935
-msgid "Ports"
-msgstr "Portar"
-
-#. i18n: file: src/config/dcc_configui.ui:243
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpecificChatPorts)
-#: rc.cpp:938
-msgid "Enable specific p&orts for DCC chat:"
-msgstr "Aktivera specifika p&ortar för DCC chatt:"
-
-#. i18n: file: src/config/dcc_configui.ui:282
-#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
-#. i18n: file: src/config/dcc_configui.ui:347
-#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
-#: rc.cpp:941 rc.cpp:947
-msgid "to"
-msgstr "till"
-
-#. i18n: file: src/config/dcc_configui.ui:308
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccSpecificSendPorts)
-#: rc.cpp:944
-msgid "Enable specific &ports for DCC transfer server:"
-msgstr "Aktivera specifika &portar för DCC-överföringsservern:"
-
-#. i18n: file: src/config/dcc_configui.ui:392
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccUPnP)
-#: rc.cpp:950
-msgid "Enable UPnP for NAT traversal"
-msgstr "Aktivera UPnP för NAT-genomkorsning"
-
-#. i18n: file: src/config/dcc_configui.ui:399
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DccChatAutoAccept)
-#: rc.cpp:953
-msgid "Automatically accept DCC chat offer"
-msgstr "Acceptera automatiskt begäran om DCC chatt"
 
 #. i18n: file: src/dcc/transferdetailedtimeinfopanelui.ui:28
 #. i18n: ectx: property (text), widget (QLabel, textLabel19)
@@ -9433,6 +9466,9 @@ msgstr "ljud"
 #: data/scripts/media:494
 msgid "video"
 msgstr "video"
+
+#~ msgid "&Watched Nicks Online"
+#~ msgstr "&Bevakade uppkopplade smeknamn"
 
 #~ msgid ""
 #~ "The IRC server network (such as 'Freenode') that the selected user to "

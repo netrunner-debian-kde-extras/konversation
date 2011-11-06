@@ -42,6 +42,13 @@
 #include <KMessageBox>
 #include <KAboutData>
 
+#include <QTextDocument>
+#include <QTextBlock>
+#include <kdebug.h>
+#include "ircview.h"
+
+QDebug operator<<(QDebug d, QTextDocument* document);
+
 namespace Konversation
 {
     QSet<QString> OutputFilter::m_commands;
@@ -831,8 +838,8 @@ namespace Konversation
 
         if (request == "PING")
         {
-            unsigned int time_t = QDateTime::currentDateTime().toTime_t();
-            result.toServer = QString("PRIVMSG %1 :\x01PING %2\x01").arg(recipient).arg(time_t);
+            unsigned int timeT = QDateTime::currentDateTime().toTime_t();
+            result.toServer = QString("PRIVMSG %1 :\x01PING %2\x01").arg(recipient).arg(timeT);
             result.output = i18n("Sending CTCP-%1 request to %2.", QString::fromLatin1("PING"), recipient);
         }
         else
@@ -1930,6 +1937,21 @@ namespace Konversation
             }
         }
 
+        return OutputFilterResult();
+    }
+
+
+    OutputFilterResult OutputFilter::command_dumpdoc(const OutputFilterInput& input)
+    {
+        if (input.context && input.context->getTextView())
+        {
+#if KDE_IS_VERSION(4,6,0)
+            KDebug::Block myBlock(qPrintable(QString::number((ulong)(input.context->getTextView()), 16)));
+#else
+            kDebug() << "view =" << qPrintable(QString::number((ulong)(input.context->getTextView()), 16));
+#endif
+            kDebug() << input.context->getTextView()->document();
+        }
         return OutputFilterResult();
     }
 

@@ -15,15 +15,11 @@
 
 #include "application.h"
 #include "version.h"
-#include "commit.h"
 
 #include <QWaitCondition>
 
 #include <KCmdLineArgs>
 #include <KAboutData>
-
-#define HACKSTR(x) #x
-#define STRHACK(x) HACKSTR(x)
 
 /*
   Don't use i18n() here, use ki18n() instead!
@@ -35,7 +31,7 @@ int main(int argc, char* argv[])
     KAboutData aboutData("konversation",
         "",
         ki18n("Konversation"),
-        KONVI_VERSION " #" STRHACK(COMMIT),
+        KONVI_VERSION,
         ki18n("A user-friendly IRC client"),
         KAboutData::License_GPL,
         ki18n("(C) 2002-2011 by the Konversation team"),
@@ -56,7 +52,7 @@ int main(int argc, char* argv[])
     aboutData.addCredit(ki18n("Olivier Bédard"),ki18n("Website hosting"));
     aboutData.addCredit(ki18n("Jędrzej Lisowski"),ki18n("Website maintenance"),"yesoos@gmail.com");
     aboutData.addCredit(ki18n("Christian Muehlhaeuser"),ki18n("Multiple modes extension, Close widget placement, OSD functionality"),"chris@chris.de");
-    aboutData.addCredit(ki18n("Gary Cramblitt"),ki18n("Documentation, Watched nicks online improvements, Custom web browser extension"),"garycramblitt@comcast.net");
+    aboutData.addCredit(ki18n("Gary Cramblitt"),ki18n("Documentation, Watched Nicks improvements, Custom web browser extension"),"garycramblitt@comcast.net");
     aboutData.addCredit(ki18n("Matthias Gierlings"),ki18n("Color configurator, Highlight dialog"),"gismore@users.sourceforge.net");
     aboutData.addCredit(ki18n("Alex Zepeda"),ki18n("DCOP interface"),"garbanzo@hooked.net");
     aboutData.addCredit(ki18n("Stanislav Karchebny"),ki18n("Non-Latin1-Encodings"),"berkus@users.sourceforge.net");

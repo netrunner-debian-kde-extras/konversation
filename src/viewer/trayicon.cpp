@@ -15,7 +15,6 @@ namespace Konversation
     TrayIcon::TrayIcon(QWidget* parent) : KStatusNotifierItem(parent)
     {
         setCategory(Communications);
-        setStatus(Active);
 
         m_notificationEnabled = false;
 
@@ -45,7 +44,7 @@ namespace Konversation
 
     void TrayIcon::endNotification()
     {
-        setStatus(Active);
+        setStatus(Passive);
     }
 
     void TrayIcon::updateAppearance()

@@ -104,7 +104,7 @@ Server::Server(QObject* parent, ConnectionSettings& settings) : QObject(parent)
     m_banAddressListModes = 'b'; // {RFC-1459, draft-brocklesby-irc-isupport} -> pick one
     m_channelPrefixes = "#&";
     m_modesCount = 3;
-    m_showSSLConfirmation = true;
+    m_sslErrorLock = false;
 
     setObjectName(QString::fromLatin1("server_") + settings.name());
 
@@ -418,7 +418,14 @@ void Server::connectToIRCServer()
 {
     if (!isConnected())
     {
-// Reenable check when it works reliably for all backends
+        if (m_sslErrorLock)
+        {
+            kDebug() << "Refusing to connect while SSL lock from previous connection attempt is being held.";
+
+            return;
+        }
+
+        // Reenable check when it works reliably for all backends
 //         if(Solid::Networking::status() != Solid::Networking::Connected)
 //         {
 //             updateConnectionState(Konversation::SSInvoluntarilyDisconnected);
@@ -644,7 +651,7 @@ void Server::ircServerConnectionSuccess()
 void Server::broken(KTcpSocket::Error error)
 {
     Q_UNUSED(error);
-    kDebug() << "Connection broken " << m_socket->errorString() << "!";
+    kDebug() << "Connection broken with state" << m_connectionState << "and error:" << m_socket->errorString();
 
     m_socket->blockSignals(true);
 
@@ -673,7 +680,24 @@ void Server::broken(KTcpSocket::Error error)
 
     updateAutoJoin();
 
-    if (getConnectionState() == Konversation::SSDeliberatelyDisconnected)
+
+    if (m_sslErrorLock)
+    {
+        // We got disconnected while dealing with an SSL error, e.g. due to the
+        // user taking their time on dealing with the error dialog. Since auto-
+        // reconnecting makes no sense in this situation, let's pass it off as a
+        // deliberate disconnect. sslError() will either kick off a reconnect, or
+        // reaffirm this.
+
+        getStatusView()->appendServerMessage(i18n("SSL Connection Error"),
+            i18n("Connection to server %1 (port <numid>%2</numid>) lost while waiting for user response to an SSL error. "
+                 "Will automatically reconnect if error is ignored.",
+                 getConnectionSettings().server().host(),
+                 QString::number(getConnectionSettings().server().port())));
+
+        updateConnectionState(SSDeliberatelyDisconnected);
+    }
+    else if (getConnectionState() == Konversation::SSDeliberatelyDisconnected)
     {
         if (m_reconnectImmediately)
         {
@@ -697,47 +721,59 @@ void Server::broken(KTcpSocket::Error error)
     }
 }
 
-bool Server::askUserToIgnoreSslErrors()
-{
-    bool retVal = false;
-
-    // We are called by sslError:
-    // sslError is a slot, if it's signal is emitted multiple times
-    // then we only want to show the dialog once.
-    if ( m_showSSLConfirmation )
-    {
-        // We don't want to show any further SSL confirmation dialogs.
-        m_showSSLConfirmation = false;
-
-        // Ask the user if he wants to ignore SSL errors.
-        // In case the user wants to make the rule he chose (for example: always allow) persistent
-        // this will not show a dialog (but it will return "sslErrorsIgnored = true").
-        retVal = KIO::SslUi::askIgnoreSslErrors( m_socket, KIO::SslUi::RecallAndStoreRules );
-
-        // As we're done now we can show further SSL dialogs.
-        m_showSSLConfirmation = true;
-    }
-
-    return retVal;
-}
-
 void Server::sslError( const QList<KSslError>& errors )
 {
-    // Ask the user if he wants to ignore the errors.
-    if ( askUserToIgnoreSslErrors() )
-    {
-        // The user has chosen to ignore SSL errors.
-        m_socket->ignoreSslErrors();
+    // We have to explicitly grab the socket we got the error from,
+    // lest we might end up calling ignoreSslErrors() on a different
+    // socket later if m_socket has started pointing at something
+    // else.
+    QPointer<KTcpSocket> socket = qobject_cast<KTcpSocket*>(QObject::sender());
 
+    m_sslErrorLock = true;
+    bool ignoreSslErrors = KIO::SslUi::askIgnoreSslErrors(socket, KIO::SslUi::RecallAndStoreRules);
+    m_sslErrorLock = false;
+
+    // The dialog-based user interaction above may take an undefined amount
+    // of time, and anything could happen to the socket in that span of time.
+    // If it was destroyed, let's not do anything and bail out.
+    if (!socket)
+    {
+        kDebug() << "Socket was destroyed while waiting for user interaction.";
+
+        return;
+    }
+
+    // Ask the user if he wants to ignore the errors.
+    if (ignoreSslErrors)
+    {
         // Show a warning in the chat window that the SSL certificate failed the authenticity check.
         QString error = i18n("The SSL certificate for the server %1 (port <numid>%2</numid>) failed the authenticity check.",
-                            getConnectionSettings().server().host(),
-                            QString::number(getConnectionSettings().server().port()));
+            getConnectionSettings().server().host(),
+            QString::number(getConnectionSettings().server().port()));
 
         getStatusView()->appendServerMessage(i18n("SSL Connection Warning"), error);
+
+        // We may have gotten disconnected while waiting for user response and have
+        // to reconnect.
+        if (isConnecting())
+        {
+            // The user has chosen to ignore SSL errors.
+            socket->ignoreSslErrors();
+        }
+        else
+        {
+            // QueuedConnection is vital here, otherwise we're deleting the socket
+            // in a slot connected to one of its signals (connectToIRCServer deletes
+            // any old socket) and crash.
+            QMetaObject::invokeMethod(this, "connectToIRCServer", Qt::QueuedConnection);
+        }
     }
     else
     {
+        // Don't auto-reconnect if the user chose to ignore the SSL errors --
+        // treat it as a deliberate disconnect.
+        updateConnectionState(Konversation::SSDeliberatelyDisconnected);
+
         QString errorReason;
 
         for (int i = 0; i < errors.size(); ++i)
@@ -2605,6 +2641,9 @@ void Server::removeChannel(Channel* channel)
     }
 
     m_channelList.removeOne(channel);
+
+    if (!isConnected())
+        updateAutoJoin();
 }
 
 void Server::updateChannelMode(const QString &updater, const QString &channelName, char mode, bool plus, const QString &parameter)
@@ -3584,12 +3623,14 @@ void Server::updateAutoJoin(Konversation::ChannelList channels)
 
     if (!tmpList.isEmpty())
     {
-        setAutoJoin(true);
-
         setAutoJoinCommands(generateJoinCommand(tmpList));
+        setAutoJoin(!m_autoJoinCommands.isEmpty());
     }
     else
+    {
+        m_autoJoinCommands.clear();
         setAutoJoin(false);
+    }
 }
 
 
@@ -3605,33 +3646,43 @@ QStringList Server::generateJoinCommand(const Konversation::ChannelList &tmpList
     for (it = tmpList.constBegin(); it != tmpList.constEnd(); ++it)
     {
         QString channel = (*it).name();
-        QString password = ((*it).password().isEmpty() ? "." : (*it).password());
 
-        uint currentLength = getIdentity()->getCodec()->fromUnicode(channel).length();
-        currentLength += getIdentity()->getCodec()->fromUnicode(password).length();
-
-        //channels.count() and passwords.count() account for the commas
-        if (length + currentLength + 6 + channels.count() + passwords.count() >= 512) // 6: "JOIN " plus separating space between chans and pws.
+        // Only add the channel to the JOIN command if it has a valid channel name.
+        if (isAChannel(channel))
         {
-            while (!passwords.isEmpty() && passwords.last() == ".") passwords.pop_back();
+            QString password = ((*it).password().isEmpty() ? "." : (*it).password());
 
-            joinCommands << "JOIN " + channels.join(",") + ' ' + passwords.join(",");
+            uint currentLength = getIdentity()->getCodec()->fromUnicode(channel).length();
+            currentLength += getIdentity()->getCodec()->fromUnicode(password).length();
 
-            channels.clear();
-            passwords.clear();
+            //channels.count() and passwords.count() account for the commas
+            if (length + currentLength + 6 + channels.count() + passwords.count() >= 512) // 6: "JOIN " plus separating space between chans and pws.
+            {
+                while (!passwords.isEmpty() && passwords.last() == ".") passwords.pop_back();
 
-            length = 0;
+                joinCommands << "JOIN " + channels.join(",") + ' ' + passwords.join(",");
+
+                channels.clear();
+                passwords.clear();
+
+                length = 0;
+            }
+
+            length += currentLength;
+
+            channels << channel;
+            passwords << password;
         }
-
-        length += currentLength;
-
-        channels << channel;
-        passwords << password;
     }
 
     while (!passwords.isEmpty() && passwords.last() == ".") passwords.pop_back();
 
-    joinCommands << "JOIN " + channels.join(",") + ' ' + passwords.join(",");
+    // Even if the given tmpList contained entries they might have been filtered
+    // out by the isAChannel() check.
+    if (!channels.isEmpty())
+    {
+        joinCommands << "JOIN " + channels.join(",") + ' ' + passwords.join(",");
+    }
 
     return joinCommands;
 }
