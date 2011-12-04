@@ -1416,29 +1416,26 @@ void Channel::setTopicAuthor(const QString& newAuthor, QDateTime time)
 
 void Channel::updateMode(const QString& sourceNick, char mode, bool plus, const QString &parameter)
 {
-    //Note for future expansion: doing m_server->getChannelNick(getName(), sourceNick);  may not return a valid channelNickPtr if the
-    //mode is updated by the server.
+    // Note for future expansion:
+    //     m_server->getChannelNick(getName(), sourceNick);
+    // may not return a valid channelNickPtr if the mode is updated by
+    // the server.
+    // --johnflux, 9 September 2004
 
-    // Note: nick repositioning in the nicknameListView should be triggered by
-    // nickinfo / channelnick signals
+    // Note: nick repositioning in the nicknameListView should be
+    // triggered by nickinfo / channelnick signals
 
     QString message;
-    ChannelNickPtr parameterChannelNick=m_server->getChannelNick(getName(), parameter);
+    ChannelNickPtr parameterChannelNick = m_server->getChannelNick(getName(), parameter);
 
-    bool fromMe=false;
-    bool toMe=false;
+    bool fromMe = false;
+    bool toMe = false;
+
+    // HACK right now Server only keeps type A modes
     bool banTypeThang = m_server->banAddressListModes().contains(QChar(mode));
 
-    // HACK to avoid changing strings for 1.2.2, we pretend any TYPE A mode is a
-    // ban except for e and I, as we have support for those
-    if (banTypeThang)
-    {
-        if (mode != 'b' && mode != 'e' && mode != 'I')
-            mode = 'b';
-    }
-
     // remember if this nick had any type of op.
-    bool wasAnyOp=false;
+    bool wasAnyOp = false;
     if (parameterChannelNick)
     {
         // If NAMES processing is in progress, we likely have received
@@ -1457,94 +1454,94 @@ void Channel::updateMode(const QString& sourceNick, char mode, bool plus, const 
         if (!m_processingTimer || m_processingTimer->isActive())
             addNickname(parameterChannelNick);
 
-        wasAnyOp=parameterChannelNick->isAnyTypeOfOp();
+        wasAnyOp = parameterChannelNick->isAnyTypeOfOp();
     }
 
-    if(sourceNick.toLower()==m_server->loweredNickname())
-        fromMe=true;
-    if(parameter.toLower()==m_server->loweredNickname())
-        toMe=true;
+    if (sourceNick.toLower() == m_server->loweredNickname())
+        fromMe = true;
+    if (parameter.toLower() == m_server->loweredNickname())
+        toMe = true;
 
-    switch(mode)
+    switch (mode)
     {
         case 'q':
-            if(plus)
+            if (banTypeThang)
             {
-                if(fromMe)
+                if (plus)
                 {
-                    if(toMe)
-                        message=i18n("You give channel owner privileges to yourself.");
-                    else
-                        message=i18n("You give channel owner privileges to %1.", parameter);
+                    if (fromMe) message = i18n("You set a quiet on %1.", parameter);
+                    else        message = i18n("%1 sets a quiet on %2.", sourceNick, parameter);
                 }
                 else
                 {
-                    if(toMe)
-                        message=i18n("%1 gives channel owner privileges to you.", sourceNick);
-                    else
-                        message=i18n("%1 gives channel owner privileges to %2.", sourceNick, parameter);
+                    if (fromMe) message = i18n("You remove the quiet on %1.", parameter);
+                    else        message = i18n("%1 removes the quiet on %2.", sourceNick, parameter);
                 }
             }
             else
             {
-                if(fromMe)
+                if (plus)
                 {
-                    if(toMe)
-                        message=i18n("You take channel owner privileges from yourself.");
+                    if (fromMe)
+                    {
+                        if (toMe)   message = i18n("You give channel owner privileges to yourself.");
+                        else        message = i18n("You give channel owner privileges to %1.", parameter);
+                    }
                     else
-                        message=i18n("You take channel owner privileges from %1.", parameter);
+                    {
+                        if (toMe)   message = i18n("%1 gives channel owner privileges to you.", sourceNick);
+                        else        message = i18n("%1 gives channel owner privileges to %2.", sourceNick, parameter);
+                    }
                 }
                 else
                 {
-                    if(toMe)
-                        message=i18n("%1 takes channel owner privileges from you.", sourceNick);
+                    if (fromMe)
+                    {
+                        if (toMe)   message = i18n("You take channel owner privileges from yourself.");
+                        else        message = i18n("You take channel owner privileges from %1.", parameter);
+                    }
                     else
-                        message=i18n("%1 takes channel owner privileges from %2.", sourceNick, parameter);
+                    {
+                        if (toMe)   message = i18n("%1 takes channel owner privileges from you.", sourceNick);
+                        else        message = i18n("%1 takes channel owner privileges from %2.", sourceNick, parameter);
+                    }
                 }
-            }
-            if(parameterChannelNick)
-            {
-                parameterChannelNick->setOwner(plus);
-                emitUpdateInfo();
+                if (parameterChannelNick)
+                {
+                    parameterChannelNick->setOwner(plus);
+                    emitUpdateInfo();
+                }
             }
             break;
 
         case 'a':
-            if(plus)
+            if (plus)
             {
-                if(fromMe)
+                if (fromMe)
                 {
-                    if(toMe)
-                        message=i18n("You give channel admin privileges to yourself.");
-                    else
-                        message=i18n("You give channel admin privileges to %1.", parameter);
+                    if (toMe)   message = i18n("You give channel admin privileges to yourself.");
+                    else        message = i18n("You give channel admin privileges to %1.", parameter);
                 }
                 else
                 {
-                    if(toMe)
-                        message=i18n("%1 gives channel admin privileges to you.", sourceNick);
-                    else
-                        message=i18n("%1 gives channel admin privileges to %2.", sourceNick, parameter);
+                    if (toMe)   message = i18n("%1 gives channel admin privileges to you.", sourceNick);
+                    else        message = i18n("%1 gives channel admin privileges to %2.", sourceNick, parameter);
                 }
             }
             else
             {
-                if(fromMe)
+                if (fromMe)
                 {
-                    if(toMe)
-                        message=i18n("You take channel admin privileges from yourself.");
-                    else
-                        message=i18n("You take channel admin privileges from %1.", parameter);
+                    if (toMe)   message = i18n("You take channel admin privileges from yourself.");
+                    else        message = i18n("You take channel admin privileges from %1.", parameter);
                 }
                 else
                 {
-                    if(toMe)
-                        message=i18n("%1 takes channel admin privileges from you.", sourceNick);
-                    else
-                        message=i18n("%1 takes channel admin privileges from %2.", sourceNick, parameter);
+                    if (toMe)   message = i18n("%1 takes channel admin privileges from you.", sourceNick);
+                    else        message = i18n("%1 takes channel admin privileges from %2.", sourceNick, parameter);
                 }
             }
-            if(parameterChannelNick)
+            if (parameterChannelNick)
             {
                 parameterChannelNick->setOwner(plus);
                 emitUpdateInfo();
@@ -1552,41 +1549,33 @@ void Channel::updateMode(const QString& sourceNick, char mode, bool plus, const 
             break;
 
         case 'o':
-            if(plus)
+            if (plus)
             {
-                if(fromMe)
+                if (fromMe)
                 {
-                    if(toMe)
-                        message=i18n("You give channel operator privileges to yourself.");
-                    else
-                        message=i18n("You give channel operator privileges to %1.", parameter);
+                    if (toMe)   message = i18n("You give channel operator privileges to yourself.");
+                    else        message = i18n("You give channel operator privileges to %1.", parameter);
                 }
                 else
                 {
-                    if(toMe)
-                        message=i18n("%1 gives channel operator privileges to you.", sourceNick);
-                    else
-                        message=i18n("%1 gives channel operator privileges to %2.", sourceNick, parameter);
+                    if (toMe)   message = i18n("%1 gives channel operator privileges to you.", sourceNick);
+                    else        message = i18n("%1 gives channel operator privileges to %2.", sourceNick, parameter);
                 }
             }
             else
             {
-                if(fromMe)
+                if (fromMe)
                 {
-                    if(toMe)
-                        message=i18n("You take channel operator privileges from yourself.");
-                    else
-                        message=i18n("You take channel operator privileges from %1.", parameter);
+                    if (toMe)   message = i18n("You take channel operator privileges from yourself.");
+                    else        message = i18n("You take channel operator privileges from %1.", parameter);
                 }
                 else
                 {
-                    if(toMe)
-                        message=i18n("%1 takes channel operator privileges from you.", sourceNick);
-                    else
-                        message=i18n("%1 takes channel operator privileges from %2.", sourceNick, parameter);
+                    if (toMe)   message = i18n("%1 takes channel operator privileges from you.", sourceNick);
+                    else        message = i18n("%1 takes channel operator privileges from %2.", sourceNick, parameter);
                 }
             }
-            if(parameterChannelNick)
+            if (parameterChannelNick)
             {
                 parameterChannelNick->setOp(plus);
                 emitUpdateInfo();
@@ -1594,295 +1583,287 @@ void Channel::updateMode(const QString& sourceNick, char mode, bool plus, const 
             break;
 
         case 'h':
-            if(plus)
+            if (plus)
             {
-                if(fromMe)
+                if (fromMe)
                 {
-                    if(toMe)
-                        message=i18n("You give channel halfop privileges to yourself.");
-                    else
-                        message=i18n("You give channel halfop privileges to %1.", parameter);
+                    if (toMe)   message = i18n("You give channel halfop privileges to yourself.");
+                    else        message = i18n("You give channel halfop privileges to %1.", parameter);
                 }
                 else
                 {
-                    if(toMe)
-                        message=i18n("%1 gives channel halfop privileges to you.", sourceNick);
-                    else
-                        message=i18n("%1 gives channel halfop privileges to %2.", sourceNick, parameter);
+                    if (toMe)   message = i18n("%1 gives channel halfop privileges to you.", sourceNick);
+                    else        message = i18n("%1 gives channel halfop privileges to %2.", sourceNick, parameter);
                 }
             }
             else
             {
-                if(fromMe)
+                if (fromMe)
                 {
-                    if(toMe)
-                        message=i18n("You take channel halfop privileges from yourself.");
-                    else
-                        message=i18n("You take channel halfop privileges from %1.", parameter);
+                    if (toMe)   message = i18n("You take channel halfop privileges from yourself.");
+                    else        message = i18n("You take channel halfop privileges from %1.", parameter);
                 }
                 else
                 {
-                    if(toMe)
-                        message=i18n("%1 takes channel halfop privileges from you.", sourceNick);
-                    else
-                        message=i18n("%1 takes channel halfop privileges from %2.", sourceNick, parameter);
+                    if (toMe)   message = i18n("%1 takes channel halfop privileges from you.", sourceNick);
+                    else        message = i18n("%1 takes channel halfop privileges from %2.", sourceNick, parameter);
                 }
             }
-            if(parameterChannelNick)
+            if (parameterChannelNick)
             {
                 parameterChannelNick->setHalfOp(plus);
                 emitUpdateInfo();
             }
             break;
 
-	//case 'O': break;
+        //case 'O': break;
 
         case 'v':
-            if(plus)
+            if (plus)
             {
-                if(fromMe)
+                if (fromMe)
                 {
-                    if(toMe) message=i18n("You give yourself permission to talk.");
-                    else     message=i18n("You give %1 permission to talk.", parameter);
+                    if (toMe)   message = i18n("You give yourself permission to talk.");
+                    else        message = i18n("You give %1 permission to talk.", parameter);
                 }
                 else
                 {
-                    if(toMe) message=i18n("%1 gives you permission to talk.", sourceNick);
-                    else     message=i18n("%1 gives %2 permission to talk.", sourceNick, parameter);
+                    if (toMe)   message = i18n("%1 gives you permission to talk.", sourceNick);
+                    else        message = i18n("%1 gives %2 permission to talk.", sourceNick, parameter);
                 }
             }
             else
             {
-                if(fromMe)
+                if (fromMe)
                 {
-                    if(toMe) message=i18n("You take the permission to talk from yourself.");
-                    else     message=i18n("You take the permission to talk from %1.", parameter);
+                    if (toMe)   message = i18n("You take the permission to talk from yourself.");
+                    else        message = i18n("You take the permission to talk from %1.", parameter);
                 }
                 else
                 {
-                    if(toMe) message=i18n("%1 takes the permission to talk from you.", sourceNick);
-                    else     message=i18n("%1 takes the permission to talk from %2.", sourceNick, parameter);
+                    if (toMe)   message = i18n("%1 takes the permission to talk from you.", sourceNick);
+                    else        message = i18n("%1 takes the permission to talk from %2.", sourceNick, parameter);
                 }
             }
-            if(parameterChannelNick)
+            if (parameterChannelNick)
             {
                 parameterChannelNick->setVoice(plus);
             }
             break;
 
         case 'c':
-            if(plus)
+            if (plus)
             {
-                if(fromMe) message=i18n("You set the channel mode to 'no colors allowed'.");
-                else message=i18n("%1 sets the channel mode to 'no colors allowed'.", sourceNick);
+                if (fromMe) message = i18n("You set the channel mode to 'no colors allowed'.");
+                else        message = i18n("%1 sets the channel mode to 'no colors allowed'.", sourceNick);
             }
             else
             {
-                if(fromMe) message=i18n("You set the channel mode to 'allow color codes'.");
-                else message=i18n("%1 sets the channel mode to 'allow color codes'.", sourceNick);
+                if (fromMe) message = i18n("You set the channel mode to 'allow color codes'.");
+                else        message = i18n("%1 sets the channel mode to 'allow color codes'.", sourceNick);
             }
             break;
 
         case 'i':
-            if(plus)
+            if (plus)
             {
-                if(fromMe) message=i18n("You set the channel mode to 'invite only'.");
-                else message=i18n("%1 sets the channel mode to 'invite only'.", sourceNick);
+                if (fromMe) message = i18n("You set the channel mode to 'invite only'.");
+                else        message = i18n("%1 sets the channel mode to 'invite only'.", sourceNick);
             }
             else
             {
-                if(fromMe) message=i18n("You remove the 'invite only' mode from the channel.");
-                else message=i18n("%1 removes the 'invite only' mode from the channel.", sourceNick);
+                if (fromMe) message = i18n("You remove the 'invite only' mode from the channel.");
+                else        message = i18n("%1 removes the 'invite only' mode from the channel.", sourceNick);
             }
             modeI->setDown(plus);
             break;
 
         case 'm':
-            if(plus)
+            if (plus)
             {
-                if(fromMe) message=i18n("You set the channel mode to 'moderated'.");
-                else message=i18n("%1 sets the channel mode to 'moderated'.", sourceNick);
+                if (fromMe) message = i18n("You set the channel mode to 'moderated'.");
+                else        message = i18n("%1 sets the channel mode to 'moderated'.", sourceNick);
             }
             else
             {
-                if(fromMe) message=i18n("You set the channel mode to 'unmoderated'.");
-                else message=i18n("%1 sets the channel mode to 'unmoderated'.", sourceNick);
+                if (fromMe) message = i18n("You set the channel mode to 'unmoderated'.");
+                else        message = i18n("%1 sets the channel mode to 'unmoderated'.", sourceNick);
             }
             modeM->setDown(plus);
             break;
 
         case 'n':
-            if(plus)
+            if (plus)
             {
-                if(fromMe) message=i18n("You set the channel mode to 'no messages from outside'.");
-                else message=i18n("%1 sets the channel mode to 'no messages from outside'.", sourceNick);
+                if (fromMe) message = i18n("You set the channel mode to 'no messages from outside'.");
+                else        message = i18n("%1 sets the channel mode to 'no messages from outside'.", sourceNick);
             }
             else
             {
-                if(fromMe) message=i18n("You set the channel mode to 'allow messages from outside'.");
-                else message=i18n("%1 sets the channel mode to 'allow messages from outside'.", sourceNick);
+                if (fromMe) message = i18n("You set the channel mode to 'allow messages from outside'.");
+                else        message = i18n("%1 sets the channel mode to 'allow messages from outside'.", sourceNick);
             }
             modeN->setDown(plus);
             break;
 
         case 'p':
-            if(plus)
+            if (plus)
             {
-                if(fromMe) message=i18n("You set the channel mode to 'private'.");
-                else message=i18n("%1 sets the channel mode to 'private'.", sourceNick);
+                if (fromMe) message = i18n("You set the channel mode to 'private'.");
+                else        message = i18n("%1 sets the channel mode to 'private'.", sourceNick);
             }
             else
             {
-                if(fromMe) message=i18n("You set the channel mode to 'public'.");
-                else message=i18n("%1 sets the channel mode to 'public'.", sourceNick);
+                if (fromMe) message = i18n("You set the channel mode to 'public'.");
+                else        message = i18n("%1 sets the channel mode to 'public'.", sourceNick);
             }
             modeP->setDown(plus);
-            if(plus) modeS->setDown(false);
+            if (plus) modeS->setDown(false);
             break;
 
         case 's':
-            if(plus)
+            if (plus)
             {
-                if(fromMe) message=i18n("You set the channel mode to 'secret'.");
-                else message=i18n("%1 sets the channel mode to 'secret'.", sourceNick);
+                if (fromMe) message = i18n("You set the channel mode to 'secret'.");
+                else        message = i18n("%1 sets the channel mode to 'secret'.", sourceNick);
             }
             else
             {
-                if(fromMe) message=i18n("You set the channel mode to 'visible'.");
-                else message=i18n("%1 sets the channel mode to 'visible'.", sourceNick);
+                if (fromMe) message = i18n("You set the channel mode to 'visible'.");
+                else        message = i18n("%1 sets the channel mode to 'visible'.", sourceNick);
             }
             modeS->setDown(plus);
-            if(plus) modeP->setDown(false);
+            if (plus) modeP->setDown(false);
             break;
 
-	//case 'r': break;
+        //case 'r': break;
 
         case 't':
-            if(plus)
+            if (plus)
             {
-                if(fromMe) message=i18n("You switch on 'topic protection'.");
-                else message=i18n("%1 switches on 'topic protection'.", sourceNick);
+                if (fromMe) message = i18n("You switch on 'topic protection'.");
+                else        message = i18n("%1 switches on 'topic protection'.", sourceNick);
             }
             else
             {
-                if(fromMe) message=i18n("You switch off 'topic protection'.");
-                else message=i18n("%1 switches off 'topic protection'.", sourceNick);
+                if (fromMe) message = i18n("You switch off 'topic protection'.");
+                else        message = i18n("%1 switches off 'topic protection'.", sourceNick);
             }
             modeT->setDown(plus);
             break;
 
         case 'k':
-            if(plus)
+            if (plus)
             {
-                if(fromMe) message=i18n("You set the channel key to '%1'.", parameter);
-                else message=i18n("%1 sets the channel key to '%2'.", sourceNick, parameter);
+                if (fromMe) message = i18n("You set the channel key to '%1'.", parameter);
+                else        message = i18n("%1 sets the channel key to '%2'.", sourceNick, parameter);
             }
             else
             {
-                if(fromMe) message=i18n("You remove the channel key.");
-                else message=i18n("%1 removes the channel key.", sourceNick);
+                if (fromMe) message = i18n("You remove the channel key.");
+                else        message = i18n("%1 removes the channel key.", sourceNick);
             }
             modeK->setDown(plus);
             break;
 
         case 'l':
-            if(plus)
+            if (plus)
             {
-                if(fromMe) message=i18np("You set the channel limit to 1 nick.", "You set the channel limit to %1 nicks.", parameter);
-                else message=i18np("%2 sets the channel limit to 1 nick.", "%2 sets the channel limit to %1 nicks.", parameter, sourceNick);
+                if (fromMe) message = i18np("You set the channel limit to 1 nick.", "You set the channel limit to %1 nicks.", parameter);
+                else        message = i18np("%2 sets the channel limit to 1 nick.", "%2 sets the channel limit to %1 nicks.", parameter, sourceNick);
             }
             else
             {
-                if(fromMe) message=i18n("You remove the channel limit.");
-                else message=i18n("%1 removes the channel limit.", sourceNick);
+                if (fromMe) message = i18n("You remove the channel limit.");
+                else        message = i18n("%1 removes the channel limit.", sourceNick);
             }
             modeL->setDown(plus);
-            if(plus) limit->setText(parameter);
+            if (plus) limit->setText(parameter);
             else limit->clear();
             break;
 
         case 'b':
-            if(plus)
+            if (plus)
             {
-                if(fromMe) message=i18n("You set a ban on %1.", parameter);
-                else message=i18n("%1 sets a ban on %2.", sourceNick, parameter);
+                if (fromMe) message = i18n("You set a ban on %1.", parameter);
+                else        message = i18n("%1 sets a ban on %2.", sourceNick, parameter);
             }
             else
             {
-                if(fromMe) message=i18n("You remove the ban on %1.", parameter);
-                else message=i18n("%1 removes the ban on %2.", sourceNick, parameter);
+                if (fromMe) message = i18n("You remove the ban on %1.", parameter);
+                else        message = i18n("%1 removes the ban on %2.", sourceNick, parameter);
             }
             break;
 
         case 'e':
-            if(plus)
+            if (plus)
             {
-                if(fromMe) message=i18n("You set a ban exception on %1.", parameter);
-                else message=i18n("%1 sets a ban exception on %2.", sourceNick, parameter);
+                if (fromMe) message = i18n("You set a ban exception on %1.", parameter);
+                else        message = i18n("%1 sets a ban exception on %2.", sourceNick, parameter);
             }
             else
             {
-                if(fromMe) message=i18n("You remove the ban exception on %1.", parameter);
-                else message=i18n("%1 removes the ban exception on %2.", sourceNick, parameter);
+                if (fromMe) message = i18n("You remove the ban exception on %1.", parameter);
+                else        message = i18n("%1 removes the ban exception on %2.", sourceNick, parameter);
             }
             break;
 
         case 'I':
-            if(plus)
+            if (plus)
             {
-                if(fromMe) message=i18n("You set invitation mask %1.", parameter);
-                else message=i18n("%1 sets invitation mask %2.", sourceNick, parameter);
+                if (fromMe) message = i18n("You set invitation mask %1.", parameter);
+                else        message = i18n("%1 sets invitation mask %2.", sourceNick, parameter);
             }
             else
             {
-                if(fromMe) message=i18n("You remove the invitation mask %1.", parameter);
-                else message=i18n("%1 removes the invitation mask %2.", sourceNick, parameter);
+                if (fromMe) message = i18n("You remove the invitation mask %1.", parameter);
+                else        message = i18n("%1 removes the invitation mask %2.", sourceNick, parameter);
             }
             break;
         default:
-        if(plus)
+        if (plus)
         {
-            if(Konversation::getChannelModesHash().contains(mode))
+            if (Konversation::getChannelModesHash().contains(mode))
             {
-                if (fromMe) message=i18n("You set the channel mode '%1'.", Konversation::getChannelModesHash().value(mode));
-                else message= i18n("%1 sets the channel mode '%2'.", sourceNick, Konversation::getChannelModesHash().value(mode));
+                if (fromMe) message = i18n("You set the channel mode '%1'.", Konversation::getChannelModesHash().value(mode));
+                else        message= i18n("%1 sets the channel mode '%2'.", sourceNick, Konversation::getChannelModesHash().value(mode));
             }
             else
             {
-                if(fromMe) message=i18n("You set channel mode +%1", QString(mode));
-		        else message=i18n("%1 sets channel mode +%2", sourceNick, QString(mode));
+                if (fromMe) message = i18n("You set channel mode +%1", QString(mode));
+                else        message = i18n("%1 sets channel mode +%2", sourceNick, QString(mode));
             }
-	    }
-	    else
+        }
+        else
         {
-            if(Konversation::getChannelModesHash().contains(mode))
+            if (Konversation::getChannelModesHash().contains(mode))
             {
-                if (fromMe) message=i18n("You remove the channel mode '%1'.", Konversation::getChannelModesHash().value(mode));
-                else message= i18n("%1 removes the channel mode '%2'.", sourceNick, Konversation::getChannelModesHash().value(mode));
+                if (fromMe) message = i18n("You remove the channel mode '%1'.", Konversation::getChannelModesHash().value(mode));
+                else        message= i18n("%1 removes the channel mode '%2'.", sourceNick, Konversation::getChannelModesHash().value(mode));
             }
             else
             {
-	            if (fromMe) message=i18n("You set channel mode -%1", QString(mode));
-		        else message= i18n("%1 sets channel mode -%2", sourceNick, QString(mode));
+                if (fromMe) message = i18n("You set channel mode -%1", QString(mode));
+                else        message = i18n("%1 sets channel mode -%2", sourceNick, QString(mode));
             }
-	    }
+        }
     }
 
     // check if this nick's anyOp-status has changed and adjust ops accordingly
-    if(parameterChannelNick)
+    if (parameterChannelNick)
     {
-        if(wasAnyOp && (!parameterChannelNick->isAnyTypeOfOp()))
+        if (wasAnyOp && (!parameterChannelNick->isAnyTypeOfOp()))
             adjustOps(-1);
-        else if((!wasAnyOp) && parameterChannelNick->isAnyTypeOfOp())
+        else if (!wasAnyOp && parameterChannelNick->isAnyTypeOfOp())
             adjustOps(1);
     }
 
-    if(!message.isEmpty() && !Preferences::self()->useLiteralModes())
+    if (!message.isEmpty() && !Preferences::self()->useLiteralModes())
     {
-        appendCommandMessage(i18n("Mode"),message);
+        appendCommandMessage(i18n("Mode"), message);
     }
 
-    updateModeWidgets(mode,plus,parameter);
+    updateModeWidgets(mode, plus, parameter);
 }
 
 void Channel::clearModeList()
@@ -2471,7 +2452,11 @@ void Channel::processPendingNicks()
                         (voice  ?  1 : 0);
 
     // Check if nick is already in the nicklist
-    if (!getNickByName(nickname))
+    if (nickname.isEmpty() || getNickByName(nickname))
+    {
+        m_pendingChannelNickLists.first().pop_front();
+    }
+    else
     {
         ChannelNickPtr nick = m_server->addNickToJoinedChannelsList(getName(), nickname);
         Q_ASSERT(nick);
@@ -2483,10 +2468,6 @@ void Channel::processPendingNicks()
             m_opsToAdd++;
 
         m_currentIndex++;
-    }
-    else
-    {
-        m_pendingChannelNickLists.first().pop_front();
     }
 
     if (m_pendingChannelNickLists.first().count() <= m_currentIndex)
