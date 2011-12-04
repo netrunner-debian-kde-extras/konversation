@@ -962,8 +962,9 @@ Limits on Real Name and Ident?
 <anchor id="serverlist-addnetwork"/>
 
 <para
->Quando você clica no botão <guilabel
->Nova</guilabel
+>Quando você clica no botão <guibutton
+>
+>Nova</guibutton
 > a janela <guilabel
 >Nova Rede</guilabel
 > irá aparecer.</para>
@@ -1041,8 +1042,8 @@ here, all the <guilabel
 ><replaceable
 >konvirocks</replaceable
 ></userinput
-> é a senha para o usuário indicada na <interface
->Identidade</interface
+> é a senha para o &nickname; indicada na <guilabel
+>Identidade</guilabel
 >. Você poderá indicar mais de um comando se os separar por ponto-e-vírgulas.</para
 ></callout>
 <callout arearefs="pt-addnetwork-4"
@@ -1419,8 +1420,8 @@ depending upon your network bandwidth.  If your client is too slow, the server m
 >Lista de Canais</guilabel
 >, participar numa <link linkend="query"
 >conversa privada (pesquisa)</link
->, abrir o <guilabel
->Extrator de &URL;s</guilabel
+>, abrir o <link linkend="urlcatcher"
+>Extrator de &URL;s</link
 > ou abrir uma ou mais <guilabel
 >Konsole</guilabel
 >s. Para mudar a visualização para outra tela, clique na página correspondente ou use a roda do mouse para circular pelas várias páginas. </para>
@@ -1870,7 +1871,9 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ><replaceable
 >#canal</replaceable
 ></userinput
-> e fecha a página correspondente ao mesmo. É um sinônimo do <userinput
+> e fecha a aba que corresponde ao <interface
+>canal</interface
+>. É sinônimo do <userinput
 ><command
 >/leave</command
 ></userinput
@@ -1956,7 +1959,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ></term>
 <listitem
 ><para
->Cria uma página nova com o <userinput
+>Cria uma nova aba com o <userinput
 ><replaceable
 >apelido</replaceable
 ></userinput
@@ -2366,8 +2369,8 @@ a contact entry in your address book have this icon
 </para>
 
 <para
->Clique no botão <guilabel
->OK</guilabel
+>Clique no botão <guibutton
+>OK</guibutton
 > quando tiver terminado de adicionar ou remover &nickname;s.</para>
 
 <para
@@ -2751,14 +2754,12 @@ a contact entry in your address book have this icon
 
 <para
 >Você poderá ativar uma funcionalidade para mostrar os <interface
->Botões Rápidos</interface
+>Botões rápidos</interface
 > na janela <link linkend="channel-screen-tour"
 >Principal</link
 >, fazendo com que apareça oito <interface
->Botões Rápidos</interface
->. Os botões poderão ser personalizados de acordo com a sua vontade para executar os comandos de &irc; mais usados. Para personalizar os <interface
->Botões Rápidos</interface
->, escolha a opção <menuchoice
+>Botões rápidos</interface
+>. Os exibir os Botões rápidos, escolha a opção <menuchoice
 > <guisubmenu
 >Configurações</guisubmenu
 > <guisubmenu
@@ -4720,7 +4721,7 @@ a contact entry in your address book have this icon
 
 SERVIDOR=$1;
 DESTINO=$2;
-shift;shift;shift;
+shift;shift;
 
 $@ | while read linha; do qdbus org.kde.konversation /irc say $SERVIDOR "$DESTINO" "$@: $linha"; done
 </programlisting>

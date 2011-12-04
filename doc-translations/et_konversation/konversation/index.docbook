@@ -4691,7 +4691,7 @@ a contact entry in your address book have this icon
 <para
 ><userinput
 ><replaceable
->ls `kde4-config --prefix`/share/apps/konversation/scripts</replaceable
+>ls `kde4-config --install data`/konversation/scripts</replaceable
 ></userinput
 ></para>
 
@@ -4723,7 +4723,7 @@ a contact entry in your address book have this icon
 
 SERVER=$1;
 TARGET=$2;
-shift;shift;shift;
+shift;shift;
 
 $@ | while read line; do qdbus org.kde.konversation /irc say $SERVER "$TARGET" "$@: $line"; done
 </programlisting>
@@ -4738,7 +4738,7 @@ $@ | while read line; do qdbus org.kde.konversation /irc say $SERVER "$TARGET" "
 
 <para
 >Kui soovid enda loodud skripti käivitada, tuleb see sul paigadalda, kopeerides skripti kataloogi <filename class="directory"
->`kde4-config --prefix`/share/apps/konversation/scripts</filename
+>`kde4-config --install data`/konversation/scripts</filename
 > või <filename class="directory"
 >`kde4-config --localprefix`/share/apps/konversation/scripts</filename
 >. Failile tuleb anda ka käivitamisõigused, näiteks käsuga <userinput
