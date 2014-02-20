@@ -133,7 +133,7 @@ KonviSettingsDialog::KonviSettingsDialog( QWidget *parent) :
 
   //Behaviour/Ignore
   m_confIgnoreWdg = new Ignore_Config(this, "Ignore");
-  addPage ( m_confIgnoreWdg, behaviorGroup, "process-stop", i18n("Ignore") );
+  addPage ( m_confIgnoreWdg, behaviorGroup, "process-stop", i18nc("@title:tab", "Ignore") );
   connect(m_confIgnoreWdg, SIGNAL(modified()), this, SLOT(modifiedSlot()));
   m_pages.append(m_confIgnoreWdg);
 
@@ -227,12 +227,6 @@ void KonviSettingsDialog::updateWidgetsDefault()
     page->restorePageToDefaults();
   }
   m_modified = true;
-}
-
-void KonviSettingsDialog::openWatchedNicknamesPage()
-{
-  // page index has been calculated in the constructor
-  setCurrentPage(m_watchedNicknamesPage);
 }
 
 // accessor method - will be used by KonviConfigDialog::updateButtons()

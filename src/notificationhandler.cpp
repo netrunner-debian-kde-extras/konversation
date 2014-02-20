@@ -18,6 +18,7 @@
 #include "viewcontainer.h"
 #include "trayicon.h"
 #include "server.h"
+#include "transfer.h"
 
 #include <QTextDocument>
 
@@ -257,7 +258,7 @@ namespace Konversation
         KNotification::event(QLatin1String("dcc_error"), i18n("An error has occurred in a DCC transfer: %1",error), QPixmap(), m_mainWindow);
     }
 
-    void NotificationHandler::dccTransferDone(ChatWindow* chatWin, const QString& file)
+    void NotificationHandler::dccTransferDone(ChatWindow* chatWin, const QString& file, DCC::Transfer* transfer)
     {
         if (!chatWin || !chatWin->notificationsEnabled())
             return;
@@ -265,10 +266,22 @@ namespace Konversation
         if (Preferences::self()->disableNotifyWhileAway() && chatWin->getServer() && chatWin->getServer()->isAway())
             return;
 
-        KNotification::event(QLatin1String("dcctransfer_done"), i18nc("%1 - filename","%1 File Transfer is complete",file), QPixmap(), m_mainWindow);
+        if (transfer->getType() == DCC::Transfer::Send)
+        {
+            KNotification::event(QLatin1String("dcctransfer_done"), i18nc("%1 - filename","%1 File Transfer is complete",file), QPixmap(), m_mainWindow);
+        }
+        else
+        {
+            KNotification *notification = new KNotification("dcctransfer_done", m_mainWindow);
+            notification->setText(i18nc("%1 - filename","%1 File Transfer is complete", file));
+            //notification->setPixmap( QPixmap() );
+            notification->setActions(QStringList(i18nc("Opens the file from the finished dcc transfer", "Open")));
+            connect(notification, SIGNAL(activated(unsigned)), transfer, SLOT(runFile()));
+            notification->sendEvent();
+        }
     }
 
-    void NotificationHandler::mode(ChatWindow* chatWin, const QString& /*nick*/)
+    void NotificationHandler::mode(ChatWindow* chatWin, const QString& nick, const QString& subject, const QString& change)
     {
         if (!chatWin || !chatWin->notificationsEnabled())
             return;
@@ -277,6 +290,7 @@ namespace Konversation
             return;
 
         KNotification *ev=new KNotification("mode", m_mainWindow);
+        ev->setText(i18n("%1 changed modes in %2: %3", nick, subject, change));
         ev->sendEvent();
     }
 
@@ -297,7 +311,7 @@ namespace Konversation
 
     void NotificationHandler::nickOnline(ChatWindow* chatWin, const QString& nick)
     {
-        if (!chatWin || !chatWin->notificationsEnabled())
+        if (!chatWin)
             return;
 
         if (Preferences::self()->disableNotifyWhileAway() && chatWin->getServer() && chatWin->getServer()->isAway())
@@ -311,7 +325,7 @@ namespace Konversation
 
     void NotificationHandler::nickOffline(ChatWindow* chatWin, const QString& nick)
     {
-        if (!chatWin || !chatWin->notificationsEnabled())
+        if (!chatWin)
             return;
 
         if (Preferences::self()->disableNotifyWhileAway() && chatWin->getServer() && chatWin->getServer()->isAway())

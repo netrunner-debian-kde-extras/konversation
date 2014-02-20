@@ -74,6 +74,8 @@ MainWindow::MainWindow() : KXmlGuiWindow(0)
             m_viewContainer, SLOT(updateViews(Konversation::ServerGroupSettingsPtr)));
     connect(m_viewContainer, SIGNAL(autoJoinToggled(Konversation::ServerGroupSettingsPtr)),
             Application::instance(), SIGNAL(serverGroupsChanged(Konversation::ServerGroupSettingsPtr)));
+    connect(m_viewContainer, SIGNAL(autoConnectOnStartupToggled(Konversation::ServerGroupSettingsPtr)),
+            Application::instance(), SIGNAL(serverGroupsChanged(Konversation::ServerGroupSettingsPtr)));
     connect(m_viewContainer, SIGNAL(setWindowCaption(QString)), this, SLOT(setCaption(QString)));
     connect(Application::instance()->getConnectionManager(),
             SIGNAL(connectionChangedState(Server*,Konversation::ConnectionState)),
@@ -292,12 +294,12 @@ MainWindow::MainWindow() : KXmlGuiWindow(0)
         action->setIcon(KIcon("arrow-up"));
         action->setShortcut(KShortcut("Alt+Shift+Left"));
         action->setEnabled(false);
-        action->setHelpText("Move this tab");
+        action->setHelpText(i18n("Move this tab"));
         connect(action, SIGNAL(triggered()), m_viewContainer, SLOT(moveViewLeft()));
         actionCollection()->addAction("move_tab_left", action);
 
         action->setEnabled(false);
-        action->setHelpText("Move this tab");
+        action->setHelpText(i18n("Move this tab"));
         action=new KAction(this);
         action->setText(i18n("Move Tab Down"));
         action->setIcon(KIcon("arrow-down"));
@@ -314,7 +316,7 @@ MainWindow::MainWindow() : KXmlGuiWindow(0)
             action->setIcon(KIcon("arrow-right"));
             action->setShortcut(KShortcut("Alt+Shift+Right"));
             action->setEnabled(false);
-            action->setHelpText("Move this tab");
+            action->setHelpText(i18n("Move this tab"));
             connect(action, SIGNAL(triggered()), m_viewContainer, SLOT(moveViewLeft()));
             actionCollection()->addAction("move_tab_left", action);
 
@@ -323,7 +325,7 @@ MainWindow::MainWindow() : KXmlGuiWindow(0)
             action->setIcon(KIcon("arrow-left"));
             action->setShortcut(KShortcut("Alt+Shift+Left"));
             action->setEnabled(false);
-            action->setHelpText("Move this tab");
+            action->setHelpText(i18n("Move this tab"));
             connect(action, SIGNAL(triggered()), m_viewContainer, SLOT(moveViewRight()));
             actionCollection()->addAction("move_tab_right", action);
 
@@ -335,7 +337,7 @@ MainWindow::MainWindow() : KXmlGuiWindow(0)
             action->setIcon(KIcon("arrow-left"));
             action->setShortcut(KShortcut("Alt+Shift+Left"));
             action->setEnabled(false);
-            action->setHelpText("Move this tab");
+            action->setHelpText(i18n("Move this tab"));
             connect(action, SIGNAL(triggered()), m_viewContainer, SLOT(moveViewLeft()));
             actionCollection()->addAction("move_tab_left", action);
 
@@ -344,7 +346,7 @@ MainWindow::MainWindow() : KXmlGuiWindow(0)
             action->setIcon(KIcon("arrow-right"));
             action->setShortcut(KShortcut("Alt+Shift+Right"));
             action->setEnabled(false);
-            action->setHelpText("Move this tab");
+            action->setHelpText(i18n("Move this tab"));
             connect(action, SIGNAL(triggered()), m_viewContainer, SLOT(moveViewRight()));
             actionCollection()->addAction("move_tab_right", action);
 
@@ -369,6 +371,11 @@ MainWindow::MainWindow() : KXmlGuiWindow(0)
     action->setText(i18n("Join on Connect"));
     connect(action, SIGNAL(triggered()), m_viewContainer, SLOT(toggleAutoJoin()));
     actionCollection()->addAction("tab_autojoin", action);
+
+    action=new KToggleAction(this);
+    action->setText(i18n("Connect at Startup"));
+    connect(action, SIGNAL(triggered()), m_viewContainer, SLOT(toggleConnectOnStartup()));
+    actionCollection()->addAction("tab_autoconnect", action);
 
     QStringList encodingDescs = Konversation::IRCCharsets::self()->availableEncodingDescriptiveNames();
     encodingDescs.prepend(i18n("Default"));
@@ -433,7 +440,7 @@ MainWindow::MainWindow() : KXmlGuiWindow(0)
     action->setIcon(KIcon("irc-join-channel"));
     action->setShortcut(KShortcut("Ctrl+J"));
     action->setEnabled(false);
-    action->setHelpText("Join a new channel on this server");
+    action->setHelpText(i18n("Join a new channel on this server"));
     connect(action, SIGNAL(triggered()), m_viewContainer, SLOT(showJoinChannelDialog()));
     actionCollection()->addAction("join_channel", action);
 
@@ -469,6 +476,12 @@ MainWindow::MainWindow() : KXmlGuiWindow(0)
     action->setHelpText(i18n("Insert any character into your current IRC message"));
     connect(action, SIGNAL(triggered()), m_viewContainer, SLOT(insertCharacter()));
     actionCollection()->addAction("insert_character", action);
+
+    action=new KAction(this);
+    action->setText(i18n("Auto Replace"));
+    action->setEnabled(false);
+    connect(action, SIGNAL(triggered()), m_viewContainer, SLOT(doAutoReplace()));
+    actionCollection()->addAction("auto_replace", action);
 
     action=new KAction(this);
     action->setText(i18n("Focus Input Box"));
@@ -811,12 +824,6 @@ void MainWindow::openQuickConnectDialog()
     emit showQuickConnectDialog();
 }
 
-// open the preferences dialog and show the watched nicknames page
-void MainWindow::openNotify()
-{
-    openPrefsDialog();
-    if (m_settingsDialog) m_settingsDialog->openWatchedNicknamesPage();
-}
 
 void MainWindow::openIdentitiesDialog()
 {
@@ -871,33 +878,22 @@ void MainWindow::setOnlineList(Server* notifyServer,const QStringList& /*list*/,
 
 void MainWindow::toggleVisibility()
 {
-    if (isMinimized())
+    if (isActiveWindow())
     {
-        KWindowSystem::unminimizeWindow(winId());
+        if (Preferences::self()->showTrayIcon())
+            hide();
+        else
+            KWindowSystem::minimizeWindow(winId());
+    }
+    else
+    {
+        if (isMinimized())
+            KWindowSystem::unminimizeWindow(winId());
+        else if (Preferences::self()->showTrayIcon() && !isVisible())
+            m_trayIcon->restore();
+
         KWindowSystem::setOnDesktop(winId(), KWindowSystem::currentDesktop());
         KWindowSystem::activateWindow(winId());
-    }
-    else if (isVisible())
-    {
-        bool onCurrentDesktop = KWindowSystem::windowInfo(winId(), NET::WMDesktop).isOnCurrentDesktop();
-
-        if (onCurrentDesktop)
-        {
-            if (Preferences::self()->showTrayIcon())
-                hide();
-            else
-                KWindowSystem::minimizeWindow(winId());
-        }
-        else
-        {
-            KWindowSystem::setOnDesktop(winId(), KWindowSystem::currentDesktop());
-            KWindowSystem::activateWindow(winId());
-        }
-    }
-    else if (Preferences::self()->showTrayIcon())
-    {
-        KWindowSystem::setOnDesktop(winId(), KWindowSystem::currentDesktop());
-        m_trayIcon->restore();
     }
 }
 

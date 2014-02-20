@@ -262,11 +262,7 @@ void IRCView::dropEvent(QDropEvent* e)
 
 #define _S(x) #x << (x)
 
-#if KDE_IS_VERSION(4,6,0)
-#       define DebugBanner KDebug::Block myBlock(qPrintable(QString("%1 %2").arg(m_chatWin->getName()).arg(QString::number((ulong)this, 16))))
-#else
-#       define DebugBanner kDebug() << "Entering context:" << qPrintable(QString("%1 %2").arg(m_chatWin->getName()).arg(QString::number((ulong)this, 16)));
-#endif
+#define DebugBanner KDebug::Block myBlock(qPrintable(QString("%1 %2").arg(m_chatWin->getName()).arg(QString::number((quintptr)this, 16))))
 
 QDebug operator<<(QDebug dbg, QTextBlockUserData *bd);
 QDebug operator<<(QDebug d, QTextFrame* feed);
@@ -369,10 +365,55 @@ void IRCView::blockDeleted(Burr* b) //slot
         m_rememberLine = 0;
 }
 
-void IRCView::cullMarkedLine(int, int, int) //slot
+void IRCView::cullMarkedLine(int where, int rem, int add) //slot
 {
-    if (document()->firstBlock().length() == 1 && document()->blockCount() == 1) //the entire document was wiped. was a signal such a burden? apparently..
-        wipeLineParagraphs();
+    bool showDebug = false;
+    QString output;
+    QDebug d = QDebug(&output);//KDebug(QtDebugMsg, __FILE__, __LINE__, Q_FUNC_INFO)();
+
+    bool merged = (add!=0 && rem !=0); // i have never seen this happen, adds and removes are always separate
+    int blockCount = document()->blockCount();
+    void *view = this;
+    QTextBlock prime = document()->firstBlock();
+
+    d << "================= cullMarkedLine" << _S(view) << _S(where) << _S(rem) << _S(add) << _S(blockCount) << _S(prime.length()) << _S(merged);
+
+    if (prime.length() == 1)
+    {
+        if (document()->blockCount() == 1) //the entire document was wiped. was a signal such a burden? apparently..
+        {
+            //showDebug = true;
+            d << "- wipeLineParagraphs()" << (void*)m_rememberLine << (void*)m_lastMarkerLine;
+            wipeLineParagraphs();
+        }
+        else if (document()->characterAt(0).unicode() == 0x2029)
+        {
+            //showDebug = true;
+            d << "- only QChar::ParagraphSeparator";
+            // this should never happen, it should be 0xfffc2029
+            if (dynamic_cast<Burr*>(prime.userData()))
+                d << "Burr!" << prime.userData();
+        }
+        else
+        {
+            //showDebug = true;
+            QString fc = "0x" + QString::number(document()->characterAt(0).unicode(), 16).rightJustified(4, '0');
+            d << "- block of length 1 but not 2029" << qPrintable(fc);
+        }
+    }
+    else if (prime.length() == 2)
+    {
+        //probably a Burr going to be culled next..
+        //showDebug = true;
+        QString fc = "0x" + QString::number(document()->characterAt(0).unicode(), 16).rightJustified(4, '0');
+        QString sc = "0x" + QString::number(document()->characterAt(1).unicode(), 16).rightJustified(4, '0');
+        d << "- prime(2)" << fc << sc;
+    }
+    if (showDebug)
+    {
+        DebugBanner;
+        kDebug() << output;
+    }
 }
 
 void IRCView::insertMarkerLine() //slot
@@ -560,16 +601,13 @@ void IRCView::append(const QString& nick, const QString& message)
     doAppend(line, rtl);
 }
 
-void IRCView::appendRaw(const QString& message, bool suppressTimestamps, bool self)
+void IRCView::appendRaw(const QString& message, bool self)
 {
-    QColor channelColor=Preferences::self()->color(Preferences::ChannelMessage);
+    QColor color = self ? Preferences::self()->color(Preferences::ChannelMessage)
+        : Preferences::self()->color(Preferences::ServerMessage);
     m_tabNotification = Konversation::tnfNone;
 
-    QString line;
-    if (suppressTimestamps)
-        line = QString("<font color=\"" + channelColor.name() + "\">" + message + "</font>");
-    else
-        line = QString(timeStamp() + " <font color=\"" + channelColor.name() + "\">" + message + "</font>");
+    QString line = QString(timeStamp() + " <font color=\"" + color.name() + "\">" + message + "</font>");
 
     doAppend(line, false, self);
 }
@@ -613,7 +651,11 @@ void IRCView::appendQuery(const QString& nick, const QString& message, bool inCh
 
     line = line.arg(timeStamp(), nick, text);
 
-    emit textToLog(QString("<%1>\t%2").arg(nick, message));
+    if (inChannel) {
+        emit textToLog(QString("<-> %1>\t%2").arg(nick, message));
+    } else {
+        emit textToLog(QString("<%1>\t%2").arg(nick, message));
+    }
 
     doAppend(line, rtl);
 }
@@ -724,12 +766,12 @@ void IRCView::appendCommandMessage(const QString& type,const QString& message, b
     QString prefix="***";
     m_tabNotification = Konversation::tnfControl;
 
-    if(type == i18n("Join"))
+    if(type == i18nc("Message type", "Join"))
     {
         prefix="-->";
         parseURL=false;
     }
-    else if(type == i18n("Part") || type == i18n("Quit"))
+    else if(type == i18nc("Message type", "Part") || type == i18nc("Message type", "Quit"))
     {
         prefix="<--";
     }
@@ -830,8 +872,7 @@ void IRCView::doAppend(const QString& newLine, bool rtl, bool self)
     if (!m_autoTextToSend.isEmpty() && m_server)
     {
         // replace placeholders in autoText
-        QString sendText = m_server->parseWildcards(m_autoTextToSend,m_server->getNickname(),
-            QString(), QString(), QString(), QString());
+        QString sendText = m_server->parseWildcards(m_autoTextToSend,m_server->getNickname(), QString(), QString(), QString(), QString());
         // avoid recursion due to signalling
         m_autoTextToSend.clear();
         // send signal only now
@@ -1056,14 +1097,18 @@ QString IRCView::filter(const QString& line, const QString& defaultColor, const 
             {
                 highlightColor = highlight->getColor().name();
                 m_highlightColor = highlightColor;
-                m_tabNotification = Konversation::tnfHighlight;
 
-                if (Preferences::self()->highlightSoundsEnabled() && m_chatWin->notificationsEnabled())
+                if (highlight->getNotify())
                 {
-                    konvApp->sound()->play(highlight->getSoundURL());
-                }
+                    m_tabNotification = Konversation::tnfHighlight;
 
-                konvApp->notificationHandler()->highlight(m_chatWin, whoSent, line);
+                    if (Preferences::self()->highlightSoundsEnabled() && m_chatWin->notificationsEnabled())
+                    {
+                        konvApp->sound()->play(highlight->getSoundURL());
+                    }
+
+                    konvApp->notificationHandler()->highlight(m_chatWin, whoSent, line);
+                }
                 m_autoTextToSend = highlight->getAutoText();
 
                 // replace %0 - %9 in regex groups
@@ -1179,8 +1224,6 @@ QString IRCView::ircTextToHtml(const QString& text, bool parseURL, const QString
     int offset;
     for (int pos = 0; pos < htmlText.length(); ++pos)
     {
-        offset = 0;
-
         //check for next relevant url or channel link to insert
         if (parseURL && pos == linkPos+linkOffset)
         {
@@ -1211,7 +1254,7 @@ QString IRCView::ircTextToHtml(const QString& text, bool parseURL, const QString
 
                 QString closeTagsString(closeTags(&data));
                 QString colorCodes = extractColorCodes(oldUrl);
-                colorCodes = removeDuplicateCodes(colorCodes, &data);
+                colorCodes = removeDuplicateCodes(colorCodes, &data, allowColors);
 
                 QString link("%1<a href=\"%2\" style=\"color:" + linkColor + "\">%3</a>%4%5");
 
@@ -1658,7 +1701,7 @@ QString IRCView::spanColorOpenTag(const QString& bgColor)
     return QLatin1String("<span style=\"background-color:") + bgColor + QLatin1String("\">");
 }
 
-QString IRCView::removeDuplicateCodes(const QString& codes, TextHtmlData* data)
+QString IRCView::removeDuplicateCodes(const QString& codes, TextHtmlData* data, bool allowColors)
 {
     int pos = 0;
     QString ret;
@@ -1692,6 +1735,12 @@ QString IRCView::removeDuplicateCodes(const QString& codes, TextHtmlData* data)
                 break;
 
             case '\x16': //reverse
+                if (!allowColors)
+                {
+                    pos += 1;
+                    continue;
+                }
+
                 if (data->reverse)
                 {
                     data->openHtmlTags.removeOne(QLatin1String("span"));
@@ -1721,6 +1770,12 @@ QString IRCView::removeDuplicateCodes(const QString& codes, TextHtmlData* data)
                     QString fgColor, bgColor;
                     bool fgOK = true, bgOK = true;
                     QString colorMatch(getColors(codes, pos, fgColor, bgColor, &fgOK, &bgOK));
+
+                    if (!allowColors)
+                    {
+                        pos += colorMatch.length();
+                        continue;
+                    }
 
                     // check for color reset conditions
                     //TODO check if \x11 \017 is really valid here
@@ -1995,9 +2050,7 @@ void IRCView::openLink(const QUrl& url)
     //FIXME: Don't do channel links in DCC Chats to begin with since they don't have a server.
     else if (link.startsWith(QLatin1String("##")) && m_server && m_server->isConnected())
     {
-        QString channel(link);
-        channel.replace("##", "#");
-        m_server->sendJoinCommand(channel);
+        m_server->sendJoinCommand(link.mid(1));
     }
     //FIXME: Don't do user links in DCC Chats to begin with since they don't have a server.
     else if (link.startsWith('#') && m_server && m_server->isConnected())
@@ -2098,8 +2151,7 @@ void IRCView::contextMenuEvent(QContextMenuEvent* ev)
 
     if (m_isOnNick && m_server)
     {
-        IrcContextMenus::nickMenu(ev->globalPos(), m_contextMenuOptions, m_server, QStringList() << m_currentNick,
-            m_contextMenuOptions.testFlag(IrcContextMenus::ShowChannelActions) ? m_chatWin->getName() : QString());
+        IrcContextMenus::nickMenu(ev->globalPos(), m_contextMenuOptions, m_server, QStringList() << m_currentNick, m_chatWin->getName());
 
         m_currentNick.clear();
 

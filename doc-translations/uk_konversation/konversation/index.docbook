@@ -10,11 +10,11 @@
   <!ENTITY CTCP "<acronym
 >CTCP</acronym
 >">
-  <!ENTITY nickname "<acronym
->nickname</acronym
+  <!ENTITY i18n-nickname "<acronym
+>псевдонім</acronym
 >">
-  <!ENTITY Nickname "<acronym
->Nickname</acronym
+  <!ENTITY i18n-Nickname "<acronym
+>Псевдонім</acronym
 >">
   <!ENTITY led "<acronym
 >LED</acronym
@@ -46,7 +46,7 @@
 <!-- The language must NOT be changed here. -->
 <!-- If you are writing original documentation in a language other -->
 <!-- than English, change the language above ONLY, not here -->
-<book lang="&language;">
+<book id="konversation" lang="&language;">
 
 <!-- This header contains all of the meta-information for the document such
 as Authors, publish date, the abstract, and Keywords -->
@@ -217,7 +217,7 @@ See <link linkend="color-msgs"
 >Sending colorful messages</link
 > for more information
 See <link linkend="nickthemes"
->Configuring &nickname; themes</link
+>Configuring &i18n-nickname; themes</link
 > for more information.
 See <link linkend="quick-buttons"
 >Configuring Quick Buttons</link
@@ -294,7 +294,7 @@ revision history. (see installation appendix comment) -->
 ></listitem>
 <listitem
 ><para
->Список спостереження за псевдонімами.</para
+>UСписок спостереження за псевдонімами.</para
 ></listitem>
 <listitem
 ><para
@@ -608,9 +608,15 @@ revision history. (see installation appendix comment) -->
 ></callout>
 <callout arearefs="pt-identity-gen-2"
 ><para
->Натискайте ці кнопки для додавання, дублювання, перейменування і вилучення <guilabel
->Профілю</guilabel
->.</para
+>Скористайтеся натисканням цих кнопок, щоб <guibutton
+>Створити</guibutton
+> новий запис мережі, <guibutton
+>Здублювати</guibutton
+>, <guibutton
+>Перейменувати</guibutton
+> позначений запис мережі або <guibutton
+>Вилучити</guibutton
+> позначений запис мережі.</para
 ></callout>
 <callout arearefs="pt-identity-gen-3"
 ><para
@@ -620,8 +626,8 @@ revision history. (see installation appendix comment) -->
 ><para
 >Натискайте ці кнопки для того, щоб <guibutton
 >Додати</guibutton
-> або <guilabel
->Вилучити</guilabel
+> або <guibutton
+>Вилучити</guibutton
 > псевдонім.</para
 ></callout>
 <callout arearefs="pt-identity-gen-5"
@@ -1061,7 +1067,9 @@ here, all the <guilabel
 >Додати</guibutton
 > на панелі <guilabel
 >Сервери</guilabel
->, програма відкриє діалогове вікно «Додати сервер».</para>
+>, програма відкриє діалогове вікно <guilabel
+>Додати сервер</guilabel
+>.</para>
 
 <para>
 <screenshot>
@@ -1203,7 +1211,7 @@ here, all the <guilabel
 
 <callout arearefs="pt-channellist-2"
 ><para
->За допомогою цього пункту ви можете обмежити список каналів тими каналами, на яких перебуває не більше ніж вказана максимальна кількість користувачів. Вибір значення <guilabel
+>За допомогою цього пункту ви можете обмежити список каналів тими каналами, на яких перебуває не більше, ніж вказана максимальна кількість користувачів. Вибір значення <guilabel
 >Без обмежень</guilabel
 > вимкне використання цього критерію.</para
 ></callout>
@@ -1315,7 +1323,7 @@ depending upon your network bandwidth.  If your client is too slow, the server m
 >. </para>
 
  <para
->Якщо у вставленому тексті міститься більше ніж 256 символів або більше ніж один рядок, програма відкриє вікно з попередженням про те, що великі повідомлення можуть спричинити розрив зв’язку та покарання за надмірний розмір повідомлення. Ви можете знехтувати попередженням, але так робити не варто, оскільки великі повідомлення можуть роздратувати інших користувачів каналу або спричинити ваше від’єднання від сервера. Краще надсилати подібні повідомлення невеличкими шматками.</para>
+>Якщо у вставленому тексті міститься більше, ніж 256 символів або більше, ніж один рядок, програма відкриє вікно з попередженням про те, що великі повідомлення можуть спричинити розрив зв’язку та покарання за надмірний розмір повідомлення. Ви можете знехтувати попередженням, але так робити не варто, оскільки великі повідомлення можуть роздратувати інших користувачів каналу або спричинити ваше від’єднання від сервера. Краще надсилати подібні повідомлення невеличкими шматками.</para>
 
  <!-- Uncomment when this is implemented.
  &konversation; will automatically split messages that exceed the 510 character RFC limit into multiple messages.
@@ -1627,17 +1635,16 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 </calloutlist>
 </para>
 
+<note>
 <para
-><emphasis
->Зауваження.</emphasis
-> Ви можете змінювати спосіб показу повідомлень на панелі повідомлень і вкладках діалогів. Ви, наприклад, можете змінити колір тексту повідомлень, наказати програмі відтворювати певний звук, якщо у отриманому повідомленні міститься вказаний вами рядок, або налаштувати автоматичну відповідь на повідомлення. Докладніше про це можна дізнатися з розділу <link linkend="highlighting"
+>Ви можете змінювати спосіб показу повідомлень на панелі повідомлень і вкладках діалогів. Ви, наприклад, можете змінити колір тексту повідомлень, наказати програмі відтворювати певний звук, якщо у отриманому повідомленні міститься вказаний вами рядок, або налаштувати автоматичну відповідь на повідомлення. Докладніше про це можна дізнатися з розділу <link linkend="highlighting"
 >Підсвічування повідомлень</link
 >. </para>
+</note>
 
+<note>
 <para
-><emphasis
->Зауваження.</emphasis
-> Іноді назви каналів починаються з символів <userinput
+>Іноді назви каналів починаються з символів <userinput
 >&amp;</userinput
 >, <userinput
 >&plus;</userinput
@@ -1669,7 +1676,8 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 > — Канали, які не підтримують режимів каналу. Це означає, що всі режими буде вимкнено, якщо не встановлено прапорець каналу «t». </para
 ></listitem
 > </itemizedlist
-> Назви каналів можуть складатися не більше ніж з 50 символів і не повинні місити пробілів, ком і символів Ctrl-G (^G або ASCII 7). </para>
+> Назви каналів можуть складатися не більше, ніж з 50 символів і не повинні місити пробілів, ком і символів Ctrl-G (^G або ASCII 7). </para>
+</note>
 
 </sect1>
 
@@ -1724,7 +1732,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ><command
 >/join</command
 > <replaceable
->#назвва_каналу</replaceable
+>#назва_каналу</replaceable
 ></userinput
 >, щоб приєднатися до каналу. </para>
 
@@ -1743,7 +1751,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 >irchelp.org</ulink
 >. Список команд, які призначено лише для керування &konversation;, наведено у розділі <link linkend="konvi-cmds"
 >Команди &konversation;</link
-> </para>
+>. </para>
 
 <para>
 <variablelist>
@@ -1864,7 +1872,11 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ></userinput
 >, буде показано повідомлення <interface
 >Tux п’є чай з чашки.</interface
-> Якщо користувачем каналу не було увімкнено фільтрування такого типу повідомлень, він побачить ваше повідомлення саме таким. Такі повідомлення, зазвичай, використовуються для надсилання невербальної інформації, зокрема поточного емоційного стану або поточних дій користувача. Якщо ви полишаєте ваш комп’ютер на деякий час, краще скористайтеся командою /away.</para
+> Якщо користувачем каналу не було увімкнено фільтрування такого типу повідомлень, він побачить ваше повідомлення саме таким. Такі повідомлення, зазвичай, використовуються для надсилання невербальної інформації, зокрема поточного емоційного стану або поточних дій користувача. Якщо ви полишаєте ваш комп’ютер на деякий час, краще скористайтеся командою <userinput
+><command
+>/away</command
+></userinput
+>.</para
 ></listitem>
 </varlistentry>
 
@@ -1999,8 +2011,8 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ></userinput
 > у будь-який з рядків вводу. Тут <replaceable
 >псевдонім</replaceable
-> — це псевдонім особи, з якою ви бажаєте поспілкуватися. Крім того, ви можете навести вказівник миші на пункт псевдоніма особи на <guilabel
->Панелі псевдонімів</guilabel
+> — це псевдонім особи, з якою ви бажаєте поспілкуватися. Крім того, ви можете навести вказівник миші на пункт псевдоніма особи на <interface
+>Панелі псевдонімів</interface
 >, клацнути правою кнопкою миші і обрати у контекстному меню пункт <menuchoice
 > <guisubmenu
 >Відкрити діалог</guisubmenu
@@ -2296,7 +2308,11 @@ a contact entry in your address book have this icon
 
 <callout arearefs="pt-notifylist-4"
 ><para
->За допомогою натискання цих кнопок можна додавати або вилучати записи псевдонімів у списку.</para
+>Натискайте ці кнопки для того, щоб <guibutton
+>Додати</guibutton
+> або <guilabel
+>Вилучити</guilabel
+> псевдонім.</para
 ></callout>
 
 <callout arearefs="pt-notifylist-5"
@@ -3155,7 +3171,7 @@ a contact entry in your address book have this icon
 </para>
 
 <!--para
->Notice that &konversation; fills in the &nickname; for you with protocol
+>Notice that &konversation; fills in the &i18n-nickname; for you with protocol
 <guilabel
 >IRC</guilabel
 >.
@@ -3297,7 +3313,9 @@ a contact entry in your address book have this icon
 <para
 >Якщо ви натиснете позначку адреси &URL; у будь-якому з вікон &konversation;, програма запустить типову програму &kde;, пов’язану з типом &MIME; адреси &URL;. Наприклад, якщо ви натиснете пункт адреси &URL;, яка починається з <interface
 >http</interface
->, для перегляду вебсторінки буде запущено &konqueror;. Ви можете вказати програму, відмінну від типової програми &kde;. Ви, наприклад, можете скористатися для перегляду адреси Firefox. </para>
+>, для перегляду вебсторінки буде запущено &konqueror;. Ви можете вказати програму, відмінну від типової програми &kde;. Ви, наприклад, можете скористатися для перегляду адреси <application
+>Firefox</application
+>. </para>
 
 <para
 >Щоб обрати інший переглядач інтернету, скористайтеся пунктом меню <menuchoice
@@ -3594,7 +3612,11 @@ a contact entry in your address book have this icon
 ></userinput
 >, буде показано повідомлення <interface
 >Tux п’є чай з чашки.</interface
-> Якщо користувачем каналу не було увімкнено фільтрування такого типу повідомлень, він побачить ваше повідомлення саме таким. Такі повідомлення, зазвичай, використовуються для надсилання невербальної інформації, зокрема поточного емоційного стану або поточних дій користувача. Якщо ви полишаєте ваш комп’ютер на деякий час, краще скористайтеся командою /away.</para
+> Якщо користувачем каналу не було увімкнено фільтрування такого типу повідомлень, він побачить ваше повідомлення саме таким. Такі повідомлення, зазвичай, використовуються для надсилання невербальної інформації, зокрема поточного емоційного стану або поточних дій користувача. Якщо ви полишаєте ваш комп’ютер на деякий час, краще скористайтеся командою <userinput
+><command
+>/away</command
+></userinput
+>.</para
 ></listitem>
 </varlistentry>
 
@@ -4640,9 +4662,7 @@ a contact entry in your address book have this icon
 
 <para
 ><userinput
-><replaceable
->ls `kde4-config --install data`/konversation/scripts</replaceable
-></userinput
+>ls `kde4-config --install data`konversation/scripts</userinput
 ></para>
 
 <para
@@ -4690,7 +4710,7 @@ $@ | while read line; do qdbus org.kde.konversation /irc say $SERVER "$TARGET" "
 >Щоб ви змогли запустити створений вами скрипт, його слід встановити копіюванням до каталогу <filename class="directory"
 >`kde4-config --install data`/konversation/scripts</filename
 > або <filename class="directory"
->`kde4-config --localprefix`/share/apps/konversation/scripts</filename
+>`kde4-config --localprefix`share/apps/konversation/scripts</filename
 >. Крім того, вам слід надати файлу скрипту права на виконання, наприклад командою <userinput
 ><replaceable
 >chmod a+x myscript</replaceable
@@ -4719,8 +4739,10 @@ $@ | while read line; do qdbus org.kde.konversation /irc say $SERVER "$TARGET" "
 >]</userinput
 ></term>
 <listitem>
-<para
->За допомогою цього скрипту можна відкрити ваш переглядач інтернету на сторінці пошуку за вказаним рядком або сторінці повідомлення про ваду з вказаним номером у Bugzilla &kde;.</para>
+  <para
+>За допомогою цього скрипту можна відкрити ваш переглядач інтернету на сторінці пошуку за вказаним рядком або сторінці повідомлення про ваду з вказаним номером у <ulink url="https://bugs.kde.org/"
+>Bugzilla &kde;</ulink
+>.</para>
 <para
 >Приклад: відкрити переглядач на сторінці вади 123456.</para>
 <para
@@ -5216,7 +5238,7 @@ or menu bars. -->
 ><para
 ><action
 >Завершує роботу</action
-> &konversation;</para
+> &konversation;.</para
 ></listitem>
 	</varlistentry>
 </variablelist>

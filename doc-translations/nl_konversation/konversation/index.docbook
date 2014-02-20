@@ -10,11 +10,11 @@
   <!ENTITY CTCP "<acronym
 >CTCP</acronym
 >">
-  <!ENTITY nickname "<acronym
->nickname</acronym
+  <!ENTITY i18n-nickname "<acronym
+>schermnaam</acronym
 >">
-  <!ENTITY Nickname "<acronym
->Nickname</acronym
+  <!ENTITY i18n-Nickname "<acronym
+>Schermnaam</acronym
 >">
   <!ENTITY led "<acronym
 >LED</acronym
@@ -46,7 +46,7 @@
 <!-- The language must NOT be changed here. -->
 <!-- If you are writing original documentation in a language other -->
 <!-- than English, change the language above ONLY, not here -->
-<book lang="&language;">
+<book id="konversation" lang="&language;">
 
 <!-- This header contains all of the meta-information for the document such
 as Authors, publish date, the abstract, and Keywords -->
@@ -203,7 +203,7 @@ See <link linkend="color-msgs"
 >Sending colorful messages</link
 > for more information
 See <link linkend="nickthemes"
->Configuring &nickname; themes</link
+>Configuring &i18n-nickname; themes</link
 > for more information.
 See <link linkend="quick-buttons"
 >Configuring Quick Buttons</link
@@ -268,7 +268,7 @@ revision history. (see installation appendix comment) -->
 ></listitem>
 <listitem
 ><para
->Snelknoppen met veelgebruikte commando's die aangepast kunnen worden</para
+>Snelknoppen met veelgebruikte commando's die aangepast kunnen worden.</para
 ></listitem>
 <listitem
 ><para
@@ -284,11 +284,11 @@ revision history. (see installation appendix comment) -->
 ></listitem>
 <listitem
 ><para
->Visuele en 'auditory' notificaties voor uiteenlopende gebeurtenissen, zoals berichten die uw &nickname; bevatten of schermnamen die op uw volglijst staan die online of offline gaan. (KDE 3.2 of later). </para
+>Visuele en 'auditory' notificaties voor uiteenlopende gebeurtenissen, zoals berichten die uw &i18n-nickname; bevatten of schermnamen die op uw volglijst staan die online of offline gaan. </para
 ></listitem>
 <listitem
 ><para
->Aanpasbare accentuering van berichten gebaseerd op &nickname; of reguliere expressie.</para
+>Aanpasbare accentuering van berichten gebaseerd op &i18n-nickname; of reguliere expressie.</para
 ></listitem>
 <listitem
 ><para
@@ -304,7 +304,7 @@ revision history. (see installation appendix comment) -->
 ></listitem>
 <listitem
 ><para
->Negeerlijst voor een bepaalde &nickname;.</para
+>Negeerlijst voor een bepaalde &i18n-nickname;.</para
 ></listitem>
 <listitem
 ><para
@@ -330,7 +330,7 @@ revision history. (see installation appendix comment) -->
 >&konviwebsite;</ulink
 >. Verdere informatie zoals een FAQ en tips en trucs vindt u in de <ulink url="http://konversation.kde.org/wiki/Main_Page"
 >&konversation;-wiki</ulink
-> </para>
+>. </para>
 
 <para
 >De ontwikkelaars van &konversation; kunnen meestal gevonden worden op &irc; op <ulink url="irc://chat.freenode.net/konversation"
@@ -484,7 +484,7 @@ revision history. (see installation appendix comment) -->
 ><para
 >Dit is de zogenaamde <interface
 >invoerregel</interface
->. Om een bericht naar iedereen in het kanaal te verzenden, typt u hier het bericht en drukt u op &Enter;. Uw bericht (en de berichten van anderen) is vervolgens te zien in het vak daarboven. Ieder bericht wordt vooraf gegaan met de tijd en de &nickname; van de gebruiker.</para
+>. Om een bericht naar iedereen in het kanaal te verzenden, typt u hier het bericht en drukt u op &Enter;. Uw bericht (en de berichten van anderen) zijn vervolgens te zien in het vak daarboven. Ieder bericht wordt vooraf gegaan met de tijd en de &i18n-nickname; van de gebruiker.</para
 ></callout>
 
 <callout arearefs="pt-first-channel-2"
@@ -536,7 +536,7 @@ revision history. (see installation appendix comment) -->
 >Uw identiteit instellen</title>
 
 <para
->Voordat u &konversation; gaat gebruiken dient u uw identiteit in te stellen in de instellingen, zodat u geidentificeerd kunt worden op het netwerk.</para>
+>Voordat u &konversation; gaat gebruiken dient u uw identiteit in te stellen in de instellingen, zodat u geïdentificeerd kunt worden op het netwerk.</para>
 
 <para
 >Ga naar in het hoofdmenu naar <menuchoice
@@ -594,9 +594,17 @@ revision history. (see installation appendix comment) -->
 ></callout>
 <callout arearefs="pt-identity-gen-2"
 ><para
->Gebruik deze knoppen om een <guilabel
+>Gebruik deze knoppen <guibutton
+>Toevoegen</guibutton
+>, <guibutton
+>Dupliceren</guibutton
+>, <guibutton
+>Hernoemen</guibutton
+> of <guibutton
+>Verwijderen</guibutton
+> om een <guilabel
 >Identiteit</guilabel
-> toe te voegen, te hernoemen of te verwijderen.</para
+> te bewerken.</para
 ></callout>
 <callout arearefs="pt-identity-gen-3"
 ><para
@@ -604,27 +612,27 @@ revision history. (see installation appendix comment) -->
 ></callout>
 <callout arearefs="pt-identity-gen-4"
 ><para
->Gebruik deze knoppen voor &nickname; <guibutton
+>Gebruik deze knoppen <guibutton
 >Toevoegen</guibutton
 > of <guilabel
 >Verwijderen</guilabel
->.</para
+> om een &i18n-nickname; te bewerken.</para
 ></callout>
 <callout arearefs="pt-identity-gen-5"
 ><para
->Dit is de lijst met schermnamen. Uw &nickname; is de naam die andere gebruikers zullen zien en u ook leren kennen onder deze naam. U mag hier iedere naam invullen die u wilt. Het eerste teken moet een letter zijn, de overige tekens kunnen letters, cijfers of speciale tekens als <literal
+>Dit is de lijst met schermnamen. Uw &i18n-nickname; is de naam die andere gebruikers zullen zien en u ook leren kennen onder deze naam. U mag hier iedere naam invullen die u wilt. Het eerste teken moet een letter zijn, de overige tekens kunnen letters, cijfers of speciale tekens als <literal
 >-[]\`_^{}|</literal
 > zijn.</para>
 
 <para
->Omdat een &nickname; uniek moet zijn voor de server die u gebruikt, kan de naam afgewezen worden omdat iemand anders deze &nickname; al gebruikt. Voer ook de alternatieve schermnamenn. Zodra de eerste keuze wordt afgewezen zal &konversation; de overige schermnamen proberen. </para>
+>Omdat een &i18n-nickname; uniek moet zijn voor de server die u gebruikt, kan de naam afgewezen worden omdat iemand anders deze &i18n-nickname; al gebruikt. Voer ook de alternatieve schermnamenn. Zodra de eerste keuze wordt afgewezen zal &konversation; de overige schermnamen proberen. </para>
 
 <para
->Volgens RFC 2812 mag de maximale schermnaamlengte slechts 9 tekens omvatten, maar dit wordt in feite bepaald door de server. Om te bepalen wat het maximum van de server is dient u daarmee te verbinden. In het tabblad <interface
+>Volgens RFC 2812 mag de maximale lengte van de &i18n-nickname; slechts 9 tekens bevatten, maar dit wordt in feite bepaald door de server. Om te bepalen wat het maximum van de server is dient u daarmee te verbinden. In het tabblad <interface
 >Serverberichten</interface
 > zoekt u naar een bericht met <computeroutput
 >[Support ]</computeroutput
->. Bijvoorbeeld</para>
+>. Bijvoorbeeld:</para>
 
 <para>
 <computeroutput
@@ -634,16 +642,16 @@ revision history. (see installation appendix comment) -->
 <para
 >De parameter <computeroutput
 >NICKLEN</computeroutput
-> geeft de maximale schermnaamlengte aan. </para>
+> geeft de maximale lengte van de &i18n-nickname; aan. </para>
 </callout>
 
 <callout arearefs="pt-identity-gen-6"
 ><para
->Gebruik deze knoppen om de volgorde van de schermnamen te veranderen.</para
+>Gebruik deze knoppen om de volgorde van de schermnamen te veranderen. De bovenste &i18n-nickname; wordt als eerste geprobeerd en daarna de volgende enzovoorts.</para
 ></callout>
 <callout arearefs="pt-identity-gen-7"
 ><para
->Wanneer u uw &nickname; geregistreerd hebt op het &irc;-netwerk, voert u de naam van de dienst in en het wachtwoord om uw &nickname; te authenticeren. Zodra &konversation; een verbinding maakt zal het automatisch <userinput
+>Wanneer u uw &i18n-nickname; geregistreerd hebt op het &irc;-netwerk, voert u de naam van de dienst in en het wachtwoord om uw &i18n-nickname; te authenticeren. Zodra &konversation; een verbinding maakt zal het automatisch <userinput
 ><command
 >/msg</command
 > <replaceable
@@ -696,7 +704,7 @@ user inactivity configured below.
 <calloutlist>
 <callout arearefs="pt-identity-away-1"
 ><para
->Voer een &nickname; in waaruit blijkt dat u afwezig bent. Wanneer u het commando <userinput
+>Voer een &i18n-nickname; in waaruit blijkt dat u afwezig bent. Wanneer u het commando <userinput
 ><command
 >/away </command
 ><replaceable
@@ -704,11 +712,11 @@ user inactivity configured below.
 ></userinput
 > invoert op een willekeurig kanaal in combinatie met deze <guilabel
 >Identiteit</guilabel
->, zal &konversation; automatisch uw &nickname; veranderen naar uw afwezigheidsschermnaam. Andere gebruikers kunnen dan zien dat u afwezig bent. Wanneer u zo'n <userinput
+>, zal &konversation; automatisch uw &i18n-nickname; veranderen naar uw afwezigheidsschermnaam. Andere gebruikers kunnen dan zien dat u afwezig bent. Wanneer u zo'n <userinput
 ><command
 >/away</command
 ></userinput
->-commando invoert terwijl u afwezig bent, zal &konversation; uw &nickname; automatisch weer veranderen naar uw oorspronkelijke &nickname;. Wanneer u deze schermnaamveranderingen niet wenst dient u dit veld gewoon leeg te laten.</para
+>-commando invoert terwijl u afwezig bent, zal &konversation; uw &i18n-nickname; automatisch weer veranderen naar uw oorspronkelijke &i18n-nickname;. Wanneer u deze schermnaamveranderingen niet wenst dient u dit veld gewoon leeg te laten.</para
 ></callout>
 <callout arearefs="pt-identity-away-2"
 ><para
@@ -900,9 +908,9 @@ Limits on Real Name and Ident?
 ></callout>
 <callout arearefs="pt-serverlist-2"
 ><para
->Gebruik deze knoppen voor het toevoegen van een <guibutton
->Nieuw</guibutton
-> netwerk, het <guibutton
+>Gebruik deze knoppen <guibutton
+>Toevoegen</guibutton
+> voor een nieuw netwerk en <guibutton
 >Bewerken</guibutton
 > of <guibutton
 >Verwijderen</guibutton
@@ -993,7 +1001,7 @@ here, all the <guilabel
 >Bewerken</guibutton
 > om een nieuwe identiteit toe te voegen of om er een te bewerken. De <guilabel
 >Identiteit</guilabel
-> is nodig om u te identificeren op het netwerk.</para
+> definieert u en bepaalt uw &i18n-nickname; wanneer u een verbinding maakt op het netwerk.</para
 ></callout>
 <callout arearefs="pt-addnetwork-3"
 ><para
@@ -1001,7 +1009,13 @@ here, all the <guilabel
 >/msg NickServ IDENTIFY <replaceable
 >konvirocks</replaceable
 ></userinput
->. Dit voorbeeld geldt voor het Freenode-netwerk, dat vereist dat gebruikers hun &nickname; registreren aan de hand van een wachtwoord bij het verbinden.</para
+>. Dit voorbeeld geldt voor het freenode-netwerk, dat vereist dat gebruikers hun &i18n-nickname; registreren aan de hand van een wachtwoord bij het verbinden. <userinput
+><replaceable
+>konvirocks</replaceable
+></userinput
+> is het wachtwoord voor de &i18n-nickname; gegeven in <guilabel
+>Identiteit</guilabel
+>. U mag meer dan één commando invoeren door deze te scheiden met puntkomma's.</para
 ></callout>
 <callout arearefs="pt-addnetwork-4"
 ><para
@@ -1306,7 +1320,7 @@ depending upon your network bandwidth.  If your client is too slow, the server m
 ><para
 >Dit is de zogenaamde <interface
 >invoerregel</interface
->. Deze is alleen in beeld als het actieve kanaal een tabblad bevat. Om een bericht naar iedereen in het kanaal te verzenden typt u hier een bericht en drukt u op &Enter;. Uw bericht - net zoals de berichten van anderen - komen in het berichtvenster boven de invoerregel. Ieder bericht gaat vooraf aan de tijd en de &nickname; van de gebruiker.</para>
+>. Deze is alleen in beeld als het actieve kanaal een tabblad bevat. Om een bericht naar iedereen in het kanaal te verzenden typt u hier een bericht en drukt u op &Enter;. Uw bericht - net zoals de berichten van anderen - komen in het berichtvenster boven de invoerregel. Ieder bericht gaat vooraf aan de tijd en de &i18n-nickname; van de gebruiker.</para>
 
  <para
 >U kunt ook tekst van het klembord plakken. Wanneer de geplakte tekst meer dan één regel (regeleindetekens) bevat komt er een dialoogvenster in beeld. Bewerk de tekst naar wens en druk vervolgens op <guibutton
@@ -1322,7 +1336,7 @@ depending upon your network bandwidth.  If your client is too slow, the server m
  -->
 
  <para
->Het is een ongeschreven regel in veel kanalen dat de berichten die u aan een bepaald persoon wilt sturen vooraf gegaan worden diens betreffende &nickname;. &konversation; biedt daarom een handige &nickname;aanvulling. Typ de eerste letter(s) van de &nickname; en druk op &Tab;. &konversation; zal de rest van de &nickname; aanvullen en er een dubbele punt achter plaatsen. Om deze functie aan te passen, kies <menuchoice
+>Het is een ongeschreven regel in veel kanalen dat de berichten die u aan een bepaald persoon wilt sturen vooraf gegaan worden diens betreffende &i18n-nickname;. &konversation; biedt daarom een handige aanvulling van de &i18n-nickname;. Typ de eerste letter(s) van de &i18n-nickname; en druk op &Tab;. &konversation; zal de rest van de &i18n-nickname; aanvullen en er een dubbele punt achter plaatsen. Om deze functie aan te passen, kies <menuchoice
 > <guisubmenu
 >Instellingen</guisubmenu
 > <guisubmenu
@@ -1406,7 +1420,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 -->
 <callout arearefs="pt-channeltour-3"
 ><para
->Deze &led;s zullen knipperen zodra er iets in een tabblad gebeurt wat u nog niet onder ogen hebt gehad. De &led; zal langzamer knipperen wanneer het gaat om <command
+>Deze &led;'s zullen knipperen zodra er iets in een tabblad gebeurt wat u nog niet onder ogen hebt gehad. De &led; zal langzamer knipperen wanneer het gaat om <command
 >join</command
 >, <command
 >part</command
@@ -1433,7 +1447,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 >Kanaallijst</link
 > of <link linkend="urlcatcher"
 >URL-lijst</link
-> </para>
+>. </para>
 </listitem>
 <listitem>
 <para
@@ -1472,7 +1486,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 
 <callout arearefs="pt-channeltour-5"
 ><para
->Klik op deze knop om uw eigen &nickname; te veranderen. Het verschijnt alleen als het huidige tabblad een kanaal is. Om deze knop te verbergen kies <menuchoice
+>Klik op deze knop om uw eigen &i18n-nickname; te veranderen. Het verschijnt alleen als het huidige tabblad een kanaal is. Om deze knop te verbergen kies <menuchoice
 ><guisubmenu
 >Instellingen</guisubmenu
 ><guisubmenu
@@ -1525,7 +1539,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 <para
 >Dit is de <interface
 >Schermnamenlijst</interface
->. Deze wordt getoond wanneer u zich in een kanaalvenster bevindt. Het toont alle mensen die ook deelnemen aan dat kanaal, inclusief uzelf. Wanneer u de muis op een &nickname; plaatst krijgt u extra informatie in beeld met betrekking tot die &nickname;. Het is ook mogelijk om de pictogrammen die naast de namen staan te wijzigen, door het thema te wijzigen. Zie <link linkend="nickthemes"
+>. Deze wordt getoond wanneer u zich in een kanaalvenster bevindt. Het toont alle mensen die ook deelnemen aan dat kanaal, inclusief uzelf. Wanneer u de muis op een &i18n-nickname; plaatst krijgt u extra informatie in beeld met betrekking tot die &i18n-nickname;. Het is ook mogelijk om de pictogrammen die naast de namen staan te wijzigen, door het thema te wijzigen. Zie <link linkend="nickthemes"
 >Instellen van thema's</link
 > voor meer informatie. Het thema <guilabel
 >Standaard thema</guilabel
@@ -1595,9 +1609,9 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ></para>
 
 <para
->Klik met de &RMB; op een willekeurige &nickname;om het contextmenu in beeld te krijgen, zodat u bepaalde acties kunt uitvoeren op die &nickname;. U kunt bijvoorbeeld <link linkend="dcc"
+>Klik met de &RMB; op een willekeurige &i18n-nickname;om het contextmenu in beeld te krijgen, zodat u bepaalde acties kunt uitvoeren op die &i18n-nickname;. U kunt bijvoorbeeld <link linkend="dcc"
 >een bestand verzenden</link
-> naar die persoon. Met dit menu kunt u de &nickname; ook <link linkend="linkaddressbook"
+> naar die persoon. Met dit menu kunt u de &i18n-nickname; ook <link linkend="linkaddressbook"
 >koppelen met iemand in uw adresboek.</link
 > </para>
 
@@ -1626,16 +1640,15 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 </calloutlist>
 </para>
 
+<note>
 <para
-><emphasis
->Opmerking:</emphasis
-> u kunt instellen hoe berichten worden getoond in bericht-, kanaal- of conversatievensters. Zo kunt u bijvoorbeeld de kleur van de berichten wijzigen, een geluid laten afspelen wanneer er een bericht binnenkomt dat een bepaalde tekenreeks bevat of automatisch op berichten reageren. Zie het hoofdstuk <link linkend="highlighting"
+>U kunt instellen hoe berichten worden getoond in bericht-, kanaal- of conversatievensters. Zo kunt u bijvoorbeeld de kleur van de berichten wijzigen, een geluid laten afspelen wanneer er een bericht binnenkomt dat een bepaalde tekenreeks bevat of automatisch op berichten reageren. Zie het hoofdstuk <link linkend="highlighting"
 >Berichtaccentuering</link
 > voor meer informatie. </para>
+</note>
 
+<note>
 <para
-><emphasis
->Opmerking: </emphasis
 >Kanaalnamen kunnen soms beginnen met <userinput
 >&amp;</userinput
 >, <userinput
@@ -1653,7 +1666,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ><para
 > <userinput
 >!</userinput
-> Normaal kanaal. </para
+> Normaal kanaal.</para
 ></listitem
 > <listitem
 ><para
@@ -1669,6 +1682,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ></listitem
 > </itemizedlist
 > Kanaalnamen mogen hooguit 50 lettertekens lang zijn en kunnen ieder teken bevatten behalve een spatie, komma en Ctrl-G (^G of ASCII 7). </para>
+</note>
 
 </sect1>
 
@@ -1715,7 +1729,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 <para
 >Voer het serveradres in in het veld <guilabel
 >Serverhost</guilabel
->, uw &nickname; in het veld <guilabel
+>, uw &i18n-nickname; in het veld <guilabel
 >Schermnaam</guilabel
 > en klik op <guibutton
 >Verbinden</guibutton
@@ -1853,7 +1867,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ><replaceable
 >bericht</replaceable
 ></userinput
-> naar het kanaal, voorafgegaan door uw &nickname;. Wanneer uw &nickname; bijvoorbeeld <userinput
+> naar het kanaal, voorafgegaan door uw &i18n-nickname;. Wanneer uw &i18n-nickname; bijvoorbeeld <userinput
 ><replaceable
 >Tux</replaceable
 ></userinput
@@ -1863,7 +1877,11 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ></userinput
 > als volgt in beeld komen: <interface
 >Tux maakt een kopje thee.</interface
-> Tenzij u een filter hebt aangemaakt voor zulke berichten kunt u - en alle andere aanwezigen in het kanaal - dit bericht zien. Dit soort berichten worden doorgaans gebruikt om een emotie uit te drukken of om te laten merken waar u ondertussen allemaal mee bezig bent. Wanneer u uw computer even achterlaat, maak dan gebruik van het commando /away.</para
+> Tenzij u een filter hebt aangemaakt voor zulke berichten kunt u - en alle andere aanwezigen in het kanaal - dit bericht zien. Dit soort berichten worden doorgaans gebruikt om een emotie uit te drukken of om te laten merken waar u ondertussen allemaal mee bezig bent. Wanneer u uw computer even achterlaat, maak dan gebruik van het commando <userinput
+><command
+>/away</command
+></userinput
+>.</para
 ></listitem>
 </varlistentry>
 
@@ -1947,7 +1965,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ><replaceable
 >schermnaam</replaceable
 ></userinput
->. Alleen de gebruiker met die <userinput
+>. Alleen de gebruiker met &i18n-nickname; <userinput
 ><replaceable
 >schermnaam</replaceable
 ></userinput
@@ -1970,7 +1988,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ></term>
 <listitem
 ><para
->Nodigt de gebruiker met een bepaalde <userinput
+>Nodigt de gebruiker met &i18n-nickname; <userinput
 ><replaceable
 >schermnaam</replaceable
 ></userinput
@@ -1998,7 +2016,9 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ></userinput
 > op een willekeurige invoerregel waarbij de <replaceable
 >schermnaam</replaceable
-> de &nickname; is van de persoon waarmee u een gesprek wilt aangaan. U kunt ook met de &RMB; op de &nickname; klikken in de namenlijst en kiezen voor <menuchoice
+> de &i18n-nickname; is van de persoon waarmee u een gesprek wilt aangaan. U kunt ook met de &RMB; op de &i18n-nickname; klikken in de <interface
+>Namenlijst</interface
+> en kiezen voor <menuchoice
 ><guisubmenu
 >Conversatie openen</guisubmenu
 ></menuchoice
@@ -2013,18 +2033,18 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 >Om een conversatie te verlaten hoeft u alleen het tabblad te sluiten. Opmerking: Wanneer uw gesprekspartner weer een bericht verstuurt via de conversatie zal het tabblad weer geopend worden.</para>
 
 <para
->Om alle conversaties te verlaten kiest u in het hoofdmenu voor <menuchoice
+>Om alle conversaties te verlaten kiest u in het hoofdmenu <menuchoice
 ><guisubmenu
 >Venster</guisubmenu
 ><guisubmenu
 >Alle open conversaties sluiten</guisubmenu
 ></menuchoice
->, of druk op <keycap
+> of u drukt op <keycap
 >F11</keycap
 >.</para>
 
 <para
->Wanneer iemand een conversatie met u start zal &konversation; een nieuw tabblad met de &nickname; van die persoon aanmaken. Wanneer u niet met die persoon wilt praten sluit u het tabblad. </para>
+>Wanneer iemand een conversatie met u start zal &konversation; een nieuw tabblad met de &i18n-nickname; van die persoon aanmaken. Wanneer u niet met die persoon wilt praten sluit u het tabblad. </para>
 
 </sect1>
 
@@ -2110,7 +2130,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ><para
 >U kunt met <link linkend="highlighting"
 >deze optie</link
-> ook een waarschuwing instellen voor het vermelden van uw &nickname; in een bericht.</para
+> ook een waarschuwing instellen voor het vermelden van uw &i18n-nickname; in een bericht in &konversation;.</para
 ></tip>
 
 </sect1>
@@ -2125,7 +2145,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 >&konversation; kan u op de hoogte houden van de aanwezigheid van vrienden op het &irc;-netwerk. </para>
 
 <para
->U kunt schermnamen die online zijn koppelen aan een adresboekingang. De &nickname; en het bijbehorende &irc;-netwerk worden dan in het adresboek geplaatst. Het &irc;-netwerk wordt vermeld omdat ieder netwerk unieke schermnamen kent. Achter de &nickname; op twee verschillende netwerken hoeft niet noodzakelijk dezelfde persoon te zitten, maar twee dezelfde schermnamen op twee verschillende servers binnen hetzelfde &irc;-netwerk horen over het algemeen bij dezelfde persoon.</para>
+>U kunt schermnamen die online zijn koppelen aan een item in het adresboek. De &i18n-nickname; en het bijbehorende &irc;-netwerk worden dan in het adresboek geplaatst. Het &irc;-netwerk wordt vermeld omdat ieder netwerk unieke schermnamen kent. Achter de &i18n-nickname; op twee verschillende netwerken hoeft niet noodzakelijk dezelfde persoon te zitten, maar twee dezelfde schermnamen op twee verschillende servers binnen hetzelfde &irc;-netwerk horen over het algemeen bij dezelfde persoon.</para>
 
 <note
 ><para
@@ -2137,7 +2157,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ></note>
 
 <para
->U kunt ook schermnamen markeren voor volgen die niet in uw adresboek staan. In dat geval wordt een &nickname; gekoppeld aan een &irc;-netwerk. Zie hieronder.</para>
+>U kunt ook schermnamen markeren voor volgen die niet in uw adresboek staan. In dat geval wordt een &i18n-nickname; gekoppeld aan een &irc;-netwerk. Zie hieronder.</para>
 
 <para
 >Om het volgen van schermnamen in te schakelen, gaat u in het hoofdmenu naar <menuchoice
@@ -2182,7 +2202,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 <calloutlist>
 <callout arearefs="pt-nicksonline-1"
 ><para
->De schermnamen die in uw volglijst staan en in uw adresboek worden hier getoond. Ze worden samen met het bijbehorende &irc;-netwerk getoond. Wanneer er geen &nickname; getoond wordt, kan het zijn dat u geen gevolgde schermnamen hebt of dat deze functie uit staat. U ziet hieronder hoe u dat aanzet. U kunt iedere &nickname; uitklappen om te zien aan welke kanalen deze deelneemt. De pictogrammen naast ieder kanaal zijn hetzelfde als de pictogrammen in de <interface
+>De schermnamen die in uw volglijst staan en in uw adresboek worden hier getoond. Ze worden samen met het bijbehorende &irc;-netwerk getoond. Wanneer er geen &i18n-nickname; getoond wordt, kan het zijn dat u geen gevolgde schermnamen hebt of dat deze functie uit staat. U ziet hieronder hoe u dat aanzet. U kunt iedere &i18n-nickname; uitvouwen om te zien aan welke kanalen deze deelneemt. De pictogrammen naast ieder kanaal zijn hetzelfde als de pictogrammen in de <interface
 >namenlijst</interface
 > in een <link linkend="channel-screen-tour"
 >kanaalscherm</link
@@ -2190,7 +2210,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ></callout>
 <callout arearefs="pt-nicksonline-2"
 ><para
->De informatie die bekend is over deze &nickname; wordt hier getoond. Wanneer het dialoogvenster <guilabel
+>De informatie die bekend is over deze &i18n-nickname; wordt hier getoond. Wanneer het dialoogvenster <guilabel
 >Gevolgde schermnamen online</guilabel
 > in eerste instantie getoond wordt zal er weinig informatie zijn. Iedere 20 seconden wordt er een <userinput
 ><command
@@ -2219,7 +2239,7 @@ a contact entry in your address book have this icon
 ></callout-->
 <callout arearefs="pt-nicksonline-3"
 ><para
->Gebruik deze knoppen om een &nickname; te koppelen aan een contactpersoon uit uw adresboek, deze te verwijderen of om het adresboek te openen om de contactgegevens te bewerken. Zie het <ulink url="help:kaddressbook"
+>Gebruik deze knoppen om een &i18n-nickname; te koppelen aan een contactpersoon uit uw adresboek, deze te verwijderen of om het adresboek te openen om de contactgegevens te bewerken. Zie het <ulink url="help:kaddressbook"
 >handboek van &kaddressbook;</ulink
 > voor meer informatie over hoe u het adresboek gebruikt. </para
 ></callout>
@@ -2227,11 +2247,11 @@ a contact entry in your address book have this icon
 </para>
 
 <para
->Om een enkele te bewaken &nickname; toe te voegen, opent u het contextmenu in de <guilabel
+>Om een enkele te bewaken &i18n-nickname; toe te voegen, opent u het contextmenu in de <guilabel
 >Schermnaamlijst</guilabel
-> door met de &RMB; op een &nickname; te klikken en <guilabel
+> door met de &RMB; op een &i18n-nickname; te klikken en <guilabel
 >Aan gevolgde schermnamen toevoegen</guilabel
-> te selecteren. Als u een aantal &nickname;'s wilt toevoegen kies dan <menuchoice
+> te selecteren. Als u een aantal &i18n-nickname;en wilt toevoegen kies dan <menuchoice
 > <guisubmenu
 >Instellingen</guisubmenu
 > <guisubmenu
@@ -2242,7 +2262,7 @@ a contact entry in your address book have this icon
 > en klik op <guilabel
 >Bewaakte schermnamen</guilabel
 >. Het venster <guilabel
->Bewaakte schernamen</guilabel
+>Bewaakte schermnamen</guilabel
 > zal verschijnen. </para>
 
 <para>
@@ -2276,7 +2296,7 @@ a contact entry in your address book have this icon
 
 <callout arearefs="pt-notifylist-1"
 ><para
->Selecteer dit vakje om het volgen van schermnamen aan te zetten.</para
+>Selecteer dit vakje om het volgen van &i18n-nickname;en aan te zetten.</para
 ></callout>
 
 <callout arearefs="pt-notifylist-2"
@@ -2288,12 +2308,16 @@ a contact entry in your address book have this icon
 
 <callout arearefs="pt-notifylist-3"
 ><para
->De schermnaam van de gebruikers die u in de gaten wilt houden worden hier genoemd. Iedere schermnaam wordt gekoppeld aan een &irc;-netwerk.</para
+>De &i18n-nickname; van de gebruikers die u in de gaten wilt houden worden hier genoemd. Iedere &i18n-nickname; wordt gekoppeld aan een &irc;-netwerk.</para
 ></callout>
 
 <callout arearefs="pt-notifylist-4"
 ><para
->Klik op deze knoppen om een schermnaam toe te voegen of te verwijderen uit de lijst.</para
+>Klik op deze knoppen <guibutton
+>Toevoegen</guibutton
+> of <guibutton
+>Verwijderen</guibutton
+> om de lijst met schermnamen te bewerken.</para
 ></callout>
 
 <callout arearefs="pt-notifylist-5"
@@ -2307,11 +2331,11 @@ a contact entry in your address book have this icon
 ><para
 >In het venster <guilabel
 >Gevolgde schermnamen online</guilabel
-> hierboven kunt u dubbelklikken op iedere schermnaam zodat het volgende commando naar de server verzonden zal worden, waarbij <userinput
+> hierboven kunt u dubbelklikken op iedere &i18n-nickname; zodat het volgende commando naar de server verzonden zal worden, waarbij <userinput
 ><command
 >%u</command
 ></userinput
-> vervangen wordt door de schermnaam. <userinput
+> vervangen wordt door de &i18n-nickname;. <userinput
 ><command
 >%n</command
 ></userinput
@@ -2433,7 +2457,7 @@ a contact entry in your address book have this icon
 ></callout>
 <callout arearefs="pt-highlight-8"
 ><para
->Wanneer u deze optie selecteert zal ieder bericht waarin uw schermnaam voorkomt worden geaccentueerd met de kleur die u aan de rechterzijde opgeeft.</para
+>Wanneer u deze optie selecteert zal ieder bericht waarin uw &i18n-nickname; voorkomt worden geaccentueerd met de kleur die u aan de rechterzijde opgeeft.</para
 ></callout>
 <callout arearefs="pt-highlight-9"
 ><para
@@ -2547,7 +2571,9 @@ a contact entry in your address book have this icon
 
 <callout arearefs="pt-osd-6"
 ><para
->Sleep het OSD-voorbeeld naar de gewenste positie en klik daarna op de knop <guibutton
+>Sleep het <interface
+>&osd;-voorbeeld</interface
+> naar de gewenste positie en klik daarna op de knop <guibutton
 >Toepassen</guibutton
 >.</para
 ></callout>
@@ -2621,12 +2647,12 @@ a contact entry in your address book have this icon
 
 <sect1 id="nickthemes">
 <title
->Instellen van thema's</title>
+>Instellen van thema's van schermnamen</title>
 
 <para
->U kunt de pictogrammen wijzigen die naast de &nickname;en staan van de <interface
+>U kunt de pictogrammen wijzigen die naast de &i18n-nickname;en staan van de <interface
 >Schermnamenlijst</interface
-> van de kanaaltabbladen. Om het thema van de &nickname; te veranderen gaat u naar <menuchoice
+> van de kanaaltabbladen. Om het thema van de &i18n-nickname; te veranderen gaat u naar <menuchoice
 ><guisubmenu
 >Instellingen</guisubmenu
 ><guisubmenu
@@ -2812,13 +2838,13 @@ a contact entry in your address book have this icon
 <para
 >Om deze knop in het <link linkend="channel-screen-tour"
 >Hoofdscherm</link
-> te gebruiken klikt u op een schermnaam in de <interface
+> te gebruiken klikt u op een &i18n-nickname; in de <interface
 >Schermnamenlijst</interface
 > en drukt u op de knop. <computeroutput
 >/MSG </computeroutput
 > komt in de <interface
 >Invoerregel</interface
-> gevolgd door de gekozen &nickname;. Typ een bericht dat u naar dat persoon wilt verzenden en druk op &Enter;. Het bericht wordt naar dat persoon verstuurd zonder dat anderen het kunnen zien. </para>
+> gevolgd door de gekozen &i18n-nickname;. Typ een bericht dat u naar dat persoon wilt verzenden en druk op &Enter;. Het bericht wordt naar dat persoon verstuurd zonder dat anderen het kunnen zien. </para>
 
 </sect1>
 
@@ -2837,7 +2863,7 @@ a contact entry in your address book have this icon
 </para>
 
 <para
->Om een bestand te verzenden naar iemand in het actieve kanaal, klikt u met de &RMB; op de &nickname; van die persoon in <interface
+>Om een bestand te verzenden naar iemand in het actieve kanaal, klikt u met de &RMB; op de &i18n-nickname; van die persoon in <interface
 >Schermnamenlijst</interface
 > van het <link linkend="channel-screen-tour"
 >Hoofdscherm</link
@@ -2879,7 +2905,7 @@ a contact entry in your address book have this icon
 
 <callout arearefs="pt-dccstatus-1"
 ><para
->De schermnaam van de ontvanger en de bestandsnaam komen hier in beeld.</para
+>De &i18n-nickname; van de ontvanger en de bestandsnaam komen hier in beeld.</para
 ></callout>
 
 <callout arearefs="pt-dccstatus-2">
@@ -3010,21 +3036,23 @@ a contact entry in your address book have this icon
 
 <callout arearefs="pt-dccstatus-3">
 <para
->Wanneer iemand u een bestand wil verzenden wordt het tabblad <guilabel
+>Wanneer iemand u een bestand wilt zenden wordt het tabblad <guilabel
 >DCC-status</guilabel
-> aangemaakt (wanneer die nog niet bestond). Klik op het tabblad om de inhoud te kunnen zien. Klik op het bestand om het te selecteren, klik daarna op deze knop om het bestand te accepteren zodat de overdracht zal beginnen. <emphasis
+> aangemaakt (wanneer die nog niet bestond). Klik op het tabblad <guilabel
+>DCC-status</guilabel
+> om de inhoud te kunnen zien. Klik op het bestand om het te selecteren, klik daarna op deze knop om het bestand te accepteren zodat de overdracht zal beginnen. <emphasis
 >Opmerking: </emphasis
->u kunt er voor kiezen om bestanden van anderen automatisch te laten accepteren door &konversation;. Dit kunt u doen door naar <menuchoice
-> <guisubmenu
+>u kunt er voor kiezen om bestanden van anderen automatisch te laten accepteren door &konversation;. Dit kunt u doen door in het hoofdmenu <menuchoice
+><guisubmenu
 >Instellingen</guisubmenu
-> <guisubmenu
+><guisubmenu
 >Konversation instellen</guisubmenu
-> </menuchoice
-> te gaan in het hoofdmenu. Klik op <guilabel
+></menuchoice
+> te kiezen. Klik op <guilabel
 >Gedrag</guilabel
-> om meer te tonen en klik dan op <guilabel
+> om te tonen en klik dan op <guilabel
 >DCC</guilabel
-> om het scherm <guilabel
+> om het venster <guilabel
 >DCC</guilabel
 > weer te geven. </para>
 </callout>
@@ -3046,12 +3074,12 @@ a contact entry in your address book have this icon
 >Integratie met &kaddressbook;</title>
 
 <para
->U kunt een &nickname; koppelen aan een contactpersoon in &kaddressbook;. Wanneer u dat doet zal &konversation; de werkelijke naam tussen haakjes tonen achter de &nickname; in de <interface
+>U kunt een &i18n-nickname; koppelen aan een contactpersoon in &kaddressbook;. Wanneer u dat doet zal &konversation; de werkelijke naam tussen haakjes tonen achter de &i18n-nickname; in de <interface
 >Schermnamenlijst</interface
 >. </para>
 
 <para
->Om een &nickname; te koppelen aan een contactpersoon in &kaddressbook; klikt u met de &RMB; op de &nickname; in de <interface
+>Om een &i18n-nickname; te koppelen aan een contactpersoon in &kaddressbook; klikt u met de &RMB; op de &i18n-nickname; in de <interface
 >Schermnamenlijst</interface
 > van het <link linkend="channel-screen-tour"
 >Hoofdscherm</link
@@ -3060,22 +3088,22 @@ a contact entry in your address book have this icon
 >Whois</guisubmenu
 ></menuchoice
 > om <action
->de informatie over die schermnaam in beeld te krijgen</action
->. Klik daarna weer met de &RMB; op de &nickname; en kies dan voor <menuchoice
+>de informatie over die &i18n-nickname; in beeld te krijgen</action
+>. Klik daarna weer met de &RMB; op de &i18n-nickname; en kies dan voor <menuchoice
 ><guisubmenu
 >Adresboekassociaties</guisubmenu
 ></menuchoice
 >. <action
->Er komt een submenu</action
->. Wanneer de &nickname; nog niet in uw adresboek staat kiest u voor <menuchoice
+>Er komt een submenu.</action
+> Wanneer de &i18n-nickname; nog niet in uw adresboek staat kiest u voor <menuchoice
 ><guisubmenu
 >Nieuw contact aanmaken</guisubmenu
 ></menuchoice
 >. <action
 >Het venster <guilabel
 >Contact bewerken</guilabel
-> komt in beeld</action
->. </para>
+> komt in beeld.</action
+> </para>
 
 <para>
 <screenshot>
@@ -3105,12 +3133,12 @@ a contact entry in your address book have this icon
 
 <callout arearefs="pt-kimproxy-create-1"
 ><para
->De schermnaam is al automatisch aangevuld. Wanneer u de werkelijke naam weet van die persoon dient u deze in te vullen in plaats van de schermnaam. </para
+>De &i18n-nickname; is al automatisch aangevuld. Wanneer u de werkelijke naam weet van die persoon dient u deze in te vullen in plaats van de &i18n-nickname;. </para
 ></callout>
 
 <callout arearefs="pt-kimproxy-create-2">
 <para
->Opmerking: de schermnaam komt hier <emphasis
+>Opmerking: de &i18n-nickname; komt hier <emphasis
 >niet</emphasis
 > in beeld. In plaats daarvan, ..</para>
 </callout>
@@ -3118,7 +3146,7 @@ a contact entry in your address book have this icon
 <callout arearefs="pt-kimproxy-create-3">
 <para
 >Klik hier. De dialoog <guilabel
->Instant messaging-adressen bewerken</guilabel
+>Instant Messaging-adressen bewerken</guilabel
 > wordt geopend.</para
 ></callout>
 
@@ -3142,7 +3170,7 @@ a contact entry in your address book have this icon
 </para>
 
 <!--para
->Notice that &konversation; fills in the &nickname; for you with protocol
+>Notice that &konversation; fills in the &i18n-nickname; for you with protocol
 <guilabel
 >IRC</guilabel
 >.
@@ -3154,25 +3182,25 @@ a contact entry in your address book have this icon
 > voor meer informatie over hoe u het &kde;-adresboek gebruikt.</para>
 
 <para
->Vul de extra gegevens over de &nickname; die u weet in en klik op <guilabel
+>Vul de extra gegevens over de &i18n-nickname; die u weet in en klik op <guilabel
 >OK</guilabel
 >. De werkelijke naam wordt in de <guilabel
 >Schermnamenlijst</guilabel
-> van &konversation; achter de &nickname; tussen haakjes getoond. De werkelijke naam komt ook in beeld wanneer de muis boven de &nickname; blijft stilstaan.</para>
+> van &konversation; achter de &i18n-nickname; tussen haakjes getoond. De werkelijke naam komt ook in beeld wanneer de muis boven de &i18n-nickname; blijft stilstaan.</para>
 
 <para
->Wanneer de schermnaam eenmaal gekoppeld is aan het adresboek kunt u met de rechter muisklik daarop klikken en de gegevens van het contactpersoon bewerken, de koppeling verwijderen of de koppeling ergens anders naar laten verwijzen. </para>
+>Wanneer de &i18n-nickname; eenmaal gekoppeld is aan het adresboek kunt u met de rechter muisklik daarop klikken en de gegevens van het contactpersoon bewerken, de koppeling verwijderen of de koppeling ergens anders naar laten verwijzen. </para>
 
 <para
->Wanneer u een schermnaam gekoppeld hebt aan een contactpersoon zullen schermnaamswijzigingen automatisch doorgegeven worden wanneer u &konversation; op dat moment draait. Het zal ook de oorspronkelijke koppeling behouden.</para>
+>Wanneer u een &i18n-nickname; gekoppeld hebt aan een contactpersoon zullen wijzigingen in de &i18n-nickname; automatisch doorgegeven worden wanneer u &konversation; op dat moment draait. Het zal ook de oorspronkelijke koppeling behouden.</para>
 
 <para
->Wanneer u een schermnaam koppelt aan het adresboek in <ulink url="help:kopete"
+>Wanneer u een &i18n-nickname; koppelt aan het adresboek in <ulink url="help:kopete"
 >&kopete;</ulink
 > zal deze koppeling ook zichtbaar zijn in &konversation; en omgekeerd.</para>
 
 <para
->Opmerking: Het is mogelijk om meer dan één schermnaam te selecteren in de <interface
+>Opmerking: Het is mogelijk om meer dan één &i18n-nickname; te selecteren in de <interface
 >namenlijst</interface
 >, er met de rechter muisknop op te klikken en zo meerdere koppelingen tegelijkertijd aanmaken. </para>
 
@@ -3236,7 +3264,7 @@ a contact entry in your address book have this icon
 ><para
 >Dit is de lijst met URL-adressen die &konversation; is tegengekomen sinds het gestart is. De kolom <guilabel
 >Van</guilabel
-> bevat de &nickname; van de persoon die die &URL; postte of de naam van het kanaal of server, waar de &URL; werd gepost. (&URL;-adressen die in deelname- en verlaatberichten staan worden hier niet vermeld.) Klik op een &URL; om deze te selecteren.</para
+> bevat de &i18n-nickname; van de persoon die die &URL; postte of de naam van het kanaal of server, waar de &URL; werd gepost. (&URL;-adressen die in deelname- en verlaatberichten staan worden hier niet vermeld.) Klik op een &URL; om deze te selecteren.</para
 ></callout>
 
 <callout arearefs="pt-urlcatcher-2"
@@ -3282,10 +3310,14 @@ a contact entry in your address book have this icon
 <para
 >Wanneer u op het geselecteerde &URL;-adres klikt in &konversation; zal het de standaard &kde;-toepassing uitvoeren die gekoppeld is aan dat &MIME;-type. Wanneer u bijvoorbeeld klikt op een &URL; die begint met <interface
 >http</interface
-> zal &konqueror; uitgevoerd worden zodat de webpagina getoond wordt. U kunt ook een andere toepassing kiezen, zoals Firefox. </para>
+> zal &konqueror; uitgevoerd worden zodat de webpagina getoond wordt. U kunt ook een andere toepassing kiezen met de module <guilabel
+>Standaard toepassingen</guilabel
+> uit &systemsettings; van &kde;. U kunt bijvoorbeeld in plaats daarvan <application
+>Firefox</application
+> gebruiken. </para>
 
 <para
->Om een andere webbrowser te kiezen gaat u naar <menuchoice
+>Om een andere webbrowser te kiezen vanuit de &konversation; toepassing, gaat u naar <menuchoice
 ><guisubmenu
 >Instellingen</guisubmenu
 ><guisubmenu
@@ -3567,7 +3599,7 @@ a contact entry in your address book have this icon
 ><replaceable
 >bericht</replaceable
 ></userinput
-> naar het kanaal, voorafgegaan door uw &nickname;. Wanneer uw &nickname; bijvoorbeeld <userinput
+> naar het kanaal, voorafgegaan door uw &i18n-nickname;. Wanneer uw &i18n-nickname; bijvoorbeeld <userinput
 ><replaceable
 >Tux</replaceable
 ></userinput
@@ -3577,7 +3609,11 @@ a contact entry in your address book have this icon
 ></userinput
 > als volgt in beeld komen: <interface
 >Tux maakt een kopje thee.</interface
-> Tenzij u een filter hebt aangemaakt voor zulke berichten kunt u - en alle andere aanwezigen in het kanaal - dit bericht zien. Dit soort berichten worden doorgaans gebruikt om een emotie uit te drukken of om te laten merken waar u ondertussen allemaal mee bezig bent. Wanneer u uw computer even achterlaat, maak dan gebruik van het commando /away.</para
+> Tenzij u een filter hebt aangemaakt voor zulke berichten kunt u - en alle andere aanwezigen in het kanaal - dit bericht zien. Dit soort berichten worden doorgaans gebruikt om een emotie uit te drukken of om te laten merken waar u ondertussen allemaal mee bezig bent. Wanneer u uw computer even achterlaat, maak dan gebruik van het commando <userinput
+><command
+>/away</command
+></userinput
+>.</para
 ></listitem>
 </varlistentry>
 
@@ -3625,7 +3661,7 @@ a contact entry in your address book have this icon
 ><replaceable
 >#</replaceable
 ></userinput
-></para
+>.</para
 ></listitem>
 </varlistentry>
 
@@ -3734,7 +3770,7 @@ a contact entry in your address book have this icon
 ><replaceable
 >bericht</replaceable
 ></userinput
-> naar de gebruiker met de schermnaam <userinput
+> naar de gebruiker met de &i18n-nickname; <userinput
 ><replaceable
 >schermnaam</replaceable
 ></userinput
@@ -3773,7 +3809,7 @@ a contact entry in your address book have this icon
 ></userinput
 > van de gebruiker zodat u een privégesprek kunt beginnen. In &irc;-termen wordt dit vaak een <link linkend="query"
 >query</link
-> genoemd. Alles wat hier wordt geschreven is alleen zichtbaar voor u en uw gesprekspartner. U kunt meer dan één schermnaam invoeren, gescheiden door spaties, zodat er een conversatietabblad geopend wordt voor iedere schermnaam.</para
+> genoemd. Alles wat hier wordt geschreven is alleen zichtbaar voor u en uw gesprekspartner. U kunt meer dan één schermnaam invoeren, gescheiden door spaties, zodat er een conversatietabblad geopend wordt voor iedere partner in de query.</para
 ></listitem>
 </varlistentry>
 
@@ -3792,7 +3828,7 @@ a contact entry in your address book have this icon
 ></term>
 <listitem
 ><para
->Verzendt een privébericht naar de gebruiker met schermnaam <userinput
+>Verzendt een privébericht naar de gebruiker met &i18n-nickname; <userinput
 ><replaceable
 >schermnaam</replaceable
 ></userinput
@@ -3906,7 +3942,7 @@ a contact entry in your address book have this icon
 ><replaceable
 >schermnaam</replaceable
 ></userinput
-> operatorrechten te geven voor het kanaal. Dit kan mislukken wanneer u onvoldoende toegangsrechten hebt (u dient namelijk zelf kanaaloperator te zijn). U kunt meer dan één schermnaam opgeven, gescheiden door een spatie.</para>
+> operatorrechten te geven voor het kanaal. Dit kan mislukken wanneer u onvoldoende toegangsrechten hebt (u dient namelijk zelf kanaaloperator te zijn). U kunt meer dan één &i18n-nickname; opgeven, gescheiden door een spatie.</para>
 </listitem
 ></varlistentry>
 
@@ -3925,7 +3961,7 @@ a contact entry in your address book have this icon
 ><replaceable
 >schermnaam</replaceable
 ></userinput
->. U kunt meer dan één schermnaam opgeven, gescheiden door spaties.</para>
+>. U kunt meer dan één &i18n-nickname; opgeven, gescheiden door spaties.</para>
 </listitem
 ></varlistentry>
 
@@ -3940,11 +3976,11 @@ a contact entry in your address book have this icon
 ></term>
 <listitem
 ><para
->Geeft de gebruiker met een bepaalde <userinput
+>Geeft de gebruiker met de &i18n-nickname; <userinput
 ><replaceable
 >schermnaam</replaceable
 ></userinput
-> &irc;-operatorrechten. Dit werkt alleen wanneer de schermnaam wordt vermeld in de O-regel van de server. &irc;-operators hebben de rechten om <userinput
+> &irc;-operatorrechten. Dit werkt alleen wanneer de &i18n-nickname; wordt vermeld in de O-regel van de server. &irc;-operators hebben de rechten om <userinput
 ><command
 >/kill</command
 ></userinput
@@ -3956,7 +3992,7 @@ a contact entry in your address book have this icon
 ><replaceable
 >schermnaam</replaceable
 ></userinput
-> niet is opgegeven wordt geprobeerd om uzelf deze rechten te geven. In beide gevallen zal gevraagd worden om uw &irc;-operator gebruikersnaam en wachtwoord.</para>
+> niet is opgegeven wordt geprobeerd om uzelf deze rechten te geven. In beide gevallen zal gevraagd worden om uw gebruikersnaam en wachtwoord als &irc;-operator.</para>
 </listitem
 ></varlistentry>
 
@@ -4050,7 +4086,11 @@ a contact entry in your address book have this icon
 ><command
 >/away</command
 ></userinput
-> uit zonder een reden op te geven.</para
+> uit zonder een <userinput
+><replaceable
+>reden</replaceable
+></userinput
+> op te geven.</para
 ></listitem>
 </varlistentry>
 
@@ -4058,8 +4098,8 @@ a contact entry in your address book have this icon
 <term
 ><userinput
 ><command
->/aaway</command
-> <replaceable
+>/aaway </command
+><replaceable
 >reden</replaceable
 ></userinput
 ></term>
@@ -4086,7 +4126,7 @@ a contact entry in your address book have this icon
 ></term>
 <listitem
 ><para
->Nodigt de gebruiker met een bepaalde <userinput
+>Nodigt de gebruiker met &i18n-nickname; <userinput
 ><replaceable
 >schermnaam</replaceable
 ></userinput
@@ -4171,7 +4211,7 @@ a contact entry in your address book have this icon
 ></userinput
 > van uw lijst van <link linkend="nicksonline"
 >gevolgde schermnamen online</link
->. Wanneer de schermnaam zich al in de lijst bevindt zal het uit de lijst verwijderd worden, anders wordt deze toegevoegd. Wanneer de <userinput
+>. Wanneer de &i18n-nickname; zich al in de lijst bevindt zal het uit de lijst verwijderd worden, anders wordt deze toegevoegd. Wanneer de <userinput
 ><replaceable
 >schermnaam</replaceable
 ></userinput
@@ -4192,7 +4232,7 @@ a contact entry in your address book have this icon
 ></term>
 <listitem
 ><para
->Wanneer dit in een kanaaltabblad wordt gebruikt zal de gebruiker met een <userinput
+>Wanneer dit in een kanaaltabblad wordt gebruikt zal de gebruiker met &i18n-nickname; <userinput
 ><replaceable
 >schermnaam</replaceable
 ></userinput
@@ -4297,15 +4337,15 @@ a contact entry in your address book have this icon
 ></term>
 <listitem
 ><para
->Voegt een <userinput
+>Voegt &i18n-nickname; <userinput
 ><replaceable
 >schermnaam</replaceable
 ></userinput
-> toe aan uw negeerlijst. U kunt meer dan één schermnaam opgeven, gescheiden door spaties. Kanaalberichten van gebruikers op de negeerlijst zullen niet getoond worden. Wanneer u bovendien de parameter <userinput
+> toe aan uw negeerlijst. U kunt meer dan één &i18n-nickname; opgeven, gescheiden door spaties. Kanaalberichten van gebruikers op de negeerlijst zullen niet getoond worden. Wanneer u bovendien de parameter <userinput
 ><command
 >-all</command
 ></userinput
-> meegeeft zullen alle berichttypes (queries, meldingen, &CTCP;, DCC en uitzonderingen) van deze gebruiker ook genegeerd worden. </para
+> meegeeft zullen alle berichttypen (queries, meldingen, &CTCP;, DCC en uitzonderingen) van deze gebruiker ook genegeerd worden. </para
 ></listitem>
 </varlistentry>
 
@@ -4445,11 +4485,11 @@ a contact entry in your address book have this icon
 ><replaceable
 >bestandsnaam</replaceable
 ></userinput
-> naar de gebruiker die een zekere <userinput
+> naar de gebruiker met &i18n-nickname; <userinput
 ><replaceable
 >schermnaam</replaceable
 ></userinput
-> heeft. Wanneer u de <userinput
+>. Wanneer u de <userinput
 ><replaceable
 >bestandsnaam</replaceable
 ></userinput
@@ -4611,9 +4651,7 @@ a contact entry in your address book have this icon
 
 <para
 ><userinput
-><replaceable
->ls `kde4-config --install data`/konversation/scripts</replaceable
-></userinput
+>ls `kde4-config --install data`konversation/scripts</userinput
 ></para>
 
 <para
@@ -4659,9 +4697,9 @@ $@ | while read line; do qdbus org.kde.konversation /irc say $SERVER "$TARGET" "
 
 <para
 >Om een zelfgeschreven script uit te voeren dient u het naar de map <filename class="directory"
->`kde4-config --install data`/konversation/scripts</filename
+>`kde4-config --install data`konversation/scripts</filename
 > of naar <filename class="directory"
->`kde4-config --localprefix`/share/apps/konversation/scripts</filename
+>`kde4-config --localprefix`share/apps/konversation/scripts</filename
 > te kopiëren. U dient het bestand ook uitvoeringsrechten te geven, bijvoorbeeld met <userinput
 ><replaceable
 >chmod a+x mijnscript</replaceable
@@ -4690,8 +4728,10 @@ $@ | while read line; do qdbus org.kde.konversation /irc say $SERVER "$TARGET" "
 >]</userinput
 ></term>
 <listitem>
-<para
->Dit script wordt gebruikt om uw browser te openen en te zoeken naar de gegeven tekenreeks of bugnummer in de bugzilla van kde.</para>
+  <para
+>Dit script wordt gebruikt om uw browser te openen en te zoeken naar de gegeven tekenreeks of bugnummer in de <ulink url="https://bugs.kde.org/"
+>Bugzilla van &kde;</ulink
+>.</para>
 <para
 >Voorbeeld: om uw browser te openen en te zoeken naar bug 123456</para>
 <para
@@ -4703,7 +4743,7 @@ $@ | while read line; do qdbus org.kde.konversation /irc say $SERVER "$TARGET" "
 ></userinput
 ></para>
 <para
->Voorbeeldactie: de standaard browser in uw de Systeeminstellingen van KDE <replaceable
+>Voorbeeldactie: de standaard browser in uw &systemsettings; van &kde; zou <replaceable
 >http://bugs.kde.org/show_bug.cgi?id=123456</replaceable
 > moeten openen.</para>
 </listitem>
@@ -5162,7 +5202,7 @@ or menu bars. -->
 		<listitem
 ><para
 ><action
->Verandert uw status naar afwezig in alle kanalen. </action
+>Verandert d status van uw &i18n-nickname; naar afwezig in alle kanalen. </action
 ></para
 ></listitem>
 	</varlistentry>
@@ -5184,8 +5224,8 @@ or menu bars. -->
 		<listitem
 ><para
 ><action
->Sluit &konversation; af</action
->.</para
+>Sluit af</action
+> &konversation;.</para
 ></listitem>
 	</varlistentry>
 </variablelist>
@@ -5393,7 +5433,7 @@ Clear Marker Lines Ctrl Shift R
 		<listitem
 ><para>
 		    <action
->Maakt een bladwijzer aan voor het huidige netwerk en kanaal</action>
+>Maakt een bladwijzer aan voor het huidige netwerk en kanaal.</action>
 		</para
 ></listitem>
 	</varlistentry>
@@ -5425,7 +5465,7 @@ Clear Marker Lines Ctrl Shift R
 		<listitem
 ><para>
 				<action
->Maakt een nieuwe bladwijzermap aan</action>
+>Maakt een nieuwe bladwijzermap aan.</action>
 			</para
 ></listitem>
 	</varlistentry>
@@ -5441,7 +5481,7 @@ Clear Marker Lines Ctrl Shift R
 		<listitem
 ><para>
 				<action
->Opent de bladwijzerbewerker</action>
+>Opent de bladwijzerbewerker.</action>
 			</para
 ></listitem>
 	</varlistentry>
@@ -5472,7 +5512,7 @@ Clear Marker Lines Ctrl Shift R
 		<listitem
 ><para>
 				<action
->Verbergt (of toont) de namenlijst in kanaaltabbladen. </action>
+>Verbergt (of toont) het paneel met schermnamen in kanaaltabbladen. </action>
 			</para
 ></listitem>
 	</varlistentry>

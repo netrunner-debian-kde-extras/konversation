@@ -19,11 +19,13 @@
 #include <KMenu>
 #include <KCategoryDrawer>
 #include <KLocalizedString>
+#include <KGlobalSettings>
 
 #include <QHeaderView>
 #include <QKeyEvent>
 
 #include <preferences.h>
+#include "dcccommon.h"
 
 namespace Konversation
 {
@@ -47,11 +49,7 @@ namespace Konversation
             setRootIsDecorated(false); //not implemented for special items
             setSelectionMode(QAbstractItemView::ExtendedSelection);
 
-#if KDE_IS_VERSION(4, 5, 0)
             m_categoryDrawer = new KCategoryDrawerV3(0);
-#else
-            m_categoryDrawer = new KCategoryDrawer();
-#endif
 
             setItemDelegate(new TransferSizeDelegate(m_categoryDrawer, this));
 
@@ -68,8 +66,12 @@ namespace Konversation
             m_activeTransfers = 0;
             m_itemCategoryToRemove = 0;
             m_updateTimer = new QTimer(this);
-            m_updateTimer->setInterval(500);
+            m_updateTimer->setInterval(DccCommon::graphicEffectLevelToUpdateInterval(
+                                           KGlobalSettings::graphicEffectsLevel()));
+
             connect(m_updateTimer, SIGNAL(timeout()), this, SLOT(update()));
+
+            connect(KGlobalSettings::self(), SIGNAL(settingsChanged(int)), this, SLOT(globalSettingsChanged(int)));
 
             connect(model(), SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)),
                      this, SLOT(rowsAboutToBeRemovedFromModel(QModelIndex,int,int)));
@@ -638,6 +640,17 @@ namespace Konversation
                     }
                 }
             }
+        }
+
+        void TransferView::globalSettingsChanged(int category)
+        {
+#if KDE_IS_VERSION(4,8,1)
+            if (category == KGlobalSettings::SETTINGS_STYLE)
+#else
+            Q_UNUSED(category);
+#endif
+                m_updateTimer->setInterval(DccCommon::graphicEffectLevelToUpdateInterval(
+                                               KGlobalSettings::graphicEffectsLevel()));
         }
 
         int TransferView::removeItems(TransferItemData::ItemDisplayType displaytype)

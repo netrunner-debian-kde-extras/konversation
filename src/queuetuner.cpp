@@ -34,7 +34,7 @@ QueueTuner::QueueTuner(QWidget* parent, ViewContainer *container)
 {
     setupUi(this);
 
-    m_closeButton->setIcon(KIcon("process-stop"));
+    m_closeButton->setIcon(KIcon("dialog-close"));
     connect(m_closeButton, SIGNAL(clicked()), SLOT(close()));
     connect(container, SIGNAL(frontServerChanging(Server*)), SLOT(setServer(Server*)));
     connect(&m_timer, SIGNAL(timeout()), SLOT(timerFired()));
@@ -237,8 +237,12 @@ void QueueTuner::contextMenuEvent(QContextMenuEvent* e)
     {
 
         QString question(i18n("This cannot be undone, are you sure you wish to reset to default values?"));
-        int x = KMessageBox::warningContinueCancel(this, question, i18n("Reset Values"), KStandardGuiItem::reset(), KGuiItem(), QString(), KMessageBox::Dangerous);
-        if ( x == KMessageBox::Continue)
+        int x = KMessageBox::warningContinueCancel(
+                this, question, i18n("Reset Values"),
+                KStandardGuiItem::reset(), KStandardGuiItem::cancel(),
+                QString(), KMessageBox::Dangerous
+        );
+        if (x == KMessageBox::Continue)
         {
             Application::instance()->resetQueueRates();
             getRates();

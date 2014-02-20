@@ -10,11 +10,11 @@
   <!ENTITY CTCP "<acronym
 >CTCP</acronym
 >">
-  <!ENTITY nickname "<acronym
->nickname</acronym
+  <!ENTITY i18n-nickname "<acronym
+>Spitzname</acronym
 >">
-  <!ENTITY Nickname "<acronym
->Nickname</acronym
+  <!ENTITY i18n-Nickname "<acronym
+>Spitzname</acronym
 >">
   <!ENTITY led "<acronym
 >LED</acronym
@@ -46,7 +46,7 @@
 <!-- The language must NOT be changed here. -->
 <!-- If you are writing original documentation in a language other -->
 <!-- than English, change the language above ONLY, not here -->
-<book lang="&language;">
+<book id="konversation" lang="&language;">
 
 <!-- This header contains all of the meta-information for the document such
 as Authors, publish date, the abstract, and Keywords -->
@@ -217,7 +217,7 @@ See <link linkend="color-msgs"
 >Sending colorful messages</link
 > for more information
 See <link linkend="nickthemes"
->Configuring &nickname; themes</link
+>Configuring &i18n-nickname; themes</link
 > for more information.
 See <link linkend="quick-buttons"
 >Configuring Quick Buttons</link
@@ -282,7 +282,7 @@ revision history. (see installation appendix comment) -->
 ></listitem>
 <listitem
 ><para
->Frei konfigurierbare Schnellschalter für häufig benutzte Befehle</para
+>Frei konfigurierbare Schnellschalter für häufig benutzte Befehle.</para
 ></listitem>
 <listitem
 ><para
@@ -294,19 +294,19 @@ revision history. (see installation appendix comment) -->
 ></listitem>
 <listitem
 ><para
->Spitznamen-Beobachtungsliste.</para
+>&i18n-Nickname;n-Beobachtungsliste.</para
 ></listitem>
 <listitem
 ><para
->Visuelle und Audio-Benachrichtigungen bei vielen verschiedenen Ereignissen, wie Nachrichten, die Ihren Spitzname enthalten oder wenn Spitznamen, die auf Ihrer Beobachtungsliste stehen, online oder offline gehen. </para
+>Visuelle und Audio-Benachrichtigungen bei vielen verschiedenen Ereignissen, wie Nachrichten, die Ihren &i18n-nickname;n enthalten oder wenn &i18n-nickname;n, die auf Ihrer Beobachtungsliste stehen, online oder offline gehen. </para
 ></listitem>
 <listitem
 ><para
->Konfigurierbare Hervorhebung von Nachrichten nach Spitznamen oder mit regulären Ausdrücken.</para
+>Konfigurierbare Hervorhebung von Nachrichten nach &i18n-Nickname;n oder mit regulären Ausdrücken.</para
 ></listitem>
 <listitem
 ><para
->Spitznamen-Vervollständigung.</para
+>&i18n-Nickname;n-Vervollständigung.</para
 ></listitem>
 <listitem
 ><para
@@ -318,7 +318,7 @@ revision history. (see installation appendix comment) -->
 ></listitem>
 <listitem
 ><para
->Spitznamen-Ignorierliste.</para
+>&i18n-Nickname;n-Ignorierliste.</para
 ></listitem>
 <listitem
 ><para
@@ -496,7 +496,7 @@ revision history. (see installation appendix comment) -->
 ><para
 >Dies ist die <interface
 >Eingabezeile</interface
->. Um eine Nachricht an alle Benutzer des Kanals zu senden, geben Sie sie hier ein und drücken Sie die &Enter;taste. Ihre Nachricht sowie die Nachrichten der anderen Benutzer werden im Textfeld über der Eingabezeile angezeigt. Vor jeder Nachricht stehen die Zeit, zu der sie gesendet wurde und der Spitzname des Senders.</para
+>. Um eine Nachricht an alle Benutzer des Kanals zu senden, geben Sie sie hier ein und drücken Sie die &Enter;taste. Ihre Nachricht sowie die Nachrichten der anderen Benutzer werden im Textfeld über der Eingabezeile angezeigt. Vor jeder Nachricht stehen die Zeit, zu der sie gesendet wurde und der &i18n-Nickname; des Senders.</para
 ></callout>
 
 <callout arearefs="pt-first-channel-2"
@@ -530,7 +530,7 @@ revision history. (see installation appendix comment) -->
 ><para
 >Dies ist die <interface
 >Benutzerliste</interface
->. Sie zeigt die Spitznamen aller Personen an, die den Kanal betreten haben (auch Ihren).</para
+>. Sie zeigt die &i18n-Nickname;n aller Personen an, die den Kanal betreten haben (auch Ihren).</para
 ></callout>
 
 </calloutlist>
@@ -606,11 +606,15 @@ revision history. (see installation appendix comment) -->
 ></callout>
 <callout arearefs="pt-identity-gen-2"
 ><para
->Benutzen Sie diese Knöpfe, um eine <guilabel
->Identität</guilabel
-> hinzuzufügen oder um die ausgewählte <guilabel
->Identität</guilabel
-> zu kopieren, umzubenennen oder zu löschen.</para
+>Benutzen Sie diese Knöpfe zum <guibutton
+>Hinzufügen</guibutton
+>, <guibutton
+>Duplizieren</guibutton
+>, <guibutton
+>Umbenennen</guibutton
+> oder <guibutton
+>Entfernen</guibutton
+> einer Identität.</para
 ></callout>
 <callout arearefs="pt-identity-gen-3"
 ><para
@@ -622,19 +626,19 @@ revision history. (see installation appendix comment) -->
 >Hinzufügen</guibutton
 > oder <guibutton
 >Entfernen</guibutton
-> eines Spitznamens.</para
+> eines &i18n-Nickname;ns.</para
 ></callout>
 <callout arearefs="pt-identity-gen-5"
 ><para
->Dies ist die Liste Ihrer Spitznamen. Ein Spitzname ist der Name, unter dem Sie anderen Benutzern angezeigt werden. Sie können dazu jeden beliebigen Namen verwenden, das erste Zeichen muss allerdings ein Buchstabe sein. Die restlichen Zeichen können Buchstaben, Zahlen, oder die Sonderzeichen <literal
+>Dies ist die Liste Ihrer &i18n-Nickname;n. Ein &i18n-Nickname; ist der Name, unter dem Sie anderen Benutzern angezeigt werden. Sie können dazu jeden beliebigen Namen verwenden, das erste Zeichen muss allerdings ein Buchstabe sein. Die restlichen Zeichen können Buchstaben, Zahlen, oder die Sonderzeichen <literal
 >-[]\`_^{}|</literal
 > sein.</para>
 
 <para
->Da innerhalb eines &irc;-Netzwerks jeder Spitzname nur einmal vorkommen darf, ist es möglich, dass der von Ihnen gewünschte Name vom Server nicht akzeptiert wird, weil er von einem anderen Benutzer bereits verwendet wird. Geben Sie daher alternative Spitznamen ein. Wenn der erste Spitzname nicht angenommen wird, versucht &konversation; automatisch, einen der alternativen Spitznamen zu verwenden. </para>
+>Da innerhalb eines &irc;-Netzwerks jeder &i18n-Nickname; nur einmal vorkommen darf, ist es möglich, dass der von Ihnen gewünschte Name vom Server nicht akzeptiert wird, weil er von einem anderen Benutzer bereits verwendet wird. Geben Sie daher alternative &i18n-Nickname;n ein. Wenn der erste &i18n-Nickname; nicht angenommen wird, versucht &konversation; automatisch, einen der alternativen &i18n-Nickname;n zu verwenden. </para>
 
 <para
->Nach dem Standard RFC 2812 beträgt die maximale Länge für Spitznamen 9 Zeichen, dies wird aber von den Servern unterschiedlich gehandhabt. Um die maximal erlaubte Länge für einen bestimmten Server festzustellen, stellen Sie eine Verbindung zu diesem Server her. Suchen Sie im entsprechenden Unterfenster mit den <interface
+>Nach dem Standard RFC 2812 beträgt die maximale Länge für &i18n-Nickname;n 9 Zeichen, dies wird aber von den Servern unterschiedlich gehandhabt. Um die maximal erlaubte Länge für einen bestimmten Server festzustellen, stellen Sie eine Verbindung zu diesem Server her. Suchen Sie im entsprechenden Unterfenster mit den <interface
 >Server-Meldungen</interface
 > nach einer <computeroutput
 >[Support]</computeroutput
@@ -648,16 +652,16 @@ revision history. (see installation appendix comment) -->
 <para
 >Der Parameter <computeroutput
 >NICKLEN</computeroutput
-> zeigt die maximal erlaubte Länge für Spitznamen an. </para>
+> zeigt die maximal erlaubte Länge für &i18n-Nickname;n an. </para>
 </callout>
 
 <callout arearefs="pt-identity-gen-6"
 ><para
->Benutzen Sie diese Knöpfe, um die Reihenfolge der Spitznamen zu ändern. &konversation; versucht zuerst, den obersten Spitznamen zu benutzen, dann den darunter usw.</para
+>Benutzen Sie diese Knöpfe, um die Reihenfolge der &i18n-Nickname;n zu ändern. &konversation; versucht zuerst, den obersten &i18n-Nickname;n zu benutzen, dann den darunter usw.</para
 ></callout>
 <callout arearefs="pt-identity-gen-7"
 ><para
->Falls Sie Ihren Spitzname im &irc;-Netzwerk registriert haben, geben Sie den Dienst und das Passwort zur Anmeldung an. &konversation; wird dann bei der Verbindungsherstellung den Befehl <userinput
+>Falls Sie Ihren &i18n-Nickname;n im &irc;-Netzwerk registriert haben, geben Sie den Dienst und das Passwort zur Anmeldung an. &konversation; wird dann bei der Verbindungsherstellung den Befehl <userinput
 ><command
 >/msg</command
 > <replaceable
@@ -710,17 +714,17 @@ user inactivity configured below.
 <calloutlist>
 <callout arearefs="pt-identity-away-1"
 ><para
->Geben Sie hier einen Spitznamen an, der anderen Benutzern anzeigt, dass Sie abwesend sind. Immer wenn Sie den Befehl <userinput
+>Geben Sie hier einen &i18n-Nickname;n an, der anderen Benutzern anzeigt, dass Sie abwesend sind. Immer wenn Sie den Befehl <userinput
 ><command
 >/away</command
 ></userinput
-> in einem Kanal ausführen, den Sie mit der jeweiligen Identität betreten haben, ändert &konversation; Ihren Spitznamen automatisch zum <guilabel
+> in einem Kanal ausführen, den Sie mit der jeweiligen Identität betreten haben, ändert &konversation; Ihren &i18n-Nickname;n automatisch zum <guilabel
 >Spitznamen bei Abwesenheit</guilabel
 >. Andere Benutzer können daran erkennen, dass Sie nicht an Ihrem Rechner anwesend sind. Wenn Sie den Befehl <userinput
 ><command
 >/away</command
 ></userinput
-> in einem Kanal ausführen, in dem Sie abwesend sind, setzt &konversation; Ihren Spitznamen automatisch wieder zurück.</para
+> in einem Kanal ausführen, in dem Sie abwesend sind, setzt &konversation; Ihren &i18n-Nickname;n automatisch wieder zurück.</para
 ></callout>
 <callout arearefs="pt-identity-away-2"
 ><para
@@ -750,7 +754,7 @@ user inactivity configured below.
 
 <note
 ><para
->Abwesenheitsnachrichten werden von anderen Benutzern oft als störend empfunden. Benutzen Sie diese Optionen daher umsichtig und denken Sie an die anderen &irc;-Nutzer. </para
+>Abwesenheitsnachrichten werden von anderen Benutzern oft als störend empfunden. Verwenden Sie diese Optionen daher umsichtig und denken Sie an die anderen &irc;-Benutzer. </para
 ></note>
 </callout>
 </calloutlist>
@@ -911,12 +915,12 @@ Limits on Real Name and Ident?
 <callout arearefs="pt-serverlist-2"
 ><para
 >Benutzen Sie diese Knöpfe zum <guibutton
+>Hinzufügen</guibutton
+> eines neuen Netzwerks, zum  <guibutton
 >Bearbeiten</guibutton
 > oder <guibutton
 >Löschen</guibutton
-> der ausgewählten Netzwerke sowie zum Hinzufügen eines <guibutton
->Neu</guibutton
->en Netzwerks. </para
+> der ausgewählten Netzwerke. </para
 ></callout>
 <callout arearefs="pt-serverlist-3"
 ><para
@@ -1005,7 +1009,7 @@ here, all the <guilabel
 >Bearbeiten ...</guibutton
 > um eine neue Identität hinzuzufügen oder eine bereits eingerichtete zu bearbeiten. Durch die <guilabel
 >Identität</guilabel
-> wird Ihr Spitzname festgelegt, unter dem Sie im Netzwerk bekannt sind.</para
+> wird Ihr &i18n-Nickname; festgelegt, unter dem Sie im Netzwerk bekannt sind.</para
 ></callout>
 <callout arearefs="pt-addnetwork-3"
 ><para
@@ -1013,11 +1017,11 @@ here, all the <guilabel
 >/msg NickServ IDENTIFY <replaceable
 >konvirocks</replaceable
 ></userinput
->. Dieses Beispiel gilt für das Netzwerk „Freenode“, in dem Benutzer Ihren Spitzname mit einem Passwort registrieren müssen, das beim Herstellen der Verbindung abgefragt wird. <userinput
+>. Dieses Beispiel gilt für das Netzwerk „Freenode“, in dem Benutzer Ihren &i18n-nickname;n mit einem Passwort registrieren müssen, das beim Herstellen der Verbindung abgefragt wird. <userinput
 ><replaceable
 >konvirocks</replaceable
 ></userinput
-> ist das Passwort für den Spitznamen, der für die <guilabel
+> ist das Passwort für den &i18n-Nickname;n, der für die <guilabel
 >Identität</guilabel
 > festgelegt ist. Sie können mehrere Befehle angeben, die durch Semikola getrennt sind.</para
 ></callout>
@@ -1067,7 +1071,7 @@ here, all the <guilabel
 > an. Dies führt dazu, dass die <link linkend="linkaddressbook"
 >Integration Ihres Adressbuchs</link
 > und die <link linkend="nicksonline"
->Beobachtung von Spitznamen</link
+>Beobachtung von &i18n-Nickname;n</link
 > nicht korrekt funktionieren.</para>
 </note>
 
@@ -1269,7 +1273,7 @@ depending upon your network bandwidth.  If your client is too slow, the server m
 ></userinput
 > ein (Das <userinput
 >#</userinput
-> ist notwendig). Für den Kanal wird ein neues Unterfenster geöffnet. Falls die Benutzerliste nach dem Betreten eines Kanals nur Ihren Spitznamen enthält, bedeutet das, dass der Kanal noch nicht existierte, also gerade vom Server erstellt wurde. In diesem Fall sind Sie der Operator des Kanals. Zum Schließen des Kanals geben Sie den Befehl <userinput
+> ist notwendig). Für den Kanal wird ein neues Unterfenster geöffnet. Falls die Benutzerliste nach dem Betreten eines Kanals nur Ihren &i18n-Nickname;n enthält, bedeutet das, dass der Kanal noch nicht existierte, also gerade vom Server erstellt wurde. In diesem Fall sind Sie der Operator des Kanals. Zum Schließen des Kanals geben Sie den Befehl <userinput
 ><command
 >/part</command
 ></userinput
@@ -1324,7 +1328,7 @@ depending upon your network bandwidth.  If your client is too slow, the server m
 ><para
 >Dies ist die <interface
 >Eingabezeile</interface
->. Um eine Nachricht an alle Benutzer des Kanals zu senden, geben Sie sie hier ein und drücken Sie die &Enter;taste. Ihre Nachricht sowie die Nachrichten der anderen Benutzer werden im Textfeld über der Eingabezeile angezeigt. Vor jeder Nachricht stehen die Zeit, zu der sie gesendet wurde und der Spitzname des Senders.</para>
+>. Um eine Nachricht an alle Benutzer des Kanals zu senden, geben Sie sie hier ein und drücken Sie die &Enter;taste. Ihre Nachricht sowie die Nachrichten der anderen Benutzer werden im Textfeld über der Eingabezeile angezeigt. Vor jeder Nachricht stehen die Zeit, zu der sie gesendet wurde und der &i18n-Nickname; des Senders.</para>
 
  <para
 >Sie können auch Text aus der Zwischenablage einfügen. Falls der eingefügte Text länger als eine Zeile ist, wird ein Dialog geöffnet, in dem Sie den Text bearbeiten können. Drücken Sie danach den Knopf <guibutton
@@ -1340,7 +1344,7 @@ depending upon your network bandwidth.  If your client is too slow, the server m
  -->
 
  <para
->In vielen Kanälen ist es üblich, Nachrichten, die nur an einen Benutzer gerichtet sind, dessen Spitznamen voranzustellen. &konversation; kann Spitznamen automatisch vervollständigen. Geben Sie dazu den Anfang eines Spitznamens ein und drücken Sie &Tab;. &konversation; wird den Spitznamen vervollständigen und einen Doppelpunkt sowie ein Leerzeichen hinzufügen. Um die Vervollständigungsfunktion anzupassen, klicken Sie auf den Eintrag <menuchoice
+>In vielen Kanälen ist es üblich, Nachrichten, die nur an einen Benutzer gerichtet sind, dessen &i18n-Nickname;n voranzustellen. &konversation; kann &i18n-Nickname;n automatisch vervollständigen. Geben Sie dazu den Anfang eines &i18n-Nickname;ns ein und drücken Sie &Tab;. &konversation; wird den &i18n-Nickname;n vervollständigen und einen Doppelpunkt sowie ein Leerzeichen hinzufügen. Um die Vervollständigungsfunktion anzupassen, klicken Sie auf den Eintrag <menuchoice
 ><guisubmenu
 >Einstellungen</guisubmenu
 > <guisubmenu
@@ -1428,7 +1432,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 >part</command
 >, <command
 >quit</command
-> oder Spitzname-Änderungen sind. Bei ungelesenen normalen Nachrichten blinken Sie schneller. Die Farben bedeuten folgendes: <itemizedlist>
+> oder &i18n-Nickname;-Änderungen sind. Bei ungelesenen normalen Nachrichten blinken Sie schneller. Die Farben bedeuten folgendes: <itemizedlist>
 <listitem>
 <para
 ><inlinemediaobject
@@ -1449,7 +1453,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 >Kanallisten</link
 > oder <link linkend="urlcatcher"
 >&URL;-Fänger</link
-> </para>
+>. </para>
 </listitem>
 <listitem>
 <para
@@ -1488,7 +1492,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 
 <callout arearefs="pt-channeltour-5"
 ><para
->Benutzen Sie dieses Auswahlfeld, um Ihren Spitznamen zu ändern. Es wird nur angezeigt, wenn das ausgewählte Unterfenster ein Kanal ist. Um das Feld auszublenden, klicken Sie auf den Eintrag <menuchoice
+>Benutzen Sie dieses Auswahlfeld, um Ihren &i18n-Nickname;n zu ändern. Es wird nur angezeigt, wenn das ausgewählte Unterfenster ein Kanal ist. Um das Feld auszublenden, klicken Sie auf den Eintrag <menuchoice
 ><guisubmenu
 >Einstellungen</guisubmenu
 > <guisubmenu
@@ -1499,7 +1503,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 > auf, klicken Sie auf <guilabel
 >Chatfenster</guilabel
 > und deaktivieren Sie das Ankreuzfeld <guilabel
->Feld zum Ändern des eigenen Spitznamens anzeigen</guilabel
+>Feld zum Ändern des eigenen &i18n-Nickname;ns anzeigen</guilabel
 >. </para
 ></callout>
 
@@ -1541,7 +1545,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 <para
 >Dies ist die <interface
 >Benutzerliste</interface
->. Sie wird angezeigt, wenn das ausgewählte Unterfenster ein Kanal ist und zeigt die Spitznamen aller Benutzer des Kanals an (auch Ihren). Fahren Sie mit der Maus über einen Spitznamen, um zusätzliche Informationen über den Benutzer zu erhalten. Sie können die Symbole, die neben den Spitznamen angezeigt werden, ändern. Weitere Informationen dazu finden Sie im Abschnitt <link linkend="nickthemes"
+>. Sie wird angezeigt, wenn das ausgewählte Unterfenster ein Kanal ist und zeigt die &i18n-Nickname;n aller Benutzer des Kanals an (auch Ihren). Fahren Sie mit der Maus über einen &i18n-Nickname;n, um zusätzliche Informationen über den Benutzer zu erhalten. Sie können die Symbole, die neben den &i18n-Nickname;n angezeigt werden, ändern. Weitere Informationen dazu finden Sie im Abschnitt <link linkend="nickthemes"
 >Design der Benutzerliste</link
 >. Standardmäßig werden folgende Symbole verwendet: <itemizedlist>
 <listitem>
@@ -1609,7 +1613,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ></para>
 
 <para
->Klicken Sie mit der &RMBn; auf einen Spitznamen, um ein Kontextmenü mit Operationen zu öffnen, die Sie mit dem ausgewählten Spitzname durchführen können. Sie können ihm beispielsweise eine <link linkend="dcc"
+>Klicken Sie mit der &RMBn; auf einen &i18n-Nickname;n, um ein Kontextmenü mit Operationen zu öffnen, die Sie mit dem ausgewählten &i18n-nickname;n durchführen können. Sie können ihm beispielsweise eine <link linkend="dcc"
 >Datei senden</link
 >, oder ihn einem <link linkend="linkaddressbook"
 >Kontakt aus Ihrem Adressbuch zuordnen</link
@@ -1640,16 +1644,15 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 </calloutlist>
 </para>
 
+<note>
 <para
-><emphasis
->Hinweis: </emphasis
 >Sie können die Darstellung der Nachrichten in den Textfeldern von Kanal- und Query-Unterfenstern anpassen. Beispielsweise können Sie die Farbe von Nachrichten ändern und Benachrichtigungen bei Nachrichten mit bestimmtem Inhalt oder automatische Antworten einrichten. Weitere Informationen dazu finden Sie im Abschnitt <link linkend="highlighting"
 >Hervorhebung von Nachrichten</link
 >. </para>
+</note>
 
+<note>
 <para
-><emphasis
->Hinweis: </emphasis
 >Kanalnamen beginnen in einigen Fällen mit <userinput
 >&amp;</userinput
 >, <userinput
@@ -1683,6 +1686,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ></listitem
 > </itemizedlist
 > Kanalnamen sind bis zu 50 Zeichen lang und können beliebige Zeichen außer Leerzeichen, Komma und Strg+G (^G oder ASCII 7) beinhalten. </para>
+</note>
 
 </sect1>
 
@@ -1729,7 +1733,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 <para
 >Geben Sie in das Feld <guilabel
 >Servername</guilabel
-> die Adresse des Servers ein und Ihren Spitzname in das Feld <guilabel
+> die Adresse des Servers ein und Ihren &i18n-nickname;n in das Feld <guilabel
 >Spitzname</guilabel
 >. Drücken Sie danach den Knopf <guibutton
 >Verbinden</guibutton
@@ -1865,11 +1869,11 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ></term>
 <listitem
 ><para
->Ihren Spitznamen gefolgt von der <userinput
+>Ihren &i18n-Nickname;n gefolgt von der <userinput
 ><replaceable
 >Nachricht</replaceable
 ></userinput
-> an den Kanal senden. Wenn beispielsweise Ihr Spitzname <userinput
+> an den Kanal senden. Wenn beispielsweise Ihr &i18n-Nickname; <userinput
 ><replaceable
 >Tux</replaceable
 ></userinput
@@ -1879,8 +1883,10 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ></userinput
 > eingeben, dann wird die Nachricht <replaceable
 >Tux kocht eine Tasse Tee</replaceable
-> gesendet. Alle Benutzer des Kanals erhalten diese Nachricht, sofern sie keine Filter gegen derartige Nachrichten eingerichtet haben. Solche Nachrichten werden üblicherweise verwendet, um non-verbale Informationen zu übermitteln, wie z. B. Gefühle oder Tätigkeiten (was Sie gerade tun). Um anderen Benutzern mitzuteilen, dass Sie vorübergehend abwesend sind, sollten Sie stattdessen den Befehl <command
+> gesendet. Alle Benutzer des Kanals erhalten diese Nachricht, sofern sie keine Filter gegen derartige Nachrichten eingerichtet haben. Solche Nachrichten werden üblicherweise verwendet, um non-verbale Informationen zu übermitteln, wie z. B. Gefühle oder Tätigkeiten (was Sie gerade tun). Um anderen Benutzern mitzuteilen, dass Sie vorübergehend abwesend sind, sollten Sie stattdessen den Befehl <userinput
+><command
 >/away</command
+></userinput
 > verwenden.</para
 ></listitem>
 </varlistentry>
@@ -2014,7 +2020,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 >Eingabezeile</interface
 > ein und bestätigen Sie mit der &Enter;taste. <replaceable
 >Spitzname</replaceable
-> ist der Spitzname des Benutzers, mit dem Sie sich unterhalten möchten. Sie können auch mit der &RMBn; auf den Spitznamen des Benutzers in der <interface
+> ist der &i18n-Nickname; des Benutzers, mit dem Sie sich unterhalten möchten. Sie können auch mit der &RMBn; auf den &i18n-Nickname;n des Benutzers in der <interface
 >Benutzerliste</interface
 > klicken und mit der &LMBn; auf den Eintrag <menuchoice
 ><guisubmenu
@@ -2042,7 +2048,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 >.</para>
 
 <para
->Wenn ein anderer Benutzer einen Query mit Ihnen beginnt, wird ein neues Unterfenster geöffnet, das mit dem Spitznamen des jeweiligen Benutzers beschriftet ist. Wenn Sie keine private Unterhaltung mit diesem Benutzer führen möchten, schließen Sie das Unterfenster. </para>
+>Wenn ein anderer Benutzer einen Query mit Ihnen beginnt, wird ein neues Unterfenster geöffnet, das mit dem &i18n-Nickname;n des jeweiligen Benutzers beschriftet ist. Wenn Sie keine private Unterhaltung mit diesem Benutzer führen möchten, schließen Sie das Unterfenster. </para>
 
 </sect1>
 
@@ -2126,7 +2132,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 
 <tip
 ><para
->Um benachrichtigt zu werden, wenn Ihr Spitzname in einer Nachricht erwähnt wird, benutzen Sie die <link linkend="highlighting"
+>Um benachrichtigt zu werden, wenn Ihr &i18n-Nickname; in einer Nachricht erwähnt wird, benutzen Sie die <link linkend="highlighting"
 >Hervorhebungs-Funktion</link
 > von &konversation;.</para
 ></tip>
@@ -2143,7 +2149,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 >Diese Funktion von &konversation; liefert Ihnen Informationen darüber, ob bestimmte andere Benutzer (z. B. Ihre Freunde) mit dem &irc;-Netzwerk verbunden sind. </para>
 
 <para
->Sie können Spitznamen mit Kontakten in Ihrem Adressbuch verknüpfen. Dabei werden jeweils der Spitzname und das &irc;-Netzwerk, in dem er benutzt wird, in das Adressbuch eingetragen. Das &irc;-Netzwerk wird gespeichert, weil Spitznamen innerhalb eines Netzwerks nur jeweils ein Mal vorkommen. Derselbe Spitzname muss in verschiedenen Netzwerken nicht unbedingt von derselben Person verwendet werden, aber derselbe Spitzname auf verschiedenen Servern innerhalb eines &irc;-Netzwerks wird im Allgemeinen von nur einer Person verwendet.</para>
+>Sie können &i18n-Nickname;n mit Kontakten in Ihrem Adressbuch verknüpfen. Dabei werden jeweils der &i18n-Nickname; und das &irc;-Netzwerk, in dem er benutzt wird, in das Adressbuch eingetragen. Das &irc;-Netzwerk wird gespeichert, weil &i18n-Nickname;n innerhalb eines Netzwerks nur jeweils ein Mal vorkommen. Derselbe &i18n-Nickname; muss in verschiedenen Netzwerken nicht unbedingt von derselben Person verwendet werden, aber derselbe &i18n-Nickname; auf verschiedenen Servern innerhalb eines &irc;-Netzwerks wird im Allgemeinen von nur einer Person verwendet.</para>
 
 <note
 ><para
@@ -2155,10 +2161,10 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ></note>
 
 <para
->Sie können auch Spitznamen zur Beobachtungsliste hinzufügen, die nicht in Ihrem Adressbuch eingetragen sind. Auch in diesem Fall wird jedem Spitznamen das entsprechende &irc;-Netzwerk zugeordnet.</para>
+>Sie können auch &i18n-Nickname;n zur Beobachtungsliste hinzufügen, die nicht in Ihrem Adressbuch eingetragen sind. Auch in diesem Fall wird jedem &i18n-Nickname;n das entsprechende &irc;-Netzwerk zugeordnet.</para>
 
 <para
->Um die Beobachtung von Spitznamen zu aktivieren, klicken Sie auf den Eintrag <menuchoice
+>Um die Beobachtung von &i18n-Nickname;n zu aktivieren, klicken Sie auf den Eintrag <menuchoice
 ><guisubmenu
 >Fenster</guisubmenu
 > <guisubmenu
@@ -2200,7 +2206,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 <calloutlist>
 <callout arearefs="pt-nicksonline-1"
 ><para
->Hier werden die Spitznamen aus Ihrer Beobachtungsliste sowie die mit Einträgen in Ihrem Adressbuch verknüpften Spitznamen angezeigt, gruppiert unter dem jeweiligen Netzwerk. Falls keine Spitznamen angezeigt werden, haben Sie entweder keine Spitznamen zur Beobachtungsliste hinzugefügt, oder die Beobachtungs-Funktion ist noch nicht aktiviert. Klappen Sie Einträge auf, um zu sehen, in welchen Kanälen sich die Spitznamen befinden. Neben den Kanälen werden die Symbole angezeigt, die auch in der <interface
+>Hier werden die &i18n-Nickname;n aus Ihrer Beobachtungsliste sowie die mit Einträgen in Ihrem Adressbuch verknüpften &i18n-Nickname;n angezeigt, gruppiert unter dem jeweiligen Netzwerk. Falls keine &i18n-Nickname;n angezeigt werden, haben Sie entweder keine &i18n-Nickname;n zur Beobachtungsliste hinzugefügt, oder die Beobachtungs-Funktion ist noch nicht aktiviert. Klappen Sie Einträge auf, um zu sehen, in welchen Kanälen sich die &i18n-Nickname;n befinden. Neben den Kanälen werden die Symbole angezeigt, die auch in der <interface
 >Benutzerliste</interface
 > in <link linkend="channel-screen-tour"
 >Kanal-Unterfenstern</link
@@ -2208,13 +2214,13 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ></callout>
 <callout arearefs="pt-nicksonline-2"
 ><para
->Hier werden die Informationen angezeigt, die über den jeweiligen Spitznamen bekannt sind. Nach dem Öffnen des Unterfensters <guilabel
+>Hier werden die Informationen angezeigt, die über den jeweiligen &i18n-Nickname;n bekannt sind. Nach dem Öffnen des Unterfensters <guilabel
 >Beobachtete Benutzer online</guilabel
 > sind nur wenige Informationen vorhanden. Alle 20 Sekunden wird eine <userinput
 ><command
 >WHOIS</command
 ></userinput
->-Abfrage gesendet, um Informationen über die Spitznamen anzufordern, über die bisher keine Informationen vorliegen. Dies wird solange wiederholt, bis Informationen über alle angezeigten Spitznamen vorhanden sind. </para
+>-Abfrage gesendet, um Informationen über die &i18n-Nickname;n anzufordern, über die bisher keine Informationen vorliegen. Dies wird solange wiederholt, bis Informationen über alle angezeigten &i18n-Nickname;n vorhanden sind. </para
 ></callout>
 <!--callout arearefs="pt-nicksonline-3"
 ><para
@@ -2237,7 +2243,7 @@ a contact entry in your address book have this icon
 ></callout-->
 <callout arearefs="pt-nicksonline-3"
 ><para
->Diese Knöpfe dienen zur Verknüpfung von Spitznamen mit Kontakten aus Ihrem Adressbuch, zur Aufhebung von Verknüpfungen und zum Öffnen des Adressbuchs zur Bearbeitung des jeweiligen Kontakts. Weitere Informationen zur Verwendung von &kaddressbook; finden Sie im <ulink url="help:kaddressbook"
+>Diese Knöpfe dienen zur Verknüpfung von &i18n-Nickname;n mit Kontakten aus Ihrem Adressbuch, zur Aufhebung von Verknüpfungen und zum Öffnen des Adressbuchs zur Bearbeitung des jeweiligen Kontakts. Weitere Informationen zur Verwendung von &kaddressbook; finden Sie im <ulink url="help:kaddressbook"
 >Handbuch zu &kaddressbook;</ulink
 >. </para
 ></callout>
@@ -2245,11 +2251,11 @@ a contact entry in your address book have this icon
 </para>
 
 <para
->Um einen einzelnen Spitznamen zur Beobachtungsliste hinzuzufügen, klicken Sie mit der &RMBn; auf den jeweiligen Spitznamen in der <guilabel
+>Um einen einzelnen &i18n-Nickname;n zur Beobachtungsliste hinzuzufügen, klicken Sie mit der &RMBn; auf den jeweiligen &i18n-Nickname;n in der <guilabel
 >Benutzerliste</guilabel
 > und klicken Sie auf den Eintrag <guilabel
 >Zu beobachteten Benutzern hinzufügen</guilabel
-> im Kontextmenü. Um mehrere Spitznamen hinzufügen, klicken Sie auf den Eintrag <menuchoice
+> im Kontextmenü. Um mehrere &i18n-Nickname;n hinzufügen, klicken Sie auf den Eintrag <menuchoice
 ><guisubmenu
 >Einstellungen</guisubmenu
 > <guisubmenu
@@ -2296,7 +2302,7 @@ a contact entry in your address book have this icon
 
 <callout arearefs="pt-notifylist-1"
 ><para
->Kreuzen Sie dieses Feld an, um das Beobachten von Spitznamen zu aktivieren.</para
+>Kreuzen Sie dieses Feld an, um das Beobachten von &i18n-Nickname;n zu aktivieren.</para
 ></callout>
 
 <callout arearefs="pt-notifylist-2"
@@ -2308,12 +2314,16 @@ a contact entry in your address book have this icon
 
 <callout arearefs="pt-notifylist-3"
 ><para
->Hier werden die Spitznamen der beobachteten Benutzer angezeigt. Jedem Spitznamen ist das jeweilige &irc;-Netzwerk zugeordnet.</para
+>Hier werden die &i18n-Nickname;n der beobachteten Benutzer angezeigt. Jedem &i18n-Nickname;n ist das jeweilige &irc;-Netzwerk zugeordnet.</para
 ></callout>
 
 <callout arearefs="pt-notifylist-4"
 ><para
->Drücken Sie diese Knöpfe zum Hinzufügen und Entfernen von Spitznamen.</para
+>Benutzen Sie diese Knöpfe zum <guibutton
+>Hinzufügen</guibutton
+> oder <guibutton
+>Entfernen</guibutton
+> eines &i18n-Nickname;ns von der Liste.</para
 ></callout>
 
 <callout arearefs="pt-notifylist-5"
@@ -2327,11 +2337,11 @@ a contact entry in your address book have this icon
 ><para
 >Dieser &irc;-Befehl wird ausgeführt, wenn Sie im Unterfenster <guilabel
 >Beobachtete Benutzer online</guilabel
-> auf einen Spitznamen doppelklicken. <userinput
+> auf einen &i18n-Nickname;n doppelklicken. <userinput
 ><command
 >%u</command
 ></userinput
-> wird dabei durch den jeweiligen Spitznamen ersetzt. Der Befehl muss mit <userinput
+> wird dabei durch den jeweiligen &i18n-Nickname;n ersetzt. Der Befehl muss mit <userinput
 ><command
 >%n</command
 ></userinput
@@ -2353,7 +2363,7 @@ a contact entry in your address book have this icon
 >Hinweis:</emphasis
 > Nach dem Öffnen des Unterfensters <guilabel
 >Beobachtete Benutzer online</guilabel
-> kann es eine Zeit lang dauern, bis &konversation; die nötigen Abfragen durchgeführt hat und die Spitznamen angezeigt werden. Das Unterfenster wird daher normalerweise nicht geschlossen, sondern im Hintergrund weiterlaufen gelassen. </para>
+> kann es eine Zeit lang dauern, bis &konversation; die nötigen Abfragen durchgeführt hat und die &i18n-Nickname;n angezeigt werden. Das Unterfenster wird daher normalerweise nicht geschlossen, sondern im Hintergrund weiterlaufen gelassen. </para>
 
 <para
 >&konversation; zeigt in allen <link linkend="channel-screen-tour"
@@ -2455,7 +2465,7 @@ a contact entry in your address book have this icon
 ></callout>
 <callout arearefs="pt-highlight-8"
 ><para
->Wenn dieses Ankreuzfeld aktiviert ist, werden alle Nachrichten, die Ihren Spitznamen enthalten, in der rechts ausgewählten Farbe dargestellt.</para
+>Wenn dieses Ankreuzfeld aktiviert ist, werden alle Nachrichten, die Ihren &i18n-Nickname;n enthalten, in der rechts ausgewählten Farbe dargestellt.</para
 ></callout>
 <callout arearefs="pt-highlight-9"
 ><para
@@ -2476,7 +2486,7 @@ a contact entry in your address book have this icon
 <para
 >Die <acronym
 >OnScreen-Anzeige</acronym
-> (&osd;) von &konversation; dient dazu, Nachrichten auf dem Desktop anzuzeigen, auch wenn das &konversation; minimiert ist. Das folgende Bildschirmfoto zeigt die OnScreen-Anzeige einer Nachricht.</para>
+> (&osd;) von &konversation; dient dazu, Nachrichten auf dem Desktop anzuzeigen, auch wenn das Programm &konversation; minimiert ist. Das folgende Bildschirmfoto zeigt die OnScreen-Anzeige einer Nachricht.</para>
 
 <para>
 <screenshot>
@@ -2642,7 +2652,7 @@ a contact entry in your address book have this icon
 >Design der Benutzerliste</title>
 
 <para
->Zum Ändern der Symbole, die neben den Spitznamen in der <interface
+>Zum Ändern der Symbole, die neben den &i18n-Nickname;n in der <interface
 >Benutzerliste</interface
 > angezeigt werden, klicken Sie auf den Eintrag <menuchoice
 ><guisubmenu
@@ -2850,13 +2860,13 @@ a contact entry in your address book have this icon
 <para
 >Klicken Sie nun im <link linkend="channel-screen-tour"
 >Hauptfenster</link
-> auf einen Spitznamen in der <interface
+> auf einen &i18n-Nickname;n in der <interface
 >Benutzerliste</interface
-> und anschließed auf diesen Schnellschalter, so wird in der <interface
+> und anschließend auf diesen Schnellschalter, so wird in der <interface
 >Eingabezeile</interface
 > der Befehl <computeroutput
 >/msg</computeroutput
-> gefolgt von dem ausgewählten Spitznamen angezeigt. Nun können Sie eine Nachricht eingeben, die nur an den ausgewählten Benutzer gesendet wird (siehe <link linkend="irc-cmds"
+> gefolgt von dem ausgewählten &i18n-Nickname;n angezeigt. Nun können Sie eine Nachricht eingeben, die nur an den ausgewählten Benutzer gesendet wird (siehe <link linkend="irc-cmds"
 >Häufig verwendete &irc;-Befehle</link
 >). </para>
 
@@ -2877,7 +2887,7 @@ a contact entry in your address book have this icon
 </para>
 
 <para
->Um einem anderen Benutzer eine Datei zu senden, klicken Sie mit der &RMBn; auf den jeweiligen Spitznamen in der <interface
+>Um einem anderen Benutzer eine Datei zu senden, klicken Sie mit der &RMBn; auf den jeweiligen &i18n-Nickname;n in der <interface
 >Benutzerliste</interface
 >. Klicken Sie im Kontextmenü auf <menuchoice
 ><guisubmenu
@@ -2917,7 +2927,7 @@ a contact entry in your address book have this icon
 
 <callout arearefs="pt-dccstatus-1"
 ><para
->Hier werden der Dateiname sowie der Spitzname des Empfängers angezeigt.</para
+>Hier werden der Dateiname sowie der &i18n-Nickname; des Empfängers angezeigt.</para
 ></callout>
 
 <callout arearefs="pt-dccstatus-2">
@@ -3086,12 +3096,12 @@ a contact entry in your address book have this icon
 >Integration von &kaddressbook;</title>
 
 <para
->Sie können Spitznamen mit Kontakten in &kaddressbook; verknüpfen. Danach wird neben verknüpften Spitznamen in der <interface
+>Sie können &i18n-Nickname;n mit Kontakten in &kaddressbook; verknüpfen. Danach wird neben verknüpften &i18n-Nickname;n in der <interface
 >Benutzerliste</interface
 > in Klammern der Name des entsprechenden Kontakts angezeigt. </para>
 
 <para
->Um einen Spitznamen mit einem Kontakt in &kaddressbook; zu verknüpfen, klicken Sie mit der &RMBn; auf den jeweiligen Spitznamen in der <interface
+>Um einen &i18n-Nickname;n mit einem Kontakt in &kaddressbook; zu verknüpfen, klicken Sie mit der &RMBn; auf den jeweiligen &i18n-Nickname;n in der <interface
 >Benutzerliste</interface
 > im <link linkend="channel-screen-tour"
 >Hauptfenster</link
@@ -3101,13 +3111,13 @@ a contact entry in your address book have this icon
 ></menuchoice
 >, um <action
 >Informationen wie den echten Namen des Benutzers anzuzeigen</action
->. Klicken Sie erneut mit der &RMBn; auf den Spitznamen und wählen Sie im Kontextmenü den Eintrag <menuchoice
+>. Klicken Sie erneut mit der &RMBn; auf den &i18n-Nickname;n und wählen Sie im Kontextmenü den Eintrag <menuchoice
 ><guisubmenu
 >Adressbuchzuordnungen</guisubmenu
 ></menuchoice
 >. <action
 >Ein Untermenü wird geöffnet.</action
-> Falls der Spitzname noch nicht mit einem Kontakt verknüpft ist, klicken Sie auf <menuchoice
+> Falls der &i18n-Nickname; noch nicht mit einem Kontakt verknüpft ist, klicken Sie auf <menuchoice
 ><guisubmenu
 >Neuen Kontakt erstellen ...</guisubmenu
 ></menuchoice
@@ -3115,7 +3125,7 @@ a contact entry in your address book have this icon
 >Der Dialog <guilabel
 >Neuer Kontakt</guilabel
 > wird geöffnet.</action
-> </para>
+>. </para>
 
 <para>
 <screenshot>
@@ -3145,12 +3155,12 @@ a contact entry in your address book have this icon
 
 <callout arearefs="pt-kimproxy-create-1"
 ><para
->Hier wird automatisch der Spitzname des Benutzers eingetragen. Falls Sie den realen Namen kennen, tragen Sie diesen anstelle des Spitznamens ein. </para
+>Hier wird automatisch der &i18n-Nickname; des Benutzers eingetragen. Falls Sie den realen Namen kennen, tragen Sie diesen anstelle des &i18n-Nickname;ns ein. </para
 ></callout>
 
 <callout arearefs="pt-kimproxy-create-2">
 <para
->Der Spitzname wird hier <emphasis
+>Der &i18n-Nickname; wird hier <emphasis
 >nicht</emphasis
 > angezeigt.</para>
 </callout>
@@ -3182,7 +3192,7 @@ a contact entry in your address book have this icon
 </para>
 
 <!--para
->Notice that &konversation; fills in the &nickname; for you with protocol
+>Notice that &konversation; fills in the &i18n-nickname; for you with protocol
 <guilabel
 >IRC</guilabel
 >.
@@ -3196,23 +3206,23 @@ a contact entry in your address book have this icon
 <para
 >Tragen Sie die übrigen Ihnen bekannten Informationen über den Benutzer ein und klicken Sie auf <guilabel
 >OK</guilabel
->. Der reale Name des Benutzers wird in der Benutzerliste von &konversation; in Klammern neben dem entsprechenden Spitznamen angezeigt sowie beim Überfahren desselben mit der Maus.</para>
+>. Der reale Name des Benutzers wird in der Benutzerliste von &konversation; in Klammern neben dem entsprechenden &i18n-Nickname;n angezeigt sowie beim Überfahren desselben mit der Maus.</para>
 
 <para
->Nachdem Sie einen Spitznamen mit einem Kontakt in &kaddressbook; verknüpft haben, können Sie den Kontakt bearbeiten, die Verknüpfung löschen, oder den Spitznamen mit einem anderen Kontakt verknüpfen. Verwenden Sie die entsprechenden Einträge im Kontextmenü, das Sie durch einen Klick mit der &RMBn; auf den Spitznamen in der <interface
+>Nachdem Sie einen &i18n-Nickname;n mit einem Kontakt in &kaddressbook; verknüpft haben, können Sie den Kontakt bearbeiten, die Verknüpfung löschen, oder den &i18n-Nickname;n mit einem anderen Kontakt verknüpfen. Verwenden Sie die entsprechenden Einträge im Kontextmenü, das Sie durch einen Klick mit der &RMBn; auf den &i18n-Nickname;n in der <interface
 >Benutzerliste</interface
 > erreichen. </para>
 
 <para
->Wenn Sie einen Spitznamen mit einem Kontakt verknüpft haben und der entsprechende Benutzer seinen Spitznamen ändert, während Sie &konversation; geöffnet haben, so wird der neue Spitzname automatisch mit dem Kontakt verknüpft; Die alte Verknüpfung bleibt dabei erhalten.</para>
+>Wenn Sie einen &i18n-Nickname;n mit einem Kontakt verknüpft haben und der entsprechende Benutzer seinen &i18n-Nickname;n ändert, während Sie &konversation; geöffnet haben, so wird der neue &i18n-Nickname; automatisch mit dem Kontakt verknüpft; Die alte Verknüpfung bleibt dabei erhalten.</para>
 
 <para
->Wenn Sie einen &irc;-Spitznamen in <ulink url="help:kopete"
+>Wenn Sie einen &irc;-&i18n-Nickname;n in <ulink url="help:kopete"
 >&kopete;</ulink
 > mit einem Kontakt verknüpfen, wird die Verknüpfung auch in &konversation; verwendet (und andersherum).</para>
 
 <para
->Hinweis: Sie können mehrere Spitznamen in der <interface
+>Hinweis: Sie können mehrere &i18n-Nickname;n in der <interface
 >Benutzerliste</interface
 > auswählen und nach einem Klick mit der &RMBn; mehrere Verknüpfungen gleichzeitig erstellen. </para>
 
@@ -3276,7 +3286,7 @@ a contact entry in your address book have this icon
 ><para
 >Dies ist die Liste aller &URL;s, die seit dem Start von &konversation; in Nachrichten gefunden worden sind. In der Spalte <guilabel
 >Von</guilabel
-> wird jeweils der Spitzname des Benutzers angezeigt, der die Nachricht mit der &URL; gesendet hat, oder der Name des Kanals oder Servers, von dem die &URL; gesendet wurde. &URL;s aus Meldungen über das Betreten oder Verlassen von Kanälen werden nicht angezeigt. Klicken Sie auf eine &URL;, um sie auszuwählen.</para
+> wird jeweils der &i18n-Nickname; des Benutzers angezeigt, der die Nachricht mit der &URL; gesendet hat, oder der Name des Kanals oder Servers, von dem die &URL; gesendet wurde. &URL;s aus Meldungen über das Betreten oder Verlassen von Kanälen werden nicht angezeigt. Klicken Sie auf eine &URL;, um sie auszuwählen.</para
 ></callout>
 
 <callout arearefs="pt-urlcatcher-2"
@@ -3322,17 +3332,21 @@ a contact entry in your address book have this icon
 <para
 >Wenn Sie in &konversation; eine hervorgehobene &URL; mit der &LMBn; anklicken, wird die Standardanwendung gestartet, die dem &MIME;-Typ der &URL; zugeordnet ist. Klicken Sie beispielsweise auf eine &URL;, die mit <interface
 >http</interface
-> beginnt, so wird Ihr Standard-Webbrowser gestartet, um die entsprechende Webseite anzuzeigen. Sie können in &konversation; auch einen vom &kde;-Standard abweichenden Webbrowser einstellen, wie z. B. Firefox. </para>
+> beginnt, so wird Ihr Standard-Webbrowser gestartet, um die entsprechende Webseite anzuzeigen. Sie können im Modul <guilabel
+>Standard-Komponenten</guilabel
+> in den &kde;-&systemsettings; auch einen vom &kde;-Standard abweichenden Webbrowser einstellen, wie z. B. <application
+>Firefox</application
+>. </para>
 
 <para
->Um einen anderen Webbrowser einzustellen, klicken Sie auf den Eintrag <menuchoice
+>Um einen anderen Webbrowser von &konversation; aus einzustellen, klicken Sie auf den Eintrag <menuchoice
 ><guisubmenu
 >Einstellungen</guisubmenu
 > <guisubmenu
 >&konversation; einrichten ...</guisubmenu
 ></menuchoice
 > in der Menüleiste. <action
-> der <guilabel
+>Der <guilabel
 >Einrichtungsdialog</guilabel
 > wird geöffnet.</action
 > </para>
@@ -3601,11 +3615,11 @@ a contact entry in your address book have this icon
 ></term>
 <listitem
 ><para
->Ihren Spitznamen gefolgt von der <userinput
+>Ihren &i18n-Nickname;n gefolgt von der <userinput
 ><replaceable
 >Nachricht</replaceable
 ></userinput
-> an den Kanal senden. Wenn beispielsweise Ihr Spitzname <userinput
+> an den Kanal senden. Wenn beispielsweise Ihr &i18n-Nickname; <userinput
 ><replaceable
 >Tux</replaceable
 ></userinput
@@ -3615,8 +3629,10 @@ a contact entry in your address book have this icon
 ></userinput
 > eingeben, dann wird die Nachricht <replaceable
 >Tux kocht eine Tasse Tee</replaceable
-> gesendet. Alle Benutzer des Kanals erhalten diese Nachricht, sofern sie keine Filter gegen derartige Nachrichten eingerichtet haben. Solche Nachrichten werden üblicherweise verwendet, um non-verbale Informationen zu übermitteln, wie z. B. Gefühle oder Tätigkeiten (was Sie gerade tun). Um anderen Benutzern mitzuteilen, dass Sie vorübergehend abwesend sind, sollten Sie stattdessen den Befehl <command
+> gesendet. Alle Benutzer des Kanals erhalten diese Nachricht, sofern sie keine Filter gegen derartige Nachrichten eingerichtet haben. Solche Nachrichten werden üblicherweise verwendet, um non-verbale Informationen zu übermitteln, wie z. B. Gefühle oder Tätigkeiten (was Sie gerade tun). Um anderen Benutzern mitzuteilen, dass Sie vorübergehend abwesend sind, sollten Sie stattdessen den Befehl <userinput
+><command
 >/away</command
+></userinput
 > verwenden.</para
 ></listitem>
 </varlistentry>
@@ -3813,7 +3829,7 @@ a contact entry in your address book have this icon
 ></userinput
 > als Titel für eine private Unterhaltung (im &irc; als <link linkend="query"
 >Query</link
-> bezeichnet). Alle hier gesendeten Nachrichten sind nur für Sie und Ihren Query-Partner sichtbar. Sie können mehrere Spitznamen durch Leerzeichen getrennt angeben, um Queries mit jedem dieser Benutzer zu öffnen.</para
+> bezeichnet). Alle hier gesendeten Nachrichten sind nur für Sie und Ihren Query-Partner sichtbar. Sie können mehrere &i18n-Nickname;n durch Leerzeichen getrennt angeben, um Queries mit jedem dieser Benutzer zu öffnen.</para
 ></listitem>
 </varlistentry>
 
@@ -3946,7 +3962,7 @@ a contact entry in your address book have this icon
 ><replaceable
 >Spitzname</replaceable
 ></userinput
-> Operator-Rechte für den Kanal geben. Dieser Befehl muss in einem Kanal ausgeführt werden und funktioniert nur, wenn Sie selbst Operator des Kanals sind. Sie können mehrere Spitznamen getrennt durch Leerzeichen angeben.</para>
+> Operator-Rechte für den Kanal geben. Dieser Befehl muss in einem Kanal ausgeführt werden und funktioniert nur, wenn Sie selbst Operator des Kanals sind. Sie können mehrere &i18n-Nickname;n getrennt durch Leerzeichen angeben.</para>
 </listitem
 ></varlistentry>
 
@@ -3965,7 +3981,7 @@ a contact entry in your address book have this icon
 ><replaceable
 >Spitzname</replaceable
 ></userinput
-> Operator-Rechte für den Kanal entziehen. Dieser Befehl muss in einem Kanal ausgeführt werden und funktioniert nur, wenn Sie selbst Operator des Kanals sind. Sie können mehrere Spitznamen getrennt durch Leerzeichen angeben.</para>
+> Operator-Rechte für den Kanal entziehen. Dieser Befehl muss in einem Kanal ausgeführt werden und funktioniert nur, wenn Sie selbst Operator des Kanals sind. Sie können mehrere &i18n-Nickname;n getrennt durch Leerzeichen angeben.</para>
 </listitem
 ></varlistentry>
 
@@ -3980,7 +3996,7 @@ a contact entry in your address book have this icon
 ></term>
 <listitem
 ><para
->Erteilt dem Benutzer mit dem gegebenen Spitznamen &irc;-Op- (Administrator-) Rechte. Dies ist nur möglich, wenn der Spitzname in der 0:-Zeile des Servers aufgeführt ist. &irc;-Ops haben u.a. das Recht, <userinput
+>Erteilt dem Benutzer mit dem gegebenen &i18n-Nickname;n &irc;-Op- (Administrator-) Rechte. Dies ist nur möglich, wenn der &i18n-Nickname; in der 0:-Zeile des Servers aufgeführt ist. &irc;-Ops haben u.a. das Recht, <userinput
 ><command
 >/kill</command
 ></userinput
@@ -4207,7 +4223,7 @@ a contact entry in your address book have this icon
 ></userinput
 > zu Ihrer <link linkend="nicksonline"
 >Beobachtungsliste</link
-> hinzu, oder entfernt ihn daraus. Falls der Spitzname auf der Liste ist, wird er entfernt, anderenfalls hinzugefügt. Falls Sie keinen <userinput
+> hinzu, oder entfernt ihn daraus. Falls der &i18n-Nickname; auf der Liste ist, wird er entfernt, anderenfalls hinzugefügt. Falls Sie keinen <userinput
 ><replaceable
 >Spitznamen</replaceable
 ></userinput
@@ -4337,7 +4353,7 @@ a contact entry in your address book have this icon
 ><replaceable
 >Spitzname</replaceable
 ></userinput
-> zu Ihrer Ignorierliste hinzu. Sie können mehrere Spitznamen durch Leerzeichen getrennt angeben. Falls Sie den Parameter <userinput
+> zu Ihrer Ignorierliste hinzu. Sie können mehrere &i18n-Nickname;n durch Leerzeichen getrennt angeben. Falls Sie den Parameter <userinput
 ><command
 >-all</command
 ></userinput
@@ -4655,9 +4671,7 @@ a contact entry in your address book have this icon
 
 <para
 ><userinput
-><replaceable
->ls `kde4-config --install data`/konversation/scripts</replaceable
-></userinput
+>ls `kde4-config --install data`konversation/scripts</userinput
 ></para>
 
 <para
@@ -4703,9 +4717,9 @@ $@ | while read line; do qdbus org.kde.konversation /irc say $SERVER "$TARGET" "
 
 <para
 >Um ein eigenes Skript in &konversation; verwenden zu können, müssen Sie es entweder nach <filename class="directory"
->`kde4-config --install data`/konversation/scripts</filename
+>`kde4-config --install data`konversation/scripts</filename
 > oder nach <filename class="directory"
->`kde4-config --localprefix`/share/apps/konversation/scripts</filename
+>`kde4-config --localprefix`share/apps/konversation/scripts</filename
 > kopieren oder verschieben. Außerdem müssen Sie die Datei als ausführbar markieren, beispielsweise mit dem Befehl <userinput
 >chmod a+x <replaceable
 >Skriptdatei</replaceable
@@ -4734,8 +4748,10 @@ $@ | while read line; do qdbus org.kde.konversation /irc say $SERVER "$TARGET" "
 >]</userinput
 ></term>
 <listitem>
-<para
->Öffnet Ihren Browser, um auf bugs.kde.org nach dem Fehlerbericht mit der gegebenen Nummer oder Beschreibung zu suchen.</para>
+  <para
+>Öffnet Ihren Browser, um auf <ulink url="https://bugs.kde.org/"
+>bugs.kde.org</ulink
+> nach dem Fehlerbericht mit der gegebenen Nummer oder Beschreibung zu suchen.</para>
 <para
 >Beispiel: Öffnen des Browsers und Suche nach Fehlerbericht 123456</para>
 <para
@@ -4748,7 +4764,7 @@ $@ | while read line; do qdbus org.kde.konversation /irc say $SERVER "$TARGET" "
 ></para>
 <para
 ><action
->Ihr Standardbrowser wird geöffnet, um die Webseite <replaceable
+>Ihr in den &kde;-&systemsettings; fetsgelegter Standardbrowser wird geöffnet, um die Webseite <replaceable
 >http://bugs.kde.org/show_bug.cgi?id=123456</replaceable
 > anzuzeigen</action
 ></para>
@@ -5102,9 +5118,7 @@ or menu bars. -->
 
 <sect2>
 <title
->Das Menü <guimenu
->Datei</guimenu
-></title>
+>Das Menü Datei</title>
 <para>
 <variablelist>
 	<varlistentry>
@@ -5235,7 +5249,7 @@ or menu bars. -->
 ><para
 ><action
 >Beendet &konversation;</action
-></para
+>.</para
 ></listitem>
 	</varlistentry>
 </variablelist>
@@ -5244,9 +5258,7 @@ or menu bars. -->
 
 <sect2>
 <title
->Das Menü <guimenu
->Bearbeiten</guimenu
-></title>
+>Das Menü Bearbeiten</title>
 <para>
 <variablelist>
 	<varlistentry>
@@ -5345,9 +5357,7 @@ Clear Marker Lines Ctrl Shift R
 
 <sect2>
 <title
->Das Menü <guimenu
->Einfügen</guimenu
-></title>
+>Das Menü Einfügen</title>
 <para>
 <variablelist>
 	<varlistentry>
@@ -5426,9 +5436,7 @@ Clear Marker Lines Ctrl Shift R
 
 <sect2>
 <title
->Das Menü <guimenu
->Lesezeichen</guimenu
-></title>
+>Das Menü Lesezeichen</title>
 <para>
 <variablelist>
 	<varlistentry>
@@ -5481,7 +5489,7 @@ Clear Marker Lines Ctrl Shift R
 		<listitem
 ><para>
 				<action
->Erstellt einen neuen Lesezeichenordner</action>
+>Erstellt einen neuen Lesezeichenordner.</action>
 			</para
 ></listitem>
 	</varlistentry>
@@ -5497,7 +5505,7 @@ Clear Marker Lines Ctrl Shift R
 		<listitem
 ><para>
 				<action
->Öffnet den Lesezeichen-Editor</action>
+>Öffnet den Lesezeichen-Editor.</action>
 			</para
 ></listitem>
 	</varlistentry>
@@ -5507,9 +5515,7 @@ Clear Marker Lines Ctrl Shift R
 
 <sect2>
 <title
->Das Menü <guimenu
->Einstellungen</guimenu
-></title>
+>Das Menü Einstellungen</title>
 <para>
 <variablelist>
 	<varlistentry>
@@ -5686,9 +5692,7 @@ Clear Marker Lines Ctrl Shift R
 
 <sect2>
 <title
->Das Menü <guimenu
->Fenster</guimenu
-></title>
+>Das Menü Fenster</title>
 <para>
 <variablelist>
 	<varlistentry>
@@ -5943,9 +5947,7 @@ Set Encoding
 
 <sect2>
 <title
->Das Menü <guimenu
->Hilfe</guimenu
-></title>
+>Das Menü Hilfe</title>
 &help.menu.documentation; </sect2>
 
 </sect1>

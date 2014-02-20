@@ -15,11 +15,15 @@
 
 #include "application.h"
 #include "version.h"
+#include "commit.h"
 
 #include <QWaitCondition>
 
 #include <KCmdLineArgs>
 #include <KAboutData>
+
+#define HACKSTR(x) #x
+#define STRHACK(x) HACKSTR(x)
 
 /*
   Don't use i18n() here, use ki18n() instead!
@@ -31,13 +35,12 @@ int main(int argc, char* argv[])
     KAboutData aboutData("konversation",
         "",
         ki18n("Konversation"),
-        KONVI_VERSION,
+        KONVI_VERSION " #" STRHACK(COMMIT),
         ki18n("A user-friendly IRC client"),
         KAboutData::License_GPL,
-        ki18n("(C) 2002-2011 by the Konversation team"),
-        ki18n("Konversation is a client for the Internet Relay Chat (IRC) protocol.\n"
-        "Meet friends on the net, make new acquaintances and lose yourself in\n"
-        "talk about your favorite subject."),
+        ki18n("(C) 2002-2014 by the Konversation team"),
+        ki18n("Konversation is a client for the Internet Relay Chat (IRC) protocol.\n\n"
+        "Meet friends on the net, make new acquaintances and lose yourself in talk about your favorite subject."),
         "http://konversation.kde.org/");
 
     aboutData.addAuthor(ki18n("Dario Abatianni"),ki18n("Original Author, Project Founder"),"eisfuchs@tigress.com");
@@ -92,6 +95,9 @@ int main(int argc, char* argv[])
     options.add( "noautoconnect", ki18n("Disable auto-connecting to any IRC networks"));
     options.add( "startupdelay <msec>", ki18n("Delay D-Bus activity and UI creation by the specified amount of miliseconds"), "2000");
     options.add( "restart", ki18n("Quits and restarts Konversation (if running, otherwise has no effect)"));
+#ifndef QT_NO_DEBUG
+    options.add( "nui", ki18n("Sets KUniqueApplication::NonUniqueInstance (debug only, use with caution)"));
+#endif
 
     KCmdLineArgs::addCmdLineOptions(options);
     KCmdLineArgs::addStdCmdLineOptions();
@@ -113,7 +119,14 @@ int main(int argc, char* argv[])
         }
     }
 
-    if (!KUniqueApplication::start()) return 0;
+    KUniqueApplication::StartFlags startFlags;
+
+#ifndef QT_NO_DEBUG
+    if (args->isSet("nui"))
+        startFlags = KUniqueApplication::NonUniqueInstance;
+#endif
+
+    if (!KUniqueApplication::start(startFlags)) return 0;
 
     Application app;
 

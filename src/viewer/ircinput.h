@@ -17,6 +17,10 @@
 
 #include <KTextEdit>
 
+namespace Sonnet
+{
+    class Speller;
+}
 
 class KCompletionBox;
 
@@ -33,16 +37,18 @@ class IRCInput : public KTextEdit
         void setOldCursorPosition(int pos);
         int getOldCursorPosition();
         QString lastCompletion() const { return m_lastCompletion; }
+        void doInlineAutoreplace();
 
         virtual QSize sizeHint() const;
         virtual QSize minimumSizeHint() const;
 
         virtual bool event(QEvent* e);
 
+        virtual void createHighlighter();
+
     signals:
         void nickCompletion();
         void endCompletion();                     // tell channel that completion phase is over
-        void history(bool up);
         void textPasted(const QString& text);
         void submit();
         void envelopeCommand();
@@ -50,7 +56,7 @@ class IRCInput : public KTextEdit
     public slots:
         void paste(bool useSelection);
         void showCompletionList(const QStringList& nicks);
-        void setText(const QString& text);
+        void setText(const QString& text, bool preserveContents = false);
         void setLastCompletion(const QString& completion);
         virtual void setOverwriteMode(bool) { }
         virtual void updateAppearance();
@@ -60,6 +66,8 @@ class IRCInput : public KTextEdit
         void insertCompletion(const QString& nick);
         void disableSpellChecking();
         void setSpellChecking(bool set);
+        void insertLanguageMenu(QMenu* contextMenu);
+        void languageSelected();
 
         void maybeResize();
 
@@ -74,6 +82,7 @@ class IRCInput : public KTextEdit
         //virtual Q3PopupMenu *createPopupMenu( const QPoint& pos );
         virtual void showEvent(QShowEvent* e);
         virtual void hideEvent(QHideEvent* e);
+        virtual void resizeEvent(QResizeEvent* e);
 
         QStringList historyList;
         int lineNum;
@@ -85,5 +94,7 @@ class IRCInput : public KTextEdit
         int m_qtBoxPadding; //see comment in constructor
 
         QTimer* m_disableSpellCheckTimer;
+
+        static Sonnet::Speller* m_speller;
 };
 #endif

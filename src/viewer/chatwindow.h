@@ -22,6 +22,7 @@
 
 
 class IRCView;
+class IRCInput;
 class Server;
 
 class ChatWindow : public KVBox
@@ -70,6 +71,8 @@ class ChatWindow : public KVBox
         Server* getServer() const;
         void setTextView(IRCView* newView);
         IRCView* getTextView() const;
+        void setInputBar(IRCInput* newInputBar) { m_inputBar = newInputBar; }
+        IRCInput* getInputBar() { return m_inputBar; }
         virtual bool log();
 
         QString getName() const;
@@ -79,8 +82,10 @@ class ChatWindow : public KVBox
         void setType(WindowType newType);
         WindowType getType() const;
 
+        virtual void sendText(const QString& /*text*/) {}
+
         virtual void append(const QString& nickname,const QString& message);
-        virtual void appendRaw(const QString& message, bool suppressTimestamps=false);
+        virtual void appendRaw(const QString& message, bool self = false);
         virtual void appendLog(const QString& message);
         virtual void appendQuery(const QString& nickname,const QString& message, bool inChannel = false);
         virtual void appendAction(const QString& nickname,const QString& message);
@@ -119,7 +124,7 @@ class ChatWindow : public KVBox
         /** child classes have to override this and return true if they want the
          *  "insert character" item on the menu to be enabled.
          */
-        virtual bool isInsertSupported() { return false; }
+        virtual bool isInsertSupported() { return m_inputBar != 0; }
 
         /** child classes have to override this and return true if they want the
          *  "irc color" item on the menu to be enabled.
@@ -158,7 +163,7 @@ class ChatWindow : public KVBox
          */
         void adjustFocus();
 
-        virtual void appendInputText(const QString&, bool fromCursor);
+        virtual void appendInputText(const QString& text, bool fromCursor);
         virtual void indicateAway(bool away);
 
 
@@ -199,6 +204,9 @@ class ChatWindow : public KVBox
         /** A pointer to the server this chatwindow is part of.
          *  Not always non-null - e.g. for konsolepanel
          */
+
+        IRCInput* m_inputBar;
+
         Server* m_server;
         QFile logfile;
         WindowType type;

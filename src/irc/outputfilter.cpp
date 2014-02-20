@@ -83,35 +83,34 @@ namespace Konversation
     }
 
     // replace all aliases in the string and return true if anything got replaced at all
-    bool OutputFilter::replaceAliases(QString& line)
+    bool OutputFilter::replaceAliases(QString& line, ChatWindow* context)
     {
-        QStringList aliasList=Preferences::self()->aliasList();
-        QString cc(Preferences::self()->commandChar());
-        // check if the line starts with a defined alias
-        for(int index=0;index<aliasList.count();index++)
+        QStringList aliasList = Preferences::self()->aliasList();
+
+        for(int index = 0; index<aliasList.count(); index++)
         {
             // cut alias pattern from definition
-            QString aliasPattern(aliasList[index].section(' ',0,0));
+            QString aliasPattern(aliasList[index].section(' ', 0, 0));
+
             // cut first word from command line, so we do not wrongly find an alias
             // that starts with the same letters, like /m would override /me
-            QString lineStart=line.section(' ',0,0);
+            QString lineStart = line.section(' ', 0, 0);
 
             // pattern found?
-            // TODO: cc may be a regexp character here ... we should escape it then
-            if (lineStart==cc+aliasPattern)
+            if (lineStart == Preferences::self()->commandChar() + aliasPattern)
             {
-                QString aliasReplace;
+                QString aliasReplace = aliasList[index].section(' ',1);
 
-                // cut alias replacement from definition
-                if ( aliasList[index].contains("%p") )
-                    aliasReplace = aliasList[index].section(' ',1);
-                else
-                    aliasReplace = aliasList[index].section(' ',1 )+' '+line.section(' ',1 );
+                if (context)
+                    aliasReplace = context->getServer()->parseWildcards(aliasReplace, context);
+
+                if (!aliasList[index].contains("%p"))
+                    aliasReplace.append(' ' + line.section(' ', 1));
 
                 // protect "%%"
                 aliasReplace.replace("%%","%\x01");
                 // replace %p placeholder with rest of line
-                aliasReplace.replace("%p",line.section(' ',1));
+                aliasReplace.replace("%p", line.section(' ', 1));
                 // restore "%<1>" as "%%"
                 aliasReplace.replace("%\x01","%%");
                 // modify line
@@ -119,7 +118,7 @@ namespace Konversation
                 // return "replaced"
                 return true;
             }
-        }                                         // for
+        }
 
         return false;
     }
@@ -781,7 +780,7 @@ namespace Konversation
             ::Query* query = m_server->addQuery(nickInfo, true /*we initiated*/);
 
             // Force focus if the user did not specify any message.
-            if (output.isEmpty()) emit showView(query);
+            if (output.isEmpty() && Preferences::self()->focusNewQueries()) emit showView(query);
         }
 
         // Result should be completely empty;
@@ -1315,7 +1314,7 @@ namespace Konversation
         }
 
         result.type = Program;
-        result.typeString = i18n("Notify");
+        result.typeString = i18nc("Message type", "Notify");
 
         return result;
     }
@@ -1487,7 +1486,7 @@ namespace Konversation
                 showUsage = false;
             }
             // if all went good, signal server to unban this mask
-            if (!channel.isEmpty())
+            if (!channel.isEmpty() && parameterList.count())
             {
                 emit unbanUsers(parameterList[0], channel);
                 // syntax was correct, so reset flag
@@ -1539,6 +1538,7 @@ namespace Konversation
                     if (!parameterList[index].contains('!'))
                         parameterList[index] += "!*";
 
+                    Preferences::removeIgnore(parameterList[index]);
                     Preferences::addIgnore(parameterList[index] + ',' + QString::number(value));
                 }
 
@@ -1940,16 +1940,20 @@ namespace Konversation
         return OutputFilterResult();
     }
 
+    OutputFilterResult OutputFilter::command_umode(const OutputFilterInput& input)
+    {
+        OutputFilterResult result;
+
+        result.toServer = "MODE " + input.myNick + ' ' + input.parameter;
+
+        return result;
+    }
 
     OutputFilterResult OutputFilter::command_dumpdoc(const OutputFilterInput& input)
     {
         if (input.context && input.context->getTextView())
         {
-#if KDE_IS_VERSION(4,6,0)
-            KDebug::Block myBlock(qPrintable(QString::number((ulong)(input.context->getTextView()), 16)));
-#else
-            kDebug() << "view =" << qPrintable(QString::number((ulong)(input.context->getTextView()), 16));
-#endif
+            KDebug::Block myBlock(qPrintable(QString::number((quintptr)(input.context->getTextView()), 16)));
             kDebug() << input.context->getTextView()->document();
         }
         return OutputFilterResult();

@@ -27,11 +27,7 @@
 
 #include "transfer.h"
 
-#if KDE_IS_VERSION(4, 5, 0)
 class KCategoryDrawerV3;
-#else
-class KCategoryDrawer;
-#endif
 
 namespace Konversation
 {
@@ -83,27 +79,19 @@ namespace Konversation
         class TransferSizeDelegate : public QStyledItemDelegate
         {
         public:
-#if KDE_IS_VERSION(4, 5, 0)
             explicit TransferSizeDelegate(KCategoryDrawerV3* categoryDrawer, QObject *parent = 0);
-#else
-            explicit TransferSizeDelegate(KCategoryDrawer* categoryDrawer, QObject *parent = 0);
-#endif
 
             virtual QSize sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const;
             virtual void paint(QPainter *painter, const QStyleOptionViewItem & option,
                                 const QModelIndex &index) const;
         private:
-#if KDE_IS_VERSION(4, 5, 0)
             KCategoryDrawerV3* m_categoryDrawer;
-#else
-            KCategoryDrawer* m_categoryDrawer;
-#endif
         };
 
         class TransferProgressBarDelegate : public QStyledItemDelegate
         {
         public:
-            TransferProgressBarDelegate(QObject *parent = 0);
+            explicit TransferProgressBarDelegate(QObject *parent = 0);
 
             virtual void paint(QPainter *painter, const QStyleOptionViewItem & option,
                                 const QModelIndex &index) const;
@@ -113,7 +101,7 @@ namespace Konversation
         class TransferListProxyModel : public QSortFilterProxyModel
         {
         public:
-            TransferListProxyModel(QObject *parent = 0);
+            explicit TransferListProxyModel(QObject *parent = 0);
 
             bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
         };
@@ -134,7 +122,7 @@ namespace Konversation
                 TransferOfferDate //to get the QDateTime, not just a time string
             };
 
-            TransferListModel(QObject *parent);
+            explicit TransferListModel(QObject *parent);
 
             void append(const TransferItemData &item);
 

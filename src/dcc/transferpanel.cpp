@@ -466,7 +466,7 @@ namespace Konversation
                     Transfer *transfer = static_cast<Transfer*>(qVariantValue<QObject*>(index.data(TransferListModel::TransferPointer)));
                     if (transfer)
                     {
-                        runFile(transfer);
+                        transfer->runFile();
                     }
                 }
             }
@@ -511,7 +511,7 @@ namespace Konversation
         void TransferPanel::popupRequested(const QPoint &pos)
         {
             updateButton();
-            m_popup->popup(QWidget::mapToGlobal(pos));
+            m_popup->popup(QWidget::mapToGlobal(m_transferView->viewport()->mapTo(this, pos)));
         }
 
         void TransferPanel::doubleClicked(const QModelIndex &index)
@@ -519,7 +519,7 @@ namespace Konversation
             Transfer *transfer = static_cast<Transfer*>(qVariantValue<QObject*>(index.data(TransferListModel::TransferPointer)));
             if (transfer)
             {
-                runFile(transfer);
+                transfer->runFile();
             }
         }
 
@@ -531,14 +531,6 @@ namespace Konversation
         TransferView *TransferPanel::getTransferView()
         {
             return m_transferView;
-        }
-
-        void TransferPanel::runFile(Transfer *transfer)
-        {
-            if (transfer->getType() == Transfer::Send || transfer->getStatus() == Transfer::Done)
-            {
-                new KRun(transfer->getFileURL(), getTransferView());
-            }
         }
 
         void TransferPanel::openLocation(Transfer *transfer)
@@ -556,51 +548,9 @@ namespace Konversation
         {
             if (transfer->getType() == Transfer::Send || transfer->getStatus() == Transfer::Done)
             {
-#if KDE_IS_VERSION(4, 5, 0)
                 QPointer<FileMetaDataDialog> fileDialog = new FileMetaDataDialog(transfer->getFileURL(), this);
                 fileDialog->exec();
                 delete fileDialog;
-#else
-                QStringList infoList;
-
-                QString path = transfer->getFileURL().path();
-
-                // get meta info object
-                KFileMetaInfo fileMetaInfo(path, QString(), KFileMetaInfo::Everything);
-
-                // is there any info for this file?
-                if (fileMetaInfo.isValid())
-                {
-                    const QHash<QString, KFileMetaInfoItem>& items = fileMetaInfo.items();
-                    QHash<QString, KFileMetaInfoItem>::const_iterator it = items.constBegin();
-                    const QHash<QString, KFileMetaInfoItem>::const_iterator end = items.constEnd();
-                    while (it != end)
-                    {
-                        const KFileMetaInfoItem &metaInfoItem = it.value();
-                        const QVariant &value = metaInfoItem.value();
-                        if (value.isValid())
-                        {
-                            // append item information to list
-                            infoList.append("- " + metaInfoItem.name() + ' ' + value.toString());
-                        }
-                        ++it;
-                    }
-
-                    // display information list if any available
-                    if(infoList.count())
-                    {
-                        KMessageBox::information(
-                            getTransferView(),
-                            "<qt>"+infoList.join("<br>")+"</qt>",
-                            i18n("File Information")
-                            );
-                    }
-                }
-                else
-                {
-                    KMessageBox::sorry(getTransferView(), i18n("No detailed information for this file found."), i18n("File Information"));
-                }
-#endif
             }
         }
 

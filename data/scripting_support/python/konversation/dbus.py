@@ -51,11 +51,14 @@ def info(message, prefix=None):
 
     _dispatch('info', _prefix(message, prefix))
 
-def error(message, prefix=None):
+def error(message, prefix=None, exit=False):
 
     """Shows an error message in the active tab in Konversation."""
 
     _dispatch('error', _prefix(message, prefix))
+
+    if exit:
+        sys.exit(1)
 
 def say(message, prefix=None):
 
@@ -81,7 +84,7 @@ def _dispatch(*args):
 
     """Dispatch to Konversation's D-Bus API."""
 
-    subprocess.Popen(_dbus_command + args).communicate()
+    subprocess.call(_dbus_command + args)
 
 
 # Attributes

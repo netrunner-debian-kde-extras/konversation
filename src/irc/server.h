@@ -85,6 +85,14 @@ class Server : public QObject
             RegularPriority=StandardPriority
         };
 
+        enum CapModifier {
+            NoModifiers = 0x0,
+            DisMod = 0x1,
+            StickyMod = 0x2,
+            AckMod = 0x4
+        };
+        Q_DECLARE_FLAGS(CapModifiers, CapModifier)
+
         Server(QObject* parent, ConnectionSettings& settings);
         ~Server();
 
@@ -128,7 +136,7 @@ class Server : public QObject
 
         QAbstractItemModel* nickListModel() const;
         void resetNickSelection();
-        void addPendingNickList(const QString& channelName,const QStringList& nickList);
+        void queueNicks(const QString& channelName, const QStringList& nicknameList);
         void addHostmaskToNick(const QString &sourceNick, const QString &sourceHostmask);
         Channel* nickJoinsChannel(const QString &channelName, const QString &nickname, const QString &hostmask);
         void renameNick(const QString &nickname,const QString &newNick);
@@ -161,7 +169,7 @@ class Server : public QObject
         InputFilter* getInputFilter() { return &m_inputFilter; }
         Konversation::OutputFilter* getOutputFilter() { return m_outputFilter; };
 
-        void joinChannel(const QString& name, const QString& hostmask);
+        Channel* joinChannel(const QString& name, const QString& hostmask);
         void removeChannel(Channel* channel);
         void appendServerMessageToChannel(const QString& channel, const QString& type, const QString& message);
         void appendCommandMessageToChannel(const QString& channel, const QString& command, const QString& message,
@@ -184,8 +192,10 @@ class Server : public QObject
 
         Channel* getChannelByName(const QString& name);
         Query* getQueryByName(const QString& name);
-        QString parseWildcards(const QString& toParse, const QString& nickname, const QString& channelName, const QString &channelKey, const QStringList &nickList, const QString& parameter);
-        QString parseWildcards(const QString& toParse, const QString& nickname, const QString& channelName, const QString &channelKey, const QString& nick, const QString& parameter);
+        ChatWindow* getChannelOrQueryByName(const QString& name);
+        QString parseWildcards(const QString& toParse, ChatWindow* context = 0, const QStringList nicks = QStringList());
+        QString parseWildcards(const QString& toParse, const QString& nickname, const QString& channelName, const QString &channelKey, const QStringList &nickList, const QString& inputLineText);
+        QString parseWildcards(const QString& toParse, const QString& nickname, const QString& channelName, const QString &channelKey, const QString& nick, const QString& inputLineText);
 
         void autoCommandsAndChannels();
 
@@ -285,6 +295,11 @@ class Server : public QObject
          *  has been performed on it.
          */
         QStringList getNickChannels(const QString& nickname);
+        /** Returns a list of all the channels we're in that nickname is also in.
+         *  @param nickname    The desired nickname.  Case insensitive.
+         *  @return            A list of channels the nick is in that we're also in.  Empty if none.
+         */
+        QStringList getSharedChannels(const QString& nickname);
         /** Returns pointer to the ChannelNick (mode and pointer to NickInfo) for a
          *  given channel and nickname.
          *  @param channelName The desired channel name.  Case insensitive.
@@ -318,10 +333,9 @@ class Server : public QObject
         const QList<Channel *>& getChannelList() const { return m_channelList; }
 
         /**
-         * Returns a list of all the nicks on the user watch list plus nicks in the addressbook.
+         * Returns a lower case list of all the nicks on the user watch list plus nicks in the addressbook.
          */
         QStringList getWatchList();
-        QString getWatchListString();
         /**
          * Return true if the given nickname is on the watch list.
          */
@@ -349,6 +363,9 @@ class Server : public QObject
         void setAllowedChannelModes(const QString& modes) { m_allowedChannelModes = modes; }
         QString allowedChannelModes() const { return m_allowedChannelModes; }
 
+        void setTopicLength(int topicLength) { m_topicLength = topicLength; }
+        int topicLength() const { return m_topicLength; }
+
         void registerWithServices();
 
         // Blowfish stuff
@@ -356,6 +373,7 @@ class Server : public QObject
         void setKeyForRecipient(const QString& recipient, const QByteArray& key);
 
         bool identifyMsg() const { return m_identifyMsg; }
+        QString getLastAuthenticateCommand() const { return m_lastAuthenticateCommand; }
 
         ChannelListPanel* addChannelListPanel();
 
@@ -521,11 +539,19 @@ class Server : public QObject
         /// Will only reconnect if the connection state is involuntary disconnected.
         void reconnectInvoluntary();
 
+        void capInitiateNegotiation();
+        void capReply();
+        void capEndNegotiation();
+        void capCheckIgnored();
+        void capAcknowledged(const QString& name, CapModifiers modifiers);
+        void capDenied(const QString& name);
+        void sendAuthenticate(const QString& message);
+
     protected slots:
         void hostFound();
         void preShellCommandExited(int exitCode, QProcess::ExitStatus exitStatus);
         void preShellCommandError(QProcess::ProcessError eror);
-        void ircServerConnectionSuccess();
+        void socketConnected();
         void startAwayTimer();
         void incoming();
         void processIncomingData();
@@ -564,6 +590,7 @@ class Server : public QObject
         void userhost(const QString& nick,const QString& hostmask,bool away,bool ircOp);
         void setTopicAuthor(const QString& channel,const QString& author, QDateTime t);
         void endOfWho(const QString& target);
+        void endOfNames(const QString& target);
         void invitation(const QString& nick,const QString& channel);
         void gotOwnResolvedHostByWelcome(const QHostInfo& res);
         void gotOwnResolvedHostByUserhost(const QHostInfo& res);
@@ -720,8 +747,10 @@ class Server : public QObject
         QString m_ownIpByUserhost;                  // RPL_USERHOST
         QString m_ownIpByWelcome;                   // RPL_WELCOME
 
-        QList<Channel *> m_channelList;
-        QList<Query *> m_queryList;
+        QList<Channel*> m_channelList;
+        QHash<QString, Channel*> m_loweredChannelNameHash;
+
+        QList<Query*> m_queryList;
 
         InputFilter m_inputFilter;
         Konversation::OutputFilter* m_outputFilter;
@@ -785,11 +814,12 @@ class Server : public QObject
 
         QString m_allowedChannelModes;
 
+        int m_topicLength;
+
         // Blowfish key map
         QHash<QString, QByteArray> m_keyHash;
 
         bool m_identifyMsg;
-        bool m_autoIdentifyLock;
 
         bool m_sslErrorLock;
 
@@ -805,6 +835,10 @@ class Server : public QObject
 
         /// Previous ISON reply of the server, needed for comparison with the next reply
         QStringList m_prevISONList;
+
+        bool m_capRequested;
+        bool m_capAnswered;
+        QString m_lastAuthenticateCommand;
 
         ConnectionSettings m_connectionSettings;
 
@@ -825,5 +859,7 @@ class Server : public QObject
 
         bool m_recreationScheduled;
 };
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(Server::CapModifiers)
 
 #endif

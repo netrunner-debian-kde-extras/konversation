@@ -33,6 +33,7 @@ class Images;
 class UrlCatcher;
 class NicksOnline;
 class QueueTuner;
+class ViewSpringLoader;
 
 namespace Konversation
 {
@@ -51,7 +52,7 @@ class TabWidget : public KTabWidget
     Q_OBJECT
 
     public:
-        TabWidget(QWidget* parent = 0);
+        explicit TabWidget(QWidget* parent = 0);
         ~TabWidget();
 
     // Suppress krazy2 false positive (cf. kdelibs bug #207747).
@@ -84,6 +85,7 @@ class ViewContainer : public QObject
         void showQueueTuner(bool);
 
         int getViewIndex(QWidget* widget);
+        ChatWindow* getViewAt(int index);
 
         QList<QPair<QString,QString> > getChannelsURI();
 
@@ -99,6 +101,7 @@ class ViewContainer : public QObject
         void unsetViewNotification(ChatWindow* view);
         void toggleViewNotifications();
         void toggleAutoJoin();
+        void toggleConnectOnStartup();
 
         void showView(ChatWindow* view);
         void goToView(int page);
@@ -132,6 +135,7 @@ class ViewContainer : public QObject
         void insertCharacter();
         void insertChar(const QChar& chr);
         void insertIRCColor();
+        void doAutoReplace();
 
         void focusInputBox();
 
@@ -198,6 +202,7 @@ class ViewContainer : public QObject
         void updateStatusBarSSLLabel(Server* server);
         void removeStatusBarSSLLabel();
         void autoJoinToggled(const Konversation::ServerGroupSettingsPtr);
+        void autoConnectOnStartupToggled(const Konversation::ServerGroupSettingsPtr);
 
         void frontServerChanging(Server*);
 
@@ -251,6 +256,8 @@ class ViewContainer : public QObject
         int m_queryViewCount;
 
         QList<ChatWindow*> m_activeViewOrderList;
+
+        ViewSpringLoader* m_viewSpringLoader;
 };
 
 #endif
