@@ -38,12 +38,15 @@
 #include "serverison.h"
 #include "notificationhandler.h"
 #include "awaymanager.h"
+#include "ircinput.h"
 
 #include <QTextCodec>
 #include <QStringListModel>
+#include <QStringBuilder>
 
 #include <KInputDialog>
 #include <KWindowSystem>
+#include <KShell>
 
 #include <solid/networking.h>
 
@@ -79,7 +82,8 @@ Server::Server(QObject* parent, ConnectionSettings& settings) : QObject(parent)
 
     m_processingIncoming = false;
     m_identifyMsg = false;
-    m_autoIdentifyLock = false;
+    m_capRequested = false;
+    m_capAnswered = false;
     m_autoJoin = false;
 
     m_nickIndices.clear();
@@ -105,10 +109,11 @@ Server::Server(QObject* parent, ConnectionSettings& settings) : QObject(parent)
     m_channelPrefixes = "#&";
     m_modesCount = 3;
     m_sslErrorLock = false;
+    m_topicLength = -1;
 
-    setObjectName(QString::fromLatin1("server_") + settings.name());
+    setObjectName(QString::fromLatin1("server_") + m_connectionSettings.name());
 
-    setNickname(settings.initialNick());
+    setNickname(m_connectionSettings.initialNick());
     obtainNickInfo(getNickname());
 
     m_statusView = getViewContainer()->addStatusView(this);
@@ -122,7 +127,7 @@ Server::Server(QObject* parent, ConnectionSettings& settings) : QObject(parent)
     // For /msg query completion
     m_completeQueryPosition = 0;
 
-    updateAutoJoin(settings.oneShotChannelList());
+    updateAutoJoin(m_connectionSettings.oneShotChannelList());
 
     if (!getIdentity()->getShellCommand().isEmpty())
         QTimer::singleShot(0, this, SLOT(doPreShellCommand()));
@@ -188,6 +193,7 @@ Server::~Server()
 
     qDeleteAll(m_channelList);
     m_channelList.clear();
+    m_loweredChannelNameHash.clear();
 
     qDeleteAll(m_queryList);
     m_queryList.clear();
@@ -230,6 +236,9 @@ void Server::purgeData()
     m_unjoinedChannels.clear();
 
     m_queryNicks.clear();
+    delete m_serverISON;
+    m_serverISON = 0;
+
 }
 
 //... so called to match the ChatWindow derivatives.
@@ -249,19 +258,28 @@ void Server::cycle()
 
 void Server::doPreShellCommand()
 {
-    QString command = getIdentity()->getShellCommand();
-    getStatusView()->appendServerMessage(i18n("Info"),"Running preconfigured command...");
+    KShell::Errors e;
+    QStringList command = KShell::splitArgs(getIdentity()->getShellCommand(), KShell::TildeExpand, &e);
+    if (e != KShell::NoError)
+    {
+        //FIXME The flow needs to be refactored, add a finally-like method that does the ready-to-connect stuff
+        // "The pre-connect shell command could not be understood!");
+        preShellCommandExited(m_preShellCommand.exitCode(), m_preShellCommand.exitStatus());
+    }
+    else
+    {
+        // FIXME add i18n, and in preShellCommandExited and preShellCommandError
+        getStatusView()->appendServerMessage(i18n("Info"), i18nc("The command mentioned is executed in a shell prior to connecting.", "Running pre-connect shell command..."));
 
-    connect(&m_preShellCommand,SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(preShellCommandExited(int,QProcess::ExitStatus)));
-    connect(&m_preShellCommand,SIGNAL(error(QProcess::ProcessError)), this, SLOT(preShellCommandError(QProcess::ProcessError)));
+        connect(&m_preShellCommand, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(preShellCommandExited(int,QProcess::ExitStatus)));
+        connect(&m_preShellCommand, SIGNAL(error(QProcess::ProcessError)), SLOT(preShellCommandError(QProcess::ProcessError)));
 
-    const QStringList commandList = command.split(' ');
-
-    for (QStringList::ConstIterator it = commandList.begin(); it != commandList.end(); ++it)
-        m_preShellCommand << *it;
-
-    m_preShellCommand.start();
-    if (m_preShellCommand.state() == QProcess::NotRunning) preShellCommandExited(m_preShellCommand.exitCode(), m_preShellCommand.exitStatus());
+        m_preShellCommand.setProgram(command);
+        m_preShellCommand.start();
+        // NOTE: isConnecting is tested in connectToIRCServer so there's no guard here
+        if (m_preShellCommand.state() == QProcess::NotRunning)
+            preShellCommandExited(m_preShellCommand.exitCode(), m_preShellCommand.exitStatus());
+    }
 }
 
 void Server::initTimers()
@@ -303,8 +321,8 @@ void Server::connectSignals()
     connect(getOutputFilter(), SIGNAL(encodingChanged()), this, SLOT(updateEncoding()));
 
     Application* konvApp = static_cast<Application*>(kapp);
-    connect(getOutputFilter(), SIGNAL(connectTo(Konversation::ConnectionFlag, QString, QString, QString, QString, QString, bool)),
-        konvApp->getConnectionManager(), SLOT(connectTo(Konversation::ConnectionFlag, QString, QString, QString, QString, QString, bool)));
+    connect(getOutputFilter(), SIGNAL(connectTo(Konversation::ConnectionFlag,QString,QString,QString,QString,QString,bool)),
+         konvApp->getConnectionManager(), SLOT(connectTo(Konversation::ConnectionFlag,QString,QString,QString,QString,QString,bool)));
     connect(konvApp->getDccTransferManager(), SIGNAL(newDccTransferQueued(Konversation::DCC::Transfer*)),
             this, SLOT(slotNewDccTransferItemQueued(Konversation::DCC::Transfer*)));
 
@@ -329,6 +347,7 @@ void Server::connectSignals()
             this, SLOT(rejectDccChat(QString)));
     connect(&m_inputFilter, SIGNAL(startReverseDccChat(QString,QStringList)),
             this, SLOT(startReverseDccChat(QString,QStringList)));
+    connect(&m_inputFilter, SIGNAL(welcome(QString)), this, SLOT(capCheckIgnored()));
     connect(&m_inputFilter, SIGNAL(welcome(QString)), this, SLOT(connectionEstablished(QString)));
     connect(&m_inputFilter, SIGNAL(notifyResponse(QString)), this, SLOT(notifyResponse(QString)));
     connect(&m_inputFilter, SIGNAL(startReverseDccSendTransfer(QString,QStringList)),
@@ -347,6 +366,8 @@ void Server::connectSignals()
         this, SLOT(setTopicAuthor(QString,QString,QDateTime)) );
     connect(&m_inputFilter, SIGNAL(endOfWho(QString)),
         this, SLOT(endOfWho(QString)) );
+    connect(&m_inputFilter, SIGNAL(endOfNames(QString)),
+        this, SLOT(endOfNames(QString)) );
     connect(&m_inputFilter, SIGNAL(invitation(QString,QString)),
         this,SLOT(invitation(QString,QString)) );
     connect(&m_inputFilter, SIGNAL(addToChannelList(QString,int,QString)),
@@ -394,9 +415,12 @@ void Server::preShellCommandExited(int exitCode, QProcess::ExitStatus exitStatus
 {
     Q_UNUSED(exitCode);
     if (exitStatus == QProcess::NormalExit)
-        getStatusView()->appendServerMessage(i18n("Info"),"Process executed successfully!");
+        getStatusView()->appendServerMessage(i18n("Info"), i18n("Pre-shell command executed successfully!"));
     else
-        getStatusView()->appendServerMessage(i18n("Warning"),"There was a problem while executing the command!");
+    {
+        QString errorText = i18nc("An error message from KDE or Qt is appended.", "There was a problem while executing the command: ") % m_preShellCommand.errorString();
+        getStatusView()->appendServerMessage(i18n("Warning"), errorText);
+    }
 
     connectToIRCServer();
     connectSignals();
@@ -406,7 +430,8 @@ void Server::preShellCommandError(QProcess::ProcessError error)
 {
     Q_UNUSED(error);
 
-    getStatusView()->appendServerMessage(i18n("Warning"),"There was a problem while executing the command!");
+    QString errorText = i18nc("An error message from KDE or Qt is appended.", "There was a problem while executing the command: ") % m_preShellCommand.errorString();
+    getStatusView()->appendServerMessage(i18n("Warning"), errorText);
 
     connectToIRCServer();
     connectSignals();
@@ -414,7 +439,7 @@ void Server::preShellCommandError(QProcess::ProcessError error)
 
 void Server::connectToIRCServer()
 {
-    if (!isConnected())
+    if (!isConnected() && !isConnecting())
     {
         if (m_sslErrorLock)
         {
@@ -432,7 +457,6 @@ void Server::connectToIRCServer()
 
         updateConnectionState(Konversation::SSConnecting);
 
-        m_autoIdentifyLock = false;
         m_ownIpByUserhost.clear();
 
         resetQueues();
@@ -458,19 +482,25 @@ void Server::connectToIRCServer()
             QString::number(getConnectionSettings().server().port())));
 
         // connect() will do a async lookup too
-        if(!getConnectionSettings().server().SSLEnabled())
+        if(getConnectionSettings().server().SSLEnabled() || getIdentity()->getAuthType() == "pemclientcert")
         {
-            connect(m_socket, SIGNAL(connected()), SLOT (ircServerConnectionSuccess()));
-            m_socket->connectToHost(getConnectionSettings().server().host(), getConnectionSettings().server().port());
-        }
-        else
-        {
-            connect(m_socket, SIGNAL(encrypted()), SLOT (ircServerConnectionSuccess()));
+            connect(m_socket, SIGNAL(encrypted()), SLOT (socketConnected()));
             connect(m_socket, SIGNAL(sslErrors(QList<KSslError>)), SLOT(sslError(QList<KSslError>)));
+
+            if (getIdentity()->getAuthType() == "pemclientcert")
+            {
+                m_socket->setLocalCertificate(getIdentity()->getPemClientCertFile().toLocalFile());
+                m_socket->setPrivateKey(getIdentity()->getPemClientCertFile().toLocalFile());
+            }
 
             m_socket->setAdvertisedSslVersion(KTcpSocket::TlsV1);
 
             m_socket->connectToHostEncrypted(getConnectionSettings().server().host(), getConnectionSettings().server().port());
+        }
+        else
+        {
+            connect(m_socket, SIGNAL(connected()), SLOT (socketConnected()));
+            m_socket->connectToHost(getConnectionSettings().server().host(), getConnectionSettings().server().port());
         }
 
         // set up the connection details
@@ -479,7 +509,7 @@ void Server::connectToIRCServer()
         m_inputFilter.reset();
     }
     else
-        kDebug() << "connectToIRCServer() called while already connected: This should never happen.";
+        kDebug() << "connectToIRCServer() called while already connected: This should never happen. (" << (isConnecting() << 1) + isConnected() << ')';
 }
 
 void Server::connectToIRCServerIn(uint delay)
@@ -620,30 +650,117 @@ void Server::hostFound()
     getStatusView()->appendServerMessage(i18n("Info"),i18n("Server found, connecting..."));
 }
 
-void Server::ircServerConnectionSuccess()
+void Server::socketConnected()
 {
     emit sslConnected(this);
     getConnectionSettings().setReconnectCount(0);
 
-    Konversation::ServerSettings serverSettings = getConnectionSettings().server();
-
-    connect(this, SIGNAL(nicknameChanged(QString)), getStatusView(), SLOT(setNickname(QString)));
-    getStatusView()->appendServerMessage(i18n("Info"),i18n("Connected; logging in..."));
-
-    QString connectString = "USER " +
-        getIdentity()->getIdent() +
-        " 8 * :" +                                // 8 = +i; 4 = +w
-        getIdentity()->getRealName();
+    if (getIdentity() && getIdentity()->getAuthType() == "saslplain"
+        && !getIdentity()->getSaslAccount().isEmpty() && !getIdentity()->getAuthPassword().isEmpty())
+    {
+        capInitiateNegotiation();
+    }
 
     QStringList ql;
-    if (!serverSettings.password().isEmpty())
-        ql << "PASS " + serverSettings.password();
 
-    ql << "NICK "+getNickname();
-    ql << connectString;
+    if (getIdentity() && getIdentity()->getAuthType() == "serverpw"
+        && !getIdentity()->getAuthPassword().isEmpty())
+    {
+        ql << "PASS " + getIdentity()->getAuthPassword();
+    }
+    else if (!getConnectionSettings().server().password().isEmpty())
+        ql << "PASS " + getConnectionSettings().server().password();
+
+    ql << "NICK " + getNickname();
+    ql << "USER " + getIdentity()->getIdent() + " 8 * :" /* 8 = +i; 4 = +w */ +  getIdentity()->getRealName();
+
     queueList(ql, HighPriority);
 
+    connect(this, SIGNAL(nicknameChanged(QString)), getStatusView(), SLOT(setNickname(QString)));
     setNickname(getNickname());
+}
+
+void Server::capInitiateNegotiation()
+{
+    getStatusView()->appendServerMessage(i18n("Info"),i18n("Negotiating capabilities with server..."));
+
+    getStatusView()->appendServerMessage(i18n("Info"),i18n("Requesting SASL capability..."));
+    queue("CAP REQ :sasl", HighPriority);
+
+    m_capRequested = true;
+}
+
+void Server::capReply()
+{
+    m_capAnswered = true;
+}
+
+void Server::capEndNegotiation()
+{
+    getStatusView()->appendServerMessage(i18n("Info"),i18n("Closing capabilities negotiation."));
+
+    queue("CAP END", HighPriority);
+}
+
+void Server::capCheckIgnored()
+{
+    if (m_capRequested && !m_capAnswered)
+        getStatusView()->appendServerMessage(i18n("Error"), i18n("Capabilities negotiation failed: Appears not supported by server."));
+}
+
+void Server::capAcknowledged(const QString& name, Server::CapModifiers modifiers)
+{
+    m_capAnswered = true;
+
+    if (name == "sasl" && modifiers == Server::NoModifiers)
+    {
+        getStatusView()->appendServerMessage(i18n("Info"), i18n("SASL capability acknowledged by server, attempting SASL PLAIN authentication..."));
+        sendAuthenticate("PLAIN");
+    }
+}
+
+void Server::capDenied(const QString& name)
+{
+    if (name == "sasl")
+        getStatusView()->appendServerMessage(i18n("Error"), i18n("SASL capability denied or not supported by server."));
+
+    capEndNegotiation();
+}
+
+void Server::registerWithServices()
+{
+    if (!getIdentity())
+        return;
+
+    NickInfoPtr nickInfo = getNickInfo(getNickname());
+    if (nickInfo && nickInfo->isIdentified())
+        return;
+
+    if (getIdentity()->getAuthType() == "nickserv")
+    {
+        if (!getIdentity()->getNickservNickname().isEmpty()
+            && !getIdentity()->getNickservCommand().isEmpty()
+            && !getIdentity()->getAuthPassword().isEmpty())
+        {
+            queue("PRIVMSG "+getIdentity()->getNickservNickname()+" :"+getIdentity()->getNickservCommand()+' '+getIdentity()->getAuthPassword(), HighPriority);
+        }
+    }
+    else if (getIdentity()->getAuthType() == "saslplain")
+    {
+        QString authString = getIdentity()->getSaslAccount();
+        authString.append(QChar(QChar::Null));
+        authString.append(getIdentity()->getSaslAccount());
+        authString.append(QChar(QChar::Null));
+        authString.append(getIdentity()->getAuthPassword());
+
+        sendAuthenticate(authString.toAscii().toBase64());
+    }
+}
+
+void Server::sendAuthenticate(const QString& message)
+{
+    m_lastAuthenticateCommand = message;
+    queue("AUTHENTICATE " + message, HighPriority);
 }
 
 void Server::broken(KTcpSocket::Error error)
@@ -675,6 +792,7 @@ void Server::broken(KTcpSocket::Error error)
 
     emit resetLag(this);
     emit nicksNowOnline(this, QStringList(), true);
+    m_prevISONList.clear();
 
     updateAutoJoin();
 
@@ -802,11 +920,16 @@ void Server::connectionEstablished(const QString& ownHost)
 
     // Make a helper object to build ISON (notify) list and map offline nicks to addressbook.
     // TODO: Give the object a kick to get it started?
+    delete m_serverISON;
     m_serverISON = new ServerISON(this);
+
     // get first notify very early
     startNotifyTimer(1000);
+
     // Register with services
-    registerWithServices();
+    if (getIdentity() && getIdentity()->getAuthType() == "nickserv")
+        registerWithServices();
+
     // get own ip by userhost
     requestUserhost(getNickname());
 
@@ -819,18 +942,6 @@ void Server::connectionEstablished(const QString& ownHost)
         // Correct server's beliefs about its away state.
         m_away = false;
         requestAway(m_awayReason);
-    }
-}
-
-void Server::registerWithServices()
-{
-    if (getIdentity() && !getIdentity()->getBot().isEmpty()
-        && !getIdentity()->getPassword().isEmpty()
-        && !m_autoIdentifyLock)
-    {
-        queue("PRIVMSG "+getIdentity()->getBot()+" :identify "+getIdentity()->getPassword(), HighPriority);
-
-        m_autoIdentifyLock = true;
     }
 }
 
@@ -931,13 +1042,12 @@ void Server::quitServer(const QString& quitMessage)
 
 void Server::notifyAction(const QString& nick)
 {
+    QString out(Preferences::self()->notifyDoubleClickAction());
+
+    getOutputFilter()->replaceAliases(out);
+
     // parse wildcards (toParse,nickname,channelName,nickList,parameter)
-    QString out = parseWildcards(Preferences::self()->notifyDoubleClickAction(),
-        getNickname(),
-        QString(),
-        QString(),
-        nick,
-        QString());
+    out = parseWildcards(out, getNickname(), QString(), QString(), nick, QString());
 
     // Send all strings, one after another
     QStringList outList = out.split('\n', QString::SkipEmptyParts);
@@ -1486,6 +1596,8 @@ bool Server::queueList(const QStringList& buffer, QueuePriority priority)
 
 void Server::resetQueues()
 {
+    m_incomingTimer.stop();
+    m_inputBuffer.clear();
     for (int i=0; i <= Application::instance()->countOfQueues(); i++)
         m_queues[i]->reset();
 }
@@ -1533,7 +1645,7 @@ void Server::dbusSay(const QString& target,const QString& command)
     if(isAChannel(target))
     {
         Channel* channel=getChannelByName(target);
-        if(channel) channel->sendChannelText(command);
+        if(channel) channel->sendText(command);
     }
     else
     {
@@ -1546,7 +1658,7 @@ void Server::dbusSay(const QString& target,const QString& command)
         if(query)
         {
             if(!command.isEmpty())
-                query->sendQueryText(command);
+                query->sendText(command);
             else
             {
                 query->adjustFocus();
@@ -1663,12 +1775,8 @@ ChannelNickPtr Server::setChannelNick(const QString& channelName, const QString&
     ChannelNickPtr channelNick = getChannelNick(channelName, lcNickname);
     if (!channelNick)
     {
-        // Get watch list from preferences.
-        QString watchlist=getWatchListString();
-        // Create a lower case nick list from the watch list.
-        QStringList watchLowerList = watchlist.toLower().split(' ', QString::SkipEmptyParts);
-        // If on the watch list, add channel and nick to unjoinedChannels list.
-        if (watchLowerList.contains(lcNickname))
+        // If the nick is on the watch list, add channel and nick to unjoinedChannels list.
+        if (getWatchList().contains(lcNickname, Qt::CaseInsensitive))
         {
             channelNick = addNickToUnjoinedChannelsList(channelName, nickname);
             channelNick->setMode(mode);
@@ -1704,6 +1812,18 @@ QStringList Server::getNickChannels(const QString& nickname)
         if (channel.value()->contains(lcNickname)) channellist.append(channel.key());
     }
     for( channel = m_unjoinedChannels.constBegin(); channel != m_unjoinedChannels.constEnd(); ++channel )
+    {
+        if (channel.value()->contains(lcNickname)) channellist.append(channel.key());
+    }
+    return channellist;
+}
+
+QStringList Server::getSharedChannels(const QString& nickname)
+{
+    QString lcNickname = nickname.toLower();
+    QStringList channellist;
+    ChannelMembershipMap::ConstIterator channel;
+    for( channel = m_joinedChannels.constBegin(); channel != m_joinedChannels.constEnd(); ++channel )
     {
         if (channel.value()->contains(lcNickname)) channellist.append(channel.key());
     }
@@ -1755,6 +1875,10 @@ Query* Server::addQuery(const NickInfoPtr & nickInfo, bool weinitiated)
         if (!weinitiated)
             static_cast<Application*>(kapp)->notificationHandler()->query(query, nickname);
     }
+    else if (weinitiated)
+    {
+        emit showView(query);
+    }
 
     // try to get hostmask if there's none yet
     if (query->getNickInfo()->getHostmask().isEmpty()) requestUserhost(nickname);
@@ -1782,7 +1906,7 @@ void Server::closeChannel(const QString& name)
     kDebug() << "Server::closeChannel(" << name << ")";
     Channel* channelToClose = getChannelByName(name);
 
-    if(channelToClose)
+    if (channelToClose && channelToClose->joined())
     {
         Konversation::OutputFilterResult result = getOutputFilter()->parse(getNickname(),
             Preferences::self()->commandChar() + "PART", name);
@@ -2589,7 +2713,7 @@ void Server::sendJoinCommand(const QString& name, const QString& password)
     queue(result.toServer);
 }
 
-void Server::joinChannel(const QString& name, const QString& hostmask)
+Channel* Server::joinChannel(const QString& name, const QString& hostmask)
 {
     // (re-)join channel, open a new panel if needed
     Channel* channel = getChannelByName(name);
@@ -2609,6 +2733,7 @@ void Server::joinChannel(const QString& name, const QString& hostmask)
         }
 
         m_channelList.append(channel);
+        m_loweredChannelNameHash.insert(channel->getName().toLower(), channel);
 
         connect(channel,SIGNAL (sendFile()),this,SLOT (requestDccSend()) );
         connect(this, SIGNAL(nicknameChanged(QString)), channel, SLOT(setNickname(QString)));
@@ -2624,6 +2749,8 @@ void Server::joinChannel(const QString& name, const QString& hostmask)
     }
 
     channel->joinNickname(channelNick);
+
+    return channel;
 }
 
 void Server::removeChannel(Channel* channel)
@@ -2639,6 +2766,7 @@ void Server::removeChannel(Channel* channel)
     }
 
     m_channelList.removeOne(channel);
+    m_loweredChannelNameHash.remove(channel->getName().toLower());
 
     if (!isConnected())
         updateAutoJoin();
@@ -2709,12 +2837,9 @@ Channel* Server::getChannelByName(const QString& name)
     // Convert wanted channel name to lowercase
     QString wanted = name.toLower();
 
-    // Traverse through list to find the channel named "name"
-    foreach (Channel* lookChannel, m_channelList)
-    {
-        if (lookChannel->getName().toLower()==wanted) return lookChannel;
-    }
-    // No channel by that name found? Return 0. Happens on first channel join
+    if (m_loweredChannelNameHash.contains(wanted))
+        return m_loweredChannelNameHash.value(wanted);
+
     return 0;
 }
 
@@ -2732,10 +2857,20 @@ Query* Server::getQueryByName(const QString& name)
     return 0;
 }
 
-void Server::addPendingNickList(const QString& channelName,const QStringList& nickList)
+ChatWindow* Server::getChannelOrQueryByName(const QString& name)
 {
-    Channel* outChannel=getChannelByName(channelName);
-    if(outChannel) outChannel->addPendingNickList(nickList);
+    ChatWindow* window = getChannelByName(name);
+
+    if (!window)
+        window = getQueryByName(name);
+
+    return window;
+}
+
+void Server::queueNicks(const QString& channelName, const QStringList& nicknameList)
+{
+    Channel* channel = getChannelByName(channelName);
+    if (channel) channel->queueNicks(nicknameList);
 }
 
 // Adds a nickname to the joinedChannels list.
@@ -2878,7 +3013,7 @@ NickInfoPtr Server::setWatchedNickOnline(const QString& nickname)
     KABC::Addressee addressee = nickInfo->getAddressee();
     if (!addressee.isEmpty()) Konversation::Addressbook::self()->emitContactPresenceChanged(addressee.uid());
 
-    appendMessageToFrontmost(i18n("Notify"), i18n("%1 is online (%2).", nickname, getServerName()), getStatusView());
+    appendMessageToFrontmost(i18nc("Message type", "Notify"), i18n("%1 is online (%2).", nickname, getServerName()), getStatusView());
 
     static_cast<Application*>(kapp)->notificationHandler()->nickOnline(getStatusView(), nickname);
 
@@ -2895,7 +3030,7 @@ void Server::setWatchedNickOffline(const QString& nickname, const NickInfoPtr ni
 
     emit watchedNickChanged(this, nickname, false);
 
-    appendMessageToFrontmost(i18n("Notify"), i18n("%1 went offline (%2).", nickname, getServerName()), getStatusView());
+    appendMessageToFrontmost(i18nc("Message type", "Notify"), i18n("%1 went offline (%2).", nickname, getServerName()), getStatusView());
 
     static_cast<Application*>(kapp)->notificationHandler()->nickOffline(getStatusView(), nickname);
 
@@ -3023,8 +3158,6 @@ QStringList Server::getWatchList()
         return QStringList();
 }
 
-QString Server::getWatchListString() { return getWatchList().join(" "); }
-
 QStringList Server::getISONList()
 {
     // no nickinfo ISON for the time being
@@ -3115,7 +3248,6 @@ void Server::renameNickInfo(NickInfoPtr nickInfo, const QString& newname)
         // Get existing lowercase nickname and rename nickname in the NickInfo object.
         QString lcNickname(nickInfo->loweredNickname());
         nickInfo->setNickname(newname);
-        nickInfo->setIdentified(false);
         QString lcNewname(newname.toLower());
         // Rename the key in m_allNicks list.
         m_allNicks.remove(lcNickname);
@@ -3183,7 +3315,7 @@ Channel* Server::removeNickFromChannel(const QString &channelName, const QString
     Channel* outChannel = getChannelByName(channelName);
     if(outChannel)
     {
-        outChannel->flushPendingNicks();
+        outChannel->flushNickQueue();
         ChannelNickPtr channelNick = getChannelNick(channelName, nickname);
         if(channelNick)
         {
@@ -3210,7 +3342,7 @@ void Server::nickWasKickedFromChannel(const QString &channelName, const QString 
     Channel* outChannel = getChannelByName(channelName);
     if(outChannel)
     {
-        outChannel->flushPendingNicks();
+        outChannel->flushNickQueue();
         ChannelNickPtr channelNick = getChannelNick(channelName, nickname);
 
         if(channelNick)
@@ -3226,7 +3358,7 @@ void Server::removeNickFromServer(const QString &nickname,const QString &reason)
 {
     foreach (Channel* channel, m_channelList)
     {
-        channel->flushPendingNicks();
+        channel->flushNickQueue();
         // Check if nick is in this channel or not.
         if(channel->getNickByName(nickname))
             removeNickFromChannel(channel->getName(),nickname,reason,true);
@@ -3250,12 +3382,7 @@ void Server::renameNick(const QString &nickname, const QString &newNick)
 
     // If this was our own nickchange, tell our server object about it
     if (nickname == getNickname())
-    {
         setNickname(newNick);
-
-        // We may get a request from nickserv, so remove the auto-identify lock.
-        m_autoIdentifyLock = false;
-    }
 
     //Actually do the rename.
     NickInfoPtr nickInfo = getNickInfo(nickname);
@@ -3272,7 +3399,7 @@ void Server::renameNick(const QString &nickname, const QString &newNick)
         // Rename the nick in every channel they are in
         foreach (Channel* channel, m_channelList)
         {
-            channel->flushPendingNicks();
+            channel->flushNickQueue();
 
             // All we do is notify that the nick has been renamed.. we haven't actually renamed it yet
             if (channel->getNickByName(nickname)) channel->nickRenamed(nickname, *nickInfo);
@@ -3399,6 +3526,13 @@ void Server::endOfWho(const QString& target)
         channel->scheduleAutoWho();
 }
 
+void Server::endOfNames(const QString& target)
+{
+    Channel* channel = getChannelByName(target);
+    if(channel)
+        channel->endOfNames();
+}
+
 bool Server::isNickname(const QString &compare) const
 {
     return (m_nickname == compare);
@@ -3414,14 +3548,36 @@ QString Server::loweredNickname() const
     return m_loweredNickname;
 }
 
+QString Server::parseWildcards(const QString& toParse, ChatWindow* context, QStringList nicks)
+{
+    QString inputLineText;
+
+    if (context && context->getInputBar())
+        inputLineText = context->getInputBar()->toPlainText();
+
+    if (!context)
+        return parseWildcards(toParse, getNickname(), QString(), QString(), QString(), QString());
+    else if (context->getType() == ChatWindow::Channel)
+    {
+        Channel* channel = static_cast<Channel*>(context);
+
+        return parseWildcards(toParse, getNickname(), context->getName(), channel->getPassword(),
+            nicks.count() ? nicks : channel->getSelectedNickList(), inputLineText);
+    }
+    else if (context->getType() == ChatWindow::Query)
+        return parseWildcards(toParse, getNickname(), context->getName(), QString(), context->getName(), inputLineText);
+
+    return parseWildcards(toParse, getNickname(), context->getName(), QString(), QString(), inputLineText);
+}
+
 QString Server::parseWildcards(const QString& toParse,
 const QString& sender,
 const QString& channelName,
 const QString& channelKey,
 const QString& nick,
-const QString& parameter)
+const QString& inputLineText)
 {
-    return parseWildcards(toParse, sender, channelName, channelKey, nick.split(' ', QString::SkipEmptyParts), parameter);
+    return parseWildcards(toParse, sender, channelName, channelKey, nick.split(' ', QString::SkipEmptyParts), inputLineText);
 }
 
 QString Server::parseWildcards(const QString& toParse,
@@ -3429,10 +3585,9 @@ const QString& sender,
 const QString& channelName,
 const QString& channelKey,
 const QStringList& nickList,
-const QString& /*parameter*/)
+const QString& inputLineText
+)
 {
-    // TODO: parameter handling, since parameters are not functional yet
-
     // store the parsed version
     QString out;
 
@@ -3489,6 +3644,10 @@ const QString& /*parameter*/)
         {
             out.append("%");
         }
+        else if (toExpand == 'i')
+        {
+            out.append(inputLineText);
+        }
     }
 
                                                   // append last part
@@ -3501,7 +3660,7 @@ void Server::sendToAllChannels(const QString &text)
     // Send a message to all channels we are in
     foreach (Channel* channel, m_channelList)
     {
-        channel->sendChannelText(text);
+        channel->sendText(text);
     }
 }
 
@@ -3730,13 +3889,13 @@ void Server::sendToAllChannelsAndQueries(const QString& text)
     // Send a message to all channels we are in
     foreach (Channel* channel, m_channelList)
     {
-        channel->sendChannelText(text);
+        channel->sendText(text);
     }
 
     // Send a message to all queries we are in
     foreach (Query* query, m_queryList)
     {
-        query->sendQueryText(text);
+        query->sendText(text);
     }
 }
 

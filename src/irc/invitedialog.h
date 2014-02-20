@@ -37,7 +37,7 @@ class InviteChannelListModel : public QAbstractListModel
             Qt::CheckState checkState;
         };
 
-        InviteChannelListModel(QObject* parent);
+        explicit InviteChannelListModel(QObject* parent);
 
         void addInvite(const QString& nickname, const QString& channel);
         QString selectedChannels() const;
@@ -59,7 +59,7 @@ class InviteDialog : public KDialog, protected Ui::InviteDialog
 {
     Q_OBJECT
     public:
-        InviteDialog(QWidget* parent);
+        explicit InviteDialog(QWidget* parent);
 
         void addInvite(const QString& nickname, const QString& channel);
 

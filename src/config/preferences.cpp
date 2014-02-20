@@ -61,7 +61,7 @@ Preferences::Preferences()
     mIdentity->setNicknameList(nickList);
 
     Konversation::ServerGroupSettingsPtr serverGroup(new Konversation::ServerGroupSettings);
-    serverGroup->setName("Freenode");
+    serverGroup->setName("freenode");
     Konversation::ServerSettings server;
     server.setHost("chat.freenode.net");
     server.setPort(8001);
@@ -220,10 +220,10 @@ void Preferences::setHighlightList(QList<Highlight*> newList)
 }
 
 void Preferences::addHighlight(const QString& highlight, bool regExp, const QColor& color,
-    const QString& soundURL, const QString& autoText, const QString& chatWindows)
+    const QString& soundURL, const QString& autoText, const QString& chatWindows, bool notify)
 {
     self()->mHighlightList.append(new Highlight(highlight, regExp, color,
-        KUrl(soundURL), autoText, chatWindows));
+        KUrl(soundURL), autoText, chatWindows, notify));
 }
 
 void Preferences::setIgnoreList(QList<Ignore*> newList)
@@ -235,7 +235,6 @@ void Preferences::setIgnoreList(QList<Ignore*> newList)
 void Preferences::addIgnore(const QString &newIgnore)
 {
     QStringList ignore = newIgnore.split(',');
-    removeIgnore(ignore[0]);
     self()->mIgnoreList.append(new Ignore(ignore[0],ignore[1].toInt()));
 }
 
@@ -528,6 +527,56 @@ const QList<int> Preferences::channelEncodingsServerGroupIdList()
 const QStringList Preferences::channelEncodingsChannelList(int serverGroupId)
 {
     return self()->mChannelEncodingsMap[serverGroupId].keys();
+}
+
+const QString Preferences::spellCheckingLanguage(Konversation::ServerGroupSettingsPtr serverGroup, const QString& key)
+{
+    if (self()->mServerGroupSpellCheckingLanguages.contains(serverGroup))
+        return self()->mServerGroupSpellCheckingLanguages.value(serverGroup).value(key);
+
+    return QString();
+}
+
+const QString Preferences::spellCheckingLanguage(const QString& server, const QString& key)
+{
+    if (self()->mServerSpellCheckingLanguages.contains(server))
+        return self()->mServerSpellCheckingLanguages.value(server).value(key);
+
+    return QString();
+}
+
+void Preferences::setSpellCheckingLanguage(Konversation::ServerGroupSettingsPtr serverGroup, const QString& key, const QString& language)
+{
+    QHash<QString, QString> languageHash;
+
+    if (self()->mServerGroupSpellCheckingLanguages.contains(serverGroup))
+        languageHash = self()->mServerGroupSpellCheckingLanguages.value(serverGroup);
+
+    languageHash.insert(key, language);
+
+    self()->mServerGroupSpellCheckingLanguages.insert(serverGroup, languageHash);
+}
+
+void Preferences::setSpellCheckingLanguage(const QString& server, const QString& key, const QString& language)
+{
+    QHash<QString, QString> languageHash;
+
+    if (self()->mServerSpellCheckingLanguages.contains(server))
+        languageHash = self()->mServerSpellCheckingLanguages.value(server);
+
+    languageHash.insert(key, language);
+
+    self()->mServerSpellCheckingLanguages.insert(server, languageHash);
+}
+
+const QHash< Konversation::ServerGroupSettingsPtr, QHash< QString, QString > > Preferences::serverGroupSpellCheckingLanguages()
+{
+    return self()->mServerGroupSpellCheckingLanguages;
+}
+
+const QHash< QString, QHash< QString, QString > > Preferences::serverSpellCheckingLanguages()
+{
+    return self()->mServerSpellCheckingLanguages;
 }
 
 const QString Preferences::defaultNicknameSortingOrder()

@@ -82,20 +82,20 @@ Query::Query(QWidget* parent, const QString& _name) : ChatWindow(parent)
     blowfishLabel = new QLabel(inputBox);
     blowfishLabel->hide();
     blowfishLabel->setPixmap(KIconLoader::global()->loadIcon("document-encrypt", KIconLoader::Toolbar));
-    queryInput=new IRCInput(inputBox);
+    m_inputBar=new IRCInput(inputBox);
 
-    getTextView()->installEventFilter(queryInput);
-    queryInput->installEventFilter(this);
+    getTextView()->installEventFilter(m_inputBar);
+    m_inputBar->installEventFilter(this);
 
     // connect the signals and slots
-    connect(queryInput,SIGNAL (submit()),this,SLOT (queryTextEntered()) );
-    connect(queryInput,SIGNAL (envelopeCommand()),this,SLOT (queryPassthroughCommand()) );
-    connect(queryInput,SIGNAL (textPasted(QString)),this,SLOT (textPasted(QString)) );
-    connect(getTextView(), SIGNAL(textPasted(bool)), queryInput, SLOT(paste(bool)));
-    connect(getTextView(),SIGNAL (gotFocus()),queryInput,SLOT (setFocus()) );
+    connect(m_inputBar,SIGNAL (submit()),this,SLOT (queryTextEntered()) );
+    connect(m_inputBar,SIGNAL (envelopeCommand()),this,SLOT (queryPassthroughCommand()) );
+    connect(m_inputBar,SIGNAL (textPasted(QString)),this,SLOT (textPasted(QString)) );
+    connect(getTextView(), SIGNAL(textPasted(bool)), m_inputBar, SLOT(paste(bool)));
+    connect(getTextView(),SIGNAL (gotFocus()),m_inputBar,SLOT (setFocus()) );
 
     connect(textView,SIGNAL (sendFile()),this,SLOT (sendFileMenu()) );
-    connect(textView,SIGNAL (autoText(QString)),this,SLOT (sendQueryText(QString)) );
+    connect(textView,SIGNAL (autoText(QString)),this,SLOT (sendText(QString)) );
 
     updateAppearance();
 
@@ -202,19 +202,19 @@ void Query::setEncryptedOutput(bool e)
 
 void Query::queryTextEntered()
 {
-    QString line=queryInput->toPlainText();
+    QString line=m_inputBar->toPlainText();
 
-    queryInput->clear();
+    m_inputBar->clear();
 
-    if (!line.isEmpty()) sendQueryText(sterilizeUnicode(line));
+    if (!line.isEmpty()) sendText(sterilizeUnicode(line));
 }
 
 void Query::queryPassthroughCommand()
 {
     QString commandChar = Preferences::self()->commandChar();
-    QString line = queryInput->toPlainText();
+    QString line = m_inputBar->toPlainText();
 
-    queryInput->clear();
+    m_inputBar->clear();
 
     if(!line.isEmpty())
     {
@@ -223,19 +223,17 @@ void Query::queryPassthroughCommand()
         {
             line = commandChar + line;
         }
-        sendQueryText(sterilizeUnicode(line));
+        sendText(sterilizeUnicode(line));
     }
 }
 
-void Query::sendQueryText(const QString& sendLine)
+void Query::sendText(const QString& sendLine)
 {
     // create a work copy
     QString outputAll(sendLine);
+
     // replace aliases and wildcards
-    if(m_server->getOutputFilter()->replaceAliases(outputAll))
-    {
-        outputAll = m_server->parseWildcards(outputAll, m_server->getNickname(), getName(), QString(), QString(), QString());
-    }
+    m_server->getOutputFilter()->replaceAliases(outputAll);
 
     // Send all strings, one after another
     QStringList outList = outputAll.split('\n', QString::SkipEmptyParts);
@@ -295,7 +293,7 @@ void Query::textPasted(const QString& text)
             QString cChar(Preferences::self()->commandChar());
             // make sure that lines starting with command char get escaped
             if(line.startsWith(cChar)) line=cChar+line;
-            sendQueryText(line);
+            sendText(line);
         }
     }
 }
@@ -342,7 +340,7 @@ void Query::sendFileMenu()
 
 void Query::childAdjustFocus()
 {
-    queryInput->setFocus();
+    m_inputBar->setFocus();
 }
 
 void Query::setNickInfo(const NickInfoPtr & nickInfo)
@@ -440,25 +438,8 @@ NickInfoPtr Query::getNickInfo()
     return m_nickInfo;
 }
 
-QString Query::getTextInLine() { return queryInput->toPlainText(); }
-
 bool Query::canBeFrontView()        { return true; }
 bool Query::searchView()       { return true; }
-
-void Query::appendInputText(const QString& s, bool fromCursor)
-{
-    if(!fromCursor)
-    {
-        queryInput->append(s);
-    }
-    else
-    {
-        const int position = queryInput->textCursor().position();
-        queryInput->textCursor().insertText(s);
-        queryInput->textCursor().setPosition(position + s.length());
-    }
-}
-
                                                   // virtual
 void Query::setChannelEncoding(const QString& encoding)
 {
@@ -530,14 +511,16 @@ void Query::quitNick(const QString& reason)
 
     if (displayReason.isEmpty())
     {
-        appendCommandMessage(i18n("Quit"),i18n("%1 has left this server.",getName()));
+        appendCommandMessage(i18nc("Message type", "Quit"), i18nc("%1 = nick, %2 = hostmask", "%1 (%2) has left this server.",
+            getName(), getNickInfo()->getHostmask()), false);
     }
     else
     {
-        if (displayReason.contains(QRegExp("[\\0000-\\0037]")))
+        if (hasIRCMarkups(displayReason))
             displayReason+="\017";
 
-        appendCommandMessage(i18n("Quit"),i18n("%1 has left this server (%2).",getName(),displayReason));
+        appendCommandMessage(i18nc("Message type", "Quit"), i18nc("%1 = nick, %2 = hostmask, %3 = reason", "%1 (%2) has left this server (%3).",
+            getName(), getNickInfo()->getHostmask(), displayReason), false);
     }
 }
 

@@ -35,7 +35,7 @@ class ChannelListProxyModel : public QSortFilterProxyModel
     Q_OBJECT
 
     public:
-        ChannelListProxyModel(QObject *parent = 0);
+        explicit ChannelListProxyModel(QObject *parent = 0);
 
         int filterMinimumUsers() { return m_minUsers; }
         int filterMaximumUsers() { return m_maxUsers; }
@@ -65,7 +65,7 @@ class ChannelListModel : public QAbstractListModel
     Q_OBJECT
 
     public:
-        ChannelListModel(QObject* parent);
+        explicit ChannelListModel(QObject* parent);
 
         void append(const ChannelItem& item);
 
@@ -90,6 +90,9 @@ class ChannelListPanel : public ChatWindow, private Ui::ChannelListWidgetUI
         using ChatWindow::closeYourself;
         virtual bool closeYourself();
         virtual void emitUpdateInfo();
+
+        bool isInsertSupported() { return true; }
+        QString getTextInLine() { return m_filterLine->text(); }
 
     signals:
         void refreshChannelList();
@@ -124,7 +127,6 @@ class ChannelListPanel : public ChatWindow, private Ui::ChannelListWidgetUI
 
         /** Called from ChatWindow adjustFocus */
         virtual void childAdjustFocus(){}
-        virtual bool isInsertCharacterSupported() { return true; }
 
         void countUsers(const QModelIndex& index, int pos);
 

@@ -38,6 +38,8 @@
 #include <QNetworkProxy>
 #include <QWaitCondition>
 #include <QStandardItemModel>
+#include <QFileInfo>
+#include <QTextCursor>
 
 #include <KRun>
 #include <KCmdLineArgs>
@@ -47,6 +49,7 @@
 #include <KCharMacroExpander>
 #include <kwallet.h>
 #include <solid/networking.h>
+#include <KTextEdit>
 
 
 using namespace Konversation;
@@ -87,6 +90,7 @@ Application::~Application()
     delete m_dccTransferManager;
 
     delete m_images;
+    delete m_sound;
     //delete dbusObject;
     //delete prefsDCOP;
     //delete identDBus;
@@ -101,14 +105,13 @@ void Application::implementRestart()
 {
     QStringList argumentList;
 
-#if KDE_IS_VERSION(4,5,61)
     KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
 
     argumentList = args->allArguments();
 
     // Pop off the executable name. May not be the first argument in argv
     // everywhere, so verify first.
-    if (QCoreApplication::applicationFilePath().endsWith(argumentList.first()))
+    if (QFileInfo(argumentList.first()) == QFileInfo(QCoreApplication::applicationFilePath()))
         argumentList.removeFirst();
 
     // Don't round-trip --restart.
@@ -134,7 +137,6 @@ void Application::implementRestart()
         }
     }
     else
-#endif
         argumentList << "--startupdelay" << "2000";
 
     KProcess::startDetached(QCoreApplication::applicationFilePath(), argumentList);
@@ -391,8 +393,12 @@ void Application::readOptions()
 
             newIdentity->setNicknameList(cgIdentity.readEntry<QStringList>("Nicknames",QStringList()));
 
-            newIdentity->setBot(cgIdentity.readEntry("Bot"));
-            newIdentity->setPassword(cgIdentity.readEntry("Password"));
+            newIdentity->setAuthType(cgIdentity.readEntry("AuthType", "nickserv"));
+            newIdentity->setAuthPassword(cgIdentity.readEntry("Password"));
+            newIdentity->setNickservNickname(cgIdentity.readEntry("Bot"));
+            newIdentity->setNickservCommand(cgIdentity.readEntry("NickservCommand", "identify"));
+            newIdentity->setSaslAccount(cgIdentity.readEntry("SaslAccount"));
+            newIdentity->setPemClientCertFile(cgIdentity.readEntry<KUrl>("PemClientCertFile", KUrl()));
 
             newIdentity->setInsertRememberLineOnAway(cgIdentity.readEntry("InsertRememberLineOnAway", false));
             newIdentity->setRunAwayCommands(cgIdentity.readEntry("ShowAwayMessage", false));
@@ -620,7 +626,7 @@ void Application::readOptions()
 
         for (int hiIndex=0; hiIndex < hiList.count(); hiIndex+=2)
         {
-            Preferences::addHighlight(hiList[hiIndex], false, QString('#'+hiList[hiIndex+1]), QString(), QString(), QString());
+            Preferences::addHighlight(hiList[hiIndex], false, QString('#'+hiList[hiIndex+1]), QString(), QString(), QString(), true);
         }
 
         cgDefault.deleteEntry("Highlight");
@@ -638,7 +644,8 @@ void Application::readOptions()
                 cgHilight.readEntry("Color", QColor(Qt::black)),
                 cgHilight.readPathEntry("Sound", QString()),
                 cgHilight.readEntry("AutoText"),
-                cgHilight.readEntry("ChatWindows")
+                cgHilight.readEntry("ChatWindows"),
+                cgHilight.readEntry("Notify", true)
                 );
             i++;
         }
@@ -683,15 +690,36 @@ void Application::readOptions()
     QMap<QString,QString> encodingEntries=cgEncodings.entryMap();
     QList<QString> encodingEntryKeys=encodingEntries.keys();
 
-    QRegExp reg("^(.+) ([^\\s]+) ([^\\s]+)$");
+    QRegExp reg("^([^\\s]+) ([^\\s]+)\\s?([^\\s]*)$");
     for(QList<QString>::const_iterator itStr=encodingEntryKeys.constBegin(); itStr != encodingEntryKeys.constEnd(); ++itStr)
     {
         if(reg.indexIn(*itStr) > -1)
         {
-            if(reg.cap(1) == "ServerGroup" && reg.numCaptures() == 3)
+            if(reg.cap(1) == "ServerGroup" && !reg.cap(3).isEmpty())
                 Preferences::setChannelEncoding(sgKeys.at(reg.cap(2).toInt()), reg.cap(3), encodingEntries[*itStr]);
             else
                 Preferences::setChannelEncoding(reg.cap(1), reg.cap(2), encodingEntries[*itStr]);
+        }
+    }
+
+    // Spell Checking Languages
+    KConfigGroup cgSpellCheckingLanguages(KGlobal::config()->group("Spell Checking Languages"));
+    QMap<QString, QString> spellCheckingLanguageEntries=cgSpellCheckingLanguages.entryMap();
+    QList<QString> spellCheckingLanguageEntryKeys=spellCheckingLanguageEntries.keys();
+
+    for (QList<QString>::const_iterator itStr=spellCheckingLanguageEntryKeys.constBegin(); itStr != spellCheckingLanguageEntryKeys.constEnd(); ++itStr)
+    {
+        if (reg.indexIn(*itStr) > -1)
+        {
+            if (reg.cap(1) == "ServerGroup" && !reg.cap(3).isEmpty())
+            {
+                ServerGroupSettingsPtr serverGroup = Preferences::serverGroupById(sgKeys.at(reg.cap(2).toInt()));
+
+                if (serverGroup)
+                    Preferences::setSpellCheckingLanguage(serverGroup, reg.cap(3), spellCheckingLanguageEntries[*itStr]);
+            }
+            else
+                Preferences::setSpellCheckingLanguage(reg.cap(1), reg.cap(2), spellCheckingLanguageEntries[*itStr]);
         }
     }
 
@@ -730,8 +758,12 @@ void Application::saveOptions(bool updateGUI)
         cgIdentity.writeEntry("Ident",identity->getIdent());
         cgIdentity.writeEntry("Realname",identity->getRealName());
         cgIdentity.writeEntry("Nicknames",identity->getNicknameList());
-        cgIdentity.writeEntry("Bot",identity->getBot());
-        cgIdentity.writeEntry("Password",identity->getPassword());
+        cgIdentity.writeEntry("AuthType",identity->getAuthType());
+        cgIdentity.writeEntry("Password",identity->getAuthPassword());
+        cgIdentity.writeEntry("Bot",identity->getNickservNickname());
+        cgIdentity.writeEntry("NickservCommand",identity->getNickservCommand());
+        cgIdentity.writeEntry("SaslAccount",identity->getSaslAccount());
+        cgIdentity.writeEntry("PemClientCertFile", identity->getPemClientCertFile());
         cgIdentity.writeEntry("InsertRememberLineOnAway", identity->getInsertRememberLineOnAway());
         cgIdentity.writeEntry("ShowAwayMessage",identity->getRunAwayCommands());
         cgIdentity.writeEntry("AwayMessage",identity->getAwayCommand());
@@ -822,7 +854,7 @@ void Application::saveOptions(bool updateGUI)
         serverlist = (it.value())->serverList();
         servers.clear();
 
-        sgKeys.append(it.key());
+        sgKeys.append(it.value()->id());
 
         for(it2 = serverlist.begin(); it2 != serverlist.end(); ++it2)
         {
@@ -918,6 +950,45 @@ void Application::saveOptions(bool updateGUI)
         }
     }
 
+    // Spell Checking Languages
+    KGlobal::config()->deleteGroup("Spell Checking Languages");
+    KConfigGroup cgSpellCheckingLanguages(KGlobal::config()->group("Spell Checking Languages"));
+
+    QHashIterator<Konversation::ServerGroupSettingsPtr, QHash<QString, QString> > i(Preferences::serverGroupSpellCheckingLanguages());
+
+    while (i.hasNext())
+    {
+        i.next();
+
+        QHashIterator<QString, QString> i2(i.value());
+
+        while (i2.hasNext())
+        {
+            i2.next();
+
+            int serverGroupIndex = sgKeys.indexOf(i.key()->id());
+
+            if (serverGroupIndex != -1)
+                cgSpellCheckingLanguages.writeEntry("ServerGroup " + QString::number(serverGroupIndex) + ' ' + i2.key(), i2.value());
+        }
+    }
+
+    QHashIterator<QString, QHash<QString, QString> > i3(Preferences::serverSpellCheckingLanguages());
+
+    while (i3.hasNext())
+    {
+        i3.next();
+
+        QHashIterator<QString, QString> i4(i3.value());
+
+        while (i4.hasNext())
+        {
+            i4.next();
+
+            cgSpellCheckingLanguages.writeEntry(i3.key() + ' ' + i4.key(), i4.value());
+        }
+    }
+
     KGlobal::config()->sync();
 
     if(updateGUI)
@@ -990,8 +1061,8 @@ void Application::storeUrl(const QString& origin, const QString& newUrl, const Q
 void Application::openQuickConnectDialog()
 {
     quickConnectDialog = new QuickConnectDialog(mainWindow);
-    connect(quickConnectDialog, SIGNAL(connectClicked(Konversation::ConnectionFlag, QString, QString, QString, QString, QString, bool)),
-        m_connectionManager, SLOT(connectTo(Konversation::ConnectionFlag, QString, QString, QString, QString, QString, bool)));
+    connect(quickConnectDialog, SIGNAL(connectClicked(Konversation::ConnectionFlag,QString,QString,QString,QString,QString,bool)),
+        m_connectionManager, SLOT(connectTo(Konversation::ConnectionFlag,QString,QString,QString,QString,QString,bool)));
     quickConnectDialog->show();
 }
 
@@ -1032,7 +1103,7 @@ NickInfoPtr Application::getNickInfo(const QString &ircnick, const QString &serv
 }
 
 // auto replace on input/output
-QString Application::doAutoreplace(const QString& text,bool output)
+QPair<QString, int> Application::doAutoreplace(const QString& text, bool output, int cursorPos)
 {
     // get autoreplace list
     QList<QStringList> autoreplaceList=Preferences::autoreplaceList();
@@ -1063,6 +1134,7 @@ QString Application::doAutoreplace(const QString& text,bool output)
                 // set pattern case insensitive
                 needleReg.setCaseSensitivity(Qt::CaseSensitive);
                 int index = 0;
+                int newIndex = index;
 
                 do {
                     // find matches
@@ -1092,9 +1164,25 @@ QString Application::doAutoreplace(const QString& text,bool output)
                         replaceWith = Konversation::doVarExpansion(replaceWith);
                         // replace input with replacement
                         line.replace(index, captures[0].length(), replaceWith);
-                        index += replaceWith.length();
+
+                        newIndex = index + replaceWith.length();
+
+                        if (cursorPos > -1 && cursorPos >= index)
+                        {
+                            if (cursorPos < index + captures[0].length())
+                                cursorPos = newIndex;
+                            else
+                            {
+                                if (captures[0].length() > replaceWith.length())
+                                    cursorPos -= captures[0].length() - replaceWith.length();
+                                else
+                                    cursorPos += replaceWith.length() - captures[0].length();
+                            }
+                        }
+
+                        index = newIndex;
                     }
-                } while (index >= 0 && index < (int)line.length());
+                } while (index >= 0 && index < line.length());
             }
             else
             {
@@ -1105,6 +1193,7 @@ QString Application::doAutoreplace(const QString& text,bool output)
                 {
                     int length,nextLength,patLen,repLen;
                     patLen=pattern.length();
+
                     repLen=replacement.length();
                     length=index;
                     length+=patLen;
@@ -1124,14 +1213,43 @@ QString Application::doAutoreplace(const QString& text,bool output)
                             nextLength = index+repLen;
                         }
                     }
+
+                    if (cursorPos > -1 && cursorPos >= index)
+                    {
+                        if (cursorPos < length)
+                            cursorPos = nextLength;
+                        else
+                        {
+                            if (patLen > repLen)
+                                cursorPos -= patLen - repLen;
+                            else
+                                cursorPos += repLen - patLen;
+                        }
+                    }
+
                     index=line.indexOf(needleReg,nextLength);
                 }
             }
         }
     }
 
-  return line;
+    return QPair<QString, int>(line, cursorPos);
 }
+
+void Application::doInlineAutoreplace(KTextEdit* textEdit)
+{
+    QTextCursor cursor(textEdit->document());
+
+    cursor.beginEditBlock();
+    const QPair<QString, int>& replace = Application::instance()->doAutoreplace(textEdit->toPlainText(), true, textEdit->textCursor().position());
+    cursor.select(QTextCursor::Document);
+    cursor.insertText(replace.first);
+    cursor.setPosition(replace.second);
+    cursor.endEditBlock();
+
+    textEdit->setTextCursor(cursor);
+}
+
 
 void Application::openUrl(const QString& url)
 {
@@ -1141,10 +1259,12 @@ void Application::openUrl(const QString& url)
             Application::instance()->getConnectionManager()->connectTo(Konversation::SilentlyReuseConnection, url);
         else if (url.startsWith(QLatin1String("mailto:")))
             KToolInvocation::invokeMailer(KUrl(url));
-        else if (url.startsWith(QLatin1String("amarok:")))
-            new KRun(KUrl(url), Application::instance()->getMainWindow());
         else
+#ifndef Q_WS_WIN
+            new KRun(KUrl(url), Application::instance()->getMainWindow());
+#else
             KToolInvocation::invokeBrowser(url);
+#endif
     }
     else
     {
@@ -1164,7 +1284,7 @@ void Application::openUrl(const QString& url)
 Konversation::Sound* Application::sound()
 {
     if (!m_sound)
-        m_sound = new Konversation::Sound(this);
+        m_sound = new Konversation::Sound;
 
     return m_sound;
 }

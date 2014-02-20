@@ -25,11 +25,9 @@
 
 #include <kdeversion.h>
 
-#if KDE_IS_VERSION(4, 5, 0)
-#   include <KDialog>
-#   include <KLocalizedString>
-#   include <kfilemetadatawidget.h>
-#endif
+#include <KDialog>
+#include <KLocalizedString>
+#include <kfilemetadatawidget.h>
 #include <KDebug>
 
 class QSplitter;
@@ -44,7 +42,6 @@ namespace Konversation
         class TransferView;
         class Transfer;
 
-#if KDE_IS_VERSION(4, 5, 0)
         class FileMetaDataDialog : public KDialog
         {
             public:
@@ -74,19 +71,17 @@ namespace Konversation
             private:
                 KFileMetaDataWidget* m_fileMetaDataWidget;
         };
-#endif
 
         class TransferPanel : public ChatWindow
         {
             Q_OBJECT
 
             public:
-                TransferPanel(QWidget *parent);
+                explicit TransferPanel(QWidget *parent);
                 ~TransferPanel();
 
                 TransferView *getTransferView();
 
-                void runFile(Transfer *transfer);
                 void openLocation(Transfer *transfer);
                 void openFileInfoDialog(Transfer *transfer);
 

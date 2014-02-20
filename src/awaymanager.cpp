@@ -16,10 +16,10 @@
 #include "connectionmanager.h"
 #include "server.h"
 #include "preferences.h"
+#include "trayicon.h"
 
 #include <KActionCollection>
-//FIXME: Change to pretty <KIdleTime> include when KDE_IS_VERSION(4, 5, 0)
-#include <kidletime.h>
+#include <KIdleTime>
 #include <KToggleAction>
 
 AwayManager::AwayManager(QObject* parent) : QObject(parent)
@@ -165,6 +165,7 @@ void AwayManager::updateGlobalAwayAction(bool away)
 
     Application* konvApp = static_cast<Application*>(kapp);
     KToggleAction* awayAction = qobject_cast<KToggleAction*>(konvApp->getMainWindow()->actionCollection()->action("toggle_away"));
+    Konversation::TrayIcon* trayIcon = konvApp->getMainWindow()->systemTrayIcon();
 
     if (!awayAction)
         return;
@@ -184,12 +185,14 @@ void AwayManager::updateGlobalAwayAction(bool away)
         {
             awayAction->setChecked(true);
             awayAction->setIcon(KIcon("im-user-away"));
+            if (trayIcon) trayIcon->setAway(true);
         }
     }
     else
     {
         awayAction->setChecked(false);
         awayAction->setIcon(KIcon("im-user"));
+        if (trayIcon) trayIcon->setAway(false);
     }
 }
 
@@ -217,7 +220,7 @@ void AwayManager::implementUpdateIdleTimeout(int identityId)
         implementMarkIdentityAway(identityId);
 
         // Since the user is away right now the next auto-away should occur
-        // in X minutes (where X is the the timeout which the user has
+        // in X minutes (where X is the timeout which the user has
         // configured for the identity).
         remainingTime = m_identitiesWithIdleTimesOnAutoAway[identityId];
     }

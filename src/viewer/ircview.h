@@ -62,7 +62,7 @@ class IRCView : public KTextBrowser
     Q_OBJECT
 
     public:
-        IRCView(QWidget* parent);
+        explicit IRCView(QWidget* parent);
         ~IRCView();
 
         //void clear();
@@ -179,7 +179,7 @@ class IRCView : public KTextBrowser
     public slots:
         //! FIXME enum { Raw, Query, Query+Action, Channel+Action, Server Message, Command Message, Backlog message } this looks more like a tuple
         void append(const QString& nick, const QString& message);
-        void appendRaw(const QString& message, bool suppressTimestamps=false, bool self = false);
+        void appendRaw(const QString& message, bool self = false);
         void appendLog(const QString& message);
 
         void appendQuery(const QString& nick, const QString& message, bool inChannel = false);
@@ -266,7 +266,7 @@ class IRCView : public KTextBrowser
         /// This way we avoid pointless empty tags after the url like "<b></b>"
         /// The returned string consists of all codes that this function could not deal with,
         /// which is the best case empty.
-        QString removeDuplicateCodes(const QString& codes, TextHtmlData* data);
+        QString removeDuplicateCodes(const QString& codes, TextHtmlData* data, bool allowColors);
 
         /// Helperfunction for removeDuplicateCodes, for dealing with simple irc richtext
         /// chars as bold, italic, underline and strikethrou.

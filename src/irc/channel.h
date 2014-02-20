@@ -47,6 +47,7 @@ class QuickButton;
 class ModeButton;
 class IRCInput;
 class NickChangeDialog;
+class TopicHistoryModel;
 
 namespace Konversation
 {
@@ -106,7 +107,8 @@ class Channel : public ChatWindow
         virtual void setChannelEncoding(const QString& encoding);
         virtual QString getChannelEncoding();
         virtual QString getChannelEncodingDefaultDesc();
-        virtual bool isInsertSupported() { return true; }
+
+        virtual bool log();
 
     protected:
         // use with caution! does not check for duplicates
@@ -117,13 +119,14 @@ class Channel : public ChatWindow
 
     public slots:
         void setNickname(const QString& newNickname);
-        void scheduleAutoWho();
+        void scheduleAutoWho(int msec = -1);
         void setAutoUserhost(bool state);
         void rejoin();
 
     protected slots:
         void autoUserhost();
         void autoWho();
+        void updateAutoWho();
         void fadeActivity();
         virtual void serverOnline(bool online);
         void delayedSortNickList();
@@ -131,7 +134,7 @@ class Channel : public ChatWindow
 
 //Nicklist
     public:
-        void flushPendingNicks();
+        void flushNickQueue();
 
         ChannelNickPtr getOwnChannelNick() const;
         ChannelNickPtr getChannelNick(const QString &ircnick) const;
@@ -141,7 +144,8 @@ class Channel : public ChatWindow
         void kickNick(ChannelNickPtr channelNick, const QString &kicker, const QString &reason);
         void addNickname(ChannelNickPtr channelNick);
         void nickRenamed(const QString &oldNick, const NickInfo& channelnick);
-        void addPendingNickList(const QStringList& pendingChannelNickList);
+        void queueNicks(const QStringList& nicknameList);
+        void endOfNames();
         Nick *getNickByName(const QString& lookname) const;
         NickList getNickList() const { return nicknameList; }
 
@@ -153,39 +157,20 @@ class Channel : public ChatWindow
 
     protected slots:
         void purgeNicks();
-        void processPendingNicks();
+        void processQueuedNicks(bool flush = false);
 
         void updateNickInfos();
         void updateChannelNicks(const QString& channel);
 //Topic
     public:
-        /** Get the current channel topic.
-         *
-         * The topic may or may not have the author that set it at the start of the string,
-         * like:  "<author> topic"
-         *
-         * The internal variable topicAuthorUnknown stores whether the "<author>" bit is there or not.
-         *
-         * */
         QString getTopic();
-        /** Get the channel topic history sorted in reverse chronological order.
-         *
-         * Each topic may or may not have the author that set it at the start of the string,
-         * like:  "<author> topic"
-         *
-         * @return a list of topics this channel used to have, current at the top.
-         */
-        QStringList getTopicHistory();
+        TopicHistoryModel* getTopicHistory() { return m_topicHistory; };
 
-        void setTopic(const QString& topic);
-        void setTopic(const QString& nickname, const QString& topic);
-        void setTopicAuthor(const QString& author, QDateTime t);
-
-    private:
-        inline void prependTopicHistory(const QString& topic, const QString& nickname = "unknown", uint time = QDateTime::currentDateTime().toTime_t());
+        void setTopic(const QString& text);
+        void setTopic(const QString& nickname, const QString& text);
+        void setTopicAuthor(const QString& author, QDateTime timestamp);
 
     signals:
-        void topicHistoryChanged();
         void joined(Channel* channel);
 
 
@@ -233,8 +218,6 @@ class Channel : public ChatWindow
         void updateModeWidgets(char mode, bool plus, const QString &parameter);
         void updateQuickButtons(const QStringList &newButtonList);
 
-        /// Get the contents of the input line.
-        virtual QString getTextInLine();
         /// Sounds suspiciously like a destructor..
         virtual bool closeYourself(bool askForConfirmation=true);
 
@@ -253,12 +236,11 @@ class Channel : public ChatWindow
         void updateAppearance();
         void channelTextEntered();
         void channelPassthroughCommand();
-        void sendChannelText(const QString& line);
+        void sendText(const QString& line);
         void showOptionsDialog();
         void showQuickButtons(bool show);
         void showModeButtons(bool show);
 
-        void appendInputText(const QString& s, bool fromCursor);
         virtual void indicateAway(bool show);
         void showTopic(bool show);
         void showNicknameBox(bool show);
@@ -339,7 +321,6 @@ class Channel : public ChatWindow
         QString oldNick; ///< GUI
         AwayLabel* awayLabel;
         QLabel* cipherLabel;
-        IRCInput* channelInput;
 
         NickChangeDialog* nickChangeDialog;
         QList<QuickButton*> buttonList;
@@ -351,19 +332,18 @@ class Channel : public ChatWindow
         int m_nicknameListViewTextChanged;
         QHash<QString, Nick*> m_nicknameNickHash;
 
-        QStringList m_topicHistory;
+        TopicHistoryModel* m_topicHistory;
         QStringList m_BanList;
-        bool topicAuthorUnknown; ///< Stores whether the "<author>" bit is there or not.
 
-        bool m_firstAutoWhoDone;
         QTimer m_whoTimer; ///< For continuous auto /WHO
+        QTime  m_whoTimerStarted;
+
         QTimer m_fadeActivityTimer; ///< For the smoothing function used in activity sorting
 
-        QList<QStringList> m_pendingChannelNickLists;
-        int m_opsToAdd;
-        int m_currentIndex;
-
-        QTimer* m_processingTimer;
+        QStringList m_nickQueue;
+        int m_processedNicksCount;
+        int m_processedOpsCount;
+        bool m_initialNamesReceived;
 
         QTimer* m_delayedSortTimer;
         int m_delayedSortTrigger;

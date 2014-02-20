@@ -10,11 +10,11 @@
   <!ENTITY CTCP "<acronym
 >CTCP</acronym
 >">
-  <!ENTITY nickname "<acronym
->nickname</acronym
+  <!ENTITY i18n-nickname "<acronym
+>smeknamn</acronym
 >">
-  <!ENTITY Nickname "<acronym
->Nickname</acronym
+  <!ENTITY i18n-Nickname "<acronym
+>Smeknamn</acronym
 >">
   <!ENTITY led "<acronym
 >LED</acronym
@@ -46,7 +46,7 @@
 <!-- The language must NOT be changed here. -->
 <!-- If you are writing original documentation in a language other -->
 <!-- than English, change the language above ONLY, not here -->
-<book lang="&language;">
+<book id="konversation" lang="&language;">
 
 <!-- This header contains all of the meta-information for the document such
 as Authors, publish date, the abstract, and Keywords -->
@@ -217,7 +217,7 @@ See <link linkend="color-msgs"
 >Sending colorful messages</link
 > for more information
 See <link linkend="nickthemes"
->Configuring &nickname; themes</link
+>Configuring &i18n-nickname; themes</link
 > for more information.
 See <link linkend="quick-buttons"
 >Configuring Quick Buttons</link
@@ -612,7 +612,15 @@ revision history. (see installation appendix comment) -->
 ></callout>
 <callout arearefs="pt-identity-gen-2"
 ><para
->Använd de här knapparna för att lägga till, duplicera, byta namn på eller ta bort en <guilabel
+>Använd de här knapparna för åtgärderna <guibutton
+>Lägg till</guibutton
+>, <guibutton
+>Duplicera</guibutton
+>, <guibutton
+>Byt namn</guibutton
+> eller <guibutton
+>Ta bort</guibutton
+> för en <guilabel
 >Identitet</guilabel
 >.</para
 ></callout>
@@ -924,13 +932,13 @@ Limits on Real Name and Ident?
 ></callout>
 <callout arearefs="pt-serverlist-2"
 ><para
->Använd de här knapparna för att lägga till ett <guibutton
->Nytt</guibutton
-> nätverk, <guibutton
+>Använd de här knapparna för åtgärden <guibutton
+>Lägg till</guibutton
+> för ett nytt nätverk, <guibutton
 >Redigera</guibutton
-> ett markerat nätverk eller <guibutton
+> för ett markerat nätverk eller <guibutton
 >Ta bort</guibutton
-> ett markerat nätverk. </para
+> för ett markerat nätverk. </para
 ></callout>
 <callout arearefs="pt-serverlist-3"
 ><para
@@ -1090,7 +1098,9 @@ here, all the <guilabel
 >Lägg till</guibutton
 > i rutan <guilabel
 >Servrar</guilabel
->, visas skärmen Lägg till server.</para>
+>, visas skärmen <guilabel
+>Lägg till server</guilabel
+>.</para>
 
 <para>
 <screenshot>
@@ -1467,7 +1477,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 >Kanallista</link
 > eller <link linkend="urlcatcher"
 >Webbadressinfångning</link
-> </para>
+>. </para>
 </listitem>
 <listitem>
 <para
@@ -1516,7 +1526,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 >Gränssnitt</guilabel
 >, klicka på <guilabel
 >Chattfönster</guilabel
-> och avmarkera <guilabel
+> och avmarkera rutan <guilabel
 >Visa ruta för att ändra eget smeknamn</guilabel
 > för att dölja knappen. </para
 ></callout>
@@ -1660,17 +1670,16 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 </calloutlist>
 </para>
 
+<note>
 <para
-><emphasis
->Observera</emphasis
->: Du kan styra hur meddelanden visas för meddelanden som visas i kanal- och frågeflikar. Du kan till exempel ändra meddelandets färg, spela ett ljud när ett meddelande som innehåller en sträng tas emot, eller svara på meddelanden automatiskt. Se <link linkend="highlighting"
+>Du kan styra hur meddelanden visas för meddelanden som visas i kanal- och frågeflikar. Du kan till exempel ändra meddelandets färg, spela ett ljud när ett meddelande som innehåller en sträng tas emot, eller svara på meddelanden automatiskt. Se <link linkend="highlighting"
 >Färgläggning av meddelanden</link
 > för mer information. </para>
+</note>
 
+<note>
 <para
-><emphasis
->Observera:</emphasis
-> Kanalnamn börjar ibland med <userinput
+>Kanalnamn börjar ibland med <userinput
 >&amp;</userinput
 >, <userinput
 >&plus;</userinput
@@ -1703,6 +1712,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ></listitem
 ></itemizedlist
 >Kanalnamn kan vara upp till 50 tecken långa och innehålla alla tecken utom mellanslag, kommatecken och Ctrl+G (^G eller ASCII 7). </para>
+</note>
 
 </sect1>
 
@@ -1897,7 +1907,11 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ><replaceable
 >/me brygger en kopp te</replaceable
 ></userinput
->. Om de inte har filter för den här sortens meddelanden, ser alla användare dem. Den här sortens meddelanden används oftast för att uttrycka icke-verbal information, som ditt känslomässiga tillstånd just nu, eller vad du fysiskt sysslar med. Om du lämnar datorn en kort stund, använd kommandot /away istället.</para
+>. Om de inte har filter för den här sortens meddelanden, ser alla användare dem. Den här sortens meddelanden används oftast för att uttrycka icke-verbal information, som ditt känslomässiga tillstånd just nu, eller vad du fysiskt sysslar med. Om du lämnar datorn en kort stund, använd kommandot <userinput
+><command
+>/away</command
+></userinput
+> istället.</para
 ></listitem>
 </varlistentry>
 
@@ -2032,15 +2046,15 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ></userinput
 > på vilken inmatningsrad som helst, där <replaceable
 >smeknamn</replaceable
-> är smeknamnet på personen som du vill prata med. Du kan också klicka med höger musknapp i <guilabel
->smeknamnsrutan</guilabel
+> är smeknamnet på personen som du vill prata med. Du kan också klicka med höger musknapp i <interface
+>smeknamnsrutan</interface
 > och välja <menuchoice
 ><guisubmenu
 >Öppna frågekanal</guisubmenu
 ></menuchoice
 >. <action
 >En ny flik skapas.</action
->. Tillkännage dig genom att skicka ett meddelande. </para>
+> Tillkännage dig genom att skicka ett meddelande. </para>
 
 <para
 >Frågekanaler är precis som andra kanaler, utom att bara du och den andra personen kan delta i kanalen.</para>
@@ -2055,7 +2069,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 > <guisubmenu
 >Stäng alla öppna frågekanaler</guisubmenu
 ></menuchoice
-> i huvudmenyn, eller tryck på <keycap
+> i huvudmenyn, eller tryck på tangenten <keycap
 >F11</keycap
 >.</para>
 
@@ -2329,7 +2343,11 @@ a contact entry in your address book have this icon
 
 <callout arearefs="pt-notifylist-4"
 ><para
->Klicka på de här knapparna för att lägga till eller ta bort smeknamn från listan.</para
+>Använd de här knapparna för åtgärderna <guibutton
+>Lägg till</guibutton
+> smeknamn i listan eller <guilabel
+>Ta bort</guilabel
+> smeknamn från listan.</para
 ></callout>
 
 <callout arearefs="pt-notifylist-5"
@@ -2587,7 +2605,9 @@ a contact entry in your address book have this icon
 
 <callout arearefs="pt-osd-6"
 ><para
->Dra förhandsgranskningen av skärmvisningen till önskad position, och klicka därefter på knappen <guibutton
+>Dra <interface
+>förhandsgranskningen av skärmvisningen</interface
+> till önskad position, och klicka därefter på knappen <guibutton
 >Verkställ</guibutton
 >.</para
 ></callout>
@@ -2713,7 +2733,7 @@ a contact entry in your address book have this icon
 
 <callout arearefs="pt-themes-1"
 ><para
->Klicka för att välja skärmen <guilabel
+>Klicka här för att välja skärmen <guilabel
 >Teman för smeknamnslista</guilabel
 >.</para
 ></callout>
@@ -3118,8 +3138,8 @@ a contact entry in your address book have this icon
 >Adressbokskopplingar</guisubmenu
 ></menuchoice
 >. <action
->En undermeny visas</action
->. Om smeknamnet inte redan är ihopkopplat med en kontakt, välj <menuchoice
+>En undermeny visas.</action
+> Om smeknamnet inte redan är ihopkopplat med en kontakt, välj <menuchoice
 ><guisubmenu
 >Skapa ny kontakt</guisubmenu
 ></menuchoice
@@ -3170,7 +3190,7 @@ a contact entry in your address book have this icon
 <callout arearefs="pt-kimproxy-create-3">
 <para
 >Klicka här. Fönstret <guilabel
->Redigera direktmeddelandeadress</guilabel
+>Redigera direktmeddelandeadresser</guilabel
 > visas.</para
 ></callout>
 
@@ -3194,7 +3214,7 @@ a contact entry in your address book have this icon
 </para>
 
 <!--para
->Notice that &konversation; fills in the &nickname; for you with protocol
+>Notice that &konversation; fills in the &i18n-nickname; for you with protocol
 <guilabel
 >IRC</guilabel
 >.
@@ -3336,10 +3356,14 @@ a contact entry in your address book have this icon
 <para
 >När du klickar på en markerad webbadress någonstans i &konversation;, startas det förvalda &kde;-programmet som hör ihop med webbadressens &MIME;-typ. Om du till exempel klickar på en webbadress som börjar med <interface
 >http</interface
->, startas &konqueror; för att visa webbsidan. Du kan ange ett program som skiljer sig från det förvalda &kde;-programmet. Du kan till exempel istället använda Firefox. </para>
+>, startas &konqueror; för att visa webbsidan. Du kan ange ett program som skiljer sig från modulen <guilabel
+>Förvalda program</guilabel
+> i &kde;:s systeminställningar. Du kan till exempel använda <application
+>Firefox</application
+> istället. </para>
 
 <para
->För att välja en annan webbläsare, använd <menuchoice
+>För att välja en annan webbläsare i programmet &konversation;, använd <menuchoice
 ><guisubmenu
 >Inställningar</guisubmenu
 > <guisubmenu
@@ -3633,7 +3657,11 @@ a contact entry in your address book have this icon
 ><replaceable
 >/me brygger en kopp te</replaceable
 ></userinput
->. Om de inte har filter för den här sortens meddelanden, ser alla användare dem. Den här sortens meddelanden används oftast för att uttrycka icke-verbal information, som ditt känslomässiga tillstånd just nu, eller vad du fysiskt sysslar med. Om du lämnar datorn en kort stund, använd kommandot /away istället.</para
+>. Om de inte har filter för den här sortens meddelanden, ser alla användare dem. Den här sortens meddelanden används oftast för att uttrycka icke-verbal information, som ditt känslomässiga tillstånd just nu, eller vad du fysiskt sysslar med. Om du lämnar datorn en kort stund, använd kommandot <userinput
+><command
+>/away</command
+></userinput
+> istället.</para
 ></listitem>
 </varlistentry>
 
@@ -4110,7 +4138,11 @@ a contact entry in your address book have this icon
 ><replaceable
 >/away</replaceable
 ></userinput
-> utan en orsak.</para
+> utan en <userinput
+><replaceable
+>orsak</replaceable
+></userinput
+>.</para
 ></listitem>
 </varlistentry>
 
@@ -4119,7 +4151,7 @@ a contact entry in your address book have this icon
 ><userinput
 ><command
 >/aaway</command
-> <replaceable
+><replaceable
 >orsak</replaceable
 ></userinput
 ></term>
@@ -4679,9 +4711,7 @@ a contact entry in your address book have this icon
 
 <para
 ><userinput
-><replaceable
->ls `kde4-config --install data`/konversation/scripts</replaceable
-></userinput
+>ls `kde4-config --install data`konversation/scripts</userinput
 ></para>
 
 <para
@@ -4727,9 +4757,9 @@ $@ | while read line; do qdbus org.kde.konversation /irc say $SERVER "$TARGET" "
 
 <para
 >För att kunna köra ett skript som du har skrivit, måste du installera det genom att kopiera det till <filename class="directory"
->`kde4-config --install data`/konversation/scripts</filename
+>`kde4-config --install data`konversation/scripts</filename
 > eller till <filename class="directory"
->`kde4-config --localprefix`/share/apps/konversation/scripts</filename
+>`kde4-config --localprefix`share/apps/konversation/scripts</filename
 >. Du måste också ge filen körrättigheter, till exempel med <userinput
 ><replaceable
 >chmod a+x mitt_skript</replaceable
@@ -4758,8 +4788,10 @@ $@ | while read line; do qdbus org.kde.konversation /irc say $SERVER "$TARGET" "
 >]</userinput
 ></term>
 <listitem>
-<para
->Skriptet används för att starta en sökning efter en given sträng eller ett givet felnummer på KDE:s Bugzilla i en webbläsare.</para>
+  <para
+>Skriptet används för att starta en sökning efter en given sträng eller ett givet felnummer på <ulink url="https://bugs.kde.org/"
+>&kde;:s Bugzilla</ulink
+> i en webbläsare.</para>
 <para
 >Exempel: För att starta en webbläsare och söka efter fel nummer 123456</para>
 <para
@@ -4771,7 +4803,7 @@ $@ | while read line; do qdbus org.kde.konversation /irc say $SERVER "$TARGET" "
 ></userinput
 ></para>
 <para
->Exempel på åtgärd: Standardwebbläsaren i KDE:s systeminställningar ska visa <replaceable
+>Exempel på åtgärd: Standardwebbläsaren i &kde;:s systeminställningar ska visa <replaceable
 >http://bugs.kde.org/show_bug.cgi?id=123456</replaceable
 ></para>
 </listitem>
@@ -5493,7 +5525,7 @@ Clear Marker Lines Ctrl Shift R
 		<listitem
 ><para>
 				<action
->Skapar en ny bokmärkeskatalog</action>
+>Skapar en ny bokmärkeskatalog.</action>
 			</para
 ></listitem>
 	</varlistentry>
@@ -5509,7 +5541,7 @@ Clear Marker Lines Ctrl Shift R
 		<listitem
 ><para>
 				<action
->Öppnar bokmärkeseditorn</action>
+>Öppnar bokmärkeseditorn.</action>
 			</para
 ></listitem>
 	</varlistentry>
@@ -6290,7 +6322,7 @@ distribution. -->
 
 <para
 >Översättning Stefan Asserhäll <email
->stefan.asserhall@comhem.se</email
+>stefan.asserhall@bredband.net</email
 ></para
 > 
 &underFDL; &underGPL; </chapter>

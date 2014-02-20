@@ -41,11 +41,11 @@ set (irc_SRCS
     irc/query.cpp
     irc/channel.cpp
     irc/channellistpanel.cpp
-    irc/channeloptionsdialog.cpp
     irc/channelnick.cpp
     irc/modebutton.cpp
     irc/joinchanneldialog.cpp
     irc/invitedialog.cpp
+    irc/topichistorymodel.cpp
 
     irc/irccharsets.cpp
 
@@ -71,7 +71,6 @@ set (irc_SRCS
 kde4_add_ui_files(irc_SRCS
     irc/channellistpanelui.ui
     irc/channeldialogui.ui
-    irc/channeloptionsui.ui
     irc/joinchannelui.ui
     irc/serverdialogui.ui
     irc/servergroupdialogui.ui
@@ -149,9 +148,14 @@ set(viewer_SRCS
     viewer/searchbar.cpp
     viewer/irccontextmenus.cpp
     viewer/trayicon.cpp
+    viewer/viewspringloader.cpp
+    viewer/channeloptionsdialog.cpp
+    viewer/topicedit.cpp
+    viewer/topichistoryview.cpp
 )
 
 kde4_add_ui_files(viewer_SRCS
+    viewer/channeloptionsui.ui
     viewer/irccolorchooserui.ui
     viewer/pasteeditor.ui
 )
@@ -226,16 +230,8 @@ kde4_add_executable(konversation ${konversation_SRCS})
 
 target_link_libraries(konversation ${KDE4_KIO_LIBS} ${KDE4_KPARTS_LIBS}
                                    ${KDE4_KDE3SUPPORT_LIBS} ${KDE4_KABC_LIBS}
-                                   ${KDE4_KNOTIFYCONFIG_LIBRARY} ${PHONON_LIBRARY} ${KDE4_SOLID_LIBS})
-
-
-macro_ensure_version("4.5.0" ${KDE_VERSION} HAVEKDE4_5)
-
-if (HAVEKDE4_5)
-    target_link_libraries(konversation ${KDE4_KIDLETIME_LIBS} ${KDE4_KEMOTICONS_LIBS})
-else (HAVEKDE4_5)
-    target_link_libraries(konversation ${KDE4_KUTILS_LIBS})
-endif (HAVEKDE4_5)
+                                   ${KDE4_KNOTIFYCONFIG_LIBRARY} ${PHONON_LIBRARY} ${KDE4_SOLID_LIBS}
+                                   ${KDE4_KIDLETIME_LIBS} ${KDE4_KEMOTICONS_LIBS})
 
 if (QCA2_FOUND)
     target_link_libraries(konversation ${QCA2_LIBRARIES})

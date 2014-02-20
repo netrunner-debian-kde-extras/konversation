@@ -23,11 +23,8 @@
 #include "transferlistmodel.h"
 
 class QKeyEvent;
-#if KDE_IS_VERSION(4, 5, 0)
+
 class KCategoryDrawerV3;
-#else
-class KCategoryDrawer;
-#endif
 
 namespace Konversation
 {
@@ -41,7 +38,7 @@ namespace Konversation
             Q_OBJECT
         public:
 
-            TransferView(QWidget *parent = 0);
+            explicit TransferView(QWidget *parent = 0);
             virtual ~TransferView();
 
             void addTransfer(Transfer *transfer);
@@ -94,6 +91,7 @@ namespace Konversation
             void rowsAboutToBeRemovedFromModel(const QModelIndex &parent,
                                                int start, int end);
             void rowsRemovedFromModel(int start, int end);
+            void globalSettingsChanged(int category);
 
         private:
             //extra enum needed because ItemDisplayType are not or-able
@@ -115,11 +113,8 @@ namespace Konversation
 
             inline void addItem(Transfer *transfer, TransferItemData::ItemDisplayType type);
 
-#if KDE_IS_VERSION(4, 5, 0)
             KCategoryDrawerV3 *m_categoryDrawer;
-#else
-            KCategoryDrawer *m_categoryDrawer;
-#endif
+
             TransferListModel *m_dccModel;
             TransferListProxyModel *m_proxyModel;
 

@@ -8,6 +8,7 @@
 /*
   copyright: (C) 2004, 2009 by Peter Simonsson
   email:     peter.simonsson@gmail.com
+  Copyright (C) 2012 Eike Hein <hein@kde.org>
 */
 #ifndef KONVERSATIONIDENTITYDIALOG_H
 #define KONVERSATIONIDENTITYDIALOG_H
@@ -18,11 +19,8 @@
 #include <KDialog>
 #include <kdeversion.h>
 
-#if KDE_IS_VERSION(4, 6, 0)
 class KEditListWidget;
-#else
-class KEditListBox;
-#endif
+class KMessageWidget;
 
 namespace Konversation
 {
@@ -31,7 +29,7 @@ namespace Konversation
     {
         Q_OBJECT
         public:
-            IdentityDialog(QWidget *parent = 0);
+            explicit IdentityDialog(QWidget *parent = 0);
             ~IdentityDialog() {}
             void setCurrentIdentity(int index);
             IdentityPtr setCurrentIdentity(IdentityPtr identity);
@@ -48,21 +46,22 @@ namespace Konversation
 
         protected slots:
             void updateIdentity(int index);
-
             void refreshCurrentIdentity();
 
             void newIdentity();
             void renameIdentity();
             void deleteIdentity();
             void copyIdentity();
+
+            void authTypeChanged(int index);
+
         private:
             IdentityList m_identityList;
             IdentityPtr m_currentIdentity;
-#if KDE_IS_VERSION(4, 6, 0)
+
             KEditListWidget* m_nicknameLBox;
-#else
-            KEditListBox* m_nicknameLBox;
-#endif
+
+            KMessageWidget* m_additionalAuthInfo;
     };
 
 }

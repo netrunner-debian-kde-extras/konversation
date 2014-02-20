@@ -10,11 +10,11 @@
   <!ENTITY CTCP "<acronym
 >CTCP</acronym
 >">
-  <!ENTITY nickname "<acronym
->nickname</acronym
+  <!ENTITY i18n-nickname "<acronym
+>apelido</acronym
 >">
-  <!ENTITY Nickname "<acronym
->Nickname</acronym
+  <!ENTITY i18n-Nickname "<acronym
+>Apelido</acronym
 >">
   <!ENTITY led "<acronym
 >LED</acronym
@@ -46,7 +46,7 @@
 <!-- The language must NOT be changed here. -->
 <!-- If you are writing original documentation in a language other -->
 <!-- than English, change the language above ONLY, not here -->
-<book lang="&language;">
+<book id="konversation" lang="&language;">
 
 <!-- This header contains all of the meta-information for the document such
 as Authors, publish date, the abstract, and Keywords -->
@@ -231,7 +231,7 @@ See <link linkend="color-msgs"
 >Sending colorful messages</link
 > for more information
 See <link linkend="nickthemes"
->Configuring &nickname; themes</link
+>Configuring &i18n-nickname; themes</link
 > for more information.
 See <link linkend="quick-buttons"
 >Configuring Quick Buttons</link
@@ -308,19 +308,19 @@ revision history. (see installation appendix comment) -->
 ></listitem>
 <listitem
 ><para
->Lista de &nickname; monitorados.</para
+>Lista de &i18n-Nickname; monitorados.</para
 ></listitem>
 <listitem
 ><para
->Notificações visuais e audíveis para uma grande variedade de eventos, como as mensagens que contêm o seu &nickname;, ou os &nickname;s na sua lista de vigias que se ligam ou desligam. </para
+>Notificações visuais e audíveis para uma grande variedade de eventos, como as mensagens que contêm o seu &i18n-nickname;, ou os &i18n-nickname;s na sua lista de vigias que se ligam ou desligam. </para
 ></listitem>
 <listitem
 ><para
->Realce personalizado das mensagens por &nickname; ou por um padrão de expressão regular.</para
+>Realce personalizado das mensagens por &i18n-nickname; ou por um padrão de expressão regular.</para
 ></listitem>
 <listitem
 ><para
->Complementação de &nickname;.</para
+>Complementação de &i18n-Nickname;.</para
 ></listitem>
 <listitem
 ><para
@@ -332,7 +332,7 @@ revision history. (see installation appendix comment) -->
 ></listitem>
 <listitem
 ><para
->Lista de &nickname; ignorados.</para
+>Lista de &i18n-Nickname; ignorados.</para
 ></listitem>
 <listitem
 ><para
@@ -358,7 +358,7 @@ revision history. (see installation appendix comment) -->
 >&konviwebsite;</ulink
 >. Mais informações, como a FAQ, dicas e truques, poderão ser encontradas no <ulink url="http://konversation.kde.org/wiki/Main_Page"
 >Wiki do &konversation;</ulink
-> </para>
+>. </para>
 
 <para
 >Os programadores do &konversation; poderão ser contactados com frequência através do &irc; no <ulink url="irc://chat.freenode.net/konversation"
@@ -512,7 +512,7 @@ revision history. (see installation appendix comment) -->
 ><para
 >Esta é chamada de <interface
 >Linha de Entrada</interface
->. Para enviar uma mensagem para todos no canal, escreva aqui a mensagem e pressione &Enter;. A sua mensagem, assim como as mensagens de todos os outros, irão aparecer na área do canal em cima. Cada mensagem é antecedida da hora e do &nickname; do usuário.</para
+>. Para enviar uma mensagem para todos no canal, escreva aqui a mensagem e pressione &Enter;. A sua mensagem, assim como as mensagens de todos os outros, irão aparecer na área do canal em cima. Cada mensagem é antecedida da hora e do &i18n-nickname; do usuário.</para
 ></callout>
 
 <callout arearefs="pt-first-channel-2"
@@ -546,7 +546,7 @@ revision history. (see installation appendix comment) -->
 ><para
 >Esta área é chamada de <interface
 >Lista de Apelidos</interface
->. Ela lista os &nickname;s de todos os usuários que se juntaram ao canal, incluindo você próprio.</para
+>. Ela lista os &i18n-nickname;s de todos os usuários que se juntaram ao canal, incluindo você próprio.</para
 ></callout>
 
 </calloutlist>
@@ -624,7 +624,15 @@ revision history. (see installation appendix comment) -->
 ></callout>
 <callout arearefs="pt-identity-gen-2"
 ><para
->Use estes botões para adicionar, duplicar, renomear ou remover uma <guilabel
+>Use estes botões para <guibutton
+>Adicionar</guibutton
+>, <guibutton
+>Duplicar</guibutton
+>, <guibutton
+>Renomear</guibutton
+> ou <guibutton
+>Remover</guibutton
+> uma <guilabel
 >Identidade</guilabel
 >.</para
 ></callout>
@@ -636,25 +644,25 @@ revision history. (see installation appendix comment) -->
 ><para
 >Use estes botões para <guibutton
 >Adicionar</guibutton
-> ou <guilabel
->Remover</guilabel
-> um &nickname;.</para
+> ou <guibutton
+>Remover</guibutton
+> um &i18n-nickname;.</para
 ></callout>
 <callout arearefs="pt-identity-gen-5"
 ><para
->Esta é a sua lista de &nickname;s. Um &nickname; é o nome pelo qual os outros usuários irão reconhecê-lo. Você poderá indicar aqui qualquer nome que deseje. O primeiro caractere precisa ser uma letra, enquanto os outros caracteres poderão ser letras, números ou os caracteres especiais <literal
+>Esta é a sua lista de &i18n-nickname;s. Um &i18n-nickname; é o nome pelo qual os outros usuários irão reconhecê-lo. Você poderá indicar aqui qualquer nome que deseje. O primeiro caractere precisa ser uma letra, enquanto os outros caracteres poderão ser letras, números ou os caracteres especiais <literal
 >-[]\`_^{}|</literal
 >.</para>
 
 <para
->Uma vez que os &nickname;s devem ser únicos em toda uma rede de &irc;, o seu nome desejado poderá ser rejeitado pelo servidor, porque alguém já está usando o seu &nickname;. Insira alguns apelidos alternativos para você nos campos em baixo. Se a sua primeira escolha for rejeitada pelo servidor, o &konversation; irá tentar os &nickname;s alternativos. </para>
+>Uma vez que os &i18n-nickname;s devem ser únicos em toda uma rede de &irc;, o seu nome desejado poderá ser rejeitado pelo servidor, porque alguém já está usando o seu &i18n-nickname;. Insira alguns apelidos alternativos para você nos campos em baixo. Se a sua primeira escolha for rejeitada pelo servidor, o &konversation; irá tentar os &i18n-nickname;s alternativos. </para>
 
 <para
->De acordo com o RFC 2812, o tamanho máximo do &nickname; é 9, mas isto é de fato determinado pelo servidor. Para determinar o valor máximo para um servidor, conecte-se a ele. Na página das <interface
+>De acordo com o RFC 2812, o tamanho máximo do &i18n-nickname; é 9, mas isto é de fato determinado pelo servidor. Para determinar o valor máximo para um servidor, conecte-se a ele. Na página das <interface
 >Mensagens do Servidor</interface
 >, procure por uma mensagem <computeroutput
 >[Support]</computeroutput
->. Por exemplo</para>
+>. Por exemplo:</para>
 
 <para>
 <computeroutput
@@ -664,16 +672,16 @@ revision history. (see installation appendix comment) -->
 <para
 >O parâmetro <computeroutput
 >NICKLEN</computeroutput
-> indica o tamanho máximo do &nickname;. </para>
+> indica o tamanho máximo do &i18n-nickname;. </para>
 </callout>
 
 <callout arearefs="pt-identity-gen-6"
 ><para
->Use estes botões para alterar a ordem dos &nickname;s. O &nickname; do topo é tentado inicialmente, depois o próximo, e assim por diante.</para
+>Use estes botões para alterar a ordem dos &i18n-nickname;s. O &i18n-nickname; do topo é tentado inicialmente, depois o próximo, e assim por diante.</para
 ></callout>
 <callout arearefs="pt-identity-gen-7"
 ><para
->Se você tiver registrado o seu &nickname; com a rede de &irc;, indique o serviço e a senha com os quais irá autenticar o seu &nickname;. Quando o &konversation; se conectar, irá enviar automaticamente um <userinput
+>Se você tiver registrado o seu &i18n-nickname; com a rede de &irc;, indique o serviço e a senha com os quais irá autenticar o seu &i18n-nickname;. Quando o &konversation; se conectar, irá enviar automaticamente um <userinput
 ><command
 >/msg</command
 > <replaceable
@@ -726,7 +734,7 @@ user inactivity configured below.
 <calloutlist>
 <callout arearefs="pt-identity-away-1"
 ><para
->Insira um &nickname; que lhe indique que está ausente. Sempre que executar um <userinput
+>Insira um &i18n-nickname; que lhe indique que está ausente. Sempre que executar um <userinput
 ><command
 >/away </command
 ><replaceable
@@ -734,13 +742,13 @@ user inactivity configured below.
 ></userinput
 > em qualquer canal ligado com esta <guilabel
 >Identidade</guilabel
->, o &konversation; irá mudar automaticamente o seu &nickname; para o <guilabel
+>, o &konversation; irá mudar automaticamente o seu &i18n-nickname; para o <guilabel
 >Apelido de ausência</guilabel
 >. Os outros usuários serão capazes de ver que você está ausente do seu computador. Sempre que executar um comando <userinput
 ><command
 >/away</command
 ></userinput
->, o seu &nickname; irá voltar ao normal. Se não quiser mudar automaticamente o seu &nickname; quando vai embora, deixe em branco.</para
+>, o seu &i18n-nickname; irá voltar ao normal. Se não quiser mudar automaticamente o seu &i18n-nickname; quando vai embora, deixe em branco.</para
 ></callout>
 <callout arearefs="pt-identity-away-2"
 ><para
@@ -936,12 +944,12 @@ Limits on Real Name and Ident?
 ></callout>
 <callout arearefs="pt-serverlist-2"
 ><para
->Use estes botões para adicionar uma <guibutton
->Nova</guibutton
-> rede, <guibutton
+>Use estes botões para <guibutton
+>Adicionar</guibutton
+> uma rede, <guibutton
 >Editar</guibutton
 > uma rede selecionada ou <guibutton
->Remover</guibutton
+>Excluir</guibutton
 > a rede. </para
 ></callout>
 <callout arearefs="pt-serverlist-3"
@@ -1030,7 +1038,7 @@ here, all the <guilabel
 >Editar</guibutton
 > para adicionar uma Identidade nova ou editar uma existente. A <guilabel
 >Identidade</guilabel
-> irá identificá-lo e irá determinar o seu &nickname; quando se conectar à rede.</para
+> irá identificá-lo e irá determinar o seu &i18n-nickname; quando se conectar à rede.</para
 ></callout>
 <callout arearefs="pt-addnetwork-3"
 ><para
@@ -1038,13 +1046,13 @@ here, all the <guilabel
 >/msg NickServ IDENTIFY <replaceable
 >konvirocks</replaceable
 ></userinput
->. O exemplo aqui mostrado é para a rede 'freenode', a qual necessita que os usuários registrem o seu &nickname; com uma senha e um usuário ao conectar-se. O <userinput
+>. O exemplo aqui mostrado é para a rede 'freenode', a qual necessita que os usuários registrem o seu &i18n-nickname; com uma senha e um usuário ao conectar-se. O <userinput
 ><replaceable
 >konvirocks</replaceable
 ></userinput
-> é a senha para o &nickname; indicada na <guilabel
+> é a senha para o &i18n-nickname; indicada na <guilabel
 >Identidade</guilabel
->. Você poderá indicar mais de um comando se os separar por ponto-e-vírgulas.</para
+>. Você poderá indicar mais de um comando se os separar por ponto e vírgula.</para
 ></callout>
 <callout arearefs="pt-addnetwork-4"
 ><para
@@ -1092,7 +1100,7 @@ here, all the <guilabel
 >s diferentes. Caso contrário, a <link linkend="linkaddressbook"
 >integração com o seu livro de endereços</link
 > e o <link linkend="nicksonline"
->monitoramento dos &nickname;s ligados</link
+>monitoramento dos &i18n-nickname;s ligados</link
 > do &konversation; não irão funcionar corretamente.</para>
 </note>
 
@@ -1103,7 +1111,9 @@ here, all the <guilabel
 >Adicionar</guibutton
 > da área <guilabel
 >Servidores</guilabel
->, irá aparecer a janela para Adicionar um Servidor.</para>
+>, irá aparecer a janela para <guilabel
+>Adicionar servidor</guilabel
+>.</para>
 
 <para>
 <screenshot>
@@ -1294,7 +1304,7 @@ depending upon your network bandwidth.  If your client is too slow, the server m
 ></userinput
 >. (O <userinput
 >#</userinput
-> é obrigatório). É criada uma nova página para o canal. Se você se juntar a um canal e o Painel de Apelidos mostrar apenas o seu &nickname;, é porque o canal não existia anteriormente. O servidor criou o canal e você é o operador. Neste caso, provavelmente desejará fechar o canal, digitando: <userinput
+> é obrigatório). É criada uma nova página para o canal. Se você se juntar a um canal e o Painel de Apelidos mostrar apenas o seu &i18n-nickname;, é porque o canal não existia anteriormente. O servidor criou o canal e você é o operador. Neste caso, provavelmente desejará fechar o canal, digitando: <userinput
 ><command
 >/part</command
 ></userinput
@@ -1349,7 +1359,7 @@ depending upon your network bandwidth.  If your client is too slow, the server m
 ><para
 >Esta área é chamada de <interface
 >Linha de Entrada</interface
->. O texto inserido aparece só quando a página atual for um canal. Para enviar uma mensagem para todos no canal, escreva aqui a mensagem e pressione &Enter;. A sua mensagem, assim como as mensagens de todos no canal vai aparecendo acima. Cada mensagem é antecedida da hora e do &nickname; do usuário.</para>
+>. O texto inserido aparece só quando a página atual for um canal. Para enviar uma mensagem para todos no canal, escreva aqui a mensagem e pressione &Enter;. A sua mensagem, assim como as mensagens de todos no canal vai aparecendo acima. Cada mensagem é antecedida da hora e do &i18n-nickname; do usuário.</para>
 
  <para
 >Você poderá também colar texto a partir da área de transferência. Se o texto colado tiver mais de uma linha (mudanças de linha), aparece uma janela. Edite o texto como desejar e clique em <guibutton
@@ -1365,7 +1375,7 @@ depending upon your network bandwidth.  If your client is too slow, the server m
  -->
 
  <para
->Uma convenção usada em vários canais é anteceder as mensagens direcionadas para um determinado usuário com o seu &nickname;. O &konversation; oferece uma funcionalidade conveniente de completamento de &nickname;s. Comece a escrever o &nickname; do usuário e pressione depois &Tab;. O &konversation; irá completar o resto do &nickname; do usuário, seguido de dois pontos (:). Para personalizar a funcionalidade de completamento, escolha a opção <menuchoice
+>Uma convenção usada em vários canais é anteceder as mensagens direcionadas para um determinado usuário com o seu &i18n-nickname;. O &konversation; oferece uma funcionalidade conveniente de completamento de &i18n-nickname;s. Comece a escrever o &i18n-nickname; do usuário e pressione depois &Tab;. O &konversation; irá completar o resto do &i18n-nickname; do usuário, seguido de dois pontos (:). Para personalizar a funcionalidade de completamento, escolha a opção <menuchoice
 ><guisubmenu
 >Configurações</guisubmenu
 > <guisubmenu
@@ -1455,7 +1465,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 >part</command
 >, o <command
 >quit</command
-> ou as mudanças de &nickname;. Eles piscarão mais depressa se existem mensagens por ler de forma regular. As cores são as seguintes: <itemizedlist>
+> ou as mudanças de &i18n-nickname;. Eles piscarão mais depressa se existem mensagens por ler de forma regular. As cores são as seguintes: <itemizedlist>
 <listitem>
 <para
 ><inlinemediaobject
@@ -1476,7 +1486,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 >Lista de Canais</link
 > ou <link linkend="urlcatcher"
 >Extrator de &URL;s</link
-> </para>
+>. </para>
 </listitem>
 <listitem>
 <para
@@ -1515,7 +1525,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 
 <callout arearefs="pt-channeltour-5"
 ><para
->Clique neste botão para mudar o seu próprio &nickname;. Aparece apenas quando a página atual é um canal. Para ocultar este botão, escolha a opção <menuchoice
+>Clique neste botão para mudar o seu próprio &i18n-nickname;. Aparece apenas quando a página atual é um canal. Para ocultar este botão, escolha a opção <menuchoice
 > <guisubmenu
 >Configurações</guisubmenu
 > <guisubmenu
@@ -1525,7 +1535,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 >Interface</guilabel
 >, clique na <guilabel
 >Janela de Conversação</guilabel
-> e desassinale a opção <guilabel
+> e desmarque a opção <guilabel
 >Mostrar a opção para mudar o próprio apelido</guilabel
 >. </para
 ></callout>
@@ -1568,8 +1578,8 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 <para
 >Esta área é chamada de <interface
 >Painel de Apelidos</interface
->. É mostrada sempre que a página atual é um canal. Ela indica os &nickname;s de todos os usuários que se juntaram ao canal, incluindo você próprio. Passe o cursor do mouse sobre um &nickname; para mostrar informações adicionais sobre o usuário. Você poderá alterar a forma como os ícones são apresentados ao lado de cada &nickname;, alterando o tema de ícones do &nickname;. Veja em <link linkend="nickthemes"
->Configurar os temas do &nickname;</link
+>. É mostrada sempre que a página atual é um canal. Ela indica os &i18n-nickname;s de todos os usuários que se juntaram ao canal, incluindo você próprio. Passe o cursor do mouse sobre um &i18n-nickname; para mostrar informações adicionais sobre o usuário. Você poderá alterar a forma como os ícones são apresentados ao lado de cada &i18n-nickname;, alterando o tema de ícones do &i18n-nickname;. Veja em <link linkend="nickthemes"
+>Configurar os temas do &i18n-nickname;</link
 > para mais informações. O <guilabel
 >Tema Padrão</guilabel
 >, como é mostrado na tela acima, usa os seguintes ícones: <itemizedlist>
@@ -1597,7 +1607,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ><imageobject
 ><imagedata fileref="irc_halfop.png" format="PNG"/></imageobject
 ></inlinemediaobject
-> sub-operador de canal </para>
+> suboperador de canal </para>
 </listitem>
 
 <listitem>
@@ -1638,10 +1648,10 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ></para>
 
 <para
->Clique com o &RMB; em qualquer &nickname; para mostrar um menu de contexto das operações que pode efetuar com este &nickname;. Por exemplo, você poderá <link linkend="dcc"
+>Clique com o &RMB; em qualquer &i18n-nickname; para mostrar um menu de contexto das operações que pode efetuar com este &i18n-nickname;. Por exemplo, você poderá <link linkend="dcc"
 >enviar um arquivo</link
-> para o &nickname;. Este é também o local em que poderá <link linkend="linkaddressbook"
->associar um &nickname; a uma lista de contatos no seu livro de endereços.</link
+> para o &i18n-nickname;. Este é também o local em que poderá <link linkend="linkaddressbook"
+>associar um &i18n-nickname; a uma lista de contatos no seu livro de endereços.</link
 > </para>
 
 <para
@@ -1669,16 +1679,15 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 </calloutlist>
 </para>
 
+<note>
 <para
-><emphasis
->Nota </emphasis
 >Você pode controlar a forma como as mensagens são mostradas na área de mensagens do canal, bem como nas páginas de pesquisas. Por exemplo, você poderá alterar a cor das mensagens, tocar um som quando for recebida uma mensagem que contenha determinado texto ou responder automaticamente às mensagens. Veja o <link linkend="highlighting"
 > Realce de mensagens</link
 > para mais informações. </para>
+</note>
 
+<note>
 <para
-><emphasis
->Nota: </emphasis
 >Os nomes dos canais algumas vezes começam por <userinput
 >&amp;</userinput
 >, <userinput
@@ -1712,6 +1721,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ></listitem
 > </itemizedlist
 > Os nomes dos canais podem ter até 200 caracteres e poderão conter quaisquer caracteres, exceto o espaço, a vírgula e o Ctrl-G (^G ou ASCII 7). </para>
+</note>
 
 </sect1>
 
@@ -1758,7 +1768,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 <para
 >Insira o endereço do servidor no campo <guilabel
 >URL do Servidor</guilabel
->, o seu &nickname; desejado no campo <guilabel
+>, o seu &i18n-nickname; desejado no campo <guilabel
 >Apelido</guilabel
 > e clique no botão <guibutton
 >Conectar</guibutton
@@ -1896,7 +1906,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ><replaceable
 >mensagem</replaceable
 ></userinput
-> para o canal, antecedida do seu &nickname;. Por exemplo, se o seu &nickname; for <userinput
+> para o canal, antecedida do seu &i18n-nickname;. Por exemplo, se o seu &i18n-nickname; for <userinput
 ><replaceable
 >Tux</replaceable
 ></userinput
@@ -1906,7 +1916,11 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ></userinput
 > irá mostrar a mensagem <interface
 >O Tux está fazendo um café.</interface
-> A menos que tenha filtrado este tipo de mensagem, todos os usuários a verão. Este tipo de mensagens é usado tipicamente para enviar mensagens não-verbais, como o seu estado emocional atual ou o que você está fazendo fisicamente. Se tiver abandonado o seu computador, use o comando /away em alternativa.</para
+> A menos que tenha filtrado este tipo de mensagem, todos os usuários a verão. Este tipo de mensagens é usado tipicamente para enviar mensagens não-verbais, como o seu estado emocional atual ou o que você está fazendo fisicamente. Se tiver abandonado o seu computador, use o comando <userinput
+> <command
+>/away</command
+></userinput
+> em alternativa.</para
 ></listitem>
 </varlistentry>
 
@@ -1988,7 +2002,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ><replaceable
 >mensagem</replaceable
 ></userinput
-> para o usuário com o &nickname; <userinput
+> para o usuário com o &i18n-nickname; <userinput
 ><replaceable
 >apelido</replaceable
 ></userinput
@@ -2015,7 +2029,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ></term>
 <listitem
 ><para
->Convida o usuário com o &nickname; <userinput
+>Convida o usuário com o &i18n-nickname; <userinput
 ><replaceable
 >apelido</replaceable
 ></userinput
@@ -2043,8 +2057,8 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ></userinput
 > em qualquer linha de entrada, onde o <replaceable
 >apelido</replaceable
-> é o &nickname; da pessoa com quem deseja falar. Você poderá também clicar com o &RMB; no &nickname; da pessoa no <guilabel
->Painel de Apelidos</guilabel
+> é o &i18n-nickname; da pessoa com quem deseja falar. Você poderá também clicar com o &RMB; no &i18n-nickname; da pessoa no <interface
+>Painel de Apelidos</interface
 > e escolher <menuchoice
 > <guisubmenu
 >Abrir uma Pesquisa</guisubmenu
@@ -2066,12 +2080,12 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 > <guisubmenu
 >Fechar Todas as Pesquisas Abertas</guisubmenu
 > </menuchoice
-> no menu principal, ou pressione <keycap
+> no menu principal, ou pressione a tecla <keycap
 >F11</keycap
 >.</para>
 
 <para
->Quando outra pessoa iniciar uma conversa privada com você, o &konversation; cria uma página nova com o &nickname; dela. Se não quiser falar com a pessoa, feche a página. </para>
+>Quando outra pessoa iniciar uma conversa privada com você, o &konversation; cria uma página nova com o &i18n-nickname; dela. Se não quiser falar com a pessoa, feche a página. </para>
 
 </sect1>
 
@@ -2155,7 +2169,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 
 <tip
 ><para
->Você poderá também ser alertado sempre que alguém menciona o seu apelido numa mensagem, usando a funcionalidade do &konversation; para o <link linkend="highlighting"
+>Você poderá também ser alertado sempre que alguém menciona o seu &i18n-nickname; apelido em uma mensagem, usando a funcionalidade do &konversation; para o <link linkend="highlighting"
 >realce</link
 >.</para
 ></tip>
@@ -2172,7 +2186,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 >O &konversation; o manterá informado quando os seus amigos se conectarem à rede de &irc; ou não. </para>
 
 <para
->Você poderá associar os &nickname;s logados com os itens de contatos do seu livro de endereços. Quando o fizer, o &nickname; e a rede de &irc; onde o &nickname; está logado serão inseridos no contato do livro de endereços. A rede de &irc; é guardada porque os &nickname;s são únicos para uma determinada rede de &irc;. Os &nickname; de duas redes de &irc; diferentes não é necessariamente da mesma pessoa, mas o mesmo &nickname; em dois servidores diferentes, dentro da mesma rede de &irc; é geralmente da mesma pessoa.</para>
+>Você poderá associar os &i18n-nickname;s logados com os itens de contatos do seu livro de endereços. Quando o fizer, o &i18n-nickname; e a rede de &irc; onde o &i18n-nickname; está logado serão inseridos no contato do livro de endereços. A rede de &irc; é guardada porque os &i18n-nickname;s são únicos para uma determinada rede de &irc;. Os &i18n-nickname; de duas redes de &irc; diferentes não é necessariamente da mesma pessoa, mas o mesmo &i18n-nickname; em dois servidores diferentes, dentro da mesma rede de &irc; é geralmente da mesma pessoa.</para>
 
 <note
 ><para
@@ -2184,10 +2198,10 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ></note>
 
 <para
->Você poderá também definir &nickname;s que deseje vigiar e que não estejam também no seu livro de endereços. Também neste caso, cada um dos &nickname;s tem uma rede de &irc; associada. Veja abaixo.</para>
+>Você poderá também definir &i18n-nickname;s que deseje vigiar e que não estejam também no seu livro de endereços. Também neste caso, cada um dos &i18n-nickname;s tem uma rede de &irc; associada. Veja abaixo.</para>
 
 <para
->Para ativar a funcionalidade de monitoramento de &nickname;s, escolha a opção <menuchoice
+>Para ativar a funcionalidade de monitoramento de &i18n-nickname;s, escolha a opção <menuchoice
 > <guisubmenu
 >Janela</guisubmenu
 > <guisubmenu
@@ -2229,7 +2243,7 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 <calloutlist>
 <callout arearefs="pt-nicksonline-1"
 ><para
->Os &nickname;s na sua lista de vigia e também os &nickname;s associados com os itens do seu livro de endereços são listados aqui. Eles são enumerados sob a sua rede de &irc; associada. Se não estiverem listados quaisquer &nickname;s, ou não indicou nenhuns &nickname;s para vigiar, ou então terá que ativar a funcionalidade de vigia de &nickname; (veja abaixo). Expanda cada &nickname; ligado para ver uma lista dos canais aos quais o &nickname; se juntou. Os ícones ao lado de cada canal são os mesmos que aparecem no <interface
+>Os &i18n-nickname;s na sua lista de vigia e também os &i18n-nickname;s associados com os itens do seu livro de endereços são listados aqui. Eles são enumerados sob a sua rede de &irc; associada. Se não estiverem listados quaisquer &i18n-nickname;s, ou não indicou nenhuns &i18n-nickname;s para vigiar, ou então terá que ativar a funcionalidade de vigia de &i18n-nickname; (veja abaixo). Expanda cada &i18n-nickname; ligado para ver uma lista dos canais aos quais o &i18n-nickname; se juntou. Os ícones ao lado de cada canal são os mesmos que aparecem no <interface
 >Painel de Apelidos</interface
 > nos janelas dos <link linkend="channel-screen-tour"
 >canais</link
@@ -2237,13 +2251,13 @@ Settings->Configure Konversation->Notifications->Tabs->Use colored LEDs needs to
 ></callout>
 <callout arearefs="pt-nicksonline-2"
 ><para
->A informação conhecida sobre o &nickname; é apresentada aqui. Quando a janela de <guilabel
+>A informação conhecida sobre o &i18n-nickname; é apresentada aqui. Quando a janela de <guilabel
 >Apelidos Logados Vigiados</guilabel
 > é apresentado da primeira vez, esta informação encontra-se de forma esparsa. A cada 20 segundos, é enviado um comando <userinput
 ><command
 >WHOIS</command
 ></userinput
-> para o servidor, pedindo informações para os &nickname;s que não têm quaisquer informações. Isto continua até que existam informações para todos os &nickname;. </para
+> para o servidor, pedindo informações para os &i18n-nickname;s que não têm quaisquer informações. Isto continua até que existam informações para todos os &i18n-nickname;. </para
 ></callout>
 <!--callout arearefs="pt-nicksonline-3"
 ><para
@@ -2266,7 +2280,7 @@ a contact entry in your address book have this icon
 ></callout-->
 <callout arearefs="pt-nicksonline-3"
 ><para
->Use estes botões para associar um &nickname; com um contato no seu livro de endereços, remover uma associação ou abrir o livro de endereços para editar a informação do contato. Veja o <ulink url="help:kaddressbook"
+>Use estes botões para associar um &i18n-nickname; com um contato no seu livro de endereços, remover uma associação ou abrir o livro de endereços para editar a informação do contato. Veja o <ulink url="help:kaddressbook"
 >Manual do &kaddressbook;</ulink
 > para mais instruções sobre como usar o livro de endereços do &kde;. </para
 ></callout>
@@ -2274,9 +2288,9 @@ a contact entry in your address book have this icon
 </para>
 
 <para
->Para adicionar &nickname;s adicionais a vigiar, abra o menu de contexto na <guilabel
+>Para adicionar &i18n-nickname;s adicionais a vigiar, abra o menu de contexto na <guilabel
 >Lista de Apelidos</guilabel
-> com o &RMB; sobre uma &nickname; e selecione a opção <guilabel
+> com o &RMB; sobre uma &i18n-nickname; e selecione a opção <guilabel
 >Adicionar aos Apelidos Vigiados</guilabel
 > ou escolha a opção <menuchoice
 > <guisubmenu
@@ -2323,7 +2337,7 @@ a contact entry in your address book have this icon
 
 <callout arearefs="pt-notifylist-1"
 ><para
->Assinale esta opção para ativar a funcionalidade para vigiar apelidos.</para
+>Assinale esta opção para ativar a funcionalidade para vigiar &i18n-nickname;s.</para
 ></callout>
 
 <callout arearefs="pt-notifylist-2"
@@ -2335,12 +2349,16 @@ a contact entry in your address book have this icon
 
 <callout arearefs="pt-notifylist-3"
 ><para
->Os &nickname;s dos usuários que deseja vigiar estão aqui indicados. Cada &nickname; tem uma rede de &irc; associada.</para
+>Os &i18n-nickname; dos usuários que deseja vigiar estão aqui indicados. Cada &i18n-nickname; tem uma rede de &irc; associada.</para
 ></callout>
 
 <callout arearefs="pt-notifylist-4"
 ><para
->Clique nestes botões para adicionar ou remover &nickname;s da lista.</para
+>Clique nestes botões para <guibutton
+>Adicionar</guibutton
+> ou <guibutton
+>Remover</guibutton
+> um &i18n-nickname; da lista.</para
 ></callout>
 
 <callout arearefs="pt-notifylist-5"
@@ -2354,11 +2372,11 @@ a contact entry in your address book have this icon
 ><para
 >Na janela de <guilabel
 >Apelidos Logados Vigiados</guilabel
-> acima, você poderá fazer duplo-clique em qualquer &nickname; para que este comando seja enviado para o servidor. O <userinput
+> acima, você poderá fazer duplo-clique em qualquer &i18n-nickname; para que este comando seja enviado para o servidor. O <userinput
 ><command
 >%u</command
 ></userinput
-> será substituído pelo &nickname;. O <userinput
+> será substituído pelo &i18n-nickname;. O <userinput
 ><command
 >%n</command
 ></userinput
@@ -2371,14 +2389,14 @@ a contact entry in your address book have this icon
 <para
 >Clique no botão <guibutton
 >OK</guibutton
-> quando tiver terminado de adicionar ou remover &nickname;s.</para>
+> quando tiver terminado de adicionar ou remover &i18n-nickname;s.</para>
 
 <para
 ><emphasis
 >Nota: </emphasis
 >Sempre que mostrar a janela de <guilabel
 >Apelidos Logados Vigiados</guilabel
->, poderá levar algum tempo antes que apareçam alguns &nickname;s até o &konversation; pesquisar o servidor. Normalmente, você poderá deixar a janela de <guilabel
+>, poderá levar algum tempo antes que apareçam alguns &i18n-nickname;s até o &konversation; pesquisar o servidor. Normalmente, você poderá deixar a janela de <guilabel
 >Apelidos Logados Vigiados</guilabel
 > aberta. </para>
 
@@ -2484,7 +2502,7 @@ a contact entry in your address book have this icon
 ></callout>
 <callout arearefs="pt-highlight-8"
 ><para
->Se assinalar esta opção, sempre que alguém mencionar o seu &nickname; numa mensagem, esta será apresentada na cor que escolher à direita.</para
+>Se assinalar esta opção, sempre que alguém mencionar o seu &i18n-nickname; em uma mensagem, esta será apresentada na cor que escolher à direita.</para
 ></callout>
 <callout arearefs="pt-highlight-9"
 ><para
@@ -2598,7 +2616,9 @@ a contact entry in your address book have this icon
 
 <callout arearefs="pt-osd-6"
 ><para
->Arraste a Previsão na Tela para a sua posição desejada e então clique no botão <guibutton
+>Arraste a <interface
+>Previsão da &osd;</interface
+> para a sua posição desejada e então clique no botão <guibutton
 >Aplicar</guibutton
 >.</para
 ></callout>
@@ -2672,12 +2692,12 @@ a contact entry in your address book have this icon
 
 <sect1 id="nickthemes">
 <title
->Configurar os temas do &nickname;</title>
+>Configurar os temas do &i18n-nickname;</title>
 
 <para
->Você poderá alterar os ícones que são apresentados ao lado dos &nickname;s no <interface
+>Você poderá alterar os ícones que são apresentados ao lado dos &i18n-nickname;s no <interface
 >Painel de Apelidos</interface
-> das páginas dos canais. Para mudar o tema do &nickname;, escolha a opção <menuchoice
+> das páginas dos canais. Para mudar o tema do &i18n-nickname;, escolha a opção <menuchoice
 > <guisubmenu
 >Configurações</guisubmenu
 > <guisubmenu
@@ -2724,7 +2744,7 @@ a contact entry in your address book have this icon
 
 <callout arearefs="pt-themes-1"
 ><para
->Clique para selecionar a janela de <guilabel
+>Clique aqui para selecionar a janela de <guilabel
 >Temas de Lista de Apelidos</guilabel
 > do apelido.</para
 ></callout>
@@ -2869,13 +2889,13 @@ a contact entry in your address book have this icon
 <para
 >Para usar este botão na janela <link linkend="channel-screen-tour"
 >Principal</link
->, clique num &nickname; do <interface
+>, clique num &i18n-nickname; do <interface
 >Painel de Apelidos</interface
 >, clicando depois no botão. O <computeroutput
 >/MSG </computeroutput
 > irá aparecer na <interface
 >Linha de Entrada</interface
-> segundo do &nickname; escolhido. Digite a mensagem que deseja enviar para essa pessoa e pressione &Enter;. A mensagem será enviada para o usuário. Só esse usuário irá ver a mensagem. </para>
+> segundo do &i18n-nickname; escolhido. Digite a mensagem que deseja enviar para essa pessoa e pressione &Enter;. A mensagem será enviada para o usuário. Só esse usuário irá ver a mensagem. </para>
 
 </sect1>
 
@@ -2894,7 +2914,7 @@ a contact entry in your address book have this icon
 </para>
 
 <para
->Para enviar um arquivo para alguém num canal, clique com o &RMB; no &nickname; da pessoa no <interface
+>Para enviar um arquivo para alguém num canal, clique com o &RMB; no &i18n-nickname; da pessoa no <interface
 >Painel de Apelidos</interface
 > da janela <link linkend="channel-screen-tour"
 >Principal</link
@@ -2936,7 +2956,7 @@ a contact entry in your address book have this icon
 
 <callout arearefs="pt-dccstatus-1"
 ><para
->O &nickname; do destinatário e o nome do arquivo aparecem aqui.</para
+>O &i18n-nickname; do destinatário e o nome do arquivo aparecem aqui.</para
 ></callout>
 
 <callout arearefs="pt-dccstatus-2">
@@ -3107,12 +3127,12 @@ a contact entry in your address book have this icon
 >Integrando com o &kaddressbook;</title>
 
 <para
->Você poderá associar qualquer &nickname; com um contato no KAddressBook. Logo que tenha feito isto, o &konversation; irá mostrar o nome verdadeiro do contato ao lado do seu &nickname; no <interface
+>Você poderá associar qualquer &i18n-nickname; com um contato no KAddressBook. Logo que tenha feito isto, o &konversation; irá mostrar o nome verdadeiro do contato ao lado do seu &i18n-nickname; no <interface
 >Painel de Apelidos</interface
 >. </para>
 
 <para
->Para associar um &nickname; com um contato no &kaddressbook;, clique com o &RMB; no &nickname; da pessoa no <interface
+>Para associar um &i18n-nickname; com um contato no &kaddressbook;, clique com o &RMB; no &i18n-nickname; da pessoa no <interface
 >Painel das Apelidos</interface
 > da janela <link linkend="channel-screen-tour"
 >Principal</link
@@ -3122,21 +3142,21 @@ a contact entry in your address book have this icon
 > </menuchoice
 > para <action
 >mostrar a informação que o ajuda a determinar o nome verdadeiro do usuário</action
->. Em seguida, clique com o &RMB; no &nickname; da pessoa de novo e escolha as <menuchoice
+>. Em seguida, clique com o &RMB; no &i18n-nickname; da pessoa de novo e escolha as <menuchoice
 > <guisubmenu
 >Associações ao livro de endereços</guisubmenu
 > </menuchoice
 >. <action
 >Irá aparecer um submenu</action
->. Se o &nickname; não estiver já associado a um contato, escolha a opção <menuchoice
+>. Se o &i18n-nickname; não estiver já associado a um contato, escolha a opção <menuchoice
 > <guisubmenu
 >Criar um novo contato</guisubmenu
 > </menuchoice
 >. <action
 >A janela para <guilabel
 >Editar o Contato</guilabel
-> irá aparecer</action
->. </para>
+> irá aparecer.</action
+> </para>
 
 <para>
 <screenshot>
@@ -3166,14 +3186,14 @@ a contact entry in your address book have this icon
 
 <callout arearefs="pt-kimproxy-create-1"
 ><para
->O &nickname; é preenchido aqui automaticamente. Se souber o nome verdadeiro da pessoa, substitua o &nickname; pelo nome verdadeiro. </para
+>O &i18n-nickname; é preenchido aqui automaticamente. Se souber o nome verdadeiro da pessoa, substitua o &i18n-nickname; pelo nome verdadeiro. </para
 ></callout>
 
 <callout arearefs="pt-kimproxy-create-2">
 <para
->Repare que o &nickname; <emphasis
+>Repare que o &i18n-nickname; <emphasis
 >não</emphasis
-> aparece aqui. Em alternativa, ....</para>
+> aparece aqui. Em alternativa, ...</para>
 </callout>
 
 <callout arearefs="pt-kimproxy-create-3">
@@ -3203,7 +3223,7 @@ a contact entry in your address book have this icon
 </para>
 
 <!--para
->Notice that &konversation; fills in the &nickname; for you with protocol
+>Notice that &konversation; fills in the &i18n-nickname; for you with protocol
 <guilabel
 >IRC</guilabel
 >.
@@ -3215,27 +3235,27 @@ a contact entry in your address book have this icon
 > para mais instruções sobre como usar o livro de endereços do &kde;.</para>
 
 <para
->Preencha quaisquer informações adicionais sobre o &nickname; que conhece e clique em <guilabel
+>Preencha quaisquer informações adicionais sobre o &i18n-nickname; que conhece e clique em <guilabel
 >OK</guilabel
->. O nome verdadeiro da pessoa irá aparecer entre parênteses ao lado do &nickname; no <guilabel
+>. O nome verdadeiro da pessoa irá aparecer entre parênteses ao lado do &i18n-nickname; no <guilabel
 >Painel de Apelidos</guilabel
-> do &konversation;. O nome verdadeiro também aparecerá quando o mouse passar por cima do &nickname;.</para>
+> do &konversation;. O nome verdadeiro também aparecerá quando o mouse passar por cima do &i18n-nickname;.</para>
 
 <para
->Logo que um &nickname; tenha sido associado com um contato do &kaddressbook;, você poderá clicar com o &RMB; no &nickname; da pessoa no <interface
+>Logo que um &i18n-nickname; tenha sido associado com um contato do &kaddressbook;, você poderá clicar com o &RMB; no &i18n-nickname; da pessoa no <interface
 >Painel de Apelidos</interface
-> e editar o contato associado, associar o &nickname; com um contato diferente ou remover a associação. </para>
+> e editar o contato associado, associar o &i18n-nickname; com um contato diferente ou excluir a associação. </para>
 
 <para
->Se você tiver associado um &nickname; com um contato e o usuário alterar o seu &nickname; enquanto você estiver rodando o &konversation;, ele irá associar automaticamente o novo &nickname; com o contato, mantendo também a associação original.</para>
+>Se você tiver associado um &i18n-nickname; com um contato e o usuário alterar o seu &i18n-nickname; enquanto você estiver rodando o &konversation;, ele irá associar automaticamente o novo &i18n-nickname; com o contato, mantendo também a associação original.</para>
 
 <para
->Se você associar um &nickname; do &irc; com um contato do <ulink url="help:kopete"
+>Se você associar um &i18n-nickname; do &irc; com um contato do <ulink url="help:kopete"
 >&kopete;</ulink
 >, a associação irá também aparecer no &konversation; e vice-versa.</para>
 
 <para
->Nota: É possível selecionar mais de um &nickname; no <interface
+>Nota: É possível selecionar mais de um &i18n-nickname; no <interface
 >Painel de Apelidos</interface
 >, clicar com o &RMB; e efetuar várias associações. </para>
 
@@ -3250,11 +3270,11 @@ a contact entry in your address book have this icon
 <para
 >Em qualquer <link linkend="channel-screen-tour"
 >canal</link
->, os usuários publicam às vezes os &URL;s de 'sites' interessantes ou de outros recursos na Web. Você poderá clicar num destes &URL;s para que o &konversation; invoque a aplicação associada com o &URL;. A aplicação invocada depende do tipo &MIME; do &URL;. Por exemplo, um &URL; que comece por <interface
+>, os usuários publicam às vezes as &URL;s de 'sites' interessantes ou de outros recursos na Web. Você poderá clicar numa destas &URL;s para que o &konversation; invoque a aplicação associada com a &URL;. A aplicação invocada depende do tipo &MIME; da &URL;. Por exemplo, uma &URL; que comece por <interface
 >http:</interface
 > irá ativar o seu navegador Web padrão do &kde; para mostrar a página Web. (Você poderá também definir o <link linkend="webbrowser"
 >navegador Web</link
-> a usar.) Se o &URL; sair da visibilidade da tela, você poderá ter problemas para encontrá-lo de novo. O &konversation; poderá manter uma lista conveniente de todos os &URL;s para você. Para ativar esta funcionalidade, escolha a opção <menuchoice
+> a usar.) Se a &URL; sair da visibilidade da tela, você poderá ter problemas para encontrá-lo de novo. O &konversation; poderá manter uma lista conveniente de todas as &URL;s para você. Para ativar esta funcionalidade, escolha a opção <menuchoice
 > <guisubmenu
 >Janela</guisubmenu
 > <guisubmenu
@@ -3299,12 +3319,12 @@ a contact entry in your address book have this icon
 ><para
 >Esta é a lista de &URL;s desde que você iniciou o &konversation;. A coluna <guilabel
 >De</guilabel
-> é o &nickname; da pessoa que publicou o &URL; ou o nome do canal ou do servidor onde foi publicado o &URL;. (Os &URL;s que aparecem nas mensagens do início e fim de uma conexão não são listados). Clique num &URL; para o selecionar.</para
+> é o &i18n-nickname; da pessoa que publicou a &URL; ou o nome do canal ou do servidor onde foi publicada a &URL;. (As &URL;s que aparecem nas mensagens do início e fim de uma conexão não são listados). Clique numa &URL; para selecioná-la.</para
 ></callout>
 
 <callout arearefs="pt-urlcatcher-2"
 ><para
->Clique aqui para ativar a aplicação associada com o &URL; selecionado. A aplicação lançada depende do tipo &MIME; do &URL;. Por exemplo, um &URL; que comece por um <interface
+>Clique aqui para ativar a aplicação associada com a &URL; selecionado. A aplicação lançada depende do tipo &MIME; da &URL;. Por exemplo, uma &URL; que comece por um <interface
 >http:</interface
 > irá ativar o seu navegador Web padrão e mostrar a página Web. Para as páginas Web, você poderá também indicar o <link linkend="webbrowser"
 >navegador Web</link
@@ -3313,12 +3333,12 @@ a contact entry in your address book have this icon
 
 <callout arearefs="pt-urlcatcher-3"
 ><para
->Clique aqui para copiar o &URL; selecionado para a área de transferência do &kde;.</para
+>Clique aqui para copiar a &URL; selecionado para a área de transferência do &kde;.</para
 ></callout>
 
 <callout arearefs="pt-urlcatcher-4"
 ><para
->Clique aqui para remover o &URL; selecionado da lista.</para
+>Clique aqui para excluir a &URL; selecionada da lista.</para
 ></callout>
 
 <callout arearefs="pt-urlcatcher-5"
@@ -3343,12 +3363,16 @@ a contact entry in your address book have this icon
 >Configurar o seu navegador Web preferido</title>
 
 <para
->Quando clicar num &URL; selecionado no &konversation;, ele irá lançar a aplicação do &kde; padrão que estiver associada ao tipo &MIME; do &URL;. Por exemplo, ao clicar num &URL; que comece por <interface
+>Quando clicar em uma &URL; selecionado no &konversation;, ele irá iniciar o aplicativo do &kde; padrão que estiver associado ao tipo &MIME; da &URL;. Por exemplo, ao clicar em uma &URL; que comece por <interface
 >http</interface
->, o &konqueror; é lançado para mostrar a página Web. Você poderá indicar uma aplicação diferente da padrão pelo &kde;. Por exemplo, poderá usar o Firefox em alternativa. </para>
+>, o &konqueror; é iniciado para mostrar a página Web. Você poderá indicar um aplicativo diferente dos <guilabel
+>Aplicativos padrão</guilabel
+> do módulo &systemsettings; do &kde;. Por exemplo, você poderá usar o <application
+>Firefox</application
+> como alternativa. </para>
 
 <para
->Para escolher um navegador Web diferente, escolha a opção <menuchoice
+>Para escolher um navegador Web diferente no aplicativo &konversation;, escolha a opção <menuchoice
 > <guisubmenu
 >Configurações</guisubmenu
 > <guisubmenu
@@ -3400,11 +3424,11 @@ a contact entry in your address book have this icon
 
 <callout arearefs="pt-webbrowser-3"
 ><para
->Indique o comando para lançar o seu navegador Web desejado. Quando clicar num &URL;, o <userinput
+>Indique o comando para lançar o seu navegador Web desejado. Quando clicar numa &URL;, o <userinput
 ><replaceable
 >%u</replaceable
 ></userinput
-> será substituído pelo &URL;.</para
+> será substituído pela &URL;.</para
 ></callout>
 
 </calloutlist>
@@ -3632,7 +3656,7 @@ a contact entry in your address book have this icon
 ><replaceable
 >mensagem</replaceable
 ></userinput
-> para o canal, antecedida do seu &nickname;. Por exemplo, se o seu &nickname; for <userinput
+> para o canal, antecedida do seu &i18n-nickname;. Por exemplo, se o seu &i18n-nickname; for <userinput
 ><replaceable
 >Tux</replaceable
 ></userinput
@@ -3642,7 +3666,11 @@ a contact entry in your address book have this icon
 ></userinput
 > irá mostrar a mensagem <interface
 >O Tux está fazendo um café.</interface
-> A menos que tenha filtrado este tipo de mensagem, todos os usuários a verão. Este tipo de mensagens é usado tipicamente para enviar mensagens não-verbais, como o seu estado emocional atual ou o que você está fazendo fisicamente. Se tiver abandonado o seu computador, use o comando /away em alternativa.</para
+> A menos que tenha filtrado este tipo de mensagem, todos os usuários a verão. Este tipo de mensagens é usado tipicamente para enviar mensagens não-verbais, como o seu estado emocional atual ou o que você está fazendo fisicamente. Se tiver abandonado o seu computador, use o comando <userinput
+> <command
+>/away</command
+></userinput
+> em alternativa.</para
 ></listitem>
 </varlistentry>
 
@@ -3690,7 +3718,7 @@ a contact entry in your address book have this icon
 ><replaceable
 >#</replaceable
 ></userinput
-></para
+>.</para
 ></listitem>
 </varlistentry>
 
@@ -3799,7 +3827,7 @@ a contact entry in your address book have this icon
 ><replaceable
 >mensagem</replaceable
 ></userinput
-> para o usuário com o &nickname; <userinput
+> para o usuário com o &i18n-nickname; <userinput
 ><replaceable
 >apelido</replaceable
 ></userinput
@@ -3842,7 +3870,7 @@ a contact entry in your address book have this icon
 ></userinput
 > do usuário para uma conversa privada, a qual é conhecida normalmente no IRC como uma <link linkend="query"
 >Pesquisa</link
->. Tudo o que for escrito aqui só é visível para você e para o seu amigo. Você poderá indicar mais de um &nickname; separado por espaços, para que seja aberta uma página para cada &nickname;. Cada uma destas páginas será privada entre você e o respectivo usuário.</para
+>. Tudo o que for escrito aqui só é visível para você e para o seu amigo. Você poderá indicar mais de um &i18n-nickname; separado por espaços, para que seja aberta uma página para cada &i18n-nickname;. Cada uma destas páginas será privada entre você e o respectivo usuário.</para
 ></listitem>
 </varlistentry>
 
@@ -3861,7 +3889,7 @@ a contact entry in your address book have this icon
 ></term>
 <listitem
 ><para
->Envia uma mensagem privada para o usuário com o &nickname; <userinput
+>Envia uma mensagem privada para o usuário com o &i18n-nickname; <userinput
 ><replaceable
 >apelido</replaceable
 ></userinput
@@ -3975,7 +4003,7 @@ a contact entry in your address book have this icon
 ><replaceable
 >apelido</replaceable
 ></userinput
-> privilégios de operador do canal. Poderá não funcionar se você tiver privilégios insuficientes no canal (você próprio precisa de ser um operador do canal). Você poderá indicar mais de um &nickname; separado por espaços.</para>
+> privilégios de operador do canal. Poderá não funcionar se você tiver privilégios insuficientes no canal (você próprio precisa de ser um operador do canal). Você poderá indicar mais de um &i18n-nickname; separado por espaços.</para>
 </listitem
 ></varlistentry>
 
@@ -3994,7 +4022,7 @@ a contact entry in your address book have this icon
 ><replaceable
 >apelido</replaceable
 ></userinput
->. Você poderá indicar mais de um &nickname;, separado por espaços.</para>
+>. Você poderá indicar mais de um &i18n-nickname;, separado por espaços.</para>
 </listitem
 ></varlistentry>
 
@@ -4009,15 +4037,15 @@ a contact entry in your address book have this icon
 ></term>
 <listitem
 ><para
->Concede ao usuário com o &nickname; <userinput
+>Concede ao usuário com o &i18n-nickname; <userinput
 ><replaceable
 >apelido</replaceable
 ></userinput
-> privilégios de Op-&irc; (Administrador). Isto só funciona se o &nickname; estiver na linha O: do servidor. Os Ops-&irc; têm o privilégio para executar o <userinput
+> privilégios de Op-&irc; (Administrador). Isto só funciona se o &i18n-nickname; estiver na linha O: do servidor. Os Ops-&irc; têm o privilégio para executar o <userinput
 ><command
 >/kill</command
 ></userinput
-> dos &nickname;s, de efetuarem um <userinput
+> dos &i18n-nickname;s, de efetuarem um <userinput
 ><command
 >/connect</command
 ></userinput
@@ -4119,7 +4147,11 @@ a contact entry in your address book have this icon
 ><command
 >/away</command
 ></userinput
-> sem nenhuma razão.</para
+> sem nenhuma <userinput
+><replaceable
+>razão</replaceable
+></userinput
+>.</para
 ></listitem>
 </varlistentry>
 
@@ -4128,7 +4160,7 @@ a contact entry in your address book have this icon
 ><userinput
 ><command
 >/aaway </command
-> <replaceable
+><replaceable
 >motivo</replaceable
 ></userinput
 ></term>
@@ -4155,7 +4187,7 @@ a contact entry in your address book have this icon
 ></term>
 <listitem
 ><para
->Convida o usuário com o &nickname; <userinput
+>Convida o usuário com o &i18n-nickname; <userinput
 ><replaceable
 >apelido</replaceable
 ></userinput
@@ -4234,17 +4266,17 @@ a contact entry in your address book have this icon
 ></term>
 <listitem
 ><para
->Adiciona ou remove o usuário correspondente a <userinput
+>Adiciona ou remove o <userinput
 ><replaceable
 >apelido</replaceable
 ></userinput
 > da sua lista de <link linkend="nicksonline"
 >Apelidos Logados Vigiados</link
->. Se o &nickname; já estiver na lista, é removido. Se não estiver, será adicionado. Se o <userinput
+>. Se o &i18n-nickname; já estiver na lista, é removido. Se não estiver, será adicionado. Se o <userinput
 ><replaceable
 >apelido</replaceable
 ></userinput
-> for omitido, mostra a lista atual de &nickname;s vigiados.</para>
+> for omitido, mostra a lista atual de &i18n-nickname;s vigiados.</para>
 </listitem>
 </varlistentry>
 
@@ -4261,7 +4293,7 @@ a contact entry in your address book have this icon
 ></term>
 <listitem
 ><para
->Quando for inserida na página de um canal, tenta expulsar o usuário com o &nickname; <userinput
+>Quando for inserida na página de um canal, tenta expulsar o usuário com o &i18n-nickname; <userinput
 ><replaceable
 >apelido</replaceable
 ></userinput
@@ -4370,7 +4402,7 @@ a contact entry in your address book have this icon
 ><replaceable
 >apelido</replaceable
 ></userinput
-> à sua lista de usuários ignorados. Você poderá indicar mais de um &nickname; separado por espaços. As mensagens do canal dos usuários na sua lista para Ignorar não aparecem. Além disso, se indicar <userinput
+> à sua lista de usuários ignorados. Você poderá indicar mais de um &i18n-nickname; separado por espaços. As mensagens do canal dos usuários na sua lista para Ignorar não aparecem. Além disso, se indicar <userinput
 ><command
 >-all</command
 ></userinput
@@ -4522,7 +4554,7 @@ a contact entry in your address book have this icon
 ><replaceable
 >arquivo</replaceable
 ></userinput
-> para o usuário com o &nickname; <userinput
+> para o usuário com o &i18n-nickname; <userinput
 ><replaceable
 >apelido</replaceable
 ></userinput
@@ -4688,9 +4720,7 @@ a contact entry in your address book have this icon
 
 <para
 ><userinput
-><replaceable
->ls `kde4-config --install data`/konversation/scripts</replaceable
-></userinput
+>ls `kde4-config --install data`konversation/scripts</userinput
 ></para>
 
 <para
@@ -4767,8 +4797,10 @@ $@ | while read linha; do qdbus org.kde.konversation /irc say $SERVIDOR "$DESTIN
 >]</userinput
 ></term>
 <listitem>
-<para
->Este programa é usado para abrir o seu navegador e procurar por um determinado texto ou número de erro no Bugzilla do KDE.</para>
+  <para
+>Este programa é usado para abrir o seu navegador e procurar por um determinado texto ou número de erro no <ulink url="https://bugs.kde.org/"
+>Bugzilla do &kde;</ulink
+>.</para>
 <para
 >Exemplo: Abrir o seu navegador e procurar pelo erro 123456</para>
 <para
@@ -4780,7 +4812,7 @@ $@ | while read linha; do qdbus org.kde.konversation /irc say $SERVIDOR "$DESTIN
 ></userinput
 ></para>
 <para
->Ação de exemplo: O navegador padrão na sua Configuração do Sistema KDE deverá abrir o endereço <replaceable
+>Ação de exemplo: O navegador padrão nas &systemsettings; do &kde; deverá abrir o endereço <replaceable
 >http://bugs.kde.org/show_bug.cgi?id=123456</replaceable
 ></para>
 </listitem>
@@ -5239,7 +5271,7 @@ or menu bars. -->
 		<listitem
 ><para
 ><action
->Muda o estado da sua &nickname;, para ausente em todos os canais. </action
+>Muda o estado da sua &i18n-nickname;, para ausente em todos os canais. </action
 ></para
 ></listitem>
 	</varlistentry>
@@ -5261,8 +5293,8 @@ or menu bars. -->
 		<listitem
 ><para
 ><action
->Sair</action
-> do &konversation;</para
+>Sai</action
+> do &konversation;.</para
 ></listitem>
 	</varlistentry>
 </variablelist>
@@ -5470,7 +5502,7 @@ Clear Marker Lines Ctrl Shift R
 		<listitem
 ><para>
 		    <action
->Coloca a rede &amp; canal atuais num Favorito</action>
+>Coloca a rede &amp; canal atuais em um Favorito.</action>
 		</para
 ></listitem>
 	</varlistentry>
@@ -5502,7 +5534,7 @@ Clear Marker Lines Ctrl Shift R
 		<listitem
 ><para>
 				<action
->Cria uma nova pasta de favoritos</action>
+>Cria uma nova pasta de favoritos.</action>
 			</para
 ></listitem>
 	</varlistentry>
@@ -5518,7 +5550,7 @@ Clear Marker Lines Ctrl Shift R
 		<listitem
 ><para>
 				<action
->Abre o editor de favoritos</action>
+>Abre o editor de favoritos.</action>
 			</para
 ></listitem>
 	</varlistentry>
@@ -5549,7 +5581,7 @@ Clear Marker Lines Ctrl Shift R
 		<listitem
 ><para>
 				<action
->Oculta (ou mostra) o painel de &nickname;s nas páginas dos canais. </action>
+>Oculta (ou mostra) o painel de &i18n-nickname;s nas páginas dos canais. </action>
 			</para
 ></listitem>
 	</varlistentry>

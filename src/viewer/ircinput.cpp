@@ -18,13 +18,17 @@
 
 #include <QClipboard>
 #include <QKeyEvent>
+#include <QMenu>
 
 #include <KMessageBox>
 #include <KCompletionBox>
 #include <KActionCollection>
 
+#include <sonnet/speller.h>
+
 #define MAXHISTORY 100
 
+Sonnet::Speller* IRCInput::m_speller = 0;
 
 IRCInput::IRCInput(QWidget* parent) : KTextEdit(parent)
 {
@@ -37,8 +41,6 @@ IRCInput::IRCInput(QWidget* parent) : KTextEdit(parent)
     connect(KApplication::kApplication(), SIGNAL(appearanceChanged()), this, SLOT(updateAppearance()));
     m_multiRow = Preferences::self()->useMultiRowInputBox();
 
-    // connect history signal
-    connect(this,SIGNAL (history(bool)) ,this,SLOT (getHistory(bool)) );
     // add one empty line to the history (will be overwritten with newest entry)
     historyList.prepend(QString());
     // reset history line counter
@@ -61,6 +63,8 @@ IRCInput::IRCInput(QWidget* parent) : KTextEdit(parent)
     m_disableSpellCheckTimer = new QTimer(this);
     connect(m_disableSpellCheckTimer, SIGNAL(timeout()), this, SLOT(disableSpellChecking()));
 
+    connect(this, SIGNAL(aboutToShowContextMenu(QMenu*)), this, SLOT(insertLanguageMenu(QMenu*)));
+
     document()->adjustSize();
 
     document()->setDocumentMargin(2);
@@ -69,6 +73,65 @@ IRCInput::IRCInput(QWidget* parent) : KTextEdit(parent)
 IRCInput::~IRCInput()
 {
 }
+
+static inline QString i18n_kdelibs4(const char *str) { return ki18n(str).toString("kdelibs4"); }
+
+void IRCInput::insertLanguageMenu(QMenu* contextMenu)
+{
+    QAction* spellCheckAction = 0;
+
+    foreach(QAction* action, contextMenu->actions())
+    {
+        if (action->text() == i18n_kdelibs4("Auto Spell Check"))
+        {
+            spellCheckAction = action;
+
+            break;
+        }
+    }
+
+    if (spellCheckAction)
+    {
+        QMenu* languagesMenu = new QMenu(i18n("Spell Checking Language"), contextMenu);
+        QActionGroup* languagesGroup = new QActionGroup(languagesMenu);
+        languagesGroup->setExclusive(true);
+
+        if (!m_speller)
+            m_speller = new Sonnet::Speller();
+
+        QMapIterator<QString, QString> i(m_speller->availableDictionaries());
+        QAction* languageAction = 0;
+
+        while (i.hasNext())
+        {
+            i.next();
+
+            languageAction = languagesMenu->addAction(i.key());
+            languageAction->setCheckable(true);
+            languageAction->setChecked(spellCheckingLanguage() == i.value() || (spellCheckingLanguage().isEmpty()
+                && m_speller->defaultLanguage() == i.value()));
+            languageAction->setData(i.value());
+            languageAction->setActionGroup(languagesGroup);
+            connect(languageAction, SIGNAL(triggered(bool)), this, SLOT(languageSelected()));
+        }
+
+        contextMenu->insertMenu(spellCheckAction, languagesMenu);
+    }
+}
+
+void IRCInput::languageSelected()
+{
+    QAction* languageAction = static_cast<QAction*>(QObject::sender());
+
+    setSpellCheckingLanguage(languageAction->data().toString());
+}
+
+void IRCInput::createHighlighter()
+{
+    KTextEdit::createHighlighter();
+    setSpellCheckingLanguage(spellCheckingLanguage());
+}
+
 
 QSize IRCInput::sizeHint() const
 {
@@ -102,6 +165,7 @@ void IRCInput::showEvent(QShowEvent* /* e */)
 {
     m_disableSpellCheckTimer->stop();
     setCheckSpellingEnabled(Preferences::self()->spellChecking());
+    setSpellCheckingLanguage(spellCheckingLanguage());
     connect(this, SIGNAL(checkSpellingChanged(bool)), this, SLOT(setSpellChecking(bool)));
 }
 
@@ -124,6 +188,12 @@ void IRCInput::hideEvent(QHideEvent* /* event */)
     disconnect(SIGNAL(checkSpellingChanged(bool)));
     m_disableSpellCheckTimer->setSingleShot(true);
     m_disableSpellCheckTimer->start(5000);
+}
+
+void IRCInput::resizeEvent(QResizeEvent* e)
+{
+    maybeResize();
+    KTextEdit::resizeEvent(e);
 }
 
 void IRCInput::disableSpellChecking()
@@ -182,8 +252,11 @@ QString IRCInput::text() const
     return KTextEdit::text();
 }
 */
-void IRCInput::setText(const QString& text)
+void IRCInput::setText(const QString& text, bool preserveContents)
 {
+    if (!text.isEmpty() && preserveContents)
+        getHistory(false);
+
     // reimplemented to  set cursor at the end of the new text
     KTextEdit::setPlainText(text);
     moveCursor(QTextCursor::End);
@@ -230,14 +303,14 @@ void IRCInput::keyPressEvent(QKeyEvent* e)
         case Qt::Key_Up:
             if (m_multiRow && textCursor().movePosition(QTextCursor::Up))
                 break;
-            emit history(true);
+            getHistory(true);
             return;
             break;
 
         case Qt::Key_Down:
             if (m_multiRow && textCursor().movePosition(QTextCursor::Down))
                 break;
-            emit history(false);
+            getHistory(false);
             return;
             break;
 
@@ -257,7 +330,7 @@ void IRCInput::keyPressEvent(QKeyEvent* e)
                 }
                 else
                 {
-                    setText(static_cast<Application*>(kapp)->doAutoreplace(toPlainText(),true));
+                    setText(static_cast<Application*>(kapp)->doAutoreplace(toPlainText(), true).first);
                     emit submit();
                 }
             }
@@ -320,13 +393,9 @@ bool IRCInput::event(QEvent* e)
 void IRCInput::wheelEvent(QWheelEvent* e)
 {
     if (e->delta() > 0)
-    {
-        emit history(true);
-    }
+        getHistory(true);
     else if (e->delta() < 0)
-    {
-        emit history(false);
-    }
+        getHistory(false);
 
     KTextEdit::wheelEvent(e);
 }
@@ -459,6 +528,8 @@ void IRCInput::insertFromMimeData(const QMimeData * source)
             // ask the user on long pastes
             if(checkPaste(pasteText))
             {
+              pasteText = Application::instance()->doAutoreplace(pasteText, true).first;
+
               Konversation::sterilizeUnicode(pasteText);
               // signal pasted text
               emit textPasted(pasteText);
@@ -555,6 +626,11 @@ void IRCInput::insertCompletion(const QString& nick)
 void IRCInput::setLastCompletion(const QString& completion)
 {
     m_lastCompletion = completion;
+}
+
+void IRCInput::doInlineAutoreplace()
+{
+    Application::instance()->doInlineAutoreplace(this);
 }
 
 // Accessor methods

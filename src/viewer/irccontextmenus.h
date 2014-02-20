@@ -81,24 +81,31 @@ class IrcContextMenus : public QObject
         static void channelMenu(const QPoint& pos, Server* server, const QString& channel);
 
         static void nickMenu(const QPoint& pos, MenuOptions options, Server* server,
-            const QStringList& nicks, const QString& channel);
+            const QStringList& nicks, const QString& context);
         static void processNickAction(int actionId, Server* server, const QStringList& nicks,
-            const QString& channel);
+            const QString& context);
 
-#if !(QT_VERSION >= QT_VERSION_CHECK(4, 7, 0))
-        static void linkMenu(const QPoint& pos, const QString& link);
-#endif
         static void processLinkAction(int actionId, const QString& link);
+
+        static void topicHistoryMenu(const QPoint& pos, Server* server, const QString& text,
+            const QString& author);
 
 
     protected slots:
-        void handleWebShortcutAction();
+        void processWebShortcutAction();
         void configureWebShortcuts();
+        void updateQuickButtonMenu();
 
 
     protected:
         explicit IrcContextMenus();
         friend class IrcContextMenusPrivate;
+
+        void setupQuickButtonMenu();
+        KMenu* m_quickButtonMenu;
+        bool shouldShowQuickButtonMenu();
+        static void processQuickButtonAction(QAction* action, Server* server, const QString& context,
+            const QStringList nicks = QStringList());
 
         void setupTextMenu();
         KMenu* m_textMenu;
@@ -106,9 +113,7 @@ class IrcContextMenus : public QObject
         QAction* m_textActionsSeparator;
         QList<QAction*> m_linkActions;
         void updateWebShortcutsMenu(const QString& selectedText);
-#if KDE_IS_VERSION(4, 5, 0)
         KMenu* m_webShortcutsMenu;
-#endif
 
         void setupChannelMenu();
         KMenu* m_channelMenu;
@@ -136,10 +141,9 @@ class IrcContextMenus : public QObject
         void createSharedDccActions();
         QList<QAction*> m_sharedDccActions;
 
-#if !(QT_VERSION >= QT_VERSION_CHECK(4, 7, 0))
-        void setupLinkMenu();
-        KMenu* m_linkMenu;
-#endif
+        void setupTopicHistoryMenu();
+        KMenu* m_topicHistoryMenu;
+        QAction* m_queryTopicAuthorAction;
 
         inline QAction* createAction(ActionId id, const QString& text);
         inline QAction* createAction(ActionId id, const QIcon& icon);

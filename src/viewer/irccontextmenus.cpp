@@ -24,6 +24,7 @@
 #include "application.h"
 #include "nick.h"
 #include "server.h"
+#include "ircinput.h"
 #include "linkaddressbook/addressbook.h"
 #include "linkaddressbook/linkaddressbookui.h"
 
@@ -43,10 +44,8 @@
 #include <KToggleAction>
 
 // For the Web Shortcuts context menu sub-menu.
-#if KDE_IS_VERSION(4, 5, 0)
 #include <KToolInvocation>
 #include <KUriFilter>
-#endif
 
 
 class IrcContextMenusPrivate
@@ -77,13 +76,13 @@ IrcContextMenus::IrcContextMenus()
     createSharedNickSettingsActions();
     createSharedDccActions();
 
-    setupTextMenu();
     setupChannelMenu();
+    setupQuickButtonMenu();
     setupNickMenu();
+    setupTextMenu();
+    setupTopicHistoryMenu();
 
-#if !(QT_VERSION >= QT_VERSION_CHECK(4, 7, 0))
-    setupLinkMenu();
-#endif
+    updateQuickButtonMenu();
 }
 
 IrcContextMenus::~IrcContextMenus()
@@ -92,15 +91,60 @@ IrcContextMenus::~IrcContextMenus()
     delete m_channelMenu;
     delete m_nickMenu;
     delete m_addressBookMenu;
-
-#if !(QT_VERSION >= QT_VERSION_CHECK(4, 7, 0))
-    delete m_linkMenu;
-#endif
+    delete m_quickButtonMenu;
+    delete m_topicHistoryMenu;
 }
 
 IrcContextMenus* IrcContextMenus::self()
 {
     return &s_ircContextMenusPrivate->instance;
+}
+
+void IrcContextMenus::setupQuickButtonMenu()
+{
+    //NOTE: if we depend on m_nickMenu we get an we an cyclic initialising
+    m_quickButtonMenu = new KMenu();
+    m_quickButtonMenu->setTitle(i18n("Quick Buttons"));
+    connect(Application::instance(), SIGNAL(appearanceChanged()), this, SLOT(updateQuickButtonMenu()));
+}
+
+bool IrcContextMenus::shouldShowQuickButtonMenu()
+{
+    return Preferences::self()->showQuickButtonsInContextMenu() && !m_quickButtonMenu->isEmpty();
+}
+
+void IrcContextMenus::updateQuickButtonMenu()
+{
+    m_quickButtonMenu->clear();
+
+    KAction* action;
+    QString pattern;
+
+    foreach(const QString& button, Preferences::quickButtonList())
+    {
+        pattern = button.section(',', 1);
+
+        if (pattern.contains("%u"))
+        {
+            action = new KAction(button.section(',', 0, 0), m_quickButtonMenu);
+            action->setData(pattern);
+            m_quickButtonMenu->addAction(action);
+        }
+    }
+}
+
+void IrcContextMenus::processQuickButtonAction(QAction* action, Server* server, const QString& context, const QStringList nicks)
+{
+    ChatWindow* chatWindow = server->getChannelOrQueryByName(context);
+    QString line = server->parseWildcards(action->data().toString(), chatWindow, nicks);
+
+    if (line.contains('\n'))
+        chatWindow->sendText(line);
+    else
+    {
+        if (chatWindow->getInputBar())
+            chatWindow->getInputBar()->setText(line, true);
+    }
 }
 
 void IrcContextMenus::setupTextMenu()
@@ -128,17 +172,19 @@ void IrcContextMenus::setupTextMenu()
     action->setData(TextSelectAll);
     m_textMenu->addAction(action);
 
-#if KDE_IS_VERSION(4, 5, 0)
     m_webShortcutsMenu = new KMenu(m_textMenu);
     m_webShortcutsMenu->menuAction()->setIcon(KIcon("preferences-web-browser-shortcuts"));
     m_webShortcutsMenu->menuAction()->setVisible(false);
     m_textMenu->addMenu(m_webShortcutsMenu);
-#endif
 
     m_textActionsSeparator = m_textMenu->addSeparator();
 
     foreach(QAction* action, m_sharedBasicNickActions)
         m_textMenu->addAction(action);
+
+    m_textMenu->addSeparator();
+
+    m_textMenu->addMenu(m_quickButtonMenu);
 
     m_textMenu->addSeparator();
 
@@ -179,6 +225,8 @@ int IrcContextMenus::textMenu(const QPoint& pos, MenuOptions options, Server* se
     foreach(QAction* action, self()->m_sharedBasicNickActions)
         action->setVisible(showNickActions);
 
+    self()->m_quickButtonMenu->menuAction()->setVisible(showNickActions && self()->shouldShowQuickButtonMenu());
+
     if (showNickActions)
     {
         bool connected = server->isConnected();
@@ -216,6 +264,9 @@ int IrcContextMenus::textMenu(const QPoint& pos, MenuOptions options, Server* se
     if (showLinkActions)
         processLinkAction(actionId, link);
 
+    if (self()->m_quickButtonMenu->actions().contains(action))
+        processQuickButtonAction(action, server, nick, QStringList() << nick);
+
     textMenu->removeAction(toggleMenuBarAction);
     textMenu->removeAction(actionCollection->action(KStandardAction::name(KStandardAction::Find)));
     textMenu->removeAction(actionCollection->action("open_logfile"));
@@ -226,7 +277,6 @@ int IrcContextMenus::textMenu(const QPoint& pos, MenuOptions options, Server* se
 
 void IrcContextMenus::updateWebShortcutsMenu(const QString& selectedText)
 {
-#if KDE_IS_VERSION(4, 5, 0)
     m_webShortcutsMenu->menuAction()->setVisible(false);
     m_webShortcutsMenu->clear();
 
@@ -241,15 +291,9 @@ void IrcContextMenus::updateWebShortcutsMenu(const QString& selectedText)
 
     KUriFilterData filterData(searchText);
 
-#if KDE_IS_VERSION(4, 5, 67)
     filterData.setSearchFilteringOptions(KUriFilterData::RetrievePreferredSearchProvidersOnly);
 
     if (KUriFilter::self()->filterSearchUri(filterData, KUriFilter::NormalTextFilter))
-#else
-    filterData.setAlternateDefaultSearchProvider("google");
-
-    if (KUriFilter::self()->filterUri(filterData, QStringList() << "kuriikwsfilter"))
-#endif
     {
         const QStringList searchProviders = filterData.preferredSearchProviders();
 
@@ -264,7 +308,7 @@ void IrcContextMenus::updateWebShortcutsMenu(const QString& selectedText)
                 action = new KAction(searchProvider, m_webShortcutsMenu);
                 action->setIcon(KIcon(filterData.iconNameForPreferredSearchProvider(searchProvider)));
                 action->setData(filterData.queryForPreferredSearchProvider(searchProvider));
-                connect(action, SIGNAL(triggered()), this, SLOT(handleWebShortcutAction()));
+                connect(action, SIGNAL(triggered()), this, SLOT(processWebShortcutAction()));
                 m_webShortcutsMenu->addAction(action);
             }
 
@@ -278,35 +322,24 @@ void IrcContextMenus::updateWebShortcutsMenu(const QString& selectedText)
             m_webShortcutsMenu->menuAction()->setVisible(true);
         }
     }
-#else
-    Q_UNUSED(selectedText);
-#endif
 }
 
-void IrcContextMenus::handleWebShortcutAction()
+void IrcContextMenus::processWebShortcutAction()
 {
-#if KDE_IS_VERSION(4, 5, 0)
     KAction* action = qobject_cast<KAction*>(sender());
 
     if (action)
     {
         KUriFilterData filterData(action->data().toString());
 
-#if KDE_IS_VERSION(4, 5, 67)
         if (KUriFilter::self()->filterSearchUri(filterData, KUriFilter::WebShortcutFilter))
-#else
-        if (KUriFilter::self()->filterUri(filterData, QStringList() << "kurisearchfilter"))
-#endif
             Application::instance()->openUrl(filterData.uri().url());
     }
-#endif
 }
 
 void IrcContextMenus::configureWebShortcuts()
 {
-#if KDE_IS_VERSION(4, 5, 0)
     KToolInvocation::kdeinitExec("kcmshell4", QStringList() << "ebrowsing");
-#endif
 }
 
 void IrcContextMenus::setupChannelMenu()
@@ -400,6 +433,8 @@ void IrcContextMenus::setupNickMenu()
     createAction(m_kickBanMenu, KickBanUserHost, i18n("Kickban *!user@*.host"));
     createAction(m_kickBanMenu, KickBanUserDomain, i18n("Kickban *!user@domain"));
 
+    m_nickMenu->addMenu(m_quickButtonMenu);
+
     m_nickMenu->addSeparator();
 
     foreach(QAction* action, m_sharedNickSettingsActions)
@@ -452,7 +487,7 @@ void IrcContextMenus::createSharedDccActions()
 }
 
 void IrcContextMenus::nickMenu(const QPoint& pos, MenuOptions options, Server* server,
-    const QStringList& nicks, const QString& channel)
+    const QStringList& nicks, const QString& context)
 {
     KMenu* nickMenu = self()->m_nickMenu;
 
@@ -466,6 +501,7 @@ void IrcContextMenus::nickMenu(const QPoint& pos, MenuOptions options, Server* s
 
     self()->m_modesMenu->menuAction()->setVisible(options.testFlag(ShowChannelActions));
     self()->m_kickBanMenu->menuAction()->setVisible(options.testFlag(ShowChannelActions));
+    self()->m_quickButtonMenu->menuAction()->setVisible(self()->shouldShowQuickButtonMenu());
 
     bool connected = server->isConnected();
 
@@ -489,12 +525,20 @@ void IrcContextMenus::nickMenu(const QPoint& pos, MenuOptions options, Server* s
         delete title;
     }
 
-    processNickAction(extractActionId(action), server, nicks, channel);
+    if (self()->m_quickButtonMenu->actions().contains(action))
+        processQuickButtonAction(action, server, context, nicks);
+    else
+        processNickAction(extractActionId(action), server, nicks, context);
 }
 
 void IrcContextMenus::processNickAction(int actionId, Server* server, const QStringList& nicks,
-    const QString& channel)
+    const QString& context)
 {
+    QString channel;
+
+    if (server->getChannelByName(context))
+        channel = context;
+
     QString pattern;
     QString mode;
 
@@ -903,26 +947,6 @@ void IrcContextMenus::updateAddressBookActions(Server* server, const QStringList
     addressBookMenu->menuAction()->setVisible(true);
 }
 
-#if !(QT_VERSION >= QT_VERSION_CHECK(4, 7, 0))
-void IrcContextMenus::setupLinkMenu()
-{
-    m_linkMenu = new KMenu();
-
-    foreach(QAction* action, m_linkActions)
-        m_linkMenu->addAction(action);
-}
-
-void IrcContextMenus::linkMenu(const QPoint& pos, const QString& link)
-{
-    foreach(QAction* action, self()->m_linkActions)
-        action->setVisible(true);
-
-    QAction* action = self()->m_linkMenu->exec(pos);
-
-    processLinkAction(extractActionId(action), link);
-}
-#endif
-
 void IrcContextMenus::processLinkAction(int  actionId, const QString& link)
 {
    if (actionId == -1 || link.isEmpty())
@@ -969,6 +993,37 @@ void IrcContextMenus::processLinkAction(int  actionId, const QString& link)
 
             break;
         }
+        default:
+            break;
+    }
+}
+
+void IrcContextMenus::setupTopicHistoryMenu()
+{
+    m_topicHistoryMenu = new KMenu();
+
+    m_topicHistoryMenu->addAction(m_textCopyAction);
+
+    m_queryTopicAuthorAction = createAction(m_topicHistoryMenu, OpenQuery, i18n("Query author"));
+}
+
+void IrcContextMenus::topicHistoryMenu(const QPoint& pos, Server* server, const QString& text, const QString& author)
+{
+    KMenu* topicHistoryMenu = self()->m_topicHistoryMenu;
+
+    self()->m_textCopyAction->setEnabled(true);
+    self()->m_queryTopicAuthorAction->setEnabled(!author.isEmpty());
+
+    QAction* action = topicHistoryMenu->exec(pos);
+
+    switch (extractActionId(action))
+    {
+        case TextCopy:
+            qApp->clipboard()->setText(text, QClipboard::Clipboard);
+            break;
+        case OpenQuery:
+            commandToServer(server, QString("query %1").arg(author));
+            break;
         default:
             break;
     }

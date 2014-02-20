@@ -101,14 +101,6 @@ namespace Konversation
         }
         else
         {
-#if !(QT_VERSION >= QT_VERSION_CHECK(4, 7, 0))
-            if (m_contextMenuOptions.testFlag(IrcContextMenus::ShowLinkActions))
-            {
-                IrcContextMenus::linkMenu(ev->globalPos(), m_currentUrl);
-            }
-            else
-                QLabel::contextMenuEvent(ev);
-#else
             int contextMenuActionId = IrcContextMenus::textMenu(ev->globalPos(), m_contextMenuOptions,
                 m_server, selectedText(), m_currentUrl);
 
@@ -135,7 +127,6 @@ namespace Konversation
                 default:
                     break;
             }
-#endif
         }
 
         resetLinkHighlightState();
@@ -175,9 +166,7 @@ namespace Konversation
     {
         if (m_mousePressedOnUrl && (m_mousePressPosition - ev->pos()).manhattanLength() > KApplication::startDragDistance())
         {
-#if QT_VERSION >= QT_VERSION_CHECK(4, 7, 0)
             setSelection(0, 0);
-#endif
 
             QPointer<QDrag> drag = new QDrag(this);
             QMimeData* mimeData = new QMimeData;
@@ -255,6 +244,13 @@ namespace Konversation
             int em = fontMetrics().maxWidth();
             maxPixels -= fontMetrics().width("...");
             int len, delta;
+
+            // On some MacOS system, maxWidth may return 0
+            if (em == 0) {
+                foreach (const QChar &c, text) {
+                    em = qMax(em, fontMetrics().width(c));
+                }
+            }
 
             while((tw > maxPixels) && !tmp.isEmpty())
             {

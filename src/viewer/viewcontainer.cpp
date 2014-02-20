@@ -18,6 +18,7 @@
 #include "images.h"
 #include "irccharsets.h"
 #include "ircview.h"
+#include "ircinput.h"
 #include "logfilereader.h"
 #include "konsolepanel.h"
 #include "urlcatcher.h"
@@ -35,6 +36,7 @@
 #include "joinchanneldialog.h"
 #include "servergroupsettings.h"
 #include "irccontextmenus.h"
+#include "viewspringloader.h"
 
 #include <QSplitter>
 #include <QTabBar>
@@ -70,6 +72,7 @@ ViewContainer::ViewContainer(MainWindow* window):
         , m_insertCharDialog(0)
         , m_queryViewCount(0)
 {
+    m_viewSpringLoader = new ViewSpringLoader(this);
 
     images = Application::instance()->images();
 
@@ -173,6 +176,7 @@ void ViewContainer::setupTabWidget()
     m_vbox->setObjectName("main_window_right_side");
     m_tabWidget = new TabWidget(m_vbox);
     m_tabWidget->setObjectName("main_window_tab_widget");
+    m_viewSpringLoader->addWidget(m_tabWidget->tabBar());
     m_queueTuner = new QueueTuner(m_vbox, this);
     m_queueTuner->hide();
 
@@ -200,6 +204,7 @@ void ViewContainer::setupViewTree()
     m_viewTree = new ViewTree(m_viewTreeSplitter);
     m_viewTreeSplitter->setStretchFactor(m_viewTreeSplitter->indexOf(m_viewTree), 0);
     m_viewTree->hide();
+    m_viewSpringLoader->addWidget(m_viewTree->viewport());
 
     connect(Application::instance(), SIGNAL(appearanceChanged()), m_viewTree, SLOT(updateAppearance()));
     connect(this, SIGNAL(viewChanged(ChatWindow*)), m_viewTree, SLOT(selectView(ChatWindow*)));
@@ -441,6 +446,7 @@ void ViewContainer::updateViewActions(int index)
         ChatWindow::WindowType viewType = view->getType();
         Server* server = view->getServer();
         bool insertSupported = view->isInsertSupported();
+        IRCView* textView = view->getTextView();
 
         if (m_viewTree)
         {
@@ -508,6 +514,18 @@ void ViewContainer::updateViewActions(int index)
             autoJoinAction->setChecked(false);
         }
 
+        KToggleAction* autoConnectAction = static_cast<KToggleAction*>(actionCollection()->action("tab_autoconnect"));
+        if (autoConnectAction && server && (viewType == ChatWindow::Status || server == m_frontServer) && server->getServerGroup())
+        {
+            autoConnectAction->setEnabled(true);
+            autoConnectAction->setChecked(server->getServerGroup()->autoConnectEnabled());
+        }
+        else if (!(viewType != ChatWindow::Status && index != m_tabWidget->currentIndex()))
+        {
+            autoConnectAction->setEnabled(false);
+            autoConnectAction->setChecked(false);
+        }
+
         action = actionCollection()->action("rejoin_channel");
         if (action) action->setEnabled(viewType == ChatWindow::Channel && channel->rejoinable());
 
@@ -538,7 +556,7 @@ void ViewContainer::updateViewActions(int index)
             // to the active tab, e.g. when it was just changed.
 
             action = actionCollection()->action("insert_marker_line");
-            if (action)  action->setEnabled(insertSupported);
+            if (action)  action->setEnabled(textView != 0);
 
             action = actionCollection()->action("insert_character");
             if (action) action->setEnabled(insertSupported);
@@ -546,14 +564,24 @@ void ViewContainer::updateViewActions(int index)
             action = actionCollection()->action("irc_colors");
             if (action) action->setEnabled(insertSupported);
 
+            action = actionCollection()->action("auto_replace");
+            if (action) action->setEnabled(view->getInputBar() != 0);
+
             action = actionCollection()->action("focus_input_box");
-            if (action) action->setEnabled(insertSupported);
+            if (action && view->getTextView() && view->getTextView()->parent())
+            {
+                action->setEnabled(view->getInputBar() != 0);
+
+                //HACK See notes in SearchBar::eventFilter
+                QEvent e(static_cast<QEvent::Type>(QEvent::User+414)); // Magic number to avoid QEvent::registerEventType
+                Application::instance()->sendEvent(view->getTextView()->parent(), &e);
+            }
 
             action = actionCollection()->action("clear_lines");
-            if (action) action->setEnabled(insertSupported && view->getTextView()->hasLines());
+            if (action) action->setEnabled(textView != 0 && view->getTextView()->hasLines());
 
             action = actionCollection()->action("clear_window");
-            if (action) action->setEnabled(insertSupported);
+            if (action) action->setEnabled(textView != 0);
 
             action = actionCollection()->action("edit_find");
             if (action)
@@ -642,6 +670,9 @@ void ViewContainer::updateViewActions(int index)
         if (action) action->setEnabled(false);
 
         action = actionCollection()->action("tab_autojoin");
+        if (action) action->setEnabled(false);
+
+        action = actionCollection()->action("tab_autoconnect");
         if (action) action->setEnabled(false);
 
         action = actionCollection()->action("rejoin_channel");
@@ -1202,6 +1233,32 @@ void ViewContainer::toggleAutoJoin()
     m_popupViewIndex = -1;
 }
 
+void ViewContainer::toggleConnectOnStartup()
+{
+    ChatWindow* view = 0;
+
+    if (m_popupViewIndex == -1)
+        view = static_cast<ChatWindow*>(m_tabWidget->currentWidget());
+    else
+        view = static_cast<ChatWindow*>(m_tabWidget->widget(m_popupViewIndex));
+
+    if (view && view->getType() == ChatWindow::Status)
+    {
+        Server* server = view->getServer();
+
+        if (server)
+        {
+            Konversation::ServerGroupSettingsPtr settings = server->getConnectionSettings().serverGroup();
+            bool autoConnect = settings->autoConnectEnabled();
+            settings->setAutoConnectEnabled(!autoConnect);
+
+            emit autoConnectOnStartupToggled(settings);
+        }
+    }
+
+    m_popupViewIndex = -1;
+}
+
 void ViewContainer::addView(ChatWindow* view, const QString& label, bool weinitiated)
 {
     ChatWindow *tmp_ChatWindow;
@@ -1418,7 +1475,7 @@ void ViewContainer::viewSwitched(int newIndex)
 
         disconnect(m_frontView, SIGNAL(updateInfo(QString)), this, SIGNAL(setStatusBarInfoLabel(QString)));
 
-        if (Preferences::self()->automaticRememberLine() && m_frontView->isInsertSupported())
+        if (Preferences::self()->automaticRememberLine() && m_frontView->getTextView() != 0)
             m_frontView->getTextView()->insertRememberLine();
     }
 
@@ -1444,7 +1501,7 @@ void ViewContainer::viewSwitched(int newIndex)
 
     if (!m_viewTree || !m_viewTree->hasFocus()) view->adjustFocus();
 
-    if (view->isInsertSupported()) view->getTextView()->cancelRememberLine();
+    if (view->getTextView() != 0) view->getTextView()->cancelRememberLine();
 
     updateViewEncoding(view);
 
@@ -1771,6 +1828,7 @@ void ViewContainer::showViewContextMenu(QWidget* tab, const QPoint& pos)
 
     ChatWindow* view = static_cast<ChatWindow*>(tab);
     KToggleAction* autoJoinAction = qobject_cast<KToggleAction*>(actionCollection()->action("tab_autojoin"));
+    KToggleAction* autoConnectAction = qobject_cast<KToggleAction*>(actionCollection()->action("tab_autoconnect"));
     QAction* rejoinAction = actionCollection()->action("rejoin_channel");
     QAction* closeAction = actionCollection()->action("close_tab");
 
@@ -1806,9 +1864,12 @@ void ViewContainer::showViewContextMenu(QWidget* tab, const QPoint& pos)
 
         if (viewType == ChatWindow::Status)
         {
+            QAction* action = actionCollection()->action("tab_encoding");
+            menu->insertAction(action, autoConnectAction);
+
             QList<QAction *> serverActions;
 
-            QAction* action = actionCollection()->action("disconnect_server");
+            action = actionCollection()->action("disconnect_server");
             if (action) serverActions.append(action);
             action = actionCollection()->action("reconnect_server");
             if (action) serverActions.append(action);
@@ -1834,6 +1895,7 @@ void ViewContainer::showViewContextMenu(QWidget* tab, const QPoint& pos)
     }
 
     menu->removeAction(autoJoinAction);
+    menu->removeAction(autoConnectAction);
     menu->removeAction(rejoinAction);
     menu->removeAction(renameAct);
     m_window->unplugActionList("server_actions");
@@ -1878,6 +1940,11 @@ QString ViewContainer::currentViewURL(bool passNetwork)
 int ViewContainer::getViewIndex(QWidget* widget)
 {
     return m_tabWidget->indexOf(widget);
+}
+
+ChatWindow* ViewContainer::getViewAt(int index)
+{
+    return static_cast<ChatWindow*>(m_tabWidget->widget(index));
 }
 
 QList<QPair<QString,QString> > ViewContainer::getChannelsURI()
@@ -2021,6 +2088,19 @@ void ViewContainer::insertIRCColor()
     delete dlg;
 }
 
+void ViewContainer::doAutoReplace()
+{
+    if (!m_frontView)
+        return;
+
+    // Check for active window in case action was triggered from a modal dialog, like the Paste Editor
+    if (!m_window->isActiveWindow())
+        return;
+
+    if (m_frontView->getInputBar())
+        m_frontView->getInputBar()->doInlineAutoreplace();
+}
+
 void ViewContainer::focusInputBox()
 {
     if (m_frontView && m_frontView->isInsertSupported())
@@ -2029,7 +2109,7 @@ void ViewContainer::focusInputBox()
 
 void ViewContainer::clearViewLines()
 {
-    if (m_frontView && m_frontView->isInsertSupported())
+    if (m_frontView && m_frontView->getTextView() != 0)
     {
         m_frontView->getTextView()->clearLines();
 
@@ -2042,7 +2122,7 @@ void ViewContainer::insertRememberLine()
 {
     if (Preferences::self()->automaticRememberLine())
     {
-        if (m_frontView && m_frontView->isInsertSupported())
+        if (m_frontView && m_frontView->getTextView() != 0)
             m_frontView->getTextView()->insertRememberLine();
     }
 }
@@ -2053,14 +2133,14 @@ void ViewContainer::insertRememberLines(Server* server)
     {
         ChatWindow* view = static_cast<ChatWindow*>(m_tabWidget->widget(i));
 
-        if (view->getServer() == server && view->isInsertSupported())
+        if (view->getServer() == server && view->getTextView() != 0)
             view->getTextView()->insertRememberLine();
     }
 }
 
 void ViewContainer::cancelRememberLine()
 {
-    if (m_frontView && m_frontView->isInsertSupported())
+    if (m_frontView && m_frontView->getTextView() != 0)
     {
         m_frontView->getTextView()->cancelRememberLine();
 
@@ -2080,16 +2160,16 @@ void ViewContainer::insertMarkerLine()
         {
             view = static_cast<ChatWindow*>(m_tabWidget->widget(i));
 
-            if (view->isInsertSupported()) view->getTextView()->insertMarkerLine();
+            if (view->getTextView() != 0) view->getTextView()->insertMarkerLine();
         }
     }
     else
     {
-        if (m_frontView && m_frontView->isInsertSupported())
+        if (m_frontView && m_frontView->getTextView() != 0)
             m_frontView->getTextView()->insertMarkerLine();
     }
 
-    if (m_frontView && m_frontView->isInsertSupported())
+    if (m_frontView && m_frontView->getTextView() != 0)
     {
         QAction* action = actionCollection()->action("clear_lines");
         if (action) action->setEnabled(m_frontView->getTextView()->hasLines());
@@ -2117,8 +2197,9 @@ void ViewContainer::openLogFile(const QString& caption, const QString& file)
         }
         else
         {
-            LogfileReader* logReader = new LogfileReader(m_tabWidget, file);
-            addView(logReader, i18n("Logfile of %1",caption));
+            LogfileReader* logReader = new LogfileReader(m_tabWidget, file, caption);
+            addView(logReader, logReader->getName());
+
             logReader->setServer(0);
         }
     }
@@ -2222,13 +2303,13 @@ StatusPanel* ViewContainer::addStatusView(Server* server)
 {
     StatusPanel* statusView = new StatusPanel(m_tabWidget);
 
-    statusView->setServer(server);
-
-    if (server->getServerGroup()) statusView->setNotificationsEnabled(server->getServerGroup()->enableNotifications());
-
     // Get group name for tab if available
     QString label = server->getDisplayName();
     statusView->setName(label);
+
+    statusView->setServer(server);
+
+    if (server->getServerGroup()) statusView->setNotificationsEnabled(server->getServerGroup()->enableNotifications());
 
     QObject::connect(server, SIGNAL(sslInitFailure()), this, SIGNAL(removeStatusBarSSLLabel()));
     QObject::connect(server, SIGNAL(sslConnected(Server*)), this, SIGNAL(updateStatusBarSSLLabel(Server*)));

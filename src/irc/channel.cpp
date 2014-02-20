@@ -24,6 +24,7 @@
 #include "ircview.h"
 #include "awaylabel.h"
 #include "topiclabel.h"
+#include "topichistorymodel.h"
 #include "notificationhandler.h"
 #include "viewcontainer.h"
 
@@ -73,13 +74,12 @@ Channel::Channel(QWidget* parent, const QString& _name) : ChatWindow(parent)
     //     This effectively assigns the name twice, but none of the other logic has been moved or updated.
     name=_name;
     m_ownChannelNick = 0;
-    m_processingTimer = 0;
     m_optionsDialog = NULL;
     m_delayedSortTimer = 0;
     m_delayedSortTrigger = 0;
-    m_pendingChannelNickLists.clear();
-    m_currentIndex = 0;
-    m_opsToAdd = 0;
+    m_processedNicksCount = 0;
+    m_processedOpsCount = 0;
+    m_initialNamesReceived = false;
     nicks = 0;
     ops = 0;
     completionPosition = 0;
@@ -100,9 +100,6 @@ Channel::Channel(QWidget* parent, const QString& _name) : ChatWindow(parent)
     splittersInitialized = false;
     topicSplitterHidden = false;
     channelSplitterHidden = false;
-
-    // flag for first seen topic
-    topicAuthorUnknown = true;
 
     setType(ChatWindow::Channel);
 
@@ -138,6 +135,9 @@ Channel::Channel(QWidget* parent, const QString& _name) : ChatWindow(parent)
     topicLine->setWhatsThis(i18n("<qt><p>Every channel on IRC has a topic associated with it.  This is simply a message that everybody can see.</p><p>If you are an operator, or the channel mode <em>'T'</em> has not been set, then you can change the topic by clicking the Edit Channel Properties button to the left of the topic.  You can also view the history of topics there.</p></qt>"));
     connect(topicLine, SIGNAL(setStatusBarTempText(QString)), this, SIGNAL(setStatusBarTempText(QString)));
     connect(topicLine, SIGNAL(clearStatusBarTempText()), this, SIGNAL(clearStatusBarTempText()));
+
+    m_topicHistory = new TopicHistoryModel(this);
+    connect(m_topicHistory, SIGNAL(currentTopicChanged(QString)), topicLine, SLOT(setText(QString)));
 
     topicLayout->addWidget(m_topicButton, 0, 0);
     topicLayout->addWidget(topicLine, 0, 1, -1, 1);
@@ -224,11 +224,11 @@ Channel::Channel(QWidget* parent, const QString& _name) : ChatWindow(parent)
     cipherLabel = new QLabel(commandLineBox);
     cipherLabel->hide();
     cipherLabel->setPixmap(KIconLoader::global()->loadIcon("document-encrypt", KIconLoader::Toolbar));
-    channelInput = new IRCInput(commandLineBox);
+    m_inputBar = new IRCInput(commandLineBox);
 
-    getTextView()->installEventFilter(channelInput);
-    topicLine->installEventFilter(channelInput);
-    channelInput->installEventFilter(this);
+    getTextView()->installEventFilter(m_inputBar);
+    topicLine->installEventFilter(m_inputBar);
+    m_inputBar->installEventFilter(this);
 
     // Set the widgets size policies
     m_topicButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
@@ -259,16 +259,16 @@ Channel::Channel(QWidget* parent, const QString& _name) : ChatWindow(parent)
     getTextView()->setSizePolicy(greedy);
     nicknameListView->setSizePolicy(hmodest);
 
-    connect(channelInput,SIGNAL (submit()),this,SLOT (channelTextEntered()) );
-    connect(channelInput,SIGNAL (envelopeCommand()),this,SLOT (channelPassthroughCommand()) );
-    connect(channelInput,SIGNAL (nickCompletion()),this,SLOT (completeNick()) );
-    connect(channelInput,SIGNAL (endCompletion()),this,SLOT (endCompleteNick()) );
-    connect(channelInput,SIGNAL (textPasted(QString)),this,SLOT (textPasted(QString)) );
+    connect(m_inputBar,SIGNAL (submit()),this,SLOT (channelTextEntered()) );
+    connect(m_inputBar,SIGNAL (envelopeCommand()),this,SLOT (channelPassthroughCommand()) );
+    connect(m_inputBar,SIGNAL (nickCompletion()),this,SLOT (completeNick()) );
+    connect(m_inputBar,SIGNAL (endCompletion()),this,SLOT (endCompleteNick()) );
+    connect(m_inputBar,SIGNAL (textPasted(QString)),this,SLOT (textPasted(QString)) );
 
-    connect(getTextView(), SIGNAL(textPasted(bool)), channelInput, SLOT(paste(bool)));
-    connect(getTextView(),SIGNAL (gotFocus()),channelInput,SLOT (setFocus()) );
+    connect(getTextView(), SIGNAL(textPasted(bool)), m_inputBar, SLOT(paste(bool)));
+    connect(getTextView(),SIGNAL (gotFocus()),m_inputBar,SLOT (setFocus()) );
     connect(getTextView(),SIGNAL (sendFile()),this,SLOT (sendFileMenu()) );
-    connect(getTextView(),SIGNAL (autoText(QString)),this,SLOT (sendChannelText(QString)) );
+    connect(getTextView(),SIGNAL (autoText(QString)),this,SLOT (sendText(QString)) );
 
     connect(nicknameListView,SIGNAL (itemDoubleClicked(QTreeWidgetItem*,int)),this,SLOT (doubleClickCommand(QTreeWidgetItem*,int)) );
     connect(nicknameCombobox,SIGNAL (activated(int)),this,SLOT(nicknameComboboxChanged()));
@@ -280,15 +280,13 @@ Channel::Channel(QWidget* parent, const QString& _name) : ChatWindow(parent)
     connect(&userhostTimer,SIGNAL (timeout()),this,SLOT (autoUserhost()));
 
     m_whoTimer.setSingleShot(true);
-    connect(&m_whoTimer,SIGNAL (timeout()),this,SLOT (autoWho()));
+    connect(&m_whoTimer, SIGNAL(timeout()), this, SLOT(autoWho()));
+    connect(Application::instance(), SIGNAL(appearanceChanged()), this, SLOT(updateAutoWho()));
 
     // every 5 minutes decrease everyone's activity by 1 unit
     m_fadeActivityTimer.start(5*60*1000);
 
     connect(&m_fadeActivityTimer, SIGNAL(timeout()), this, SLOT(fadeActivity()));
-
-    // re-schedule when the settings were changed
-    connect(Preferences::self(), SIGNAL (autoContinuousWhoChanged()),this,SLOT (scheduleAutoWho()));
 
     updateAppearance();
 
@@ -352,33 +350,28 @@ void Channel::connectionStateChanged(Server* server, Konversation::ConnectionSta
 
 void Channel::setEncryptedOutput(bool e)
 {
-
-    if (e) {
-    #ifdef HAVE_QCA2
+#ifdef HAVE_QCA2
+    if (e)
+    {
         cipherLabel->show();
-        //scan the channel topic and decrypt it if necessary
-        if (m_topicHistory.isEmpty())
+
+        if  (!getCipher()->setKey(m_server->getKeyForRecipient(getName())))
             return;
-        QString topic(m_topicHistory.at(0).section(' ',2));
 
-        //prepend two colons to make it appear to be an irc message for decryption,
-        // \r because it won't decrypt without it, even though the message did not have a \r
-        // when encrypted. Bring on the QCA!
-        //QByteArray cipher = "::" + topic.toUtf8() + '\x0d';
-        QByteArray cipherText = topic.toUtf8();
-        QByteArray key = m_server->getKeyForRecipient(getName());
+        m_topicHistory->setCipher(getCipher());
 
-        if(getCipher()->setKey(key))
-            cipherText = getCipher()->decryptTopic(cipherText);
-
-        topic=QString::fromUtf8(cipherText.data()+2, cipherText.length()-2);
-        m_topicHistory[0] = m_topicHistory[0].section(' ', 0, 1) + ' ' + topic;
-        topicLine->setText(topic);
-        emit topicHistoryChanged();
-    #endif
+        topicLine->setText(m_topicHistory->currentTopic());
     }
     else
+    {
         cipherLabel->hide();
+        m_topicHistory->clearCipher();
+        topicLine->setText(m_topicHistory->currentTopic());
+
+    }
+#else
+    Q_UNUSED(e)
+#endif
 }
 
 Channel::~Channel()
@@ -414,6 +407,11 @@ void Channel::rejoin()
         m_server->sendJoinCommand(getName(), getPassword());
 }
 
+bool Channel::log()
+{
+    return ChatWindow::log() && !Preferences::self()->privateOnly();
+}
+
 ChannelNickPtr Channel::getOwnChannelNick() const
 {
     return m_ownChannelNick;
@@ -444,12 +442,9 @@ void Channel::purgeNicks()
 
 void Channel::showOptionsDialog()
 {
-    if(!m_optionsDialog)
+    if (!m_optionsDialog)
         m_optionsDialog = new Konversation::ChannelOptionsDialog(this);
 
-    m_optionsDialog->refreshAllowedChannelModes();
-    m_optionsDialog->refreshModes();
-    m_optionsDialog->refreshTopicHistory();
     m_optionsDialog->show();
 }
 
@@ -464,7 +459,7 @@ void Channel::textPasted(const QString& text)
             QString cChar(Preferences::self()->commandChar());
             // make sure that lines starting with command char get escaped
             if(line.startsWith(cChar)) line=cChar+line;
-            sendChannelText(line);
+            sendText(line);
         }
     }
 }
@@ -485,18 +480,18 @@ void Channel::doubleClickCommand(QTreeWidgetItem *item, int column)
 void Channel::completeNick()
 {
     int pos, oldPos;
-    QTextCursor cursor = channelInput->textCursor();
+    QTextCursor cursor = m_inputBar->textCursor();
 
     pos = cursor.position();
-    oldPos = channelInput->getOldCursorPosition();
+    oldPos = m_inputBar->getOldCursorPosition();
 
-    QString line=channelInput->toPlainText();
+    QString line=m_inputBar->toPlainText();
     QString newLine;
     // Check if completion position is out of range
     if(completionPosition >= nicknameList.count()) completionPosition = 0;
 
     // Check, which completion mode is active
-    char mode = channelInput->getCompletionMode();
+    char mode = m_inputBar->getCompletionMode();
 
     if(mode == 'c')
     {
@@ -505,10 +500,10 @@ void Channel::completeNick()
     }
 
     // If the cursor is at beginning of line, insert last completion if the nick is still around
-    if(pos == 0 && !channelInput->lastCompletion().isEmpty() && nicknameList.containsNick(channelInput->lastCompletion()))
+    if(pos == 0 && !m_inputBar->lastCompletion().isEmpty() && nicknameList.containsNick(m_inputBar->lastCompletion()))
     {
         QString addStart(Preferences::self()->nickCompleteSuffixStart());
-        newLine = channelInput->lastCompletion() + addStart;
+        newLine = m_inputBar->lastCompletion() + addStart;
         // New cursor position is behind nickname
         pos = newLine.length();
         // Add rest of the line
@@ -517,7 +512,7 @@ void Channel::completeNick()
     else
     {
         // remember old cursor position in input field
-        channelInput->setOldCursorPosition(pos);
+        m_inputBar->setOldCursorPosition(pos);
         // remember old cursor position locally
         oldPos = pos;
         // step back to last space or start of line
@@ -551,7 +546,7 @@ void Channel::completeNick()
                     }
                     else
                     {
-                        channelInput->showCompletionList(found);
+                        m_inputBar->showCompletionList(found);
                     }
                 }
             } // Cycle completion
@@ -610,7 +605,7 @@ void Channel::completeNick()
             if(!foundNick.isEmpty())
             {
                 // set channel nicks completion mode
-                channelInput->setCompletionMode('c');
+                m_inputBar->setCompletionMode('c');
 
                 // remove pattern from line
                 newLine.remove(pos, pattern.length());
@@ -618,7 +613,7 @@ void Channel::completeNick()
                 // did we find the nick in the middle of the line?
                 if(pos && complete)
                 {
-                    channelInput->setLastCompletion(foundNick);
+                    m_inputBar->setLastCompletion(foundNick);
                     QString addMiddle = Preferences::self()->nickCompleteSuffixMiddle();
                     newLine.insert(pos, foundNick + addMiddle);
                     pos = pos + foundNick.length() + addMiddle.length();
@@ -626,7 +621,7 @@ void Channel::completeNick()
                 // no, it was at the beginning
                 else if(complete)
                 {
-                    channelInput->setLastCompletion(foundNick);
+                    m_inputBar->setLastCompletion(foundNick);
                     QString addStart = Preferences::self()->nickCompleteSuffixStart();
                     newLine.insert(pos, foundNick + addStart);
                     pos = pos + foundNick.length() + addStart.length();
@@ -644,9 +639,9 @@ void Channel::completeNick()
     }
 
     // Set new text and cursor position
-    channelInput->setText(newLine);
+    m_inputBar->setText(newLine);
     cursor.setPosition(pos);
-    channelInput->setTextCursor(cursor);
+    m_inputBar->setTextCursor(cursor);
 }
 
 // make sure to step back one position when completion ends so the user starts
@@ -764,19 +759,19 @@ void Channel::sendFileMenu()
 
 void Channel::channelTextEntered()
 {
-    QString line = channelInput->toPlainText();
+    QString line = m_inputBar->toPlainText();
 
-    channelInput->clear();
+    m_inputBar->clear();
 
-    if (!line.isEmpty()) sendChannelText(sterilizeUnicode(line));
+    if (!line.isEmpty()) sendText(sterilizeUnicode(line));
 }
 
 void Channel::channelPassthroughCommand()
 {
     QString commandChar = Preferences::self()->commandChar();
-    QString line = channelInput->toPlainText();
+    QString line = m_inputBar->toPlainText();
 
-    channelInput->clear();
+    m_inputBar->clear();
 
     if(!line.isEmpty())
     {
@@ -785,20 +780,17 @@ void Channel::channelPassthroughCommand()
         {
             line = commandChar + line;
         }
-        sendChannelText(sterilizeUnicode(line));
+        sendText(sterilizeUnicode(line));
     }
 }
 
-void Channel::sendChannelText(const QString& sendLine)
+void Channel::sendText(const QString& sendLine)
 {
     // create a work copy
     QString outputAll(sendLine);
+
     // replace aliases and wildcards
-    if(m_server->getOutputFilter()->replaceAliases(outputAll))
-    {
-        outputAll = m_server->parseWildcards(outputAll,m_server->getNickname(),getName(),getPassword(),
-            getSelectedNickList(),QString());
-    }
+    m_server->getOutputFilter()->replaceAliases(outputAll);
 
     // Send all strings, one after another
     QStringList outList = outputAll.split(QRegExp("[\r\n]+"), QString::SkipEmptyParts);
@@ -916,14 +908,14 @@ void Channel::modeButtonClicked(int id, bool on)
 void Channel::quickButtonClicked(const QString &buttonText)
 {
     // parse wildcards (toParse,nickname,channelName,nickList,queryName,parameter)
-    QString out=m_server->parseWildcards(buttonText,m_server->getNickname(),getName(),getPassword(),getSelectedNickList(),QString());
+    QString out=m_server->parseWildcards(buttonText,m_server->getNickname(),getName(),getPassword(),getSelectedNickList(), m_inputBar->toPlainText());
 
     // are there any newlines in the definition?
     if (out.contains('\n'))
-        sendChannelText(out);
+        sendText(out);
     // single line without newline needs to be copied into input line
     else
-        channelInput->setText(out);
+        m_inputBar->setText(out, true);
 }
 
 void Channel::addNickname(ChannelNickPtr channelnick)
@@ -1083,14 +1075,16 @@ void Channel::joinNickname(ChannelNickPtr channelNick)
         m_joined = true;
         emit joined(this);
         if (displayCommandMessage)
-            appendCommandMessage(i18n("Join"), i18nc("%1 is the channel and %2 is our hostmask",
-                                 "You have joined the channel %1 (%2).", getName(), channelNick->getHostmask()), false, true);
+            appendCommandMessage(i18nc("Message type", "Join"), i18nc("%1 = our hostmask, %2 = channel",
+                                 "You (%1) have joined the channel %2.", channelNick->getHostmask(), getName()), false, true);
+
+        // Prepare for impending NAMES.
+        purgeNicks();
+        nicknameListView->setUpdatesEnabled(false);
+
         m_ownChannelNick = channelNick;
         refreshModeButtons();
         setActive(true);
-
-        // Prepare for impending NAMES.
-        nicknameListView->setUpdatesEnabled(false);
 
         ViewContainer* viewContainer = Application::instance()->getMainWindow()->getViewContainer();
 
@@ -1109,8 +1103,8 @@ void Channel::joinNickname(ChannelNickPtr channelNick)
         QString nick = channelNick->getNickname();
         QString hostname = channelNick->getHostmask();
         if (displayCommandMessage)
-            appendCommandMessage(i18n("Join"), i18nc("%1 is the nick joining and %2 the hostmask of that nick",
-                                 "%1 has joined this channel (%2).", nick, hostname), false);
+            appendCommandMessage(i18nc("Message type", "Join"), i18nc("%1 is the nick joining and %2 the hostmask of that nick",
+                                 "%1 (%2) has joined this channel.", nick, hostname), false);
         addNickname(channelNick);
     }
 }
@@ -1124,7 +1118,7 @@ void Channel::removeNick(ChannelNickPtr channelNick, const QString &reason, bool
     if(!displayReason.isEmpty())
     {
         // if the reason contains text markup characters, play it safe and reset all
-        if(displayReason.contains(QRegExp("[\\0000-\\0037]")))
+        if (hasIRCMarkups(displayReason))
             displayReason += "\017";
     }
 
@@ -1136,17 +1130,18 @@ void Channel::removeNick(ChannelNickPtr channelNick, const QString &reason, bool
             if (quit)
             {
                 if (displayReason.isEmpty())
-                    appendCommandMessage(i18n("Quit"), i18n("You have left this server."));
+                    appendCommandMessage(i18nc("Message type", "Quit"), i18n("You (%1) have left this server.", channelNick->getHostmask()));
                 else
-                    appendCommandMessage(i18n("Quit"), i18nc("%1 adds the reason", "You have left this server (%1).", displayReason));
+                    appendCommandMessage(i18nc("Message type", "Quit"), i18nc("%1 = our hostmask, %2 = reason", "You (%1) have left this server (%2).",
+                        channelNick->getHostmask(), displayReason), false);
             }
             else
             {
                 if (displayReason.isEmpty())
-                    appendCommandMessage(i18n("Part"), i18n("You have left channel %1.", getName()));
+                    appendCommandMessage(i18nc("Message type", "Part"), i18n("You have left channel %1.", getName()));
                 else
-                    appendCommandMessage(i18n("Part"), i18nc("%1 adds the channel and %2 the reason",
-                                "You have left channel %1 (%2).", getName(), displayReason));
+                    appendCommandMessage(i18nc("Message type", "Part"), i18nc("%1 = our hostmask, %2 = channel, %3 = reason",
+                        "You (%1) have left channel %2 (%3).", channelNick->getHostmask(), getName(), displayReason), false);
             }
         }
 
@@ -1159,18 +1154,20 @@ void Channel::removeNick(ChannelNickPtr channelNick, const QString &reason, bool
             if (quit)
             {
                 if (displayReason.isEmpty())
-                    appendCommandMessage(i18n("Quit"), i18n("%1 has left this server.", channelNick->getNickname()));
+                    appendCommandMessage(i18nc("Message type", "Quit"), i18n("%1 (%2) has left this server.", channelNick->getNickname(),
+                        channelNick->getHostmask()), false);
                 else
-                    appendCommandMessage(i18n("Quit"), i18nc("%1 adds the nick and %2 the reason",
-                                         "%1 has left this server (%2).", channelNick->getNickname(), displayReason));
+                    appendCommandMessage(i18nc("Message type", "Quit"), i18nc("%1 = nick, %2 = hostname, %3 = reason",
+                        "%1 (%2) has left this server (%3).", channelNick->getNickname(), channelNick->getHostmask(), displayReason), false);
             }
             else
             {
                 if (displayReason.isEmpty())
-                    appendCommandMessage(i18n("Part"), i18n("%1 has left this channel.", channelNick->getNickname()));
+                    appendCommandMessage(i18nc("Message type", "Part"), i18n("%1 (%2) has left this channel.", channelNick->getNickname(),
+                        channelNick->getHostmask()), false);
                 else
-                    appendCommandMessage(i18n("Part"), i18nc("%1 adds the nick and %2 the reason",
-                                         "%1 has left this channel (%2).", channelNick->getNickname(), displayReason));
+                    appendCommandMessage(i18nc("Message type", "Part"), i18nc("%1 = nick, %2 = hostmask, %3 = reason",
+                        "%1 (%2) has left this channel (%3).", channelNick->getNickname(), channelNick->getHostmask(), displayReason), false);
             }
         }
 
@@ -1197,17 +1194,9 @@ void Channel::removeNick(ChannelNickPtr channelNick, const QString &reason, bool
     }
 }
 
-void Channel::flushPendingNicks()
+void Channel::flushNickQueue()
 {
-    if (m_processingTimer)
-    {
-        m_processingTimer->stop();
-    }
-
-    while (!m_pendingChannelNickLists.isEmpty())
-    {
-        processPendingNicks();
-    }
+    processQueuedNicks(true);
 }
 
 void Channel::kickNick(ChannelNickPtr channelNick, const QString &kicker, const QString &reason)
@@ -1217,7 +1206,7 @@ void Channel::kickNick(ChannelNickPtr channelNick, const QString &kicker, const 
     if(!displayReason.isEmpty())
     {
         // if the reason contains text markup characters, play it safe and reset all
-        if(displayReason.contains(QRegExp("[\\0000-\\0037]")))
+        if (hasIRCMarkups(displayReason))
             displayReason += "\017";
     }
 
@@ -1349,69 +1338,46 @@ void Channel::emitUpdateInfo()
     emit updateInfo(info);
 }
 
-void Channel::setTopic(const QString &newTopic)
-{
-    appendCommandMessage(i18n("Topic"), i18n("The channel topic is \"%1\".", newTopic));
-    QString topic = Konversation::removeIrcMarkup(newTopic);
-    topicLine->setText(topic);
-    topicAuthorUnknown=true; // if we only get called with a topic, it was a 332, which usually has a 333 next
-    topic = replaceIRCMarkups(newTopic);
-    // cut off "nickname" and "time_t" portion of the topic before comparing, otherwise the history
-    // list will fill up with the same entries while the user only requests the topic to be seen.
-
-    if(m_topicHistory.isEmpty() || (m_topicHistory.first().section(' ', 2) != topic))
-    {
-        prependTopicHistory(topic);
-        emit topicHistoryChanged();
-    }
-}
-
-void Channel::setTopic(const QString &nickname, const QString &newTopic) // Overloaded
-{
-    if(nickname == m_server->getNickname())
-    {
-        appendCommandMessage(i18n("Topic"), i18n("You set the channel topic to \"%1\".", newTopic));
-    }
-    else
-    {
-        appendCommandMessage(i18n("Topic"), i18n("%1 sets the channel topic to \"%2\".", nickname, newTopic));
-    }
-
-    prependTopicHistory(newTopic, nickname);
-    QString topic = Konversation::removeIrcMarkup(newTopic);
-    topicLine->setText(topic);
-
-    emit topicHistoryChanged();
-}
-
-void Channel::prependTopicHistory(const QString& topic, const QString& nickname, uint time)
-{
-    QString newTopic(replaceIRCMarkups(topic));
-    m_topicHistory.prepend(QString("%1 %2 %3").arg(time).arg(nickname).arg(newTopic));
-}
-
-QStringList Channel::getTopicHistory()
-{
-    return m_topicHistory;
-}
-
 QString Channel::getTopic()
 {
-    return m_topicHistory[0];
+    return m_topicHistory->currentTopic();
 }
 
-void Channel::setTopicAuthor(const QString& newAuthor, QDateTime time)
+void Channel::setTopic(const QString& text)
+{
+    QString cleanTopic = text;
+
+    // If the reason contains text markup characters, play it safe and reset all.
+    if (!cleanTopic.isEmpty() && hasIRCMarkups(cleanTopic))
+        cleanTopic += "\017";
+
+    appendCommandMessage(i18n("Topic"), i18n("The channel topic is \"%1\".", cleanTopic));
+
+    m_topicHistory->appendTopic(replaceIRCMarkups(Konversation::removeIrcMarkup(text)));
+}
+
+void Channel::setTopic(const QString& nickname, const QString& text)
+{
+    QString cleanTopic = text;
+
+    // If the reason contains text markup characters, play it safe and reset all.
+    if (!cleanTopic.isEmpty() && hasIRCMarkups(cleanTopic))
+        cleanTopic += "\017";
+
+    if (nickname == m_server->getNickname())
+        appendCommandMessage(i18n("Topic"), i18n("You set the channel topic to \"%1\".", cleanTopic));
+    else
+        appendCommandMessage(i18n("Topic"), i18n("%1 sets the channel topic to \"%2\".", nickname, cleanTopic));
+
+    m_topicHistory->appendTopic(replaceIRCMarkups(Konversation::removeIrcMarkup(text)), nickname);
+}
+
+void Channel::setTopicAuthor(const QString& author, QDateTime time)
 {
     if (time.isNull() || !time.isValid())
-        time=QDateTime::currentDateTime();
+        time = QDateTime::currentDateTime();
 
-    if(topicAuthorUnknown && !m_topicHistory.isEmpty())
-    {
-        m_topicHistory[0] =  QString("%1").arg(time.toTime_t()) + ' ' + newAuthor + ' ' + m_topicHistory[0].section(' ', 2);
-        topicAuthorUnknown = false;
-
-        emit topicHistoryChanged();
-    }
+    m_topicHistory->setCurrentTopicMetadata(author, time);
 }
 
 void Channel::updateMode(const QString& sourceNick, char mode, bool plus, const QString &parameter)
@@ -1438,21 +1404,7 @@ void Channel::updateMode(const QString& sourceNick, char mode, bool plus, const 
     bool wasAnyOp = false;
     if (parameterChannelNick)
     {
-        // If NAMES processing is in progress, we likely have received
-        // a NAMES just prior to the MODE that caused this method to
-        // be run. If this nick is not yet in the nicklist (e.g. be-
-        // cause it's just after JOIN and the nicklist is still empty
-        // prior to the initial NAMES processing), the NAMES process-
-        // ing can set the ChannelNick's mode data to outdated infor-
-        // mation. By adding the nickname to the nicklist here if NA-
-        // MES processing is in progress, we prevent this, as the NA-
-        // MES processing code will ignore nicks already in the nick-
-        // list.
-        // We also add the nickname if the timer hasn't been instanci-
-        // ated yet, as this means addPendingNickList() has never run
-        // (yet) and thus NAMES hasn't been processed so far.
-        if (!m_processingTimer || m_processingTimer->isActive())
-            addNickname(parameterChannelNick);
+        addNickname(parameterChannelNick);
 
         wasAnyOp = parameterChannelNick->isAnyTypeOfOp();
     }
@@ -1543,7 +1495,7 @@ void Channel::updateMode(const QString& sourceNick, char mode, bool plus, const 
             }
             if (parameterChannelNick)
             {
-                parameterChannelNick->setOwner(plus);
+                parameterChannelNick->setAdmin(plus);
                 emitUpdateInfo();
             }
             break;
@@ -2129,14 +2081,14 @@ void Channel::updateAppearance()
     if (Preferences::self()->customTextFont())
     {
         topicLine->setFont(Preferences::self()->textFont());
-        channelInput->setFont(Preferences::self()->textFont());
+        m_inputBar->setFont(Preferences::self()->textFont());
         nicknameCombobox->setFont(Preferences::self()->textFont());
         limit->setFont(Preferences::self()->textFont());
     }
     else
     {
         topicLine->setFont(KGlobalSettings::generalFont());
-        channelInput->setFont(KGlobalSettings::generalFont());
+        m_inputBar->setFont(KGlobalSettings::generalFont());
         nicknameCombobox->setFont(KGlobalSettings::generalFont());
         limit->setFont(KGlobalSettings::generalFont());
     }
@@ -2179,7 +2131,7 @@ void Channel::nicknameComboboxChanged()
         nicknameCombobox->setCurrentIndex(nicknameCombobox->findText(oldNick));
         changeNickname(newNick);
         // return focus to input line
-        channelInput->setFocus();
+        m_inputBar->setFocus();
     }
 }
 
@@ -2189,26 +2141,29 @@ void Channel::changeNickname(const QString& newNickname)
         m_server->queue("NICK "+newNickname);
 }
 
-void Channel::addPendingNickList(const QStringList& pendingChannelNickList)
+void Channel::queueNicks(const QStringList& nicknameList)
 {
-    if(pendingChannelNickList.isEmpty())
-      return;
+    if (nicknameList.isEmpty())
+        return;
 
-    if (!m_processingTimer)
+    m_nickQueue.append(nicknameList);
+
+    processQueuedNicks();
+}
+
+void Channel::endOfNames()
+{
+    if (!m_initialNamesReceived)
     {
-        m_processingTimer = new QTimer(this);
-        connect(m_processingTimer, SIGNAL(timeout()), this, SLOT(processPendingNicks()));
+        m_initialNamesReceived = true;
+
+        scheduleAutoWho();
     }
-
-    m_pendingChannelNickLists << pendingChannelNickList;
-
-    if (!m_processingTimer->isActive())
-        m_processingTimer->start(0);
 }
 
 void Channel::childAdjustFocus()
 {
-    channelInput->setFocus();
+    m_inputBar->setFocus();
     refreshModeButtons();
 }
 
@@ -2302,25 +2257,97 @@ void Channel::setAutoUserhost(bool state)
     }
 }
 
-void Channel::scheduleAutoWho() // slot
+void Channel::scheduleAutoWho(int msec)
 {
-    if(m_whoTimer.isActive())
+    // The first auto-who is scheduled by ENDOFNAMES in InputFilter, which means
+    // the first auto-who occurs one interval after it. This has two desirable
+    // consequences specifically related to the startup phase: auto-who dispatch
+    // doesn't occur at the same time for all channels that are auto-joined, and
+    // it gives some breathing room to process the NAMES replies for all channels
+    // first before getting started on WHO.
+    // Subsequent auto-whos are scheduled by ENDOFWHO in InputFilter. However,
+    // autoWho() might refuse to actually do the request if the number of nicks
+    // in the channel exceeds the threshold, and will instead schedule another
+    // attempt later. Thus scheduling an auto-who does not guarantee it will be
+    // performed.
+    // If this is called mid-interval (e.g. due to the ENDOFWHO from a manual WHO)
+    // it will reset the interval to avoid cutting it short.
+
+    if (m_whoTimer.isActive())
         m_whoTimer.stop();
-    if(Preferences::self()->autoWhoContinuousEnabled())
-        m_whoTimer.start(Preferences::self()->autoWhoContinuousInterval() * 1000);
+
+    if (Preferences::self()->autoWhoContinuousEnabled())
+    {
+        if (msec > 0)
+            m_whoTimer.start(msec);
+        else
+            m_whoTimer.start(Preferences::self()->autoWhoContinuousInterval() * 1000);
+    }
 }
 
 void Channel::autoWho()
 {
-    // don't use auto /WHO when the number of nicks is too large, or get banned.
-    if((nicks > Preferences::self()->autoWhoNicksLimit()) ||
+    // Try again later if there are too many nicks or we're already processing a WHO request.
+    if ((nicks > Preferences::self()->autoWhoNicksLimit()) ||
        m_server->getInputFilter()->isWhoRequestUnderProcess(getName()))
     {
         scheduleAutoWho();
+
         return;
     }
 
     m_server->requestWho(getName());
+}
+
+void Channel::updateAutoWho()
+{
+    if (!Preferences::self()->autoWhoContinuousEnabled())
+        m_whoTimer.stop();
+    else if (Preferences::self()->autoWhoContinuousEnabled() && !m_whoTimer.isActive())
+        autoWho();
+    else if (m_whoTimer.isActive())
+    {
+        // The below tries to meet user expectations on an interval settings change,
+        // making two assumptions:
+        // - If the new interval is lower than the old one, the user may be impatient
+        //   and desires an information update.
+        // - If the new interval is longer than the old one, the user may be trying to
+        //   avoid Konversation producing too much traffic in a given timeframe, and
+        //   wants it to stop doing so sooner rather than later.
+        // Both require rescheduling the next auto-who request.
+
+        int interval = Preferences::self()->autoWhoContinuousInterval() * 1000;
+
+        if (interval != m_whoTimer.interval())
+        {
+            if (m_whoTimerStarted.elapsed() >= interval)
+            {
+                // If the time since the last auto-who request is longer than (or
+                // equal to) the new interval setting, it follows that the new
+                // setting is lower than the old setting. In this case issue a new
+                // request immediately, which is the closest we can come to acting
+                // as if the new setting had been active all along, short of tra-
+                // velling back in time to change history. This handles the impa-
+                // tient user.
+                // FIXME: Adjust algorithm when time machine becomes available.
+
+                m_whoTimer.stop();
+                autoWho();
+            }
+            else
+            {
+                // If on the other hand the elapsed time is shorter than the new
+                // interval setting, the new setting could be either shorter or
+                // _longer_ than the old setting. Happily, this time we can actually
+                // behave as if the new setting had been active all along, by sched-
+                // uling the next request to happen in the new interval time minus
+                // the already elapsed time, meeting user expecations for both cases
+                // originally laid out.
+
+                scheduleAutoWho(interval - m_whoTimerStarted.elapsed());
+            }
+        }
+    }
 }
 
 void Channel::fadeActivity()
@@ -2330,35 +2357,14 @@ void Channel::fadeActivity()
     }
 }
 
-QString Channel::getTextInLine()
-{
-  return channelInput->toPlainText();
-}
-
 bool Channel::canBeFrontView()
 {
-  return true;
+    return true;
 }
 
 bool Channel::searchView()
 {
-  return true;
-}
-
-void Channel::appendInputText(const QString& s, bool fromCursor)
-{
-    if(!fromCursor)
-    {
-        channelInput->append(s);
-    }
-    else
-    {
-        const int position = channelInput->textCursor().position();
-        channelInput->textCursor().insertText(s);
-        QTextCursor cursor = channelInput->textCursor();
-        cursor.setPosition(position + s.length());
-        channelInput->setTextCursor(cursor);
-    }
+    return true;
 }
 
 bool Channel::closeYourself(bool confirm)
@@ -2400,6 +2406,7 @@ void Channel::setActive(bool active)
         nicknameCombobox->setEnabled(true);
     else
     {
+        m_initialNamesReceived = false;
         purgeNicks();
         nicknameCombobox->setEnabled(false);
         topicLine->clear();
@@ -2431,62 +2438,76 @@ void Channel::showTopic(bool show)
     }
 }
 
-void Channel::processPendingNicks()
+void Channel::processQueuedNicks(bool flush)
 {
-    QString nickname = m_pendingChannelNickLists.first()[m_currentIndex];
+// This pops nicks from the front of a queue added to by incoming NAMES
+// messages and adds them to the channel nicklist, calling itself via
+// the event loop until the last invocation finds the queue empty and
+// adjusts the nicks/ops counters and requests a nicklist sort, but only
+// if previous invocations actually processed any nicks. The latter is
+// an optimization for the common case of processing being kicked off by
+// flushNickQueue(), which is done e.g. before a nick rename or part to
+// make sure the channel is up to date and will usually find an empty
+// queue. This is also the use case for the 'flush' parameter, which if
+// true causes the recursion to block in a tight loop instead of queueing
+// via the event loop.
 
-    bool admin = false;
-    bool owner = false;
-    bool op = false;
-    bool halfop = false;
-    bool voice = false;
-
-    // Remove possible mode characters from nickname and store the resulting mode
-    m_server->mangleNicknameWithModes(nickname, admin, owner, op, halfop, voice);
-
-    // TODO: make these an enumeration in KApplication or somewhere, we can use them as well
-    unsigned int mode = (admin  ? 16 : 0) +
-                        (owner  ?  8 : 0) +
-                        (op     ?  4 : 0) +
-                        (halfop ?  2 : 0) +
-                        (voice  ?  1 : 0);
-
-    // Check if nick is already in the nicklist
-    if (nickname.isEmpty() || getNickByName(nickname))
+    if (m_nickQueue.isEmpty())
     {
-        m_pendingChannelNickLists.first().pop_front();
+        if (m_processedNicksCount)
+        {
+            adjustNicks(m_processedNicksCount);
+            adjustOps(m_processedOpsCount);
+            m_processedNicksCount = 0;
+            m_processedOpsCount = 0;
+
+            sortNickList();
+            nicknameListView->setUpdatesEnabled(true);
+
+            if (Preferences::self()->autoUserhost())
+                resizeNicknameListViewColumns();
+        }
     }
     else
     {
-        ChannelNickPtr nick = m_server->addNickToJoinedChannelsList(getName(), nickname);
-        Q_ASSERT(nick);
-        nick->setMode(mode);
+        QString nickname;
 
-        fastAddNickname(nick);
+        while (nickname.isEmpty() && !m_nickQueue.isEmpty())
+            nickname = m_nickQueue.takeFirst();
 
-        if (nick->isAdmin() || nick->isOwner() || nick->isOp() || nick->isHalfOp())
-            m_opsToAdd++;
+        bool admin = false;
+        bool owner = false;
+        bool op = false;
+        bool halfop = false;
+        bool voice = false;
 
-        m_currentIndex++;
-    }
+        // Remove possible mode characters from nickname and store the resulting mode.
+        m_server->mangleNicknameWithModes(nickname, admin, owner, op, halfop, voice);
 
-    if (m_pendingChannelNickLists.first().count() <= m_currentIndex)
-    {
-        adjustNicks(m_pendingChannelNickLists.first().count());
-        adjustOps(m_opsToAdd);
-        m_pendingChannelNickLists.pop_front();
-        m_currentIndex = 0;
-        m_opsToAdd = 0;
-    }
+        // TODO: Make these an enumeration in KApplication or somewhere, we can use them as well.
+        unsigned int mode = (admin  ? 16 : 0) +
+                            (owner  ?  8 : 0) +
+                            (op     ?  4 : 0) +
+                            (halfop ?  2 : 0) +
+                            (voice  ?  1 : 0);
 
-    if (m_pendingChannelNickLists.isEmpty())
-    {
-        m_processingTimer->stop();
-        sortNickList();
-        nicknameListView->setUpdatesEnabled(true);
+        // Check if nick is already in the nicklist.
+        if (!nickname.isEmpty() && !getNickByName(nickname))
+        {
+            ChannelNickPtr nick = m_server->addNickToJoinedChannelsList(getName(), nickname);
+            Q_ASSERT(nick);
+            nick->setMode(mode);
 
-        if (Preferences::self()->autoUserhost())
-            resizeNicknameListViewColumns();
+            fastAddNickname(nick);
+
+            ++m_processedNicksCount;
+
+            if (nick->isAdmin() || nick->isOwner() || nick->isOp() || nick->isHalfOp())
+                ++m_processedOpsCount;
+        }
+
+        QMetaObject::invokeMethod(this, "processQueuedNicks",
+            flush ? Qt::DirectConnection : Qt::QueuedConnection, Q_ARG(bool, flush));
     }
 }
 

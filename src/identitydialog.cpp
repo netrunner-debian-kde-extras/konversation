@@ -8,20 +8,17 @@
 /*
   copyright: (C) 2004, 2009 by Peter Simonsson
   email:     peter.simonsson@gmail.com
+  Copyright (C) 2012 Eike Hein <hein@kde.org>
 */
 #include "identitydialog.h"
 #include "application.h"
 #include "awaymanager.h"
 #include "irccharsets.h"
 
-#if KDE_IS_VERSION(4, 6, 0)
 #include <KEditListWidget>
-#else
-#include <KEditListBox>
-#endif
-
 #include <KDialog>
 #include <KMessageBox>
+#include <KMessageWidget>
 #include <KInputDialog>
 #include <KUser>
 
@@ -40,17 +37,13 @@ namespace Konversation
         setupUi(w);
         setMainWidget(w);
 
-#if KDE_IS_VERSION(4, 6, 0)
         QGroupBox* nickGroupBox = new QGroupBox(i18n("Nickname"));
         verticalLayout->insertWidget(1, nickGroupBox);
         QVBoxLayout* nickGroupBoxLayout = new QVBoxLayout(nickGroupBox);
         nickGroupBoxLayout->setContentsMargins(0, 0, 0, 0);
         m_nicknameLBox = new KEditListWidget(nickGroupBox);
         nickGroupBoxLayout->addWidget(m_nicknameLBox);
-#else
-        m_nicknameLBox = new KEditListBox(i18n("Nickname"), generalWidget);
-        verticalLayout->insertWidget(1, m_nicknameLBox);
-#endif
+
         m_nicknameLBox->setWhatsThis(i18n("This is your list of nicknames. A nickname is the name that other users will "
                                           "know you by. You may use any name you desire. The first character must be a letter.\n\n"
                                           "Since nicknames must be unique across an entire IRC network, your desired name may be "
@@ -74,6 +67,19 @@ namespace Konversation
             m_identityCBox->addItem(id->getName());
             m_identityList.append( IdentityPtr( id ) );
         }
+
+        m_additionalAuthInfo = new KMessageWidget(generalWidget);
+        m_additionalAuthInfo->setWordWrap(true);
+        m_additionalAuthInfo->setCloseButtonVisible(false);
+        m_additionalAuthInfo->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        connect(m_authTypeCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(authTypeChanged(int)));
+        m_authTypeCombo->addItem(i18n("Standard NickServ"), "nickserv");
+        m_authTypeCombo->addItem(i18n("Server Password"), "serverpw");
+        m_authTypeCombo->addItem(i18n("SASL"), "saslplain");
+#if KDE_IS_VERSION(4, 8, 3)
+m_authTypeCombo->addItem(i18n("SSL Client Certificate"), "pemclientcert");
+#endif
 
         // add encodings to combo box
         m_codecCBox->addItems(Konversation::IRCCharsets::self()->availableEncodingDescriptiveNames());
@@ -109,8 +115,13 @@ namespace Konversation
         m_realNameEdit->setText(m_currentIdentity->getRealName());
         m_nicknameLBox->clear();
         m_nicknameLBox->insertStringList(m_currentIdentity->getNicknameList());
-        m_botEdit->setText(m_currentIdentity->getBot());
-        m_passwordEdit->setText(m_currentIdentity->getPassword());
+
+        m_authTypeCombo->setCurrentIndex(m_authTypeCombo->findData(m_currentIdentity->getAuthType()));
+        m_authPasswordEdit->setText(m_currentIdentity->getAuthPassword());
+        m_nickservNicknameEdit->setText(m_currentIdentity->getNickservNickname());
+        m_nickservCommandEdit->setText(m_currentIdentity->getNickservCommand());
+        m_saslAccountEdit->setText(m_currentIdentity->getSaslAccount());
+        m_pemClientCertFile->setUrl(m_currentIdentity->getPemClientCertFile());
 
         m_insertRememberLineOnAwayChBox->setChecked(m_currentIdentity->getInsertRememberLineOnAway());
         m_awayMessageEdit->setText(m_currentIdentity->getAwayMessage());
@@ -151,8 +162,13 @@ namespace Konversation
         m_currentIdentity->setRealName(m_realNameEdit->text());
         const QStringList nicks = m_nicknameLBox->items();
         m_currentIdentity->setNicknameList(nicks);
-        m_currentIdentity->setBot(m_botEdit->text());
-        m_currentIdentity->setPassword(m_passwordEdit->text());
+
+        m_currentIdentity->setAuthType(m_authTypeCombo->itemData(m_authTypeCombo->currentIndex()).toString());
+        m_currentIdentity->setAuthPassword(m_authPasswordEdit->text());
+        m_currentIdentity->setNickservNickname(m_nickservNicknameEdit->text());
+        m_currentIdentity->setNickservCommand(m_nickservCommandEdit->text());
+        m_currentIdentity->setSaslAccount(m_saslAccountEdit->text());
+        m_currentIdentity->setPemClientCertFile(m_pemClientCertFile->url());
 
         m_currentIdentity->setInsertRememberLineOnAway(m_insertRememberLineOnAwayChBox->isChecked());
         m_currentIdentity->setAwayMessage(m_awayMessageEdit->text());
@@ -332,5 +348,58 @@ namespace Konversation
         }
 
         return true;
+    }
+
+    void IdentityDialog::authTypeChanged(int index)
+    {
+        QString authType = m_authTypeCombo->itemData(index).toString();
+
+        bool isNickServ = (authType == "nickserv");
+        bool isSaslPlain = (authType == "saslplain");
+        bool isServerPw = (authType == "serverpw");
+        bool isPemClientCert = (authType == "pemclientcert");
+
+        nickservNicknameLabel->setVisible(isNickServ);
+        m_nickservNicknameEdit->setVisible(isNickServ);
+        nickservCommandLabel->setVisible(isNickServ);
+        m_nickservCommandEdit->setVisible(isNickServ);
+        saslAccountLabel->setVisible(isSaslPlain);
+        m_saslAccountEdit->setVisible(isSaslPlain);
+        authPasswordLabel->setVisible(!isPemClientCert);
+        m_authPasswordEdit->setVisible(!isPemClientCert);
+        pemClientCertFileLabel->setVisible(isPemClientCert);
+        m_pemClientCertFile->setVisible(isPemClientCert);
+        m_additionalAuthInfo->setVisible(isServerPw || isPemClientCert);
+
+        for (int i = 0; i < autoIdentifyLayout->count(); ++i)
+            autoIdentifyLayout->removeItem(autoIdentifyLayout->itemAt(0));
+
+        autoIdentifyLayout->addRow(authTypeLabel, m_authTypeCombo);
+
+        if (isNickServ)
+        {
+            autoIdentifyLayout->addRow(nickservNicknameLabel, m_nickservNicknameEdit);
+            autoIdentifyLayout->addRow(nickservCommandLabel, m_nickservCommandEdit);
+            autoIdentifyLayout->addRow(authPasswordLabel, m_authPasswordEdit);
+        }
+        else if (isServerPw)
+        {
+            autoIdentifyLayout->addRow(authPasswordLabel, m_authPasswordEdit);
+
+            m_additionalAuthInfo->setText(i18n("The password entered here will override the one set in the server settings, if any."));
+            autoIdentifyLayout->addRow(0, m_additionalAuthInfo);
+        }
+        else if (isSaslPlain)
+        {
+            autoIdentifyLayout->addRow(saslAccountLabel, m_saslAccountEdit);
+            autoIdentifyLayout->addRow(authPasswordLabel, m_authPasswordEdit);
+        }
+        else if (isPemClientCert)
+        {
+            autoIdentifyLayout->addRow(pemClientCertFileLabel, m_pemClientCertFile);
+
+            m_additionalAuthInfo->setText(i18n("SSL Client Certificate authentication forces SSL to be enabled for a connection, overriding any server settings."));
+            autoIdentifyLayout->addRow(0, m_additionalAuthInfo);
+        }
     }
 }

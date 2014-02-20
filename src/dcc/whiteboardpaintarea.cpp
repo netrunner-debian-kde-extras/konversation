@@ -448,6 +448,8 @@ namespace Konversation
 
                 case WhiteBoardGlobals::FilledEllipse:
                     tPainter.setBrush(m_backgroundColor);
+                    // fallthrough, same as WhiteBoardGlobals::Ellipse just
+                    // with extra color
                 case WhiteBoardGlobals::Ellipse:
                     {
                         if (isLastPosValid())
@@ -469,6 +471,8 @@ namespace Konversation
 
                 case WhiteBoardGlobals::FilledRectangle:
                     tPainter.setBrush(m_backgroundColor);
+                    // fallthrough, same as WhiteBoardGlobals::Rectangle just
+                    // with extra color
                 case WhiteBoardGlobals::Rectangle:
                     {
                         if (isLastPosValid())
@@ -543,7 +547,9 @@ namespace Konversation
                 case WhiteBoardGlobals::ColorPicker:
                     {
                         QImage image = m_imagePixmap->toImage();
-                        emit colorPicked(QColor(image.pixel(event->pos().x(), event->pos().y())));
+                        QColor fgColor(image.pixel(event->pos().x(), event->pos().y()));
+                        m_foregroundColor = fgColor;
+                        emit colorPicked(fgColor);
                     }
                     break;
                 case WhiteBoardGlobals::Stamp:
