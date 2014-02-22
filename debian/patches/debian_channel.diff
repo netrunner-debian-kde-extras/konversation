@@ -12,11 +12,11 @@ Signed-off-by: Modestas Vainius <modestas@vainius.eu>
 
 --- a/src/config/preferences.cpp
 +++ b/src/config/preferences.cpp
-@@ -61,14 +61,16 @@ Preferences::Preferences()
+@@ -61,14 +61,16 @@
      mIdentity->setNicknameList(nickList);
  
      Konversation::ServerGroupSettingsPtr serverGroup(new Konversation::ServerGroupSettings);
--    serverGroup->setName("Freenode");
+-    serverGroup->setName("freenode");
 +    serverGroup->setName("Debian IRC");
      Konversation::ServerSettings server;
 -    server.setHost("chat.freenode.net");
