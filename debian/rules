@@ -13,4 +13,4 @@ override_dh_install:
 	fi
 
 %:
-	dh --with kde --parallel --dbg-package=konversation-dbg $@
+	dh  $@ --with kde --parallel --dbg-package=konversation-dbg
