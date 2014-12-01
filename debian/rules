@@ -1,16 +1,14 @@
 #!/usr/bin/make -f
 
-#DEB_KDE_LINK_WITH_AS_NEEDED := yes
+include /usr/share/pkg-kde-tools/qt-kde-team/3/debian-qt-kde.mk
 
-override_dh_auto_configure:
-	dh_auto_configure -Skde -- -DCMAKE_USE_RELATIVE_PATHS=ON
+
+%:
+	$(overridden_command) --dbg-package=konversation-dbg
 
 override_dh_install:
-	dh_install
+	$(overridden_command)
 	# Install scripts README (and rename)
 	if [ -d debian/konversation ]; then \
 	    cp -a data/scripts/README debian/konversation/usr/share/doc/konversation/README.scripts; \
 	fi
-
-%:
-	dh  $@ --with kde --parallel --dbg-package=konversation-dbg

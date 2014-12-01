@@ -3,9 +3,24 @@ Section: net
 Priority: optional
 Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
 Uploaders: Modestas Vainius <modax@debian.org>, Diane Trout <diane@ghic.org>
-Build-Depends: debhelper (>= 9), cmake (>= 2.6.2), pkg-kde-tools (>= 0.5),
- libqt4-dev (>= 4:4.7), kdelibs5-dev (>= 4:4.4.3), kdepimlibs5-dev (>= 4:4.4.3),
- libqca2-dev
+Build-Depends: debhelper (>= 9), cmake (>= 2.6.2), pkg-kde-tools (>= 0.12),
+ libkf5archive-dev,
+ libkf5bookmarks-dev,
+ libkf5config-dev,
+ libkf5configwidgets-dev,
+ libkf5emoticons-dev,
+ libkf5i18n-dev,
+ libkf5idletime-dev,
+ libkf5notifyconfig-dev,
+ libkf5kdelibs4support-dev,
+ kio-dev,
+ libkf5parts-dev,
+ libkf5solid-dev,
+ libkf5sonnet-dev,
+ libkf5wallet-dev,
+ libkf5widgetsaddons-dev,
+ libphonon4qt5-dev,
+ libqca-qt5-2-dev
 Standards-Version: 3.9.5
 Homepage: http://konversation.kde.org/
 Vcs-Git: git://anonscm.debian.org/pkg-kde/kde-extras/konversation.git
