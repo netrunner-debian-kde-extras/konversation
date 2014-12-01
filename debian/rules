@@ -2,13 +2,12 @@
 
 include /usr/share/pkg-kde-tools/qt-kde-team/3/debian-qt-kde.mk
 
-
-%:
-	$(overridden_command) --dbg-package=konversation-dbg
-
 override_dh_install:
 	$(overridden_command)
 	# Install scripts README (and rename)
 	if [ -d debian/konversation ]; then \
 	    cp -a data/scripts/README debian/konversation/usr/share/doc/konversation/README.scripts; \
 	fi
+
+override_dh_strip:
+	$(overridden_command) --dbg-package=konversation-dbg
