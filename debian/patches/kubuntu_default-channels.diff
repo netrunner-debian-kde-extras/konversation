@@ -2,21 +2,21 @@ Index: konversation/src/config/preferences.cpp
 ===================================================================
 --- konversation.orig/src/config/preferences.cpp
 +++ konversation/src/config/preferences.cpp
-@@ -63,14 +63,14 @@ Preferences::Preferences()
+@@ -62,14 +62,14 @@ Preferences::Preferences()
      mIdentity->setNicknameList(nickList);
  
      Konversation::ServerGroupSettingsPtr serverGroup(new Konversation::ServerGroupSettings);
--    serverGroup->setName("freenode");
-+    serverGroup->setName("Ubuntu IRC");
+-    serverGroup->setName(QStringLiteral("freenode"));
++    serverGroup->setName(QStringLiteral("Ubuntu IRC"));
      Konversation::ServerSettings server;
--    server.setHost("chat.freenode.net");
-+    server.setHost("irc.ubuntu.com");
+-    server.setHost(QStringLiteral("chat.freenode.net"));
++    server.setHost(QStringLiteral("irc.ubuntu.com"));
      server.setPort(8001);
      serverGroup->addServer(server);
      serverGroup->setIdentityId(mIdentity->id());
      Konversation::ChannelSettings channel;
--    channel.setName("#konversation");
-+    channel.setName("#kubuntu");
+-    channel.setName(QStringLiteral("#konversation"));
++    channel.setName(QStringLiteral("#kubuntu"));
      serverGroup->addChannel(channel);
      serverGroup->setExpanded(false);
      mServerGroupHash.insert(0, serverGroup);
