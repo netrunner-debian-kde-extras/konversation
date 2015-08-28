@@ -12,11 +12,11 @@ Signed-off-by: Modestas Vainius <modestas@vainius.eu>
 
 --- a/src/config/preferences.cpp
 +++ b/src/config/preferences.cpp
-@@ -121,6 +121,7 @@ const QList<QStringList> Preferences::de
+@@ -122,6 +122,7 @@
      QList<QStringList> defaultList;
-     defaultList.append(QStringList() << "1" << "o" << "\\[\\[([^\\s]+)\\]\\]" << "http://en.wikipedia.org/wiki/Special:Search?go=Go&search=%1");
-     defaultList.append(QStringList() << "1" << "o" << "(BUG:|bug:)([0-9]+)" << "https://bugs.kde.org/show_bug.cgi?id=%2");
-+    defaultList.append(QStringList() << "1" << "o" << "([Dd][Bb][Uu][Gg]:)(\\w+)" << "http://bugs.debian.org/%2");
+     defaultList.append(QStringList() << QStringLiteral("1") << QStringLiteral("o") << QStringLiteral("\\[\\[([^\\s]+)\\]\\]") << QStringLiteral("http://en.wikipedia.org/wiki/Special:Search?go=Go&search=%1"));
+     defaultList.append(QStringList() << QStringLiteral("1") << QStringLiteral("o") << QStringLiteral("(BUG:|bug:)([0-9]+)") << QStringLiteral("https://bugs.kde.org/show_bug.cgi?id=%2"));
++    defaultList.append(QStringList() << QStringLiteral("1") << QStringLiteral("o") << QStringLiteral("([Dd][Bb][Uu][Gg]:)(\\w+)") << QStringLiteral("https://bugs.debian.org/%2"));
      return defaultList;
  }
  

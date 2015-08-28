@@ -12,24 +12,21 @@ Signed-off-by: Modestas Vainius <modestas@vainius.eu>
 
 --- a/src/config/preferences.cpp
 +++ b/src/config/preferences.cpp
-@@ -61,14 +61,16 @@
-     mIdentity->setNicknameList(nickList);
- 
+@@ -64,12 +64,14 @@
      Konversation::ServerGroupSettingsPtr serverGroup(new Konversation::ServerGroupSettings);
--    serverGroup->setName("freenode");
-+    serverGroup->setName("Debian IRC");
+     serverGroup->setName(QStringLiteral("freenode"));
      Konversation::ServerSettings server;
--    server.setHost("chat.freenode.net");
+-    server.setHost(QStringLiteral("chat.freenode.net"));
 -    server.setPort(8001);
-+    server.setHost("irc.debian.org");
++    server.setHost(QStringLiteral("irc.debian.org"));
 +    server.setPort(7000);
      serverGroup->addServer(server);
      serverGroup->setIdentityId(mIdentity->id());
      Konversation::ChannelSettings channel;
--    channel.setName("#konversation");
-+    channel.setName("#debian");
+-    channel.setName(QStringLiteral("#konversation"));
++    channel.setName(QStringLiteral("#debian"));
 +    serverGroup->addChannel(channel);
-+    channel.setName("#debian-kde");
++    channel.setName(QStringLiteral("#debian-kde"));
      serverGroup->addChannel(channel);
      serverGroup->setExpanded(false);
      mServerGroupHash.insert(0, serverGroup);
