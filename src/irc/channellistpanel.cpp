@@ -23,8 +23,8 @@
 #include <QTextDocument>
 
 #include <KRun>
-#include <KFileDialog>
-#include <KMenu>
+#include <QFileDialog>
+#include <QMenu>
 #include <KToolBar>
 
 
@@ -35,7 +35,8 @@ ChannelListModel::ChannelListModel(QObject* parent) : QAbstractListModel(parent)
 void ChannelListModel::append(const ChannelItem& item)
 {
     m_channelList.append(item);
-    reset();
+    beginResetModel();
+    endResetModel();
 }
 
 int ChannelListModel::columnCount(const QModelIndex& /*parent*/) const
@@ -71,7 +72,7 @@ QVariant ChannelListModel::data(const QModelIndex& index, int role) const
     }
     else if(role == Qt::ToolTipRole)
     {
-        return QString(QLatin1String("<qt>") + Qt::escape(item.topic) + QLatin1String("</qt>"));
+        return QString(QLatin1String("<qt>") + item.topic.toHtmlEscaped() + QLatin1String("</qt>"));
     }
     return QVariant();
 }
@@ -143,6 +144,7 @@ void ChannelListProxyModel::setFilterChannel(bool filter)
 ChannelListPanel::ChannelListPanel(QWidget* parent) : ChatWindow(parent)
 {
     setType(ChatWindow::ChannelList);
+    m_isTopLevelView = false;
     setName(i18n("Channel List"));
 
     m_firstRun = true;
@@ -159,13 +161,13 @@ ChannelListPanel::ChannelListPanel(QWidget* parent) : ChatWindow(parent)
 
     setSpacing(0);
     m_toolBar = new KToolBar(this, true, true);
-    m_toolBar->setObjectName("channellistpanel_toolbar");
-    m_saveList = m_toolBar->addAction(KIcon("document-save"), i18nc("save list", "Save &List..."), this, SLOT(saveList()));
+    m_toolBar->setObjectName(QStringLiteral("channellistpanel_toolbar"));
+    m_saveList = m_toolBar->addAction(QIcon::fromTheme(QStringLiteral("document-save")), i18nc("save list", "Save &List..."), this, SLOT(saveList()));
     m_saveList->setWhatsThis(i18n("Click here to save the channel list."));
-    m_refreshList = m_toolBar->addAction(KIcon("view-refresh"), i18nc("refresh list", "&Refresh List"), this, SLOT(refreshList()));
+    m_refreshList = m_toolBar->addAction(QIcon::fromTheme(QStringLiteral("view-refresh")), i18nc("refresh list", "&Refresh List"), this, SLOT(refreshList()));
     m_refreshList->setWhatsThis(i18n("Click here to refresh the channel list."));
     m_toolBar->addSeparator();
-    m_joinChannel = m_toolBar->addAction(KIcon("irc-join-channel"), i18nc("join channel", "&Join Channel"), this, SLOT(joinChannelClicked()));
+    m_joinChannel = m_toolBar->addAction(QIcon::fromTheme(QStringLiteral("irc-join-channel")), i18nc("join channel", "&Join Channel"), this, SLOT(joinChannelClicked()));
     m_joinChannel->setWhatsThis(i18n("Click here to join the channel. A new tab is created for the channel."));
     //UI Setup
     setupUi(this);
@@ -177,35 +179,33 @@ ChannelListPanel::ChannelListPanel(QWidget* parent) : ChatWindow(parent)
     m_channelListView->setModel(m_proxyModel);
     m_channelListView->header()->resizeSection(1,75); // resize users section to be smaller
 
-    Preferences::restoreColumnState(m_channelListView, "ChannelList ViewSettings");
+    Preferences::restoreColumnState(m_channelListView, QStringLiteral("ChannelList ViewSettings"));
 
     // double click on channel entry joins the channel
-    connect(m_channelListView, SIGNAL(doubleClicked(QModelIndex)),
-            this, SLOT(joinChannelClicked()) );
+    connect(m_channelListView, &QTreeView::doubleClicked, this, &ChannelListPanel::joinChannelClicked);
     connect(m_channelListView->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)),
             this, SLOT(currentChanged(QModelIndex,QModelIndex)));
-    connect(m_channelListView, SIGNAL(customContextMenuRequested(QPoint)),
-            this, SLOT(contextMenu(QPoint)) );
+    connect(m_channelListView, &QTreeView::customContextMenuRequested, this, &ChannelListPanel::contextMenu);
 
-    connect(m_regexBox, SIGNAL(stateChanged(int)), this, SLOT(filterChanged()));
-    connect(m_topicBox, SIGNAL(stateChanged(int)), this, SLOT(filterChanged()));
-    connect(m_channelBox, SIGNAL(stateChanged(int)), this, SLOT(filterChanged()));
-    connect(m_minUser, SIGNAL(valueChanged(int)), this, SLOT(filterChanged()));
-    connect(m_maxUser, SIGNAL(valueChanged(int)), this, SLOT(filterChanged()));
+    connect(m_regexBox, &QCheckBox::stateChanged, this, &ChannelListPanel::filterChanged);
+    connect(m_topicBox, &QCheckBox::stateChanged, this, &ChannelListPanel::filterChanged);
+    connect(m_channelBox, &QCheckBox::stateChanged, this, &ChannelListPanel::filterChanged);
+    connect(m_minUser, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &ChannelListPanel::filterChanged);
+    connect(m_maxUser, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &ChannelListPanel::filterChanged);
 
-    connect(m_filterLine, SIGNAL(returnPressed()), this, SLOT(applyFilterClicked()) );
-    connect(m_filterLine, SIGNAL(textChanged(QString)), this, SLOT(filterChanged()));
+    connect(m_filterLine, &KLineEdit::returnPressed, this, &ChannelListPanel::applyFilterClicked);
+    connect(m_filterLine, &KLineEdit::textChanged, this, &ChannelListPanel::filterChanged);
 
-    connect(m_filterTimer, SIGNAL(timeout()), this, SLOT(updateFilter()));
-    connect(m_progressTimer, SIGNAL(timeout()), this, SLOT(setProgress()));
-    connect(m_tempTimer, SIGNAL(timeout()), this, SLOT(endOfChannelList()));
+    connect(m_filterTimer, &QTimer::timeout, this, &ChannelListPanel::updateFilter);
+    connect(m_progressTimer, &QTimer::timeout, this, &ChannelListPanel::setProgress);
+    connect(m_tempTimer, &QTimer::timeout, this, &ChannelListPanel::endOfChannelList);
 
     updateUsersChannels();
 }
 
 ChannelListPanel::~ChannelListPanel()
 {
-    Preferences::saveColumnState(m_channelListView, "ChannelList ViewSettings");
+    Preferences::saveColumnState(m_channelListView, QStringLiteral("ChannelList ViewSettings"));
 }
 
 void ChannelListPanel::refreshList()
@@ -331,7 +331,7 @@ void ChannelListPanel::setProgress()
 {
     QString text = m_statsLabel->text();
     if(text.length() < 13)
-        m_statsLabel->setText(text + '.');
+        m_statsLabel->setText(text + QLatin1Char('.'));
     else
         m_statsLabel->setText(i18n("Refreshing."));
 }
@@ -357,9 +357,7 @@ void ChannelListPanel::updateUsersChannels()
 void ChannelListPanel::saveList()
 {
     // Ask user for file name
-    QString fileName=KFileDialog::getSaveFileName(
-        QString(),
-        QString(),
+    QString fileName = QFileDialog::getSaveFileName(
         this,
         i18n("Save Channel List"));
 
@@ -407,15 +405,15 @@ void ChannelListPanel::saveList()
             QString topic = index.sibling(r,2).data().toString();
 
             QString channelName;
-            channelName.fill(' ', maxChannelWidth);
+            channelName.fill(QLatin1Char(' '), maxChannelWidth);
             channelName.replace(0, channel.length(), channel);
 
             QString usersPad;
-            usersPad.fill(' ',maxUsersWidth);
+            usersPad.fill(QLatin1Char(' '),maxUsersWidth);
             QString usersNum(usersPad+users);
             usersNum = usersNum.right(maxUsersWidth);
 
-            QString line(channelName+' '+usersNum+' '+topic+'\n');
+            QString line(channelName+QLatin1Char(' ')+usersNum+QLatin1Char(' ')+topic+QLatin1Char('\n'));
             stream << line;
         }
 
@@ -453,20 +451,20 @@ void ChannelListPanel::contextMenu(const QPoint& p)
         item = item.sibling(item.row(),2);
 
     QString filteredLine = item.data().toString();
-    KMenu* menu = new KMenu(this);
+    QMenu* menu = new QMenu(this);
 
     // Join Channel Action
     QAction *joinAction = new QAction(menu);
     joinAction->setText(i18n("Join Channel"));
-    joinAction->setIcon(KIcon("irc-join-channel"));
+    joinAction->setIcon(QIcon::fromTheme(QStringLiteral("irc-join-channel")));
     menu->addAction(joinAction);
-    connect(joinAction, SIGNAL(triggered()), this, SLOT(joinChannelClicked()));
+    connect(joinAction, &QAction::triggered, this, &ChannelListPanel::joinChannelClicked);
 
     // Adds a separator between the Join action and the URL(s) submenu
     menu->addSeparator();
 
     // open URL submenu
-    KMenu* showURLmenu = new KMenu(i18n("Open URL"), menu);
+    QMenu* showURLmenu = new QMenu(i18n("Open URL"), menu);
 
     QList<QPair<int, int> > urlRanges = Konversation::getUrlRanges(filteredLine);
     QPair<int, int> urlRange;
@@ -484,7 +482,7 @@ void ChannelListPanel::contextMenu(const QPoint& p)
 
         showURLmenu->addAction(action);
 
-        connect(action, SIGNAL(triggered()), this, SLOT(openURL()));
+        connect(action, &QAction::triggered, this, &ChannelListPanel::openURL);
     }
 
     if (showURLmenu->actions().count()==0)
@@ -502,7 +500,7 @@ void ChannelListPanel::openURL()
 
     if (action)
     {
-        Application* konvApp = static_cast<Application *>(kapp);
+        Application* konvApp = Application::instance();
         konvApp->openUrl(action->data().toString());
     }
 }
@@ -540,4 +538,4 @@ void ChannelListPanel::setFilter(const QString& filter)
     m_filterLine->setText(filter);
 }
 
-#include "channellistpanel.moc"
+

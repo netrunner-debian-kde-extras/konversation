@@ -25,8 +25,6 @@
 #include "nick.h"
 #include "server.h"
 #include "ircinput.h"
-#include "linkaddressbook/addressbook.h"
-#include "linkaddressbook/linkaddressbookui.h"
 
 #include <QClipboard>
 
@@ -34,9 +32,9 @@
 #include <KAuthorized>
 #include <KBookmarkDialog>
 #include <KBookmarkManager>
-#include <KFileDialog>
+#include <QFileDialog>
 #include <KIO/CopyJob>
-#include <KMenu>
+#include <QMenu>
 #include <KMessageBox>
 #include <KRun>
 #include <KStandardAction>
@@ -57,16 +55,14 @@ class IrcContextMenusPrivate
         IrcContextMenus instance;
 };
 
-K_GLOBAL_STATIC(IrcContextMenusPrivate, s_ircContextMenusPrivate)
+Q_GLOBAL_STATIC(IrcContextMenusPrivate, s_ircContextMenusPrivate)
 
 IrcContextMenusPrivate::IrcContextMenusPrivate()
 {
-    qAddPostRoutine(s_ircContextMenusPrivate.destroy);
 }
 
 IrcContextMenusPrivate::~IrcContextMenusPrivate()
 {
-    qRemovePostRoutine(s_ircContextMenusPrivate.destroy);
 }
 
 
@@ -90,7 +86,6 @@ IrcContextMenus::~IrcContextMenus()
     delete m_textMenu;
     delete m_channelMenu;
     delete m_nickMenu;
-    delete m_addressBookMenu;
     delete m_quickButtonMenu;
     delete m_topicHistoryMenu;
 }
@@ -103,7 +98,7 @@ IrcContextMenus* IrcContextMenus::self()
 void IrcContextMenus::setupQuickButtonMenu()
 {
     //NOTE: if we depend on m_nickMenu we get an we an cyclic initialising
-    m_quickButtonMenu = new KMenu();
+    m_quickButtonMenu = new QMenu();
     m_quickButtonMenu->setTitle(i18n("Quick Buttons"));
     connect(Application::instance(), SIGNAL(appearanceChanged()), this, SLOT(updateQuickButtonMenu()));
 }
@@ -117,7 +112,7 @@ void IrcContextMenus::updateQuickButtonMenu()
 {
     m_quickButtonMenu->clear();
 
-    KAction* action;
+    QAction * action;
     QString pattern;
 
     foreach(const QString& button, Preferences::quickButtonList())
@@ -126,7 +121,7 @@ void IrcContextMenus::updateQuickButtonMenu()
 
         if (pattern.contains("%u"))
         {
-            action = new KAction(button.section(',', 0, 0), m_quickButtonMenu);
+            action = new QAction(button.section(',', 0, 0), m_quickButtonMenu);
             action->setData(pattern);
             m_quickButtonMenu->addAction(action);
         }
@@ -149,17 +144,17 @@ void IrcContextMenus::processQuickButtonAction(QAction* action, Server* server, 
 
 void IrcContextMenus::setupTextMenu()
 {
-    m_textMenu = new KMenu();
+    m_textMenu = new QMenu();
 
     m_textMenu->addSeparator();
 
-    m_linkActions << createAction(m_textMenu, LinkCopy, KIcon("edit-copy"), i18n("Copy Link Address"));
+    m_linkActions << createAction(m_textMenu, LinkCopy, QIcon::fromTheme("edit-copy"), i18n("Copy Link Address"));
     // Not using KStandardAction is intentional here since the Ctrl+B
     // shortcut it would show in the menu is already used by our IRC-
     // wide bookmarking feature.
-    m_linkActions << createAction(m_textMenu, LinkBookmark, KIcon("bookmark-new"), i18n("Add to Bookmarks"));
+    m_linkActions << createAction(m_textMenu, LinkBookmark, QIcon::fromTheme("bookmark-new"), i18n("Add to Bookmarks"));
     m_linkActions << createAction(m_textMenu, LinkOpenWith, i18n("Open With..."));
-    m_linkActions << createAction(m_textMenu, LinkSaveAs, KIcon("document-save"), i18n("Save Link As..."));
+    m_linkActions << createAction(m_textMenu, LinkSaveAs, QIcon::fromTheme("document-save"), i18n("Save Link As..."));
 
     m_textMenu->addSeparator();
 
@@ -172,8 +167,8 @@ void IrcContextMenus::setupTextMenu()
     action->setData(TextSelectAll);
     m_textMenu->addAction(action);
 
-    m_webShortcutsMenu = new KMenu(m_textMenu);
-    m_webShortcutsMenu->menuAction()->setIcon(KIcon("preferences-web-browser-shortcuts"));
+    m_webShortcutsMenu = new QMenu(m_textMenu);
+    m_webShortcutsMenu->menuAction()->setIcon(QIcon::fromTheme("preferences-web-browser-shortcuts"));
     m_webShortcutsMenu->menuAction()->setVisible(false);
     m_textMenu->addMenu(m_webShortcutsMenu);
 
@@ -202,7 +197,7 @@ void IrcContextMenus::setupTextMenu()
 int IrcContextMenus::textMenu(const QPoint& pos, MenuOptions options, Server* server,
     const QString& selectedText, const QString& link, const QString& nick)
 {
-    KMenu* textMenu = self()->m_textMenu;
+    QMenu* textMenu = self()->m_textMenu;
 
     KActionCollection* actionCollection = Application::instance()->getMainWindow()->actionCollection();
 
@@ -301,22 +296,22 @@ void IrcContextMenus::updateWebShortcutsMenu(const QString& selectedText)
         {
             m_webShortcutsMenu->setTitle(i18n("Search for '%1' with",  KStringHandler::rsqueeze(searchText, 21)));
 
-            KAction* action = 0;
+            QAction * action = 0;
 
             foreach(const QString& searchProvider, searchProviders)
             {
-                action = new KAction(searchProvider, m_webShortcutsMenu);
-                action->setIcon(KIcon(filterData.iconNameForPreferredSearchProvider(searchProvider)));
+                action = new QAction(searchProvider, m_webShortcutsMenu);
+                action->setIcon(QIcon::fromTheme(filterData.iconNameForPreferredSearchProvider(searchProvider)));
                 action->setData(filterData.queryForPreferredSearchProvider(searchProvider));
-                connect(action, SIGNAL(triggered()), this, SLOT(processWebShortcutAction()));
+                connect(action, &QAction::triggered, this, &IrcContextMenus::processWebShortcutAction);
                 m_webShortcutsMenu->addAction(action);
             }
 
             m_webShortcutsMenu->addSeparator();
 
-            action = new KAction(i18n("Configure Web Shortcuts..."), m_webShortcutsMenu);
-            action->setIcon(KIcon("configure"));
-            connect(action, SIGNAL(triggered()), this, SLOT(configureWebShortcuts()));
+            action = new QAction(i18n("Configure Web Shortcuts..."), m_webShortcutsMenu);
+            action->setIcon(QIcon::fromTheme("configure"));
+            connect(action, &QAction::triggered, this, &IrcContextMenus::configureWebShortcuts);
             m_webShortcutsMenu->addAction(action);
 
             m_webShortcutsMenu->menuAction()->setVisible(true);
@@ -326,7 +321,7 @@ void IrcContextMenus::updateWebShortcutsMenu(const QString& selectedText)
 
 void IrcContextMenus::processWebShortcutAction()
 {
-    KAction* action = qobject_cast<KAction*>(sender());
+    QAction * action = qobject_cast<QAction*>(sender());
 
     if (action)
     {
@@ -339,14 +334,14 @@ void IrcContextMenus::processWebShortcutAction()
 
 void IrcContextMenus::configureWebShortcuts()
 {
-    KToolInvocation::kdeinitExec("kcmshell4", QStringList() << "ebrowsing");
+    KToolInvocation::kdeinitExec("kcmshell5", QStringList() << "webshortcuts");
 }
 
 void IrcContextMenus::setupChannelMenu()
 {
-    m_channelMenu = new KMenu();
+    m_channelMenu = new QMenu();
 
-    QAction* defaultAction = createAction(m_channelMenu, Join, KIcon("irc-join-channel"), i18n("&Join Channel..."));
+    QAction* defaultAction = createAction(m_channelMenu, Join, QIcon::fromTheme("irc-join-channel"), i18n("&Join Channel..."));
     m_channelMenu->setDefaultAction(defaultAction);
 
     createAction(m_channelMenu, Topic, i18n("Get &topic"));
@@ -355,12 +350,10 @@ void IrcContextMenus::setupChannelMenu()
 
 void IrcContextMenus::channelMenu(const QPoint& pos, Server* server, const QString& channel)
 {
-    KMenu* channelMenu = self()->m_channelMenu;
-
-    QAction* title = 0;
+    QMenu* channelMenu = self()->m_channelMenu;
 
     if (!channel.isEmpty())
-        title = channelMenu->addTitle(KStringHandler::rsqueeze(channel, 15), channelMenu->actions().first());
+        channelMenu->setTitle(KStringHandler::rsqueeze(channel, 15));
 
     bool connected = server->isConnected();
 
@@ -368,13 +361,6 @@ void IrcContextMenus::channelMenu(const QPoint& pos, Server* server, const QStri
         action->setEnabled(connected);
 
     QAction* action = channelMenu->exec(pos);
-
-    if (title)
-    {
-        channelMenu->removeAction(title);
-
-        delete title;
-    }
 
     switch (extractActionId(action))
     {
@@ -394,7 +380,7 @@ void IrcContextMenus::channelMenu(const QPoint& pos, Server* server, const QStri
 
 void IrcContextMenus::setupNickMenu()
 {
-    m_nickMenu = new KMenu();
+    m_nickMenu = new QMenu();
 
     QAction* defaultAction = createAction(m_nickMenu, OpenQuery, i18n("Open Query"));
     m_nickMenu->setDefaultAction(defaultAction);
@@ -406,17 +392,17 @@ void IrcContextMenus::setupNickMenu()
 
     m_nickMenu->addSeparator();
 
-    m_modesMenu = new KMenu(m_nickMenu);
+    m_modesMenu = new QMenu(m_nickMenu);
     m_nickMenu->addMenu(m_modesMenu);
     m_modesMenu->setTitle(i18n("Modes"));
-    createAction(m_modesMenu, GiveOp, KIcon("irc-operator"), i18n("Give Op"));
-    createAction(m_modesMenu, TakeOp, KIcon("irc-remove-operator"), i18n("Take Op"));
+    createAction(m_modesMenu, GiveOp, QIcon::fromTheme("irc-operator"), i18n("Give Op"));
+    createAction(m_modesMenu, TakeOp, QIcon::fromTheme("irc-remove-operator"), i18n("Take Op"));
     createAction(m_modesMenu, GiveHalfOp, i18n("Give HalfOp"));
     createAction(m_modesMenu, TakeHalfOp, i18n("Take HalfOp"));
-    createAction(m_modesMenu, GiveVoice, KIcon("irc-voice"), i18n("Give Voice"));
-    createAction(m_modesMenu, TakeVoice, KIcon("irc-unvoice"), i18n("Take Voice"));
+    createAction(m_modesMenu, GiveVoice, QIcon::fromTheme("irc-voice"), i18n("Give Voice"));
+    createAction(m_modesMenu, TakeVoice, QIcon::fromTheme("irc-unvoice"), i18n("Take Voice"));
 
-    m_kickBanMenu = new KMenu(m_nickMenu);
+    m_kickBanMenu = new QMenu(m_nickMenu);
     m_nickMenu->addMenu(m_kickBanMenu);
     m_kickBanMenu->setTitle(i18n("Kick / Ban"));
     createAction(m_kickBanMenu, Kick, i18n("Kick"));
@@ -460,27 +446,16 @@ void IrcContextMenus::createSharedNickSettingsActions()
     m_unignoreAction = createAction(UnignoreNick, i18n("Unignore"));
     m_sharedNickSettingsActions << m_unignoreAction;
 
-    m_addNotifyAction = createAction(AddNotify, KIcon("list-add-user"), i18n("Add to Watched Nicks"));
+    m_addNotifyAction = createAction(AddNotify, QIcon::fromTheme("list-add-user"), i18n("Add to Watched Nicks"));
     m_sharedNickSettingsActions << m_addNotifyAction;
-    m_removeNotifyAction = createAction(RemoveNotify, KIcon("list-remove-user"), i18n("Remove From Watched Nicks"));
+    m_removeNotifyAction = createAction(RemoveNotify, QIcon::fromTheme("list-remove-user"), i18n("Remove From Watched Nicks"));
     m_sharedNickSettingsActions << m_removeNotifyAction;
-
-    m_addressBookMenu = new KMenu();
-    m_addressBookMenu->setIcon(KIcon("office-address-book"));
-    m_sharedNickSettingsActions << m_addressBookMenu->menuAction();
-    m_addressBookNewAction = createAction(AddressbookNew, KIcon("contact-new"));
-    m_addressBookChangeAction = createAction(AddressbookChange, KIcon("office-address-book"));
-    m_addressBookEditAction = createAction(AddressbookEdit, KIcon("document-edit"));
-    m_addressBookDeleteAction = createAction(AddressbookDelete, KIcon("edit-delete"));
-
-    m_sendMailAction = createAction(SendEmail, KIcon("mail-send"), ("&Send Email..."));
-    m_sharedNickSettingsActions << m_sendMailAction;
 }
 
 void IrcContextMenus::createSharedDccActions()
 {
     if (KAuthorized::authorizeKAction("allow_downloading"))
-        m_sharedDccActions << createAction(DccSend, KIcon("arrow-right-double"), i18n("Send &File..."));
+        m_sharedDccActions << createAction(DccSend, QIcon::fromTheme("arrow-right-double"), i18n("Send &File..."));
 
     m_sharedDccActions << createAction(StartDccChat, i18n("Open DCC Chat"));
     m_sharedDccActions << createAction(StartDccWhiteboard, i18n("Open DCC Whiteboard"));
@@ -489,12 +464,10 @@ void IrcContextMenus::createSharedDccActions()
 void IrcContextMenus::nickMenu(const QPoint& pos, MenuOptions options, Server* server,
     const QStringList& nicks, const QString& context)
 {
-    KMenu* nickMenu = self()->m_nickMenu;
-
-    QAction* title = 0;
+    QMenu* nickMenu = self()->m_nickMenu;
 
     if (options.testFlag(ShowTitle) && nicks.count() == 1)
-        title = nickMenu->addTitle(KStringHandler::rsqueeze(nicks.first(), 15), nickMenu->actions().first());
+        nickMenu->setTitle(KStringHandler::rsqueeze(nicks.first(), 15));
 
     foreach(QAction* action, nickMenu->actions())
         action->setVisible(true);
@@ -517,13 +490,6 @@ void IrcContextMenus::nickMenu(const QPoint& pos, MenuOptions options, Server* s
     updateSharedNickSettingsActions(server, nicks);
 
     QAction* action = nickMenu->exec(pos);
-
-    if (title)
-    {
-        nickMenu->removeAction(title);
-
-        delete title;
-    }
 
     if (self()->m_quickButtonMenu->actions().contains(action))
         processQuickButtonAction(action, server, context, nicks);
@@ -700,104 +666,6 @@ void IrcContextMenus::processNickAction(int actionId, Server* server, const QStr
         case StartDccWhiteboard:
             commandToServer(server, "dcc whiteboard %1", nicks);
             break;
-        case AddressbookEdit:
-        {
-            foreach(const QString& nick, nicks)
-            {
-                NickInfoPtr nickInfo = server->getNickInfo(nick);
-
-                if (nickInfo.isNull())
-                    continue;
-
-                KABC::Addressee addressee = nickInfo->getAddressee();
-
-                if(addressee.isEmpty())
-                    break;
-
-                Konversation::Addressbook::self()->editAddressee(addressee.uid());
-            }
-
-            break;
-        }
-        case AddressbookNew:
-        case AddressbookDelete:
-        {
-            Konversation::Addressbook* addressbook = Konversation::Addressbook::self();
-
-            // Handle all the selected nicks in one go. Either they all save, or none do.
-            if (addressbook->getAndCheckTicket())
-            {
-                foreach(const QString& nick, nicks)
-                {
-                    NickInfoPtr nickInfo = server->getNickInfo(nick);
-
-                    if (nickInfo.isNull())
-                        continue;
-
-                    if (actionId == AddressbookDelete)
-                    {
-                        KABC::Addressee addr = nickInfo->getAddressee();
-
-                        addressbook->unassociateNick(addr, nick, server->getServerName(), server->getDisplayName());
-                    }
-                    else
-                    {
-                        // Make new addressbook contact.
-                        KABC::Addressee addr;
-
-                        if (nickInfo->getRealName().isEmpty())
-                            addr.setGivenName(nickInfo->getNickname());
-                        else
-                            addr.setGivenName(nickInfo->getRealName());
-
-                        addr.setNickName(nick);
-
-                        addressbook->associateNickAndUnassociateFromEveryoneElse(addr, nick, server->getServerName(),
-                            server->getDisplayName());
-                    }
-                }
-
-                // This will refresh the nicks automatically for us. At least, if it doesn't, it's a bug :)
-                addressbook->saveTicket();
-            }
-
-            break;
-        }
-        case AddressbookChange:
-        {
-            foreach(const QString& nick, nicks)
-            {
-                NickInfoPtr nickInfo = server->getNickInfo(nick);
-
-                if (nickInfo.isNull())
-                    continue;
-
-                LinkAddressbookUI* linkaddressbookui = new LinkAddressbookUI(Application::instance()->getMainWindow(),
-                    nick, server->getServerName(), server->getDisplayName(), nickInfo->getRealName());
-
-                linkaddressbookui->show();
-            }
-            break;
-        }
-        case SendEmail:
-        {
-            NickInfoList nickInfos;
-
-            foreach(const QString& nick, nicks)
-            {
-                NickInfoPtr nickInfo = server->getNickInfo(nick);
-
-                if (nickInfo.isNull())
-                    continue;
-
-                nickInfos.append(nickInfo);
-            }
-
-            if (!nickInfos.isEmpty())
-                Konversation::Addressbook::self()->sendEmail(nickInfos);
-
-            break;
-        }
         default:
             break;
     }
@@ -858,93 +726,6 @@ void IrcContextMenus::updateSharedNickSettingsActions(Server* server, const QStr
     self()->m_addNotifyAction->setVisible(serverGroupId == -1 || addNotifyCounter);
     self()->m_addNotifyAction->setEnabled(serverGroupId != -1);
     self()->m_removeNotifyAction->setVisible(removeNotifyCounter);
-
-    updateAddressBookActions(server, nicks);
-}
-
-void IrcContextMenus::updateAddressBookActions(Server* server, const QStringList& nicks)
-{
-    KMenu* addressBookMenu = self()->m_addressBookMenu;
-
-    addressBookMenu->setTitle(i18np("Address Book Association", "Address Book Associations", nicks.count()));
-
-    addressBookMenu->clear();
-
-    bool existingAssociation = false;
-    bool noAssociation = false;
-    bool emailAddress = false;
-
-    foreach(const QString& nick, nicks)
-    {
-        NickInfoPtr nickInfo =  server->getNickInfo(nick);
-
-        if (nickInfo.isNull())
-            continue;
-
-        KABC::Addressee addr = nickInfo->getAddressee();
-
-        if (addr.isEmpty())
-        {
-            noAssociation = true;
-
-            if (existingAssociation && emailAddress)
-                break;
-        }
-        else
-        {
-            if (!emailAddress && !addr.preferredEmail().isEmpty())
-                emailAddress = true;
-
-            existingAssociation = true;
-
-            if (noAssociation && emailAddress)
-                break;
-        }
-    }
-    if (!noAssociation && existingAssociation)
-    {
-       self()->m_addressBookEditAction->setText(i18np("Edit Contact...",
-            "Edit Contacts...", nicks.count()));
-        addressBookMenu->addAction(self()->m_addressBookEditAction);
-        addressBookMenu->addSeparator();
-    }
-
-    if (noAssociation && existingAssociation)
-    {
-        self()->m_addressBookChangeAction->setText(i18np("Choose/Change Association...",
-            "Choose/Change Associations...", nicks.count()));
-        addressBookMenu->addAction(self()->m_addressBookChangeAction);
-    }
-    else if (noAssociation)
-    {
-        self()->m_addressBookChangeAction->setText(i18np("Choose Contact...",
-            "Choose Contacts...", nicks.count()));
-        addressBookMenu->addAction(self()->m_addressBookChangeAction);
-    }
-    else
-    {
-        self()->m_addressBookChangeAction->setText(i18np("Change Association...",
-            "Change Associations...", nicks.count()));
-        addressBookMenu->addAction(self()->m_addressBookChangeAction);
-    }
-
-    if (noAssociation && !existingAssociation)
-    {
-        self()->m_addressBookNewAction->setText(i18np("Create New Contact...",
-            "Create New Contacts...", nicks.count()));
-        addressBookMenu->addAction(self()->m_addressBookNewAction);
-    }
-
-    if (existingAssociation)
-    {
-        self()->m_addressBookDeleteAction->setText(i18np("Delete Association",
-            "Delete Associations", nicks.count()));
-        addressBookMenu->addAction(self()->m_addressBookDeleteAction);
-    }
-
-    self()->m_sendMailAction->setEnabled(emailAddress);
-
-    addressBookMenu->menuAction()->setVisible(true);
 }
 
 void IrcContextMenus::processLinkAction(int  actionId, const QString& link)
@@ -967,7 +748,7 @@ void IrcContextMenus::processLinkAction(int  actionId, const QString& link)
             KBookmarkManager* manager = KBookmarkManager::userBookmarksManager();
             KBookmarkDialog* dialog = new KBookmarkDialog(manager, Application::instance()->getMainWindow());
 
-            dialog->addBookmark(link, link);
+            dialog->addBookmark(link, QUrl(link), QString());
 
             delete dialog;
 
@@ -975,22 +756,20 @@ void IrcContextMenus::processLinkAction(int  actionId, const QString& link)
         }
         case LinkOpenWith:
         {
-            KRun::displayOpenWithDialog(KUrl(link), Application::instance()->getMainWindow());
+            KRun::displayOpenWithDialog(QList<QUrl>() << QUrl(link), Application::instance()->getMainWindow());
 
             break;
         }
         case LinkSaveAs:
         {
-            KUrl srcUrl(link);
+            QUrl srcUrl(link);
 
-            KUrl saveUrl = KFileDialog::getSaveUrl(srcUrl.fileName(KUrl::ObeyTrailingSlash), QString(),
-                Application::instance()->getMainWindow(), i18n("Save link as"));
+            QUrl saveUrl = QFileDialog::getSaveFileUrl(Application::instance()->getMainWindow(), i18n("Save link as"), QUrl::fromLocalFile(srcUrl.fileName()));
 
             if (saveUrl.isEmpty() || !saveUrl.isValid())
                 break;
 
             KIO::copy(srcUrl, saveUrl);
-
             break;
         }
         default:
@@ -1000,7 +779,7 @@ void IrcContextMenus::processLinkAction(int  actionId, const QString& link)
 
 void IrcContextMenus::setupTopicHistoryMenu()
 {
-    m_topicHistoryMenu = new KMenu();
+    m_topicHistoryMenu = new QMenu();
 
     m_topicHistoryMenu->addAction(m_textCopyAction);
 
@@ -1009,7 +788,7 @@ void IrcContextMenus::setupTopicHistoryMenu()
 
 void IrcContextMenus::topicHistoryMenu(const QPoint& pos, Server* server, const QString& text, const QString& author)
 {
-    KMenu* topicHistoryMenu = self()->m_topicHistoryMenu;
+    QMenu* topicHistoryMenu = self()->m_topicHistoryMenu;
 
     self()->m_textCopyAction->setEnabled(true);
     self()->m_queryTopicAuthorAction->setEnabled(!author.isEmpty());
@@ -1057,7 +836,7 @@ QAction* IrcContextMenus::createAction(ActionId id, const QIcon& icon, const QSt
     return action;
 }
 
-QAction* IrcContextMenus::createAction(KMenu* menu, ActionId id, const QString& text)
+QAction* IrcContextMenus::createAction(QMenu* menu, ActionId id, const QString& text)
 {
     QAction* action = createAction(id, text);
 
@@ -1066,7 +845,7 @@ QAction* IrcContextMenus::createAction(KMenu* menu, ActionId id, const QString& 
     return action;
 }
 
-QAction* IrcContextMenus::createAction(KMenu* menu, ActionId id, const QIcon& icon, const QString& text)
+QAction* IrcContextMenus::createAction(QMenu* menu, ActionId id, const QIcon& icon, const QString& text)
 {
     QAction* action = createAction(id, text);
 
@@ -1094,7 +873,7 @@ int IrcContextMenus::extractActionId(QAction* action)
 
 void IrcContextMenus::commandToServer(Server* server, const QString& command, const QString& destination)
 {
-    Konversation::OutputFilterResult result = server->getOutputFilter()->parse("", Preferences::self()->commandChar() + command, destination);
+    Konversation::OutputFilterResult result = server->getOutputFilter()->parse(QString(), Preferences::self()->commandChar() + command, destination);
 
     server->queue(result.toServer);
 

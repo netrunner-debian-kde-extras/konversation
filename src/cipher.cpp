@@ -14,8 +14,8 @@
 #include "cipher.h"
 #include "preferences.h"
 
-#include <KDebug>
-#include <KLocale>
+#include <QDebug>
+#include <KLocalizedString>
 
 
 namespace Konversation
@@ -127,7 +127,7 @@ namespace Konversation
 
             if(temp == cipherText)
             {
-                kDebug() << "Decryption from CBC Failed";
+                qDebug() << "Decryption from CBC Failed";
                 return "ERROR: "+cipherText+' '+'\n';
             }
             else
@@ -139,7 +139,7 @@ namespace Konversation
 
             if(temp == cipherText)
             {
-                kDebug() << "Decryption from ECB Failed";
+                qDebug() << "Decryption from ECB Failed";
                 return "ERROR: "+cipherText+' '+'\n';
             }
             else
@@ -282,7 +282,7 @@ namespace Konversation
 
                 if(temp == cipherText)
                 {
-                    kDebug() << "CBC Encoding Failed";
+                    qDebug() << "CBC Encoding Failed";
                     return false;
                 }
 
@@ -294,7 +294,7 @@ namespace Konversation
 
                 if(temp == cipherText)
                 {
-                    kDebug() << "ECB Encoding Failed";
+                    qDebug() << "ECB Encoding Failed";
                     return false;
                 }
 
@@ -353,8 +353,12 @@ namespace Konversation
         }
         else
         {
+        // ECB Blowfish encodes in blocks of 12 chars, so anything else is malformed input
+        if ((temp.length() % 12) != 0)
+            return cipherText;
+
             temp = b64ToByte(temp);
-            while((temp.length() % 8) != 0) temp.append('\0');
+            while ((temp.length() % 8) != 0) temp.append('\0');
         }
 
         QCA::Direction dir = (direction) ? QCA::Encode : QCA::Decode;
@@ -362,11 +366,17 @@ namespace Konversation
         QByteArray temp2 = cipher.update(QCA::MemoryRegion(temp)).toByteArray();
         temp2 += cipher.final().toByteArray();
 
-        if(!cipher.ok())
+        if (!cipher.ok())
             return cipherText;
 
-        if(direction)
+        if (direction)
+        {
+            // Sanity check
+            if ((temp2.length() % 8) != 0)
+                return cipherText;
+
             temp2 = byteToB64(temp2);
+        }
 
         return temp2;
     }
@@ -408,13 +418,13 @@ namespace Konversation
             right += v;
 
             for (int i = 0; i < 6; i++) {
-                encoded.append(base64.at(right & 0x3F).toAscii());
+                encoded.append(base64.at(right & 0x3F).toLatin1());
                 right = right >> 6;
             }
-            //TODO make sure the .toascii doesn't break anything
+            //TODO make sure the .tolatin1 doesn't break anything
 
             for (int i = 0; i < 6; i++) {
-                encoded.append(base64.at(left & 0x3F).toAscii());
+                encoded.append(base64.at(left & 0x3F).toLatin1());
                 left = left >> 6;
             }
         }

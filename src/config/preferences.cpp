@@ -22,21 +22,22 @@
 #include <QHeaderView>
 #include <QTreeView>
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <KUser>
-#include <KStandardDirs>
+#include <KSharedConfig>
+#include <QStandardPaths>
 
 struct PreferencesSingleton
 {
     Preferences prefs;
 };
 
-K_GLOBAL_STATIC(PreferencesSingleton, s_prefs)
+Q_GLOBAL_STATIC(PreferencesSingleton, s_prefs)
 
 Preferences *Preferences::self()
 {
   if ( !s_prefs.exists() ) {
-    s_prefs->prefs.readConfig();
+    s_prefs->prefs.load();
   }
 
   return &s_prefs->prefs;
@@ -56,19 +57,19 @@ Preferences::Preferences()
 
     QStringList nickList;
     nickList.append(user.loginName());
-    nickList.append(user.loginName() + '_');
-    nickList.append(user.loginName() + "__");
+    nickList.append(user.loginName() + QLatin1Char('_'));
+    nickList.append(user.loginName() + QStringLiteral("__"));
     mIdentity->setNicknameList(nickList);
 
     Konversation::ServerGroupSettingsPtr serverGroup(new Konversation::ServerGroupSettings);
-    serverGroup->setName("freenode");
+    serverGroup->setName(QStringLiteral("freenode"));
     Konversation::ServerSettings server;
-    server.setHost("chat.freenode.net");
+    server.setHost(QStringLiteral("chat.freenode.net"));
     server.setPort(8001);
     serverGroup->addServer(server);
     serverGroup->setIdentityId(mIdentity->id());
     Konversation::ChannelSettings channel;
-    channel.setName("#konversation");
+    channel.setName(QStringLiteral("#konversation"));
     serverGroup->addChannel(channel);
     serverGroup->setExpanded(false);
     mServerGroupHash.insert(0, serverGroup);
@@ -89,14 +90,14 @@ const Konversation::ServerGroupHash Preferences::serverGroupHash()
 
 const QStringList Preferences::defaultQuickButtonList()
 {
-    return QStringList() << "Op,/OP %u%n"
-                         << "DeOp,/DEOP %u%n"
-                         << "WhoIs,/WHOIS %s,%%u%n"
-                         << "Version,/CTCP %s,%%u VERSION%n"
-                         << "Kick,/KICK %u%n"
-                         << "Ban,/BAN %u%n"
-                         << "Part,/PART %c Leaving...%n"
-                         << "Quit,/QUIT Leaving...%n";
+    return QStringList() << QStringLiteral("Op,/OP %u%n")
+                         << QStringLiteral("DeOp,/DEOP %u%n")
+                         << QStringLiteral("WhoIs,/WHOIS %s,%%u%n")
+                         << QStringLiteral("Version,/CTCP %s,%%u VERSION%n")
+                         << QStringLiteral("Kick,/KICK %u%n")
+                         << QStringLiteral("Ban,/BAN %u%n")
+                         << QStringLiteral("Part,/PART %c Leaving...%n")
+                         << QStringLiteral("Quit,/QUIT Leaving...%n");
 }
 
 const QStringList Preferences::quickButtonList()
@@ -119,8 +120,8 @@ void Preferences::clearQuickButtonList()
 const QList<QStringList> Preferences::defaultAutoreplaceList()
 {
     QList<QStringList> defaultList;
-    defaultList.append(QStringList() << "1" << "o" << "\\[\\[([^\\s]+)\\]\\]" << "http://en.wikipedia.org/wiki/Special:Search?go=Go&search=%1");
-    defaultList.append(QStringList() << "1" << "o" << "(BUG:|bug:)([0-9]+)" << "https://bugs.kde.org/show_bug.cgi?id=%2");
+    defaultList.append(QStringList() << QStringLiteral("1") << QStringLiteral("o") << QStringLiteral("\\[\\[([^\\s]+)\\]\\]") << QStringLiteral("http://en.wikipedia.org/wiki/Special:Search?go=Go&search=%1"));
+    defaultList.append(QStringList() << QStringLiteral("1") << QStringLiteral("o") << QStringLiteral("(BUG:|bug:)([0-9]+)") << QStringLiteral("https://bugs.kde.org/show_bug.cgi?id=%2"));
     return defaultList;
 }
 
@@ -223,7 +224,7 @@ void Preferences::addHighlight(const QString& highlight, bool regExp, const QCol
     const QString& soundURL, const QString& autoText, const QString& chatWindows, bool notify)
 {
     self()->mHighlightList.append(new Highlight(highlight, regExp, color,
-        KUrl(soundURL), autoText, chatWindows, notify));
+        QUrl(soundURL), autoText, chatWindows, notify));
 }
 
 void Preferences::setIgnoreList(QList<Ignore*> newList)
@@ -234,7 +235,7 @@ void Preferences::setIgnoreList(QList<Ignore*> newList)
 
 void Preferences::addIgnore(const QString &newIgnore)
 {
-    QStringList ignore = newIgnore.split(',');
+    QStringList ignore = newIgnore.split(QLatin1Char(','));
     self()->mIgnoreList.append(new Ignore(ignore[0],ignore[1].toInt()));
 }
 
@@ -257,7 +258,7 @@ bool Preferences::isIgnored(const QString &nickname)
 {
     foreach (Ignore *ignore, self()->mIgnoreList)
     {
-        if (ignore->getName().section('!',0,0).toLower()==nickname.toLower())
+        if (ignore->getName().section(QLatin1Char('!'),0,0).toLower()==nickname.toLower())
         {
             return true;
         }
@@ -278,7 +279,7 @@ const QStringList Preferences::notifyListByGroupId(int serverGroupId)
 
 const QString Preferences::notifyStringByGroupId(int serverGroupId)
 {
-    return notifyListByGroupId(serverGroupId).join(" ");
+    return notifyListByGroupId(serverGroupId).join(QStringLiteral(" "));
 }
 
 bool Preferences::addNotify(int serverGroupId, const QString& newPattern)
@@ -390,36 +391,38 @@ const IdentityPtr Preferences::identityById(int id)
 QStringList Preferences::defaultAliasList()
 {
     // Auto-alias scripts
-    const QStringList scripts = KGlobal::dirs()->findAllResources("data","konversation/scripts/*");
-    QFileInfo* fileInfo = new QFileInfo();
-    QStringList aliasList;
-    QString newAlias;
+    const QStringList scriptDirs = QStandardPaths::locateAll(QStandardPaths::AppDataLocation, QStringLiteral("scripts"), QStandardPaths::LocateDirectory);
+    QSet<QString> scripts;
 
-    for (QStringList::ConstIterator it = scripts.constBegin(); it != scripts.constEnd(); ++it)
-    {
-        fileInfo->setFile(*it);
-        if (fileInfo->isExecutable())
-        {
-            newAlias = (*it).section('/',-1)+' '+"/exec "+(*it).section('/', -1 );
-            aliasList.append(newAlias);
+    foreach(const QString &dir, scriptDirs) {
 
-            // FIXME: Historically, defaultAliasList() is primarily used to dynamically
-            // compile a list of installed scripts and generate appropriate aliases for
-            // them. It's not only used when the alias preferences are reset or initia-
-            // lized, but also on application start. The following crudely adds two
-            // aliases when the 'media' script is found, to provide easy access to its
-            // capability to differentiate  between audio and video media. This method
-            // needs at the very least to be split up in two, or scripts may in the
-            // future determine what aliases they want to add.
-            if ((*it).section('/',-1) == "media")
-            {
-                aliasList.append("audio /exec media audio");
-                aliasList.append("video /exec media video");
-            }
+        const QStringList &scriptFiles = QDir(dir).entryList(QDir::Files | QDir::NoDotAndDotDot | QDir::Executable);
+
+        foreach(const QString &script, scriptFiles) {
+            scripts << script;
         }
     }
 
-    delete fileInfo;
+    QStringList aliasList;
+
+    foreach(const QString& script, scripts)
+    {
+        aliasList.append(QString("%1 /exec %1").arg(script));
+
+        // FIXME: Historically, defaultAliasList() is primarily used to dynamically
+        // compile a list of installed scripts and generate appropriate aliases for
+        // them. It's not only used when the alias preferences are reset or initia-
+        // lized, but also on application start. The following crudely adds two
+        // aliases when the 'media' script is found, to provide easy access to its
+        // capability to differentiate  between audio and video media. This method
+        // needs at the very least to be split up in two, or scripts may in the
+        // future determine what aliases they want to add.
+        if (script == QStringLiteral("media"))
+        {
+            aliasList.append(QStringLiteral("audio /exec media audio"));
+            aliasList.append(QStringLiteral("video /exec media video"));
+        }
+    }
 
     return aliasList;
 }
@@ -447,7 +450,7 @@ void Preferences::setAutoUserhost(bool state)
 
 bool Preferences::dialogFlag(const QString& flagName)
 {
-    KConfigGroup config(KGlobal::config()->group("Notification self()->Messages"));
+    KConfigGroup config(KSharedConfig::openConfig()->group("Notification self()->Messages"));
 
     if (!config.readEntry(flagName).isEmpty())
         return false;
@@ -457,7 +460,7 @@ bool Preferences::dialogFlag(const QString& flagName)
 
 void Preferences::setDialogFlag(const QString& flagName,bool state)
 {
-    KConfigGroup config(KGlobal::config()->group("Notification self()->Messages"));
+    KConfigGroup config(KSharedConfig::openConfig()->group("Notification self()->Messages"));
 
     if (state)
         config.deleteEntry(flagName);
@@ -581,7 +584,7 @@ const QHash< QString, QHash< QString, QString > > Preferences::serverSpellChecki
 
 const QString Preferences::defaultNicknameSortingOrder()
 {
-  return "qpohv-";
+  return QStringLiteral("qpohv-");
 }
 
 // override to add %u if needed
@@ -589,14 +592,14 @@ QString Preferences::webBrowserCmd()
 {
   // add %u to command if it's not in there
   QString cmd=self()->mWebBrowserCmd;
-  if (!cmd.contains("%u"))
-      cmd += " %u";
+  if (!cmd.contains(QStringLiteral("%u")))
+      cmd += QStringLiteral(" %u");
   return cmd;
 }
 
 void Preferences::saveColumnState(QTreeView *treeView, QString name)
 {
-    KConfigGroup group(KGlobal::config(), name);
+    KConfigGroup group(KSharedConfig::openConfig(), name);
 
     QList<int> columnWidths;
     for (int i = 0; i < treeView->header()->count(); ++i)
@@ -609,7 +612,7 @@ void Preferences::saveColumnState(QTreeView *treeView, QString name)
 
 void Preferences::restoreColumnState(QTreeView* treeView, QString name, int defaultColumn , Qt::SortOrder defaultSortOrder)
 {
-    KConfigGroup group(KGlobal::config(), name);
+    KConfigGroup group(KSharedConfig::openConfig(), name);
 
     QList<int> columnWidths = group.readEntry("ColumnWidths", QList<int>());
     for (int i = 0; i < columnWidths.count(); ++i)
@@ -627,4 +630,4 @@ void Preferences::slotSetUseOSD(bool use)
     self()->setUseOSD(use);
 }
 
-#include "preferences.moc"
+

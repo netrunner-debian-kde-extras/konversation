@@ -36,8 +36,6 @@ class QSplitter;
 class QToolButton;
 
 class KLineEdit;
-class KVBox;
-class KHBox;
 class KComboBox;
 
 class AwayLabel;
@@ -46,7 +44,6 @@ class Nick;
 class QuickButton;
 class ModeButton;
 class IRCInput;
-class NickChangeDialog;
 class TopicHistoryModel;
 
 namespace Konversation
@@ -77,6 +74,7 @@ class Channel : public ChatWindow
         explicit Channel(QWidget* parent, const QString& name);
         ~Channel();
 //META
+
         virtual bool canBeFrontView();
         virtual bool searchView();
 
@@ -99,7 +97,7 @@ class Channel : public ChatWindow
 
         void setEncryptedOutput(bool);
 
-        bool joined() { return m_joined; }
+        bool joined() const { return m_joined; }
         bool rejoinable();
 //Unsure of future placement and/or continued existence of these members
         int numberOfNicks() const { return nicks; }
@@ -117,13 +115,13 @@ class Channel : public ChatWindow
         void repositionNick(Nick *nick);
         bool shouldShowEvent(ChannelNickPtr channelNick);
 
-    public slots:
+    public Q_SLOTS:
         void setNickname(const QString& newNickname);
         void scheduleAutoWho(int msec = -1);
         void setAutoUserhost(bool state);
         void rejoin();
 
-    protected slots:
+    protected Q_SLOTS:
         void autoUserhost();
         void autoWho();
         void updateAutoWho();
@@ -155,7 +153,7 @@ class Channel : public ChatWindow
 
         void resizeNicknameListViewColumns();
 
-    protected slots:
+    protected Q_SLOTS:
         void purgeNicks();
         void processQueuedNicks(bool flush = false);
 
@@ -170,7 +168,7 @@ class Channel : public ChatWindow
         void setTopic(const QString& nickname, const QString& text);
         void setTopicAuthor(const QString& author, QDateTime timestamp);
 
-    signals:
+    Q_SIGNALS:
         void joined(Channel* channel);
 
 
@@ -192,7 +190,7 @@ class Channel : public ChatWindow
          */
         void updateMode(const QString& sourceNick, char mode, bool plus, const QString &parameter);
 
-    signals:
+    Q_SIGNALS:
         void modesChanged();
 
 //Bans
@@ -204,7 +202,7 @@ class Channel : public ChatWindow
         void clearBanList();
         QStringList getBanList() const { return m_BanList; }
 
-    signals:
+    Q_SIGNALS:
         void banAdded(const QString& newban);
         void banRemoved(const QString& newban);
         void banListCleared();
@@ -229,10 +227,10 @@ class Channel : public ChatWindow
 
         Konversation::ChannelSettings channelSettings() const;
 
-    signals:
+    Q_SIGNALS:
         void sendFile();
 
-    public slots:
+    public Q_SLOTS:
         void updateAppearance();
         void channelTextEntered();
         void channelPassthroughCommand();
@@ -250,7 +248,7 @@ class Channel : public ChatWindow
 
         void connectionStateChanged(Server*, Konversation::ConnectionState);
 
-    protected slots:
+    protected Q_SLOTS:
         void completeNick(); ///< I guess this is a GUI function, might be nice to have at DCOP level though --argonel
         void endCompleteNick();
         void quickButtonClicked(const QString& definition);
@@ -301,7 +299,7 @@ class Channel : public ChatWindow
         Konversation::TopicLabel* topicLine;
 
         //TODO: abstract these
-        KHBox* modeBox;
+        QFrame* modeBox;
         ModeButton* modeT;
         ModeButton* modeN;
         ModeButton* modeS;
@@ -314,15 +312,14 @@ class Channel : public ChatWindow
         KLineEdit* limit; //TODO: this GUI element is the only storage for the mode
 
         NickListView* nicknameListView;
-        KHBox* commandLineBox;
-        KVBox* nickListButtons;
+        QFrame* commandLineBox;
+        QFrame* nickListButtons;
         QWidget* m_buttonsGrid;
         KComboBox* nicknameCombobox;
         QString oldNick; ///< GUI
         AwayLabel* awayLabel;
         QLabel* cipherLabel;
 
-        NickChangeDialog* nickChangeDialog;
         QList<QuickButton*> buttonList;
 
 //Members from here to end are not GUI

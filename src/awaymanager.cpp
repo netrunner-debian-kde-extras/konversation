@@ -19,12 +19,13 @@
 #include "trayicon.h"
 
 #include <KActionCollection>
+#include <QIcon>
 #include <KIdleTime>
 #include <KToggleAction>
 
 AwayManager::AwayManager(QObject* parent) : QObject(parent)
 {
-    m_connectionManager = static_cast<Application*>(kapp)->getConnectionManager();
+    m_connectionManager = Application::instance()->getConnectionManager();
 
     connect(KIdleTime::instance(), SIGNAL(resumingFromIdle()), this, SLOT(resumeFromIdle()));
     connect(KIdleTime::instance(), SIGNAL(timeoutReached(int)), this, SLOT(idleTimeoutReached(int)));
@@ -163,8 +164,8 @@ void AwayManager::updateGlobalAwayAction(bool away)
     if (!away)
         simulateUserActivity();
 
-    Application* konvApp = static_cast<Application*>(kapp);
-    KToggleAction* awayAction = qobject_cast<KToggleAction*>(konvApp->getMainWindow()->actionCollection()->action("toggle_away"));
+    Application* konvApp = Application::instance();
+    KToggleAction* awayAction = qobject_cast<KToggleAction*>(konvApp->getMainWindow()->actionCollection()->action(QStringLiteral("toggle_away")));
     Konversation::TrayIcon* trayIcon = konvApp->getMainWindow()->systemTrayIcon();
 
     if (!awayAction)
@@ -184,14 +185,14 @@ void AwayManager::updateGlobalAwayAction(bool away)
         if (awayCount == serverList.count())
         {
             awayAction->setChecked(true);
-            awayAction->setIcon(KIcon("im-user-away"));
+            awayAction->setIcon(QIcon::fromTheme(QStringLiteral("im-user-away")));
             if (trayIcon) trayIcon->setAway(true);
         }
     }
     else
     {
         awayAction->setChecked(false);
-        awayAction->setIcon(KIcon("im-user"));
+        awayAction->setIcon(QIcon::fromTheme(QStringLiteral("im-suser")));
         if (trayIcon) trayIcon->setAway(false);
     }
 }
@@ -350,4 +351,4 @@ void AwayManager::identityOnAutoAwayWentOffline(int identityId)
     implementRemoveIdleTimeout(timerId);
 }
 
-#include "awaymanager.moc"
+

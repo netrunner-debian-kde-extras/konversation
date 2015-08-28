@@ -23,7 +23,7 @@
 #include <QObject>
 #include <QTimer>
 
-#include <KUrl>
+#include <QUrl>
 #include <kio/global.h>
 
 namespace Konversation
@@ -80,7 +80,7 @@ namespace Konversation
                 KIO::filesize_t    getFileSize()              const;
                 KIO::fileoffset_t  getTransferringPosition()  const;
                 KIO::fileoffset_t  getTransferStartPosition() const;
-                KUrl               getFileURL()               const;
+                QUrl               getFileURL()               const;
                 bool               isResumed()                const;
                 bool               isReverse()                const;
                 QString            getReverseToken()          const;
@@ -100,7 +100,7 @@ namespace Konversation
 
                 void removedFromView();
 
-            signals:
+            Q_SIGNALS:
                 void transferStarted(Konversation::DCC::Transfer *item);
                 //done is when the transfer is done, it will not get deleted after emiting this signal
                 void done(Konversation::DCC::Transfer *item);
@@ -108,7 +108,7 @@ namespace Konversation
                 //removed is when the transfer is removed from all visible views and ready to get deleted
                 void removed(Konversation::DCC::Transfer *item);
 
-            public slots:
+            public Q_SLOTS:
                 virtual bool queue();
                 virtual void start() {}
                 virtual void abort() {}
@@ -134,7 +134,7 @@ namespace Konversation
                 static QString sanitizeFileName(const QString &fileName);
                 static quint32 intel(quint32 value);
 
-            protected slots:
+            protected Q_SLOTS:
                 void logTransfer();
 
             protected:
@@ -147,11 +147,6 @@ namespace Konversation
                 QString m_reverseToken;
                 KIO::fileoffset_t m_transferringPosition;
                 KIO::fileoffset_t m_transferStartPosition;
-
-                /*
-                QValueList<QDateTime> m_transferTimeLog;  // write per packet to calc CPS
-                QValueList<KIO::fileoffset_t> m_transferPositionLog;  // write per packet to calc CPS
-                */
 
                 // we'll communicate with the partner via this server
                 int m_connectionId;
@@ -177,7 +172,7 @@ namespace Konversation
                  * If we are recieving a file, this is the url of the file we are saving
                  * to in the end (Temporararily it will be filename+".part" ).
                  */
-                KUrl m_fileURL;
+                QUrl m_fileURL;
 
             private:
                 void updateTransferMeters();

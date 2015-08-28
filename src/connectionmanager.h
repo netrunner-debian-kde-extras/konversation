@@ -43,17 +43,17 @@ class ConnectionManager : public QObject
         Server* getServerByName(const QString& name, NameMatchFlags flags = MatchByName);
 
 
-    public slots:
+    public Q_SLOTS:
         void connectTo(Konversation::ConnectionFlag flag,
                        const QString& target,
-                       const QString& port = "",
-                       const QString& password = "",
-                       const QString& nick = "",
-                       const QString& channel = "",
+                       const QString& port = QString(),
+                       const QString& password = QString(),
+                       const QString& nick = QString(),
+                       const QString& channel = QString(),
                        bool useSSL = false);
 
         void connectTo(Konversation::ConnectionFlag flag, int serverGroupId);
-        void connectTo(Konversation::ConnectionFlag flag, const QList<KUrl>& list);
+        void connectTo(Konversation::ConnectionFlag flag, const QList<QUrl>& list);
         void connectTo(Konversation::ConnectionFlag flag, ConnectionSettings settings);
 
         void quitServers();
@@ -63,7 +63,7 @@ class ConnectionManager : public QObject
         void reconnectInvoluntary();
 
 
-    signals:
+    Q_SIGNALS:
         void connectionListChanged();
 
         void connectionChangedState(Server* server, Konversation::ConnectionState state);
@@ -78,13 +78,14 @@ class ConnectionManager : public QObject
         void closeServerList();
 
 
-    private slots:
+    private Q_SLOTS:
         void delistConnection(int connectionId);
 
         void handleConnectionStateChange(Server* server, Konversation::ConnectionState state);
 
         void handleReconnect(Server* server);
 
+        void onOnlineStateChanged(bool isOnline);
 
     private:
         void enlistConnection(int connectionId, Server* server);

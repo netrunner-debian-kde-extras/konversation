@@ -59,11 +59,11 @@ namespace Konversation
                 // OPTIONAL, if not specified, "unnamed_file"
                 void setFileName(const QString &fileName);
                 // OPTIONAL, if not specified, default folder + the file name
-                void setFileURL(const KUrl &url);
+                void setFileURL(const QUrl &url);
                 // OPTIONAL
                 void setReverse(bool reverse, const QString &reverseToken);
 
-            public slots:
+            public Q_SLOTS:
                 virtual bool queue();
 
                 /** The user has accepted the download.
@@ -79,7 +79,7 @@ namespace Konversation
                 virtual void abort();
                 void startResume(quint64 position);
 
-            protected slots:
+            protected Q_SLOTS:
                 // Local KIO
                 void slotLocalCanResume(KIO::Job *job, KIO::filesize_t size);
                 void slotLocalGotResult(KJob *job);
@@ -117,7 +117,7 @@ namespace Konversation
                  * @param dirURL A url for the directory to create.
                  * @return True if the directory now exists.  False if there was a problem and the directory doesn't exist.
                  */
-                bool createDirs(const KUrl &dirURL) const;
+                bool createDirs(const QUrl &dirURL) const;
 
                 void requestResume();
                 // for non-reverse DCC
@@ -129,7 +129,7 @@ namespace Konversation
                 void stopConnectionTimer();
 
             protected:
-                KUrl m_saveToTmpFileURL;
+                QUrl m_saveToTmpFileURL;
                 ///Current filesize of the file saved on the disk.
                 KIO::filesize_t m_saveToFileSize;
                 ///Current filesize of the file+".part" saved on the disk.
@@ -159,12 +159,12 @@ namespace Konversation
                 void close();
                 void closeNow();
 
-                signals:
+                Q_SIGNALS:
                 void done();                              // ->  DccTransferRecv::writeDone()
                                                           // ->  DccTransferRecv::slotWriteError()
                 void gotError(const QString &errorString);
 
-            protected slots:
+            protected Q_SLOTS:
                                                           // <-  m_transferJob->dataReq()
                 void slotKIODataReq(KIO::Job *job, QByteArray &data);
                 void slotKIOResult(KJob *job);          // <-  m_transferJob->result()

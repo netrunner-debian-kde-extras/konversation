@@ -17,8 +17,8 @@
 #include "preferences.h"
 #include "application.h"
 
-#include <KPushButton>
-#include <KLocale>
+#include <QPushButton>
+#include <KLocalizedString>
 #include <KActionCollection>
 
 #include <QTextCursor>
@@ -27,16 +27,14 @@
 #include <QAction>
 
 PasteEditor::PasteEditor(QWidget* parent)
-    : KDialog(parent), Ui::PasteEditor(), m_autoReplaceActionWasEnabled(true), m_autoReplaceAction(0)
+    : QDialog(parent), Ui::PasteEditor(), m_autoReplaceActionWasEnabled(true), m_autoReplaceAction(0)
 {
-    setCaption(i18n("Edit Multiline Paste"));
+    setWindowTitle(i18n("Edit Multiline Paste"));
     setModal(true);
 
-    setButtonText(KDialog::Ok, i18n("&Send"));
+    setupUi(this);
 
-    QWidget* widget = new QWidget(this);
-    setupUi(widget);
-    setMainWidget(widget);
+    m_buttonBox->addButton(i18n("&Send"), QDialogButtonBox::AcceptRole);
 
     m_textEditor->enableFindReplace(true);
 
@@ -53,13 +51,16 @@ PasteEditor::PasteEditor(QWidget* parent)
         m_autoReplaceActionWasEnabled = m_autoReplaceAction->isEnabled();
         m_autoReplaceAction->setEnabled(true);
         addAction(m_autoReplaceAction);
-        connect(m_autoReplaceAction, SIGNAL(triggered(bool)), this, SLOT(doInlineAutoreplace()));
+        connect(m_autoReplaceAction, &QAction::triggered, this, &PasteEditor::doInlineAutoreplace);
     }
 
-    connect(m_removeNewlinesButton, SIGNAL(clicked()), this, SLOT(removeNewlines()));
-    connect(m_addQuotesButton, SIGNAL(clicked()), this, SLOT(addQuotationIndicators()));
+    connect(m_removeNewlinesButton, &QPushButton::clicked, this, &PasteEditor::removeNewlines);
+    connect(m_addQuotesButton, &QPushButton::clicked, this, &PasteEditor::addQuotationIndicators);
 
-    setInitialSize(Preferences::self()->multilineEditSize());
+    connect(m_buttonBox, &QDialogButtonBox::accepted, this, &PasteEditor::accept);
+    connect(m_buttonBox, &QDialogButtonBox::rejected, this, &PasteEditor::reject);
+
+    resize(Preferences::self()->multilineEditSize());
 }
 
 PasteEditor::~PasteEditor()
@@ -143,4 +144,4 @@ void PasteEditor::doInlineAutoreplace()
     Application::instance()->doInlineAutoreplace(m_textEditor);
 }
 
-#include "pasteeditor.moc"
+

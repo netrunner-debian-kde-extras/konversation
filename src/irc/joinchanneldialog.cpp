@@ -16,24 +16,36 @@
 #include "channel.h"
 #include "servergroupsettings.h"
 
-#include <KPushButton>
+#include <QPushButton>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QVBoxLayout>
 
 namespace Konversation
 {
 
     JoinChannelDialog::JoinChannelDialog(Server* server, QWidget *parent)
-        : KDialog(parent)
+        : QDialog(parent)
     {
-        setCaption(i18n("Join Channel"));
-        setButtons( KDialog::Ok|KDialog::Cancel );
-        setDefaultButton( KDialog::Ok );
+        setWindowTitle(i18n("Join Channel"));
+        QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+        QWidget *mainWidget = new QWidget(this);
+        QVBoxLayout *mainLayout = new QVBoxLayout;
+        setLayout(mainLayout);
+        mainLayout->addWidget(mainWidget);
+        mOkButton = buttonBox->button(QDialogButtonBox::Ok);
+        mOkButton->setDefault(true);
+        mOkButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+        connect(buttonBox, &QDialogButtonBox::rejected, this, &JoinChannelDialog::reject);
+        mOkButton->setDefault(true);
         setModal( true );
-        m_ui.setupUi(mainWidget());
+        m_ui.setupUi(mainWidget);
+        mainLayout->addWidget(mainWidget);
+        mainLayout->addWidget(buttonBox);
         m_ui.channelCombo->setFocus();
 
-        button(KDialog::Ok)->setEnabled(false);
-        connect(m_ui.channelCombo, SIGNAL(editTextChanged(QString)),
-        	this, SLOT(slotChannelChanged(QString)));
+        mOkButton->setEnabled(false);
+        connect(m_ui.channelCombo, &KHistoryComboBox::editTextChanged, this, &JoinChannelDialog::slotChannelChanged);
 
         // Add network names to network combobox and select the one corresponding to argument.
         QList<Server *> serverList = Application::instance()->getConnectionManager()->getServerList();
@@ -44,17 +56,16 @@ namespace Konversation
           connect(server, SIGNAL(nicknameChanged(QString)), this, SLOT(slotNicknameChanged(QString)));
         }
         // Update channel history when selected connection changes
-        connect(m_ui.networkNameCombo, SIGNAL(currentIndexChanged(int)),
-                this, SLOT(slotSelectedConnectionChanged(int)));
+        connect(m_ui.networkNameCombo, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &JoinChannelDialog::slotSelectedConnectionChanged);
         // Clear channel history when the history combo box is cleared
-        connect(m_ui.channelCombo, SIGNAL(cleared()), this, SLOT(slotChannelHistoryCleared()));
+        connect(m_ui.channelCombo, &KHistoryComboBox::cleared, this, &JoinChannelDialog::slotChannelHistoryCleared);
         // Preselect the current network
         m_ui.networkNameCombo->setCurrentIndex(m_ui.networkNameCombo->findData(server->connectionId()));
         // If the server is the first item, current index wont be changed
         // So channel history combo wont be populated, so force it
         slotSelectedConnectionChanged(m_ui.networkNameCombo->findData(server->connectionId()));
 
-        connect( this, SIGNAL(okClicked()), this, SLOT(slotOk()) );
+        connect(mOkButton, &QPushButton::clicked, this, &JoinChannelDialog::slotOk);
         connect(Application::instance()->getConnectionManager(), SIGNAL(connectionListChanged()),
                 this, SLOT(slotConnectionListChanged()));
     }
@@ -69,16 +80,16 @@ namespace Konversation
     }
 
     QString JoinChannelDialog::channel() const
-    {    
+    {
         QString channel = m_ui.channelCombo->currentText();
 
         if (!channel.isEmpty())
         {
             int connectionId = m_ui.networkNameCombo->itemData(m_ui.networkNameCombo->currentIndex()).toInt();
             Server *server = Application::instance()->getConnectionManager()->getServerByConnectionId(connectionId);
-	 
+
             if (server && !server->isAChannel(channel))
-                channel = '#' + channel;
+                channel = QLatin1Char('#') + channel;
         }
 
         return channel;
@@ -134,7 +145,7 @@ namespace Konversation
         {
           m_ui.networkNameCombo->addItem(i18nc("network (nickname)", "%1 (%2)", server->getDisplayName(), server->getNickname()),
                                          server->connectionId());
-          connect(server, SIGNAL(nicknameChanged(QString)), this, SLOT(slotNicknameChanged(QString)));
+          connect(server, &Server::nicknameChanged, this, &JoinChannelDialog::slotNicknameChanged);
         }
       }
     }
@@ -152,7 +163,7 @@ namespace Konversation
         bool joined = false;
         // Append an empty string as first item
         QStringList channelHistory;
-        channelHistory << "";
+        channelHistory << QString();
         for(ChannelList::iterator it = history.begin(); it != endIt; ++it)
         {
           // Don't add empty items to the combobox
@@ -179,7 +190,7 @@ namespace Konversation
 
     void JoinChannelDialog::slotChannelChanged(const QString& text)
     {
-        button(KDialog::Ok)->setEnabled(!text.isEmpty());
+        mOkButton->setEnabled(!text.isEmpty());
     }
 
 
@@ -192,4 +203,4 @@ namespace Konversation
           server->getServerGroup()->clearChannelHistory();
     }
 }
-#include "joinchanneldialog.moc"
+

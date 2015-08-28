@@ -22,7 +22,7 @@ class Ignore_Config : public QWidget, public KonviSettingsPage, private Ui::Igno
     Q_OBJECT
 
     public:
-        explicit Ignore_Config( QWidget* parent = 0, const char* name = 0, Qt::WFlags fl = 0 );
+        explicit Ignore_Config( QWidget* parent = 0, const char* name = 0, Qt::WindowFlags fl = 0 );
         ~Ignore_Config();
         QString flagNames;
 
@@ -39,16 +39,16 @@ class Ignore_Config : public QWidget, public KonviSettingsPage, private Ui::Igno
         QList<Ignore*> getIgnoreList(); // in prefs format
         void updateEnabledness();
 
-    public slots:
+    public Q_SLOTS:
         virtual void languageChange();
 
-    protected slots:
+    protected Q_SLOTS:
         void newIgnore();
         void removeIgnore();
         void flagCheckboxChanged();
         void select(QTreeWidgetItem* item);
         void removeAllIgnore();
-    signals:
+    Q_SIGNALS:
         void modified();
 };
 

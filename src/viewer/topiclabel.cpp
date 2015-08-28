@@ -14,10 +14,14 @@
 #include "application.h"
 
 #include <QClipboard>
+#include <QDrag>
 #include <QResizeEvent>
 #include <QTextCursor>
 #include <QTextDocument>
+#include <QMimeData>
 
+#include <KIconLoader>
+#include <kio/pixmaploader.h>
 
 namespace Konversation
 {
@@ -34,8 +38,8 @@ namespace Konversation
         m_isOnChannel = false;
         m_server = NULL;
 
-        connect(this, SIGNAL(linkActivated(QString)), this, SLOT(openLink(QString)));
-        connect(this, SIGNAL(linkHovered(QString)), this, SLOT(highlightedSlot(QString)));
+        connect(this, &TopicLabel::linkActivated, this, &TopicLabel::openLink);
+        connect(this, &TopicLabel::linkHovered, this, &TopicLabel::highlightedSlot);
     }
 
     TopicLabel::~TopicLabel()
@@ -44,7 +48,7 @@ namespace Konversation
 
     QSize TopicLabel::minimumSizeHint() const
     {
-        int minHeight = fontMetrics().lineSpacing() + fontMetrics().descent();
+        int minHeight = fontMetrics().ascent() + fontMetrics().descent();
         return QSize(0, minHeight);
     }
 
@@ -164,15 +168,16 @@ namespace Konversation
 
     void TopicLabel::mouseMoveEvent(QMouseEvent* ev)
     {
-        if (m_mousePressedOnUrl && (m_mousePressPosition - ev->pos()).manhattanLength() > KApplication::startDragDistance())
+        if (m_mousePressedOnUrl && (m_mousePressPosition - ev->pos()).manhattanLength() > QApplication::startDragDistance())
         {
             setSelection(0, 0);
 
             QPointer<QDrag> drag = new QDrag(this);
             QMimeData* mimeData = new QMimeData;
 
-            KUrl url(m_dragUrl);
-            url.populateMimeData(mimeData);
+            QUrl url(m_dragUrl);
+
+            mimeData->setUrls(QList<QUrl>() << url);
 
             drag->setMimeData(mimeData);
 
@@ -214,7 +219,7 @@ namespace Konversation
 
         text = tagUrls(text, m_channelName);
 
-        if(height() < (fontMetrics().lineSpacing() * 2))
+        if(height() < ((fontMetrics().ascent() + fontMetrics().descent()) * 2))
         {
             text = rPixelSqueeze(text, width() - 10);
             setWordWrap(false);
@@ -224,7 +229,7 @@ namespace Konversation
             setWordWrap(true);
         }
 
-        setToolTip("<qt>" + Qt::escape(m_fullText) + "</qt>");
+        setToolTip("<qt>" + m_fullText.toHtmlEscaped() + "</qt>");
         QLabel::setText("<qt>" + text + "</qt>");
     }
 
@@ -364,4 +369,4 @@ namespace Konversation
     }
 }
 
-#include "topiclabel.moc"
+

@@ -5,10 +5,13 @@
                            http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <include>qfont.h</include>
   <include>qsize.h</include>
-  <include>kdialog.h</include>
   <include>QDir</include>
-  <include>kglobalsettings.h</include>
   <include>kuser.h</include>
+  <include>QStandardPaths</include>
+  <include>QFontDatabase</include>
+  <include>QUrl</include>
+  <include>QStyle</include>
+  <include>QApplication</include>
   <kcfgfile name="konversationrc" />
 
   <group name="Appearance">
@@ -16,10 +19,6 @@
       <default>true</default>
       <label></label>
       <whatsthis></whatsthis>
-    </entry>
-    <entry key="UseMaxSizedTabs" type="Bool">
-    <default>true</default>
-    <label>Limit the size of the tab labels to fit them all on screen</label>
     </entry>
     <entry key="TreeSplitterSizes" type="IntList">
       <default></default>
@@ -32,17 +31,17 @@
       <whatsthis></whatsthis>
     </entry>
     <entry key="TextFont" type="Font">
-      <default code="true">KGlobalSettings::generalFont()</default>
+      <default code="true">QFontDatabase::systemFont(QFontDatabase::GeneralFont)</default>
       <label></label>
       <whatsthis></whatsthis>
     </entry>
     <entry key="ListFont" type="Font">
-      <default code="true">KGlobalSettings::generalFont()</default>
+      <default code="true">QFontDatabase::systemFont(QFontDatabase::GeneralFont)</default>
       <label></label>
       <whatsthis></whatsthis>
     </entry>
     <entry key="TabFont" type="Font">
-      <default code="true">KGlobalSettings::generalFont()</default>
+      <default code="true">QFontDatabase::systemFont(QFontDatabase::GeneralFont)</default>
       <label></label>
       <whatsthis></whatsthis>
     </entry>
@@ -126,12 +125,12 @@
       <whatsthis></whatsthis>
     </entry>
     <entry key="Spacing" type="Int">
-      <default>KDialog::spacingHint()</default>
+      <default>QApplication::style()->layoutSpacing(QSizePolicy::DefaultType, QSizePolicy::DefaultType, Qt::Horizontal)</default>
       <label></label>
       <whatsthis></whatsthis>
     </entry>
     <entry key="Margin" type="Int">
-      <default>KDialog::marginHint()</default>
+      <default>QApplication::style()->pixelMetric(QStyle::PM_LayoutLeftMargin)</default>
       <label></label>
       <whatsthis></whatsthis>
     </entry>
@@ -463,7 +462,7 @@
       <whatsthis></whatsthis>
     </entry>
     <entry key="OSDFont" type="Font">
-      <default code="true">KGlobalSettings::generalFont()</default>
+      <default code="true">QFontDatabase::systemFont(QFontDatabase::GeneralFont)</default>
       <label></label>
       <whatsthis></whatsthis>
     </entry>
@@ -717,10 +716,10 @@
   </group>
   <group name="Path Settings">
     <entry key="LogfilePath" type="Url">
-      <default code="true">QString(KUser(KUser::UseRealUserID).homeDir()+"/logs")</default>
+      <default code="true">QUrl::fromLocalFile((KUser(KUser::UseRealUserID).homeDir()+"/logs"))</default>
     </entry>
     <entry key="DccPath" type="Url">
-      <default code="true">KGlobalSettings::downloadPath()</default>
+      <default code="true">QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::DownloadLocation))</default>
       <label></label>
       <whatsthis></whatsthis>
     </entry>
@@ -752,7 +751,7 @@
         <choice name="Bottom" />
         <choice name="Left" />
       </choices>
-      <default>Bottom</default>
+      <default>Left</default>
     </entry>
     <entry key="MiddleClickClose" type="Bool">
       <default>false</default>
@@ -840,9 +839,9 @@
   </group>
   <group name="External Log Viewer">
     <entry key="UseExternalLogViewer" type="Bool">
-	<default>false</default>
-	<label></label>
-	<whatsthis></whatsthis>
+        <default>false</default>
+        <label></label>
+        <whatsthis></whatsthis>
     </entry>
   </group>
   <group name="Themes">

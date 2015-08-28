@@ -26,24 +26,26 @@
 #include <QKeyEvent>
 #include <QScrollBar>
 
-#include <KDialog>
 #include <KUser>
+#include <QLocale>
 
 
-ChatWindow::ChatWindow(QWidget* parent) : KVBox(parent)
+ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
 {
+    QVBoxLayout* mainLayout = new QVBoxLayout(this);
+    mainLayout->setMargin(margin());
+    mainLayout->setSpacing(spacing());
+
     setName("ChatWindowObject");
     setTextView(0);
     setInputBar(0);
     firstLog = true;
     m_server = 0;
     m_recreationScheduled = false;
+    m_isTopLevelView = true;
     m_notificationsEnabled = true;
     m_channelEncodingSupported = false;
     m_currentTabNotify = Konversation::tnfNone;
-
-    setMargin(margin());
-    setSpacing(spacing());
 }
 
 ChatWindow::~ChatWindow()
@@ -67,6 +69,24 @@ ChatWindow::~ChatWindow()
     m_server=0;
 }
 
+void ChatWindow::childEvent(QChildEvent* event)
+{
+    if(event->type() == QChildEvent::ChildAdded)
+    {
+        if(event->child()->isWidgetType())
+        {
+            layout()->addWidget(qobject_cast< QWidget* >(event->child()));
+        }
+    }
+    else if(event->type() == QChildEvent::ChildRemoved)
+    {
+        if(event->child()->isWidgetType())
+        {
+            layout()->removeWidget(qobject_cast<QWidget*>(event->child()));
+        }
+    }
+}
+
 // reimplement this if your window needs special close treatment
 bool ChatWindow::closeYourself(bool /* askForConfirmation */)
 {
@@ -88,7 +108,7 @@ void ChatWindow::updateAppearance()
 
     // The font size of the KTabWidget container may be inappropriately
     // small due to the "Tab bar" font size setting.
-    setFont(KGlobalSettings::generalFont());
+    setFont(QFontDatabase::systemFont(QFontDatabase::GeneralFont));
 }
 
 void ChatWindow::setName(const QString& newName)
@@ -174,22 +194,27 @@ ChatWindow::WindowType ChatWindow::getType() const
     return type;
 }
 
+bool ChatWindow::isTopLevelView() const
+{
+    return m_isTopLevelView;
+}
+
 void ChatWindow::setServer(Server* newServer)
 {
     if (!newServer)
     {
-        kDebug() << "ChatWindow::setServer(0)!";
+        qDebug() << "ChatWindow::setServer(0)!";
     }
     else
     {
         m_server=newServer;
-        connect(m_server,SIGNAL (serverOnline(bool)),this,SLOT (serverOnline(bool)) );
+        connect(m_server, &Server::serverOnline, this, &ChatWindow::serverOnline);
 
         // check if we need to set up the signals
         if(getType() != ChannelList)
         {
             if(textView) textView->setServer(newServer);
-            else kDebug() << "textView==0!";
+            else qDebug() << "textView==0!";
         }
 
         serverOnline(m_server->isConnected());
@@ -233,9 +258,9 @@ void ChatWindow::setTextView(IRCView* newView)
     textView->setVerticalScrollBarPolicy(Preferences::self()->showIRCViewScrollBar() ? Qt::ScrollBarAlwaysOn : Qt::ScrollBarAlwaysOff);
 
     textView->setChatWin(this);
-    connect(textView,SIGNAL(textToLog(QString)), this,SLOT(logText(QString)));
-    connect(textView,SIGNAL(setStatusBarTempText(QString)), this, SIGNAL(setStatusBarTempText(QString)));
-    connect(textView,SIGNAL(clearStatusBarTempText()), this, SIGNAL(clearStatusBarTempText()));
+    connect(textView, &IRCView::textToLog, this, &ChatWindow::logText);
+    connect(textView, &IRCView::setStatusBarTempText, this, &ChatWindow::setStatusBarTempText);
+    connect(textView, &IRCView::clearStatusBarTempText, this, &ChatWindow::clearStatusBarTempText);
 }
 
 void ChatWindow::appendRaw(const QString& message, bool self)
@@ -305,7 +330,14 @@ void ChatWindow::clear()
 void ChatWindow::cdIntoLogPath()
 {
     QString home = KUser(KUser::UseRealUserID).homeDir();
-    QString logPath = Preferences::self()->logfilePath().pathOrUrl().replace("$HOME", home);
+    QUrl logUrl = Preferences::self()->logfilePath();
+
+    if(!logUrl.isLocalFile())
+    {
+        return;
+    }
+
+    QString logPath = logUrl.toLocalFile();
 
     QDir logDir(home);
 
@@ -479,9 +511,8 @@ void ChatWindow::logText(const QString& text)
             }
 
             QDateTime dateTime = QDateTime::currentDateTime();
-            QString logLine(QString("[%1] [%2] %3\n").arg(KGlobal::locale()->formatDate(dateTime.date(), KLocale::LongDate)).
-                arg(KGlobal::locale()->formatTime(dateTime.time(), true)).arg(text));
-
+            QString logLine(QString("[%1] [%2] %3\n").arg(QLocale().toString(dateTime.date(), QLocale::LongFormat)).
+                arg(QLocale().toString(dateTime.time(), QLocale::LongFormat)).arg(text));
             logStream << logLine;
 
             // detach stream from file
@@ -490,7 +521,7 @@ void ChatWindow::logText(const QString& text)
             // close file
             logfile.close();
         }
-        else kWarning() << "open(QIODevice::Append) for " << logfile.fileName() << " failed!";
+        else qWarning() << "open(QIODevice::Append) for " << logfile.fileName() << " failed!";
     }
 }
 
@@ -509,7 +540,7 @@ int ChatWindow::spacing()
     if(Preferences::self()->useSpacing())
         return Preferences::self()->spacing();
     else
-        return KDialog::spacingHint();
+        return style()->layoutSpacing(QSizePolicy::DefaultType, QSizePolicy::DefaultType, Qt::Vertical);
 }
 
 int ChatWindow::margin()
@@ -621,7 +652,7 @@ bool ChatWindow::eventFilter(QObject* watched, QEvent* e)
 
     }
 
-    return KVBox::eventFilter(watched, e);
+    return QWidget::eventFilter(watched, e);
 }
 
 void ChatWindow::adjustFocus()
@@ -714,4 +745,4 @@ void ChatWindow::msgHelper(const QString& recipient, const QString& message)
     }
 }
 
-#include "chatwindow.moc"
+

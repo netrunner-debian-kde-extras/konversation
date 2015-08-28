@@ -16,12 +16,13 @@
 #include <QDir>
 #include <QImageWriter>
 #include <QPainter>
+#include <QPushButton>
+#include <QUrl>
+#include <QIcon>
+#include <QDebug>
+#include <QFileDialog>
 
-#include <KPushButton>
-#include <KUrl>
-#include <KFileDialog>
-#include <KIcon>
-#include <KDebug>
+#include <KLocalizedString>
 
 #include "whiteboardfontchooser.h"
 
@@ -37,61 +38,61 @@ namespace Konversation
         {
             setupUi(this);
 
-            m_clearPushButton->setIcon(KIcon("document-edit"));
+            m_clearPushButton->setIcon(QIcon::fromTheme("document-edit"));
             m_clearPushButton->setToolTip(i18n("Clear Image"));
-            m_savePushButton->setIcon(KIcon("document-save"));
+            m_savePushButton->setIcon(QIcon::fromTheme("document-save"));
             m_savePushButton->setToolTip(i18n("Save As..."));
 
-            m_pencilPushButton->setIcon(KIcon("draw-freehand"));
+            m_pencilPushButton->setIcon(QIcon::fromTheme("draw-freehand"));
             m_pencilPushButton->setToolTip(i18n("Freehand Drawing"));
             m_pencilPushButton->setFlat(true);
             m_toggleButtonHash.insert(WhiteBoardGlobals::Pencil, m_pencilPushButton);
             m_pencilPushButton->setChecked(true);
 
-            m_linePushButton->setIcon(KIcon("draw-line"));
+            m_linePushButton->setIcon(QIcon::fromTheme("draw-line"));
             m_linePushButton->setToolTip(i18n("Draw a straight line"));
             m_linePushButton->setFlat(true);
             m_toggleButtonHash.insert(WhiteBoardGlobals::Line, m_linePushButton);
 
-            m_rectanglePushButton->setIcon(KIcon("draw-rectangle"));
+            m_rectanglePushButton->setIcon(QIcon::fromTheme("draw-rectangle"));
             m_rectanglePushButton->setToolTip(i18n("Draw a rectangle"));
             m_rectanglePushButton->setFlat(true);
             m_toggleButtonHash.insert(WhiteBoardGlobals::Rectangle, m_rectanglePushButton);
             m_toggleButtonHash.insert(WhiteBoardGlobals::FilledRectangle, m_rectanglePushButton);
 
-            m_ellipsePushButton->setIcon(KIcon("draw-circle"));
+            m_ellipsePushButton->setIcon(QIcon::fromTheme("draw-circle"));
             m_ellipsePushButton->setToolTip(i18n("Draw an ellipse"));
             m_ellipsePushButton->setFlat(true);
             m_toggleButtonHash.insert(WhiteBoardGlobals::Ellipse, m_ellipsePushButton);
             m_toggleButtonHash.insert(WhiteBoardGlobals::FilledEllipse, m_ellipsePushButton);
 
-            m_textPushButton->setIcon(KIcon("draw-text"));
+            m_textPushButton->setIcon(QIcon::fromTheme("draw-text"));
             m_textPushButton->setToolTip(i18n("Draw text"));
             m_textPushButton->setFlat(true);
             m_toggleButtonHash.insert(WhiteBoardGlobals::Text, m_textPushButton);
 
             m_selectionPushButton->setEnabled(false); // it has no function in current whiteboard
-            m_selectionPushButton->setIcon(KIcon("select-rectangular"));
+            m_selectionPushButton->setIcon(QIcon::fromTheme("select-rectangular"));
             m_selectionPushButton->setToolTip(i18nc("dcc whiteboard selection tool", "Selection"));
             m_selectionPushButton->setFlat(true);
             m_toggleButtonHash.insert(WhiteBoardGlobals::Selection, m_selectionPushButton);
 
-            m_eraserPushButton->setIcon(KIcon("draw-eraser"));
+            m_eraserPushButton->setIcon(QIcon::fromTheme("draw-eraser"));
             m_eraserPushButton->setToolTip(i18n("Eraser"));
             m_eraserPushButton->setFlat(true);
             m_toggleButtonHash.insert(WhiteBoardGlobals::Eraser, m_eraserPushButton);
 
-            m_fillPushButton->setIcon(KIcon("fill-color"));
+            m_fillPushButton->setIcon(QIcon::fromTheme("fill-color"));
             m_fillPushButton->setToolTip(i18n("Fill a contiguous area with the foreground color"));
             m_fillPushButton->setFlat(true);
             m_toggleButtonHash.insert(WhiteBoardGlobals::FloodFill, m_fillPushButton);
 
-            m_arrowPushButton->setIcon(KIcon("draw-arrow-forward"));
+            m_arrowPushButton->setIcon(QIcon::fromTheme("draw-arrow-forward"));
             m_arrowPushButton->setToolTip(i18n("Draw an arrow"));
             m_arrowPushButton->setFlat(true);
             m_toggleButtonHash.insert(WhiteBoardGlobals::Arrow, m_arrowPushButton);
 
-            m_colorPickerPushButton->setIcon(KIcon("color-picker"));
+            m_colorPickerPushButton->setIcon(QIcon::fromTheme("color-picker"));
             m_colorPickerPushButton->setToolTip(i18n("Select a color from the image"));
             m_colorPickerPushButton->setFlat(true);
             m_toggleButtonHash.insert(WhiteBoardGlobals::ColorPicker, m_colorPickerPushButton);
@@ -101,20 +102,15 @@ namespace Konversation
             connectToggleButtons();
 
             //foreward colorchooser signals
-            connect(m_colorChooser, SIGNAL(colorsSwapped(QColor,QColor)),
-                    this, SIGNAL(colorsSwapped(QColor,QColor)));
-            connect(m_colorChooser, SIGNAL(foregroundColorChanged(QColor)),
-                    this, SIGNAL(foregroundColorChanged(QColor)));
-            connect(m_colorChooser, SIGNAL(backgroundColorChanged(QColor)),
-                    this, SIGNAL(backgroundColorChanged(QColor)));
+            connect(m_colorChooser, &Konversation::DCC::WhiteBoardColorChooser::colorsSwapped, this, &WhiteBoardToolBar::colorsSwapped);
+            connect(m_colorChooser, &Konversation::DCC::WhiteBoardColorChooser::foregroundColorChanged, this, &WhiteBoardToolBar::foregroundColorChanged);
+            connect(m_colorChooser, &Konversation::DCC::WhiteBoardColorChooser::backgroundColorChanged, this, &WhiteBoardToolBar::backgroundColorChanged);
 
-            connect(m_lineWidthSlider, SIGNAL(valueChanged(int)),
-                    this, SIGNAL(lineWidthChanged(int)));
-            connect(m_lineWidthSlider, SIGNAL(valueChanged(int)),
-                    this, SLOT(updateLineWidthPixmap(int)));
+            connect(m_lineWidthSlider, &QSlider::valueChanged, this, &WhiteBoardToolBar::lineWidthChanged);
+            connect(m_lineWidthSlider, &QSlider::valueChanged, this, &WhiteBoardToolBar::updateLineWidthPixmap);
 
-            connect(m_clearPushButton, SIGNAL(clicked()), this, SLOT(clearClicked()));
-            connect(m_savePushButton, SIGNAL(clicked()), this, SLOT(saveClicked()));
+            connect(m_clearPushButton, &QPushButton::clicked, this, &WhiteBoardToolBar::clearClicked);
+            connect(m_savePushButton, &QPushButton::clicked, this, &WhiteBoardToolBar::saveClicked);
 
             setFormOptionVisible(false);
             setLineWidthVisible(true);
@@ -148,27 +144,27 @@ namespace Konversation
 
         void WhiteBoardToolBar::disableTool(WhiteBoardGlobals::WhiteBoardTool tool)
         {
-            KPushButton* button = m_toggleButtonHash.value(tool);
+            QPushButton* button = m_toggleButtonHash.value(tool);
             if (button)
             {
                 button->setEnabled(false);
             }
             else
             {
-                kDebug() << "unhandled tool:" << tool;
+                qDebug() << "unhandled tool:" << tool;
             }
         }
 
         void WhiteBoardToolBar::enableTool(WhiteBoardGlobals::WhiteBoardTool tool)
         {
-            KPushButton* button = m_toggleButtonHash.value(tool);
+            QPushButton* button = m_toggleButtonHash.value(tool);
             if (button)
             {
                 button->setEnabled(true);
             }
             else
             {
-                kDebug() << "unhandled tool:" << tool;
+                qDebug() << "unhandled tool:" << tool;
             }
         }
 
@@ -182,8 +178,7 @@ namespace Konversation
                     return;
                 }
                 m_fontDialog = new WhiteBoardFontChooser(this);
-                connect(m_fontDialog, SIGNAL(fontChanged(QFont)),
-                        this, SIGNAL(fontChanged(QFont)));
+                connect(m_fontDialog, &WhiteBoardFontChooser::fontChanged, this, &WhiteBoardToolBar::fontChanged);
             }
             else
             {
@@ -203,22 +198,22 @@ namespace Konversation
 
         void WhiteBoardToolBar::connectToggleButtons()
         {
-            kDebug();
-            connect(m_pencilPushButton, SIGNAL(toggled(bool)), this, SLOT(pencilToggled(bool)));
-            connect(m_linePushButton, SIGNAL(toggled(bool)), this, SLOT(lineToggled(bool)));
-            connect(m_rectanglePushButton, SIGNAL(toggled(bool)), this, SLOT(rectangleToggled(bool)));
-            connect(m_ellipsePushButton, SIGNAL(toggled(bool)), this, SLOT(ellipseToggled(bool)));
-            connect(m_textPushButton, SIGNAL(toggled(bool)), this, SLOT(textToggled(bool)));
-            connect(m_selectionPushButton, SIGNAL(toggled(bool)), this, SLOT(selectionToggled(bool)));
-            connect(m_eraserPushButton, SIGNAL(toggled(bool)), this, SLOT(eraseToggled(bool)));
-            connect(m_fillPushButton, SIGNAL(toggled(bool)), this, SLOT(fillToggled(bool)));
-            connect(m_arrowPushButton, SIGNAL(toggled(bool)), this, SLOT(arrowToggled(bool)));
-            connect(m_colorPickerPushButton, SIGNAL(toggled(bool)), this, SLOT(colorPickerToggled(bool)));
+            qDebug();
+            connect(m_pencilPushButton, &QPushButton::toggled, this, &WhiteBoardToolBar::pencilToggled);
+            connect(m_linePushButton, &QPushButton::toggled, this, &WhiteBoardToolBar::lineToggled);
+            connect(m_rectanglePushButton, &QPushButton::toggled, this, &WhiteBoardToolBar::rectangleToggled);
+            connect(m_ellipsePushButton, &QPushButton::toggled, this, &WhiteBoardToolBar::ellipseToggled);
+            connect(m_textPushButton, &QPushButton::toggled, this, &WhiteBoardToolBar::textToggled);
+            connect(m_selectionPushButton, &QPushButton::toggled, this, &WhiteBoardToolBar::selectionToggled);
+            connect(m_eraserPushButton, &QPushButton::toggled, this, &WhiteBoardToolBar::eraseToggled);
+            connect(m_fillPushButton, &QPushButton::toggled, this, &WhiteBoardToolBar::fillToggled);
+            connect(m_arrowPushButton, &QPushButton::toggled, this, &WhiteBoardToolBar::arrowToggled);
+            connect(m_colorPickerPushButton, &QPushButton::toggled, this, &WhiteBoardToolBar::colorPickerToggled);
         }
 
         void WhiteBoardToolBar::disconnectToggleButtons()
         {
-            kDebug();
+            qDebug();
             disconnect(m_pencilPushButton, 0, 0, 0);
             disconnect(m_linePushButton, 0, 0, 0);
             disconnect(m_rectanglePushButton, 0, 0, 0);
@@ -239,16 +234,18 @@ namespace Konversation
 
         void WhiteBoardToolBar::saveClicked()
         {
-            QPointer<KFileDialog> fileDialog = new KFileDialog(KUrl(QDir::homePath()), "*.png\n*.jpg", this);
-            fileDialog->setCaption(i18n("Save Image"));
-            fileDialog->setOperationMode(KFileDialog::Saving);
-            fileDialog->setMode(KFile::File);
+            QPointer<QFileDialog> fileDialog = new QFileDialog(this, i18n("Save Image"), QDir::homePath(), i18n("Images (*.png *.xpm *.jpg)"));
+            fileDialog->setAcceptMode(QFileDialog::AcceptSave);
+            fileDialog->setFileMode(QFileDialog::AnyFile);
+
             int ret = fileDialog->exec();
 
-            if (ret == KDialog::Accepted && fileDialog)
+            if (ret == QDialog::Accepted && fileDialog)
             {
-                kDebug() << fileDialog->selectedFile();
-                emit save(fileDialog->selectedFile());
+                QStringList saveList = fileDialog->selectedFiles();
+                qDebug() << saveList;
+                if (saveList.count() > 0)
+                emit save(saveList.at(0));
             }
             delete fileDialog;
         }
@@ -342,10 +339,10 @@ namespace Konversation
             setFontDialogVisible(true);
         }
 
-        void WhiteBoardToolBar::handleToggleButton(KPushButton* button, bool checked, Konversation::DCC::WhiteBoardGlobals::WhiteBoardTool tool)
+        void WhiteBoardToolBar::handleToggleButton(QPushButton* button, bool checked, Konversation::DCC::WhiteBoardGlobals::WhiteBoardTool tool)
         {
             disconnectToggleButtons();
-            kDebug() << "tool:" << tool << "checked:" << checked;
+            qDebug() << "tool:" << tool << "checked:" << checked;
             if (checked)
             {
                 unCheckOtherButtons(button);
@@ -359,9 +356,9 @@ namespace Konversation
             connectToggleButtons();
         }
 
-        void WhiteBoardToolBar::unCheckOtherButtons(KPushButton* button)
+        void WhiteBoardToolBar::unCheckOtherButtons(QPushButton* button)
         {
-            foreach(KPushButton* pushButton, m_toggleButtonHash)
+            foreach(QPushButton* pushButton, m_toggleButtonHash)
             {
                 if (pushButton != button && pushButton->isChecked())
                 {
@@ -390,19 +387,19 @@ namespace Konversation
 
         void WhiteBoardToolBar::formSelectionChanged()
         {
-            // kDebug();
+            // qDebug();
             QList<QListWidgetItem *> selectList = m_formOptionListWidget->selectedItems();
             const int selectedRow = m_formOptionListWidget->row(selectList.first());
             if (selectedRow == 0)
             {
                 if (m_rectanglePushButton->isChecked())
                 {
-                    kDebug() << "emit rectangle";
+                    qDebug() << "emit rectangle";
                     emit toolChanged(WhiteBoardGlobals::Rectangle);
                 }
                 else if (m_ellipsePushButton->isChecked())
                 {
-                    kDebug() << "emit ellipse";
+                    qDebug() << "emit ellipse";
                     emit toolChanged(WhiteBoardGlobals::Ellipse);
                 }
             }
@@ -410,12 +407,12 @@ namespace Konversation
             {
                 if (m_rectanglePushButton->isChecked())
                 {
-                    kDebug() << "emit filledrectangle";
+                    qDebug() << "emit filledrectangle";
                     emit toolChanged(WhiteBoardGlobals::FilledRectangle);
                 }
                 else if (m_ellipsePushButton->isChecked())
                 {
-                    kDebug() << "emit filledellipse";
+                    qDebug() << "emit filledellipse";
                     emit toolChanged(WhiteBoardGlobals::FilledEllipse);
                 }
             }
@@ -450,8 +447,8 @@ namespace Konversation
             const int drawHeight = 20 - 2;
             const int widthLayoutOffset = 2;
             const QSize sizeHint(width, 20);
-            // kDebug() << "wanted width" << width;
-            // kDebug() << "actual width" << m_formOptionListWidget->contentsRect().width();
+            // qDebug() << "wanted width" << width;
+            // qDebug() << "actual width" << m_formOptionListWidget->contentsRect().width();
             switch (form)
             {
                 case Rectangle:
@@ -471,11 +468,11 @@ namespace Konversation
                         tPaint.drawRect(0, 0, width-widthLayoutOffset, drawHeight);
                         tPaint.end();
                     }
-                    QListWidgetItem *tRectangle = new QListWidgetItem("", m_formOptionListWidget, QListWidgetItem::UserType +1);
+                    QListWidgetItem *tRectangle = new QListWidgetItem(QString(), m_formOptionListWidget, QListWidgetItem::UserType +1);
                     tRectangle->setData(Qt::DecorationRole, QVariant(m_rectanglePixmap));
                     tRectangle->setSizeHint(sizeHint);
 
-                    QListWidgetItem *tFilledRectangle = new QListWidgetItem("", m_formOptionListWidget, QListWidgetItem::UserType +1);
+                    QListWidgetItem *tFilledRectangle = new QListWidgetItem(QString(), m_formOptionListWidget, QListWidgetItem::UserType +1);
                     tFilledRectangle->setData(Qt::DecorationRole, QVariant(m_filledRectanglePixmap));
                     tFilledRectangle->setSizeHint(sizeHint);
 
@@ -499,11 +496,11 @@ namespace Konversation
                         tPaint.drawEllipse(0, 0, width-widthLayoutOffset, drawHeight);
                         tPaint.end();
                     }
-                    QListWidgetItem *tEllipse = new QListWidgetItem("", m_formOptionListWidget, QListWidgetItem::UserType +1);
+                    QListWidgetItem *tEllipse = new QListWidgetItem(QString(), m_formOptionListWidget, QListWidgetItem::UserType +1);
                     tEllipse->setData(Qt::DecorationRole, QVariant(m_ellipsePixmap));
                     tEllipse->setSizeHint(sizeHint);
 
-                    QListWidgetItem *tFilledEllipse = new QListWidgetItem("", m_formOptionListWidget, QListWidgetItem::UserType +1);
+                    QListWidgetItem *tFilledEllipse = new QListWidgetItem(QString(), m_formOptionListWidget, QListWidgetItem::UserType +1);
                     tFilledEllipse->setData(Qt::DecorationRole, QVariant(m_filledEllipsePixmap));
                     tFilledEllipse->setSizeHint(sizeHint);
 
@@ -511,8 +508,7 @@ namespace Konversation
                     break;
                 }
             }
-            connect(m_formOptionListWidget, SIGNAL(itemSelectionChanged()),
-                    this, SLOT(formSelectionChanged()));
+            connect(m_formOptionListWidget, &QListWidget::itemSelectionChanged, this, &WhiteBoardToolBar::formSelectionChanged);
         }
     }
 }

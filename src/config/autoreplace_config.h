@@ -31,17 +31,16 @@ class Autoreplace_Config : public QWidget, public KonviSettingsPage, private Ui:
 
     virtual bool hasChanged();
 
-  signals:
+  Q_SIGNALS:
     void modified();
 
-  protected slots:
+  protected Q_SLOTS:
     void entrySelected(QTreeWidgetItem* autoreplaceEntry);
     void directionChanged(int newDirection);
     void patternChanged(const QString& newPattern);
     void replacementChanged(const QString& newReplacement);
     void addEntry();
     void removeEntry();
-    void showRegExpEditor();
 
   protected:
     void setAutoreplaceListView(const QList<QStringList> &autoreplaceList);

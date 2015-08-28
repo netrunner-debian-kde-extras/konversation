@@ -22,13 +22,14 @@
 
 #include <QTimer>
 
+#include <KFormat>
 
 namespace Konversation
 {
     namespace DCC
     {
         TransferDetailedInfoPanel::TransferDetailedInfoPanel(QWidget * parent)
-            : KTabWidget(parent)
+            : QTabWidget(parent)
         {
             QWidget *tab = new QWidget(this);
             m_locationInfo.setupUi(tab);
@@ -39,12 +40,9 @@ namespace Konversation
 
             m_transfer = 0;
             m_autoViewUpdateTimer = new QTimer(this);
-            m_autoViewUpdateTimer->setInterval(DccCommon::graphicEffectLevelToUpdateInterval(
-                                                 KGlobalSettings::graphicEffectsLevel()));
+            m_autoViewUpdateTimer->setInterval(1000);
 
-            connect(KGlobalSettings::self(), SIGNAL(settingsChanged(int)), this, SLOT(globalSettingsChanged(int)));
-
-            connect(m_locationInfo.m_urlreqLocation, SIGNAL(textChanged(QString)), this, SLOT(slotLocationChanged(QString)));
+            connect(m_locationInfo.m_urlreqLocation, &KUrlRequester::textChanged, this, &TransferDetailedInfoPanel::slotLocationChanged);
             connect(Application::instance()->getDccTransferManager(), SIGNAL(fileURLChanged(Konversation::DCC::TransferRecv*)),
                     this, SLOT(updateView()));  // it's a little rough..
 
@@ -69,7 +67,7 @@ namespace Konversation
             m_transfer = item;
 
             // set up the auto view-update timer
-            connect(m_autoViewUpdateTimer, SIGNAL(timeout()), this, SLOT(updateChangeableView()));
+            connect(m_autoViewUpdateTimer, &QTimer::timeout, this, &TransferDetailedInfoPanel::updateChangeableView);
 
             // If the file is already being transferred, the timer must be started here,
             // otherwise the information will not be updated every 0.5sec
@@ -141,7 +139,7 @@ namespace Konversation
             m_locationInfo.m_labelFilename->setText(m_transfer->getFileName());
 
             // Location:
-            m_locationInfo.m_urlreqLocation->setUrl(m_transfer->getFileURL().prettyUrl());
+            m_locationInfo.m_urlreqLocation->setUrl(m_transfer->getFileURL());
             //m_urlreqLocation->lineEdit()->setFocusPolicy( m_item->getStatus() == Transfer::Queued ? Qt::StrongFocus : ClickFocus );
             m_locationInfo.m_urlreqLocation->lineEdit()->setReadOnly(m_transfer->getStatus() != Transfer::Queued);
             m_locationInfo.m_urlreqLocation->lineEdit()->setFrame(m_transfer->getStatus() == Transfer::Queued);
@@ -159,9 +157,9 @@ namespace Konversation
             if (!m_transfer->getPartnerIp().isEmpty())
             {
                 m_locationInfo.m_labelPartner->setText(i18nc("%1=partnerNick, %2=IRC Servername, %3=partnerIP, %4=partnerPort",
-                                                             "%1 on %2, %3 (port <numid>%4</numid>)",
+                                                             "%1 on %2, %3 (port %4)",
                                                              m_transfer->getPartnerNick().isEmpty() ? "?" : m_transfer->getPartnerNick(),
-                                                             partnerInfoServerName, m_transfer->getPartnerIp(), m_transfer->getPartnerPort()));
+                                                             partnerInfoServerName, m_transfer->getPartnerIp(), QString::number(m_transfer->getPartnerPort())));
             }
             else
             {
@@ -172,11 +170,11 @@ namespace Konversation
 
             // Self:
             if (!m_transfer->getOwnIp().isEmpty())
-                m_locationInfo.m_labelSelf->setText(i18nc("%1=ownIP, %2=ownPort", "%1 (port <numid>%2</numid>)",
-                                                          m_transfer->getOwnIp(), m_transfer->getOwnPort()));
+                m_locationInfo.m_labelSelf->setText(i18nc("%1=ownIP, %2=ownPort", "%1 (port %2)",
+                                                          m_transfer->getOwnIp(), QString::number(m_transfer->getOwnPort())));
 
             // File Size:
-            m_timeInfo.m_labelFileSize->setText(KGlobal::locale()->formatNumber(m_transfer->getFileSize(), 0));
+            m_timeInfo.m_labelFileSize->setText(KFormat().formatByteSize(m_transfer->getFileSize()));
 
             // Resumed:
             if (m_transfer->isResumed())
@@ -225,7 +223,7 @@ namespace Konversation
             m_locationInfo.m_progress->setValue(m_transfer->getProgress());
 
             // Current Position:
-            m_timeInfo.m_labelCurrentPosition->setText(KGlobal::locale()->formatNumber(m_transfer->getTransferringPosition(), 0));
+            m_timeInfo.m_labelCurrentPosition->setText(KFormat().formatByteSize(m_transfer->getTransferringPosition()));
 
             // Current Speed:
             m_timeInfo.m_labelCurrentSpeed->setText(TransferListModel::getSpeedPrettyText(m_transfer->getCurrentSpeed()));
@@ -277,23 +275,11 @@ namespace Konversation
             if (m_transfer &&  m_transfer->getType() == Transfer::Receive)
             {
                 TransferRecv *transfer = static_cast<TransferRecv*>(m_transfer);
-                transfer->setFileURL(KUrl(url));
+                transfer->setFileURL(QUrl::fromLocalFile(url));
                 updateView();
             }
         }
-
-        void TransferDetailedInfoPanel::globalSettingsChanged(int category)
-        {
-#if KDE_IS_VERSION(4,8,1)
-            if (category == KGlobalSettings::SETTINGS_STYLE)
-#else
-            Q_UNUSED(category);
-#endif
-                m_autoViewUpdateTimer->setInterval(DccCommon::graphicEffectLevelToUpdateInterval(
-                                                    KGlobalSettings::graphicEffectsLevel()));
-        }
-
     }
 }
 
-#include "transferdetailedinfopanel.moc"
+

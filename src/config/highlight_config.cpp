@@ -17,14 +17,8 @@
 #include "preferences.h"
 
 #include <QDir>
-#include <KStandardDirs>
-#include <KFileDialog>
-
-
-
-#include <KGlobal>
-#include <kparts/componentfactory.h>
-#include <kregexpeditorinterface.h>
+#include <KSharedConfig>
+#include <QStandardPaths>
 
 
 Highlight_Config::Highlight_Config(QWidget* parent, const char* name)
@@ -38,17 +32,16 @@ Highlight_Config::Highlight_Config(QWidget* parent, const char* name)
 
     loadSettings();
 
-    soundPlayBtn->setIcon(KIcon("media-playback-start"));
+    soundPlayBtn->setIcon(QIcon::fromTheme("media-playback-start"));
     soundURL->setWhatsThis(i18n("Select Sound File"));
 
     // This code was copied from KNotifyWidget::openSoundDialog() (knotifydialog.cpp) [it's under LGPL v2]
     // find the first "sound"-resource that contains files
-    QStringList soundDirs = KGlobal::dirs()->findDirs("data", "konversation/sounds");
-    soundDirs += KGlobal::dirs()->resourceDirs( "sound" );
+    QStringList soundDirs = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "konversation/sounds");
+    soundDirs += QStandardPaths::locate(QStandardPaths::GenericDataLocation, "sounds", QStandardPaths::LocateDirectory);
 
     if (!soundDirs.isEmpty())
     {
-        KUrl url;
         QDir dir;
         dir.setFilter( QDir::Files | QDir::Readable );
         QStringList::ConstIterator it = soundDirs.constBegin();
@@ -57,8 +50,7 @@ Highlight_Config::Highlight_Config(QWidget* parent, const char* name)
             dir = *it;
             if ( dir.isReadable() && dir.count() > 2 )
             {
-                url.setPath( *it );
-                soundURL->fileDialog()->setUrl( url );
+                soundURL->setStartDir(QUrl(*it));
                 break;
             }
             ++it;
@@ -66,17 +58,16 @@ Highlight_Config::Highlight_Config(QWidget* parent, const char* name)
     }
     // End copy
 
-    connect(highlightListView, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT (highlightSelected(QTreeWidgetItem*)));
-    connect(patternInput, SIGNAL(textChanged(QString)), this, SLOT (patternChanged(QString)));
-    connect(enableNotificationsCheckbox, SIGNAL(toggled(bool)), this, SLOT(notifyModeChanged(bool)));
-    connect(patternButton, SIGNAL(clicked()), this, SLOT(regExpButtonClicked()));
-    connect(patternColor, SIGNAL(changed(QColor)), this, SLOT (colorChanged(QColor)));
-    connect(soundURL, SIGNAL(textChanged(QString)), this, SLOT(soundURLChanged(QString)));
-    connect(soundPlayBtn, SIGNAL(clicked()), this, SLOT(playSound()));
-    connect(autoTextInput, SIGNAL(textChanged(QString)), this, SLOT (autoTextChanged(QString)));
-    connect(chatWindowsInput, SIGNAL(textChanged(QString)), this, SLOT (chatWindowsChanged(QString)));
-    connect(newButton, SIGNAL(clicked()), this, SLOT (addHighlight()));
-    connect(removeButton, SIGNAL(clicked()), this, SLOT(removeHighlight()));
+    connect(highlightListView, &QTreeWidget::currentItemChanged, this, &Highlight_Config::highlightSelected);
+    connect(patternInput, &KLineEdit::textChanged, this, &Highlight_Config::patternChanged);
+    connect(enableNotificationsCheckbox, &QCheckBox::toggled, this, &Highlight_Config::notifyModeChanged);
+    connect(patternColor, &KColorButton::changed, this, &Highlight_Config::colorChanged);
+    connect(soundURL, &KUrlRequester::textChanged, this, &Highlight_Config::soundURLChanged);
+    connect(soundPlayBtn, &QToolButton::clicked, this, &Highlight_Config::playSound);
+    connect(autoTextInput, &KLineEdit::textChanged, this, &Highlight_Config::autoTextChanged);
+    connect(chatWindowsInput, &KLineEdit::textChanged, this, &Highlight_Config::chatWindowsChanged);
+    connect(newButton, &QPushButton::clicked, this, &Highlight_Config::addHighlight);
+    connect(removeButton, &QPushButton::clicked, this, &Highlight_Config::removeHighlight);
 
     updateButtons();
 }
@@ -130,7 +121,7 @@ void Highlight_Config::highlightSelected(QTreeWidgetItem* item)
         patternColor->setColor(highlightItem->getColor());
         patternInput->setText(highlightItem->getPattern());
         enableNotificationsCheckbox->setChecked(highlightItem->getNotify());
-        soundURL->setUrl(highlightItem->getSoundURL().prettyUrl());
+        soundURL->setUrl(highlightItem->getSoundURL());
         autoTextInput->setText(highlightItem->getAutoText());
         chatWindowsInput->setText(highlightItem->getChatWindows());
         // all signals will now emit the modified() signal again
@@ -143,18 +134,9 @@ void Highlight_Config::highlightSelected(QTreeWidgetItem* item)
 void Highlight_Config::updateButtons()
 {
     bool enabled = highlightListView->currentItem() != NULL;
-    // is the kregexpeditor installed?
-    bool installed = false;
-    // it does not make sense to port / enable this since KRegExpEditor is in a very bad shape. just keep this
-    // code here because it will probably help at a later point to port it when KRegExpEditor is again usable.
-    // 2009-02-06, uwolfer
-#if 0
-    !KTrader::self()->query("KRegExpEditor/KRegExpEditor").isEmpty();
-#endif
     // enable or disable edit widgets
     patternLabel->setEnabled(enabled);
     patternInput->setEnabled(enabled);
-    patternButton->setEnabled(enabled && installed);
     colorLabel->setEnabled(enabled);
     patternColor->setEnabled(enabled);
     enableNotificationsLabel->setEnabled(enabled);
@@ -166,16 +148,6 @@ void Highlight_Config::updateButtons()
     autoTextInput->setEnabled(enabled);
     chatWindowsLabel->setEnabled(enabled);
     chatWindowsInput->setEnabled(enabled);
-
-    if (installed)
-    {
-        patternButton->setStatusTip(i18n("Click to run Regular Expression Editor (KRegExpEditor)"));
-    }
-    else
-    {
-        patternButton->setVisible(false);
-        patternButton->setStatusTip(i18n("The Regular Expression Editor (KRegExpEditor) is not installed"));
-    }
 }
 
 void Highlight_Config::patternChanged(const QString& newPattern)
@@ -200,33 +172,6 @@ void Highlight_Config::notifyModeChanged(bool enabled)
     }
 }
 
-void Highlight_Config::regExpButtonClicked()
-{
-    // see note above about KRegExpEditor
-#if 0
-    QDialog *editorDialog = KParts::ComponentFactory::createInstanceFromQuery<QDialog>("KRegExpEditor/KRegExpEditor");
-    if (editorDialog)
-    {
-        // kdeutils was installed, so the dialog was found.  Fetch the editor interface.
-        KRegExpEditorInterface *reEditor = static_cast<KRegExpEditorInterface *>(editorDialog->qt_cast("KRegExpEditorInterface"));
-        Q_ASSERT(reEditor); // This should not fail!// now use the editor.
-        reEditor->setRegExp(patternInput->text());
-        int dlgResult = editorDialog->exec();
-        if (dlgResult == QDialog::Accepted)
-        {
-            QString re = reEditor->regExp();
-            patternInput->setText(re);
-            HighlightViewItem* item = static_cast<HighlightViewItem*>(highlightListView->currentItem());
-            if (item)
-            {
-                item->setPattern(re);
-            }
-        }
-        delete editorDialog;
-    }
-#endif
-}
-
 void Highlight_Config::colorChanged(const QColor& newColor)
 {
     HighlightViewItem* item = static_cast<HighlightViewItem*>(highlightListView->currentItem());
@@ -244,7 +189,7 @@ void Highlight_Config::soundURLChanged(const QString& newURL)
 
     if (!newItemSelected && item)
     {
-        item->setSoundURL(KUrl(newURL));
+        item->setSoundURL(QUrl(newURL));
         emit modified();
     }
 }
@@ -273,7 +218,7 @@ void Highlight_Config::chatWindowsChanged(const QString& newChatWindows)
 
 void Highlight_Config::addHighlight()
 {
-    Highlight* newHighlight = new Highlight(i18n("New"), false, QColor("#ff0000"), KUrl(), QString(), QString(), true);
+    Highlight* newHighlight = new Highlight(i18n("New"), false, QColor("#ff0000"), QUrl(), QString(), QString(), true);
 
     HighlightViewItem* item = new HighlightViewItem(highlightListView, newHighlight);
     item->setFlags(item->flags() &~ Qt::ItemIsDropEnabled);
@@ -335,13 +280,13 @@ QStringList Highlight_Config::currentHighlightList()
 
 void Highlight_Config::playSound()
 {
-    Application *konvApp = static_cast<Application *>(KApplication::kApplication());
-    konvApp->sound()->play(KUrl(soundURL->url()));
+    Application *konvApp = Application::instance();
+    konvApp->sound()->play(soundURL->url());
 }
 
 void Highlight_Config::saveSettings()
 {
-    KSharedConfigPtr config = KGlobal::config();
+    KSharedConfigPtr config = KSharedConfig::openConfig();
 
     // Write all highlight entries
     QList<Highlight*> hiList = getHighlightList();
@@ -352,7 +297,7 @@ void Highlight_Config::saveSettings()
         grp.writeEntry("Pattern", hl->getPattern());
         grp.writeEntry("RegExp", hl->getRegExp());
         grp.writeEntry("Color", hl->getColor());
-        grp.writePathEntry("Sound", hl->getSoundURL().prettyUrl());
+        grp.writePathEntry("Sound", hl->getSoundURL().url());
         grp.writeEntry("AutoText", hl->getAutoText());
         grp.writeEntry("ChatWindows", hl->getChatWindows());
         grp.writeEntry("Notify", hl->getNotify());
@@ -372,4 +317,4 @@ void Highlight_Config::saveSettings()
     m_oldHighlightList=currentHighlightList();
 }
 
-#include "highlight_config.moc"
+

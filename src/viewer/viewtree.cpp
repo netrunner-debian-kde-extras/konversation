@@ -10,970 +10,470 @@
 */
 
 #include "viewtree.h"
-#include "viewtreeitem.h"
+#include "viewcontainer.h"
 #include "preferences.h"
 #include "chatwindow.h"
-#include "server.h"
-#include "channel.h"
-#include "ircview.h"
 #include "konsolepanel.h"
+#include "ircview.h"
 
-#include <QPoint>
+#include <QContextMenuEvent>
+#include <QCoreApplication>
+#include <QFontDatabase>
+#include <QGuiApplication>
 #include <QPainter>
+#include <QItemSelectionModel>
+#include <QStyleHints>
 #include <QToolTip>
 
-#include <Q3Header>
-#include <Q3DragObject>
-#include <Q3ListView>
+// FIXME KF5 Port: Not DPI-aware.
+#define LED_ICON_SIZE 14
+#define MARGIN 2
+#define RADIUS 4
 
-#include <KApplication>
-
-
-ViewTree::ViewTree(QWidget *parent)
-    : K3ListView(parent)
+ViewTreeDelegate::ViewTreeDelegate(QObject* parent) : QStyledItemDelegate(parent)
 {
-    header()->hide();
-    setHScrollBarMode(Q3ScrollView::AlwaysOff);
+    m_view = qobject_cast<ViewTree*>(parent);
+}
 
-    addColumn(i18n("Tabs"));
-    setSortColumn(0);
-    setSortOrder(Qt::AscendingOrder);
+ViewTreeDelegate::~ViewTreeDelegate()
+{
+}
 
-    setResizeMode(Q3ListView::AllColumns);
-    setSelectionModeExt(K3ListView::Single);
+QSize ViewTreeDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
+{
+    QSize size = QStyledItemDelegate::sizeHint(option, index);
+
+    const QRect& textRect = m_view->fontMetrics().boundingRect(index.data(Qt::DisplayRole).toString());
+
+    size.setHeight(MARGIN + qMax(LED_ICON_SIZE, textRect.height()) + MARGIN);
+    size.setWidth(1);
+
+    return size;
+}
+
+QSize ViewTreeDelegate::preferredSizeHint(const QModelIndex& index) const
+{
+    QStyleOptionViewItem option;
+
+    initStyleOption(&option, index);
+
+    return QStyledItemDelegate::sizeHint(option, index);
+}
+
+void ViewTreeDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
+{
+    bool selected = (option.state & QStyle::State_Selected);
+    bool highlighted = index.data(ViewContainer::HighlightRole).toBool();
+
+    painter->save();
+
+    painter->setRenderHint(QPainter::Antialiasing, true);
+    painter->setPen(Qt::NoPen);
+
+    const QColor &selColor = m_view->palette().color(QPalette::Highlight);
+
+    if (selected || highlighted) {
+        QColor bgColor = selColor;
+
+        if (highlighted && !selected) {
+            bgColor = Preferences::self()->inputFieldsBackgroundColor()
+                ? Preferences::self()->color(Preferences::AlternateBackground)
+                : m_view->palette().color(QPalette::AlternateBase);
+        }
+
+        painter->setBrush(bgColor);
+
+        QRect baseRect = option.rect;
+
+        painter->drawRoundedRect(baseRect, RADIUS - 1, RADIUS - 1);
+
+        baseRect.setLeft(baseRect.left() + (baseRect.width() - RADIUS));
+        painter->drawRect(baseRect);
+
+
+    }
+
+    const QModelIndex idxAbove = m_view->indexAbove(index);
+
+    if (idxAbove.isValid() && m_view->selectionModel()->isSelected(idxAbove)) {
+        QPainterPath bottomWing;
+        const QPoint &startPos = option.rect.topRight() + QPoint(1, 0);
+        bottomWing.moveTo(startPos);
+        bottomWing.lineTo(bottomWing.currentPosition().x() - RADIUS, bottomWing.currentPosition().y());
+        bottomWing.moveTo(startPos);
+        bottomWing.lineTo(bottomWing.currentPosition().x(), bottomWing.currentPosition().y() + RADIUS);
+        bottomWing.quadTo(startPos, QPoint(bottomWing.currentPosition().x() - RADIUS,
+            bottomWing.currentPosition().y() - RADIUS));
+        painter->fillPath(bottomWing, selColor);
+    }
+
+    const QModelIndex idxBelow = m_view->indexBelow(index);
+
+    if (idxBelow.isValid() && m_view->selectionModel()->isSelected(idxBelow)) {
+        QPainterPath topWing;
+        const QPoint &startPos = option.rect.bottomRight() + QPoint(1, 1);
+        topWing.moveTo(startPos);
+        topWing.lineTo(topWing.currentPosition().x() - RADIUS, topWing.currentPosition().y());
+        topWing.moveTo(startPos);
+        topWing.lineTo(topWing.currentPosition().x(), topWing.currentPosition().y() - RADIUS);
+        topWing.quadTo(startPos, QPoint(topWing.currentPosition().x() - RADIUS,
+            topWing.currentPosition().y() + RADIUS));
+        painter->fillPath(topWing, selColor);
+    }
+
+    painter->restore();
+
+    QStyleOptionViewItem _option = option;
+    _option.state = QStyle::State_None;
+    _option.palette.setColor(QPalette::AlternateBase, Qt::transparent);
+
+    if (index.data(ViewContainer::DisabledRole).toBool()) {
+        _option.palette.setColor(QPalette::Text, QGuiApplication::palette().color(QPalette::Disabled, QPalette::Text));
+    } else {
+        const QColor &textColor = index.data(ViewContainer::ColorRole).value<QColor>();
+
+        if (textColor.isValid() && !selected) {
+            _option.palette.setColor(QPalette::Text, textColor);
+        } else {
+            _option.palette.setColor(QPalette::Text, selected
+                ? m_view->palette().color(QPalette::HighlightedText)
+                : m_view->palette().color(QPalette::Text));
+        }
+    }
+
+    QStyledItemDelegate::paint(painter, _option, index);
+}
+
+ViewTree::ViewTree(QWidget* parent) : QTreeView(parent)
+{
+    setUniformRowHeights(true);
     setRootIsDecorated(false);
+    setItemsExpandable(false);
+    setHeaderHidden(true);
+    setSortingEnabled(false);
 
-    setDragEnabled(true);
+    setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
+
+    setSelectionMode(QAbstractItemView::SingleSelection);
+    setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+    setDragEnabled(true); // We initiate drags ourselves below.
     setAcceptDrops(true);
-    setDropVisualizer(true);
-
-    setShowToolTips(false);
-
-    // Controls whether or not to select the first view added
-    // to the tree. Don't do so by default; only when told to
-    // by the ViewContainer.
-    m_selectFirstView = false;
-
-    m_separator = 0;
-    m_specialViewCount = 0;
-
-    m_closeButtonItem = 0;
-    m_enableCloseButtonTimer = new QTimer(this);
-    m_enableCloseButtonTimer->setSingleShot(true);
-
-    m_middleClickItem = 0;
-
-    connect(m_enableCloseButtonTimer, SIGNAL(timeout()), SLOT(enableCloseButton()));
-    connect(this, SIGNAL(selectionChanged(Q3ListViewItem*)), SLOT(announceSelection(Q3ListViewItem*)));
-    connect(this, SIGNAL(aboutToMove()), SLOT(slotAboutToMoveView()));
-    connect(this, SIGNAL(moved()), SLOT(slotMovedView()));
+    viewport()->setAcceptDrops(true);
+    setDragDropMode(QAbstractItemView::DropOnly);
+    setDropIndicatorShown(true);
 
     setBackgroundRole(QPalette::Base);
+
+    setItemDelegateForColumn(0, new ViewTreeDelegate(this));
 
     updateAppearance();
 }
 
 ViewTree::~ViewTree()
 {
-    emit setViewTreeShown(false);
 }
 
+void ViewTree::setModel(QAbstractItemModel *model)
+{
+    QTreeView::setModel(model);
+
+    expandAll();
+
+    connect(selectionModel(), &QItemSelectionModel::selectionChanged, this, &ViewTree::selectionChanged);
+}
+
+bool ViewTree::dropIndicatorOnItem() const
+{
+    return (dropIndicatorPosition() == OnItem);
+}
 void ViewTree::updateAppearance()
 {
     if (Preferences::self()->customTabFont())
         setFont(Preferences::self()->tabFont());
     else
-        setFont(KGlobalSettings::generalFont());
+        setFont(QFontDatabase::systemFont(QFontDatabase::GeneralFont));
+
+    setAlternatingRowColors(Preferences::self()->inputFieldsBackgroundColor());
 
     QPalette palette;
 
     if (Preferences::self()->inputFieldsBackgroundColor())
     {
-        // Only override the active color to keep around the disabled text color
-        // for the disconnect label greyout.
-        palette.setColor(QPalette::Active, QPalette::Text, Preferences::self()->color(Preferences::ChannelMessage));
+        palette.setColor(QPalette::Text, Preferences::self()->color(Preferences::ChannelMessage));
         palette.setColor(QPalette::Base, Preferences::self()->color(Preferences::TextViewBackground));
+        palette.setColor(QPalette::AlternateBase, Preferences::self()->color(Preferences::AlternateBackground));
     }
 
     setPalette(palette);
 }
 
-void ViewTree::addView(const QString& name, ChatWindow* view, const QIcon &iconset, bool select, ChatWindow* afterView)
+bool ViewTree::event(QEvent* event)
 {
-    ViewTreeItem* item = 0;
-    ViewTreeItem* parent = 0;
+    if (event->type() == QEvent::ToolTip) {
+        event->accept();
 
-    if (view->getType() != ChatWindow::DccChat)
-        parent = getParentItemForView(view);
+        const QHelpEvent* helpEvent = static_cast<QHelpEvent*>(event);
 
-    if (parent)
-    {
-        if (afterView)
-        {
-            ViewTreeItem* afterItem = getItemForView(afterView);
-            slotAboutToMoveView();
-            item = new ViewTreeItem(parent, afterItem, name, view);
-            slotMovedView();
-        }
-        else
-            item = new ViewTreeItem(parent, name, view);
-    }
-    else
-        item = new ViewTreeItem(this, name, view);
+        const QModelIndex& idx = indexAt(helpEvent->pos());
 
-    if (item)
-    {
-        if (item->sortLast()) ++m_specialViewCount;
+        if (idx.isValid()) {
+            const QString &text = idx.model()->data(idx, Qt::DisplayRole).toString();
+            const QSize& preferredSize = static_cast<ViewTreeDelegate*>(itemDelegate())->preferredSizeHint(idx);
+            const QRect& itemRect = visualRect(idx);
 
-        item->setIcon(iconset.pixmap(16, QIcon::Normal, QIcon::Off));
+            if (preferredSize.width() > itemRect.width()) {
+                event->accept();
 
-        if (select || m_selectFirstView)
-        {
-            setSelected(item, true);
+                QToolTip::showText(helpEvent->globalPos(), text, this);
 
-            // The work is done - the first view is selected.
-            m_selectFirstView = false;
-        }
-
-        toggleSeparator();
-
-        // The tree may have been hidden previously as the last
-        // view was closed.
-        if (isHidden()) emit setViewTreeShown(true);
-    }
-}
-
-void ViewTree::toggleSeparator()
-{
-    if (m_separator == 0 && m_specialViewCount > 0 && !(childCount() == m_specialViewCount))
-        m_separator = new ViewTreeItem(this);
-
-    if (m_separator && m_specialViewCount == 0)
-    {
-        delete m_separator;
-        m_separator = 0;
-    }
-
-    if (m_separator && childCount() == (m_specialViewCount + 1))
-    {
-        delete m_separator;
-        m_separator = 0;
-    }
-
-    sort();
-}
-
-void ViewTree::removeView(ChatWindow* view)
-{
-    ViewTreeItem* item = getItemForView(view);
-
-    if (item)
-    {
-        // During the short delay between a close button-induced view deletion
-        // and the actual removal from the list, mouse events may cause our
-        // m_enableCloseButtonTimer to be activated again, and removeView() to
-        // finish just before its timeout(), causing enableCloseButton() to hit
-        // a dangling pointer. Hence, if the item to be deleted is identical to
-        // m_closeButtonItem, stop the timer and set the pointer to 0.
-        if (item == m_closeButtonItem)
-        {
-            m_enableCloseButtonTimer->stop();
-            m_closeButtonItem = 0;
-        }
-
-        if (item->sortLast()) --m_specialViewCount;
-
-        if (item->childCount() > 0)
-        {
-            while (item->firstChild() != 0)
-            {
-                ViewTreeItem* firstChild = static_cast<ViewTreeItem*>(item->firstChild());
-
-                delete firstChild;
-            }
-
-            delete item;
-        }
-        else
-            delete item;
-
-
-        toggleSeparator();
-
-        // Hide empty tree.
-        if (childCount() == 0)
-        {
-            emit setViewTreeShown(false);
-            m_selectFirstView = true;
-        }
-    }
-}
-
-void ViewTree::selectView(ChatWindow* view)
-{
-    // Repaint everything.
-    triggerUpdate();
-
-    ViewTreeItem* item = getItemForView(view);
-
-    if (item && !item->isSelected())
-        setSelected(item, true);
-}
-
-void ViewTree::selectFirstView(bool select)
-{
-    m_selectFirstView = select;
-}
-
-void ViewTree::setViewName(ChatWindow* view, const QString& name)
-{
-    ViewTreeItem* item = getItemForView(view);
-
-    if (item) item->setName(name);
-}
-
-
-void ViewTree::setViewColor(ChatWindow* view, const QColor& color)
-{
-    ViewTreeItem* item = getItemForView(view);
-
-    if (item) item->setColor(color);
-}
-
-void ViewTree::setViewIcon(ChatWindow* view, const QIcon &iconset)
-{
-    ViewTreeItem* item = getItemForView(view);
-
-    if (item) item->setIcon(iconset.pixmap(16, QIcon::Normal, QIcon::Off));
-}
-
-void ViewTree::announceSelection(Q3ListViewItem* item)
-{
-    unHighlight();
-
-    ViewTreeItem* newItem = static_cast<ViewTreeItem*>(item);
-
-    emit showView(newItem->getView());
-}
-
-bool ViewTree::canMoveViewUp(ChatWindow* view)
-{
-    ViewTreeItem* item = getItemForView(view);
-
-    if (item)
-        return canMoveItemUp(item);
-
-    return false;
-}
-
-bool ViewTree::canMoveViewDown(ChatWindow* view)
-{
-    ViewTreeItem* item = getItemForView(view);
-
-    if (item)
-        return canMoveItemDown(item);
-
-    return false;
-}
-
-bool ViewTree::canMoveItemUp(ViewTreeItem* item)
-{
-    if (item->isSeparator())
-        return false;
-
-    if (!item->itemAbove())
-        return false;
-
-    ViewTreeItem* itemAbove = static_cast<ViewTreeItem*>(item->itemAbove());
-
-    if (item->sortLast() && !itemAbove->sortLast())
-        return false;
-
-    if (item->sortLast() && itemAbove->isSeparator())
-        return false;
-
-    if (item->depth() > 0 && itemAbove->depth() != item->depth())
-        return false;
-
-    return true;
-}
-
-bool ViewTree::canMoveItemDown(ViewTreeItem* item)
-{
-    if (item->isSeparator())
-        return false;
-
-    if (!item->itemBelow())
-        return false;
-
-    ViewTreeItem* itemBelow = static_cast<ViewTreeItem*>(item->itemBelow());
-
-    if (!item->sortLast() && itemBelow->sortLast())
-        return false;
-
-    if (item->depth() > 0 && itemBelow->depth() != item->depth())
-        return false;
-
-    if (item->depth() == 0 && !item->sortLast() && itemBelow->depth() > 0)
-    {
-        int companionsBelow = 0;
-
-        while ((itemBelow = static_cast<ViewTreeItem*>(itemBelow->itemBelow())) != 0)
-        {
-            if (!itemBelow->sortLast() && itemBelow->depth() == item->depth())
-                ++companionsBelow;
-        }
-
-        if (!companionsBelow)
-            return false;
-    }
-
-    return true;
-}
-
-void ViewTree::moveViewUp(ChatWindow* view)
-{
-    ViewTreeItem* item = getItemForView(view);
-
-    if (canMoveItemUp(item))
-    {
-        ViewTreeItem* itemAbove = static_cast<ViewTreeItem*>(item->itemAbove());
-
-        if (item->depth() == itemAbove->depth())
-        {
-            int newSortIndex = itemAbove->getSortIndex();
-            int oldSortIndex = item->getSortIndex();
-
-            item->setSortIndex(newSortIndex);
-            itemAbove->setSortIndex(oldSortIndex);
-
-            if (item->parent())
-                item->parent()->sort();
-            else
-                sort();
-        }
-        else if (item->depth() < itemAbove->depth())
-        {
-            ViewTreeItem* parent = static_cast<ViewTreeItem*>(itemAbove->parent());
-
-            if (parent)
-            {
-                int newSortIndex = parent->getSortIndex();
-                int oldSortIndex = item->getSortIndex();
-
-                item->setSortIndex(newSortIndex);
-                parent->setSortIndex(oldSortIndex);
-
-                sort();
+                return true;
             }
         }
-    }
-}
 
-void ViewTree::moveViewDown(ChatWindow* view)
-{
-    ViewTreeItem* item = getItemForView(view);
-
-    if (canMoveItemDown(item))
-    {
-        ViewTreeItem* itemBelow = static_cast<ViewTreeItem*>(item->itemBelow());
-
-        if (item->depth() == itemBelow->depth())
-        {
-            int newSortIndex = itemBelow->getSortIndex();
-            int oldSortIndex = item->getSortIndex();
-
-            item->setSortIndex(newSortIndex);
-            itemBelow->setSortIndex(oldSortIndex);
-
-            if (item->parent())
-                item->parent()->sort();
-            else
-                sort();
-        }
-        else if (item->depth() < itemBelow->depth())
-        {
-            while ((itemBelow = static_cast<ViewTreeItem*>(itemBelow->itemBelow())) != 0)
-            {
-                if (!itemBelow->sortLast() && itemBelow->depth() == item->depth())
-                    break;
-            }
-
-            int newSortIndex = itemBelow->getSortIndex();
-            int oldSortIndex = item->getSortIndex();
-
-            item->setSortIndex(newSortIndex);
-            itemBelow->setSortIndex(oldSortIndex);
-
-            sort();
-        }
-    }
-}
-
-void ViewTree::slotAboutToMoveView()
-{
-    setSortColumn(-1);
-}
-
-void ViewTree::slotMovedView()
-{
-    int newSortIndex = 0;
-
-    ViewTreeItem* tempItem = static_cast<ViewTreeItem*>(this->firstChild());
-
-    while (tempItem)
-    {
-        tempItem->setSortIndex(newSortIndex);
-        ++newSortIndex;
-        tempItem = static_cast<ViewTreeItem*>(tempItem->itemBelow());
-    }
-
-    setSortColumn(0);
-
-    triggerUpdate();
-
-    emit syncTabBarToTree();
-}
-
-void ViewTree::unHighlight()
-{
-    ViewTreeItem* item = static_cast<ViewTreeItem*>(firstChild());
-
-    while (item)
-    {
-        item->setHighlighted(false);
-        item = static_cast<ViewTreeItem*>(item->itemBelow());
-    }
-}
-
-void ViewTree::hideCloseButtons(ViewTreeItem* exception)
-{
-    ViewTreeItem* item = static_cast<ViewTreeItem*>(firstChild());
-
-    if (exception)
-    {
-        while (item)
-        {
-            if (item != exception) item->setCloseButtonShown(false);
-            item = static_cast<ViewTreeItem*>(item->itemBelow());
-        }
-    }
-    else
-    {
-        while (item)
-        {
-            item->setCloseButtonShown(false);
-            item = static_cast<ViewTreeItem*>(item->itemBelow());
-        }
-    }
-}
-
-void ViewTree::enableCloseButton()
-{
-    if (m_closeButtonItem) m_closeButtonItem->setCloseButtonEnabled();
-}
-
-bool ViewTree::isAboveIcon(const QPoint& point, ViewTreeItem* item)
-{
-    QPoint inItem = point - itemRect(item).topLeft();
-
-    int MARGIN = 2;
-    int LED_ICON_SIZE = 14;
-
-    int horizOffset = MARGIN + depthToPixels(item->depth());
-    int vertOffset = (item->height() - LED_ICON_SIZE) / 2;
-
-    if ((inItem.x() > horizOffset && inItem.x() < (LED_ICON_SIZE + horizOffset))
-        && (inItem.y() > vertOffset && inItem.y() < (LED_ICON_SIZE + vertOffset)))
-    {
-        return true;
-    }
-    else
-        return false;
-}
-
-bool ViewTree::event(QEvent* e)
-{
-    if (e->type() == QEvent::ToolTip)
-    {
-        QHelpEvent* helpEvent = static_cast<QHelpEvent*>(e);
-
-        QPoint vp = contentsToViewport(viewport()->mapFromParent(helpEvent->pos()));
-        ViewTreeItem* item = static_cast<ViewTreeItem*>(itemAt(vp));
-
-        if (item && item->isTruncated())
-            QToolTip::showText(helpEvent->globalPos(), item->getName());
-        else
-        {
-            QToolTip::hideText();
-            e->ignore();
-        }
+        QToolTip::hideText();
 
         return true;
     }
 
-    return QWidget::event(e);
+    return QTreeView::event(event);
 }
 
-void ViewTree::contentsMousePressEvent(QMouseEvent* e)
+void ViewTree::paintEvent(QPaintEvent* event)
 {
-    QPoint vp = contentsToViewport(e->pos());
+    QTreeView::paintEvent(event);
 
-    // Don't allow selecting the separator via the mouse.
-    if (itemAt(vp) == m_separator)
+    const QModelIndex &currentRow = selectionModel()->currentIndex();
+
+    if (!currentRow.isValid()) {
         return;
+    }
 
-    ViewTreeItem* item = static_cast<ViewTreeItem*>(itemAt(vp));
+    const QAbstractItemModel* model = currentRow.model();
 
-    // Prevent selection being undone by a stray click into
-    // the empty area of the widget by only passing on the
-    // mouse event if it's on a list item.
-    if (item)
-    {
-        // Don't change the selected item when the user only
-        // wants to get the context menu for a non-selected
-        // item.
-        if (e->button() == Qt::RightButton && !item->isSelected())
-            return;
+    QModelIndex lastRow = model->index(model->rowCount() - 1, 0);
 
-        if (Preferences::self()->closeButtons() && e->button() == Qt::LeftButton && isAboveIcon(vp, item))
-        {
-            m_pressedAboveCloseButton = true;
-            if (!item->getCloseButtonEnabled()) K3ListView::contentsMousePressEvent(e);
-        }
-        else
-        {
-            m_pressedAboveCloseButton = false;
+    int count = model->rowCount(lastRow);
 
-            if (e->button() == Qt::MidButton)
-            {
-                QMouseEvent fakeEvent(e->type(), e->pos(), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+    if (count) {
+        lastRow = lastRow.child(count - 1, 0);
+    }
 
-                K3ListView::contentsMousePressEvent(&fakeEvent);
-            }
-            else
-                K3ListView::contentsMousePressEvent(e);
-        }
+    if (lastRow.isValid() && lastRow == currentRow) {
+        const QRect &baseRect = visualRect(lastRow);
 
-        m_middleClickItem = (Preferences::self()->middleClickClose() && e->button() == Qt::MidButton) ? item : 0;
+        QPainter painter(viewport());
+        painter.setRenderHint(QPainter::Antialiasing, true);
+        painter.setPen(Qt::NoPen);
+        painter.setBrush(palette().color(QPalette::Highlight));
+
+        QPainterPath bottomWing;
+        const QPoint &startPos = baseRect.bottomRight() + QPoint(1, 1);
+        bottomWing.moveTo(startPos);
+        bottomWing.lineTo(bottomWing.currentPosition().x() - RADIUS, bottomWing.currentPosition().y());
+        bottomWing.moveTo(startPos);
+        bottomWing.lineTo(bottomWing.currentPosition().x(), bottomWing.currentPosition().y() + RADIUS);
+        bottomWing.quadTo(startPos, QPoint(bottomWing.currentPosition().x() - RADIUS,
+            bottomWing.currentPosition().y() - RADIUS));
+        painter.fillPath(bottomWing, painter.brush());
     }
 }
 
-void ViewTree::contentsMouseReleaseEvent(QMouseEvent* e)
+void ViewTree::drawRow(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
-    QPoint vp = contentsToViewport(e->pos());
-    ViewTreeItem* item = static_cast<ViewTreeItem*>(itemAt(vp));
+    // Avoid style engine's row pre-fill.
+    QStyleOptionViewItem _option = option;
+    _option.palette.setColor(QPalette::Highlight, Qt::transparent);
 
-    if (!item && e->button() == Qt::RightButton)
-        return;
-
-    if (item)
-    {
-        if (Preferences::self()->closeButtons() && e->button() == Qt::LeftButton
-            && isAboveIcon(vp, item) && m_pressedAboveCloseButton
-            && item->getCloseButtonEnabled())
-        {
-            emit closeView(item->getView());
-        }
-
-        if (Preferences::self()->middleClickClose() && e->button() == Qt::MidButton
-            && item == m_middleClickItem)
-        {
-            emit closeView(item->getView());
-
-            m_middleClickItem = 0;
-        }
-    }
-    else
-        K3ListView::contentsMouseReleaseEvent(e);
+    QTreeView::drawRow(painter, _option, index);
 }
 
-void ViewTree::contentsMouseMoveEvent(QMouseEvent* e)
+void ViewTree::resizeEvent(QResizeEvent* event)
 {
-    QPoint vp = contentsToViewport(e->pos());
-    ViewTreeItem* item = static_cast<ViewTreeItem*>(itemAt(vp));
+    setColumnWidth(0, event->size().width());
 
-    if (item && item->isSeparator())
-        return;
-
-    // Cancel middle-click close.
-    if (item != m_middleClickItem) m_middleClickItem = 0;
-
-    // Allow dragging only with the middle mouse button, just
-    // like for the tab bar.
-    if ((e->buttons() & Qt::MidButton) == Qt::MidButton)
-        K3ListView::contentsMouseMoveEvent(e);
-    else if ((e->buttons() & Qt::LeftButton) == Qt::LeftButton)
-    {
-        if (item && (item != selectedItem()) && !item->isSeparator())
-            setSelected(item, true);
-    }
-
-    if (Preferences::self()->closeButtons())
-    {
-        if (!(e->buttons() & Qt::LeftButton) && !(e->buttons() & Qt::MidButton) && !(e->buttons() & Qt::RightButton))
-        {
-            if (item)
-            {
-                hideCloseButtons(item);
-
-                if (isAboveIcon(vp, item))
-                {
-                    item->setCloseButtonShown(true);
-                    m_closeButtonItem = item;
-                    if (!m_enableCloseButtonTimer->isActive())
-                        m_enableCloseButtonTimer->start(QApplication::doubleClickInterval());
-                }
-                else
-                {
-                    m_closeButtonItem = 0;
-                    item->setCloseButtonShown(false);
-                    m_enableCloseButtonTimer->stop();
-                }
-            }
-            else
-            {
-                hideCloseButtons();
-            }
-        }
-    }
-}
-
-void ViewTree::contentsContextMenuEvent(QContextMenuEvent* e)
-{
-    QPoint vp = contentsToViewport(e->pos());
-    ViewTreeItem* atpos = static_cast<ViewTreeItem*>(itemAt(vp));
-
-    if (atpos && !atpos->isSeparator())
-    {
-        if (!atpos->isSelected()) atpos->setHighlighted(true);
-        emit showViewContextMenu(atpos->getView(),e->globalPos());
-    }
-
-    K3ListView::contentsContextMenuEvent(e);
-}
-
-void ViewTree::contentsWheelEvent(QWheelEvent* e)
-{
-    if (e->delta() > 0)
-        selectUpper(true);
-    else
-        selectLower(true);
-
-    if (selectedItem())
-    {
-        ChatWindow* view = static_cast<ViewTreeItem*>(selectedItem())->getView();
-        if (view) view->adjustFocus();
-    }
-}
-
-void ViewTree::keyPressEvent(QKeyEvent* e)
-{
-    if (e->key() == Qt::Key_Up)
-        selectUpper();
-    else if (e->key() == Qt::Key_Down)
-        selectLower();
-    else
-    {
-        ViewTreeItem* item = static_cast<ViewTreeItem*>(selectedItem());
-        if (item && item->getView())
-        {
-            if (item->getView()->getInputBar())
-                KApplication::sendEvent(item->getView()->getTextView(), e);
-            else if (item->getView()->isInsertSupported())
-                item->getView()->appendInputText(e->text(), true);
-            else if (item && item->getView() && item->getView()->getType() == ChatWindow::Konsole)
-            {
-                KonsolePanel* panel = static_cast<KonsolePanel*>(item->getView());
-                QCoreApplication::sendEvent(panel->getWidget(), e);
-            }
-
-            item->getView()->adjustFocus();
-        }
-    }
-}
-
-void ViewTree::selectUpper(bool wrap)
-{
-    if (!selectedItem()) return;
-
-    ViewTreeItem* itemAbove = static_cast<ViewTreeItem*>(selectedItem()->itemAbove());
-
-    if (itemAbove)
-    {
-        if (itemAbove->isSeparator())
-            itemAbove = static_cast<ViewTreeItem*>(m_separator->itemAbove());
-
-        setSelected(itemAbove, true);
-    }
-    else
-    {
-        if (wrap) setSelected(lastItem(), true);
-    }
-
-    ensureItemVisible(selectedItem());
-}
-
-void ViewTree::selectLower(bool wrap)
-{
-    if (!selectedItem()) return;
-
-    ViewTreeItem* itemBelow = static_cast<ViewTreeItem*>(selectedItem()->itemBelow());
-
-    if (itemBelow)
-    {
-        if (itemBelow->isSeparator())
-            itemBelow = static_cast<ViewTreeItem*>(m_separator->itemBelow());
-
-        setSelected(itemBelow, true);
-    }
-    else
-    {
-        if (wrap) setSelected(firstChild(), true);
-    }
-
-    ensureItemVisible(selectedItem());
-}
-
-void ViewTree::resizeEvent(QResizeEvent* e)
-{
-    K3ListView::resizeEvent(e);
+    QTreeView::resizeEvent(event);
 
     emit sizeChanged();
 }
 
-void ViewTree::findDrop(const QPoint &pos, Q3ListViewItem *&parent, Q3ListViewItem *&after)
+void ViewTree::mousePressEvent(QMouseEvent* event)
 {
-    QPoint p (contentsToViewport(pos));
+    if (event->button() == Qt::RightButton) {
+        event->ignore();
 
-    Q3ListViewItem *atpos = itemAt(p);
+        return;
+    } else if (event->button() == Qt::MiddleButton) {
+        m_pressPos = event->pos();
 
-    Q3ListViewItem *above;
+        const QModelIndex& idx = indexAt(event->pos());
 
-    if (!atpos)
-        above = lastItem();
-    else
-    {
-        // Get the closest item before us ('atpos' or the one above, if any).
-        if (p.y() - itemRect(atpos).topLeft().y() < (atpos->height()/2))
-            above = atpos->itemAbove();
-        else
-            above = atpos;
+        if (idx.isValid()) {
+            m_pressedView = static_cast<ChatWindow*>(idx.internalPointer());
+        }
     }
 
-    ViewTreeItem* itemAbove = static_cast<ViewTreeItem*>(above);
-    ViewTreeItem* dragItem = static_cast<ViewTreeItem*>(selectedItem());
+    QTreeView::mousePressEvent(event);
+}
 
-    if (above)
-    {
-        if (dragItem->sortLast())
-        {
-            if (itemAbove->sortLast())
-            {
-                after = itemAbove;
-                parent = after->parent();
-                return;
+void ViewTree::mouseReleaseEvent(QMouseEvent* event)
+{
+    if (event->button() == Qt::MiddleButton) {
+        m_pressPos = QPoint();
 
-            }
-            else
-            {
-                after = m_separator;
-                parent = after->parent();
-                return;
-            }
-        }
-        else if (dragItem->depth() == 0)
-        {
-            if (itemAbove->sortLast())
-            {
-                after = m_separator->itemAbove();
-                after = (!after || after->depth() == 0) ? after : after->parent();
-                parent = 0L;
-                return;
-            }
-            else if (above->depth() == dragItem->depth())
-            {
-                after = above;
-                parent = 0L;
-                return;
-            }
-            else
-            {
-                after = above->parent();
-                parent = 0L;
-                return;
-            }
-        }
-        else
-        {
-            if (!itemAbove->getView() || itemAbove->sortLast())
-            {
-                after = getLastChild(dragItem->parent());
-                parent = after ? after->parent() : 0L;
-                return;
-            }
-            else if (itemAbove->getView()->getServer() != dragItem->getView()->getServer())
-            {
-                if (itemIndex(itemAbove) > itemIndex(dragItem))
-                {
-                    after = getLastChild(dragItem->parent());
-                    parent = after ? after->parent() : 0L;
-                    return;
-                }
-                else
-                {
-                    after = 0L;
-                    parent = dragItem->parent();
-                    return;
+        if (Preferences::self()->middleClickClose()) {
+            const QModelIndex& idx = indexAt(event->pos());
+
+            if (idx.isValid()) {
+                if (m_pressedView != 0 && m_pressedView == static_cast<ChatWindow*>(idx.internalPointer())) {
+                    emit closeView(m_pressedView.data());
                 }
             }
-            else
-            {
-                if (above == dragItem->parent())
-                    after = 0L;
-                else
-                    after = above;
+        }
+    }
 
-                parent = dragItem->parent();
-                return;
+    m_pressedView = 0;
+
+    QTreeView::mouseReleaseEvent(event);
+}
+
+void ViewTree::mouseMoveEvent(QMouseEvent* event)
+{
+    if (m_pressedView && (m_pressPos - event->pos()).manhattanLength() >= QGuiApplication::styleHints()->startDragDistance()) {
+        selectionModel()->select(indexAt(event->pos()), QItemSelectionModel::ClearAndSelect);
+        startDrag(Qt::MoveAction);
+        m_pressPos = QPoint();
+        m_pressedView = 0;
+    }
+
+    QTreeView::mouseMoveEvent(event);
+}
+
+void ViewTree::dragEnterEvent(QDragEnterEvent* event)
+{
+    if (event->source() == this && event->possibleActions() & Qt::MoveAction) {
+        event->accept();
+        setState(DraggingState);
+    } else {
+        event->ignore();
+    }
+}
+
+void ViewTree::dragMoveEvent(QDragMoveEvent* event)
+{
+    QTreeView::dragMoveEvent(event);
+
+    // Work around Qt being idiotic and not hiding the drop indicator when we want it to.
+    setDropIndicatorShown(event->isAccepted() && !dropIndicatorOnItem());
+    viewport()->update();
+}
+
+void ViewTree::contextMenuEvent(QContextMenuEvent* event)
+{
+    const QModelIndex& idx = indexAt(event->pos());
+
+    if (idx.isValid()) {
+        QWidget* widget = static_cast<QWidget*>(idx.internalPointer());
+
+        if (widget) {
+            event->accept();
+
+            emit showViewContextMenu(widget, event->globalPos());
+        }
+    }
+
+    event->ignore();
+}
+
+void ViewTree::wheelEvent(QWheelEvent* event)
+{
+    event->accept();
+
+    bool up = (event->angleDelta().y() > 0);
+
+    QModelIndex idx = moveCursor(up ? QAbstractItemView::MoveUp : QAbstractItemView::MoveDown, Qt::NoModifier);
+
+    if (idx == currentIndex()) {
+        const QAbstractItemModel* model = idx.model();
+
+        if (!model) {
+            return;
+        }
+
+        if (up) {
+            idx = model->index(model->rowCount() - 1, 0);
+
+            int count = model->rowCount(idx);
+
+            if (count) {
+                idx = idx.child(count - 1, 0);
+            }
+        } else {
+            idx = model->index(0, 0);
+        }
+    }
+
+    selectionModel()->select(idx, QItemSelectionModel::ClearAndSelect);
+    selectionModel()->setCurrentIndex(idx, QItemSelectionModel::NoUpdate);
+}
+
+void ViewTree::keyPressEvent(QKeyEvent* event)
+{
+    if (event->key() == Qt::Key_Up || event->key() == Qt::Key_Down) {
+        QTreeView::keyPressEvent(event);
+    } else {
+        const QModelIndex& idx = currentIndex();
+
+        if (idx.isValid()) {
+            ChatWindow* view = static_cast<ChatWindow*>(idx.internalPointer());
+
+            if (view) {
+                if (view->getInputBar())
+                    QCoreApplication::sendEvent(view->getTextView(), event);
+                else if (view->isInsertSupported())
+                    view->appendInputText(event->text(), true);
+                else if (view->getType() == ChatWindow::Konsole)
+                {
+                    KonsolePanel* panel = static_cast<KonsolePanel*>(view);
+                    QCoreApplication::sendEvent(panel->getWidget(), event);
+                }
+
+                view->adjustFocus();
             }
         }
     }
-    else
-    {
-        if (dragItem->sortLast())
-        {
-            after = m_separator;
-            parent = after->parent();
-            return;
+}
+
+void ViewTree::selectView(const QModelIndex& index)
+{
+    if (!index.isValid()) {
+        return;
+    }
+
+    selectionModel()->select(index, QItemSelectionModel::ClearAndSelect);
+    selectionModel()->setCurrentIndex(index, QItemSelectionModel::NoUpdate);
+}
+
+void ViewTree::selectionChanged(const QItemSelection& selected, const QItemSelection& deselected)
+{
+    Q_UNUSED(deselected)
+
+    const QModelIndexList& idxList = selected.indexes();
+
+    if (idxList.count()) {
+        const QModelIndex& idx = idxList.at(0);
+
+        ChatWindow* view = static_cast<ChatWindow*>(idx.internalPointer());
+
+        if (view) {
+            emit showView(view);
         }
-        else if (dragItem->depth() == 0)
-        {
-            after = 0L;
-            parent = 0L;
-            return;
-        }
-        else
-        {
-            after = 0L;
-            parent = dragItem->parent();
-            return;
-        }
     }
 
-    after = 0L;
-    parent = 0L;
+    viewport()->update();
 }
 
-Q3DragObject* ViewTree::dragObject()
-{
-    if (!currentItem())
-        return 0;
 
-    Q3ListViewItem* item = selectedItem();
 
-    if (!item->dragEnabled())
-        return 0;
-
-    return new Q3StoredDrag("application/x-qlistviewitem", viewport());
-}
-
-QList<ChatWindow*> ViewTree::getSortedViewList()
-{
-    QList<ChatWindow*> viewList;
-    Q3ListViewItemIterator it(this);
-    ViewTreeItem* item;
-    while (it.current())
-    {
-        item = static_cast<ViewTreeItem*>(it.current());
-        if (!item->isSeparator()) viewList.append(item->getView());
-        ++it;
-    }
-
-    return viewList;
-}
-
-ViewTreeItem* ViewTree::getItemForView(ChatWindow* view)
-{
-    ViewTreeItem* item = static_cast<ViewTreeItem*>(firstChild());
-
-    while (item)
-    {
-        if (item->getView() && item->getView()==view)
-        {
-            return item;
-            break;
-        }
-
-        item = static_cast<ViewTreeItem*>(item->itemBelow());
-    }
-
-    return 0;
-}
-
-ViewTreeItem* ViewTree::getParentItemForView(ChatWindow* view)
-{
-    Server* server = view->getServer();
-
-    ViewTreeItem* item = static_cast<ViewTreeItem*>(firstChild());
-
-    while (item)
-    {
-        if (item->getViewType() == ChatWindow::Status
-            && item->getView()
-            && item->getView()->getServer() == server)
-        {
-            return item;
-            break;
-        }
-
-        item = static_cast<ViewTreeItem*>(item->itemBelow());
-    }
-
-    return 0;
-}
-
-ViewTreeItem* ViewTree::getLastChild(Q3ListViewItem* parent)
-{
-    ViewTreeItem* item = static_cast<ViewTreeItem*>(parent);
-    Server* server = item->getView()->getServer();
-    ViewTreeItem* lastChild = 0;
-
-    while (item->getView() && item->getView()->getServer() == server)
-    {
-        lastChild = item;
-        item = static_cast<ViewTreeItem*>(item->itemBelow());
-    }
-
-    return lastChild;
-}
-
-void ViewTree::paintEmptyArea(QPainter* p, const QRect& rect)
-{
-    K3ListView::paintEmptyArea(p, rect);
-
-    ViewTreeItem* last = static_cast<ViewTreeItem*>(lastItem());
-
-    if (last && last->isSelected())
-    {
-        int y = last->itemPos() + last->height();
-        int x = visibleWidth();
-
-        if (!rect.contains(x-1, y+2))
-            return;
-
-        QColor bgColor  = palette().color(backgroundRole());
-        QColor selColor = palette().color(QPalette::Active, QPalette::Highlight);
-        QColor midColor = last->mixColor(bgColor, selColor);
-
-        p->setPen(selColor);
-        p->drawPoint(x - 1, y);
-        p->drawPoint(x - 2, y);
-        p->drawPoint(x - 1, y + 1);
-        p->setPen(midColor);
-        p->drawPoint(x - 3, y);
-        p->drawPoint(x - 1, y + 2);
-    }
-}
-
-#include "viewtree.moc"

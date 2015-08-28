@@ -1,3 +1,124 @@
+Changes from Konversation 1.6.1-beta1 to 1.6:
+Konversation is the first stable release of Konversation built on the new
+KDE Frameworks 5 and Qt 5 library sets, improving integration into many
+desktop environments, including Plasma Desktop 5, and adding first support
+for hi-dpi scaling. In addition to porting and reworking things for hi-dpi
+scaling, a number of behavior improvements and bug fixes were implemented,
+particularly improved nickname selection behavior at connection time and
+better layout behavior for the channel top area.
+
+Unfortunately the 1.6 release removes support for integrating with the KDE
+Address Book, as the interfaces Konversation was using to achieve this were
+dropped from KDE Frameworks. A replacement is in the works in the form of
+the new KPeople library, which we intend to use in a future release. Using
+KPeople, Konversation will then be able to tightly integrate with various
+contact management-related features in Plasma Desktop.
+
+* Improved support for character set aliases via KCharsets.
+* Improved behavior when reconnecting and Konversation had to use an
+  alternate nickname for the previous connection because the preferred
+  nickname was already in use: Konversation will now try harder to go back
+  to nicknames sorted earlier in the identity's nickname list, instead of
+  advancing down the list without checking whether earlier nicknames have
+  become available again.
+* Konversation will no longer give up trying to connect when only a single
+  nickname is configured and not available at connection time. Instead, it
+  will do as many reconnection attempts as allowed by user configuration.
+* Fixed incorrect size calculations for the channel topic text label causing
+  cut-off text and unwanted collapsing of the topic area.
+* Fixed a bug causing auto-connect not to connect to networks in the order
+  they are listed in the Server List dialog.
+* Fixed a bug causing the main window not to be raised when an Konversation
+  is started an additional time and the window is currently minimized.
+* The default tabs position is now 'Left', i.e. the treelist version of the
+  tab bar.
+* Tabs can now be reordered by drag and drop again.
+* Fixed various rendering issues in the treelist version of the tab bar and
+  made it high-DPI scaling-capable.
+* Fixed a bug causing Channel List tabs not to be sorted below the status
+  tab of the server they belong to in the treelist version of the tab bar,
+  and corrupt its contents.
+* Fixed margins in the Edit Network dialog.
+* Improved wording and correctness of several interface messages.
+* Fixed a bug causing some interface messages and labels not to use their
+  translated versions when running with a language other than US English.
+* Fixed a bug causing Konversation not to generate default command aliases
+  for installed scripts at startup anymore.
+* The bundled 'cmd' script now defaults to trying to decode command output
+  as Utf-8 even when run on Python 2.
+* Fixed the bundled 'bug' script not working.
+* Fixed naming of bundled icons.
+* Konversation now opts into Qt's high-DPI pixmap handling.
+* Adjusted build system to use co-installable version of qca-qt5.
+* Fixed build failures on Windows.
+
+Changes from Konversation 1.5.1 to 1.6-beta1:
+Konversation 1.6-beta1 is the first release of Konversation built on the new
+KDE Frameworks 5 and Qt 5 library sets, and intended to allow you to help us
+test and shake out the remaining issues in the ported code. With stability
+despite many changes under the hood as the primary goal, the 1.6 release will
+not bring any new features, though Frameworks 5 and Qt 5 offer a host of
+efficiency improvements over the old stack and will enable us to support
+hi-dpi scaling and Wayland going forward.
+
+Known issues in this beta include a lack of addressbook integration support
+(the needed Frameworks dependencies have not yet been released), drag and
+drop support for tabs being disabled, and minor visual polish issues,
+including some visual assets not having been updated to match KDE's new
+"Breeze" visual identity yet. We expect to resolve these issues in upcoming
+releases.
+
+* Konversation now depends on KDE Frameworks v5.2.0 and Qt v5.3.0.
+* The default nickname list theme has been updated to KDE's new Breeze visual
+  identity.
+* Notification events now have non-generic titles to prevent Plasma Desktop 5
+  from merging events from different sources.
+* Fixed a bug causing the "Focus Input Bar" action to be enabled/disabled at
+  incorrect times.
+
+
+Changes from 1.5 to 1.5.1:
+Konversation 1.5.1 is a maintenance release containing only bug fixes. The
+included changes address several minor behavioral defects and a low-risk DoS
+security defect in the Blowfish ECB support. The KDE Platform version depen-
+dency has increased to v4.9.0 to gain access to newer Qt socket transport
+security flags.
+
+* Fixed a bug causing wildcards in command alias replacement patterns not to
+  be expanded.
+* Fixed a bug causing auto-joining of channels not starting in # or & to some-
+  times fail because the auto-join command was generated before we got the
+  CHANTYPES pronouncement by the server.
+* Added a size sanity check for incoming Blowfish ECB blocks. The blind
+  assumption of incoming blocks being the expected 12 bytes could lead to a
+  crash or up to 11 byte information leak due to an out-of-bounds read. This
+  fixes CVE-2014-8483.
+* Enabling SSL/TLS support for connections will now advertise the protocols
+  Qt considers secure by default, instead of being hardcoded to TLSv1.
+* Fixed the bundled 'sysinfo' script not coping with empty lines in
+  /etc/os-release.
+* Made disk space info in the bundled 'sysinfo' script more robust by forcing
+  the C locale for 'df'.
+* Added an audio player type hint for Cantata to the bundled 'media' script.
+* Fixed some minor comparison logic errors turned up by static analysis.
+* Konversation now depends on KDE Platform v4.9.0 or higher.
+
+
+Changes from 1.5-rc2 to 1.5:
+Konversation 1.5 adds numerous major features over the previous stable release.
+Of particular note are support for SASL and client certificate authentication,
+all-new topic management UI, overhauled authentication UI in the Identities
+dialog, per-tab spell-checking language settings, user-configurable nick context
+menu entries, mouse spring-loading on tabs, all-new versions of major bundled
+scripts and improved Ignore and Watched Nicknames systems. Many under-the-hood
+changes to improve codec support and general performance, along with the usual
+slew of bug fixes all over, further sweeten the deal. Don't miss out on reading
+about various other new features and more fixes in the full changelogs since
+version 1.4, too!
+
+* Expanded interface translations.
+
+
 Changes from 1.5-rc1 to 1.5-rc2:
 After a (too) long wait, Konversation 1.5-rc2 is hopefully our final bid for
 your aid in assuring the quality of a now-impending final release. Quite a few

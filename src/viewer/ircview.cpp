@@ -23,12 +23,18 @@
 #include "emoticons.h"
 #include "notificationhandler.h"
 
+#include <QDrag>
 #include <QScrollBar>
 #include <QTextBlock>
 #include <QPainter>
 #include <QTextDocumentFragment>
+#include <QMimeData>
 
+#include <KIconLoader>
 #include <KStandardShortcut>
+#include <kio/pixmaploader.h>
+#include <KUrlMimeData>
+#include <QLocale>
 
 using namespace Konversation;
 
@@ -85,7 +91,7 @@ class SelectionPin
 };
 
 
-IRCView::IRCView(QWidget* parent) : KTextBrowser(parent), m_rememberLine(0), m_lastMarkerLine(0), m_rememberLineDirtyBit(false), markerFormatObject(this)
+IRCView::IRCView(QWidget* parent) : QTextBrowser(parent), m_rememberLine(0), m_lastMarkerLine(0), m_rememberLineDirtyBit(false), markerFormatObject(this)
 {
     m_mousePressedOnUrl = false;
     m_isOnNick = false;
@@ -255,14 +261,12 @@ void IRCView::dragMoveEvent(QDragMoveEvent* e)
 void IRCView::dropEvent(QDropEvent* e)
 {
     if (e->mimeData() && e->mimeData()->hasUrls())
-        emit urlsDropped(KUrl::List::fromMimeData(e->mimeData(), KUrl::List::PreferLocalUrls));
+        emit urlsDropped(KUrlMimeData::urlsFromMimeData(e->mimeData(), KUrlMimeData::PreferLocalUrls));
 }
 
 // Marker lines
 
 #define _S(x) #x << (x)
-
-#define DebugBanner KDebug::Block myBlock(qPrintable(QString("%1 %2").arg(m_chatWin->getName()).arg(QString::number((quintptr)this, 16))))
 
 QDebug operator<<(QDebug dbg, QTextBlockUserData *bd);
 QDebug operator<<(QDebug d, QTextFrame* feed);
@@ -365,55 +369,12 @@ void IRCView::blockDeleted(Burr* b) //slot
         m_rememberLine = 0;
 }
 
-void IRCView::cullMarkedLine(int where, int rem, int add) //slot
+void IRCView::cullMarkedLine(int, int, int) //slot
 {
-    bool showDebug = false;
-    QString output;
-    QDebug d = QDebug(&output);//KDebug(QtDebugMsg, __FILE__, __LINE__, Q_FUNC_INFO)();
-
-    bool merged = (add!=0 && rem !=0); // i have never seen this happen, adds and removes are always separate
-    int blockCount = document()->blockCount();
-    void *view = this;
     QTextBlock prime = document()->firstBlock();
 
-    d << "================= cullMarkedLine" << _S(view) << _S(where) << _S(rem) << _S(add) << _S(blockCount) << _S(prime.length()) << _S(merged);
-
-    if (prime.length() == 1)
-    {
-        if (document()->blockCount() == 1) //the entire document was wiped. was a signal such a burden? apparently..
-        {
-            //showDebug = true;
-            d << "- wipeLineParagraphs()" << (void*)m_rememberLine << (void*)m_lastMarkerLine;
-            wipeLineParagraphs();
-        }
-        else if (document()->characterAt(0).unicode() == 0x2029)
-        {
-            //showDebug = true;
-            d << "- only QChar::ParagraphSeparator";
-            // this should never happen, it should be 0xfffc2029
-            if (dynamic_cast<Burr*>(prime.userData()))
-                d << "Burr!" << prime.userData();
-        }
-        else
-        {
-            //showDebug = true;
-            QString fc = "0x" + QString::number(document()->characterAt(0).unicode(), 16).rightJustified(4, '0');
-            d << "- block of length 1 but not 2029" << qPrintable(fc);
-        }
-    }
-    else if (prime.length() == 2)
-    {
-        //probably a Burr going to be culled next..
-        //showDebug = true;
-        QString fc = "0x" + QString::number(document()->characterAt(0).unicode(), 16).rightJustified(4, '0');
-        QString sc = "0x" + QString::number(document()->characterAt(1).unicode(), 16).rightJustified(4, '0');
-        d << "- prime(2)" << fc << sc;
-    }
-    if (showDebug)
-    {
-        DebugBanner;
-        kDebug() << output;
-    }
+    if (prime.length() == 1 && document()->blockCount() == 1) //the entire document was wiped. was a signal such a burden? apparently..
+        wipeLineParagraphs();
 }
 
 void IRCView::insertMarkerLine() //slot
@@ -540,15 +501,15 @@ void IRCView::updateAppearance()
     if (Preferences::self()->customTextFont())
         setFont(Preferences::self()->textFont());
     else
-        setFont(KGlobalSettings::generalFont());
+        setFont(QFontDatabase::systemFont(QFontDatabase::GeneralFont));
 
     setVerticalScrollBarPolicy(Preferences::self()->showIRCViewScrollBar() ? Qt::ScrollBarAlwaysOn : Qt::ScrollBarAlwaysOff);
 
     if (Preferences::self()->showBackgroundImage())
     {
-        KUrl url = Preferences::self()->backgroundImage();
+        QUrl url = Preferences::self()->backgroundImage();
 
-        if (url.hasPath())
+        if (url.isValid())
         {
             viewport()->setStyleSheet("QWidget { background-image: url("+url.path()+"); background-attachment:fixed; }");
 
@@ -557,7 +518,7 @@ void IRCView::updateAppearance()
     }
 
     if (!viewport()->styleSheet().isEmpty())
-        viewport()->setStyleSheet("");
+        viewport()->setStyleSheet(QString());
 
     QPalette p;
     p.setColor(QPalette::Base, Preferences::self()->color(Preferences::TextViewBackground));
@@ -731,7 +692,7 @@ void IRCView::appendServerMessage(const QString& type, const QString& message, b
     if(Preferences::self()->fixedMOTD() && !m_fontDataBase.isFixedPitch(font().family()))
     {
         if(type == i18n("MOTD"))
-            fixed=" face=\"" + KGlobalSettings::fixedFont().family() + "\"";
+            fixed=" face=\"" + QFontDatabase::systemFont(QFontDatabase::FixedFont).family() + "\"";
     }
 
     QString line;
@@ -776,7 +737,7 @@ void IRCView::appendCommandMessage(const QString& type,const QString& message, b
         prefix="<--";
     }
 
-    prefix=Qt::escape(prefix);
+    prefix=prefix.toHtmlEscaped();
 
     QString line;
     QChar::Direction dir;
@@ -894,13 +855,10 @@ void IRCView::doRawAppend(const QString& newLine, bool rtl)
 
     line.remove('\n');
 
-    KTextBrowser::append(line);
+    QTextBrowser::append(line);
 
     QTextCursor formatCursor(document()->lastBlock());
     QTextBlockFormat format = formatCursor.blockFormat();
-
-    if (!QApplication::isLeftToRight())
-        rtl = !rtl;
 
     format.setAlignment(rtl ? Qt::AlignRight : Qt::AlignLeft);
     formatCursor.setBlockFormat(format);
@@ -924,7 +882,7 @@ QString IRCView::timeStamp()
             QDate date = QDate::currentDate();
             timeString = QString("<font color=\"" +
                 timeColor + "\">[%1 %2]</font> ")
-                    .arg(KGlobal::locale()->formatDate(date, KLocale::ShortDate),
+                    .arg(QLocale().toString(date, QLocale::ShortFormat),
                          time.toString(timeFormat));
         }
 
@@ -994,7 +952,7 @@ QString IRCView::filter(const QString& line, const QString& defaultColor, const 
     bool doHighlight, bool parseURL, bool self, QChar::Direction* direction)
 {
     QString filteredLine(line);
-    Application* konvApp = static_cast<Application*>(kapp);
+    Application* konvApp = Application::instance();
 
     //Since we can't turn off whitespace simplification withouteliminating text wrapping,
     //  if the line starts with a space turn it into a non-breaking space.
@@ -1015,7 +973,7 @@ QString IRCView::filter(const QString& line, const QString& defaultColor, const 
     {
         if (Preferences::self()->beep())
         {
-            kapp->beep();
+            qApp->beep();
         }
         //remove char after beep
         filteredLine.remove('\x07');
@@ -1329,7 +1287,7 @@ QString IRCView::ircTextToHtml(const QString& text, bool parseURL, const QString
         }
 
 
-        switch (htmlText.at(pos).toAscii())
+        switch (htmlText.at(pos).toLatin1())
         {
             case '\x02': //bold
                 offset = defaultHtmlReplace(htmlText, &data, pos, QLatin1String("b"));
@@ -1707,7 +1665,7 @@ QString IRCView::removeDuplicateCodes(const QString& codes, TextHtmlData* data, 
     QString ret;
     while (pos < codes.length())
     {
-        switch (codes.at(pos).toAscii())
+        switch (codes.at(pos).toLatin1())
         {
             case '\x02': //bold
                 defaultRemoveDuplicateHandling(data, QLatin1String("b"));
@@ -1820,7 +1778,7 @@ QString IRCView::removeDuplicateCodes(const QString& codes, TextHtmlData* data, 
                 }
                 break;
             default:
-//                 kDebug() << "unsupported duplicate code:" << QString::number(codes.at(pos).toAscii(), 16);
+//                 qDebug() << "unsupported duplicate code:" << QString::number(codes.at(pos).toLatin1(), 16);
                 ret += codes.at(pos);
                 ++pos;
         }
@@ -1941,12 +1899,12 @@ QString IRCView::getColors(const QString& text, int start, QString& _fgColor, QS
 void IRCView::resizeEvent(QResizeEvent *event)
 {
     ScrollBarPin b(verticalScrollBar());
-    KTextBrowser::resizeEvent(event);
+    QTextBrowser::resizeEvent(event);
 }
 
 void IRCView::mouseMoveEvent(QMouseEvent* ev)
 {
-    if (m_mousePressedOnUrl && (m_mousePressPosition - ev->pos()).manhattanLength() > KApplication::startDragDistance())
+    if (m_mousePressedOnUrl && (m_mousePressPosition - ev->pos()).manhattanLength() > QApplication::startDragDistance())
     {
         m_mousePressedOnUrl = false;
 
@@ -1958,8 +1916,9 @@ void IRCView::mouseMoveEvent(QMouseEvent* ev)
         QPointer<QDrag> drag = new QDrag(this);
         QMimeData* mimeData = new QMimeData;
 
-        KUrl url(m_dragUrl);
-        url.populateMimeData(mimeData);
+        QUrl url(m_dragUrl);
+
+        mimeData->setUrls(QList<QUrl>() << url);
 
         drag->setMimeData(mimeData);
 
@@ -1976,7 +1935,7 @@ void IRCView::mouseMoveEvent(QMouseEvent* ev)
         m_urlToCopy = anchorAt(ev->pos());
     }
 
-    KTextBrowser::mouseMoveEvent(ev);
+    QTextBrowser::mouseMoveEvent(ev);
 }
 
 void IRCView::mousePressEvent(QMouseEvent* ev)
@@ -1992,7 +1951,7 @@ void IRCView::mousePressEvent(QMouseEvent* ev)
         }
     }
 
-    KTextBrowser::mousePressEvent(ev);
+    QTextBrowser::mousePressEvent(ev);
 }
 
 void IRCView::mouseReleaseEvent(QMouseEvent *ev)
@@ -2017,7 +1976,7 @@ void IRCView::mouseReleaseEvent(QMouseEvent *ev)
         }
     }
 
-    KTextBrowser::mouseReleaseEvent(ev);
+    QTextBrowser::mouseReleaseEvent(ev);
 }
 
 void IRCView::keyPressEvent(QKeyEvent* ev)
@@ -2031,7 +1990,7 @@ void IRCView::keyPressEvent(QKeyEvent* ev)
         return;
     }
 
-    KTextBrowser::keyPressEvent(ev);
+    QTextBrowser::keyPressEvent(ev);
 }
 
 void IRCView::anchorClicked(const QUrl& url)

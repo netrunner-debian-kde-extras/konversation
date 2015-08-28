@@ -18,11 +18,11 @@
 
 #include "ui_pasteeditor.h"
 
-#include <KDialog>
+#include <QDialog>
 
 class QAction;
 
-class PasteEditor : public KDialog, private Ui::PasteEditor
+class PasteEditor : public QDialog, private Ui::PasteEditor
 {
     Q_OBJECT
     public:
@@ -34,11 +34,11 @@ class PasteEditor : public KDialog, private Ui::PasteEditor
 
         static QString edit(QWidget* parent, const QString& text);
 
-    protected slots:
+    protected Q_SLOTS:
         void addQuotationIndicators();
         void removeNewlines();
 
-    private slots:
+    private Q_SLOTS:
         void doInlineAutoreplace();
 
     private:

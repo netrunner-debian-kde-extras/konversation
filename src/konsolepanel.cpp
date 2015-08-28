@@ -16,10 +16,12 @@
 #include <QSplitter>
 #include <QToolButton>
 #include <QLabel>
+#include <QHBoxLayout>
 
-#include <KApplication>
+#include <QDebug>
+#include <QIcon>
+#include <KLocalizedString>
 #include <KService>
-#include <KHBox>
 #include <kde_terminal_interface.h>
 
 
@@ -32,21 +34,25 @@ KonsolePanel::KonsolePanel(QWidget *p) : ChatWindow( p ), k_part (0)
 
     m_headerSplitter = new QSplitter(Qt::Vertical, this);
 
-    KHBox* headerWidget = new KHBox(m_headerSplitter);
+    QWidget* headerWidget = new QWidget(m_headerSplitter);
+    QHBoxLayout* headerWidgetLayout = new QHBoxLayout(headerWidget);
+    headerWidgetLayout->setMargin(0);
     m_headerSplitter->setStretchFactor(m_headerSplitter->indexOf(headerWidget), 0);
 
     m_profileButton = new QToolButton(headerWidget);
-    m_profileButton->setIcon(KIcon("configure"));
+    headerWidgetLayout->addWidget(m_profileButton);
+    m_profileButton->setIcon(QIcon::fromTheme(QStringLiteral("configure")));
     m_profileButton->setToolTip(i18n("Manage Konsole Profiles"));
     m_profileButton->setAutoRaise(true);
     m_profileButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-    connect(m_profileButton, SIGNAL(clicked()), this, SLOT(manageKonsoleProfiles()));
+    connect(m_profileButton, &QToolButton::clicked, this, &KonsolePanel::manageKonsoleProfiles);
 
     m_konsoleLabel = new QLabel(headerWidget);
+    headerWidgetLayout->addWidget(m_konsoleLabel);
     m_konsoleLabel->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum));
 
     KPluginFactory* fact = 0;
-    KService::Ptr service = KService::serviceByDesktopName("konsolepart");
+    KService::Ptr service = KService::serviceByDesktopName(QStringLiteral("konsolepart"));
     if( service )
     {
         fact = KPluginLoader(service->library()).factory();
@@ -62,26 +68,26 @@ KonsolePanel::KonsolePanel(QWidget *p) : ChatWindow( p ), k_part (0)
     setFocusProxy(k_part->widget());
     k_part->widget()->setFocus();
 
-    connect(k_part, SIGNAL(setWindowCaption(QString)), m_konsoleLabel, SLOT(setText(QString)));
+    connect(k_part, &KParts::ReadOnlyPart::setWindowCaption, m_konsoleLabel, &QLabel::setText);
 
     TerminalInterface *terminal = qobject_cast<TerminalInterface *>(k_part);
     if (!terminal) return;
     terminal->showShellInDir(QDir::homePath());
 
-    connect(k_part, SIGNAL(destroyed()), this, SLOT(partDestroyed()));
+    connect(k_part, &KParts::ReadOnlyPart::destroyed, this, &KonsolePanel::partDestroyed);
 #if 0
 // TODO find the correct signal
-    connect(k_part, SIGNAL(receivedData(QString)), this, SLOT(konsoleChanged(QString)));
+    connect(k_part, &KParts::ReadOnlyPart::receivedData, this, &KonsolePanel::konsoleChanged);
 #endif
 }
 
 KonsolePanel::~KonsolePanel()
 {
-    kDebug();
+    qDebug();
     if ( k_part )
     {
         // make sure to prevent partDestroyed() signals from being sent
-        disconnect(k_part, SIGNAL(destroyed()), this, SLOT(partDestroyed()));
+        disconnect(k_part, &KParts::ReadOnlyPart::destroyed, this, &KonsolePanel::partDestroyed);
         delete k_part;
     }
 }
@@ -109,7 +115,7 @@ void KonsolePanel::partDestroyed()
 void KonsolePanel::manageKonsoleProfiles()
 {
     QMetaObject::invokeMethod(k_part, "showManageProfilesDialog",
-        Qt::QueuedConnection, Q_ARG(QWidget*, KApplication::activeWindow()));
+        Qt::QueuedConnection, Q_ARG(QWidget*, QApplication::activeWindow()));
 }
 
 void KonsolePanel::konsoleChanged(const QString& /* data */)
@@ -117,4 +123,4 @@ void KonsolePanel::konsoleChanged(const QString& /* data */)
   activateTabNotification(Konversation::tnfSystem);
 }
 
-#include "konsolepanel.moc"
+

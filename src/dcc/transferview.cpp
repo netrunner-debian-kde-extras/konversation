@@ -15,11 +15,9 @@
 
 #include "transferview.h"
 
-#include <KDebug>
-#include <KMenu>
+#include <QMenu>
 #include <KCategoryDrawer>
 #include <KLocalizedString>
-#include <KGlobalSettings>
 
 #include <QHeaderView>
 #include <QKeyEvent>
@@ -49,7 +47,7 @@ namespace Konversation
             setRootIsDecorated(false); //not implemented for special items
             setSelectionMode(QAbstractItemView::ExtendedSelection);
 
-            m_categoryDrawer = new KCategoryDrawerV3(0);
+            m_categoryDrawer = new KCategoryDrawer(0);
 
             setItemDelegate(new TransferSizeDelegate(m_categoryDrawer, this));
 
@@ -66,12 +64,9 @@ namespace Konversation
             m_activeTransfers = 0;
             m_itemCategoryToRemove = 0;
             m_updateTimer = new QTimer(this);
-            m_updateTimer->setInterval(DccCommon::graphicEffectLevelToUpdateInterval(
-                                           KGlobalSettings::graphicEffectsLevel()));
+            m_updateTimer->setInterval(1000);
 
-            connect(m_updateTimer, SIGNAL(timeout()), this, SLOT(update()));
-
-            connect(KGlobalSettings::self(), SIGNAL(settingsChanged(int)), this, SLOT(globalSettingsChanged(int)));
+            connect(m_updateTimer, &QTimer::timeout, this, &TransferView::update);
 
             connect(model(), SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)),
                      this, SLOT(rowsAboutToBeRemovedFromModel(QModelIndex,int,int)));
@@ -79,8 +74,7 @@ namespace Konversation
             //the rows are not permanently removed from model,
             //so if we trigger a new removeRows in our slot,
             //the new remove happens before the old pending
-            connect(m_dccModel, SIGNAL(rowsPermanentlyRemoved(int,int)),
-                    this, SLOT(rowsRemovedFromModel(int,int)));
+            connect(m_dccModel, &TransferListModel::rowsPermanentlyRemoved, this, &TransferView::rowsRemovedFromModel);
         }
 
         TransferView::~TransferView()
@@ -168,7 +162,7 @@ namespace Konversation
                 if (m_activeTransfers > 0 && !m_updateTimer->isActive())
                 {
                     m_updateTimer->start();
-                    kDebug() << "timer start";
+                    qDebug() << "timer start";
                 }
             }
 
@@ -300,7 +294,7 @@ namespace Konversation
 
             foreach (const QModelIndex &rowIndex, rowIndexes())
             {
-                Transfer *rowTransfer = static_cast<Transfer*>(qVariantValue<QObject*>(rowIndex.data(TransferListModel::TransferPointer)));
+                Transfer *rowTransfer = static_cast<Transfer*>(rowIndex.data(TransferListModel::TransferPointer).value<QObject*>());
                 if (rowTransfer == transfer)
                 {
                     return rowIndex;
@@ -311,8 +305,8 @@ namespace Konversation
 
         void TransferView::headerCustomContextMenuRequested(const QPoint &pos)
         {
-            KMenu menu(this);
-            menu.addTitle(i18n("Columns"));
+            QMenu menu(this);
+            menu.addSection(i18n("Columns"));
 
             for (int i = 0; i < m_dccModel->columnCount(); ++i)
             {
@@ -334,31 +328,31 @@ namespace Konversation
         //                 connect (tAction, SIGNAL(toggled(bool)), this, SLOT(toggleFilenameColumn(bool)));
         //                 break;
                     case TransferHeaderData::PartnerNick:
-                        connect (tAction, SIGNAL(toggled(bool)), this, SLOT(togglePartnerNickColumn(bool)));
+                        connect(tAction, &QAction::toggled, this, &TransferView::togglePartnerNickColumn);
                         break;
                     case TransferHeaderData::Progress:
-                        connect (tAction, SIGNAL(toggled(bool)), this, SLOT(toggleProgressColumn(bool)));
+                        connect(tAction, &QAction::toggled, this, &TransferView::toggleProgressColumn);
                         break;
                     case TransferHeaderData::OfferDate:
-                        connect (tAction, SIGNAL(toggled(bool)), this, SLOT(toggleStartedAtColumn(bool)));
+                        connect(tAction, &QAction::toggled, this, &TransferView::toggleStartedAtColumn);
                         break;
                     case TransferHeaderData::Position:
-                        connect (tAction, SIGNAL(toggled(bool)), this, SLOT(togglePositionColumn(bool)));
+                        connect(tAction, &QAction::toggled, this, &TransferView::togglePositionColumn);
                         break;
                     case TransferHeaderData::CurrentSpeed:
-                        connect (tAction, SIGNAL(toggled(bool)), this, SLOT(toggleCurrentSpeedColumn(bool)));
+                        connect(tAction, &QAction::toggled, this, &TransferView::toggleCurrentSpeedColumn);
                         break;
                     case TransferHeaderData::SenderAdress:
-                        connect (tAction, SIGNAL(toggled(bool)), this, SLOT(toggleSenderAdressColumn(bool)));
+                        connect(tAction, &QAction::toggled, this, &TransferView::toggleSenderAdressColumn);
                         break;
                     case TransferHeaderData::Status:
-                        connect (tAction, SIGNAL(toggled(bool)), this, SLOT(toggleStatusColumn(bool)));
+                        connect(tAction, &QAction::toggled, this, &TransferView::toggleStatusColumn);
                         break;
                     case TransferHeaderData::TimeLeft:
-                        connect (tAction, SIGNAL(toggled(bool)), this, SLOT(toggleTimeLeftColumn(bool)));
+                        connect(tAction, &QAction::toggled, this, &TransferView::toggleTimeLeftColumn);
                         break;
                     case TransferHeaderData::TypeIcon:
-                        connect (tAction, SIGNAL(toggled(bool)), this, SLOT(toogleTypeIconColumn(bool)));
+                        connect(tAction, &QAction::toggled, this, &TransferView::toogleTypeIconColumn);
                         break;
                 }
 
@@ -428,7 +422,7 @@ namespace Konversation
                     return i;
                 }
             }
-            kDebug() << "unknown headerType: " << headerType;
+            qDebug() << "unknown headerType: " << headerType;
             return -1;
         }
 
@@ -507,7 +501,7 @@ namespace Konversation
             }
             else
             {
-                kDebug() << "transferview fallback, did we crash last time?\n"
+                qDebug() << "transferview fallback, did we crash last time?\n"
                          << " columnOrder.count():"<< columnOrder.count()
                          << " columnWidths.count():"<< columnWidths.count()
                          << " columnVisible.count():"<< columnVisible.count()
@@ -617,7 +611,7 @@ namespace Konversation
                     m_itemCategoryToRemove &= ~Transfer::Send;
                     m_categorieFlags &= ~TransferView::SendCategory;
                     int removed = removeItems(TransferItemData::SendCategory);
-                    //kDebug() << "Sendremoved:" << removed;
+                    //qDebug() << "Sendremoved:" << removed;
                     if (removed > 0 && (m_categorieFlags & SpacerRow))
                     {
                         removeItems(TransferItemData::SpaceRow);
@@ -632,7 +626,7 @@ namespace Konversation
                     m_itemCategoryToRemove &= ~Transfer::Receive;
                     m_categorieFlags &= ~TransferView::ReceiveCategory;
                     int removed = removeItems(TransferItemData::ReceiveCategory);
-                    //kDebug() << "Receiveremoved:" << removed;
+                    //qDebug() << "Receiveremoved:" << removed;
                     if (removed > 0 && (m_categorieFlags & SpacerRow))
                     {
                         removeItems(TransferItemData::SpaceRow);
@@ -640,17 +634,6 @@ namespace Konversation
                     }
                 }
             }
-        }
-
-        void TransferView::globalSettingsChanged(int category)
-        {
-#if KDE_IS_VERSION(4,8,1)
-            if (category == KGlobalSettings::SETTINGS_STYLE)
-#else
-            Q_UNUSED(category);
-#endif
-                m_updateTimer->setInterval(DccCommon::graphicEffectLevelToUpdateInterval(
-                                               KGlobalSettings::graphicEffectsLevel()));
         }
 
         int TransferView::removeItems(TransferItemData::ItemDisplayType displaytype)
@@ -671,4 +654,4 @@ namespace Konversation
     }
 }
 
-#include "transferview.moc"
+

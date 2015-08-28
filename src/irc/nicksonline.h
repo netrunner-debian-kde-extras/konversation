@@ -21,7 +21,7 @@
 
 #include <QIcon>
 
-#include <KMenu>
+#include <QMenu>
 
 class ChatWindow;
 
@@ -42,15 +42,8 @@ class NicksOnline : public ChatWindow
             nlvcNetwork = 0,
             nlvcNick = 0,
             nlvcChannel = 0,
-            nlvcKabc = 1,
             nlvcAdditionalInfo = 1,
             nlvcServerName = 2                     // hidden
-        };
-        enum NickState
-        {
-            nsNotANick = 0,                       // User didn't click on a nickname.
-            nsNoAddress = 1,                      // Nick does not have an addressbook association.
-            nsHasAddress = 2                      // Nick has an associated addressbook entry.
         };
 
         explicit NicksOnline(QWidget* parent);
@@ -62,7 +55,7 @@ class NicksOnline : public ChatWindow
 
         virtual bool canBeFrontView()   { return true; }
 
-    signals:
+    Q_SIGNALS:
         /**
          * Emitted whenever user double-clicks a nick in the Watched Nicks tab.
          */
@@ -70,7 +63,7 @@ class NicksOnline : public ChatWindow
 
         void showView(ChatWindow* view);
 
-    public slots:
+    public Q_SLOTS:
 
         /**
          * Refresh the nicklistview for a single server.
@@ -78,7 +71,7 @@ class NicksOnline : public ChatWindow
          */
         void updateServerOnlineList(Server* server);
 
-    protected slots:
+    protected Q_SLOTS:
         /**
          * When a user double-clicks a nickname in the nicklistview, let server know so that
          * it can perform the user's chosen default action for that.
@@ -153,14 +146,7 @@ class NicksOnline : public ChatWindow
          * @return needWhois        True if a WHOIS needs to be performed on the nick
          *                          to get additional information.
          */
-        QString getNickAdditionalInfo(NickInfoPtr nickInfo, KABC::Addressee addressee,
-            bool& needWhois);
-        /**
-         * Invokes the KAddressBook contact editor for the specified contact id.
-         * @param uid               Id of the contact.
-         * @return                  False if unable to invoke the Contact editor.
-         */
-        bool editAddressee(const QString &uid);
+        QString getNickAdditionalInfo(NickInfoPtr nickInfo, bool& needWhois);
         /**
          * Returns the server name and nickname of the specified nicklistview item.
          * @param item              The nicklistview item.
@@ -179,24 +165,16 @@ class NicksOnline : public ChatWindow
          */
         QTreeWidgetItem* getServerAndNickItem(const QString& serverName, const QString& nickname);
         /**
-         * Perform an addressbook command (edit contact, create new contact,
-         * change/delete association.)
+         * Perform an command.
          * @param id                The command id.  @ref CommandIDs.
          *
          * The operation is performed on the nickname at the currently-selected item in
          * the nicklistview.
          *
-         * Also refreshes the nicklistview display to reflect the new addressbook state
+         * Also refreshes the nicklistview display to reflect the new state
          * for the nick.
          */
         void doCommand(QAction* id);
-        /**
-         * Get the addressbook state of the nickname at the specified nicklistview item.
-         * @param item              Item of the nicklistview.
-         * @return                  Addressbook state.
-         * 0 = not a nick, 1 = nick has no addressbook association, 2 = nick has association
-         */
-        int getNickAddressbookState(QTreeWidgetItem* item);
         /**
          * Sets up toolbar actions based on the given item.
          * @param item              Item of the nicklistview.
@@ -230,14 +208,12 @@ class NicksOnline : public ChatWindow
         // The main display of networks, nicks, and channels.
         QTreeWidget* m_nickListView;
         // Context menu when right-clicking a nick.
-        KMenu* m_popupMenu;
+        QMenu* m_popupMenu;
         KToolBar *m_toolBar;
         // A string containing the identifier for the "Offline" listview item
         QString c_offline;
         // Timer for refreshing display and generating WHOISes.
         QTimer* m_timer;
-        // Addressbook icon.
-        QIcon m_kabcIconSet;
         // Online nick icon
         QIcon m_onlineIcon;
         // Offline nick icon
@@ -249,14 +225,8 @@ class NicksOnline : public ChatWindow
 
     QAction* m_addNickname;
     QAction* m_removeNickname;
-    QAction* m_newContact;
-    QAction* m_editContact;
-    QAction* m_chooseAssociation;
-    QAction* m_changeAssociation;
-    QAction* m_deleteAssociation;
     QAction* m_whois;
     QAction* m_openQuery;
-    QAction* m_sendMail;
     QAction* m_joinChannel;
 
 };

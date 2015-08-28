@@ -11,6 +11,8 @@
   Copyright (C) 2009 Bernd Buschinski <b.buschinski@web.de>
 */
 
+#include <QDir>
+
 #include "transfermanager.h"
 #include "transferrecv.h"
 #include "transfersend.h"
@@ -47,7 +49,7 @@ namespace Konversation
 
         TransferManager::~TransferManager()
         {
-            kDebug();
+            qDebug();
             foreach (TransferSend* sendItem, m_sendItems)
             {
                 sendItem->abort();
@@ -83,8 +85,7 @@ namespace Konversation
         {
             m_upnpSocket = new UPnPMCastSocket();
 
-            connect(m_upnpSocket, SIGNAL(discovered(Konversation::UPnP::UPnPRouter*)),
-                    this, SLOT(upnpRouterDiscovered(Konversation::UPnP::UPnPRouter*)) );
+            connect(m_upnpSocket, &UPnP::UPnPMCastSocket::discovered, this, &TransferManager::upnpRouterDiscovered);
 
             m_upnpSocket->discover();
         }
@@ -101,7 +102,7 @@ namespace Konversation
         {
             TransferRecv* transfer = new TransferRecv(this);
             m_recvItems.push_back( transfer );
-            connect( transfer, SIGNAL(removed(Konversation::DCC::Transfer*)), this, SLOT(removeRecvItem(Konversation::DCC::Transfer*)));
+            connect(transfer, &TransferRecv::removed, this, &TransferManager::removeRecvItem);
             initTransfer( transfer );
             return transfer;
         }
@@ -110,7 +111,7 @@ namespace Konversation
         {
             TransferSend* transfer = new TransferSend(this);
             m_sendItems.push_back( transfer );
-            connect( transfer, SIGNAL(removed(Konversation::DCC::Transfer*)), this, SLOT(removeSendItem(Konversation::DCC::Transfer*)));
+            connect(transfer, &TransferSend::removed, this, &TransferManager::removeSendItem);
             initTransfer( transfer );
             return transfer;
         }
@@ -119,7 +120,7 @@ namespace Konversation
         {
             Chat* chat = new Chat(this);
             m_chatItems.append(chat);
-            connect( chat, SIGNAL(removed(Konversation::DCC::Chat*)), this, SLOT(removeChatItem(Konversation::DCC::Chat*)));
+            connect(chat, &Chat::removed, this, &TransferManager::removeChatItem);
             return chat;
         }
 
@@ -136,7 +137,7 @@ namespace Konversation
                     it->getFileName() == fileName )
                 {
                     transfer = it;
-                    kDebug() << "Filename match: " << fileName;
+                    qDebug() << "Filename match: " << fileName;
                     break;
                 }
             }
@@ -183,7 +184,7 @@ namespace Konversation
                     it->isResumed() )
                 {
                     transfer = it;
-                    kDebug() << "Filename match: " << fileName << ", claimed port: " << ownPort << ", item port: " << transfer->getOwnPort();
+                    qDebug() << "Filename match: " << fileName << ", claimed port: " << ownPort << ", item port: " << transfer->getOwnPort();
                     // the port number can be changed behind NAT, so we pick an item which only the filename is correspondent in that case.
                     if ( transfer->getOwnPort() == ownPort )
                     {
@@ -212,7 +213,7 @@ namespace Konversation
                     !it->isResumed() )
                 {
                     transfer = it;
-                    kDebug() << "Filename match: " << fileName << ", claimed port: " << ownPort << ", item port: " << transfer->getOwnPort();
+                    qDebug() << "Filename match: " << fileName << ", claimed port: " << ownPort << ", item port: " << transfer->getOwnPort();
                     // the port number can be changed behind NAT, so we pick an item which only the filename is correspondent in that case.
                     if ( transfer->getOwnPort() == ownPort )
                     {
@@ -229,7 +230,7 @@ namespace Konversation
 
         TransferSend* TransferManager::startReverseSending( int connectionId, const QString& partnerNick, const QString& fileName, const QString& partnerHost, quint16 partnerPort, quint64 fileSize, const QString& token )
         {
-            kDebug() << "Server group ID: " << connectionId << ", partner: " << partnerNick << ", filename: " << fileName << ", partner IP: " << partnerHost << ", parnter port: " << partnerPort << ", filesize: " << fileSize << ", token: " << token;
+            qDebug() << "Server group ID: " << connectionId << ", partner: " << partnerNick << ", filename: " << fileName << ", partner IP: " << partnerHost << ", parnter port: " << partnerPort << ", filesize: " << fileSize << ", token: " << token;
             TransferSend* transfer = 0;
 
             // find applicable one
@@ -258,7 +259,7 @@ namespace Konversation
 
         Chat* TransferManager::startReverseChat(int connectionId, const QString& partnerNick, const QString& partnerHost, quint16 partnerPort, const QString& token)
         {
-            kDebug() << "Server group ID: " << connectionId << ", partner: " << partnerNick << ", partner IP: " << partnerHost << ", parnter port: " << partnerPort << ", token: " << token;
+            qDebug() << "Server group ID: " << connectionId << ", partner: " << partnerNick << ", partner IP: " << partnerHost << ", parnter port: " << partnerPort << ", token: " << token;
             Chat* chat = 0;
 
             // find applicable one
@@ -288,7 +289,7 @@ namespace Konversation
 
         void TransferManager::acceptDccGet(int connectionId, const QString& partnerNick, const QString& fileName)
         {
-            kDebug() << "Server group ID: " << connectionId << ", partner: " << partnerNick << ", filename: " << fileName;
+            qDebug() << "Server group ID: " << connectionId << ", partner: " << partnerNick << ", filename: " << fileName;
 
             bool nickEmpty = partnerNick.isEmpty();
             bool fileEmpty = fileName.isEmpty();
@@ -309,12 +310,12 @@ namespace Konversation
 
         void TransferManager::initTransfer( Transfer* transfer )
         {
-            connect( transfer, SIGNAL(statusChanged(Konversation::DCC::Transfer*,int,int)), this, SLOT(slotTransferStatusChanged(Konversation::DCC::Transfer*,int,int)) );
+            connect(transfer, &TransferSend::statusChanged, this, &TransferManager::slotTransferStatusChanged);
 
             emit newTransferAdded( transfer );
         }
 
-        bool TransferManager::isLocalFileInWritingProcess( const KUrl& url ) const
+        bool TransferManager::isLocalFileInWritingProcess( const QUrl &url ) const
         {
             foreach ( TransferRecv* it, m_recvItems )
             {
@@ -362,7 +363,7 @@ namespace Konversation
 
         void TransferManager::slotTransferStatusChanged( Transfer* item, int newStatus, int oldStatus )
         {
-            kDebug() << oldStatus << " -> " << newStatus << " " << item->getFileName() << " (" << item->getType() << ")";
+            qDebug() << oldStatus << " -> " << newStatus << " " << item->getFileName() << " (" << item->getType() << ")";
 
             if ( newStatus == Transfer::Queued )
                 emit newDccTransferQueued( item );
@@ -376,12 +377,10 @@ namespace Konversation
                 foreach ( TransferRecv* it, m_recvItems )
                 {
                     if ( it->getStatus() == Transfer::Queued &&
-                         it->getFileURL().directory() == m_defaultIncomingFolder.pathOrUrl() )
+                         it->getFileURL().adjusted(QUrl::RemoveFilename) == m_defaultIncomingFolder.adjusted(QUrl::RemoveFilename))
                     {
-                        KUrl url;
-                        url.setDirectory( Preferences::self()->dccPath().pathOrUrl() );
-                        url.setFileName( it->getFileURL().fileName() );
-                        it->setFileURL( url );
+                        QUrl url = QUrl::fromLocalFile(Preferences::self()->dccPath().adjusted(QUrl::StripTrailingSlash).toString() + QDir::separator() + it->getFileURL().fileName());
+                        it->setFileURL(url);
 
                         emit fileURLChanged( it );
                     }
@@ -413,7 +412,7 @@ namespace Konversation
 
         void TransferManager::upnpRouterDiscovered(UPnPRouter *router)
         {
-            kDebug() << "Router discovered!";
+            qDebug() << "Router discovered!";
 
             // Assuming only 1 router for now
             m_upnpRouter = router;
@@ -426,4 +425,4 @@ namespace Konversation
     }
 }
 
-#include "transfermanager.moc"
+

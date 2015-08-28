@@ -52,9 +52,8 @@ namespace Konversation
                 QSplitter* chatSplitter = new QSplitter(Qt::Vertical);
 
                 m_whiteBoard = new WhiteBoard(chatSplitter);
-                connect(m_whiteBoard, SIGNAL(rawWhiteBoardCommand(QString)),
-                        m_chat, SLOT(sendRawLine(QString)));
-                connect(m_chat, SIGNAL(connected()), m_whiteBoard, SLOT(connected()));
+                connect(m_whiteBoard, &WhiteBoard::rawWhiteBoardCommand, m_chat, &Chat::sendRawLine);
+                connect(m_chat, &Chat::connected, m_whiteBoard, &WhiteBoard::connected);
                 //chatSplitter->setStretchFactor(chatSplitter->indexOf(paintLabel), 1);
 
                 IRCViewBox *ircViewBox = new IRCViewBox(chatSplitter);
@@ -74,13 +73,12 @@ namespace Konversation
             getTextView()->installEventFilter(m_inputBar);
             m_inputBar->setReadOnly(true);
 
-            connect(m_chat, SIGNAL(receivedRawLine(QString)), this, SLOT(receivedLine(QString)));
-            connect(m_chat, SIGNAL(statusChanged(Konversation::DCC::Chat*,Konversation::DCC::Chat::Status,Konversation::DCC::Chat::Status)),
-                    this, SLOT(chatStatusChanged(Konversation::DCC::Chat*,Konversation::DCC::Chat::Status,Konversation::DCC::Chat::Status)));
-            connect(m_chat, SIGNAL(upnpError(QString)), this, SLOT(upnpError(QString)));
+            connect(m_chat, &Chat::receivedRawLine, this, &ChatContainer::receivedLine);
+            connect(m_chat, &Chat::statusChanged, this, &ChatContainer::chatStatusChanged);
+            connect(m_chat, &Chat::upnpError, this, &ChatContainer::upnpError);
 
-            connect(m_inputBar, SIGNAL(submit()), this, SLOT(textEntered()));
-            connect(m_inputBar, SIGNAL(textPasted(QString)), this, SLOT(textPasted(QString)));
+            connect(m_inputBar, &IRCInput::submit, this, &ChatContainer::textEntered);
+            connect(m_inputBar, &IRCInput::textPasted, this, &ChatContainer::textPasted);
 
             connect(getTextView(), SIGNAL(textPasted(bool)), m_inputBar, SLOT(paste(bool)));
             connect(getTextView(), SIGNAL(gotFocus()), m_inputBar, SLOT(setFocus()));
@@ -113,15 +111,15 @@ namespace Konversation
             {
                 case Chat::WaitingRemote:
                     m_topicLabel->setText(i18nc("%1=extension like Chat or Whiteboard, %2=partnerNick, %3=port",
-                                                "DCC %1 with %2 on port <numid>%3</numid>.",
-                                                m_chat->localizedExtensionString(), m_chat->partnerNick(), m_chat->ownPort()));
+                                                "DCC %1 with %2 on port %3.",
+                                                m_chat->localizedExtensionString(), m_chat->partnerNick(), QString::number(m_chat->ownPort())));
                     getTextView()->appendServerMessage(i18n("DCC"), m_chat->statusDetails());
                     break;
 
                 case Chat::Connecting:
                     m_topicLabel->setText(i18nc("%1=extension like Chat or Whiteboard, %2 = nickname, %3 = IP, %4 = port",
-                                                "DCC %1 with %2 on %3:<numid>%4</numid>.",
-                                                m_chat->localizedExtensionString(), m_chat->partnerNick(), m_chat->partnerIp(), m_chat->partnerPort()));
+                                                "DCC %1 with %2 on %3:%4.",
+                                                m_chat->localizedExtensionString(), m_chat->partnerNick(), m_chat->partnerIp(), QString::number(m_chat->partnerPort())));
                     getTextView()->appendServerMessage(i18n("DCC"), m_chat->statusDetails());
                     break;
 
@@ -200,7 +198,7 @@ namespace Konversation
 
         void ChatContainer::emitUpdateInfo()
         {
-            //kDebug();
+            //qDebug();
             QString info;
             if (m_chat && m_chat->partnerNick() == m_chat->ownNick())
                 info = i18n("Talking to yourself");
@@ -245,7 +243,7 @@ namespace Konversation
             if (line.startsWith(cc))
             {
                 QString cmd = line.section(' ', 0, 0).toLower();
-                kDebug() << "cmd" << cmd;
+                qDebug() << "cmd" << cmd;
                 if (cmd == cc + "clear")
                 {
                     textView->clear();
@@ -253,7 +251,7 @@ namespace Konversation
                 else if (cmd == cc + "me")
                 {
                     QString toSend = line.section(' ', 1);
-                    //kDebug() << "toSend" << toSend;
+                    //qDebug() << "toSend" << toSend;
                     if (toSend.isEmpty())
                     {
                         getTextView()->appendServerMessage(i18n("Usage"), i18n("Usage: %1ME text", Preferences::self()->commandChar()));

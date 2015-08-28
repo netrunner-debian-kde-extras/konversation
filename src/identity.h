@@ -15,15 +15,15 @@
 #ifndef IDENTITY_H
 #define IDENTITY_H
 
-#include <KSharedPtr>
-#include <KUrl>
+#include <QExplicitlySharedDataPointer>
+#include <QUrl>
 
 #include <QStringList>
 
 
 class QTextCodec;
 
-class Identity : public KShared
+class Identity : public QSharedData
 {
     public:
         /// Create an Identity with a new id.
@@ -61,8 +61,8 @@ class Identity : public KShared
         QString getNickservCommand() const;
         void setSaslAccount(const QString& saslAccount);
         QString getSaslAccount() const;
-        void setPemClientCertFile(const KUrl& url);
-        KUrl getPemClientCertFile() const;
+        void setPemClientCertFile(const QUrl &url);
+        QUrl getPemClientCertFile() const;
 
         void setQuitReason(const QString& reason);
         QString getQuitReason() const;
@@ -120,7 +120,7 @@ class Identity : public KShared
         QString m_nickservNickname;
         QString m_nickservCommand;
         QString m_saslAccount;
-        KUrl m_pemClientCertFile;
+        QUrl m_pemClientCertFile;
 
         bool insertRememberLineOnAway;
         bool runAwayCommands;
@@ -145,7 +145,7 @@ class Identity : public KShared
         void init();
 };
 
-typedef KSharedPtr<Identity> IdentityPtr;
+typedef QExplicitlySharedDataPointer<Identity> IdentityPtr;
 typedef QList<IdentityPtr> IdentityList;
 
 #endif

@@ -15,21 +15,21 @@
 #ifndef IRCCOLORCHOOSER_H
 #define IRCCOLORCHOOSER_H
 
-#include <kdialog.h>
+#include <QDialog>
 
 #include "ui_irccolorchooserui.h"
 
 class IRCColorChooserUI;
 class KComboBox;
 
-class IRCColorChooser : public KDialog
+class IRCColorChooser : public QDialog
 {
     Q_OBJECT
         public:
         explicit IRCColorChooser(QWidget* parent);
         QString color();
 
-    protected slots:
+    protected Q_SLOTS:
         void updatePreview();
 
     protected:

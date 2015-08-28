@@ -12,7 +12,6 @@
 #include "viewcontainer.h"
 #include "connectionmanager.h"
 #include "queuetuner.h"
-#include "viewtree.h"
 #include "application.h"
 #include "notificationhandler.h"
 #include "images.h"
@@ -36,24 +35,46 @@
 #include "joinchanneldialog.h"
 #include "servergroupsettings.h"
 #include "irccontextmenus.h"
+#include "viewtree.h"
 #include "viewspringloader.h"
 
+#include <QModelIndex>
 #include <QSplitter>
 #include <QTabBar>
+#include <QWidget>
 
-#include <KInputDialog>
+#include <QInputDialog>
 #include <KMessageBox>
 #include <KRun>
-#include <KUrl>
+#include <QUrl>
 #include <KXMLGUIFactory>
 #include <KActionCollection>
 #include <KToggleAction>
 #include <KSelectAction>
 #include <KWindowSystem>
+#include <KIconLoader>
+
 
 using namespace Konversation;
 
-TabWidget::TabWidget(QWidget* parent) : KTabWidget(parent)
+ViewMimeData::ViewMimeData(ChatWindow *view) : QMimeData()
+, m_view(view)
+{
+    if (view) {
+        setData("application/x-konversation-chatwindow", view->getName().toUtf8());
+    }
+}
+
+ViewMimeData::~ViewMimeData()
+{
+}
+
+ChatWindow* ViewMimeData::view() const
+{
+    return m_view;
+}
+
+TabWidget::TabWidget(QWidget* parent) : QTabWidget(parent)
 {
 }
 
@@ -61,16 +82,47 @@ TabWidget::~TabWidget()
 {
 }
 
-ViewContainer::ViewContainer(MainWindow* window):
-        m_window(window)
-        , m_tabWidget(0)
-        , m_viewTree(0)
-        , m_vbox(0)
-        , m_queueTuner(0)
-        , m_urlCatcherPanel(0)
-        , m_nicksOnlinePanel(0)
-        , m_insertCharDialog(0)
-        , m_queryViewCount(0)
+void TabWidget::contextMenuEvent(QContextMenuEvent* event)
+{
+    event->accept();
+    QPoint pos = event->globalPos();
+    int tabIndex = tabBar()->tabAt(tabBar()->mapFromGlobal(pos));
+
+    if (tabIndex != -1)
+    {
+        emit contextMenu(widget(tabIndex), pos);
+    }
+}
+
+void TabWidget::mouseReleaseEvent(QMouseEvent* event)
+{
+    if(event->button() == Qt::MiddleButton)
+    {
+        event->accept();
+        QPoint pos = event->globalPos();
+        int tabIndex = tabBar()->tabAt(tabBar()->mapFromGlobal(pos));
+
+        if(tabIndex != -1)
+        {
+            emit tabBarMiddleClicked(tabIndex);
+        }
+    }
+
+    QTabWidget::mouseReleaseEvent(event);
+}
+
+
+ViewContainer::ViewContainer(MainWindow* window) : QAbstractItemModel(window)
+, m_window(window)
+, m_tabWidget(0)
+, m_viewTree(0)
+, m_vbox(0)
+, m_queueTuner(0)
+, m_urlCatcherPanel(0)
+, m_nicksOnlinePanel(0)
+, m_dccPanel(0)
+, m_insertCharDialog(0)
+, m_queryViewCount(0)
 {
     m_viewSpringLoader = new ViewSpringLoader(this);
 
@@ -78,7 +130,6 @@ ViewContainer::ViewContainer(MainWindow* window):
 
     m_viewTreeSplitter = new QSplitter(m_window);
     m_viewTreeSplitter->setObjectName("view_tree_splitter");
-    m_viewTreeSplitter->setOpaqueResize(KGlobalSettings::opaqueResize());
     m_saveSplitterSizesLock = true;
 
     // The tree needs to be initialized before the tab widget so that it
@@ -151,7 +202,7 @@ void ViewContainer::initializeSplitterSizes()
         QList<int> sizes = Preferences::self()->treeSplitterSizes();
 
         if (sizes.isEmpty())
-            sizes << 145 << (m_window->width()-145);
+            sizes << 145 << (m_window->width() - 145); // FIXME: Make DPI-aware.
         m_viewTreeSplitter->setSizes(sizes);
 
         m_saveSplitterSizesLock = false;
@@ -171,19 +222,23 @@ void ViewContainer::setupTabWidget()
 {
     m_popupViewIndex = -1;
 
-    m_vbox = new KVBox(m_viewTreeSplitter);
+    m_vbox = new QWidget(m_viewTreeSplitter);
+    QVBoxLayout* vboxLayout = new QVBoxLayout(m_vbox);
+    vboxLayout->setMargin(0);
     m_viewTreeSplitter->setStretchFactor(m_viewTreeSplitter->indexOf(m_vbox), 1);
     m_vbox->setObjectName("main_window_right_side");
     m_tabWidget = new TabWidget(m_vbox);
+    vboxLayout->addWidget(m_tabWidget);
     m_tabWidget->setObjectName("main_window_tab_widget");
     m_viewSpringLoader->addWidget(m_tabWidget->tabBar());
     m_queueTuner = new QueueTuner(m_vbox, this);
+    vboxLayout->addWidget(m_queueTuner);
     m_queueTuner->hide();
 
     m_tabWidget->setMovable(true);
     m_tabWidget->tabBar()->setSelectionBehaviorOnRemove(QTabBar::SelectPreviousTab);
 
-    m_vbox->hide();    //m_tabWidget->hide();
+    m_vbox->hide();
 
     QToolButton* closeBtn = new QToolButton(m_tabWidget);
     closeBtn->setIcon(SmallIcon("tab-close"));
@@ -192,30 +247,38 @@ void ViewContainer::setupTabWidget()
     connect(closeBtn, SIGNAL(clicked()), this, SLOT(closeCurrentView()));
 
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT (viewSwitched(int)));
-    connect(m_tabWidget, SIGNAL(closeRequest(QWidget*)), this, SLOT(closeView(QWidget*)));
+    connect(m_tabWidget->tabBar(), SIGNAL(tabCloseRequested(int)), this, SLOT(closeView(int)));
     connect(m_tabWidget, SIGNAL(contextMenu(QWidget*,QPoint)), this, SLOT(showViewContextMenu(QWidget*,QPoint)));
-    connect(m_tabWidget, SIGNAL(mouseMiddleClick(QWidget*)), this, SLOT(closeViewMiddleClick(QWidget*)));
+    connect(m_tabWidget, SIGNAL(tabBarMiddleClicked(int)), this, SLOT(closeViewMiddleClick(int)));
 
     updateTabWidgetAppearance();
 }
 
 void ViewContainer::setupViewTree()
 {
+    unclutterTabs();
+
     m_viewTree = new ViewTree(m_viewTreeSplitter);
+    m_viewTree->setModel(this);
+    m_viewTreeSplitter->insertWidget(0, m_viewTree);
     m_viewTreeSplitter->setStretchFactor(m_viewTreeSplitter->indexOf(m_viewTree), 0);
-    m_viewTree->hide();
     m_viewSpringLoader->addWidget(m_viewTree->viewport());
 
-    connect(Application::instance(), SIGNAL(appearanceChanged()), m_viewTree, SLOT(updateAppearance()));
-    connect(this, SIGNAL(viewChanged(ChatWindow*)), m_viewTree, SLOT(selectView(ChatWindow*)));
-    connect(this, SIGNAL(removeView(ChatWindow*)), m_viewTree, SLOT(removeView(ChatWindow*)));
-    connect(this, SIGNAL(contextMenuClosed()), m_viewTree, SLOT(unHighlight()));
-    connect(m_viewTree, SIGNAL(setViewTreeShown(bool)), this, SLOT(setViewTreeShown(bool)));
+    if (m_tabWidget) {
+        m_viewTree->selectView(indexForView(static_cast<ChatWindow*>(m_tabWidget->currentWidget())));
+        setViewTreeShown(m_tabWidget->count());
+    } else {
+        setViewTreeShown(false);
+    }
+
+    connect(m_viewTree, SIGNAL(sizeChanged()), this, SLOT(saveSplitterSizes()));
     connect(m_viewTree, SIGNAL(showView(ChatWindow*)), this, SLOT(showView(ChatWindow*)));
     connect(m_viewTree, SIGNAL(closeView(ChatWindow*)), this, SLOT(closeView(ChatWindow*)));
     connect(m_viewTree, SIGNAL(showViewContextMenu(QWidget*,QPoint)), this, SLOT(showViewContextMenu(QWidget*,QPoint)));
-    connect(m_viewTree, SIGNAL(sizeChanged()), this, SLOT(saveSplitterSizes()));
-    connect(m_viewTree, SIGNAL(syncTabBarToTree()), this, SLOT(syncTabBarToTree()));
+    connect(m_viewTree, SIGNAL(destroyed(QObject*)), this, SLOT(onViewTreeDestroyed(QObject*)));
+    connect(this, SIGNAL(contextMenuClosed()), m_viewTree->viewport(), SLOT(update()));
+    connect(Application::instance(), SIGNAL(appearanceChanged()), m_viewTree, SLOT(updateAppearance()));
+    connect(this, SIGNAL(viewChanged(QModelIndex)), m_viewTree, SLOT(selectView(QModelIndex)));
 
     QAction* action;
 
@@ -224,7 +287,7 @@ void ViewContainer::setupViewTree()
     if (action)
     {
         action->setText(i18n("Move Tab Up"));
-        action->setIcon(KIcon("arrow-up"));
+        action->setIcon(QIcon::fromTheme("arrow-up"));
     }
 
     action = actionCollection()->action("move_tab_right");
@@ -232,59 +295,15 @@ void ViewContainer::setupViewTree()
     if (action)
     {
         action->setText(i18n("Move Tab Down"));
-        action->setIcon(KIcon("arrow-down"));
+        action->setIcon(QIcon::fromTheme("arrow-down"));
     }
+}
 
-    // If the tab widget already exists we may need to sync the ViewTree
-    // with an already-populated tab bar.
-    if (m_tabWidget)
-    {
-        // Explicitly move to the left since we've been added after the
-        // tab widget.
-        m_viewTreeSplitter->insertWidget(0, m_viewTree);
+void ViewContainer::onViewTreeDestroyed(QObject* object)
+{
+    Q_UNUSED(object)
 
-        if (m_tabWidget->count() > 0)
-        {
-            // Add StatusPanels first, or curious tab bar sortings may break
-            // the tree hierarchy.
-            for (int i = 0; i < m_tabWidget->count(); ++i)
-            {
-                ChatWindow* view = static_cast<ChatWindow*>(m_tabWidget->widget(i));
-
-                if (view->getType() == ChatWindow::Status)
-                {
-                    if (view == m_frontView)
-                        m_viewTree->addView(view->getName(), view, m_tabWidget->tabIcon(m_tabWidget->indexOf(view)), true);
-                    else
-                        m_viewTree->addView(view->getName(), view, m_tabWidget->tabIcon(m_tabWidget->indexOf(view)));
-                }
-            }
-
-            for (int i = 0; i < m_tabWidget->count(); ++i)
-            {
-                ChatWindow* view = static_cast<ChatWindow*>(m_tabWidget->widget(i));
-
-                if (!view->getType() == ChatWindow::Status)
-                {
-                    if (view == m_frontView)
-                        m_viewTree->addView(view->getName(), view, m_tabWidget->tabIcon(m_tabWidget->indexOf(view)), true);
-                    else
-                        m_viewTree->addView(view->getName(), view, m_tabWidget->tabIcon(m_tabWidget->indexOf(view)));
-                }
-            }
-
-            syncTabBarToTree();
-        }
-    }
-    else
-    {
-        // Since the ViewTree was created before the tab widget, it
-        // is free to select the first view added to the tree. Other-
-        // wise the currently focused view would have been selected
-        // by the tabbar/viewtree sync loop above. This ensures a
-        // properly selected list item in the tree on app startup.
-        m_viewTree->selectFirstView(true);
-    }
+    setViewTreeShown(false);
 }
 
 void ViewContainer::setViewTreeShown(bool show)
@@ -307,17 +326,6 @@ void ViewContainer::setViewTreeShown(bool show)
 
 void ViewContainer::removeViewTree()
 {
-    disconnect(Application::instance(), SIGNAL(appearanceChanged()), m_viewTree, SLOT(updateAppearance()));
-    disconnect(this, SIGNAL(viewChanged(ChatWindow*)), m_viewTree, SLOT(selectView(ChatWindow*)));
-    disconnect(this, SIGNAL(removeView(ChatWindow*)), m_viewTree, SLOT(removeView(ChatWindow*)));
-    disconnect(this, SIGNAL(contextMenuClosed()), m_viewTree, SLOT(unHighlight()));
-    disconnect(m_viewTree, SIGNAL(setViewTreeShown(bool)), this, SLOT(setViewTreeShown(bool)));
-    disconnect(m_viewTree, SIGNAL(showView(ChatWindow*)), this, SLOT(showView(ChatWindow*)));
-    disconnect(m_viewTree, SIGNAL(closeView(ChatWindow*)), this, SLOT(closeView(ChatWindow*)));
-    disconnect(m_viewTree, SIGNAL(showViewContextMenu(QWidget*,QPoint)), this, SLOT(showViewContextMenu(QWidget*,QPoint)));
-    disconnect(m_viewTree, SIGNAL(sizeChanged()), this, SLOT(saveSplitterSizes()));
-    disconnect(m_viewTree, SIGNAL(syncTabBarToTree()), this, SLOT(syncTabBarToTree()));
-
     QAction* action;
 
     action = actionCollection()->action("move_tab_left");
@@ -325,7 +333,7 @@ void ViewContainer::removeViewTree()
     if (action)
     {
         action->setText(i18n("Move Tab Left"));
-        action->setIcon(KIcon("arrow-left"));
+        action->setIcon(QIcon::fromTheme("arrow-left"));
     }
 
     action = actionCollection()->action("move_tab_right");
@@ -333,41 +341,338 @@ void ViewContainer::removeViewTree()
     if (action)
     {
         action->setText(i18n("Move Tab Right"));
-        action->setIcon(KIcon("arrow-right"));
+        action->setIcon(QIcon::fromTheme("arrow-right"));
     }
 
     delete m_viewTree;
     m_viewTree = 0;
 }
 
-void ViewContainer::syncTabBarToTree()
+int ViewContainer::rowCount(const QModelIndex& parent) const
 {
-    if (!m_tabWidget)
-        return;
+    if (!m_tabWidget) {
+        return 0;
+    }
 
-    QList<ChatWindow*> viewList = m_viewTree->getSortedViewList();
+    if (parent.isValid()) {
+        ChatWindow* statusView = static_cast<ChatWindow*>(parent.internalPointer());
 
-    if (!viewList.isEmpty())
-    {
-        QListIterator<ChatWindow*> it(viewList);
-        ChatWindow* view;
-        int index = 0;
-        int oldIndex = 0;
+        if (!statusView) {
+            return 0;
+        }
 
-        while (it.hasNext())
-        {
-            view = it.next();
+        int count = 0;
 
-            oldIndex = m_tabWidget->indexOf(view);
+        for (int i = m_tabWidget->indexOf(statusView) + 1; i < m_tabWidget->count(); ++i) {
+            const ChatWindow* view = static_cast<ChatWindow*>(m_tabWidget->widget(i));
 
-            if (!(oldIndex == index))
-                m_tabWidget->moveTab(oldIndex, index);
+            if (view != statusView && view->getServer() && view->getServer()->getStatusView() == statusView) {
+                ++count;
+            }
 
-            ++index;
+            if (view->isTopLevelView()) {
+                break;
+            }
+        }
+
+        return count;
+    } else {
+        int count = 0;
+
+        for (int i = 0; i < m_tabWidget->count(); ++i) {
+            const ChatWindow* view = static_cast<ChatWindow*>(m_tabWidget->widget(i));
+
+            if (view->isTopLevelView()) {
+                ++count;
+            }
+        }
+
+        return count;
+    }
+
+    return 0;
+}
+
+int ViewContainer::columnCount(const QModelIndex& parent) const
+{
+    Q_UNUSED(parent)
+
+    return 1;
+}
+
+QModelIndex ViewContainer::index(int row, int column, const QModelIndex& parent) const
+{
+    if (!m_tabWidget || column != 0) {
+        return QModelIndex();
+    }
+
+    int tabIndex = -1;
+
+    if (parent.isValid()) {
+        int parentTabIndex = m_tabWidget->indexOf(static_cast<QWidget*>(parent.internalPointer()));
+
+        if (parentTabIndex != -1) {
+            tabIndex = parentTabIndex + row + 1;
+        } else {
+            return QModelIndex();
+        }
+    } else {
+        int count = -1;
+
+        for (int i = 0; i < m_tabWidget->count(); ++i) {
+            if (static_cast<ChatWindow*>(m_tabWidget->widget(i))->isTopLevelView()) {
+                ++count;
+            }
+
+            if (count == row) {
+                tabIndex = i;
+
+                break;
+            }
         }
     }
 
-    updateViewActions(m_tabWidget->currentIndex());
+    if (tabIndex == -1) {
+        return QModelIndex();
+    }
+
+    return createIndex(row, column, m_tabWidget->widget(tabIndex));
+}
+
+QModelIndex ViewContainer::indexForView(ChatWindow* view) const
+{
+    if (!view || !m_tabWidget) {
+        return QModelIndex();
+    }
+
+    int index = m_tabWidget->indexOf(view);
+
+    if (index == -1) {
+        return QModelIndex();
+    }
+
+    if (view->isTopLevelView()) {
+        int count = -1;
+
+        for (int i = 0; i <= index; ++i) {
+            if (static_cast<ChatWindow*>(m_tabWidget->widget(i))->isTopLevelView()) {
+                ++count;
+            }
+        }
+
+        return createIndex(count, 0, view);
+    } else {
+        if (!view->getServer() || !view->getServer()->getStatusView()) {
+            return QModelIndex();
+        }
+
+        ChatWindow* statusView = view->getServer()->getStatusView();
+
+        int statusViewIndex = m_tabWidget->indexOf(statusView);
+
+        return createIndex(index - statusViewIndex - 1, 0, view);
+    }
+}
+
+QModelIndex ViewContainer::parent(const QModelIndex& index) const
+{
+    if (!m_tabWidget) {
+        return QModelIndex();
+    }
+
+    const ChatWindow* view = static_cast<ChatWindow*>(index.internalPointer());
+
+    if (!view || view->isTopLevelView() || !view->getServer() || !view->getServer()->getStatusView()) {
+        return QModelIndex();
+    }
+
+    return indexForView(view->getServer()->getStatusView());
+}
+
+QVariant ViewContainer::data(const QModelIndex& index, int role) const
+{
+    if (!index.isValid() || !index.internalPointer() || !m_tabWidget) {
+        return QVariant();
+    }
+
+    int row = m_tabWidget->indexOf(static_cast<ChatWindow*>(index.internalPointer()));
+
+    if (role == Qt::DisplayRole) {
+        return static_cast<ChatWindow*>(index.internalPointer())->getName();
+    } else if (role == Qt::DecorationRole) {
+        // FIXME KF5 port: Don't show close buttons on the view tree for now.
+        if (m_viewTree && Preferences::self()->closeButtons() && !Preferences::self()->tabNotificationsLeds()) {
+            return QVariant();
+        }
+
+        return m_tabWidget->tabIcon(row);
+    } else if (role == ColorRole) {
+        const ChatWindow* view = static_cast<ChatWindow*>(index.internalPointer());
+
+        if (view->currentTabNotification() != Konversation::tnfNone) {
+            if ((view->currentTabNotification() == Konversation::tnfNormal && Preferences::self()->tabNotificationsMsgs())
+                || (view->currentTabNotification() == Konversation::tnfPrivate && Preferences::self()->tabNotificationsPrivate())
+                || (view->currentTabNotification() == Konversation::tnfSystem && Preferences::self()->tabNotificationsSystem())
+                || (view->currentTabNotification() == Konversation::tnfControl && Preferences::self()->tabNotificationsEvents())
+                || (view->currentTabNotification() == Konversation::tnfNick && Preferences::self()->tabNotificationsNick())
+                || (view->currentTabNotification() == Konversation::tnfHighlight && Preferences::self()->tabNotificationsHighlights())) {
+                return m_tabWidget->tabBar()->tabTextColor(row);
+            }
+        }
+    } else if (role == DisabledRole) {
+        const ChatWindow* view = static_cast<ChatWindow*>(index.internalPointer());
+
+        if (view->getType() == ChatWindow::Channel) {
+            return !static_cast<const Channel*>(view)->joined();
+        } else if (view->getType() == ChatWindow::Query) {
+            return !view->getServer()->isConnected();
+        }
+
+        return false;
+    } else if (role == HighlightRole) {
+        return (row == m_popupViewIndex);
+    }
+
+    return QVariant();
+}
+
+Qt::DropActions ViewContainer::supportedDragActions() const
+{
+    return Qt::MoveAction;
+}
+
+Qt::DropActions ViewContainer::supportedDropActions() const
+{
+    return Qt::MoveAction;
+}
+
+Qt::ItemFlags ViewContainer::flags(const QModelIndex &index) const
+{
+    Qt::ItemFlags defaultFlags = QAbstractItemModel::flags(index);
+
+    return Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled | defaultFlags;
+}
+
+QStringList ViewContainer::mimeTypes() const
+{
+    return QStringList() << QLatin1String("application/x-konversation-chatwindow");
+}
+
+QMimeData* ViewContainer::mimeData(const QModelIndexList &indexes) const
+{
+    if (!indexes.length()) {
+        return new ViewMimeData(0);
+    }
+
+    const QModelIndex &idx = indexes.at(0);
+
+    if (!idx.isValid()) {
+        return new ViewMimeData(0);
+    }
+
+    return new ViewMimeData(static_cast<ChatWindow *>(idx.internalPointer()));
+}
+
+bool ViewContainer::canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) const
+{
+    if (action != Qt::MoveAction) {
+        return false;
+    }
+
+    if (!data->hasFormat("application/x-konversation-chatwindow")) {
+        return false;
+    }
+
+    if (row == -1 || column != 0) {
+        return false;
+    }
+
+    ChatWindow *dragView = static_cast<const ViewMimeData *>(data)->view();
+
+    if (!dragView->isTopLevelView()
+        && (!parent.isValid()
+        || (dragView->getServer() != static_cast<ChatWindow* >(parent.internalPointer())->getServer()))) {
+        return false;
+    }
+
+    if (dragView->isTopLevelView() && parent.isValid()) {
+        return false;
+    }
+
+    if (m_viewTree && !m_viewTree->showDropIndicator()) {
+        m_viewTree->setDropIndicatorShown(true);
+        m_viewTree->viewport()->update();
+    }
+
+    return true;
+}
+
+bool ViewContainer::dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent)
+{
+    if (action != Qt::MoveAction) {
+        return false;
+    }
+
+    if (!data->hasFormat("application/x-konversation-chatwindow")) {
+        return false;
+    }
+
+    if (row == -1 || column != 0) {
+        return false;
+    }
+
+    ChatWindow *dragView = static_cast<const ViewMimeData *>(data)->view();
+    QModelIndex dragIdx = indexForView(dragView);
+
+    if (dragView->isTopLevelView()) {
+        if (parent.isValid()) {
+            return false;
+        }
+
+        for (int i = row < dragIdx.row() ? 0 : 1; i < std::abs(dragIdx.row() - row); ++i) {
+            (row < dragIdx.row()) ? moveViewLeft() : moveViewRight();
+        }
+
+        return true;
+    } else {
+        if (!parent.isValid()) {
+            return false;
+        }
+
+        int from = m_tabWidget->indexOf(dragView);
+        int to = m_tabWidget->indexOf(static_cast<ChatWindow* >(parent.internalPointer())) + row;
+
+        if (to < from) {
+            ++to;
+        }
+
+        if (from == to) {
+            return false;
+        }
+
+        beginMoveRows(parent, dragIdx.row(), dragIdx.row(), parent, row);
+
+        m_tabWidget->blockSignals(true);
+        m_tabWidget->tabBar()->moveTab(from, to);
+        m_tabWidget->blockSignals(false);
+
+        endMoveRows();
+
+        viewSwitched(m_tabWidget->currentIndex());
+
+        return true;
+    }
+
+    return false;
+}
+
+bool ViewContainer::removeRows(int row, int count, const QModelIndex &parent)
+{
+    Q_UNUSED(row)
+    Q_UNUSED(count)
+    Q_UNUSED(parent)
+
+    return true;
 }
 
 void ViewContainer::updateAppearance()
@@ -391,14 +696,14 @@ void ViewContainer::updateAppearance()
     Q_ASSERT(action);
     action->setChecked(Preferences::self()->showNickList());
 
-    if(m_insertCharDialog)
+    if (m_insertCharDialog)
     {
         QFont font;
 
         if (Preferences::self()->customTextFont())
             font = Preferences::self()->textFont();
         else
-            font = KGlobalSettings::generalFont();
+            font = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
 
         m_insertCharDialog->setFont(font);
     }
@@ -406,29 +711,25 @@ void ViewContainer::updateAppearance()
 
 void ViewContainer::updateTabWidgetAppearance()
 {
-    if (!m_tabWidget) return;
-
     bool noTabBar = (Preferences::self()->tabPlacement()==Preferences::Left);
-    m_tabWidget->setTabBarHidden(noTabBar);
+    m_tabWidget->tabBar()->setHidden(noTabBar);
 
     m_tabWidget->setDocumentMode(true);
 
     if (Preferences::self()->customTabFont())
         m_tabWidget->setFont(Preferences::self()->tabFont());
     else
-        m_tabWidget->setFont(KGlobalSettings::generalFont());
+        m_tabWidget->setFont(QFontDatabase::systemFont(QFontDatabase::GeneralFont));
 
     m_tabWidget->setTabPosition((Preferences::self()->tabPlacement()==Preferences::Top) ?
         QTabWidget::North : QTabWidget::South);
 
-    if (Preferences::self()->showTabBarCloseButton() && !(Preferences::self()->tabPlacement()==Preferences::Left))
+    if (Preferences::self()->showTabBarCloseButton() && !noTabBar)
         m_tabWidget->cornerWidget()->show();
     else
         m_tabWidget->cornerWidget()->hide();
 
     m_tabWidget->tabBar()->setTabsClosable(Preferences::self()->closeButtons());
-
-    m_tabWidget->setAutomaticResizeTabs(Preferences::self()->useMaxSizedTabs());
 }
 
 void ViewContainer::updateViewActions(int index)
@@ -448,22 +749,12 @@ void ViewContainer::updateViewActions(int index)
         bool insertSupported = view->isInsertSupported();
         IRCView* textView = view->getTextView();
 
-        if (m_viewTree)
-        {
-            action = actionCollection()->action("move_tab_left");
-            if (action) action->setEnabled(m_viewTree->canMoveViewUp(view));
+        // FIXME ViewTree port: Take hierarchy into account.
+        action = actionCollection()->action("move_tab_left");
+        if (action) action->setEnabled(canMoveViewLeft());
 
-            action = actionCollection()->action("move_tab_right");
-            if (action) action->setEnabled(m_viewTree->canMoveViewDown(view));
-        }
-        else if (m_tabWidget)
-        {
-            action = actionCollection()->action("move_tab_left");
-            if (action) action->setEnabled(index > 0);
-
-            action = actionCollection()->action("move_tab_right");
-            if (action) action->setEnabled(index < (m_tabWidget->count() - 1));
-        }
+        action = actionCollection()->action("move_tab_right");
+        if (action) action->setEnabled(canMoveViewRight());
 
         if (server && (viewType == ChatWindow::Status || server == m_frontServer))
         {
@@ -568,13 +859,15 @@ void ViewContainer::updateViewActions(int index)
             if (action) action->setEnabled(view->getInputBar() != 0);
 
             action = actionCollection()->action("focus_input_box");
-            if (action && view->getTextView() && view->getTextView()->parent())
+            if (action)
             {
                 action->setEnabled(view->getInputBar() != 0);
 
-                //HACK See notes in SearchBar::eventFilter
-                QEvent e(static_cast<QEvent::Type>(QEvent::User+414)); // Magic number to avoid QEvent::registerEventType
-                Application::instance()->sendEvent(view->getTextView()->parent(), &e);
+                if (view->getTextView() && view->getTextView()->parent()) {
+                    //HACK See notes in SearchBar::eventFilter
+                    QEvent e(static_cast<QEvent::Type>(QEvent::User+414)); // Magic number to avoid QEvent::registerEventType
+                    Application::instance()->sendEvent(view->getTextView()->parent(), &e);
+                }
             }
 
             action = actionCollection()->action("clear_lines");
@@ -791,11 +1084,10 @@ void ViewContainer::updateFrontView()
 
 void ViewContainer::updateViews(const Konversation::ServerGroupSettingsPtr serverGroup)
 {
-    if (!m_tabWidget) return;
-
     for (int i = 0; i < m_tabWidget->count(); ++i)
     {
         ChatWindow* view = static_cast<ChatWindow*>(m_tabWidget->widget(i));
+        bool announce = false;
 
         if (serverGroup)
         {
@@ -803,10 +1095,11 @@ void ViewContainer::updateViews(const Konversation::ServerGroupSettingsPtr serve
             {
                 QString label = view->getServer()->getDisplayName();
 
-                if (!label.isEmpty() && m_tabWidget->tabText(m_tabWidget->indexOf(view)) != label)
+                if (!label.isEmpty() && m_tabWidget->tabText(i) != label)
                 {
-                    if (m_tabWidget) m_tabWidget->setTabText(m_tabWidget->indexOf(view), label);
-                    if (m_viewTree) m_viewTree->setViewName(view, label);
+                    m_tabWidget->setTabText(i, label);
+
+                    announce = true;
 
                     if (view == m_frontView)
                     {
@@ -819,29 +1112,17 @@ void ViewContainer::updateViews(const Konversation::ServerGroupSettingsPtr serve
             }
 
             if (i == m_tabWidget->currentIndex())
-                updateViewActions(m_tabWidget->currentIndex());
+                updateViewActions(i);
         }
 
-        if (m_viewTree)
-        {
-            if (!Preferences::self()->tabNotificationsLeds() && !Preferences::self()->closeButtons())
-                m_viewTree->setViewIcon(view, QIcon());
-
-            if (Preferences::self()->closeButtons() && !Preferences::self()->tabNotificationsLeds())
-                 m_viewTree->setViewIcon(view, KIcon("dialog-close").pixmap(KIconLoader::SizeSmall));
-
-
-            if (!Preferences::self()->tabNotificationsText())
-                m_viewTree->setViewColor(view, m_window->palette().windowText().color());
+        if (!Preferences::self()->tabNotificationsLeds()) {
+            m_tabWidget->setTabIcon(i, QIcon());
+            announce = true;
         }
-        else if (m_tabWidget)
-        {
-            const int idx = m_tabWidget->indexOf(view);
-            if (!Preferences::self()->tabNotificationsLeds())
-                m_tabWidget->setTabIcon(idx, QIcon());
 
-            if (!Preferences::self()->tabNotificationsText())
-                m_tabWidget->setTabTextColor(idx, m_window->palette().foreground().color());
+        if (!Preferences::self()->tabNotificationsText()) {
+            m_tabWidget->tabBar()->setTabTextColor(i, m_window->palette().foreground().color());
+            announce = true;
         }
 
         if (Preferences::self()->tabNotificationsLeds() || Preferences::self()->tabNotificationsText())
@@ -865,21 +1146,10 @@ void ViewContainer::updateViews(const Konversation::ServerGroupSettingsPtr serve
             else
                 setViewNotification(view, view->currentTabNotification());
         }
-    }
-}
 
-void ViewContainer::updateViewIcons()
-{
-    if (!m_tabWidget) return;
-
-    for (int i = 0; i < m_tabWidget->count(); ++i)
-    {
-        ChatWindow* view = static_cast<ChatWindow*>(m_tabWidget->widget(i));
-
-        if (Preferences::self()->closeButtons() && !Preferences::self()->tabNotificationsLeds())
-        {
-            if (m_viewTree)
-                m_viewTree->setViewIcon(view, KIcon("dialog-close").pixmap(KIconLoader::SizeSmall));
+        if (announce) {
+            const QModelIndex& idx = indexForView(view);
+            emit dataChanged(idx, idx);
         }
     }
 }
@@ -895,289 +1165,153 @@ void ViewContainer::setViewNotification(ChatWindow* view, const Konversation::Ta
     if (!Preferences::self()->tabNotificationsLeds() && !Preferences::self()->self()->tabNotificationsText())
         return;
 
-    if (m_viewTree)
+    const int tabIndex = m_tabWidget->indexOf(view);
+
+    switch (type)
     {
-        switch (type)
-        {
-            case Konversation::tnfNormal:
-                if (Preferences::self()->tabNotificationsMsgs())
+        case Konversation::tnfNormal:
+            if (Preferences::self()->tabNotificationsMsgs())
+            {
+                if (Preferences::self()->tabNotificationsLeds())
+                    m_tabWidget->setTabIcon(tabIndex, images->getMsgsLed(true));
+                if (Preferences::self()->tabNotificationsText())
+                    m_tabWidget->tabBar()->setTabTextColor(tabIndex, Preferences::self()->tabNotificationsMsgsColor());
+            }
+            break;
+
+        case Konversation::tnfPrivate:
+            if (Preferences::self()->tabNotificationsPrivate())
+            {
+                if (Preferences::self()->tabNotificationsLeds())
+                    m_tabWidget->setTabIcon(tabIndex, images->getPrivateLed(true));
+                if (Preferences::self()->tabNotificationsText())
+                    m_tabWidget->tabBar()->setTabTextColor(tabIndex, Preferences::self()->tabNotificationsPrivateColor());
+            }
+            break;
+
+        case Konversation::tnfSystem:
+            if (Preferences::self()->tabNotificationsSystem())
+            {
+                if (Preferences::self()->tabNotificationsLeds())
+                    m_tabWidget->setTabIcon(tabIndex, images->getSystemLed(true));
+                if (Preferences::self()->tabNotificationsText())
+                    m_tabWidget->tabBar()->setTabTextColor(tabIndex, Preferences::self()->tabNotificationsSystemColor());
+            }
+            break;
+
+        case Konversation::tnfControl:
+            if (Preferences::self()->tabNotificationsEvents())
+            {
+                if (Preferences::self()->tabNotificationsLeds())
+                    m_tabWidget->setTabIcon(tabIndex, images->getEventsLed());
+                if (Preferences::self()->tabNotificationsText())
+                    m_tabWidget->tabBar()->setTabTextColor(tabIndex, Preferences::self()->tabNotificationsEventsColor());
+            }
+            break;
+
+        case Konversation::tnfNick:
+            if (Preferences::self()->tabNotificationsNick())
+            {
+                if (Preferences::self()->tabNotificationsOverride() && Preferences::self()->highlightNick())
                 {
                     if (Preferences::self()->tabNotificationsLeds())
-                        m_viewTree->setViewIcon(view, images->getMsgsLed(true));
+                        m_tabWidget->setTabIcon(tabIndex, images->getLed(Preferences::self()->highlightNickColor(),true));
                     if (Preferences::self()->tabNotificationsText())
-                        m_viewTree->setViewColor(view, Preferences::self()->tabNotificationsMsgsColor());
-                }
-                break;
-
-            case Konversation::tnfPrivate:
-                if (Preferences::self()->tabNotificationsPrivate())
-                {
-                    if (Preferences::self()->tabNotificationsLeds())
-                        m_viewTree->setViewIcon(view, images->getPrivateLed(true));
-                    if (Preferences::self()->tabNotificationsText())
-                        m_viewTree->setViewColor(view, Preferences::self()->tabNotificationsPrivateColor());
-                }
-                break;
-
-            case Konversation::tnfSystem:
-                if (Preferences::self()->tabNotificationsSystem())
-                {
-                    if (Preferences::self()->tabNotificationsLeds())
-                        m_viewTree->setViewIcon(view, images->getSystemLed(true));
-                    if (Preferences::self()->tabNotificationsText())
-                        m_viewTree->setViewColor(view, Preferences::self()->tabNotificationsSystemColor());
-                }
-                break;
-
-            case Konversation::tnfControl:
-                if (Preferences::self()->tabNotificationsEvents())
-                {
-                    if (Preferences::self()->tabNotificationsLeds())
-                        m_viewTree->setViewIcon(view, images->getEventsLed());
-                    if (Preferences::self()->tabNotificationsText())
-                        m_viewTree->setViewColor(view, Preferences::self()->tabNotificationsEventsColor());
-                }
-                break;
-
-            case Konversation::tnfNick:
-                if (Preferences::self()->tabNotificationsNick())
-                {
-                    if (Preferences::self()->tabNotificationsOverride() && Preferences::self()->highlightNick())
-                    {
-                        if (Preferences::self()->tabNotificationsLeds())
-                            m_viewTree->setViewIcon(view, images->getLed(Preferences::self()->highlightNickColor(),true));
-                        if (Preferences::self()->tabNotificationsText())
-                            m_viewTree->setViewColor(view, Preferences::self()->highlightNickColor());
-                    }
-                    else
-                    {
-                        if (Preferences::self()->tabNotificationsLeds())
-                            m_viewTree->setViewIcon(view, images->getNickLed());
-                        if (Preferences::self()->tabNotificationsText())
-                            m_viewTree->setViewColor(view, Preferences::self()->tabNotificationsNickColor());
-                    }
+                        m_tabWidget->tabBar()->setTabTextColor(tabIndex, Preferences::self()->highlightNickColor());
                 }
                 else
                 {
-                    setViewNotification(view,Konversation::tnfNormal);
+                    if (Preferences::self()->tabNotificationsLeds())
+                        m_tabWidget->setTabIcon(tabIndex, images->getNickLed());
+                    if (Preferences::self()->tabNotificationsText())
+                        m_tabWidget->tabBar()->setTabTextColor(tabIndex, Preferences::self()->tabNotificationsNickColor());
                 }
-                break;
+            }
+            else
+            {
+                setViewNotification(view,Konversation::tnfNormal);
+            }
+            break;
 
-            case Konversation::tnfHighlight:
-                if (Preferences::self()->tabNotificationsHighlights())
+        case Konversation::tnfHighlight:
+            if (Preferences::self()->tabNotificationsHighlights())
+            {
+                if (Preferences::self()->tabNotificationsOverride() && view->highlightColor().isValid())
                 {
-                    if (Preferences::self()->tabNotificationsOverride() && view->highlightColor().isValid())
-                    {
-                        if (Preferences::self()->tabNotificationsLeds())
-                            m_viewTree->setViewIcon(view, images->getLed(view->highlightColor(),true));
-                        if (Preferences::self()->tabNotificationsText())
-                            m_viewTree->setViewColor(view, view->highlightColor());
-                    }
-                    else
-                    {
-                        if (Preferences::self()->tabNotificationsLeds())
-                            m_viewTree->setViewIcon(view, images->getHighlightsLed());
-                        if (Preferences::self()->tabNotificationsText())
-                            m_viewTree->setViewColor(view, Preferences::self()->tabNotificationsHighlightsColor());
-                    }
+                    if (Preferences::self()->tabNotificationsLeds())
+                        m_tabWidget->setTabIcon(tabIndex, images->getLed(view->highlightColor(),true));
+                    if (Preferences::self()->tabNotificationsText())
+                        m_tabWidget->tabBar()->setTabTextColor(tabIndex, view->highlightColor());
                 }
                 else
                 {
-                    setViewNotification(view,Konversation::tnfNormal);
+                    if (Preferences::self()->tabNotificationsLeds())
+                        m_tabWidget->setTabIcon(tabIndex, images->getHighlightsLed());
+                    if (Preferences::self()->tabNotificationsText())
+                        m_tabWidget->tabBar()->setTabTextColor(tabIndex, Preferences::self()->tabNotificationsHighlightsColor());
                 }
-                break;
+            }
+            else
+            {
+                setViewNotification(view,Konversation::tnfNormal);
+            }
+            break;
 
-            default:
-                break;
-        }
+        default:
+            break;
     }
-    else if (m_tabWidget)
-    {
-        const int idx = m_tabWidget->indexOf(view);
-        switch (type)
-        {
-            case Konversation::tnfNormal:
-                if (Preferences::self()->tabNotificationsMsgs())
-                {
-                    if (Preferences::self()->tabNotificationsLeds())
-                        m_tabWidget->setTabIcon(idx, images->getMsgsLed(true));
-                    if (Preferences::self()->tabNotificationsText())
-                        m_tabWidget->setTabTextColor(idx, Preferences::self()->tabNotificationsMsgsColor());
-                }
-                break;
 
-            case Konversation::tnfPrivate:
-                if (Preferences::self()->tabNotificationsPrivate())
-                {
-                    if (Preferences::self()->tabNotificationsLeds())
-                        m_tabWidget->setTabIcon(idx, images->getPrivateLed(true));
-                    if (Preferences::self()->tabNotificationsText())
-                        m_tabWidget->setTabTextColor(idx, Preferences::self()->tabNotificationsPrivateColor());
-                }
-                break;
-
-            case Konversation::tnfSystem:
-                if (Preferences::self()->tabNotificationsSystem())
-                {
-                    if (Preferences::self()->tabNotificationsLeds())
-                        m_tabWidget->setTabIcon(idx, images->getSystemLed(true));
-                    if (Preferences::self()->tabNotificationsText())
-                        m_tabWidget->setTabTextColor(idx, Preferences::self()->tabNotificationsSystemColor());
-                }
-                break;
-
-            case Konversation::tnfControl:
-                if (Preferences::self()->tabNotificationsEvents())
-                {
-                    if (Preferences::self()->tabNotificationsLeds())
-                        m_tabWidget->setTabIcon(idx, images->getEventsLed());
-                    if (Preferences::self()->tabNotificationsText())
-                        m_tabWidget->setTabTextColor(idx, Preferences::self()->tabNotificationsEventsColor());
-                }
-                break;
-
-            case Konversation::tnfNick:
-                if (Preferences::self()->tabNotificationsNick())
-                {
-                    if (Preferences::self()->tabNotificationsOverride() && Preferences::self()->highlightNick())
-                    {
-                        if (Preferences::self()->tabNotificationsLeds())
-                            m_tabWidget->setTabIcon(idx, images->getLed(Preferences::self()->highlightNickColor(),true));
-                        if (Preferences::self()->tabNotificationsText())
-                            m_tabWidget->setTabTextColor(idx, Preferences::self()->highlightNickColor());
-                    }
-                    else
-                    {
-                        if (Preferences::self()->tabNotificationsLeds())
-                            m_tabWidget->setTabIcon(idx, images->getNickLed());
-                        if (Preferences::self()->tabNotificationsText())
-                            m_tabWidget->setTabTextColor(idx, Preferences::self()->tabNotificationsNickColor());
-                    }
-                }
-                else
-                {
-                    setViewNotification(view,Konversation::tnfNormal);
-                }
-                break;
-
-            case Konversation::tnfHighlight:
-                if (Preferences::self()->tabNotificationsHighlights())
-                {
-                    if (Preferences::self()->tabNotificationsOverride() && view->highlightColor().isValid())
-                    {
-                        if (Preferences::self()->tabNotificationsLeds())
-                            m_tabWidget->setTabIcon(idx, images->getLed(view->highlightColor(),true));
-                        if (Preferences::self()->tabNotificationsText())
-                            m_tabWidget->setTabTextColor(idx, view->highlightColor());
-                    }
-                    else
-                    {
-                        if (Preferences::self()->tabNotificationsLeds())
-                            m_tabWidget->setTabIcon(idx, images->getHighlightsLed());
-                        if (Preferences::self()->tabNotificationsText())
-                            m_tabWidget->setTabTextColor(idx, Preferences::self()->tabNotificationsHighlightsColor());
-                    }
-                }
-                else
-                {
-                    setViewNotification(view,Konversation::tnfNormal);
-                }
-                break;
-
-            default:
-                break;
-        }
-    }
+    const QModelIndex& idx = indexForView(view);
+    emit dataChanged(idx, idx, QVector<int>() << Qt::DecorationRole << ColorRole);
 }
 
 void ViewContainer::unsetViewNotification(ChatWindow* view)
 {
-    if (m_viewTree)
+    if (!m_tabWidget) return;
+
+    const int tabIndex = m_tabWidget->indexOf(view);
+    if (Preferences::self()->tabNotificationsLeds())
     {
-        if (Preferences::self()->tabNotificationsLeds())
+        switch (view->getType())
         {
-            switch (view->getType())
-            {
-                case ChatWindow::Channel:
-                case ChatWindow::DccChat:
-                    m_viewTree->setViewIcon(view, images->getMsgsLed(false));
-                    break;
+            case ChatWindow::Channel:
+            case ChatWindow::DccChat:
+                m_tabWidget->setTabIcon(tabIndex, images->getMsgsLed(false));
+                break;
 
-                case ChatWindow::Query:
-                    m_viewTree->setViewIcon(view, images->getPrivateLed(false));
-                    break;
+            case ChatWindow::Query:
+                m_tabWidget->setTabIcon(tabIndex, images->getPrivateLed(false));
+                break;
 
-                case ChatWindow::Status:
-                    m_viewTree->setViewIcon(view, images->getServerLed(false));
-                    break;
+            case ChatWindow::Status:
+                m_tabWidget->setTabIcon(tabIndex, images->getServerLed(false));
+                break;
 
-                default:
-                    m_viewTree->setViewIcon(view, images->getSystemLed(false));
-                    break;
-            }
+            default:
+                m_tabWidget->setTabIcon(tabIndex, images->getSystemLed(false));
+                break;
         }
-
-        QColor textColor = (Preferences::self()->inputFieldsBackgroundColor()
-            ? Preferences::self()->color(Preferences::ChannelMessage) : QColor());
-
-        if (view->getType() == ChatWindow::Channel)
-        {
-            Channel *channel = static_cast<Channel*>(view);
-
-            if (!channel->joined())
-                textColor = m_viewTree->palette().color(QPalette::Disabled, QPalette::Text);
-        }
-        else if (view->getType() == ChatWindow::Query)
-        {
-            if (!view->getServer()->isConnected())
-                textColor = m_viewTree->palette().color(QPalette::Disabled, QPalette::Text);
-        }
-
-        m_viewTree->setViewColor(view, textColor);
     }
-    else if (m_tabWidget)
+
+    QColor textColor = m_window->palette().foreground().color();
+
+    if (view->getType() == ChatWindow::Channel)
     {
-        const int idx = m_tabWidget->indexOf(view);
-        if (Preferences::self()->tabNotificationsLeds())
-        {
-            switch (view->getType())
-            {
-                case ChatWindow::Channel:
-                case ChatWindow::DccChat:
-                    m_tabWidget->setTabIcon(idx, images->getMsgsLed(false));
-                    break;
+        Channel *channel = static_cast<Channel*>(view);
 
-                case ChatWindow::Query:
-                    m_tabWidget->setTabIcon(idx, images->getPrivateLed(false));
-                    break;
-
-                case ChatWindow::Status:
-                    m_tabWidget->setTabIcon(idx, images->getServerLed(false));
-                    break;
-
-                default:
-                    m_tabWidget->setTabIcon(idx, images->getSystemLed(false));
-                    break;
-            }
-        }
-
-        QColor textColor = m_window->palette().foreground().color();
-
-        if (view->getType() == ChatWindow::Channel)
-        {
-            Channel *channel = static_cast<Channel*>(view);
-
-            if (!channel->joined())
-                textColor = m_tabWidget->palette().color(QPalette::Disabled, QPalette::Text);
-        }
-        else if (view->getType() == ChatWindow::Query)
-        {
-            if (!view->getServer()->isConnected())
-                textColor = m_tabWidget->palette().color(QPalette::Disabled, QPalette::Text);
-        }
-
-        m_tabWidget->setTabTextColor(idx, textColor);
+        if (!channel->joined())
+            textColor = m_tabWidget->palette().color(QPalette::Disabled, QPalette::Text);
     }
+    else if (view->getType() == ChatWindow::Query)
+    {
+        if (!view->getServer()->isConnected())
+            textColor = m_tabWidget->palette().color(QPalette::Disabled, QPalette::Text);
+    }
+
+    m_tabWidget->tabBar()->setTabTextColor(tabIndex, textColor);
+
+    const QModelIndex& idx = indexForView(view);
+    emit dataChanged(idx, idx, QVector<int>() << Qt::DecorationRole << ColorRole << DisabledRole);
 
     m_activeViewOrderList.removeAll(view);
 }
@@ -1261,19 +1395,118 @@ void ViewContainer::toggleConnectOnStartup()
 
 void ViewContainer::addView(ChatWindow* view, const QString& label, bool weinitiated)
 {
-    ChatWindow *tmp_ChatWindow;
-    int placement = -1;
-    ChatWindow::WindowType wtype;
+    int placement = insertIndex(view);
     QIcon iconSet;
 
     if (Preferences::self()->closeButtons() && m_viewTree)
-        iconSet = KIcon("dialog-close");
+        iconSet = QIcon::fromTheme("dialog-close");
 
     connect(Application::instance(), SIGNAL(appearanceChanged()), view, SLOT(updateAppearance()));
     connect(view, SIGNAL(setStatusBarTempText(QString)), this, SIGNAL(setStatusBarTempText(QString)));
     connect(view, SIGNAL(clearStatusBarTempText()), this, SIGNAL(clearStatusBarTempText()));
-    connect(view, SIGNAL(closing(ChatWindow*)), this, SIGNAL(removeView(ChatWindow*)));
     connect(view, SIGNAL(closing(ChatWindow*)), this, SLOT(cleanupAfterClose(ChatWindow*)));
+
+    switch (view->getType())
+    {
+        case ChatWindow::Channel:
+            if (Preferences::self()->tabNotificationsLeds())
+                iconSet = images->getMsgsLed(false);
+
+            break;
+
+        case ChatWindow::RawLog:
+            if (Preferences::self()->tabNotificationsLeds())
+                iconSet = images->getSystemLed(false);
+
+            break;
+
+        case ChatWindow::Query:
+            if (Preferences::self()->tabNotificationsLeds())
+                iconSet = images->getPrivateLed(false);
+
+            break;
+
+        case ChatWindow::DccChat:
+            if (Preferences::self()->tabNotificationsLeds())
+                iconSet = images->getMsgsLed(false);
+
+            break;
+
+        case ChatWindow::Status:
+            if (Preferences::self()->tabNotificationsLeds())
+                iconSet = images->getServerLed(false);
+
+            break;
+
+        case ChatWindow::ChannelList:
+            if (Preferences::self()->tabNotificationsLeds())
+                iconSet = images->getSystemLed(false);
+
+            break;
+
+        default:
+            if (Preferences::self()->tabNotificationsLeds())
+                iconSet = images->getSystemLed(false);
+            break;
+    }
+
+    if (view->isTopLevelView()) {
+        int diff = 0;
+
+        for (int i = 0; i < placement; ++i) {
+            if (!static_cast<ChatWindow*>(m_tabWidget->widget(i))->isTopLevelView()) {
+                ++diff;
+            }
+        }
+
+        beginInsertRows(QModelIndex(), placement - diff, placement - diff);
+    } else {
+        int statusViewIndex = m_tabWidget->indexOf(view->getServer()->getStatusView());
+        const QModelIndex idx = indexForView(view->getServer()->getStatusView());
+
+        if (m_viewTree) {
+            m_viewTree->setExpanded(idx, true);
+        }
+
+        beginInsertRows(idx, placement - statusViewIndex - 1, placement - statusViewIndex - 1);
+    }
+
+    m_tabWidget->insertTab(placement, view, iconSet, QString(label).replace('&', "&&"));
+
+    endInsertRows();
+
+    m_vbox->show();
+
+    // Check, if user was typing in old input line
+    bool doBringToFront=false;
+
+    if (Preferences::self()->focusNewQueries() && view->getType()==ChatWindow::Query && !weinitiated)
+        doBringToFront = true;
+
+    if (Preferences::self()->bringToFront() && view->getType()!=ChatWindow::RawLog)
+        doBringToFront = true;
+
+    // make sure that bring to front only works when the user wasn't typing something
+    if (m_frontView && view->getType() != ChatWindow::UrlCatcher && view->getType() != ChatWindow::Konsole)
+    {
+        if (!m_frontView->getTextInLine().isEmpty())
+            doBringToFront = false;
+    }
+
+    if (doBringToFront) showView(view);
+
+    updateViewActions(m_tabWidget->currentIndex());
+
+    if (m_viewTree && m_tabWidget->count() == 1) {
+        setViewTreeShown(true);
+    }
+}
+
+int ViewContainer::insertIndex(ChatWindow* view)
+{
+    int placement = m_tabWidget->count();
+    ChatWindow::WindowType wtype;
+    ChatWindow *tmp_ChatWindow;
 
     // Please be careful about changing any of the grouping behavior in here,
     // because it needs to match up with the sorting behavior of the tree list,
@@ -1283,9 +1516,6 @@ void ViewContainer::addView(ChatWindow* view, const QString& label, bool weiniti
     switch (view->getType())
     {
         case ChatWindow::Channel:
-            if (Preferences::self()->tabNotificationsLeds())
-                iconSet = images->getMsgsLed(false);
-
             for (int sindex = 0; sindex < m_tabWidget->count(); sindex++)
             {
                 tmp_ChatWindow = static_cast<ChatWindow *>(m_tabWidget->widget(sindex));
@@ -1311,9 +1541,6 @@ void ViewContainer::addView(ChatWindow* view, const QString& label, bool weiniti
             break;
 
         case ChatWindow::RawLog:
-            if (Preferences::self()->tabNotificationsLeds())
-                iconSet = images->getSystemLed(false);
-
             for (int sindex = 0; sindex < m_tabWidget->count(); sindex++)
             {
                 tmp_ChatWindow = static_cast<ChatWindow *>(m_tabWidget->widget(sindex));
@@ -1328,9 +1555,6 @@ void ViewContainer::addView(ChatWindow* view, const QString& label, bool weiniti
             break;
 
         case ChatWindow::Query:
-            if (Preferences::self()->tabNotificationsLeds())
-                iconSet = images->getPrivateLed(false);
-
             for (int sindex = 0; sindex < m_tabWidget->count(); sindex++)
             {
                 tmp_ChatWindow = static_cast<ChatWindow *>(m_tabWidget->widget(sindex));
@@ -1356,9 +1580,6 @@ void ViewContainer::addView(ChatWindow* view, const QString& label, bool weiniti
             break;
 
         case ChatWindow::DccChat:
-            if (Preferences::self()->tabNotificationsLeds())
-                iconSet = images->getMsgsLed(false);
-
             for (int sindex = 0; sindex < m_tabWidget->count(); sindex++)
             {
                 tmp_ChatWindow = static_cast<ChatWindow*>(m_tabWidget->widget(sindex));
@@ -1375,9 +1596,6 @@ void ViewContainer::addView(ChatWindow* view, const QString& label, bool weiniti
             break;
 
         case ChatWindow::Status:
-            if (Preferences::self()->tabNotificationsLeds())
-                iconSet = images->getServerLed(false);
-
             if (m_viewTree)
             {
                 for (int sindex = 0; sindex < m_tabWidget->count(); sindex++)
@@ -1398,9 +1616,6 @@ void ViewContainer::addView(ChatWindow* view, const QString& label, bool weiniti
             break;
 
         case ChatWindow::ChannelList:
-            if (Preferences::self()->tabNotificationsLeds())
-                iconSet = images->getSystemLed(false);
-
             for (int sindex = 0; sindex < m_tabWidget->count(); sindex++)
             {
                 tmp_ChatWindow = static_cast<ChatWindow *>(m_tabWidget->widget(sindex));
@@ -1412,51 +1627,55 @@ void ViewContainer::addView(ChatWindow* view, const QString& label, bool weiniti
             break;
 
         default:
-            if (Preferences::self()->tabNotificationsLeds())
-                iconSet = images->getSystemLed(false);
             break;
     }
 
-    m_tabWidget->insertTab(placement, view, iconSet, QString(label).replace('&', "&&"));
-    // HACK Seems like automatic resize isn't all that automatic currently.
-    // Work around it by unsetting it and setting it again.
-    if (Preferences::self()->useMaxSizedTabs())
-    {
-        m_tabWidget->setAutomaticResizeTabs(false);
-        m_tabWidget->setAutomaticResizeTabs(true);
-    }
-    m_vbox->show();//m_tabWidget->show();
+    return placement;
+}
 
-    if (m_viewTree)
-    {
-        if (placement != -1 && m_tabWidget->widget(placement-1))
-        {
-            ChatWindow* after = static_cast<ChatWindow*>(m_tabWidget->widget(placement-1));
-            m_viewTree->addView(label, view, iconSet, false, after);
+void ViewContainer::unclutterTabs()
+{
+    if (!m_tabWidget || !m_tabWidget->count()) {
+        return;
+    }
+
+    emit beginResetModel();
+
+    m_tabWidget->blockSignals(true);
+
+    QWidget* currentView = m_tabWidget->currentWidget();
+
+    QList<ChatWindow *> views;
+
+    while (m_tabWidget->count()) {
+        views << static_cast<ChatWindow* >(m_tabWidget->widget(0));
+        m_tabWidget->removeTab(0);
+    }
+
+    foreach(ChatWindow *view, views) {
+        if (view->isTopLevelView()) {
+            m_tabWidget->insertTab(insertIndex(view), view, QIcon(), view->getName().replace('&', "&&"));
+            views.removeAll(view);
         }
-        else
-            m_viewTree->addView(label, view, iconSet);
     }
 
-    // Check, if user was typing in old input line
-    bool doBringToFront=false;
-
-    if (Preferences::self()->focusNewQueries() && view->getType()==ChatWindow::Query && !weinitiated)
-        doBringToFront = true;
-
-    if (Preferences::self()->bringToFront() && view->getType()!=ChatWindow::RawLog)
-        doBringToFront = true;
-
-    // make sure that bring to front only works when the user wasn't typing something
-    if (m_frontView && view->getType() != ChatWindow::UrlCatcher && view->getType() != ChatWindow::Konsole)
-    {
-        if (!m_frontView->getTextInLine().isEmpty())
-            doBringToFront = false;
+    foreach(ChatWindow *view, views) {
+        if (!view->isTopLevelView()) {
+            m_tabWidget->insertTab(insertIndex(view), view, QIcon(), view->getName().replace('&', "&&"));
+        }
     }
 
-    if (doBringToFront) showView(view);
+    updateViews();
 
-    updateViewActions(m_tabWidget->currentIndex());
+    if (currentView) {
+        m_tabWidget->setCurrentWidget(currentView);
+    }
+
+    m_tabWidget->blockSignals(false);
+
+    emit endResetModel();
+
+    viewSwitched(m_tabWidget->currentIndex());
 }
 
 void ViewContainer::viewSwitched(int newIndex)
@@ -1467,7 +1686,8 @@ void ViewContainer::viewSwitched(int newIndex)
     m_lastFocusedView = m_currentView;
     m_currentView = view;
 
-    emit viewChanged(view);
+    const QModelIndex &idx = indexForView(view);
+    emit viewChanged(idx);
 
     if (m_frontView)
     {
@@ -1517,8 +1737,9 @@ void ViewContainer::showView(ChatWindow* view)
 {
     // Don't bring Tab to front if TabWidget is hidden. Otherwise QT gets confused
     // and shows the Tab as active but will display the wrong pane
-    if (m_tabWidget && m_tabWidget->isVisible())
+    if (m_tabWidget->isVisible()) {
         m_tabWidget->setCurrentIndex(m_tabWidget->indexOf(view));
+    }
 }
 
 void ViewContainer::goToView(int page)
@@ -1587,64 +1808,171 @@ void ViewContainer::showLastFocusedView()
         showView(m_lastFocusedView);
 }
 
+bool ViewContainer::canMoveViewLeft() const
+{
+    if (!m_tabWidget || !m_tabWidget->count()) {
+        return false;
+    }
+
+    int index = (m_popupViewIndex != -1) ? m_popupViewIndex : m_tabWidget->currentIndex();
+
+    ChatWindow* view = static_cast<ChatWindow*>(m_tabWidget->widget(index));
+
+    if (view->isTopLevelView() && index > 0) {
+        return true;
+    } else if (!view->isTopLevelView()) {
+        ChatWindow* statusView = view->getServer()->getStatusView();
+        int statusViewIndex = m_tabWidget->indexOf(statusView);
+
+        index = index - statusViewIndex - 1;
+
+        return (index > 0);
+    }
+
+    return false;
+}
+
+bool ViewContainer::canMoveViewRight() const
+{
+    if (!m_tabWidget || !m_tabWidget->count()) {
+        return false;
+    }
+
+    int index = (m_popupViewIndex != -1) ? m_popupViewIndex : m_tabWidget->currentIndex();
+
+    ChatWindow* view = static_cast<ChatWindow*>(m_tabWidget->widget(index));
+
+    if (view->isTopLevelView()) {
+        int lastTopLevelView = -1;
+
+        for (int i = m_tabWidget->count() - 1; i >= index; --i) {
+            if (static_cast<ChatWindow*>(m_tabWidget->widget(i))->isTopLevelView()) {
+                lastTopLevelView = i;
+                break;
+            }
+        }
+
+        return (index != lastTopLevelView);
+    } else if (!view->isTopLevelView()) {
+        view = static_cast<ChatWindow*>(m_tabWidget->widget(index + 1));
+
+        return (view && !view->isTopLevelView());
+    }
+
+    return false;
+}
 
 void ViewContainer::moveViewLeft()
 {
-    int index;
-
-    if (m_popupViewIndex == -1)
-        index = m_tabWidget->currentIndex();
-    else
-        index = m_popupViewIndex;
-
-    if (index)
-    {
-        if (m_viewTree)
-        {
-            ChatWindow* view = static_cast<ChatWindow*>(m_tabWidget->widget(index));
-            m_viewTree->moveViewUp(view);
-            syncTabBarToTree();
-        }
-        else if (m_tabWidget)
-        {
-            m_tabWidget->moveTab(index, index - 1);
-            updateViewActions(index - 1);
-        }
+    if (!m_tabWidget || !m_tabWidget->count()) {
+        return;
     }
 
-    m_popupViewIndex = -1;
+    int tabIndex = (m_popupViewIndex != -1) ? m_popupViewIndex : m_tabWidget->currentIndex();
+    ChatWindow* view = static_cast<ChatWindow*>(m_tabWidget->widget(tabIndex));
+    const QModelIndex idx = indexForView(view);
+
+    if (view->isTopLevelView()) {
+        const QModelIndex aboveIdx = index(idx.row() - 1, 0);
+        int aboveTabIndex = m_tabWidget->indexOf(static_cast<ChatWindow*>(aboveIdx.internalPointer()));
+
+        beginMoveRows(QModelIndex(), idx.row(), idx.row(), QModelIndex(), aboveIdx.row());
+
+        m_tabWidget->blockSignals(true);
+
+        if (view->getType() == ChatWindow::Status) {
+            for (int i = m_tabWidget->count() - 1; i > tabIndex; --i) {
+                ChatWindow* tab = static_cast<ChatWindow*>(m_tabWidget->widget(i));
+
+                if (!tab->isTopLevelView() && tab->getServer()
+                    && tab->getServer()->getStatusView()
+                    && tab->getServer()->getStatusView() == view) {
+                    m_tabWidget->tabBar()->moveTab(i, aboveTabIndex);
+                    ++tabIndex;
+                    ++i;
+                }
+            }
+        }
+
+        m_tabWidget->tabBar()->moveTab(tabIndex, aboveTabIndex);
+
+        m_tabWidget->blockSignals(false);
+
+        endMoveRows();
+
+        viewSwitched(m_tabWidget->currentIndex());
+    } else {
+        beginMoveRows(idx.parent(), idx.row(), idx.row(), idx.parent(), idx.row() - 1);
+
+        m_tabWidget->blockSignals(true);
+        m_tabWidget->tabBar()->moveTab(tabIndex, tabIndex - 1);
+        m_tabWidget->blockSignals(false);
+
+        endMoveRows();
+
+        viewSwitched(m_tabWidget->currentIndex());
+    }
 }
 
 void ViewContainer::moveViewRight()
 {
-    int index;
-
-    if (m_popupViewIndex == -1)
-        index = m_tabWidget->currentIndex();
-    else
-        index = m_popupViewIndex;
-
-    if (index < (m_tabWidget->count() - 1))
-    {
-        if (m_viewTree)
-        {
-            ChatWindow* view = static_cast<ChatWindow*>(m_tabWidget->widget(index));
-            m_viewTree->moveViewDown(view);
-            syncTabBarToTree();
-        }
-        else if (m_tabWidget)
-        {
-            m_tabWidget->moveTab(index, index + 1);
-            updateViewActions(index + 1);
-        }
+    if (!m_tabWidget || !m_tabWidget->count()) {
+        return;
     }
 
-    m_popupViewIndex = -1;
+    int tabIndex = (m_popupViewIndex != -1) ? m_popupViewIndex : m_tabWidget->currentIndex();
+    ChatWindow* view = static_cast<ChatWindow*>(m_tabWidget->widget(tabIndex));
+    const QModelIndex idx = indexForView(view);
+
+    if (view->isTopLevelView()) {
+        const QModelIndex belowIdx = index(idx.row() + 1, 0);
+        int belowTabIndex = m_tabWidget->indexOf(static_cast<ChatWindow*>(belowIdx.internalPointer()));
+        int children = rowCount(belowIdx);
+
+        if (children) {
+            belowTabIndex = m_tabWidget->indexOf(static_cast<ChatWindow*>(belowIdx.child(children - 1, 0).internalPointer()));
+        }
+
+        beginMoveRows(QModelIndex(), idx.row(), idx.row(), QModelIndex(), belowIdx.row() + 1);
+
+        m_tabWidget->blockSignals(true);
+
+        m_tabWidget->tabBar()->moveTab(tabIndex, belowTabIndex);
+
+        if (view->getType() == ChatWindow::Status) {
+            ChatWindow* tab = static_cast<ChatWindow*>(m_tabWidget->widget(tabIndex));
+
+            while (!tab->isTopLevelView() && tab->getServer()
+                && tab->getServer()->getStatusView()
+                && tab->getServer()->getStatusView() == view) {
+
+                m_tabWidget->tabBar()->moveTab(tabIndex, belowTabIndex);
+
+                tab = static_cast<ChatWindow*>(m_tabWidget->widget(tabIndex));
+            }
+        }
+
+        m_tabWidget->blockSignals(false);
+
+        endMoveRows();
+
+        viewSwitched(m_tabWidget->currentIndex());
+    } else {
+        beginMoveRows(idx.parent(), idx.row(), idx.row(), idx.parent(), idx.row() + 2);
+
+        m_tabWidget->blockSignals(true);
+        m_tabWidget->tabBar()->moveTab(tabIndex, tabIndex + 1);
+        m_tabWidget->blockSignals(false);
+
+        endMoveRows();
+
+        viewSwitched(m_tabWidget->currentIndex());
+    }
 }
 
-void ViewContainer::closeView(QWidget* view)
+void ViewContainer::closeView(int view)
 {
-    ChatWindow* viewToClose = static_cast<ChatWindow*>(view);
+    ChatWindow* viewToClose = static_cast<ChatWindow*>(m_tabWidget->widget(view));
 
     closeView(viewToClose);
 }
@@ -1685,9 +2013,35 @@ void ViewContainer::cleanupAfterClose(ChatWindow* view)
 
     if (m_tabWidget)
     {
-        const int idx = m_tabWidget->indexOf(view);
-        m_tabWidget->removeTab(idx);
-        emit removeView(view);
+        const int tabIndex = m_tabWidget->indexOf(view);
+
+        if (tabIndex != -1) {
+            m_tabWidget->blockSignals(true);
+
+            const QModelIndex& idx = indexForView(view);
+
+            beginRemoveRows(idx.parent(), idx.row(), idx.row());
+
+            if (view->getType() == ChatWindow::Status) {
+                for (int i = m_tabWidget->count() - 1; i > tabIndex; --i) {
+                    const ChatWindow* tab = static_cast<ChatWindow*>(m_tabWidget->widget(i));
+
+                    if (!tab->isTopLevelView() && tab->getServer()
+                        && tab->getServer()->getStatusView()
+                        && tab->getServer()->getStatusView() == view) {
+                        m_tabWidget->removeTab(i);
+                    }
+                }
+            }
+
+            m_tabWidget->removeTab(tabIndex);
+
+            endRemoveRows();
+
+            m_tabWidget->blockSignals(false);
+
+            viewSwitched(m_tabWidget->currentIndex());
+        }
 
         if (m_tabWidget->count() <= 0)
         {
@@ -1710,9 +2064,13 @@ void ViewContainer::cleanupAfterClose(ChatWindow* view)
         QAction* action = actionCollection()->action("close_queries");
         if (action) action->setEnabled(false);
     }
+
+    if (!m_tabWidget->count() && m_viewTree) {
+        setViewTreeShown(false);
+    }
 }
 
-void ViewContainer::closeViewMiddleClick(QWidget* view)
+void ViewContainer::closeViewMiddleClick(int view)
 {
     if (Preferences::self()->middleClickClose())
         closeView(view);
@@ -1727,10 +2085,12 @@ void ViewContainer::renameKonsole()
 
     int popup = m_popupViewIndex ? m_popupViewIndex : m_tabWidget->currentIndex();
 
-    QString label = KInputDialog::getText(i18n("Rename Tab"),
+    QString label = QInputDialog::getText(m_tabWidget->widget(popup),
+                                          i18n("Rename Tab"),
                                           i18n("Enter new tab name:"),
+                                          QLineEdit::Normal,
                                           m_tabWidget->tabText(popup),
-                                          &ok, m_tabWidget->widget(popup));
+                                          &ok);
 
     if (ok)
     {
@@ -1741,7 +2101,9 @@ void ViewContainer::renameKonsole()
         view->setName(label);
 
         m_tabWidget->setTabText(popup, label);
-        if (m_viewTree) m_viewTree->setViewName(view, label);
+
+        const QModelIndex& idx = indexForView(view);
+        emit dataChanged(idx, idx, QVector<int>() << Qt::DisplayRole);
 
         if (popup == m_tabWidget->currentIndex())
         {
@@ -1754,9 +2116,9 @@ void ViewContainer::renameKonsole()
 void ViewContainer::closeCurrentView()
 {
     if (m_popupViewIndex == -1)
-        closeView(m_tabWidget->currentWidget());
+        closeView(m_tabWidget->currentIndex());
     else
-        closeView(m_tabWidget->widget(m_popupViewIndex));
+        closeView(m_popupViewIndex);
 
     m_popupViewIndex = -1;
 }
@@ -1795,12 +2157,12 @@ void ViewContainer::updateViewEncoding(ChatWindow* view)
                 codecAction->setEnabled(view->isChannelEncodingSupported());
                 QString encoding = view->getChannelEncoding();
 
-                if(m_frontServer)
+                if (view->getServer())
                 {
-                    codecAction->changeItem(0, i18nc("Default encoding", "Default ( %1 )", m_frontServer->getIdentity()->getCodecName()));
+                    codecAction->changeItem(0, i18nc("Default encoding", "Default ( %1 )", view->getServer()->getIdentity()->getCodecName()));
                 }
 
-                if(encoding.isEmpty())
+                if (encoding.isEmpty())
                 {
                     codecAction->setCurrentItem(0);
                 }
@@ -1819,14 +2181,19 @@ void ViewContainer::updateViewEncoding(ChatWindow* view)
 
 void ViewContainer::showViewContextMenu(QWidget* tab, const QPoint& pos)
 {
+    if (!tab) {
+        return;
+    }
+
+    ChatWindow* view = static_cast<ChatWindow*>(tab);
+
     m_popupViewIndex = m_tabWidget->indexOf(tab);
 
     updateViewActions(m_popupViewIndex);
-    KMenu* menu = static_cast<KMenu*>(m_window->guiFactory()->container("tabContextMenu", m_window));
+    QMenu* menu = static_cast<QMenu*>(m_window->guiFactory()->container("tabContextMenu", m_window));
 
     if (!menu) return;
 
-    ChatWindow* view = static_cast<ChatWindow*>(tab);
     KToggleAction* autoJoinAction = qobject_cast<KToggleAction*>(actionCollection()->action("tab_autojoin"));
     KToggleAction* autoConnectAction = qobject_cast<KToggleAction*>(actionCollection()->action("tab_autoconnect"));
     QAction* rejoinAction = actionCollection()->action("rejoin_channel");
@@ -1836,63 +2203,59 @@ void ViewContainer::showViewContextMenu(QWidget* tab, const QPoint& pos)
     renameAct->setText(i18n("&Rename Tab..."));
     connect(renameAct, SIGNAL(triggered()), this, SLOT(renameKonsole()));
 
+    ChatWindow::WindowType viewType = view->getType();
 
-    if (view)
+    updateViewEncoding(view);
+
+    if (viewType == ChatWindow::Channel)
     {
-        ChatWindow::WindowType viewType = view->getType();
+        QAction* action = actionCollection()->action("tab_encoding");
+        menu->insertAction(action, autoJoinAction);
 
-        updateViewEncoding(view);
-
-        if (viewType == ChatWindow::Channel)
+        Channel *channel = static_cast<Channel*>(view);
+        if (channel->rejoinable() && rejoinAction)
         {
-            QAction* action = actionCollection()->action("tab_encoding");
-            menu->insertAction(action, autoJoinAction);
-
-            Channel *channel = static_cast<Channel*>(view);
-            if (channel->rejoinable() && rejoinAction)
-            {
-                menu->insertAction(closeAction, rejoinAction);
-                rejoinAction->setEnabled(true);
-            }
+            menu->insertAction(closeAction, rejoinAction);
+            rejoinAction->setEnabled(true);
         }
-
-        if (viewType == ChatWindow::Konsole)
-        {
-            QAction* action = actionCollection()->action("tab_encoding");
-            menu->insertAction(action, renameAct);
-        }
-
-        if (viewType == ChatWindow::Status)
-        {
-            QAction* action = actionCollection()->action("tab_encoding");
-            menu->insertAction(action, autoConnectAction);
-
-            QList<QAction *> serverActions;
-
-            action = actionCollection()->action("disconnect_server");
-            if (action) serverActions.append(action);
-            action = actionCollection()->action("reconnect_server");
-            if (action) serverActions.append(action);
-            action = actionCollection()->action("join_channel");
-            if (action) serverActions.append(action);
-            // TODO FIXME who wants to own this action?
-            action = new QAction(this);
-            action->setSeparator(true);
-            if (action) serverActions.append(action);
-            m_window->plugActionList("server_actions", serverActions);
-            m_contextServer = view->getServer();
-        }
-        else
-            m_contextServer = 0;
     }
 
-    if (menu->exec(pos) == 0)
+    if (viewType == ChatWindow::Konsole)
     {
-        m_popupViewIndex = -1;
-        view = static_cast<ChatWindow*>(m_tabWidget->currentWidget());
-
-        if (view) updateViewEncoding(view);
+        QAction* action = actionCollection()->action("tab_encoding");
+        menu->insertAction(action, renameAct);
     }
+
+    if (viewType == ChatWindow::Status)
+    {
+        QAction* action = actionCollection()->action("tab_encoding");
+        menu->insertAction(action, autoConnectAction);
+
+        QList<QAction *> serverActions;
+
+        action = actionCollection()->action("disconnect_server");
+        if (action) serverActions.append(action);
+        action = actionCollection()->action("reconnect_server");
+        if (action) serverActions.append(action);
+        action = actionCollection()->action("join_channel");
+        if (action) serverActions.append(action);
+        // TODO FIXME who wants to own this action?
+        action = new QAction(this);
+        action->setSeparator(true);
+        if (action) serverActions.append(action);
+        m_window->plugActionList("server_actions", serverActions);
+        m_contextServer = view->getServer();
+    }
+    else {
+        m_contextServer = 0;
+    }
+
+    const QModelIndex& idx = indexForView(view);
+    emit dataChanged(idx, idx, QVector<int>() << HighlightRole);
+
+    const QAction* action = menu->exec(pos);
+
+    m_popupViewIndex = -1;
 
     menu->removeAction(autoJoinAction);
     menu->removeAction(autoConnectAction);
@@ -1901,6 +2264,12 @@ void ViewContainer::showViewContextMenu(QWidget* tab, const QPoint& pos)
     m_window->unplugActionList("server_actions");
 
     emit contextMenuClosed();
+
+    emit dataChanged(idx, idx, QVector<int>() << HighlightRole);
+
+    if (action != actionCollection()->action("close_tab")) {
+        updateViewEncoding(view);
+    }
 
     updateViewActions(m_tabWidget->currentIndex());
 }
@@ -1950,9 +2319,6 @@ ChatWindow* ViewContainer::getViewAt(int index)
 QList<QPair<QString,QString> > ViewContainer::getChannelsURI()
 {
     QList<QPair<QString,QString> > URIList;
-
-    if (!m_tabWidget)
-        return URIList;
 
     for (int i = 0; i < m_tabWidget->count(); ++i)
     {
@@ -2055,7 +2421,7 @@ void ViewContainer::insertCharacter()
     if (Preferences::self()->customTextFont())
         font = Preferences::self()->textFont();
     else
-        font = KGlobalSettings::generalFont();
+        font = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
 
 
     if (!m_insertCharDialog)
@@ -2080,7 +2446,7 @@ void ViewContainer::insertIRCColor()
     // TODO FIXME
     QPointer<IRCColorChooser> dlg = new IRCColorChooser(m_window);
 
-    if (dlg->exec() == KDialog::Accepted)
+    if (dlg->exec() == QDialog::Accepted)
     {
         if(m_frontView)
             m_frontView->appendInputText(dlg->color(), true/*fromCursor*/);
@@ -2193,7 +2559,7 @@ void ViewContainer::openLogFile(const QString& caption, const QString& file)
     {
         if(Preferences::self()->useExternalLogViewer())
         {
-            new KRun(KUrl(file), m_window, 0, false, false, "");
+            new KRun(QUrl::fromLocalFile(file), m_window, false);
         }
         else
         {
@@ -2248,6 +2614,7 @@ void ViewContainer::toggleDccPanel()
 
 void ViewContainer::addDccPanel()
 {
+    qDebug();
     if (!m_dccPanelOpen)
     {
         addView(m_dccPanel, i18n("DCC Status"));
@@ -2262,7 +2629,6 @@ void ViewContainer::closeDccPanel()
     if (m_dccPanel && m_dccPanelOpen)
     {
         // hide it from view, does not delete it
-        emit removeView(m_dccPanel);
         if (m_tabWidget) m_tabWidget->removeTab(m_tabWidget->indexOf(m_dccPanel));
         m_dccPanelOpen=false;
         (dynamic_cast<KToggleAction*>(actionCollection()->action("open_dccstatus_window")))->setChecked(false);
@@ -2279,7 +2645,7 @@ void ViewContainer::deleteDccPanel()
     }
 }
 
-DCC::TransferPanel* ViewContainer::getDccPanel()
+ChatWindow* ViewContainer::getDccPanel()
 {
     return m_dccPanel;
 }
@@ -2288,7 +2654,7 @@ void ViewContainer::addDccChat(DCC::Chat* chat)
 {
     if (!chat->selfOpened()) // Someone else initiated dcc chat
     {
-        Application* konv_app=static_cast<Application*>(KApplication::kApplication());
+        Application* konv_app=Application::instance();
         konv_app->notificationHandler()->dccChat(m_frontView, chat->partnerNick());
     }
 
@@ -2479,7 +2845,7 @@ void ViewContainer::toggleChannelNicklists()
     if (action)
     {
         Preferences::self()->setShowNickList(action->isChecked());
-        Preferences::self()->writeConfig();
+        Preferences::self()->save();
 
         emit updateChannelAppearance();
     }
@@ -2516,8 +2882,12 @@ void ViewContainer::updateQueryChrome(ChatWindow* view, const QString& name)
 
     if (!newName.isEmpty() && m_tabWidget->tabText(m_tabWidget->indexOf(view)) != newName)
     {
-        if (m_viewTree) m_viewTree->setViewName(view, newName);
-        if (m_tabWidget) m_tabWidget->setTabText(m_tabWidget->indexOf(view), newName);
+        int tabIndex = m_tabWidget->indexOf(view);
+
+        m_tabWidget->setTabText(tabIndex, newName);
+
+        const QModelIndex& idx = indexForView(view);
+        emit dataChanged(idx, idx, QVector<int>() << Qt::DisplayRole);
     }
 
     if (!newName.isEmpty() && view==m_frontView)
@@ -2663,4 +3033,4 @@ void ViewContainer::closeNicksOnlinePanel()
     If the server is being removed this will fire with a null pointer.
 */
 
-#include "viewcontainer.moc"
+

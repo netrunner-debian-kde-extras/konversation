@@ -19,10 +19,7 @@
 #include <QTextStream>
 #include <QList>
 
-#include <ksharedptr.h>
-
-#include <kabc/addressbook.h>
-
+#include <QExplicitlySharedDataPointer>
 
 class Server;
 
@@ -31,10 +28,10 @@ class Server;
   It is owned by the Server object and should NOT be deleted by anything other than Server.
 
   A NickInfo is _only_ for online (or away) nicks.  Not for offline nicks.
-  Offline (but watched or in addressbook) nicks are stored in the Server object.
+  Offline (but watched) nicks are stored in the Server object.
 
 */
-class NickInfo : public KShared
+class NickInfo : public QSharedData
 {
     public:
         NickInfo(const QString& nick, Server* server);
@@ -66,9 +63,6 @@ class NickInfo : public KShared
         QString getPrettyOnlineSince() const;
         /// Return the Server object that owns this NickInfo object.
         Server* getServer() const;
-
-        /// Return the kabc (kaddressbook) contact for this nick
-        KABC::Addressee getAddressee() const;
 
         /** Set properties of NickInfo object. */
         void setNickname(const QString& newNickname);
@@ -102,8 +96,8 @@ class NickInfo : public KShared
          */
         void tooltipTableData(QTextStream &tooltip) const;
 
-        /** Returns a full name for this contact. Tries to use the name out of addressbook.
-         *  If that is empty, uses the real name from whois.  If that fails, use nickname.
+        /** Returns a full name for this contact. Uses the real name from whois.
+         *  If that fails, use nickname.
          *
          *  @return A string to show the user for the name of this contact
          */
@@ -111,9 +105,6 @@ class NickInfo : public KShared
 
         void setPrintedOnline(bool printed);
         bool getPrintedOnline();
-
-        /// Refresh the addressee object connected to this nick.
-        void refreshAddressee();
 
         bool isChanged() const { return m_changed; }
         void setChanged(bool c) { m_changed = c; }
@@ -134,7 +125,6 @@ class NickInfo : public KShared
         QString m_netServer;
         QString m_netServerInfo;
         QDateTime m_onlineSince;
-        KABC::Addressee m_addressee;
         /** Whether this user is identified with nickserv.
          *  Found only by doing /whois nick
          */
@@ -148,10 +138,10 @@ class NickInfo : public KShared
         bool m_changed;
 };
 
-/** A NickInfoPtr is a pointer to a NickInfo object.  Since it is a KSharedPtr, the NickInfo
+/** A NickInfoPtr is a pointer to a NickInfo object.  Since it is a QExplicitlySharedDataPointer, the NickInfo
  * object is automatically destroyed when all references are destroyed.
  */
-typedef KSharedPtr<NickInfo> NickInfoPtr;
+typedef QExplicitlySharedDataPointer<NickInfo> NickInfoPtr;
 /** A NickInfoMap is a list of NickInfo objects, indexed and sorted by lowercase nickname.
  */
 typedef QMap<QString,NickInfoPtr> NickInfoMap;

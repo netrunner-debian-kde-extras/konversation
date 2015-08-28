@@ -20,7 +20,6 @@
 #include "identity.h"
 #include "preferences_base.h"
 
-
 /*
 Options still to be GUIfied:
 
@@ -134,10 +133,10 @@ class Preferences : public PreferencesBase
         static void restoreColumnState(QTreeView *treeView, QString name, int defaultColumn = 0,
                                        Qt::SortOrder defaultSortOrder = Qt::AscendingOrder);
 
-    public slots:
+    public Q_SLOTS:
         static void slotSetUseOSD(bool use);
 
-    signals:
+    Q_SIGNALS:
         void notifyListStarted(int serverGroupId);
         void updateTrayIcon();
 
@@ -155,4 +154,5 @@ class Preferences : public PreferencesBase
         QList<QStringList> mAutoreplaceList;
         QString mSortingOrder;
 };
+
 #endif

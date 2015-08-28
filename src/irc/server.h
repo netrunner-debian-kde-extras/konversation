@@ -37,7 +37,7 @@
 
 #include <QHostInfo>
 
-#include <ksharedptr.h>
+#include <QExplicitlySharedDataPointer>
 #include <kprocess.h>
 #include <ktcpsocket.h>
 #include <preferences.h>
@@ -199,7 +199,7 @@ class Server : public QObject
 
         void autoCommandsAndChannels();
 
-        void sendURIs(const KUrl::List& uris, const QString& nick);
+        void sendURIs(const QList<QUrl>& uris, const QString& nick);
 
         void notifyAction(const QString& nick);
         ChannelListPanel* getChannelListPanel() const;
@@ -251,7 +251,7 @@ class Server : public QObject
          *  - It is on the notify list and is known to be online.
          *  - The nick initiated a query with the user.
          *
-         * @return A QMap of KSharedPtrs to NickInfos indexed by lowercase nickname.
+         * @return A QMap of NickInfoPtrs indexed by lowercase nickname.
          */
         const NickInfoMap* getAllNicks();
         /** Returns the list of members for a channel in the joinedChannels list.
@@ -319,13 +319,6 @@ class Server : public QObject
          *                     or 99 if not known.  See channelnick.cpp for bit definitions.
          */
         ChannelNickPtr setChannelNick(const QString& channelName, const QString& nickname, unsigned int mode = 99);
-        /**
-         * Given the nickname of nick that is offline (or at least not known to be online),
-         * returns the addressbook entry (if any) for the nick.
-         * @param nickname       Desired nickname.  Case insensitive.
-         * @return               Addressbook entry of the nick or empty if not found.
-         */
-        KABC::Addressee getOfflineNickAddressee(QString& nickname);
 
         /**
          * Returns a QList of all channels
@@ -333,7 +326,7 @@ class Server : public QObject
         const QList<Channel *>& getChannelList() const { return m_channelList; }
 
         /**
-         * Returns a lower case list of all the nicks on the user watch list plus nicks in the addressbook.
+         * Returns a lower case list of all the nicks on the user watch list.
          */
         QStringList getWatchList();
         /**
@@ -405,7 +398,7 @@ class Server : public QObject
 
         //These are really only here to limit where ircqueue.h is included
 
-    signals:
+    Q_SIGNALS:
         void destroyed(int connectionId);
         void nicknameChanged(const QString&);
         void serverLag(Server* server,int msec);  /// will be connected to KonversationMainWindow::updateLag()
@@ -463,7 +456,7 @@ class Server : public QObject
         void addDccPanel();
         void addDccChat(Konversation::DCC::Chat *chat);
 
-    public slots:
+    public Q_SLOTS:
         void connectToIRCServer();
         void connectToIRCServerIn(uint delay);
 
@@ -491,13 +484,13 @@ class Server : public QObject
         void requestBan(const QStringList& users,const QString& channel,const QString& option);
         void requestUnban(const QString& mask,const QString& channel);
 
-        void addDccSend(const QString &recipient, KUrl fileURL, bool passive = Preferences::self()->dccPassiveSend(), const QString &altFileName = QString(), quint64 fileSize = 0);
+        void addDccSend(const QString &recipient, QUrl fileURL, bool passive = Preferences::self()->dccPassiveSend(), const QString &altFileName = QString(), quint64 fileSize = 0);
         void removeQuery(Query *query);
         void notifyListStarted(int serverGroupId);
         void startNotifyTimer(int msec=0);
         void notifyTimeout();
         void sendJoinCommand(const QString& channelName, const QString& password = QString());
-        void requestAway(const QString& reason = "");
+        void requestAway(const QString& reason = QString());
         void requestUnaway();
         void requestChannelList();
         void requestWhois(const QString& nickname);
@@ -547,7 +540,7 @@ class Server : public QObject
         void capDenied(const QString& name);
         void sendAuthenticate(const QString& message);
 
-    protected slots:
+    protected Q_SLOTS:
         void hostFound();
         void preShellCommandExited(int exitCode, QProcess::ExitStatus exitStatus);
         void preShellCommandError(QProcess::ProcessError eror);
@@ -603,9 +596,6 @@ class Server : public QObject
         /// Update the encoding shown in the mainwindow's actions
         void updateEncoding();
 
-        /// Update the NickInfos from the address book
-        void updateNickInfoAddressees();
-
         /** Called when the NickInfo changed timer times out.
           * Emits the nickInfoChanged() signal for all changed NickInfos
           */
@@ -617,7 +607,7 @@ class Server : public QObject
 
         void requestOpenChannelListPanel(const QString& filter);
 
-    private slots:
+    private Q_SLOTS:
         void collectStats(int bytes, int encodedBytes);
 
         /** Called in the server constructor if the preferences are set to run a command on a new server instance.
@@ -658,8 +648,6 @@ class Server : public QObject
 
         /**
         * Display offline notification for a certain nickname. The function doesn't change NickInfo objects.
-        * If NickInfoPtr is given, then also the integration with KAddressBook is engaged (i.e. the
-        * nick is marked as away)
         * @param nickname           The nickname that is offline
         * @param nickInfo           Pointer to NickInfo for nick
         */
@@ -679,7 +667,6 @@ class Server : public QObject
          * Removes it from all channels on the joined and unjoined lists.
          * If the nick is in the watch list, and went offline, emits a signal,
          * posts a Notify message, and posts a KNotify.
-         * If the nick is in the addressbook, and went offline, informs addressbook of change.
          * If the nick goes offline, the NickInfo is deleted.
          *
          * @param nickname     The nickname.  Case sensitive.
@@ -794,8 +781,7 @@ class Server : public QObject
         /// Creates a list of known users and returns the one chosen by the user
         inline QString recipientNick() const;
 
-        /// Helper object to construct ISON (notify) list and map offline nicks to
-        /// addressbook.
+        /// Helper object to construct ISON (notify) list.
         ServerISON* m_serverISON;
         /// All nicks known to this server.  Note this is NOT a list of all nicks on the server.
         /// Any nick appearing in this list is online, but may not necessarily appear in

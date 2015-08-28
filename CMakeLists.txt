@@ -1,55 +1,82 @@
 project(konversation)
 
-#paranoid?
-cmake_minimum_required(VERSION 2.6.2)
+cmake_minimum_required (VERSION 2.8.12 FATAL_ERROR)
+set (QT_MIN_VERSION "5.3.0")
+set(KF5_MIN_VERSION "5.2.0")
 
-set(KDE_MIN_VERSION "4.7.0")
-#atm this gets us FindQt4 and FindX11 (provided that the default cmake FindQt4 doesn't get used)
-find_package(KDE4 ${KDE_MIN_VERSION} REQUIRED)
-find_package(KdepimLibs REQUIRED)
-include(KDE4Defaults)
-include(MacroLibrary)
+find_package(ECM 1.2.0 REQUIRED NO_MODULE)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
+
 include(CheckIncludeFile)
-include(CMakeDependentOption)
+include(KDEInstallDirs)
+include(KDECMakeSettings)
+include(KDECompilerSettings)
+include(ECMInstallIcons)
+include(FeatureSummary)
 
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
-add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
+find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED Core Widgets)
 
-string(TOLOWER ${CMAKE_BUILD_TYPE} CMAKE_BUILD_TYPE_TOLOWER)
-    if(CMAKE_BUILD_TYPE_TOLOWER MATCHES debugfull)
-    add_definitions (-DQT_STRICT_ITERATORS)
-endif()
+find_package(KF5 ${KF5_MIN_VERSION} REQUIRED
+    Archive
+    Bookmarks
+    Config
+    ConfigWidgets
+    CoreAddons
+    DocTools
+    Emoticons
+    I18n
+    IdleTime
+    NotifyConfig
+    KIO
+    Parts
+    Solid
+    Sonnet
+    Wallet
+    WidgetsAddons
+    GlobalAccel
+    DBusAddons
+    Notifications
+    WindowSystem
+    IconThemes
+    ItemViews
+)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${KDE4_INCLUDES} ${KDE4_INCLUDE_DIR} ${QT_INCLUDES} ${KDEPIMLIBS_INCLUDE_DIRS})
+find_package(Phonon4Qt5 4.6.60 REQUIRED)
+include_directories(${PHONON_INCLUDES})
 
-macro_optional_find_package(QCA2)
-macro_bool_to_01(QCA2_FOUND HAVE_QCA2)
-macro_log_feature(QCA2_FOUND "QCA" "Qt Cryptographic Architecture" "http://delta.affinix.com/qca" FALSE "2.0.0" "Required for using encryption in IRC")
-
+find_package(Qca-qt5 2.1.0)
+set_package_properties(Qca-qt5 PROPERTIES DESCRIPTION "Support for encryption"
+                       URL "http://download.kde.org/stable/qca-qt5/"
+                       TYPE OPTIONAL)
 check_include_file("stropts.h" HAVE_STROPTS_H)
 check_include_file("byteswap.h" HAVE_BYTESWAP_H)
 check_include_file("sys/endian.h" HAVE_SYS_ENDIAN_H)
 
 configure_file(config-konversation.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-konversation.h )
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
+set(HAVE_QCA2 ${Qca-qt5_FOUND})
+
+add_definitions(
+  -DQT_USE_QSTRINGBUILDER
+  -DQT_NO_CAST_TO_ASCII
+  -DQT_STRICT_ITERATORS
+  -DQT_NO_URL_CAST_FROM_STRING
+  -DQT_NO_CAST_FROM_BYTEARRAY
+# -DQT_NO_SIGNALS_SLOTS_KEYWORDS FIXME KF5 Port: QCA includes cause trouble.
+  -DQT_USE_FAST_OPERATOR_PLUS
+)
 
 add_subdirectory(src)
 add_subdirectory(data)
 add_subdirectory(doc)
 
-get_filename_component(_po_path po ABSOLUTE)
+ki18n_install(po)
+
 get_filename_component(_doc_translations_path doc-translations ABSOLUTE)
-
-if (EXISTS ${_po_path}/CMakeLists.txt OR EXISTS ${_doc_translations_path}/CMakeLists.txt)
-    find_package(Msgfmt REQUIRED)
-    find_package(Gettext REQUIRED)
-endif()
-
-if (EXISTS ${_po_path}/CMakeLists.txt)
-    add_subdirectory(po)
-endif()
 
 if (EXISTS ${_doc_translations_path}/CMakeLists.txt)
     add_subdirectory(doc-translations)
 endif()
 
-macro_display_feature_log()
+feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)

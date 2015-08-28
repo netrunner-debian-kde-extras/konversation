@@ -17,21 +17,23 @@
 
 #include <QHeaderView>
 
+#include <KSharedConfig>
+#include <KConfigGroup>
 
 static const int WarningNameRole = Qt::UserRole + 100;
 
-Warnings_Config::Warnings_Config(QWidget* parent, const char* name, Qt::WFlags fl)
+Warnings_Config::Warnings_Config(QWidget* parent, const char* name, Qt::WindowFlags fl)
     : QWidget(parent, fl)
 {
     setObjectName(QString::fromLatin1(name));
     setupUi(this);
 
-    dialogListView->header()->setClickable(false);
-    dialogListView->header()->setMovable(false);
+    dialogListView->header()->setSectionsClickable(false);
+    dialogListView->header()->setSectionsMovable(false);
 
     loadSettings();
 
-    connect(dialogListView, SIGNAL(itemChanged(QTreeWidgetItem*,int)), SIGNAL(modified()));
+    connect(dialogListView, &QTreeWidget::itemChanged, this, &Warnings_Config::modified);
 }
 
 Warnings_Config::~Warnings_Config()
@@ -58,7 +60,7 @@ void Warnings_Config::restorePageToDefaults()
 
 void Warnings_Config::saveSettings()
 {
-    KSharedConfigPtr config = KGlobal::config();
+    KSharedConfigPtr config = KSharedConfig::openConfig();
     KConfigGroup grp = config->group("Notification Messages");
 
     // prepare list
@@ -204,7 +206,7 @@ void Warnings_Config::loadSettings()
 
     dialogListView->clear();
 
-    KSharedConfigPtr config = KGlobal::config();
+    KSharedConfigPtr config = KSharedConfig::openConfig();
     KConfigGroup grp =  config->group("Notification Messages");
 
     for (int i = 0; i < definitionsCount; ++i)
@@ -264,4 +266,4 @@ void Warnings_Config::languageChange()
     loadSettings();
 }
 
-#include "warnings_config.moc"
+

@@ -16,16 +16,16 @@
 #include "identity.h"
 #include "common.h"
 
-#include <kvbox.h>
-
 #include <QFile>
+#include <QWidget>
+#include <QVBoxLayout>
 
 
 class IRCView;
 class IRCInput;
 class Server;
 
-class ChatWindow : public KVBox
+class ChatWindow : public QWidget
 {
     Q_OBJECT
 
@@ -81,6 +81,7 @@ class ChatWindow : public KVBox
 
         void setType(WindowType newType);
         WindowType getType() const;
+        virtual bool isTopLevelView() const;
 
         virtual void sendText(const QString& /*text*/) {}
 
@@ -131,12 +132,15 @@ class ChatWindow : public KVBox
          */
         virtual bool areIRCColorsSupported() {return false; }
 
-        Konversation::TabNotifyType currentTabNotification() { return m_currentTabNotify; }
+        Konversation::TabNotifyType currentTabNotification() const { return m_currentTabNotify; }
         QColor highlightColor();
 
         void msgHelper(const QString& recipient, const QString& message);
 
-    signals:
+        void setMargin(int margin) { layout()->setMargin(margin); }
+        void setSpacing(int spacing) { layout()->setSpacing(spacing); }
+
+    Q_SIGNALS:
         void nameChanged(ChatWindow* view, const QString& newName);
         //void online(ChatWindow* myself, bool state);
         /** Emit this signal when you want to change the status bar text for this tab.
@@ -150,7 +154,7 @@ class ChatWindow : public KVBox
 
         void closing(ChatWindow* myself);
 
-    public slots:
+    public Q_SLOTS:
         void updateAppearance();
 
         void logText(const QString& text);
@@ -171,11 +175,12 @@ class ChatWindow : public KVBox
         void activateTabNotification(Konversation::TabNotifyType type);
         void resetTabNotification();
 
-    protected slots:
+    protected Q_SLOTS:
         ///Used to disable functions when not connected
         virtual void serverOnline(bool online);
 
     protected:
+        virtual void childEvent(QChildEvent* event);
 
         /** Some children may handle the name themselves, and not want this public.
          *  Increase the visibility in the subclass if you want outsiders to call this.
@@ -210,6 +215,8 @@ class ChatWindow : public KVBox
         Server* m_server;
         QFile logfile;
         WindowType type;
+
+        bool m_isTopLevelView;
 
         bool m_notificationsEnabled;
 

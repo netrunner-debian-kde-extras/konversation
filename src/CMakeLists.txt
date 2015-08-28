@@ -1,10 +1,5 @@
-
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/config)
-include_directories(config dcc irc viewer linkaddressbook upnp)
-
-if (QCA2_FOUND)
-    include_directories(${QCA2_INCLUDE_DIR})
-endif (QCA2_FOUND)
+include_directories(config dcc irc viewer upnp)
 
 set(core_SRCS
     #====================================
@@ -68,7 +63,7 @@ set (irc_SRCS
     irc/serversettings.cpp
 )
 
-kde4_add_ui_files(irc_SRCS
+ki18n_wrap_ui(irc_SRCS
     irc/channellistpanelui.ui
     irc/channeldialogui.ui
     irc/joinchannelui.ui
@@ -96,7 +91,7 @@ set(config_SRCS
     config/connectionbehavior_config.cpp
 )
 
-kde4_add_ui_files(config_SRCS
+ki18n_wrap_ui(config_SRCS
     config/alias_configui.ui
     config/autoreplace_configui.ui
     config/chatwindowappearance_config.ui
@@ -128,8 +123,6 @@ set(viewer_SRCS
     viewer/statuspanel.cpp
     viewer/ircviewbox.cpp
     viewer/viewcontainer.cpp
-    viewer/viewtree.cpp
-    viewer/viewtreeitem.cpp
     viewer/pasteeditor.cpp
     viewer/highlight.cpp
     viewer/highlightviewitem.cpp
@@ -152,59 +145,50 @@ set(viewer_SRCS
     viewer/channeloptionsdialog.cpp
     viewer/topicedit.cpp
     viewer/topichistoryview.cpp
+    viewer/viewtree.cpp
 )
 
-kde4_add_ui_files(viewer_SRCS
+ki18n_wrap_ui(viewer_SRCS
     viewer/channeloptionsui.ui
     viewer/irccolorchooserui.ui
     viewer/pasteeditor.ui
 )
 
-    #=== DCC
+     #=== DCC
 set(dcc_SRCS
-    dcc/chat.cpp
-    dcc/chatcontainer.cpp
-    dcc/dcccommon.cpp
-    dcc/dccfiledialog.cpp
-    dcc/recipientdialog.cpp
-    dcc/resumedialog.cpp
-    dcc/transfer.cpp
-    dcc/transferdetailedinfopanel.cpp
-    dcc/transfermanager.cpp
-    dcc/transferpanel.cpp
-    dcc/transferrecv.cpp
-    dcc/transfersend.cpp
-    dcc/transferlistmodel.cpp
-    dcc/transferview.cpp
-    dcc/whiteboard.cpp
-    dcc/whiteboardcolorchooser.cpp
-    dcc/whiteboardfontchooser.cpp
-    dcc/whiteboardglobals.cpp
-    dcc/whiteboardpaintarea.cpp
-    dcc/whiteboardtoolbar.cpp
+     dcc/chat.cpp
+     dcc/chatcontainer.cpp
+     dcc/dcccommon.cpp
+     dcc/dccfiledialog.cpp
+     dcc/recipientdialog.cpp
+     dcc/resumedialog.cpp
+     dcc/transfer.cpp
+     dcc/transferdetailedinfopanel.cpp
+     dcc/transfermanager.cpp
+     dcc/transferpanel.cpp
+     dcc/transferrecv.cpp
+     dcc/transfersend.cpp
+     dcc/transferlistmodel.cpp
+     dcc/transferview.cpp
+     dcc/whiteboard.cpp
+     dcc/whiteboardcolorchooser.cpp
+     dcc/whiteboardfontchooser.cpp
+     dcc/whiteboardglobals.cpp
+     dcc/whiteboardpaintarea.cpp
+     dcc/whiteboardtoolbar.cpp
 )
 
-kde4_add_ui_files(dcc_SRCS
-    dcc/transferdetailedinfopanelui.ui
-    dcc/transferdetailedtimeinfopanelui.ui
-    dcc/whiteboardtoolbarui.ui
-    dcc/whiteboardfontchooserui.ui
+ki18n_wrap_ui(dcc_SRCS
+     dcc/transferdetailedinfopanelui.ui
+     dcc/transferdetailedtimeinfopanelui.ui
+     dcc/whiteboardtoolbarui.ui
+     dcc/whiteboardfontchooserui.ui
 )
 
-set(linkaddressbook_SRCS
-    linkaddressbook/linkaddressbookui.cpp
-    linkaddressbook/addressbook_base.cpp
-    linkaddressbook/addressbook.cpp
-    linkaddressbook/addresseeitem.cpp
-)
-
-kde4_add_ui_files(linkaddressbook_SRCS
-    linkaddressbook/linkaddressbookui_base.ui
-)
-if (QCA2_FOUND)
+if (Qca-qt5_FOUND)
     set(cipher_SRCS
         cipher.cpp)
-endif (QCA2_FOUND)
+endif (Qca-qt5_FOUND)
 
 set(upnp_SRCS
     upnp/soap.cpp
@@ -213,28 +197,46 @@ set(upnp_SRCS
     upnp/upnprouter.cpp
 )
 
-set (completed_SRCS ${core_SRCS} ${irc_SRCS} ${viewer_SRCS} ${config_SRCS} ${dcc_SRCS} ${linkaddressbook_SRCS} ${cipher_SRCS} ${upnp_SRCS})
+set (completed_SRCS ${core_SRCS} ${irc_SRCS} ${viewer_SRCS} ${config_SRCS} ${cipher_SRCS} ${upnp_SRCS} ${dcc_SRCS})
 set (konversation_SRCS ${completed_SRCS})
 
-kde4_add_ui_files(konversation_SRCS
+ki18n_wrap_ui(konversation_SRCS
     identitydialog.ui
     queuetunerbase.ui
     viewer/searchbarbase.ui
 )
 
-kde4_add_kcfg_files(konversation_SRCS config/preferences_base.kcfgc)
+kconfig_add_kcfg_files(konversation_SRCS config/preferences_base.kcfgc)
 
-kde4_add_app_icon(konversation_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../data/images/icons/hi*-app-konversation.png")
+add_executable(konversation ${konversation_SRCS})
 
-kde4_add_executable(konversation ${konversation_SRCS})
+target_link_libraries(konversation
+    Qt5::Widgets
+    KF5::Archive
+    KF5::Bookmarks
+    KF5::ConfigWidgets
+    KF5::Emoticons
+    KF5::I18n
+    KF5::IdleTime
+    KF5::NotifyConfig
+    KF5::KIOFileWidgets
+    KF5::KIOWidgets
+    KF5::Parts
+    KF5::Solid
+    KF5::SonnetCore
+    KF5::Wallet
+    KF5::WidgetsAddons
+    KF5::GlobalAccel
+    KF5::DBusAddons
+    KF5::CoreAddons
+    KF5::Notifications
+    KF5::WindowSystem
+    KF5::IconThemes
+    KF5::ItemViews
+    Phonon::phonon4qt5)
 
-target_link_libraries(konversation ${KDE4_KIO_LIBS} ${KDE4_KPARTS_LIBS}
-                                   ${KDE4_KDE3SUPPORT_LIBS} ${KDE4_KABC_LIBS}
-                                   ${KDE4_KNOTIFYCONFIG_LIBRARY} ${PHONON_LIBRARY} ${KDE4_SOLID_LIBS}
-                                   ${KDE4_KIDLETIME_LIBS} ${KDE4_KEMOTICONS_LIBS})
-
-if (QCA2_FOUND)
-    target_link_libraries(konversation ${QCA2_LIBRARIES})
-endif (QCA2_FOUND)
+if (Qca-qt5_FOUND)
+    target_link_libraries(konversation qca-qt5)
+endif ()
 
 install(TARGETS konversation ${INSTALL_TARGETS_DEFAULT_ARGS})

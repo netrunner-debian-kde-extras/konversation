@@ -19,14 +19,13 @@
 #include <QStringList>
 #include <QAbstractListModel>
 
-#include <kdialog.h>
+#include <QDialog>
 
 
 namespace Konversation
 {
-    class TopicListModel;
 
-    class ChannelOptionsDialog : public KDialog
+    class ChannelOptionsDialog : public QDialog
     {
         Q_OBJECT
             public:
@@ -43,7 +42,7 @@ namespace Konversation
              */
             static QString whatsThisForMode(char mode);
 
-        public slots:
+        public Q_SLOTS:
             void refreshAllowedChannelModes();
             void refreshModes();
             void refreshEnableModes(bool forceUpdate = false);
@@ -60,7 +59,7 @@ namespace Konversation
 
             void changeOptions();
 
-        protected slots:
+        protected Q_SLOTS:
             void topicHistoryItemClicked(const QItemSelection& selection);
             void topicBeingEdited(bool edited);
 

@@ -21,14 +21,12 @@
 */
 
 #include "topichistoryview.h"
+#include "application.h"
 #include "irccontextmenus.h"
 #include "topichistorymodel.h"
 
 #include <KCategoryDrawer>
 
-#if !KDE_IS_VERSION(4, 8, 0)
-#include <QScrollBar>
-#endif
 
 #define MARGIN 2
 
@@ -151,8 +149,10 @@ bool TopicHistoryItemDelegate::eventFilter(QObject* watched, QEvent* event)
     return false;
 }
 
-QList<QWidget*> TopicHistoryItemDelegate::createItemWidgets() const
+QList<QWidget*> TopicHistoryItemDelegate::createItemWidgets(const QModelIndex& index) const
 {
+    Q_UNUSED(index)
+
     QList<QWidget*> widgets;
 
     TopicHistoryLabel* label = new TopicHistoryLabel();
@@ -217,7 +217,7 @@ TopicHistoryView::TopicHistoryView(QWidget* parent): KCategorizedView(parent)
 
     m_textSelectable = false;
 
-    setCategoryDrawer(new KCategoryDrawerV3(this));
+    setCategoryDrawer(new KCategoryDrawer(this));
 
     setModelColumn(0);
 
@@ -237,7 +237,7 @@ TopicHistoryView::TopicHistoryView(QWidget* parent): KCategorizedView(parent)
                       "entry selection mode and a synchronized edit field, undo back to the "
                       "original text or close and reopen the dialog."));
 
-    connect(KGlobalSettings::self(), SIGNAL(appearanceChanged()), this, SLOT(updateSelectedItemWidgets()));
+    connect(Application::instance(), &Application::appearanceChanged, this, &TopicHistoryView::updateSelectedItemWidgets);
 }
 
 TopicHistoryView::~TopicHistoryView()
@@ -322,33 +322,7 @@ void TopicHistoryView::updateSelectedItemWidgets()
 
 void TopicHistoryView::updateGeometries()
 {
-#if !KDE_IS_VERSION(4, 8, 0)
-     const Qt::ScrollBarPolicy verticalP = verticalScrollBarPolicy(), horizontalP = horizontalScrollBarPolicy();
-
-    if (m_proxyModel->isCategorizedModel())
-    {
-        setVerticalScrollBarPolicy((verticalP == Qt::ScrollBarAlwaysOn || verticalScrollBar()->isVisibleTo(this)) ?
-            Qt::ScrollBarAlwaysOn : Qt::ScrollBarAlwaysOff);
-        setHorizontalScrollBarPolicy((horizontalP == Qt::ScrollBarAlwaysOn || horizontalScrollBar()->isVisibleTo(this)) ?
-            Qt::ScrollBarAlwaysOn : Qt::ScrollBarAlwaysOff);
-    }
-#endif
     KCategorizedView::updateGeometries();
-#if !KDE_IS_VERSION(4, 8, 0)
-    if (!m_proxyModel->isCategorizedModel())
-        return;
-
-    setVerticalScrollBarPolicy(verticalP);
-    setHorizontalScrollBarPolicy(horizontalP);
-
-    bool validRange = verticalScrollBar()->maximum() != verticalScrollBar()->minimum();
-
-    if (verticalP == Qt::ScrollBarAsNeeded && (verticalScrollBar()->isVisibleTo(this) != validRange))
-        verticalScrollBar()->setVisible(validRange);
-    validRange = horizontalScrollBar()->maximum() > horizontalScrollBar()->minimum();
-    if (horizontalP == Qt::ScrollBarAsNeeded && (horizontalScrollBar()->isVisibleTo(this) != validRange))
-        horizontalScrollBar()->setVisible(validRange);
-#endif
 
     setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 }

@@ -18,20 +18,34 @@
 #include <QCheckBox>
 
 #include <KLineEdit>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <KGuiItem>
+#include <QVBoxLayout>
 
 
 QuickConnectDialog::QuickConnectDialog(QWidget *parent)
-:KDialog(parent)
+:QDialog(parent)
 {
-    showButtonSeparator( true );
-    setButtons( KDialog::Ok | KDialog::Cancel );
-    setDefaultButton( KDialog::Ok );
-    setCaption(  i18n("Quick Connect") );
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    QWidget *mainWidget = new QWidget(this);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
+    mainLayout->addWidget(mainWidget);
+    mOkButton = buttonBox->button(QDialogButtonBox::Ok);
+    mOkButton->setDefault(true);
+    mOkButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &QuickConnectDialog::slotOk);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QuickConnectDialog::reject);
+    mainLayout->addWidget(buttonBox);
+    buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
+    setWindowTitle(  i18n("Quick Connect") );
     setModal( true );
-    QWidget* page = mainWidget();
+    QWidget* page = mainWidget;
 
-    QGridLayout* layout = new QGridLayout(mainWidget());
-    layout->setSpacing(spacingHint());
+    QGridLayout* layout = new QGridLayout(mainWidget);
+    //QT5 layout->setSpacing(spacingHint());
 
     QLabel* hostNameLabel = new QLabel(i18n("&Server host:"), page);
     QString hostNameWT = i18n("Enter the host of the network here.");
@@ -44,7 +58,7 @@ QuickConnectDialog::QuickConnectDialog(QWidget *parent)
     QLabel* portLabel = new QLabel(i18n("&Port:"), page);
     QString portWT = i18n("The port that the IRC server is using.");
     portLabel->setWhatsThis(portWT);
-    portInput = new KLineEdit("6667", page );
+    portInput = new KLineEdit(QStringLiteral("6667"), page );
     portInput->setWhatsThis(portWT);
     portLabel->setBuddy(portInput);
     portLabel->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
@@ -67,7 +81,7 @@ QuickConnectDialog::QuickConnectDialog(QWidget *parent)
     passwordLabel->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
     sslCheckBox = new QCheckBox(page);
-    sslCheckBox->setObjectName("sslCheckBox");
+    sslCheckBox->setObjectName(QStringLiteral("sslCheckBox"));
     sslCheckBox->setText(i18n("&Use SSL"));
 
     layout->addWidget(hostNameLabel, 0, 0);
@@ -84,10 +98,9 @@ QuickConnectDialog::QuickConnectDialog(QWidget *parent)
 
     hostNameInput->setFocus();
 
-    setButtonGuiItem(KDialog::Ok, KGuiItem(i18n("C&onnect"),"network-connect",i18n("Connect to the server")));
+    KGuiItem::assign(mOkButton, KGuiItem(i18n("C&onnect"),QStringLiteral("network-connect"),i18n("Connect to the server")));
 
-    connect(this, SIGNAL(okClicked()), this, SLOT(slotOk()));
-    connect( hostNameInput, SIGNAL(textChanged(QString)),this,SLOT(slotServerNameChanged(QString)) );
+    connect(hostNameInput, &KLineEdit::textChanged, this, &QuickConnectDialog::slotServerNameChanged);
     slotServerNameChanged( hostNameInput->text() );
 }
 
@@ -97,7 +110,7 @@ QuickConnectDialog::~QuickConnectDialog()
 
 void QuickConnectDialog::slotServerNameChanged( const QString &text )
 {
-    enableButtonOk( !text.isEmpty() );
+    mOkButton->setEnabled( !text.isEmpty() );
 }
 
 void QuickConnectDialog::slotOk()
@@ -112,10 +125,18 @@ void QuickConnectDialog::slotOk()
                             portInput->text(),
                             passwordInput->text(),
                             nickInput->text(),
-                            "",
+                            QString(),
                             sslCheckBox->isChecked());
         delayedDestruct();
     }
 }
 
-#include "quickconnectdialog.moc"
+void QuickConnectDialog::delayedDestruct()
+{
+    if (isVisible()) {
+        hide();
+    }
+
+    deleteLater();
+}
+

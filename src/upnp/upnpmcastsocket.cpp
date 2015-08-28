@@ -14,15 +14,18 @@
 
 #include <QStringList>
 
-#include <KUrl>
-#include <KDebug>
+#include <QUrl>
+#include <QDebug>
 
+
+#ifdef Q_OS_WIN
+#include <winsock.h>
+#else
 #include <unistd.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-#ifndef Q_WS_WIN
 #include <netinet/in_systm.h>
 #include <netinet/ip.h>
 #endif
@@ -33,15 +36,15 @@ namespace Konversation
     namespace UPnP
     {
 
-        UPnPMCastSocket::UPnPMCastSocket()
+        UPnPMCastSocket::UPnPMCastSocket() : QUdpSocket ()
         {
-            QObject::connect(this,SIGNAL(readyRead()),this,SLOT(onReadyRead()));
-            QObject::connect(this,SIGNAL(error(QAbstractSocket::SocketError)),this,SLOT(error(QAbstractSocket::SocketError)));
+            QObject::connect(this, &UPnPMCastSocket::readyRead, this, &UPnPMCastSocket::onReadyRead);
+            QObject::connect(this, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(onError(QAbstractSocket::SocketError)));
 
             for (quint32 i = 0;i < 10;i++)
             {
                 if (!bind(1900 + i,QUdpSocket::ShareAddress))
-                    kDebug() << "Cannot bind to UDP port 1900 : " << errorString() << endl;
+                    qDebug() << "Cannot bind to UDP port 1900 : " << errorString() << endl;
                 else
                     break;
             }
@@ -59,7 +62,7 @@ namespace Konversation
 
         void UPnPMCastSocket::discover()
         {
-            kDebug() << "Trying to find UPnP devices on the local network" << endl;
+            qDebug() << "Trying to find UPnP devices on the local network" << endl;
 
             // send a HTTP M-SEARCH message to 239.255.255.250:1900
             const char* data = "M-SEARCH * HTTP/1.1\r\n"
@@ -117,9 +120,9 @@ namespace Konversation
 
         UPnPRouter* UPnPMCastSocket::parseResponse(const QByteArray & arr)
         {
-            QStringList lines = QString::fromAscii(arr).split("\r\n");
+            QStringList lines = QString::fromLatin1(arr).split("\r\n");
             QString server;
-            KUrl location;
+            QUrl location;
             QString uuid;
 
             // first read first line and see if contains a HTTP 200 OK message
@@ -145,7 +148,7 @@ namespace Konversation
             }
             if (!validDevice)
             {
-            //	kDebug() << "Not a valid Internet Gateway Device" << endl;
+            //	qDebug() << "Not a valid Internet Gateway Device" << endl;
                 return 0;
             }
 
@@ -155,7 +158,7 @@ namespace Konversation
                 line = lines[i];
                 if (line.startsWith(QLatin1String("Location"), Qt::CaseInsensitive))
                 {
-                    location = line.mid(line.indexOf(':') + 1).trimmed();
+                    location = QUrl(line.mid(line.indexOf(':') + 1).trimmed());
                     if (!location.isValid())
                         return 0;
                 }
@@ -181,15 +184,15 @@ namespace Konversation
             }
             else
             {
-                kDebug() << "Detected IGD " << server << "UUID" << uuid << endl;
+                qDebug() << "Detected IGD " << server << "UUID" << uuid << endl;
                 // everything OK, make a new UPnPRouter
                 return new UPnPRouter(server,location,uuid);
             }
         }
 
-        void UPnPMCastSocket::error(QAbstractSocket::SocketError )
+        void UPnPMCastSocket::onError(QAbstractSocket::SocketError )
         {
-            kDebug() << "UPnPMCastSocket Error : " << errorString() << endl;
+            qDebug() << "UPnPMCastSocket Error : " << errorString() << endl;
         }
 
         void UPnPMCastSocket::joinUPnPMCastGroup()
@@ -199,16 +202,16 @@ namespace Konversation
 
             memset(&mreq,0,sizeof(struct ip_mreq));
 
-            inet_aton("239.255.255.250",&mreq.imr_multiaddr);
+            mreq.imr_multiaddr.s_addr = inet_addr("239.255.255.250");
             mreq.imr_interface.s_addr = htonl(INADDR_ANY);
 
-    #ifndef Q_WS_WIN
+    #ifndef Q_OS_WIN
             if (setsockopt(fd,IPPROTO_IP,IP_ADD_MEMBERSHIP,&mreq,sizeof(struct ip_mreq)) < 0)
     #else
             if (setsockopt(fd,IPPROTO_IP,IP_ADD_MEMBERSHIP,(char *)&mreq,sizeof(struct ip_mreq)) < 0)
     #endif
             {
-                kDebug() << "Failed to join multicast group 239.255.255.250" << endl;
+                qDebug() << "Failed to join multicast group 239.255.255.250" << endl;
             }
         }
 
@@ -219,16 +222,16 @@ namespace Konversation
 
             memset(&mreq,0,sizeof(struct ip_mreq));
 
-            inet_aton("239.255.255.250",&mreq.imr_multiaddr);
+            mreq.imr_multiaddr.s_addr = inet_addr("239.255.255.250");
             mreq.imr_interface.s_addr = htonl(INADDR_ANY);
 
-    #ifndef Q_WS_WIN
+    #ifndef Q_OS_WIN
             if (setsockopt(fd,IPPROTO_IP,IP_DROP_MEMBERSHIP,&mreq,sizeof(struct ip_mreq)) < 0)
     #else
             if (setsockopt(fd,IPPROTO_IP,IP_DROP_MEMBERSHIP,(char *)&mreq,sizeof(struct ip_mreq)) < 0)
     #endif
             {
-                kDebug() << "Failed to leave multicast group 239.255.255.250" << endl;
+                qDebug() << "Failed to leave multicast group 239.255.255.250" << endl;
             }
         }
     }
@@ -236,4 +239,4 @@ namespace Konversation
 
 
 
-#include "upnpmcastsocket.moc"
+

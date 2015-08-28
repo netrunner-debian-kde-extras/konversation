@@ -20,7 +20,7 @@
 
 int Identity::s_availableId = 0;
 
-Identity::Identity() : KShared()
+Identity::Identity() : QSharedData()
 {
     m_id = s_availableId;
     s_availableId++;
@@ -28,7 +28,7 @@ Identity::Identity() : KShared()
     init();
 }
 
-Identity::Identity(int id) : KShared()
+Identity::Identity(int id) : QSharedData()
 {
     if (id < 0)
     {
@@ -43,7 +43,7 @@ Identity::Identity(int id) : KShared()
     init();
 }
 
-Identity::Identity(const Identity& original) : KShared()
+Identity::Identity(const Identity& original) : QSharedData()
 {
     copy(original);
     m_id = original.id();
@@ -55,19 +55,19 @@ Identity::~Identity()
 
 void Identity::init()
 {
-    setAuthType("nickserv");
-    setNickservNickname("nickserv");
-    setNickservCommand("identify");
+    setAuthType(QStringLiteral("nickserv"));
+    setNickservNickname(QStringLiteral("nickserv"));
+    setNickservCommand(QStringLiteral("identify"));
 
     setCodecName(Konversation::IRCCharsets::self()->encodingForLocale());
 
     setInsertRememberLineOnAway(false);
 
-    setQuitReason("Konversation terminated!");
-    setPartReason("Konversation terminated!");
-    setKickReason("User terminated!");
+    setQuitReason(QStringLiteral("Konversation terminated!"));
+    setPartReason(QStringLiteral("Konversation terminated!"));
+    setKickReason(QStringLiteral("User terminated!"));
 
-    setAwayMessage("Gone away for now");
+    setAwayMessage(QStringLiteral("Gone away for now"));
 
     setRunAwayCommands(false);
 
@@ -129,8 +129,8 @@ void Identity::setNickservCommand(const QString& nickservCommand) { m_nickservCo
 QString Identity::getNickservCommand() const                      { return m_nickservCommand; }
 void Identity::setSaslAccount(const QString& saslAccount) { m_saslAccount = saslAccount; }
 QString Identity::getSaslAccount() const                  { return m_saslAccount; }
-void Identity::setPemClientCertFile(const KUrl& url)      { m_pemClientCertFile = url; }
-KUrl Identity::getPemClientCertFile() const               { return m_pemClientCertFile; }
+void Identity::setPemClientCertFile(const QUrl &url)      { m_pemClientCertFile = url; }
+QUrl Identity::getPemClientCertFile() const               { return m_pemClientCertFile; }
 
 void Identity::setQuitReason(const QString& reason)     { quitReason=reason; }
 QString Identity::getQuitReason() const                 { return quitReason; }

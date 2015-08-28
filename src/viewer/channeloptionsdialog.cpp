@@ -26,24 +26,39 @@
 #include <QKeyEvent>
 #include <QItemSelectionModel>
 #include <QTreeWidget>
+#include <KSharedConfig>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QVBoxLayout>
+#include <QLocale>
 
 namespace Konversation
 {
     ChannelOptionsDialog::ChannelOptionsDialog(Channel *channel)
-        : KDialog(channel)
+        : QDialog(channel)
     {
-        setCaption(  i18n("Channel Settings for %1", channel->getName() ) );
-        setButtons( KDialog::Ok|KDialog::Cancel );
-        setDefaultButton( KDialog::Ok );
+        setWindowTitle(  i18n("Channel Settings for %1", channel->getName() ) );
+        QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+        QWidget *mainWidget = new QWidget(this);
+        QVBoxLayout *mainLayout = new QVBoxLayout;
+        setLayout(mainLayout);
+        mainLayout->addWidget(mainWidget);
+        QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+        okButton->setDefault(true);
+        okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+        connect(buttonBox, &QDialogButtonBox::accepted, this, &ChannelOptionsDialog::changeOptions);
+        connect(buttonBox, &QDialogButtonBox::rejected, this, &ChannelOptionsDialog::reject);
+        mainLayout->addWidget(buttonBox);
+        buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
 
         Q_ASSERT(channel);
         m_channel = channel;
 
-        m_ui.setupUi(mainWidget());
+        m_ui.setupUi(mainWidget);
 
-        m_ui.addBan->setIcon(KIcon("list-add"));
-        m_ui.updateBan->setIcon(KIcon("edit-rename"));
-        m_ui.removeBan->setIcon(KIcon("list-remove"));
+        m_ui.addBan->setIcon(QIcon::fromTheme("list-add"));
+        m_ui.updateBan->setIcon(QIcon::fromTheme("edit-rename"));
+        m_ui.removeBan->setIcon(QIcon::fromTheme("list-remove"));
 
         QStandardItemModel *modesModel = new QStandardItemModel(m_ui.otherModesList);
         m_ui.otherModesList->setModel(modesModel);
@@ -55,7 +70,7 @@ namespace Konversation
         m_ui.topicHistoryView->setServer(m_channel->getServer());
         m_ui.topicHistoryView->setModel(m_channel->getTopicHistory());
         m_ui.topicHistorySearchLine->setProxy(static_cast<QSortFilterProxyModel*>(m_ui.topicHistoryView->model()));
-        m_ui.topicHistorySearchLine->lineEdit()->setClickMessage("");
+        m_ui.topicHistorySearchLine->lineEdit()->setPlaceholderText(QString());
 
         m_editingTopic = false;
 
@@ -64,24 +79,22 @@ namespace Konversation
 
         connect(m_ui.topicHistoryView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
                 this, SLOT(topicHistoryItemClicked(QItemSelection)));
-        connect(m_ui.toggleAdvancedModes, SIGNAL(clicked()), this, SLOT(toggleAdvancedModes()));
-        connect(m_ui.topicEdit, SIGNAL(undoAvailable(bool)), this, SLOT(topicBeingEdited(bool)));
-        connect(this, SIGNAL(finished()), m_ui.topicEdit, SLOT(clear()));
+        connect(m_ui.toggleAdvancedModes, &QPushButton::clicked, this, &ChannelOptionsDialog::toggleAdvancedModes);
+        connect(m_ui.topicEdit, &TopicEdit::undoAvailable, this, &ChannelOptionsDialog::topicBeingEdited);
+        connect(this, &ChannelOptionsDialog::finished, m_ui.topicEdit, &TopicEdit::clear);
 
-        connect(m_channel, SIGNAL(modesChanged()), this, SLOT(refreshModes()));
+        connect(m_channel, &Channel::modesChanged, this, &ChannelOptionsDialog::refreshModes);
         connect(m_channel->getServer(), SIGNAL(channelNickChanged(QString)), this, SLOT(refreshEnableModes()));
 
-        connect(this, SIGNAL(okClicked()), this, SLOT(changeOptions()));
+        connect(m_channel, &Channel::banAdded, this, &ChannelOptionsDialog::addBan);
+        connect(m_channel, &Channel::banRemoved, this, &ChannelOptionsDialog::removeBan);
+        connect(m_channel, &Channel::banListCleared, m_ui.banList, &QTreeWidget::clear);
 
-        connect(m_channel, SIGNAL(banAdded(QString)), this, SLOT(addBan(QString)));
-        connect(m_channel, SIGNAL(banRemoved(QString)), this, SLOT(removeBan(QString)));
-        connect(m_channel, SIGNAL(banListCleared()), m_ui.banList, SLOT(clear()));
-
-        connect(m_ui.addBan, SIGNAL(clicked()), this, SLOT(addBanClicked()));
-        connect(m_ui.updateBan, SIGNAL(clicked()), this, SLOT(updateBanClicked()));
-        connect(m_ui.removeBan, SIGNAL(clicked()), this, SLOT(removeBanClicked()));
-        connect(m_ui.banList, SIGNAL(itemSelectionChanged()), this, SLOT(banSelectionChanged()));
-        connect(m_ui.hostmask, SIGNAL(textChanged(QString)), this, SLOT(hostmaskChanged(QString)));
+        connect(m_ui.addBan, &QPushButton::clicked, this, &ChannelOptionsDialog::addBanClicked);
+        connect(m_ui.updateBan, &QPushButton::clicked, this, &ChannelOptionsDialog::updateBanClicked);
+        connect(m_ui.removeBan, &QPushButton::clicked, this, &ChannelOptionsDialog::removeBanClicked);
+        connect(m_ui.banList, &QTreeWidget::itemSelectionChanged, this, &ChannelOptionsDialog::banSelectionChanged);
+        connect(m_ui.hostmask, &KLineEdit::textChanged, this, &ChannelOptionsDialog::hostmaskChanged);
 
         m_ui.topicModeChBox->setWhatsThis(whatsThisForMode('T'));
         m_ui.messageModeChBox->setWhatsThis(whatsThisForMode('N'));
@@ -95,7 +108,7 @@ namespace Konversation
 
         refreshBanList();
 
-        setInitialSize(QSize(450, 420));
+        resize(QSize(450, 420));
     }
 
     ChannelOptionsDialog::~ChannelOptionsDialog()
@@ -112,7 +125,7 @@ namespace Konversation
             if (!m_ui.topicEdit->isReadOnly())
                 m_ui.topicEdit->setFocus();
 
-            KConfigGroup config(KGlobal::config(), "ChannelOptionsDialog");
+            KConfigGroup config(KSharedConfig::openConfig(), "ChannelOptionsDialog");
 
             resize(config.readEntry("Size", sizeHint()));
 
@@ -124,19 +137,19 @@ namespace Konversation
             Preferences::restoreColumnState(m_ui.banList, "BanList ViewSettings");
         }
 
-        KDialog::showEvent(event);
+        QDialog::showEvent(event);
     }
 
     void ChannelOptionsDialog::hideEvent(QHideEvent* event)
     {
-        KConfigGroup config(KGlobal::config(), "ChannelOptionsDialog");
+        KConfigGroup config(KSharedConfig::openConfig(), "ChannelOptionsDialog");
 
         config.writeEntry("Size", size());
         config.writeEntry("SplitterSizes", m_ui.splitter->sizes());
 
         Preferences::saveColumnState(m_ui.banList, "BanList ViewSettings");
 
-        KDialog::hideEvent(event);
+        QDialog::hideEvent(event);
     }
 
     void ChannelOptionsDialog::changeOptions()
@@ -182,7 +195,7 @@ namespace Konversation
                 if (modeString[0] == 'k')
                     m_channel->getServer()->queue(command.arg(m_channel->getName()).arg("-").arg(modeString[0]).arg(modeString.mid(1)));
                 else
-                    m_channel->getServer()->queue(command.arg(m_channel->getName()).arg("-").arg(modeString[0]).arg(""));
+                    m_channel->getServer()->queue(command.arg(m_channel->getName()).arg("-").arg(modeString[0]).arg(QString()));
             }
         }
         hide();
@@ -194,11 +207,11 @@ namespace Konversation
         m_ui.otherModesList->setVisible(ison);
         if(ison)
         {
-            m_ui.toggleAdvancedModes->setText(i18n("&Hide Advanced Modes &lt;&lt;"));
+            m_ui.toggleAdvancedModes->setText(i18n("&Hide Advanced Modes <<"));
         }
         else
         {
-            m_ui.toggleAdvancedModes->setText(i18n("&Show Advanced Modes &gt;&gt;"));
+            m_ui.toggleAdvancedModes->setText(i18n("&Show Advanced Modes >>"));
         }
     }
 
@@ -320,7 +333,7 @@ namespace Konversation
         m_ui.moderatedModeChBox->setChecked(false);
         m_ui.secretModeChBox->setChecked(false);
         m_ui.keyModeChBox->setChecked(false);
-        m_ui.keyModeEdit->setText("");
+        m_ui.keyModeEdit->setText(QString());
 
         QStandardItemModel *modesModel = qobject_cast<QStandardItemModel *>(m_ui.otherModesList->model());
         for (int i = 0; i < modesModel->rowCount(); ++i)
@@ -540,7 +553,7 @@ namespace Konversation
         setText(0, label1);
         setText(1, label2);
         m_timestamp.setTime_t(timestamp);
-        setText(2, KGlobal::locale()->formatDateTime(m_timestamp, KLocale::ShortDate, true));
+        setText(2, QLocale().toString(m_timestamp, QLocale::ShortFormat));
         setData(2, Qt::UserRole, m_timestamp);
         parent->addTopLevelItem(this);
     }
@@ -580,9 +593,9 @@ QString Konversation::ChannelOptionsDialog::whatsThisForMode(char mode)
     case 'L':
         return i18n("<qt><p>These control the <em>mode</em> of the channel.  Only an operator can change these.</p><p>A channel that has a user <b>L</b>imit means that only that many users can be in the channel at any one time.  Some channels have a bot that sits in the channel and changes this automatically depending on how busy the channel is.</p></qt>");
     default:
-        kWarning() << "called for unknown mode" << mode;
+        qWarning() << "called for unknown mode" << mode;
         return QString();
     }
 }
 
-#include "channeloptionsdialog.moc"
+

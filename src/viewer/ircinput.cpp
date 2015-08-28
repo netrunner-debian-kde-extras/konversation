@@ -19,6 +19,7 @@
 #include <QClipboard>
 #include <QKeyEvent>
 #include <QMenu>
+#include <QMimeData>
 
 #include <KMessageBox>
 #include <KCompletionBox>
@@ -38,7 +39,7 @@ IRCInput::IRCInput(QWidget* parent) : KTextEdit(parent)
     //nor in compensating for it if my guess is incorrect. so, cache it.
     m_qtBoxPadding = document()->size().toSize().height() - fontMetrics().lineSpacing();
 
-    connect(KApplication::kApplication(), SIGNAL(appearanceChanged()), this, SLOT(updateAppearance()));
+    connect(qApp, SIGNAL(appearanceChanged()), this, SLOT(updateAppearance()));
     m_multiRow = Preferences::self()->useMultiRowInputBox();
 
     // add one empty line to the history (will be overwritten with newest entry)
@@ -48,7 +49,7 @@ IRCInput::IRCInput(QWidget* parent) : KTextEdit(parent)
     // reset completion mode
     setCompletionMode('\0');
     completionBox = new KCompletionBox(this);
-    connect(completionBox, SIGNAL(activated(QString)), this, SLOT(insertCompletion(QString)));
+    connect(completionBox, &KCompletionBox::activated, this, &IRCInput::insertCompletion);
 
     // widget may not be resized vertically
     setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding,QSizePolicy::Fixed));
@@ -61,9 +62,9 @@ IRCInput::IRCInput(QWidget* parent) : KTextEdit(parent)
     setWhatsThis(i18n("<qt><p>The input line is where you type messages to be sent the channel, query, or server.  A message sent to a channel is seen by everyone on the channel, whereas a message in a query is sent only to the person in the query with you.</p><p>To automatically complete the nickname you began typing, press Tab. If you have not begun typing, the last successfully completed nickname will be used.</p><p>You can also send special commands:</p><table><tr><th>/me <i>action</i></th><td>shows up as an action in the channel or query.  For example:  <em>/me sings a song</em> will show up in the channel as 'Nick sings a song'.</td></tr><tr><th>/whois <i>nickname</i></th><td>shows information about this person, including what channels they are in.</td></tr></table><p>For more commands, see the Konversation Handbook.</p><p>A message cannot contain multiple lines.</p></qt>"));
 
     m_disableSpellCheckTimer = new QTimer(this);
-    connect(m_disableSpellCheckTimer, SIGNAL(timeout()), this, SLOT(disableSpellChecking()));
+    connect(m_disableSpellCheckTimer, &QTimer::timeout, this, &IRCInput::disableSpellChecking);
 
-    connect(this, SIGNAL(aboutToShowContextMenu(QMenu*)), this, SLOT(insertLanguageMenu(QMenu*)));
+    connect(this, &IRCInput::aboutToShowContextMenu, this, &IRCInput::insertLanguageMenu);
 
     document()->adjustSize();
 
@@ -112,7 +113,7 @@ void IRCInput::insertLanguageMenu(QMenu* contextMenu)
                 && m_speller->defaultLanguage() == i.value()));
             languageAction->setData(i.value());
             languageAction->setActionGroup(languagesGroup);
-            connect(languageAction, SIGNAL(triggered(bool)), this, SLOT(languageSelected()));
+            connect(languageAction, &QAction::triggered, this, &IRCInput::languageSelected);
         }
 
         contextMenu->insertMenu(spellCheckAction, languagesMenu);
@@ -166,7 +167,7 @@ void IRCInput::showEvent(QShowEvent* /* e */)
     m_disableSpellCheckTimer->stop();
     setCheckSpellingEnabled(Preferences::self()->spellChecking());
     setSpellCheckingLanguage(spellCheckingLanguage());
-    connect(this, SIGNAL(checkSpellingChanged(bool)), this, SLOT(setSpellChecking(bool)));
+    connect(this, &IRCInput::checkSpellingChanged, this, &IRCInput::setSpellChecking);
 }
 
 void IRCInput::hideEvent(QHideEvent* /* event */)
@@ -221,37 +222,20 @@ void IRCInput::updateAppearance()
     if (Preferences::self()->customTextFont())
         setFont(Preferences::self()->textFont());
     else
-        setFont(KGlobalSettings::generalFont());
+        setFont(QFontDatabase::systemFont(QFontDatabase::GeneralFont));
 
     m_multiRow = Preferences::self()->useMultiRowInputBox();
     setLineWrapMode(m_multiRow ? WidgetWidth : NoWrap);
 
     if (m_multiRow)
-        connect(this, SIGNAL(textChanged()), this, SLOT(maybeResize()));
+        connect(this, &IRCInput::textChanged, this, &IRCInput::maybeResize);
     else
-        disconnect(this, SIGNAL(textChanged()), this, SLOT(maybeResize()));
+        disconnect(this, &IRCInput::textChanged, this, &IRCInput::maybeResize);
 
     maybeResize();
     ensureCursorVisible(); //appears to trigger updateGeometry
 }
 
-// TODO FIXME - ok, wtf are we removing here? this is exactly the kind of shit i don't want to see any more
-/*
-Q3PopupMenu *IRCInput::createPopupMenu( const QPoint &pos )
-{
-    Q3PopupMenu *menu=KTextEdit::createPopupMenu(pos);
-    menu->removeItemAt(menu->count()-1);
-    menu->removeItemAt(menu->count()-1);
-    return menu;
-}
-*/
-
-/*
-QString IRCInput::text() const
-{
-    return KTextEdit::text();
-}
-*/
 void IRCInput::setText(const QString& text, bool preserveContents)
 {
     if (!text.isEmpty() && preserveContents)
@@ -330,7 +314,7 @@ void IRCInput::keyPressEvent(QKeyEvent* e)
                 }
                 else
                 {
-                    setText(static_cast<Application*>(kapp)->doAutoreplace(toPlainText(), true).first);
+                    setText(Application::instance()->doAutoreplace(toPlainText(), true).first);
                     emit submit();
                 }
             }
@@ -362,7 +346,7 @@ void IRCInput::keyPressEvent(QKeyEvent* e)
                 insertPlainText("%G");
             // support ^U (delete text in input box)
             else if(e->text().unicode()->toLatin1() == 21)
-                setText("");
+                setText(QString());
     }
 
     KTextEdit::keyPressEvent(e);
@@ -438,7 +422,7 @@ void IRCInput::getHistory(bool up)
         if(lineNum==0)
         {
             if(!toPlainText().isEmpty()) addHistory(toPlainText());
-            setText("");
+            setText(QString());
         }
         // If we aren't at the top of the list, decrement the line counter
         else
@@ -452,7 +436,7 @@ void IRCInput::getHistory(bool up)
 
 void IRCInput::paste(bool useSelection)
 {
-    insertFromMimeData(KApplication::clipboard()->mimeData(useSelection ? QClipboard::Selection : QClipboard::Clipboard));
+    insertFromMimeData(QApplication::clipboard()->mimeData(useSelection ? QClipboard::Selection : QClipboard::Clipboard));
 }
 
 void IRCInput::insertFromMimeData(const QMimeData * source)
@@ -536,7 +520,7 @@ void IRCInput::insertFromMimeData(const QMimeData * source)
               // remember old line, in case the user does not paste eventually
               addHistory(pasteText);
               // delete input text
-              setText("");
+              setText(QString());
             }
         }
         // otherwise let the KLineEdit handle the pasting
@@ -640,4 +624,4 @@ char IRCInput::getCompletionMode() { return completionMode; }
 void IRCInput::setOldCursorPosition(int pos) { oldPos=pos; }
 int IRCInput::getOldCursorPosition() { return oldPos; }
 
-#include "ircinput.moc"
+

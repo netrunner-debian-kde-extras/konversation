@@ -31,7 +31,7 @@
 
 class QTreeView;
 
-class KMenu;
+class QMenu;
 class KToolBar;
 
 
@@ -72,9 +72,10 @@ class UrlCatcher : public ChatWindow
 
     protected:
         void childAdjustFocus();
+        bool event(QEvent* event);
 
 
-    private slots:
+    private Q_SLOTS:
         void updateItemActionStates();
         void updateListActionStates();
         void openContextMenu(const QPoint& p);
@@ -86,7 +87,6 @@ class UrlCatcher : public ChatWindow
         void deleteSelectedUrls();
         void saveUrlModel();
         void clearUrlModel();
-        void checkLocaleChanged(int category);
 
 
     private:
@@ -94,7 +94,7 @@ class UrlCatcher : public ChatWindow
         void setupUrlTree();
 
         KToolBar* m_toolBar;
-        KMenu* m_contextMenu;
+        QMenu* m_contextMenu;
 
         QList<QAction*> m_itemActions;
         QList<QAction*> m_listActions;

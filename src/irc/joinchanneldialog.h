@@ -12,18 +12,19 @@
 #ifndef KONVERSATIONJOINCHANNELDIALOG_H
 #define KONVERSATIONJOINCHANNELDIALOG_H
 
-#include <kdialog.h>
+#include <QDialog>
+
 
 #include "ui_joinchannelui.h"
 
 class Server;
-
+class QPushButton;
 namespace Konversation
 {
 
     class JoinChannelUI;
 
-    class JoinChannelDialog : public KDialog
+    class JoinChannelDialog : public QDialog
     {
         Q_OBJECT
             public:
@@ -34,7 +35,7 @@ namespace Konversation
             QString channel() const;
             QString password() const;
 
-        protected slots:
+        protected Q_SLOTS:
             virtual void slotOk();
             void slotNicknameChanged(const QString& nickname);
             void slotConnectionListChanged();
@@ -44,6 +45,7 @@ namespace Konversation
 
         private:
             Ui::JoinChannelUI m_ui;
+            QPushButton *mOkButton;
     };
 
 }

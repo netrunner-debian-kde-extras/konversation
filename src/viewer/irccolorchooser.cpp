@@ -18,26 +18,27 @@
 #include <QPixmap>
 
 #include <KComboBox>
-
+#include <KLocalizedString>
 
 IRCColorChooser::IRCColorChooser(QWidget* parent)
-: KDialog(parent)
+: QDialog(parent)
 {
-    setButtons( KDialog::Ok|KDialog::Cancel );
-    setDefaultButton( KDialog::Ok );
-    setCaption( i18n("IRC Color Chooser") );
+    setWindowTitle( i18n("IRC Color Chooser") );
     setModal( true );
-    m_ui.setupUi(mainWidget());
+    m_ui.setupUi(this);
     initColors(m_ui.m_fgColorCBox);
     initColors(m_ui.m_bgColorCBox);
     m_ui.m_bgColorCBox->insertItem(0, i18n("None"));
 
-    connect(m_ui.m_fgColorCBox, SIGNAL(activated(int)), this, SLOT(updatePreview()));
-    connect(m_ui.m_bgColorCBox, SIGNAL(activated(int)), this, SLOT(updatePreview()));
+    connect(m_ui.m_fgColorCBox, static_cast<void (KComboBox::*)(int)>(&KComboBox::activated), this, &IRCColorChooser::updatePreview);
+    connect(m_ui.m_bgColorCBox, static_cast<void (KComboBox::*)(int)>(&KComboBox::activated), this, &IRCColorChooser::updatePreview);
     m_ui.m_fgColorCBox->setCurrentIndex(1);
     m_ui.m_bgColorCBox->setCurrentIndex(0);
 
     m_ui.m_previewLbl->setAutoFillBackground(true);
+
+    connect(m_ui.m_buttonBox, &QDialogButtonBox::accepted, this, &IRCColorChooser::accept);
+    connect(m_ui.m_buttonBox, &QDialogButtonBox::rejected, this, &IRCColorChooser::reject);
 
     updatePreview();
 }
@@ -87,4 +88,4 @@ void IRCColorChooser::initColors(KComboBox* combo)
     }
 }
 
-#include "irccolorchooser.moc"
+

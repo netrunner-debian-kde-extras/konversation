@@ -28,6 +28,7 @@
 class QTimer;
 class QTcpServer;
 class QTcpSocket;
+class QTemporaryFile;
 
 namespace Konversation
 {
@@ -42,7 +43,7 @@ namespace Konversation
                 virtual ~TransferSend();
 
                 // REQUIRED
-                void setFileURL(const KUrl &url);
+                void setFileURL(const QUrl &url);
                 // OPTIONAL
                 void setFileName(const QString &fileName);
                 // OPTIONAL
@@ -57,7 +58,7 @@ namespace Konversation
                 // send got rejected
                 void reject();
 
-            public slots:
+            public Q_SLOTS:
                 virtual bool queue();
                 virtual void start();
                 virtual void abort();
@@ -65,7 +66,7 @@ namespace Konversation
                 // invoked when the receiver accepts the offer (Reverse DCC)
                 void connectToReceiver(const QString &partnerHost, quint16 partnerPort);
 
-            protected slots:
+            protected Q_SLOTS:
                 void acceptClient();
                 // it must be invoked when m_sendSocket is ready
                 void startSending();
@@ -75,6 +76,7 @@ namespace Konversation
                 void slotGotSocketError(QAbstractSocket::SocketError errorCode);
                 void slotConnectionTimeout();
                 void sendRequest(bool error, quint16 port);
+                void slotLocalCopyReady(KJob *job);
 
             protected:
                 void cleanUp();
@@ -86,10 +88,13 @@ namespace Konversation
 
                 QFile m_file;
 
-                /*The filename of the temporary file that we downloaded.  So if send a file ftp://somewhere/file.txt
-                 * Then this will be downloaded to /tmp.
+                /* A temporary file that contains a local copy of a file.
+                 *
+                 * If a URL like "ftp://somewhere/file.txt" is specified,
+                 * it is downloaded to QDir::tempPath and deleted when the
+                 * client exits or the download is complete.
                  */
-                QString m_tmpFile;
+                QTemporaryFile *m_tmpFile;
 
                 QTcpServer *m_serverSocket;
                 QTcpSocket *m_sendSocket;

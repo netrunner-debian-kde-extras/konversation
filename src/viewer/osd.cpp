@@ -23,10 +23,10 @@
 #include <QBitmap>
 #include <QRegExp>
 #include <QTimer>
+#include <QDebug>
 
-#include <KApplication>
-#include <KLocale>
-#include <KDebug>
+#include <QApplication>
+#include <KLocalizedString>
 
 
 namespace ShadowEngine
@@ -61,11 +61,8 @@ OSDWidget::OSDWidget(const QString &appName, QWidget *parent, const char *name )
 
     m_timer->setSingleShot( true );
 
-    connect( m_timer,     SIGNAL(timeout()), SLOT(hide()) );
-    connect( m_timerMin,  SIGNAL(timeout()), SLOT(minReached()) );
-
-    //or crashes, KWindowSystem bug I think, crashes in QWidget::icon()
-    kapp->setTopWidget( this );
+    connect(m_timer, &QTimer::timeout, this, &OSDWidget::hide);
+    connect(m_timerMin, &QTimer::timeout, this, &OSDWidget::minReached);
 }
 
 OSDWidget::~OSDWidget()
@@ -108,7 +105,7 @@ void OSDWidget::show() //virtual
         }
     }
     else
-        kWarning() << "Attempted to make an invalid sized OSD";
+        qWarning() << "Attempted to make an invalid sized OSD";
 
     update();
 }
@@ -508,4 +505,4 @@ namespace ShadowEngine
     }
 }
 
-#include "osd.moc"
+
