@@ -16,6 +16,9 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
+#include <QUrl>
+#include <QNetworkConfigurationManager>
+
 #include "preferences.h"
 #include "mainwindow.h"
 #include "server.h"
@@ -23,7 +26,7 @@
 #include "identity.h"
 #include "ircqueue.h"
 
-#include <KUniqueApplication>
+#include <QApplication>
 
 class ConnectionManager;
 class AwayManager;
@@ -33,6 +36,7 @@ class QuickConnectDialog;
 class Images;
 class ServerGroupSettings;
 class QStandardItemModel;
+class QCommandLineParser;
 
 class KTextEdit;
 
@@ -55,7 +59,7 @@ namespace KWallet
 }
 
 
-class Application : public KUniqueApplication
+class Application : public QApplication
 {
     Q_OBJECT
 
@@ -81,12 +85,12 @@ class Application : public KUniqueApplication
         // URL-Catcher
         QStandardItemModel* getUrlModel() { return m_urlModel; }
 
-        Application();
+        Application(int &argc, char **argv);
         ~Application();
 
         static Application* instance();
 
-        /** For dcop and addressbook, a user can be specified as user@irc.server.net
+        /** For D-Bus, a user can be specified as user@irc.server.net
          *  or user\@servergroup or using the unicode separator symbol 0xE120 instead
          *  of the "@".  This function takes a string like the above examples, and
          *  modifies ircnick and serverOrGroup to contain the split up string.  If
@@ -122,7 +126,7 @@ class Application : public KUniqueApplication
         // inline auto replacement for input lines
         void doInlineAutoreplace(KTextEdit* textEdit);
 
-        int newInstance();
+        void newInstance(QCommandLineParser *args);
 
         static void openUrl(const QString& url);
 
@@ -131,11 +135,11 @@ class Application : public KUniqueApplication
 
         void abortScheduledRestart() { m_restartScheduled = false; }
 
-    signals:
+    Q_SIGNALS:
         void serverGroupsChanged(const Konversation::ServerGroupSettingsPtr serverGroup);
-        void appearanceChanged();
+        void appearanceChanged(); // FIXME TODO: Rather than relying on this catch-all, consumers should be rewritten to catch appropriate QEvents.
 
-    public slots:
+    public Q_SLOTS:
         void restart();
 
         void readOptions();
@@ -150,7 +154,7 @@ class Application : public KUniqueApplication
 
         void storeUrl(const QString& origin, const QString& newUrl, const QDateTime& dateTime);
 
-    protected slots:
+    protected Q_SLOTS:
         void openQuickConnectDialog();
 
         void dbusMultiServerRaw(const QString &command);
@@ -162,6 +166,9 @@ class Application : public KUniqueApplication
         void updateProxySettings();
 
         void closeWallet();
+
+    protected:
+        bool event(QEvent* event);
 
     private:
         void implementRestart();
@@ -182,6 +189,8 @@ class Application : public KUniqueApplication
         Konversation::NotificationHandler* m_notificationHandler;
 
         KWallet::Wallet* m_wallet;
+
+        QNetworkConfigurationManager* m_networkConfigurationManager;
 };
 
 #endif

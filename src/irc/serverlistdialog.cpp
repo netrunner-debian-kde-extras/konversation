@@ -21,6 +21,7 @@
 
 #include <KGuiItem>
 #include <KMessageBox>
+#include <KSharedConfig>
 
 
 namespace Konversation
@@ -54,47 +55,46 @@ namespace Konversation
     }
 
     ServerListDialog::ServerListDialog(const QString& title, QWidget *parent)
-    : KDialog(parent), Ui::ServerListDialogUI()
+    : QDialog(parent), Ui::ServerListDialogUI()
     {
-        setCaption(title);
-        setButtons(Ok|Close);
+        setWindowTitle(title);
 
-        setupUi(mainWidget());
-        mainWidget()->layout()->setMargin(0);
+        setupUi(this);
 
-        setButtonGuiItem(Ok, KGuiItem(i18n("C&onnect"), "network-connect", i18n("Connect to the server"), i18n("Click here to connect to the selected IRC network and channel.")));
+        KGuiItem::assign(m_buttonBox->button(QDialogButtonBox::Ok), KGuiItem(i18n("C&onnect"), "network-connect", i18n("Connect to the server"),
+                                                                             i18n("Click here to connect to the selected IRC network and channel.")));
 
         m_showAtStartup->setChecked(Preferences::self()->showServerList());
-        connect(m_showAtStartup, SIGNAL(toggled(bool)), this, SLOT(setShowAtStartup(bool)));
+        connect(m_showAtStartup, &QCheckBox::toggled, this, &ServerListDialog::setShowAtStartup);
 
         m_serverList->setFocus();
 
         m_selectedItem = false;
         m_selectedItemPtr = 0;
-        m_selectedServer = ServerSettings("");
+        m_selectedServer = ServerSettings(QString());
 
         // Load server list
         updateServerList();
 
-        connect(m_serverList, SIGNAL(aboutToMove()), this, SLOT(slotAboutToMove()));
-        connect(m_serverList, SIGNAL(moved()), this, SLOT(slotMoved()));
-        connect(m_serverList, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(slotOk()));
-        connect(m_serverList, SIGNAL(itemSelectionChanged()), this, SLOT(updateButtons()));
-        connect(m_serverList, SIGNAL(itemExpanded(QTreeWidgetItem*)), this, SLOT(slotSetGroupExpanded(QTreeWidgetItem*)));
-        connect(m_serverList, SIGNAL(itemCollapsed(QTreeWidgetItem*)), this, SLOT(slotSetGroupCollapsed(QTreeWidgetItem*)));
-        connect(m_addButton, SIGNAL(clicked()), this, SLOT(slotAdd()));
-        connect(m_editButton, SIGNAL(clicked()), this, SLOT(slotEdit()));
-        connect(m_delButton, SIGNAL(clicked()), this, SLOT(slotDelete()));
-        connect(this, SIGNAL(okClicked()), this, SLOT(slotOk()));
-        connect(this, SIGNAL(cancelClicked()), this, SLOT(slotClose()));
+        connect(m_serverList, &ServerListView::aboutToMove, this, &ServerListDialog::slotAboutToMove);
+        connect(m_serverList, &ServerListView::moved, this, &ServerListDialog::slotMoved);
+        connect(m_serverList, &ServerListView::itemDoubleClicked, this, &ServerListDialog::slotOk);
+        connect(m_serverList, &ServerListView::itemSelectionChanged, this, &ServerListDialog::updateButtons);
+        connect(m_serverList, &ServerListView::itemExpanded, this, &ServerListDialog::slotSetGroupExpanded);
+        connect(m_serverList, &ServerListView::itemCollapsed, this, &ServerListDialog::slotSetGroupCollapsed);
+        connect(m_addButton, &QPushButton::clicked, this, &ServerListDialog::slotAdd);
+        connect(m_editButton, &QPushButton::clicked, this, &ServerListDialog::slotEdit);
+        connect(m_delButton, &QPushButton::clicked, this, &ServerListDialog::slotDelete);
+        connect(m_buttonBox, &QDialogButtonBox::accepted, this, &ServerListDialog::slotOk);
+        connect(m_buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 
         updateButtons();
 
-        KConfigGroup config(KGlobal::config(), "ServerListDialog");
+        KConfigGroup config(KSharedConfig::openConfig(), "ServerListDialog");
         QSize newSize = size();
         newSize = config.readEntry("Size", newSize);
         resize(newSize);
-        m_serverList->header()->setMovable(false); // don't let the user reorder the header
+        m_serverList->header()->setSectionsMovable(false); // don't let the user reorder the header
         m_serverList->sortItems(0, Qt::AscendingOrder);
         m_serverList->header()->restoreState(config.readEntry<QByteArray>("ServerListHeaderState", QByteArray()));
         //because it sorts the first column in ascending order by default
@@ -104,15 +104,9 @@ namespace Konversation
 
     ServerListDialog::~ServerListDialog()
     {
-        KConfigGroup config(KGlobal::config(), "ServerListDialog");
+        KConfigGroup config(KSharedConfig::openConfig(), "ServerListDialog");
         config.writeEntry("Size", size());
         config.writeEntry("ServerListHeaderState", m_serverList->header()->saveState());
-    }
-
-    void ServerListDialog::slotClose()
-    {
-//         slotApply();
-        accept();
     }
 
     void ServerListDialog::slotOk()
@@ -139,7 +133,7 @@ namespace Konversation
     {
         QPointer<ServerGroupDialog> dlg = new ServerGroupDialog(i18n("New Network"), this);
 
-        if(dlg->exec() == KDialog::Accepted)
+        if(dlg->exec() == QDialog::Accepted)
         {
             addServerGroup(dlg->serverGroupSettings());
 
@@ -164,7 +158,7 @@ namespace Konversation
 
                 if (item->data(0,IsServer).toBool())
                 {
-                    if(dlg->execAndEditServer(serverGroup->serverByIndex(item->data(0,ServerId).toInt())) == KDialog::Accepted)
+                    if(dlg->execAndEditServer(serverGroup->serverByIndex(item->data(0,ServerId).toInt())) == QDialog::Accepted)
                     {
                         delete item;
 
@@ -179,13 +173,13 @@ namespace Konversation
                 }
                 else
                 {
-                    if(dlg->exec() == KDialog::Accepted)
+                    if(dlg->exec() == QDialog::Accepted)
                     {
                         delete item;
 
                         m_selectedItem = true;
                         m_selectedServerGroupId = serverGroup->id();
-                        m_selectedServer = ServerSettings("");
+                        m_selectedServer = ServerSettings(QString());
 
                         *serverGroup = *dlg->serverGroupSettings();
 
@@ -333,7 +327,7 @@ namespace Konversation
         int count = m_serverList->selectedItems().count();
         bool enable = (count > 0);
 
-        enableButtonOk(enable);
+        m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(enable);
         m_delButton->setEnabled(enable);
 
         enable = (count == 1);
@@ -364,7 +358,7 @@ namespace Konversation
             if (item->data(0,IsServer).toBool())
                 m_selectedServer = Preferences::serverGroupById(m_selectedServerGroupId)->serverByIndex(item->data(0,ServerId).toInt());
             else
-                m_selectedServer = ServerSettings("");
+                m_selectedServer = ServerSettings(QString());
         }
 
         m_serverList->setUpdatesEnabled(false);
@@ -474,4 +468,4 @@ namespace Konversation
     }
 }
 
-#include "serverlistdialog.moc"
+

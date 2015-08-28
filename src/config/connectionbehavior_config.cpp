@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <KLineEdit>
 #include <kwallet.h>
+#include <KLocalizedString>
 
 #include <config-konversation.h>
 
@@ -56,7 +57,7 @@ void ConnectionBehavior_Config::saveSettings()
 
             if(ret != 0)
             {
-                kError() << "Failed to write the proxy password to the wallet, error code:" << ret;
+                qCritical() << "Failed to write the proxy password to the wallet, error code:" << ret;
             }
         }
     }
@@ -76,7 +77,7 @@ void ConnectionBehavior_Config::loadSettings()
 
             if(ret != 0)
             {
-                kError() << "Failed to read the proxy password from the wallet, error code:" << ret;
+                qCritical() << "Failed to read the proxy password from the wallet, error code:" << ret;
             }
         }
     }
@@ -95,4 +96,4 @@ void ConnectionBehavior_Config::setPasswordChanged(bool changed)
     m_passwordChanged = changed;
 }
 
-#include "connectionbehavior_config.moc"
+

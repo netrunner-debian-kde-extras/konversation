@@ -14,7 +14,6 @@
 #include <QCloseEvent>
 
 #include <KComboBox>
-#include <KFontComboBox>
 
 namespace Konversation
 {
@@ -30,24 +29,18 @@ namespace Konversation
             m_fontPointComboBox->setValidator(new QIntValidator(2,300,m_fontPointComboBox));
             pointSizeChanged(m_fontPointComboBox->currentText());
 
-            m_boldPushButton->setIcon(KIcon("format-text-bold"));
-            m_italicPushButton->setIcon(KIcon("format-text-italic"));
-            m_strikeoutPushButton->setIcon(KIcon("format-text-strikethrough"));
-            m_underlinePushButton->setIcon(KIcon("format-text-underline"));
+            m_boldPushButton->setIcon(QIcon::fromTheme("format-text-bold"));
+            m_italicPushButton->setIcon(QIcon::fromTheme("format-text-italic"));
+            m_strikeoutPushButton->setIcon(QIcon::fromTheme("format-text-strikethrough"));
+            m_underlinePushButton->setIcon(QIcon::fromTheme("format-text-underline"));
 
-            connect(m_boldPushButton, SIGNAL(toggled(bool)),
-                    this, SLOT(boldToggled(bool)));
-            connect(m_italicPushButton, SIGNAL(toggled(bool)),
-                    this, SLOT(italicToggled(bool)));
-            connect(m_strikeoutPushButton, SIGNAL(toggled(bool)),
-                    this, SLOT(strikeoutToggled(bool)));
-            connect(m_underlinePushButton, SIGNAL(toggled(bool)),
-                    this, SLOT(underlineToggled(bool)));
+            connect(m_boldPushButton, &QToolButton::toggled, this, &WhiteBoardFontChooser::boldToggled);
+            connect(m_italicPushButton, &QToolButton::toggled, this, &WhiteBoardFontChooser::italicToggled);
+            connect(m_strikeoutPushButton, &QToolButton::toggled, this, &WhiteBoardFontChooser::strikeoutToggled);
+            connect(m_underlinePushButton, &QToolButton::toggled, this, &WhiteBoardFontChooser::underlineToggled);
 
-            connect(m_fontComboBox, SIGNAL(currentFontChanged(QFont)),
-                    this, SLOT(currentFontChanged(QFont)));
-            connect(m_fontPointComboBox, SIGNAL(currentIndexChanged(QString)),
-                    this, SLOT(pointSizeChanged(QString)));
+            connect(m_fontComboBox, &QFontComboBox::currentFontChanged, this, &WhiteBoardFontChooser::currentFontChanged);
+            connect(m_fontPointComboBox, static_cast<void (KComboBox::*)(const QString &)>(&KComboBox::currentIndexChanged), this, &WhiteBoardFontChooser::pointSizeChanged);
         }
 
         WhiteBoardFontChooser::~WhiteBoardFontChooser()

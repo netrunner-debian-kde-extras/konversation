@@ -15,8 +15,8 @@
 #include "application.h"
 #include "transfermanager.h"
 
-#include <solid/device.h>
-#include <solid/networkinterface.h>
+#include <QNetworkConfiguration>
+#include <QNetworkConfigurationManager>
 
 using namespace Konversation;
 
@@ -29,20 +29,16 @@ DCC_Config::DCC_Config(QWidget *parent, const char* name) :
     kcfg_DccPath->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
 
     languageChange();
-    connect(kcfg_DccMethodToGetOwnIp, SIGNAL(activated(int)), this, SLOT(dccMethodChanged(int)));
-    connect(kcfg_DccUPnP, SIGNAL(stateChanged(int)), this, SLOT (dccUPnPChanged(int)));
+    connect(kcfg_DccMethodToGetOwnIp, static_cast<void (KComboBox::*)(int)>(&KComboBox::activated), this, &DCC_Config::dccMethodChanged);
+    connect(kcfg_DccUPnP, &QCheckBox::stateChanged, this, &DCC_Config::dccUPnPChanged);
     dccMethodChanged(kcfg_DccMethodToGetOwnIp->currentIndex());
     kcfg_DccBufferSize->setSuffix(ki18np(" byte", " bytes"));
     kcfg_DccSendTimeout->setSuffix(ki18np(" second", " seconds"));
 
-    foreach (const Solid::Device& device, Solid::Device::listFromType(Solid::DeviceInterface::NetworkInterface, QString()))
+    QNetworkConfigurationManager manager;
+    foreach (const QNetworkConfiguration& conf, manager.allConfigurations())
     {
-        if  (!device.is<Solid::NetworkInterface>())
-        {
-            continue;
-        }
-        const Solid::NetworkInterface *network = device.as<Solid::NetworkInterface>();
-        kcfg_DccIPv4FallbackIface->addItem(network->ifaceName());
+        kcfg_DccIPv4FallbackIface->addItem(conf.name());
     }
 
 #ifdef Q_OS_WIN
@@ -91,4 +87,4 @@ DCC_Config::~DCC_Config()
 {
 }
 
-#include "dcc_config.moc"
+

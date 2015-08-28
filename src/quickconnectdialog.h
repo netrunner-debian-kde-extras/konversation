@@ -17,13 +17,14 @@
 
 #include "common.h"
 
-#include <KDialog>
+#include <QDialog>
 
 
 class QCheckBox;
 class KLineEdit;
+class QPushButton;
 
-class QuickConnectDialog : public KDialog
+class QuickConnectDialog : public QDialog
 {
     Q_OBJECT
 
@@ -31,7 +32,7 @@ class QuickConnectDialog : public KDialog
         explicit QuickConnectDialog(QWidget* parent=0);
         ~QuickConnectDialog();
 
-    signals:
+    Q_SIGNALS:
         void connectClicked(Konversation::ConnectionFlag flag,
                             const QString& hostName,
                             const QString& port,
@@ -41,14 +42,18 @@ class QuickConnectDialog : public KDialog
                             bool useSSL
             );
 
-    protected slots:
+    protected Q_SLOTS:
         void slotOk();
     void slotServerNameChanged( const QString& );
+
+    private:
+        void delayedDestruct();
     protected:
         KLineEdit*      hostNameInput;
         KLineEdit*      portInput;
         KLineEdit*  passwordInput;
         KLineEdit*      nickInput;
         QCheckBox*      sslCheckBox;
+        QPushButton*    mOkButton;
 };
 #endif

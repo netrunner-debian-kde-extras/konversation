@@ -21,23 +21,23 @@ Copyright (C) 2002 Carsten Pfeiffer <pfeiffer@kde.org>
 #include "connectionmanager.h"
 #include "viewer/viewcontainer.h"
 
-#include <KStandardDirs>
 #include <KBookmarkMenu>
+#include <QStandardPaths>
 
 
-KonviBookmarkHandler::KonviBookmarkHandler(KMenu *menu, MainWindow* mainWindow)
+KonviBookmarkHandler::KonviBookmarkHandler(QMenu *menu, MainWindow* mainWindow)
 : QObject(mainWindow),
 KBookmarkOwner(),
 m_mainWindow(mainWindow)
 {
-    setObjectName("KonviBookmarkHandler");
+    setObjectName(QStringLiteral("KonviBookmarkHandler"));
 
-    m_file = KStandardDirs::locate( "data", "konversation/bookmarks.xml" );
+    m_file = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("konversation/bookmarks.xml") );
 
     if ( m_file.isEmpty() )
-        m_file = KStandardDirs::locateLocal( "data", "konversation/bookmarks.xml" );
+        m_file = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1Char('/') + QStringLiteral("konversation/bookmarks.xml") ;
 
-    KBookmarkManager *manager = KBookmarkManager::managerForFile( m_file, "konversation");
+    KBookmarkManager *manager = KBookmarkManager::managerForFile( m_file, QStringLiteral("konversation"));
     manager->setEditorOptions(i18n("Konversation Bookmarks Editor"), false);
     manager->setUpdate( true );
 
@@ -53,13 +53,13 @@ void KonviBookmarkHandler::openBookmark(const KBookmark &bm, Qt::MouseButtons mb
 {
     Q_UNUSED(mb);
     Q_UNUSED(km);
-    Application* konvApp = static_cast<Application*>(kapp);
+    Application* konvApp = Application::instance();
     konvApp->getConnectionManager()->connectTo(Konversation::SilentlyReuseConnection, bm.url().url());
 }
 
-QString KonviBookmarkHandler::currentUrl() const
+QUrl KonviBookmarkHandler::currentUrl() const
 {
-    return m_mainWindow->getViewContainer()->currentViewURL(true);
+    return QUrl(m_mainWindow->getViewContainer()->currentViewURL(true));
 }
 
 QString KonviBookmarkHandler::currentTitle() const
@@ -83,17 +83,24 @@ bool KonviBookmarkHandler::supportsTabs() const
     return true;
 }
 
-QList<QPair<QString,QString> > KonviBookmarkHandler::currentBookmarkList() const
+QList<KBookmarkOwner::FutureBookmark> KonviBookmarkHandler::currentBookmarkList() const
 {
-    return m_mainWindow->getViewContainer()->getChannelsURI();
+    QList<KBookmarkOwner::FutureBookmark> list;
+    QPair<QString, QString> uri;
+
+    foreach (uri, m_mainWindow->getViewContainer()->getChannelsURI()) {
+        list << KBookmarkOwner::FutureBookmark(uri.first, QUrl(uri.second), QString());
+    }
+
+    return list;
 }
 
 void KonviBookmarkHandler::openFolderinTabs(const KBookmarkGroup &group)
 {
-    const QList<KUrl> list = group.groupUrlList();
+    const QList<QUrl> list = group.groupUrlList();
 
-    Application* konvApp = static_cast<Application*>(kapp);
+    Application* konvApp = Application::instance();
     konvApp->getConnectionManager()->connectTo(Konversation::SilentlyReuseConnection, list);
 }
 
-#include "bookmarkhandler.moc"
+

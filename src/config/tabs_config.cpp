@@ -18,7 +18,7 @@ Tabs_Config::Tabs_Config(QWidget *parent, const char *name)
     setObjectName(QString::fromLatin1(name));
     setupUi(this);
 
-    connect(kcfg_TabPlacement, SIGNAL(activated(int)), this, SLOT(toggleCheckBoxes(int)));
+    connect(kcfg_TabPlacement, static_cast<void (KComboBox::*)(int)>(&KComboBox::activated), this, &Tabs_Config::toggleCheckBoxes);
 }
 
 Tabs_Config::~Tabs_Config()
@@ -31,13 +31,13 @@ void Tabs_Config::showEvent(QShowEvent *event)
 
     if (kcfg_TabPlacement->currentIndex() == 0 || kcfg_TabPlacement->currentIndex() == 1)
     {
+        kcfg_CloseButtons->setEnabled(true);
         kcfg_ShowTabBarCloseButton->setEnabled(true);
-        kcfg_UseMaxSizedTabs->setEnabled(true);
     }
     else
     {
+        kcfg_CloseButtons->setEnabled(false);
         kcfg_ShowTabBarCloseButton->setEnabled(false);
-        kcfg_UseMaxSizedTabs->setEnabled(false);
     }
 }
 
@@ -45,14 +45,14 @@ void Tabs_Config::toggleCheckBoxes(int activated)
 {
     if (activated == 0 || activated == 1)
     {
+        kcfg_CloseButtons->setEnabled(true);
         kcfg_ShowTabBarCloseButton->setEnabled(true);
-        kcfg_UseMaxSizedTabs->setEnabled(true);
     }
     else
     {
+        kcfg_CloseButtons->setEnabled(false);
         kcfg_ShowTabBarCloseButton->setEnabled(false);
-        kcfg_UseMaxSizedTabs->setEnabled(false);
     }
 }
 
-#include "tabs_config.moc"
+

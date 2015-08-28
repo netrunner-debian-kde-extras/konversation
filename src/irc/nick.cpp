@@ -12,15 +12,12 @@
 */
 
 #include "nick.h"
-#include "addressbook.h"
 #include "application.h"
 #include "images.h"
 #include "preferences.h"
 #include "nicklistview.h"
 
 #include <QHeaderView>
-
-#include <kabc/phonenumber.h>
 
 Nick::Nick(NickListView *listView, Channel* channel, const ChannelNickPtr& channelnick)
     : QTreeWidgetItem (listView)
@@ -148,17 +145,12 @@ void Nick::repositionMe()
 QString Nick::calculateLabel1() const
 {
     NickInfoPtr nickinfo = getChannelNick()->getNickInfo();
-    KABC::Addressee addressee = nickinfo->getAddressee();
 
     QString retString = nickinfo->getNickname();
 
-    if(!addressee.realName().isEmpty())           //if no addressee, realName will be empty
+    if(Preferences::self()->showRealNames() && !nickinfo->getRealName().isEmpty())
     {
-        retString += " (" + Konversation::removeIrcMarkup(addressee.realName()) + ')';
-    }
-    else if(Preferences::self()->showRealNames() && !nickinfo->getRealName().isEmpty())
-    {
-        retString += " (" + Konversation::removeIrcMarkup(nickinfo->getRealName()) + ')';
+        retString += QStringLiteral(" (") + Konversation::removeIrcMarkup(nickinfo->getRealName()) + QLatin1Char(')');
     }
 
     return retString;
@@ -260,12 +252,12 @@ int Nick::getSortingValue() const
     int flags;
     QString sortingOrder = Preferences::self()->sortOrder();
 
-    if(getChannelNick()->isOwner())       flags=sortingOrder.indexOf('q');
-    else if(getChannelNick()->isAdmin())  flags=sortingOrder.indexOf('p');
-    else if(getChannelNick()->isOp() )    flags=sortingOrder.indexOf('o');
-    else if(getChannelNick()->isHalfOp()) flags=sortingOrder.indexOf('h');
-    else if(getChannelNick()->hasVoice()) flags=sortingOrder.indexOf('v');
-    else                                  flags=sortingOrder.indexOf('-');
+    if(getChannelNick()->isOwner())       flags=sortingOrder.indexOf(QLatin1Char('q'));
+    else if(getChannelNick()->isAdmin())  flags=sortingOrder.indexOf(QLatin1Char('p'));
+    else if(getChannelNick()->isOp() )    flags=sortingOrder.indexOf(QLatin1Char('o'));
+    else if(getChannelNick()->isHalfOp()) flags=sortingOrder.indexOf(QLatin1Char('h'));
+    else if(getChannelNick()->hasVoice()) flags=sortingOrder.indexOf(QLatin1Char('v'));
+    else                                  flags=sortingOrder.indexOf(QLatin1Char('-'));
 
     return flags;
 }

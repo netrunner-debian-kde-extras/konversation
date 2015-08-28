@@ -17,11 +17,10 @@
 #include "servergroupsettings.h"
 #include "serverlistview.h"
 #include "ui_serverlistdialogui.h"
-#include <kdialog.h>
+#include <QDialog>
 
 class ConnectionSettings;
 class QTreeWidgetItem;
-class QCheckBox;
 
 namespace Konversation
 {
@@ -37,7 +36,7 @@ namespace Konversation
             };
     };
 
-    class ServerListDialog : public KDialog, private Ui::ServerListDialogUI
+    class ServerListDialog : public QDialog, private Ui::ServerListDialogUI
     {
         Q_OBJECT
 
@@ -52,17 +51,16 @@ namespace Konversation
                 ServerId = Qt::UserRole + 4
             };
 
-        public slots:
+        public Q_SLOTS:
             void updateServerList();
 
-        signals:
+        Q_SIGNALS:
             void connectTo(Konversation::ConnectionFlag flag, int serverGroupId);
             void connectTo(Konversation::ConnectionFlag flag, ConnectionSettings connectionSettings);
             void serverGroupsChanged(const Konversation::ServerGroupSettingsPtr serverGroup = Konversation::ServerGroupSettingsPtr());
 
-        protected slots:
+        protected Q_SLOTS:
             virtual void slotOk();
-            void slotClose();
             void slotAdd();
             void slotEdit();
             void slotDelete();

@@ -26,13 +26,12 @@
 
 #include <QSplitter>
 
-#include <KGlobal>
 #include <KMessageBox>
-#include <KMenu>
+#include <QMenu>
 #include <KRun>
 #include <KAuthorized>
-#include <KFileMetaInfo>
 #include <KToolBar>
+#include <KSharedConfig>
 
 namespace Konversation
 {
@@ -52,7 +51,7 @@ namespace Konversation
 
         TransferPanel::~TransferPanel()
         {
-            KConfigGroup config(KGlobal::config(), "DCC Settings");
+            KConfigGroup config(KSharedConfig::openConfig(), "DCC Settings");
             const QByteArray state = m_splitter->saveState();
             config.writeEntry(QString("PanelSplitter"), state.toBase64());
         }
@@ -70,8 +69,7 @@ namespace Konversation
 
             connect(m_transferView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
                     this, SLOT(updateButton()));
-            connect(m_transferView, SIGNAL(runSelectedTransfers()),
-                    this, SLOT(runDcc()));
+            connect(m_transferView, &TransferView::runSelectedTransfers, this, &TransferPanel::runDcc);
 
             // detailed info panel
             m_detailPanel = new TransferDetailedInfoPanel(m_splitter);
@@ -79,32 +77,31 @@ namespace Konversation
             m_splitter->setStretchFactor(0, QSizePolicy::Expanding);
 
             // popup menu
-            m_popup = new KMenu(this);
+            m_popup = new QMenu(this);
             m_selectAll =  m_popup->addAction(i18n("&Select All Items"), this, SLOT(selectAll()));
             m_selectAllCompleted = m_popup->addAction(i18n("S&elect All Completed Items"), this, SLOT(selectAllCompleted()));
             m_popup->addSeparator();                           // -----
-            m_accept =  m_popup->addAction(KIcon("media-playback-start"), i18n("&Accept"), this, SLOT(acceptDcc()));
+            m_accept =  m_popup->addAction(QIcon::fromTheme("media-playback-start"), i18n("&Accept"), this, SLOT(acceptDcc()));
             m_accept->setStatusTip(i18n("Start receiving"));
-            m_abort = m_popup->addAction(KIcon("process-stop"),i18n("A&bort"), this, SLOT(abortDcc()));
+            m_abort = m_popup->addAction(QIcon::fromTheme("process-stop"),i18n("A&bort"), this, SLOT(abortDcc()));
             m_abort->setStatusTip(i18n("Abort the transfer(s)"));
             m_popup->addSeparator();                           // -----
-            m_resend = m_popup->addAction(KIcon("edit-redo"),i18n("Resend"), this, SLOT(resendFile()));
-            m_clear = m_popup->addAction(KIcon("edit-delete"),i18nc("clear selected dcctransfer","&Clear"), this, SLOT(clearDcc()));
+            m_resend = m_popup->addAction(QIcon::fromTheme("edit-redo"),i18n("Resend"), this, SLOT(resendFile()));
+            m_clear = m_popup->addAction(QIcon::fromTheme("edit-delete"),i18nc("clear selected dcctransfer","&Clear"), this, SLOT(clearDcc()));
             m_clear->setStatusTip(i18n("Clear all selected Items"));
-            m_clearCompleted = m_popup->addAction(KIcon("edit-clear-list"),i18n("Clear Completed"), this, SLOT(clearCompletedDcc()));
+            m_clearCompleted = m_popup->addAction(QIcon::fromTheme("edit-clear-list"),i18n("Clear Completed"), this, SLOT(clearCompletedDcc()));
             m_clearCompleted->setStatusTip(i18n("Clear Completed Items"));
             m_popup->addSeparator();                           // -----
-            m_open = m_popup->addAction(KIcon("system-run"), i18n("&Open File"), this, SLOT(runDcc()));
+            m_open = m_popup->addAction(QIcon::fromTheme("system-run"), i18n("&Open File"), this, SLOT(runDcc()));
             m_open->setStatusTip(i18n("Run the file"));
-            m_openLocation = m_popup->addAction(KIcon("document-open-folder"), i18n("Open Location"), this, SLOT(openLocation()));
+            m_openLocation = m_popup->addAction(QIcon::fromTheme("document-open-folder"), i18n("Open Location"), this, SLOT(openLocation()));
             m_openLocation->setStatusTip(i18n("Open the file location"));
-            m_info = m_popup->addAction(KIcon("dialog-information"), i18n("File &Information"), this, SLOT(showFileInfo()));
 
             m_transferView->setContextMenuPolicy(Qt::CustomContextMenu);
-            connect(m_transferView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(popupRequested(QPoint)));
+            connect(m_transferView, &TransferView::customContextMenuRequested, this, &TransferPanel::popupRequested);
 
             // misc.
-            connect(m_transferView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(doubleClicked(QModelIndex)));
+            connect(m_transferView, &TransferView::doubleClicked, this, &TransferPanel::doubleClicked);
             connect(m_transferView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
                     this, SLOT(setDetailPanelItem(QItemSelection,QItemSelection)));
 
@@ -115,7 +112,7 @@ namespace Konversation
             m_toolBar->addAction(m_open);
             m_toolBar->addAction(m_openLocation);
 
-            KConfigGroup config(KGlobal::config(), "DCC Settings");
+            KConfigGroup config(KSharedConfig::openConfig(), "DCC Settings");
             QByteArray state;
             if (config.hasKey("PanelSplitter"))
             {
@@ -201,7 +198,6 @@ namespace Konversation
             m_open->setEnabled(open);
             m_openLocation->setEnabled(openLocation);
             m_resend->setEnabled(resend);
-            m_info->setEnabled(info);
         }
 
         void TransferPanel::setDetailPanelItem (const QItemSelection &/*newindex*/, const QItemSelection &/*oldindex*/)
@@ -219,7 +215,7 @@ namespace Konversation
 
             if (index.isValid())
             {
-                Transfer *transfer = static_cast<Transfer*>(qVariantValue<QObject*>(index.data(TransferListModel::TransferPointer)));
+                Transfer *transfer = static_cast<Transfer*>(index.data(TransferListModel::TransferPointer).value<QObject*>());
                 if (transfer)
                 {
                     m_detailPanel->setTransfer(transfer);
@@ -234,7 +230,7 @@ namespace Konversation
                 if (index.data(TransferListModel::TransferType).toInt() == Transfer::Receive &&
                     index.data(TransferListModel::TransferStatus).toInt() == Transfer::Queued)
                 {
-                    Transfer *transfer = static_cast<Transfer*>(qVariantValue<QObject*>(index.data(TransferListModel::TransferPointer)));
+                    Transfer *transfer = static_cast<Transfer*>(index.data(TransferListModel::TransferPointer).value<QObject*>());
                     if (transfer)
                     {
                         transfer->start();
@@ -250,7 +246,7 @@ namespace Konversation
             {
                 if (index.data(TransferListModel::TransferStatus).toInt() < Transfer::Done)
                 {
-                    Transfer *transfer = static_cast<Transfer*>(qVariantValue<QObject*>(index.data(TransferListModel::TransferPointer)));
+                    Transfer *transfer = static_cast<Transfer*>(index.data(TransferListModel::TransferPointer).value<QObject*>());
                     if (transfer)
                     {
                         transfer->abort();
@@ -268,7 +264,7 @@ namespace Konversation
                 if (index.data(TransferListModel::TransferType).toInt() == Transfer::Send &&
                     index.data(TransferListModel::TransferStatus).toInt() >= Transfer::Done)
                 {
-                    Transfer *transfer = static_cast<Transfer*>(qVariantValue<QObject*>(index.data(TransferListModel::TransferPointer)));
+                    Transfer *transfer = static_cast<Transfer*>(index.data(TransferListModel::TransferPointer).value<QObject*>());
                     if (!transfer)
                     {
                         continue;
@@ -463,7 +459,7 @@ namespace Konversation
                 if (index.data(TransferListModel::TransferType).toInt() == Transfer::Send ||
                     index.data(TransferListModel::TransferStatus).toInt() == Transfer::Done)
                 {
-                    Transfer *transfer = static_cast<Transfer*>(qVariantValue<QObject*>(index.data(TransferListModel::TransferPointer)));
+                    Transfer *transfer = static_cast<Transfer*>(index.data(TransferListModel::TransferPointer).value<QObject*>());
                     if (transfer)
                     {
                         transfer->runFile();
@@ -476,22 +472,10 @@ namespace Konversation
         {
             foreach (const QModelIndex &index, m_transferView->selectedRows())
             {
-                Transfer *transfer = static_cast<Transfer*>(qVariantValue<QObject*>(index.data(TransferListModel::TransferPointer)));
+                Transfer *transfer = static_cast<Transfer*>(index.data(TransferListModel::TransferPointer).value<QObject*>());
                 if (transfer)
                 {
                     openLocation(transfer);
-                }
-            }
-        }
-
-        void TransferPanel::showFileInfo()
-        {
-            foreach (const QModelIndex &index, m_transferView->selectedRows())
-            {
-                Transfer *transfer = static_cast<Transfer*>(qVariantValue<QObject*>(index.data(TransferListModel::TransferPointer)));
-                if (transfer)
-                {
-                    openFileInfoDialog(transfer);
                 }
             }
         }
@@ -516,7 +500,7 @@ namespace Konversation
 
         void TransferPanel::doubleClicked(const QModelIndex &index)
         {
-            Transfer *transfer = static_cast<Transfer*>(qVariantValue<QObject*>(index.data(TransferListModel::TransferPointer)));
+            Transfer *transfer = static_cast<Transfer*>(index.data(TransferListModel::TransferPointer).value<QObject*>());
             if (transfer)
             {
                 transfer->runFile();
@@ -535,26 +519,15 @@ namespace Konversation
 
         void TransferPanel::openLocation(Transfer *transfer)
         {
-            QString urlString = transfer->getFileURL().path();
+            QString urlString = transfer->getFileURL().toString(QUrl::PreferLocalFile|QUrl::RemoveFilename|QUrl::StripTrailingSlash);
             if (!urlString.isEmpty())
             {
-                KUrl url(urlString);
-                url.setFileName(QString());
-                new KRun(url, 0, 0, true, true);
-            }
-        }
-
-        void TransferPanel::openFileInfoDialog(Transfer *transfer)
-        {
-            if (transfer->getType() == Transfer::Send || transfer->getStatus() == Transfer::Done)
-            {
-                QPointer<FileMetaDataDialog> fileDialog = new FileMetaDataDialog(transfer->getFileURL(), this);
-                fileDialog->exec();
-                delete fileDialog;
+                QUrl url(QUrl::fromLocalFile(urlString));
+                new KRun(url, 0, true);
             }
         }
 
     }
 }
 
-#include "transferpanel.moc"
+

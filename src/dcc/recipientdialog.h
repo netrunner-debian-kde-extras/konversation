@@ -20,7 +20,7 @@
 
 #include <QModelIndex>
 
-#include <KDialog>
+#include <QDialog>
 
 class KLineEdit;
 
@@ -28,7 +28,7 @@ namespace Konversation
 {
     namespace DCC
     {
-        class RecipientDialog : public KDialog
+        class RecipientDialog : public QDialog
         {
             Q_OBJECT
 
@@ -38,7 +38,7 @@ namespace Konversation
 
                 static QString getNickname(QWidget* parent, QAbstractListModel* model);
 
-            protected slots:
+            protected Q_SLOTS:
                 void newNicknameSelected(const QModelIndex& index);
                                                           // KDE double click
                 void newNicknameSelectedQuit(const QModelIndex& index);

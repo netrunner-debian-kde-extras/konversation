@@ -23,7 +23,6 @@
 #include <QStringList>
 
 #include <kxmlguiwindow.h>
-#include <kaction.h>
 
 
 class KToggleAction;
@@ -51,13 +50,10 @@ class MainWindow : public KXmlGuiWindow
         Konversation::TrayIcon* systemTrayIcon() const { return m_trayIcon; }
 
         /** Some errors need to be shown, even when konversation is minimized.
-         *  For example, when a kimiface call is received to query a person,
-         *  (e.g. the user choses "Chat with X" in kmail) but that person isn't
-         *  recognised, we need to give immediate feedback to the user.
          */
         void focusAndShowErrorMessage(const QString &errorMsg);
 
-    signals:
+    Q_SIGNALS:
         void showQuickConnectDialog();
         void nicksNowOnline(Server*);
         void endNotification();
@@ -67,7 +63,9 @@ class MainWindow : public KXmlGuiWindow
         void cancelRememberLine();
         void insertMarkerLine();
 
-    public slots:
+    public Q_SLOTS:
+        void activateAndRaiseWindow();
+
         void quitProgram();
 
         void updateTrayIcon();
@@ -79,7 +77,7 @@ class MainWindow : public KXmlGuiWindow
 
         void setOnlineList(Server* notifyServer,const QStringList& list, bool changed);
 
-    protected slots:
+    protected Q_SLOTS:
         /** This is connected to the preferences settingsChanged signal and acts to compress
         *  multiple successively settingsChanged() signals into a single output
         *  appearanceChanged() signal.

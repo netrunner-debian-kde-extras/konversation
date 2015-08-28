@@ -22,7 +22,7 @@ class Warnings_Config : public QWidget, public KonviSettingsPage, private Ui::Wa
     Q_OBJECT
 
     public:
-        explicit Warnings_Config( QWidget* parent = 0, const char* name = 0, Qt::WFlags fl = 0 );
+        explicit Warnings_Config( QWidget* parent = 0, const char* name = 0, Qt::WindowFlags fl = 0 );
         ~Warnings_Config();
 
         virtual void restorePageToDefaults();
@@ -31,7 +31,7 @@ class Warnings_Config : public QWidget, public KonviSettingsPage, private Ui::Wa
 
         virtual bool hasChanged();
 
-    public slots:
+    public Q_SLOTS:
         virtual void languageChange();
 
     protected:
@@ -39,7 +39,7 @@ class Warnings_Config : public QWidget, public KonviSettingsPage, private Ui::Wa
 
         QString m_oldWarningsChecked;     // for hasChanged()
 
-    signals:
+    Q_SIGNALS:
         void modified();
 };
 

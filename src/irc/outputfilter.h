@@ -24,7 +24,7 @@
 #include <QSet>
 #include <QPointer>
 
-#include <KUrl>
+#include <QUrl>
 #include <kio/global.h>
 
 class Server;
@@ -93,8 +93,8 @@ namespace Konversation
 
             static bool replaceAliases(QString& line, ChatWindow* context = 0);
 
-        signals:
-            void openDccSend(const QString &recipient, KUrl kurl);
+        Q_SIGNALS:
+            void openDccSend(const QString &recipient, QUrl url);
             void requestDccSend();                // Choose Recipient and File from requester
                                                   // Choose File from requester
             void requestDccSend(const QString& recipient);
@@ -118,21 +118,21 @@ namespace Konversation
 
             void connectTo(Konversation::ConnectionFlag flag,
                            const QString& hostName,
-                           const QString& port = "",
-                           const QString& password = "",
-                           const QString& nick = "",
-                           const QString& channel = "",
+                           const QString& port = QString(),
+                           const QString& password = QString(),
+                           const QString& nick = QString(),
+                           const QString& channel = QString(),
                            bool useSSL = false
             );
 
             void showView(ChatWindow* view);
             void encodingChanged ();
 
-        public slots:
+        public Q_SLOTS:
             OutputFilterResult execBan(const QString& mask,const QString& channels);
             OutputFilterResult execUnban(const QString& mask,const QString& channels);
 
-        private slots:
+        private Q_SLOTS:
             OutputFilterResult command_op(const OutputFilterInput& input);
             OutputFilterResult command_deop(const OutputFilterInput& input);
             OutputFilterResult command_hop(const OutputFilterInput& input);
@@ -198,7 +198,6 @@ namespace Konversation
             OutputFilterResult command_cycle(const OutputFilterInput& input);
             OutputFilterResult command_clear(const OutputFilterInput& input);
             OutputFilterResult command_umode(const OutputFilterInput& input);
-            OutputFilterResult command_dumpdoc(const OutputFilterInput& input);
 
         private:
             static void fillCommandList();

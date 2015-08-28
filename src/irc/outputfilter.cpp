@@ -22,11 +22,10 @@
 #include "server.h"
 #include "scriptlauncher.h"
 #include "irccharsets.h"
-#include "linkaddressbook/addressbook.h"
 #include "query.h"
 #include "viewcontainer.h"
 #include "outputfilterresolvejob.h"
-
+#include <kxmlgui_version.h>
 #ifdef HAVE_QCA2
 #include "cipher.h"
 #endif
@@ -40,11 +39,10 @@
 
 #include <KPasswordDialog>
 #include <KMessageBox>
-#include <KAboutData>
 
 #include <QTextDocument>
 #include <QTextBlock>
-#include <kdebug.h>
+#include <qdebug.h>
 #include "ircview.h"
 
 QDebug operator<<(QDebug d, QTextDocument* document);
@@ -63,10 +61,10 @@ namespace Konversation
         for (int i = OutputFilter::staticMetaObject.methodOffset();
             i < OutputFilter::staticMetaObject.methodCount(); ++i)
         {
-            methodSignature = QString::fromLatin1(OutputFilter::staticMetaObject.method(i).signature());
+            methodSignature = QString::fromLatin1(OutputFilter::staticMetaObject.method(i).methodSignature());
 
             if (methodSignature.startsWith(QLatin1String("command_")))
-                m_commands << methodSignature.mid(8).section('(', 0, 0).toLower();
+                m_commands << methodSignature.mid(8).section(QLatin1Char('('), 0, 0).toLower();
         }
     }
 
@@ -90,29 +88,29 @@ namespace Konversation
         for(int index = 0; index<aliasList.count(); index++)
         {
             // cut alias pattern from definition
-            QString aliasPattern(aliasList[index].section(' ', 0, 0));
+            QString aliasPattern(aliasList[index].section(QLatin1Char(' '), 0, 0));
 
             // cut first word from command line, so we do not wrongly find an alias
             // that starts with the same letters, like /m would override /me
-            QString lineStart = line.section(' ', 0, 0);
+            QString lineStart = line.section(QLatin1Char(' '), 0, 0);
 
             // pattern found?
             if (lineStart == Preferences::self()->commandChar() + aliasPattern)
             {
-                QString aliasReplace = aliasList[index].section(' ',1);
+                QString aliasReplace = aliasList[index].section(QLatin1Char(' '),1);
 
                 if (context)
                     aliasReplace = context->getServer()->parseWildcards(aliasReplace, context);
 
-                if (!aliasList[index].contains("%p"))
-                    aliasReplace.append(' ' + line.section(' ', 1));
+                if (!aliasList[index].contains(QStringLiteral("%p")))
+                    aliasReplace.append(QLatin1Char(' ') + line.section(QLatin1Char(' '), 1));
 
                 // protect "%%"
-                aliasReplace.replace("%%","%\x01");
+                aliasReplace.replace(QStringLiteral("%%"),QStringLiteral("%\x01"));
                 // replace %p placeholder with rest of line
-                aliasReplace.replace("%p", line.section(' ', 1));
+                aliasReplace.replace(QStringLiteral("%p"), line.section(QLatin1Char(' '), 1));
                 // restore "%<1>" as "%%"
-                aliasReplace.replace("%\x01","%%");
+                aliasReplace.replace(QStringLiteral("%\x01"),QStringLiteral("%%"));
                 // modify line
                 line=aliasReplace;
                 // return "replaced"
@@ -940,7 +938,7 @@ namespace Konversation
         OutputFilterInput input(_input);
         OutputFilterResult result;
 
-        kDebug() << input.parameter;
+        qDebug() << input.parameter;
         // No parameter, just open DCC panel
         if (input.parameter.isEmpty())
         {
@@ -971,7 +969,7 @@ namespace Konversation
                 {
                     // TODO: make sure this will work:
                     //output=i18n("Usage: %1DCC SEND nickname [filename] [filename] ...").arg(commandChar);
-                    KUrl fileURL(parameterList[2]);
+                    QUrl fileURL(parameterList[2]);
 
                     //We could easily check if the remote file exists, but then we might
                     //end up asking for creditionals twice, so settle for only checking locally
@@ -994,10 +992,10 @@ namespace Konversation
                 switch (parameterList.count())
                 {
                     case 1:
-                        emit acceptDccGet("","");
+                        emit acceptDccGet(QString(),QString());
                         break;
                     case 2:
-                        emit acceptDccGet(parameterList.at(1),"");
+                        emit acceptDccGet(parameterList.at(1),QString());
                         break;
                     case 3:
                         emit acceptDccGet(parameterList.at(1),parameterList.at(2));
@@ -1013,7 +1011,7 @@ namespace Konversation
                 switch (parameterList.count())
                 {
                     case 1:
-                        emit openDccChat("");
+                        emit openDccChat(QString());
                         break;
                     case 2:
                         emit openDccChat(parameterList[1]);
@@ -1029,7 +1027,7 @@ namespace Konversation
                 switch (parameterList.count())
                 {
                     case 1:
-                        emit openDccWBoard("");
+                        emit openDccWBoard(QString());
                         break;
                     case 2:
                         emit openDccWBoard(parameterList[1]);
@@ -1332,7 +1330,7 @@ namespace Konversation
             QPointer<KPasswordDialog> dialog = new KPasswordDialog(0, KPasswordDialog::ShowUsernameLine);
             dialog->setPrompt(i18n("Enter username and password for IRC operator privileges:"));
             dialog->setUsername(nick);
-            dialog->setCaption(i18n("IRC Operator Password"));
+            dialog->setWindowTitle(i18n("IRC Operator Password"));
             if (dialog->exec()) {
                 result.toServer = "OPER " + dialog->username() + ' ' + dialog->password();
             }
@@ -1834,7 +1832,7 @@ namespace Konversation
 
     OutputFilterResult OutputFilter::command_queuetuner(const OutputFilterInput& input)
     {
-        Application *konvApp = static_cast<Application*>(KApplication::kApplication());
+        Application *konvApp = Application::instance();
 
         if (input.parameter.isEmpty() || input.parameter == "on")
             konvApp->showQueueTuner(true);
@@ -1854,14 +1852,14 @@ namespace Konversation
         QTextStream serverOut(&result.toServer);
         QTextStream myOut(&result.output); //<--because seek is unimplemented in QTextStreamPrivate::write(const QString &data)
         myOut
-            << "Konversation: " << KGlobal::mainComponent().aboutData()->version()
+            << "Konversation: " << qApp->applicationVersion()
             << ", Qt " << QString::fromLatin1(qVersion())
-            << ", KDE SC " << KDE::versionString()
+            << ", KDE Frameworks " << QString::fromLatin1(KXMLGUI_VERSION_STRING);
             ;
-        if (QString::fromLatin1(KDE_VERSION_STRING) != KDE::versionString())
-            myOut << ", KDE DP " << QString::fromLatin1(KDE_VERSION_STRING);
-        if (qgetenv("KDE_FULL_SESSION").isEmpty())
-            myOut << ", no KDE";
+        if (!qgetenv("KDE_FULL_SESSION").isEmpty() && !qgetenv("KDE_SESSION_VERSION").isEmpty())
+            myOut << ", Plasma " << QString::fromLatin1(qgetenv("KDE_SESSION_VERSION"));
+        else
+            myOut << ", no Plasma";
 
         serverOut << "PRIVMSG " << input.destination << " :" << result.output;
         return result;
@@ -1874,13 +1872,13 @@ namespace Konversation
             if (input.context)
                 input.context->cycle();
             else
-                kDebug() << "Parameter-less /cycle without an input context can't work.";
+                qDebug() << "Parameter-less /cycle without an input context can't work.";
         }
         else
         {
             if (isParameter("app", input.parameter))
             {
-                Application *konvApp = static_cast<Application*>(KApplication::kApplication());
+                Application *konvApp = Application::instance();
 
                 konvApp->restart();
             }
@@ -1889,7 +1887,7 @@ namespace Konversation
                 if (m_server)
                     m_server->cycle();
                 else
-                    kDebug() << "Told to cycle the server, but current context doesn't have one.";
+                    qDebug() << "Told to cycle the server, but current context doesn't have one.";
             }
             else if (m_server)
             {
@@ -1916,7 +1914,7 @@ namespace Konversation
             if (input.context)
                 input.context->clear();
             else
-                kDebug() << "Parameter-less /clear without an input context can't work.";
+                qDebug() << "Parameter-less /clear without an input context can't work.";
         }
         else if (m_server)
         {
@@ -1947,16 +1945,6 @@ namespace Konversation
         result.toServer = "MODE " + input.myNick + ' ' + input.parameter;
 
         return result;
-    }
-
-    OutputFilterResult OutputFilter::command_dumpdoc(const OutputFilterInput& input)
-    {
-        if (input.context && input.context->getTextView())
-        {
-            KDebug::Block myBlock(qPrintable(QString::number((quintptr)(input.context->getTextView()), 16)));
-            kDebug() << input.context->getTextView()->document();
-        }
-        return OutputFilterResult();
     }
 
     OutputFilterResult OutputFilter::changeMode(const QString &parameter, const QString& destination,
@@ -2087,7 +2075,7 @@ namespace Konversation
         return rx.exactMatch(string);
     }
 }
-#include "outputfilter.moc"
+
 
 // kate: space-indent on; tab-width 4; indent-width 4; mixed-indent off; replace-tabs on;
 // vim: set et sw=4 ts=4 cino=l1,cs,U1:

@@ -12,7 +12,7 @@
 #ifndef KONVERSATIONINSERTCHARDIALOG_H
 #define KONVERSATIONINSERTCHARDIALOG_H
 
-#include <kdialog.h>
+#include <QDialog>
 
 
 class KCharSelect;
@@ -21,7 +21,7 @@ class QChar;
 namespace Konversation
 {
 
-    class InsertCharDialog : public KDialog
+    class InsertCharDialog : public QDialog
     {
         Q_OBJECT
 
@@ -32,11 +32,11 @@ namespace Konversation
             void setFont(const QFont &font);
             QChar chr();
 
-        protected slots:
-            virtual void slotButtonClicked(int button);
+        protected Q_SLOTS:
             void charSelected();
+            void slotAccepted();
 
-            signals:
+        Q_SIGNALS:
             void insertChar(const QChar&);
 
         private:

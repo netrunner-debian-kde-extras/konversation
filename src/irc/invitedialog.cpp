@@ -18,34 +18,42 @@
 
 #include "invitedialog.h"
 
-#include <KApplication>
-#include <KLocale>
-#include <KIcon>
+#include <KLocalizedString>
+#include <QIcon>
 #include <KConfigGroup>
 
 #include <QStringList>
+#include <KSharedConfig>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 InviteDialog::InviteDialog(QWidget* parent)
-    : KDialog(parent), Ui::InviteDialog()
+    : QDialog(parent), Ui::InviteDialog()
 {
     setAttribute(Qt::WA_DeleteOnClose);
-    setCaption(i18n("Channel Invites"));
-    setButtons(KDialog::Ok | KDialog::Cancel);
+    setWindowTitle(i18n("Channel Invites"));
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
+    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(true);
+    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &InviteDialog::slotOk);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &InviteDialog::reject);
 
     QWidget* mainWidget = new QWidget(this);
-    setMainWidget(mainWidget);
+    mainLayout->addWidget(mainWidget);
+    mainLayout->addWidget(buttonBox);
     setupUi(mainWidget);
 
-    m_iconLabel->setPixmap(KIcon("irc-join-channel").pixmap(48));
+    m_iconLabel->setPixmap(QIcon::fromTheme(QStringLiteral("irc-join-channel")).pixmap(48));
 
     m_channelModel = new InviteChannelListModel(m_channelView);
     m_channelView->setModel(m_channelModel);
     m_channelView->setRootIsDecorated(false);
     m_channelView->setUniformRowHeights(true);
 
-    connect(this, SIGNAL(okClicked()), this, SLOT(slotOk()));
-    connect(this, SIGNAL(buttonClicked(KDialog::ButtonCode)),
-            this, SLOT (saveShowAgainSetting(KDialog::ButtonCode)));
 }
 
 void InviteDialog::addInvite(const QString& nickname, const QString& channel)
@@ -60,35 +68,29 @@ void InviteDialog::slotOk()
 
     if(!channels.isEmpty())
         emit joinChannelsRequested(channels);
+    KConfigGroup::WriteConfigFlags flags = KConfig::Persistent;
+    KConfigGroup cg(KSharedConfig::openConfig().data(), "Notification Messages");
+    cg.writeEntry("Invitation", m_joinPreferences->currentIndex(), flags);
+    cg.sync();
 }
 
-void InviteDialog::saveShowAgainSetting(KDialog::ButtonCode buttonCode)
+bool InviteDialog::shouldBeShown(QDialogButtonBox::StandardButton& buttonCode)
 {
-    if (buttonCode == KDialog::Ok)
-    {
-	KConfigGroup::WriteConfigFlags flags = KConfig::Persistent;
-	KConfigGroup cg(KGlobal::config().data(), "Notification Messages");
-	cg.writeEntry("Invitation", m_joinPreferences->currentIndex(), flags);
-	cg.sync();
-    }
-}
-bool InviteDialog::shouldBeShown(KDialog::ButtonCode& buttonCode)
-{
-    KConfigGroup cg(KGlobal::config().data(), "Notification Messages");
+    KConfigGroup cg(KSharedConfig::openConfig().data(), "Notification Messages");
     cg.sync();
     const QString dontAsk = cg.readEntry("Invitation", QString()).toLower();
 
-    if (dontAsk == "1")
+    if (dontAsk == QStringLiteral("1"))
     {
-	buttonCode = KDialog::Ok;
-	return false;
+    buttonCode = QDialogButtonBox::Ok;
+    return false;
     }
-    else if (dontAsk == "2")
+    else if (dontAsk == QStringLiteral("2"))
     {
-	buttonCode = KDialog::Cancel;
-	return false;
+    buttonCode = QDialogButtonBox::Cancel;
+    return false;
     }
-    
+
     return true;
 }
 
@@ -108,7 +110,7 @@ void InviteChannelListModel::addInvite(const QString& nickname, const QString& c
     {
         if(!m_channelMap[channel].nicknames.contains(nickname))
         {
-            m_channelMap[channel].nicknames += ", " + nickname;
+            m_channelMap[channel].nicknames += QStringLiteral(", ") + nickname;
         }
     }
     else
@@ -120,7 +122,8 @@ void InviteChannelListModel::addInvite(const QString& nickname, const QString& c
         m_channelMap.insert(channel, item);
     }
 
-    reset();
+    beginResetModel();
+    endResetModel();
 }
 
 int InviteChannelListModel::rowCount(const QModelIndex&) const
@@ -152,8 +155,8 @@ QVariant InviteChannelListModel::data(const QModelIndex& index, int role) const
     }
     if(role == Qt::SizeHintRole)
     {
-        return QSize(0, qMax(kapp->style()->sizeFromContents(QStyle::CT_CheckBox, 0, QSize(0, 0), 0).height(),
-                             kapp->fontMetrics().height()));
+        return QSize(0, qMax(qApp->style()->sizeFromContents(QStyle::CT_CheckBox, 0, QSize(0, 0), 0).height(),
+                             qApp->fontMetrics().height()));
     }
     else if(Qt::CheckStateRole && index.column() == 0)
     {
@@ -199,7 +202,7 @@ QString InviteChannelListModel::selectedChannels() const
             channels.append(item.channel);
     }
 
-    return channels.join(",");
+    return channels.join(QStringLiteral(","));
 }
 
 bool InviteChannelListModel::setData(const QModelIndex& index, const QVariant& value, int role)
@@ -214,4 +217,4 @@ bool InviteChannelListModel::setData(const QModelIndex& index, const QVariant& v
     return true;
 }
 
-#include "invitedialog.moc"
+

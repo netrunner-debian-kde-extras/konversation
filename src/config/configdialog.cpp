@@ -4,6 +4,9 @@
  *  Copyright (C) 2003 Waldo Bastian <bastian@kde.org>
  *  Copyright (C) 2004 Michael Brade <brade@kde.org>
  *
+ *  Forked from KConfigDialog from KF5::ConfigWidgets to add tree support.
+ *  Copyright (C) 2014 Eike Hein
+ *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
  *  License as published by the Free Software Foundation; either
@@ -19,233 +22,388 @@
  *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *  Boston, MA 02110-1301, USA.
  */
-
-/*
- *  KConfigDialog derivative allowing for a multi-level hierarchical TreeList.
- *  Differences from KConfigDialog:
- *  - Use QStringList instead of QString for the item name(s) in addPage and
- *    addPageInternal, thus calling the respective KDialog methods which
- *    allow specifying a path from which the TreeList hierarchy is constructed.
- *  - Use 16x16 icons in the TreeList.
- *  - Fill a new int m_lastAddedIndex with the pageIndex() of a new page added
- *    with addPageInternal, and offer a public interface int lastAddedIndex().
- *  See the KConfigDialog reference for detailed documentation.
- *
- *  begin:     Nov 22 2005
- *  copyright: (C) 2005-2006 by Eike Hein, KConfigDialog developers
- *  email:     hein@kde.org
- */
-
 #include "configdialog.h"
 
-#include <KConfigSkeleton>
-#include <KConfigDialogManager>
-#include <KLocale>
+#include <kconfigdialogmanager.h>
+#include <kcoreconfigskeleton.h>
+#include <kpagewidgetmodel.h>
+#include <khelpclient.h>
 
+#include <QDialogButtonBox>
+#include <QIcon>
+#include <QLayout>
+#include <QPushButton>
+#include <QtCore/QMap>
+#include <QCoreApplication>
+#include <QDesktopServices>
 
-#include <QString>
-
-
-QMultiHash<const char *, KonviConfigDialog *> KonviConfigDialog::openDialogs;
-
-// This class is here purly so we don't break binary compatibility down the road.
-class KonviConfigDialog::KConfigDialogPrivate
+class ConfigDialog::ConfigDialogPrivate
 {
-    public:
-        KConfigDialogPrivate(KPageDialog::FaceType t) : shown(false), type(t), manager(0) { }
+public:
+    ConfigDialogPrivate(ConfigDialog *q, const QString &name, KCoreConfigSkeleton *config)
+        : q(q), shown(false), manager(0)
+    {
+        q->setObjectName(name);
+        q->setWindowTitle(tr("Configure"));
+        q->setFaceType(List);
 
-        bool shown;
-        KPageDialog::FaceType type;
-        KConfigDialogManager *manager;
-        QMap<QWidget *, KConfigDialogManager *> managerForPage;
+        if (!name.isEmpty()) {
+            openDialogs.insert(name, q);
+        } else {
+            QString genericName;
+            genericName.sprintf("SettingsDialog-%p", static_cast<void *>(q));
+            openDialogs.insert(genericName, q);
+            q->setObjectName(genericName);
+        }
+
+        QDialogButtonBox *buttonBox = q->buttonBox();
+        buttonBox->setStandardButtons(QDialogButtonBox::RestoreDefaults
+                                      | QDialogButtonBox::Ok
+                                      | QDialogButtonBox::Apply
+                                      | QDialogButtonBox::Cancel
+                                      | QDialogButtonBox::Help);
+        connect(buttonBox->button(QDialogButtonBox::Ok), SIGNAL(clicked()), q, SLOT(updateSettings()));
+        connect(buttonBox->button(QDialogButtonBox::Apply), SIGNAL(clicked()), q, SLOT(updateSettings()));
+        connect(buttonBox->button(QDialogButtonBox::Apply), SIGNAL(clicked()), q, SLOT(_k_updateButtons()));
+        connect(buttonBox->button(QDialogButtonBox::Cancel), SIGNAL(clicked()), q, SLOT(updateWidgets()));
+        connect(buttonBox->button(QDialogButtonBox::RestoreDefaults), SIGNAL(clicked()), q, SLOT(updateWidgetsDefault()));
+        connect(buttonBox->button(QDialogButtonBox::RestoreDefaults), SIGNAL(clicked()), q, SLOT(_k_updateButtons()));
+        connect(buttonBox->button(QDialogButtonBox::Help), SIGNAL(clicked()), q, SLOT(showHelp()));
+
+        connect(q, SIGNAL(pageRemoved(KPageWidgetItem*)), q, SLOT(onPageRemoved(KPageWidgetItem*)));
+
+        manager = new KConfigDialogManager(q, config);
+        setupManagerConnections(manager);
+
+        setApplyButtonEnabled(false);
+    }
+
+    KPageWidgetItem *addPageInternal(KPageWidgetItem *parent, QWidget *page, const QString &itemName,
+                                     const QString &pixmapName, const QString &header);
+
+    void setupManagerConnections(KConfigDialogManager *manager);
+    void setApplyButtonEnabled(bool enabled);
+    void setRestoreDefaultsButtonEnabled(bool enabled);
+
+    void _k_updateButtons();
+    void _k_settingsChangedSlot();
+
+    ConfigDialog *q;
+    QString mAnchor;
+    QString mHelpApp;
+    bool shown;
+    KConfigDialogManager *manager;
+    QMap<QWidget *, KConfigDialogManager *> managerForPage;
+
+    /**
+      * The list of existing dialogs.
+     */
+    static QHash<QString, ConfigDialog *> openDialogs;
 };
 
-KonviConfigDialog::KonviConfigDialog( QWidget *parent, const char *name,
-                                      KConfigSkeleton *config,
-                                      KPageDialog::FaceType dialogType,
-                                      QFlags<KDialog::ButtonCode> dialogButtons,
-                                      ButtonCode defaultButton,
-                                      bool modal ) :
-                   KPageDialog(parent),
-                           d(new KConfigDialogPrivate(dialogType))
+QHash<QString, ConfigDialog *> ConfigDialog::ConfigDialogPrivate::openDialogs;
+
+ConfigDialog::ConfigDialog(QWidget *parent, const QString &name,
+                             KCoreConfigSkeleton *config) :
+    KPageDialog(parent),
+    d(new ConfigDialogPrivate(this, name, config))
 {
-    setCaption(i18n("Configure"));
-    setModal(modal);
-    setFaceType(dialogType);
-    setButtons(dialogButtons);
-    setDefaultButton(defaultButton);
-    if ( name )
-    {
-        openDialogs.insert(name, this);
-    }
-    else
-    {
-        QString genericName = QString("SettingsDialog-%1").arg((quintptr)(this));
-        openDialogs.insert(genericName.toLatin1().data(), this);
-        setObjectName(genericName);
-    }
-
-    connect(this, SIGNAL(okClicked()), this, SLOT(updateSettings()));
-    connect(this, SIGNAL(applyClicked()), this, SLOT(updateSettings()));
-    connect(this, SIGNAL(applyClicked()), this, SLOT(updateButtons()));
-    connect(this, SIGNAL(defaultClicked()), this, SLOT(updateWidgetsDefault()));
-    connect(this, SIGNAL(defaultClicked()), this, SLOT(updateButtons()));
-
-    d->manager = new KConfigDialogManager(this, config);
-    setupManagerConnections(d->manager);
-    setHelp("konversation");
-    enableButton(Apply, false);
 }
 
-KonviConfigDialog::~KonviConfigDialog()
+ConfigDialog::~ConfigDialog()
 {
-    openDialogs.remove(objectName().toLatin1().constData());
+    ConfigDialogPrivate::openDialogs.remove(objectName());
     delete d;
 }
 
-KPageWidgetItem *KonviConfigDialog::addPage(QWidget *page,
-                                KPageWidgetItem *group,
-                                const QString &pixmapName,
-                                const QString &header,
-                                bool manage)
+KPageWidgetItem *ConfigDialog::addPage(QWidget *page,
+                                        const QString &itemName,
+                                        const QString &pixmapName,
+                                        const QString &header,
+                                        bool manage)
 {
-    KPageWidgetItem *pageWidgetItem = addPageInternal(page, group, pixmapName, header);
-    if(manage)
+    Q_ASSERT(page);
+    if (!page) {
+        return 0;
+    }
+
+    KPageWidgetItem *item = d->addPageInternal(0, page, itemName, pixmapName, header);
+    if (manage) {
         d->manager->addWidget(page);
-    return pageWidgetItem;
+    }
+
+    if (d->shown && manage) {
+        // update the default button if the dialog is shown
+        QPushButton *defaultButton = buttonBox()->button(QDialogButtonBox::RestoreDefaults);
+        if (defaultButton) {
+            bool is_default = defaultButton->isEnabled() && d->manager->isDefault();
+            defaultButton->setEnabled(!is_default);
+        }
+    }
+    return item;
 }
 
-KPageWidgetItem *KonviConfigDialog::addPage(QWidget *page,
-                                KConfigSkeleton *config,
-                                KPageWidgetItem *group,
-                                const QString &pixmapName,
-                                const QString &header)
+KPageWidgetItem *ConfigDialog::konviAddSubPage(KPageWidgetItem *parent,
+                                               QWidget *page,
+                                               const QString &itemName,
+                                               const QString &pixmapName,
+                                               const QString &header,
+                                               bool manage)
 {
-    KPageWidgetItem *pageWidgetItem = addPageInternal(page, group, pixmapName, header);
-    d->managerForPage[page] = new KConfigDialogManager(page, config);
-    setupManagerConnections(d->managerForPage[page]);
-    return pageWidgetItem;
+    Q_ASSERT(parent);
+    if (!parent) {
+        return 0;
+    }
+
+    Q_ASSERT(page);
+    if (!page) {
+        return 0;
+    }
+
+    KPageWidgetItem *item = d->addPageInternal(parent, page, itemName, pixmapName, header);
+    if (manage) {
+        d->manager->addWidget(page);
+    }
+
+    if (d->shown && manage) {
+        // update the default button if the dialog is shown
+        QPushButton *defaultButton = buttonBox()->button(QDialogButtonBox::RestoreDefaults);
+        if (defaultButton) {
+            bool is_default = defaultButton->isEnabled() && d->manager->isDefault();
+            defaultButton->setEnabled(!is_default);
+        }
+    }
+    return item;
 }
 
-KPageWidgetItem *KonviConfigDialog::addPageInternal(QWidget *page,
-                                        KPageWidgetItem *group,
+KPageWidgetItem *ConfigDialog::addPage(QWidget *page,
+                                        KCoreConfigSkeleton *config,
+                                        const QString &itemName,
                                         const QString &pixmapName,
                                         const QString &header)
 {
-    KPageWidgetItem *pageItem = addSubPage(group, page, header);
-    pageItem->setIcon(KIcon(pixmapName));
-    return pageItem;
+    Q_ASSERT(page);
+    if (!page) {
+        return 0;
+    }
+
+    KPageWidgetItem *item = d->addPageInternal(0, page, itemName, pixmapName, header);
+    d->managerForPage[page] = new KConfigDialogManager(page, config);
+    d->setupManagerConnections(d->managerForPage[page]);
+
+    if (d->shown) {
+        // update the default button if the dialog is shown
+        QPushButton *defaultButton = buttonBox()->button(QDialogButtonBox::RestoreDefaults);
+        if (defaultButton) {
+            bool is_default = defaultButton->isEnabled() && d->managerForPage[page]->isDefault();
+            defaultButton->setEnabled(!is_default);
+        }
+    }
+    return item;
 }
 
-void KonviConfigDialog::setupManagerConnections(KConfigDialogManager *manager)
+KPageWidgetItem *ConfigDialog::ConfigDialogPrivate::addPageInternal(KPageWidgetItem *parent,
+                                                                    QWidget *page,
+                                                                    const QString &itemName,
+                                                                    const QString &pixmapName,
+                                                                    const QString &header)
 {
-    connect(manager, SIGNAL(settingsChanged()), this, SLOT(settingsChangedSlot()));
-    connect(manager, SIGNAL(widgetModified()), this, SLOT(updateButtons()));
+    QWidget *frame = new QWidget(q);
+    QVBoxLayout *boxLayout = new QVBoxLayout(frame);
+    boxLayout->setMargin(0);
 
-    connect(this, SIGNAL(okClicked()), manager, SLOT(updateSettings()));
-    connect(this, SIGNAL(applyClicked()), manager, SLOT(updateSettings()));
-    connect(this, SIGNAL(defaultClicked()), manager, SLOT(updateWidgetsDefault()));
+    boxLayout->addWidget(page);
+    KPageWidgetItem *item = new KPageWidgetItem(frame, itemName);
+    item->setHeader(header);
+    if (!pixmapName.isEmpty()) {
+        item->setIcon(QIcon::fromTheme(pixmapName));
+    }
+
+    if (parent) {
+        q->KPageDialog::addSubPage(parent, item);
+    } else {
+        q->KPageDialog::addPage(item);
+    }
+
+    return item;
 }
 
-KonviConfigDialog* KonviConfigDialog::exists(const char* name)
+void ConfigDialog::ConfigDialogPrivate::setupManagerConnections(KConfigDialogManager *manager)
 {
-    return openDialogs.value(name);
+    q->connect(manager, SIGNAL(settingsChanged()), q, SLOT(_k_settingsChangedSlot()));
+    q->connect(manager, SIGNAL(widgetModified()), q, SLOT(_k_updateButtons()));
+
+    QDialogButtonBox *buttonBox = q->buttonBox();
+    q->connect(buttonBox->button(QDialogButtonBox::Ok), &QPushButton::clicked, manager, &KConfigDialogManager::updateSettings);
+    q->connect(buttonBox->button(QDialogButtonBox::Apply), &QPushButton::clicked, manager, &KConfigDialogManager::updateSettings);
+    q->connect(buttonBox->button(QDialogButtonBox::Cancel), &QPushButton::clicked, manager, &KConfigDialogManager::updateWidgets);
+    q->connect(buttonBox->button(QDialogButtonBox::RestoreDefaults), &QPushButton::clicked, manager, &KConfigDialogManager::updateWidgetsDefault);
 }
 
-bool KonviConfigDialog::showDialog(const char* name)
+void ConfigDialog::ConfigDialogPrivate::setApplyButtonEnabled(bool enabled)
 {
-    KonviConfigDialog *dialog = exists(name);
-    if(dialog)
+    QPushButton *applyButton = q->buttonBox()->button(QDialogButtonBox::Apply);
+    if (applyButton) {
+        applyButton->setEnabled(enabled);
+    }
+}
+
+void ConfigDialog::ConfigDialogPrivate::setRestoreDefaultsButtonEnabled(bool enabled)
+{
+    QPushButton *restoreDefaultsButton = q->buttonBox()->button(QDialogButtonBox::RestoreDefaults);
+    if (restoreDefaultsButton) {
+        restoreDefaultsButton->setEnabled(enabled);
+    }
+}
+
+void ConfigDialog::onPageRemoved(KPageWidgetItem *item)
+{
+    QMap<QWidget *, KConfigDialogManager *>::iterator j = d->managerForPage.begin();
+    while (j != d->managerForPage.end()) {
+        // there is a manager for this page, so remove it
+        if (item->widget()->isAncestorOf(j.key())) {
+            KConfigDialogManager *manager = j.value();
+            d->managerForPage.erase(j);
+            delete manager;
+            d->_k_updateButtons();
+            break;
+        }
+        ++j;
+    }
+}
+
+ConfigDialog *ConfigDialog::exists(const QString &name)
+{
+    QHash<QString, ConfigDialog *>::const_iterator it = ConfigDialogPrivate::openDialogs.constFind(name);
+    if (it != ConfigDialogPrivate::openDialogs.constEnd()) {
+        return *it;
+    }
+    return 0;
+}
+
+bool ConfigDialog::showDialog(const QString &name)
+{
+    ConfigDialog *dialog = exists(name);
+    if (dialog) {
         dialog->show();
+    }
     return (dialog != NULL);
 }
 
-void KonviConfigDialog::updateButtons()
+void ConfigDialog::ConfigDialogPrivate::_k_updateButtons()
 {
     static bool only_once = false;
-    if (only_once) return;
+    if (only_once) {
+        return;
+    }
     only_once = true;
 
     QMap<QWidget *, KConfigDialogManager *>::iterator it;
 
-    bool has_changed = d->manager->hasChanged() || hasChanged();
-    for (it = d->managerForPage.begin();
-        it != d->managerForPage.end() && !has_changed;
-        ++it)
-    {
+    bool has_changed = manager->hasChanged() || q->hasChanged();
+    for (it = managerForPage.begin();
+            it != managerForPage.end() && !has_changed;
+            ++it) {
         has_changed |= (*it)->hasChanged();
     }
 
-    enableButton(Apply, has_changed);
+    setApplyButtonEnabled(has_changed);
 
-    bool is_default = d->manager->isDefault() && isDefault();
-    for (it = d->managerForPage.begin();
-        it != d->managerForPage.end() && is_default;
-        ++it)
-    {
+    bool is_default = manager->isDefault() && q->isDefault();
+    for (it = managerForPage.begin();
+            it != managerForPage.end() && is_default;
+            ++it) {
         is_default &= (*it)->isDefault();
     }
 
-    enableButton(Default, !is_default);
+    setRestoreDefaultsButtonEnabled(!is_default);
 
-    emit widgetModified();
+    emit q->widgetModified();
     only_once = false;
 }
 
-void KonviConfigDialog::settingsChangedSlot()
+void ConfigDialog::ConfigDialogPrivate::_k_settingsChangedSlot()
 {
     // Update the buttons
-    updateButtons();
-    emit settingsChanged();
-    emit settingsChanged(objectName().toLatin1().constData());
+    _k_updateButtons();
+    emit q->settingsChanged(q->objectName());
 }
 
-void KonviConfigDialog::show()
+void ConfigDialog::showEvent(QShowEvent *e)
 {
-    QMap<QWidget *, KConfigDialogManager *>::iterator it;
+    if (!d->shown) {
+        QMap<QWidget *, KConfigDialogManager *>::iterator it;
 
-    updateWidgets();
-    d->manager->updateWidgets();
-    for (it = d->managerForPage.begin(); it != d->managerForPage.end(); ++it)
-        (*it)->updateWidgets();
+        updateWidgets();
+        d->manager->updateWidgets();
+        for (it = d->managerForPage.begin(); it != d->managerForPage.end(); ++it) {
+            (*it)->updateWidgets();
+        }
 
-    bool has_changed = d->manager->hasChanged() || hasChanged();
-    for (it = d->managerForPage.begin();
-        it != d->managerForPage.end() && !has_changed;
-        ++it)
-    {
-        has_changed |= (*it)->hasChanged();
+        bool has_changed = d->manager->hasChanged() || hasChanged();
+        for (it = d->managerForPage.begin();
+                it != d->managerForPage.end() && !has_changed;
+                ++it) {
+            has_changed |= (*it)->hasChanged();
+        }
+
+        d->setApplyButtonEnabled(has_changed);
+
+        bool is_default = d->manager->isDefault() && isDefault();
+        for (it = d->managerForPage.begin();
+                it != d->managerForPage.end() && is_default;
+                ++it) {
+            is_default &= (*it)->isDefault();
+        }
+
+        d->setRestoreDefaultsButtonEnabled(!is_default);
+
+        d->shown = true;
     }
-
-    enableButton(Apply, has_changed);
-
-    bool is_default = d->manager->isDefault() && isDefault();
-    for (it = d->managerForPage.begin();
-        it != d->managerForPage.end() && is_default;
-        ++it)
-    {
-        is_default &= (*it)->isDefault();
-    }
-
-    enableButton(Default, !is_default);
-    d->shown = true;
-    KPageDialog::show();
+    KPageDialog::showEvent(e);
 }
 
-int KonviConfigDialog::lastAddedIndex()
-{
-    return m_lastAddedIndex;
-}
-
-void KonviConfigDialog::updateSettings()
+void ConfigDialog::updateSettings()
 {
 }
 
-void KonviConfigDialog::updateWidgets()
+void ConfigDialog::updateWidgets()
 {
 }
 
-void KonviConfigDialog::updateWidgetsDefault()
+void ConfigDialog::updateWidgetsDefault()
 {
 }
 
+bool ConfigDialog::hasChanged()
+{
+    return false;
+}
+
+bool ConfigDialog::isDefault()
+{
+    return true;
+}
+
+void ConfigDialog::updateButtons()
+{
+    d->_k_updateButtons();
+}
+
+void ConfigDialog::settingsChangedSlot()
+{
+    d->_k_settingsChangedSlot();
+}
+
+void ConfigDialog::setHelp(const QString &anchor, const QString &appname)
+{
+    d->mAnchor  = anchor;
+    d->mHelpApp = appname;
+}
+
+void ConfigDialog::showHelp()
+{
+    KHelpClient::invokeHelp(d->mAnchor, d->mHelpApp);
+}
+
+#include "moc_configdialog.cpp"

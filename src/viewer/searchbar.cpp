@@ -21,7 +21,7 @@
 #include <KActionCollection>
 #include <KColorScheme>
 #include <KStandardAction>
-#include <KMenu>
+#include <QMenu>
 
 
 SearchBar::SearchBar(QWidget* parent)
@@ -40,10 +40,10 @@ SearchBar::SearchBar(QWidget* parent)
     m_fromCursor = false;
 
     setFocusProxy(m_searchEdit);
-    m_closeButton->setIcon(KIcon("dialog-close"));
+    m_closeButton->setIcon(QIcon::fromTheme("dialog-close"));
     m_findNextButton->setIcon(m_goUpSearch);
     m_findPreviousButton->setIcon(m_goDownSearch);
-    Application* konvApp = static_cast<Application*>(kapp);
+    Application* konvApp = Application::instance();
     konvApp->getMainWindow()->actionCollection()->action(KStandardAction::name(KStandardAction::FindNext))->setIcon(m_goUpSearch);
     konvApp->getMainWindow()->actionCollection()->action(KStandardAction::name(KStandardAction::FindPrev))->setIcon(m_goDownSearch);
 
@@ -53,28 +53,28 @@ SearchBar::SearchBar(QWidget* parent)
     m_closeShortcut = new QShortcut(QKeySequence(Qt::Key_Escape), this, SLOT(hide()));
     m_closeShortcut->setEnabled(false);
 
-    connect(m_timer, SIGNAL(timeout()), SLOT(slotFind()));
-    connect(m_searchEdit, SIGNAL(textChanged(QString)), SLOT(slotTextChanged()));
-    connect(m_searchEdit, SIGNAL(returnPressed()), SLOT(slotFindNext()));
-    connect(m_findNextButton, SIGNAL(clicked()), SLOT(slotFindNext()));
-    connect(m_findPreviousButton, SIGNAL(clicked()), SLOT(slotFindPrevious()));
-    connect(m_closeButton, SIGNAL(clicked()), SLOT(hide()));
-    connect(m_optionsButton, SIGNAL(clicked()), this, SLOT(showOptionsMenu()));
+    connect(m_timer, &QTimer::timeout, this, &SearchBar::slotFind);
+    connect(m_searchEdit, &KLineEdit::textChanged, this, &SearchBar::slotTextChanged);
+    connect(m_searchEdit, &KLineEdit::returnPressed, this, &SearchBar::slotFindNext);
+    connect(m_findNextButton, &QPushButton::clicked, this, &SearchBar::slotFindNext);
+    connect(m_findPreviousButton, &QPushButton::clicked, this, &SearchBar::slotFindPrevious);
+    connect(m_closeButton, &QToolButton::clicked, this, &SearchBar::hide);
+    connect(m_optionsButton, &QToolButton::clicked, this, &SearchBar::showOptionsMenu);
 
     QAction *action = 0;
-    m_optionsMenu = new KMenu(m_optionsButton);
+    m_optionsMenu = new QMenu(m_optionsButton);
     action = m_optionsMenu->addAction(i18n("Find Forward"));
     action->setCheckable(true);
-    connect(action, SIGNAL(toggled(bool)), this, SLOT(toggleSearchFoward(bool)));
+    connect(action, &QAction::toggled, this, &SearchBar::toggleSearchFoward);
     action = m_optionsMenu->addAction(i18n("Match Case"));
     action->setCheckable(true);
-    connect(action, SIGNAL(toggled(bool)), this, SLOT(toggleMatchCase(bool)));
+    connect(action, &QAction::toggled, this, &SearchBar::toggleMatchCase);
     action = m_optionsMenu->addAction(i18n("Whole Words Only"));
     action->setCheckable(true);
-    connect(action, SIGNAL(toggled(bool)), this, SLOT(toggleWholeWords(bool)));
+    connect(action, &QAction::toggled, this, &SearchBar::toggleWholeWords);
     action = m_optionsMenu->addAction(i18n("From Cursor"));
     action->setCheckable(true);
-    connect(action, SIGNAL(toggled(bool)), this, SLOT(toggleFromCursor(bool)));
+    connect(action, &QAction::toggled, this, &SearchBar::toggleFromCursor);
 
     m_optionsButton->setMenu(m_optionsMenu);
 }
@@ -90,7 +90,7 @@ bool SearchBar::eventFilter(QObject* object, QEvent* e)
     // HACK This event comes from the ViewContainer when
     // updateViewActions is called. ViewContainer can't
     // check the status of the search box, and so tramples
-    // on the KAction we're managing - that is until the
+    // on the QAction we're managing - that is until the
     // ambiguous shortcut dialog box pops up, at which point
     // a focus event is sent to the searchbar and the other
     // stanza in this method is triggered.
@@ -103,10 +103,10 @@ bool SearchBar::eventFilter(QObject* object, QEvent* e)
 
     if (focusEvent)
     {
-        Application* konvApp = static_cast<Application*>(kapp);
-        KAction* action = static_cast<KAction*>(konvApp->getMainWindow()->actionCollection()->action("focus_input_box"));
+        Application* konvApp = Application::instance();
+        QAction * action = static_cast<QAction*>(konvApp->getMainWindow()->actionCollection()->action("focus_input_box"));
 
-        if (action->shortcut().contains(QKeySequence(Qt::Key_Escape)))
+        if (action->shortcut().matches(QKeySequence(Qt::Key_Escape)))
         {
             action->setEnabled(focusEvent->lostFocus());
             m_closeShortcut->setEnabled(focusEvent->gotFocus());
@@ -225,7 +225,7 @@ bool SearchBar::fromCursor() const
 
 void SearchBar::toggleSearchFoward(bool value)
 {
-    Application* konvApp = static_cast<Application*>(kapp);
+    Application* konvApp = Application::instance();
     if (value) {
       m_findNextButton->setIcon(m_goDownSearch);
       m_findPreviousButton->setIcon(m_goUpSearch);
@@ -266,4 +266,4 @@ void SearchBar::showOptionsMenu()
   m_optionsButton->showMenu();
 }
 
-#include "searchbar.moc"
+

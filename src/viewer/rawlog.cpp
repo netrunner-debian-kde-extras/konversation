@@ -24,6 +24,7 @@ RawLog::RawLog(QWidget* parent) : ChatWindow(parent)
 {
     setName(i18n("Raw Log"));
     setType(ChatWindow::RawLog);
+    m_isTopLevelView = false;
     IRCViewBox* ircBox = new IRCViewBox(this);
     setTextView(ircBox->ircView());               // Server will be set later in setServer()
 
@@ -124,4 +125,4 @@ void RawLog::appendRaw(RawLog::MessageDirection dir, const QByteArray& message)
     appendRaw(output, dir == RawLog::Outbound);
 }
 
-#include "rawlog.moc"
+

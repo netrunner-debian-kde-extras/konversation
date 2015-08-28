@@ -22,17 +22,17 @@
 
 #include "viewspringloader.h"
 #include "viewtree.h"
-#include "viewtreeitem.h"
 
-#include <KTabBar>
-
+#include <QDragMoveEvent>
+#include <QTabBar>
+#include <QMimeData>
 
 ViewSpringLoader::ViewSpringLoader(ViewContainer* viewContainer) : QObject(viewContainer)
 {
     m_viewContainer = viewContainer;
 
     m_hoverTimer.setSingleShot(true);
-    connect(&m_hoverTimer, SIGNAL(timeout()), this, SLOT(springLoad()));
+    connect(&m_hoverTimer, &QTimer::timeout, this, &ViewSpringLoader::springLoad);
 }
 
 ViewSpringLoader::~ViewSpringLoader()
@@ -48,7 +48,7 @@ bool ViewSpringLoader::eventFilter(QObject* watched, QEvent* event)
 {
     if (event->type() == QEvent::DragEnter)
     {
-        if (!static_cast<QDragEnterEvent*>(event)->mimeData()->hasFormat("application/x-qlistviewitem"))
+        if (!static_cast<QDragEnterEvent*>(event)->mimeData()->hasFormat("application/x-konversation-chatwindow"))
         {
             m_hoveredWidget = static_cast<QWidget*>(watched);
 
@@ -61,7 +61,7 @@ bool ViewSpringLoader::eventFilter(QObject* watched, QEvent* event)
     {
         QDragMoveEvent* dragMoveEvent = static_cast<QDragMoveEvent*>(event);
 
-        if (!dragMoveEvent->mimeData()->hasFormat("application/x-qlistviewitem"))
+        if (!dragMoveEvent->mimeData()->hasFormat("application/x-konversation-chatwindow"))
         {
             ChatWindow* hoveredView = viewForPos(watched, dragMoveEvent->pos());
 
@@ -100,7 +100,7 @@ void ViewSpringLoader::springLoad()
 
 ChatWindow* ViewSpringLoader::viewForPos(QObject* widget, const QPoint& pos)
 {
-    KTabBar* tabBar = qobject_cast<KTabBar*>(widget);
+    QTabBar* tabBar = qobject_cast<QTabBar*>(widget);
 
     if (tabBar)
        return m_viewContainer->getViewAt(tabBar->tabAt(pos));
@@ -110,10 +110,13 @@ ChatWindow* ViewSpringLoader::viewForPos(QObject* widget, const QPoint& pos)
 
         if (viewTree)
         {
-            ViewTreeItem* item = static_cast<ViewTreeItem*>(viewTree->itemAt(QPoint(0, pos.y())));
+            const QModelIndex& idx = viewTree->indexAt(QPoint(0, pos.y()));
 
-            if (item)
-                return item->getView();
+            if (idx.isValid()) {
+                ChatWindow* view = static_cast<ChatWindow*>(idx.internalPointer());
+
+                return view;
+            }
         }
     }
 

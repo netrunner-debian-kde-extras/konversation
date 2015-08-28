@@ -15,7 +15,7 @@
 
 #include <QHostAddress>
 
-#include <kurl.h>
+#include <QUrl>
 #include <kjob.h>
 #include <kio/jobclasses.h>
 
@@ -100,7 +100,7 @@ namespace Konversation
             };
 
             QString server;
-            KUrl location;
+            QUrl location;
             QString uuid;
             UPnPDeviceDescription desc;
 
@@ -115,7 +115,7 @@ namespace Konversation
             QHash<KJob*, QByteArray>  soap_data_out;
 
             QString error;
-            
+
         public:
             /**
             * Construct a router.
@@ -123,7 +123,7 @@ namespace Konversation
             * @param location The location of it's xml description file
             * @param verbose Print lots of debug info
             */
-            UPnPRouter(const QString & server,const KUrl & location,const QString & uuid);
+            UPnPRouter(const QString & server,const QUrl &location,const QString & uuid);
             virtual ~UPnPRouter();
 
             /// Get the name  of the server
@@ -133,7 +133,7 @@ namespace Konversation
             QString getUUID() const {return uuid;}
 
             /// Get the location of it's xml description
-            KUrl getLocation() const {return location;}
+            QUrl getLocation() const {return location;}
 
             /// Get the device description
             UPnPDeviceDescription & getDescription() {return desc;}
@@ -171,14 +171,14 @@ namespace Konversation
             /// Get the current error (null string if there is none)
             QString getError() const {return error;}
 
-        private slots:
+        private Q_SLOTS:
             void onRequestFinished(KJob *reply);
             void downloadFinished(KJob* j);
-            
+
             void sendSoapData(KIO::Job *job, QByteArray &data);
             void recvSoapData(KIO::Job *job, const QByteArray &data);
-            
-        signals:
+
+        Q_SIGNALS:
             /**
             * Signal which indicates that the XML was downloaded successfully or not.
             * @param r The router which emitted the signal

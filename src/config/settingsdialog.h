@@ -13,10 +13,11 @@
 #ifndef KONVISETTINGSDIALOG_H
 #define KONVISETTINGSDIALOG_H
 
-#include "configdialog.h"
 #include "settingspage.h"
 
 #include <QList>
+
+#include <configdialog.h>
 
 class Warnings_Config;
 class Theme_Config;
@@ -26,13 +27,12 @@ class Alias_Config;
 class QuickButtons_Config;
 class Autoreplace_Config;
 class DCC_Config;
-class WatchedNicknames_Config;
 class Highlight_Config;
 class OSD_Config;
 class Ignore_Config;
 
 
-class KonviSettingsDialog : public KonviConfigDialog
+class KonviSettingsDialog : public ConfigDialog
 {
     Q_OBJECT
 
@@ -40,9 +40,7 @@ class KonviSettingsDialog : public KonviConfigDialog
         explicit KonviSettingsDialog(QWidget *parent);
         ~KonviSettingsDialog();
 
-        void openWatchedNicknamesPage();
-
-    protected slots:
+    protected Q_SLOTS:
         virtual void updateSettings();
         virtual void updateWidgets();
         virtual void updateWidgetsDefault();

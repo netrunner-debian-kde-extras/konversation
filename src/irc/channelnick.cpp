@@ -22,7 +22,7 @@
 
 
 ChannelNick::ChannelNick(const NickInfoPtr& nickInfo, const QString& channel)
-: KShared()
+: QSharedData()
 {
     m_nickInfo = nickInfo;
     m_isop = false;
@@ -93,7 +93,7 @@ bool ChannelNick::setMode(char mode, bool state)
         case 'v':
             return setVoice(state);
         default:
-            kDebug() << "Mode '" << mode << "' not recognised in setModeForChannelNick";
+            qDebug() << "Mode '" << mode << "' not recognised in setModeForChannelNick";
             return false;
     }
 }
@@ -184,8 +184,6 @@ QString ChannelNick::getHostmask() const
 
 QString ChannelNick::tooltip() const
 {
-    //  if(addressee.isEmpty()) return QString();
-    //KABC::Addressee addressee = nickInfo->getAddressee();
     QString strTooltip;
     QTextStream tooltip( &strTooltip, QIODevice::WriteOnly );
 
@@ -205,10 +203,10 @@ QString ChannelNick::tooltip() const
     //if(modes.empty()) modes << i18n("A normal user");
     if(!modes.empty())
     {
-        tooltip << "<tr><td><b>" << i18n("Mode") << ":</b></td><td>" << modes.join(", ") << "</td></tr>";
+        tooltip << "<tr><td><b>" << i18n("Mode") << ":</b></td><td>" << modes.join(QStringLiteral(", ")) << "</td></tr>";
     }
     tooltip << "</table></qt>";
-    //kDebug() << strTooltip ;
+    //qDebug() << strTooltip ;
     //if(!dirty) return QString();
     return strTooltip;
 }

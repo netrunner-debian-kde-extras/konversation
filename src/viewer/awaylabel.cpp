@@ -14,8 +14,8 @@
 
 #include <QAction>
 
-#include <KInputDialog>
-#include <KLocale>
+#include <QInputDialog>
+#include <KLocalizedString>
 #include <KMessageBox>
 
 AwayLabel::AwayLabel(QWidget *parent)
@@ -23,10 +23,10 @@ AwayLabel::AwayLabel(QWidget *parent)
 {
     this->setContextMenuPolicy(Qt::ActionsContextMenu);
     QAction *action = new QAction(i18n("&Unaway"),this);
-    connect(action, SIGNAL(triggered()), this, SIGNAL(unaway()));
+    connect(action, &QAction::triggered, this, &AwayLabel::unaway);
     this->addAction(action);
     action = new QAction(i18n("&Change away message..."),this);
-    connect(action, SIGNAL(triggered()), this, SLOT(changeAwayMessage()));
+    connect(action, &QAction::triggered, this, &AwayLabel::changeAwayMessage);
     this->addAction(action);
 }
 
@@ -36,9 +36,9 @@ AwayLabel::~AwayLabel()
 
 void AwayLabel::changeAwayMessage()
 {
-    QString awayMessage = KInputDialog::getText(i18n("Change away message"),i18n("Enter new away message:"));
+    QString awayMessage = QInputDialog::getText(this, i18n("Change away message"),i18n("Enter new away message:"));
     if (!awayMessage.isEmpty())
         emit awayMessageChanged(awayMessage);
 }
 
-#include "awaylabel.moc"
+

@@ -1,1 +1,1 @@
-kde4_install_icons(${ICON_INSTALL_DIR})
+ecm_install_icons(ICONS 128-apps-konversation.png  16-apps-konversation.png  22-actions-konv_message.png  22-apps-konversation.png  32-apps-konversation.png  48-apps-konversation.png  64-apps-konversation.png DESTINATION ${ICON_INSTALL_DIR} THEME hicolor)

@@ -23,11 +23,11 @@
 #include <QSortFilterProxyModel>
 
 #include <kio/global.h>
-#include <kdeversion.h>
+
 
 #include "transfer.h"
 
-class KCategoryDrawerV3;
+class KCategoryDrawer;
 
 namespace Konversation
 {
@@ -79,13 +79,13 @@ namespace Konversation
         class TransferSizeDelegate : public QStyledItemDelegate
         {
         public:
-            explicit TransferSizeDelegate(KCategoryDrawerV3* categoryDrawer, QObject *parent = 0);
+            explicit TransferSizeDelegate(KCategoryDrawer* categoryDrawer, QObject *parent = 0);
 
             virtual QSize sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const;
             virtual void paint(QPainter *painter, const QStyleOptionViewItem & option,
                                 const QModelIndex &index) const;
         private:
-            KCategoryDrawerV3* m_categoryDrawer;
+            KCategoryDrawer* m_categoryDrawer;
         };
 
         class TransferProgressBarDelegate : public QStyledItemDelegate
@@ -148,12 +148,12 @@ namespace Konversation
             static QString getSpeedPrettyText(transferspeed_t speed);
             static QString getTimeLeftPrettyText(int timeleft);
             static QString secToHMS(long sec);
-        signals:
+        Q_SIGNALS:
             //use our own signal that guarantees the data was removed from model
             //NOTE: rowsRemoved does not
             void rowsPermanentlyRemoved (int startrow, int endrow);
 
-        public slots:
+        public Q_SLOTS:
             void transferStatusChanged(Konversation::DCC::Transfer *transfer,
                                        int oldstatus, int newstatus);
 

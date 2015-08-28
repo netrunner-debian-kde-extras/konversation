@@ -16,8 +16,8 @@
 #include "identity.h"
 #include "ui_identitydialog.h"
 
-#include <KDialog>
-#include <kdeversion.h>
+#include <QDialog>
+
 
 class KEditListWidget;
 class KMessageWidget;
@@ -25,7 +25,7 @@ class KMessageWidget;
 namespace Konversation
 {
 
-    class IdentityDialog : public KDialog, private Ui::IdentityDialog
+    class IdentityDialog : public QDialog, private Ui::IdentityDialog
     {
         Q_OBJECT
         public:
@@ -35,16 +35,16 @@ namespace Konversation
             IdentityPtr setCurrentIdentity(IdentityPtr identity);
             IdentityPtr currentIdentity() const;
 
-        public slots:
+        public Q_SLOTS:
             virtual void accept();
 
-        signals:
+        Q_SIGNALS:
             void identitiesChanged();
 
         protected:
             bool checkCurrentIdentity();
 
-        protected slots:
+        protected Q_SLOTS:
             void updateIdentity(int index);
             void refreshCurrentIdentity();
 

@@ -18,19 +18,20 @@
 
 #include <cstdlib>
 #include <sys/types.h>
-#include <netinet/in.h>
-#include <sys/socket.h>
 #ifndef Q_CC_MSVC
+#   include <netinet/in.h>
+#   include <sys/socket.h>
 #   include <net/if.h>
 #   include <sys/ioctl.h>
 #   ifdef HAVE_STROPTS_H
 #       include <stropts.h>
 #   endif
+#   include <arpa/inet.h>
 #endif
-#include <arpa/inet.h>
 
 #include <QHostAddress>
 #include <QTcpServer>
+
 
 namespace Konversation
 {
@@ -51,8 +52,8 @@ namespace Konversation
                 return ip.toString();
 
             default:
-                kDebug() << "unspported protocol: " << ipString;
-                return "";
+                qDebug() << "unspported protocol: " << ipString;
+                return QString();
             }
         }
 
@@ -100,7 +101,7 @@ namespace Konversation
                 ownIp = server->getOwnIpByNetworkInterface();
             }
 
-            kDebug() << ownIp;
+            qDebug() << ownIp;
             return ownIp;
         }
 
@@ -110,10 +111,10 @@ namespace Konversation
             QHostAddress ip(address);
             if (ip.protocol() == QAbstractSocket::IPv6Protocol)
             {
-#ifndef Q_WS_WIN
+#ifndef Q_OS_WIN
                 /* This is fucking ugly but there is no KDE way to do this yet :| -cartman */
                 struct ifreq ifr;
-                const QByteArray addressBa = Preferences::self()->dccIPv4FallbackIface().toAscii();
+                const QByteArray addressBa = Preferences::self()->dccIPv4FallbackIface().toLatin1();
                 const char* address = addressBa.constData();
                 int sock = socket(AF_INET, SOCK_DGRAM, 0);
                 strncpy(ifr.ifr_name, address, IF_NAMESIZE);
@@ -125,9 +126,9 @@ namespace Konversation
                     memcpy(&sock, &ifr.ifr_addr, sizeof(ifr.ifr_addr));
                     fallbackIp = inet_ntoa(sock.sin_addr);
                 }
-                kDebug() << "Falling back to IPv4 address " << fallbackIp;
+                qDebug() << "Falling back to IPv4 address " << fallbackIp;
 #else
-                kDebug() << "TODO: implement ipv6 fallback";
+                qDebug() << "TODO: implement ipv6 fallback";
 #endif
             }
             return fallbackIp;
@@ -169,21 +170,6 @@ namespace Konversation
             }
 
             return socket;
-        }
-
-        int DccCommon::graphicEffectLevelToUpdateInterval(int value)
-        {
-            switch (value)
-            {
-                case KGlobalSettings::NoEffects:
-                case KGlobalSettings::GradientEffects:
-                    return 2000;
-                case KGlobalSettings::SimpleAnimationEffects:
-                    return 1000;
-                case KGlobalSettings::ComplexAnimationEffects:
-                default:
-                    return 500;
-            }
         }
     }
 }

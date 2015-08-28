@@ -16,14 +16,13 @@
 #include "common.h"
 #include "server.h"
 
-#include <KTabWidget>
-
+#include <QAbstractItemModel>
+#include <QMimeData>
+#include <QTabWidget>
 
 class QSplitter;
-class QTabBar;
 
 class KActionCollection;
-class KVBox;
 
 class MainWindow;
 class ViewTree;
@@ -42,12 +41,23 @@ namespace Konversation
 
     namespace DCC
     {
-        class TransferPanel;
         class Chat;
     }
 }
 
-class TabWidget : public KTabWidget
+class ViewMimeData : public QMimeData
+{
+    public:
+        explicit ViewMimeData(ChatWindow *view);
+        ~ViewMimeData();
+
+        ChatWindow* view() const;
+
+    private:
+        ChatWindow *m_view;
+};
+
+class TabWidget : public QTabWidget
 {
     Q_OBJECT
 
@@ -55,15 +65,26 @@ class TabWidget : public KTabWidget
         explicit TabWidget(QWidget* parent = 0);
         ~TabWidget();
 
-    // Suppress krazy2 false positive (cf. kdelibs bug #207747).
-    QTabBar* tabBar() { return KTabWidget::tabBar(); } // krazy:exclude=qclasses
+    Q_SIGNALS:
+        void contextMenu(QWidget* widget, const QPoint& pos);
+        void tabBarMiddleClicked(int index);
+
+    protected:
+        virtual void contextMenuEvent(QContextMenuEvent* event);
+        virtual void mouseReleaseEvent(QMouseEvent* event);
 };
 
-class ViewContainer : public QObject
+class ViewContainer : public QAbstractItemModel
 {
     Q_OBJECT
 
     public:
+        enum DataRoles {
+            ColorRole = Qt::UserRole + 1,
+            DisabledRole,
+            HighlightRole
+        };
+
         explicit ViewContainer(MainWindow* window);
         ~ViewContainer();
 
@@ -75,6 +96,25 @@ class ViewContainer : public QObject
         Server* getFrontServer() { return m_frontServer; }
 
         void prepareShutdown();
+
+        int rowCount(const QModelIndex & parent = QModelIndex()) const;
+        int columnCount(const QModelIndex& parent = QModelIndex()) const;
+
+        QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const;
+        QModelIndex indexForView(ChatWindow* view) const;
+        QModelIndex parent(const QModelIndex& index) const;
+
+        QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
+
+        Qt::DropActions supportedDragActions() const;
+        Qt::DropActions supportedDropActions() const;
+        Qt::ItemFlags flags(const QModelIndex &index) const;
+        QStringList mimeTypes() const;
+        QMimeData* mimeData(const QModelIndexList &indexes) const;
+        bool canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) const;
+        bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent);
+
+        bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex());
 
         QString currentViewTitle();
         QString currentViewURL(bool passNetwork = true);
@@ -89,14 +129,12 @@ class ViewContainer : public QObject
 
         QList<QPair<QString,QString> > getChannelsURI();
 
-    public slots:
+    public Q_SLOTS:
         void updateAppearance();
         void saveSplitterSizes();
-        void setViewTreeShown(bool show);
-        void syncTabBarToTree();
+        void setViewTreeShown(bool show = false);
 
         void updateViews(const Konversation::ServerGroupSettingsPtr serverGroup = Konversation::ServerGroupSettingsPtr());
-        void updateViewIcons();
         void setViewNotification(ChatWindow* widget, const Konversation::TabNotifyType& type);
         void unsetViewNotification(ChatWindow* view);
         void toggleViewNotifications();
@@ -110,12 +148,14 @@ class ViewContainer : public QObject
         void showNextActiveView();
         void showLastFocusedView();
 
+        bool canMoveViewLeft() const;
+        bool canMoveViewRight() const;
         void moveViewLeft();
         void moveViewRight();
 
-        void closeView(QWidget* view);
+        void closeView(int view);
         void closeView(ChatWindow* view);
-        void closeViewMiddleClick(QWidget* view);
+        void closeViewMiddleClick(int view);
         void closeCurrentView();
         void renameKonsole();
         void cleanupAfterClose(ChatWindow* view);
@@ -157,7 +197,7 @@ class ViewContainer : public QObject
         void addDccPanel();
         void closeDccPanel();
         void deleteDccPanel();
-        Konversation::DCC::TransferPanel* getDccPanel();
+        ChatWindow* getDccPanel();
 
         void addDccChat(Konversation::DCC::Chat* myNick);
 
@@ -184,9 +224,8 @@ class ViewContainer : public QObject
         void openNicksOnlinePanel();
         void closeNicksOnlinePanel();
 
-    signals:
-        void viewChanged(ChatWindow* view);
-        void removeView(ChatWindow* view);
+    Q_SIGNALS:
+        void viewChanged(const QModelIndex& idx);
         void setWindowCaption(const QString& caption);
         void updateChannelAppearance();
         void contextMenuClosed();
@@ -206,9 +245,10 @@ class ViewContainer : public QObject
 
         void frontServerChanging(Server*);
 
-    private slots:
+    private Q_SLOTS:
         void setupIrcContextMenus();
         void viewSwitched(int newIndex);
+        void onViewTreeDestroyed(QObject *object);
 
     private:
         void setupTabWidget();
@@ -217,6 +257,8 @@ class ViewContainer : public QObject
         void updateTabWidgetAppearance();
 
         void addView(ChatWindow* view, const QString& label, bool weinitiated=true);
+        int insertIndex(ChatWindow* view);
+        void unclutterTabs();
 
         void updateViewActions(int index);
         void updateFrontView();
@@ -231,7 +273,7 @@ class ViewContainer : public QObject
         QSplitter* m_viewTreeSplitter;
         TabWidget* m_tabWidget;
         ViewTree* m_viewTree;
-        KVBox* m_vbox;
+        QWidget* m_vbox;
         QueueTuner* m_queueTuner;
 
         Images* images;
@@ -247,7 +289,7 @@ class ViewContainer : public QObject
         UrlCatcher* m_urlCatcherPanel;
         NicksOnline* m_nicksOnlinePanel;
 
-        Konversation::DCC::TransferPanel* m_dccPanel;
+        ChatWindow* m_dccPanel;
         bool m_dccPanelOpen;
 
         Konversation::InsertCharDialog* m_insertCharDialog;

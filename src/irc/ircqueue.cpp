@@ -60,7 +60,7 @@ IRCQueue::IRCQueue(Server *server, EmptyingRate& rate, int ind) :
     //KX << _S(m_rate.m_rate) << _S(m_rate.m_interval) << _S(m_rate.m_type) << endl;
     m_timer=new QTimer(this);
     m_timer->setSingleShot(true);
-    connect(m_timer, SIGNAL(timeout()), SLOT(sendNow()));
+    connect(m_timer, &QTimer::timeout, this, &IRCQueue::sendNow);
     if (server)
     {
         connect(server, SIGNAL(serverOnline(bool)), SLOT(serverOnline(bool)));
@@ -71,13 +71,13 @@ IRCQueue::IRCQueue(Server *server, EmptyingRate& rate, int ind) :
 
 IRCQueue::~IRCQueue()
 {
-    kDebug();
+    qDebug();
 }
 
 QString IRCQueue::pop()
 {
     if (m_pending.isEmpty())
-        return QString("");
+        return QString();
 
     IRCMessage msg=m_pending.first();
     m_pending.pop_front();
@@ -121,7 +121,7 @@ int IRCQueue::bytesSent() const
 ///Feedback indicating size of data sent to update statistics. Not necessarily data from this queue!!!
 void IRCQueue::sent(int, int e, IRCQueue *wq)
 {
-    //KX << k_funcinfo << _S(m_mine) << endl;
+    //KX << Q_FUNC_INFO << _S(m_mine) << endl;
     m_globalLinesSent++;
     m_globalBytesSent+=e; // we don't care about the unencoded bytes, we want what went to the server
     if (wq == this) {
@@ -166,7 +166,7 @@ bool IRCQueue::doSend()
 ///it would probably be better to delete and recreate the queue.
 void IRCQueue::reset()
 {
-    // KX << k_funcinfo << endl;
+    // KX << Q_FUNC_INFO << endl;
     m_timer->stop();
     m_lastWait=0;
     if (m_server)
@@ -199,4 +199,4 @@ void IRCQueue::serverOnline(bool on)
     }
 }
 
-#include "ircqueue.moc"
+

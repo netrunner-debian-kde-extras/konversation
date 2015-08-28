@@ -33,7 +33,7 @@ class DBus : public QObject
         QString getNickname (const QString &server);
         QString getChannelEncoding(const QString& server, const QString& channel);
 
-    signals:
+    Q_SIGNALS:
         void dbusSay(const QString& server,const QString& target,const QString& command);
         void dbusInfo(const QString& string);
         void dbusInsertMarkerLine();
@@ -42,13 +42,13 @@ class DBus : public QObject
 
         void connectTo(Konversation::ConnectionFlag flag,
                        const QString& hostName,
-                       const QString& port = "",
-                       const QString& password = "",
-                       const QString& nick = "",
-                       const QString& channel = "",
+                       const QString& port = QString(),
+                       const QString& password = QString(),
+                       const QString& nick = QString(),
+                       const QString& channel = QString(),
                        bool useSSL = false);
 
-    public slots:
+    public Q_SLOTS:
         void setAway(const QString &awaymessage);
         void setBack();
         void sayToAll(const QString &message);
@@ -60,11 +60,12 @@ class DBus : public QObject
         void error(const QString& string);
         void insertMarkerLine();
         void connectToServer(const QString& address, int port, const QString& channel, const QString& password);
+        QStringList listConnections();
         QStringList listServers();
         QStringList listConnectedServers();
         QStringList listJoinedChannels(const QString& server);
 
-    private slots:
+    private Q_SLOTS:
         void changeAwayStatus(bool away);
 };
 
@@ -76,7 +77,7 @@ class IdentDBus : public QObject
         public:
         explicit IdentDBus(QObject *parent = 0);
 
-    public slots:
+    public Q_SLOTS:
         void setrealName(const QString &identity, const QString& name);
         QString getrealName(const QString &identity);
         void setIdent(const QString &identity, const QString& ident);

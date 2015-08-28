@@ -125,21 +125,21 @@ the Free Software Foundation; either version 2 of the License, or
    <item row="0" column="2" rowspan="3">
     <layout class="QVBoxLayout">
      <item>
-      <widget class="KPushButton" name="newButton">
+      <widget class="QPushButton" name="newButton">
        <property name="text">
         <string>&amp;New</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="removeButton">
+      <widget class="QPushButton" name="removeButton">
        <property name="text">
         <string>&amp;Remove</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="removeAllButton">
+      <widget class="QPushButton" name="removeAllButton">
        <property name="text">
         <string>Remove &amp;All</string>
        </property>
@@ -166,17 +166,11 @@ the Free Software Foundation; either version 2 of the License, or
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <layoutfunction spacing="KDialog::spacingHint" margin="KDialog::marginHint"/>
  <customwidgets>
   <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -192,11 +186,6 @@ the Free Software Foundation; either version 2 of the License, or
   <tabstop>removeButton</tabstop>
   <tabstop>removeAllButton</tabstop>
  </tabstops>
- <includes>
-  <include location="local">kpushbutton.h</include>
-  <include location="local">kpushbutton.h</include>
-  <include location="local">kpushbutton.h</include>
- </includes>
  <resources/>
  <connections/>
 </ui>

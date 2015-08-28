@@ -21,7 +21,6 @@
 #include <QMap>
 
 class Server;
-class Query;
 class QDateTime;
 
 class InputFilter : public QObject
@@ -46,7 +45,7 @@ class InputFilter : public QObject
         void setLagMeasuring(bool yes);
         bool getLagMeasuring();
 
-    signals:
+    Q_SIGNALS:
         void welcome(const QString& ownHost);
         void notifyResponse(const QString &nicksOnline);
                                                   // will be connected to Server::startReverseDccSendTransfer()

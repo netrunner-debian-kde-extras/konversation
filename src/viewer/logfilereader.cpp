@@ -24,11 +24,10 @@
 #include <QTextCodec>
 #include <QKeyEvent>
 
-#include <KDialog>
 #include <KToolBar>
 #include <KMessageBox>
-#include <KFileDialog>
-#include <KLocale>
+#include <QFileDialog>
+#include <KLocalizedString>
 #include <KIO/CopyJob>
 #include <KJobUiDelegate>
 
@@ -44,9 +43,9 @@ LogfileReader::LogfileReader(QWidget* parent, const QString& log, const QString&
 
     toolBar = new KToolBar(this, true, true);
     toolBar->setObjectName("logfile_toolbar");
-    toolBar->addAction(KIcon("document-save-as"), i18n("Save As..."), this, SLOT(saveLog()));
-    toolBar->addAction(KIcon("view-refresh"), i18n("Reload"), this, SLOT(updateView()));
-    toolBar->addAction(KIcon("edit-delete"), i18n("Clear Logfile"), this, SLOT(clearLog()));
+    toolBar->addAction(QIcon::fromTheme("document-save-as"), i18n("Save As..."), this, SLOT(saveLog()));
+    toolBar->addAction(QIcon::fromTheme("view-refresh"), i18n("Reload"), this, SLOT(updateView()));
+    toolBar->addAction(QIcon::fromTheme("edit-delete"), i18n("Clear Logfile"), this, SLOT(clearLog()));
 
     toolBar->addWidget(new QLabel(i18n("Show last:"),toolBar));
     sizeSpin = new QSpinBox(toolBar);
@@ -59,7 +58,7 @@ LogfileReader::LogfileReader(QWidget* parent, const QString& log, const QString&
     sizeSpin->setSuffix(i18n(" KB"));
     sizeSpin->installEventFilter(this);
     toolBar->addWidget(sizeSpin);
-    connect(sizeSpin, SIGNAL(valueChanged(int)), this, SLOT(storeBufferSize(int)));
+    connect(sizeSpin, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &LogfileReader::storeBufferSize);
 
     IRCViewBox* ircBox = new IRCViewBox(this);
     setTextView(ircBox->ircView());
@@ -130,7 +129,7 @@ void LogfileReader::updateView()
 
         while(!stream.atEnd())
         {
-            str = Qt::escape(stream.readLine());
+            str = stream.readLine().toHtmlEscaped();
             getTextView()->appendLog(str);
         }
 
@@ -160,16 +159,13 @@ void LogfileReader::saveLog()
         i18n("Save Logfile"),
         "SaveLogfileNote");
 
-    QString destination=KFileDialog::getSaveFileName(fileName,
-        QString(),
-        this,
-        i18n("Choose Destination Folder"));
+    QUrl logUrl = QUrl::fromLocalFile(fileName);
+    QUrl destination = QFileDialog::getSaveFileUrl(this, i18n("Choose Destination Folder"), logUrl);
     if(!destination.isEmpty())
     {
-        KIO::Job* job=KIO::copy(KUrl(fileName),
-            KUrl(destination));
+        KIO::Job* job = KIO::copy(logUrl, destination);
 
-        connect(job,SIGNAL(result(KJob*)),this,SLOT(copyResult(KJob*)));
+        connect(job, &KIO::Job::result, this, &LogfileReader::copyResult);
     }
 }
 
@@ -190,8 +186,14 @@ void LogfileReader::childAdjustFocus()
   getTextView()->setFocus();
 }
 
-int LogfileReader::margin() { return KDialog::marginHint(); }
-int LogfileReader::spacing() { return KDialog::spacingHint(); }
-bool LogfileReader::searchView() { return true; }
+int LogfileReader::margin()
+{
+    return style()->pixelMetric(QStyle::PM_LayoutLeftMargin);
+}
 
-#include "logfilereader.moc"
+int LogfileReader::spacing()
+{
+    return style()->layoutSpacing(QSizePolicy::DefaultType, QSizePolicy::DefaultType, Qt::Horizontal);
+}
+
+bool LogfileReader::searchView() { return true; }

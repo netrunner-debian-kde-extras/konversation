@@ -15,27 +15,27 @@
 
 #include <KIconLoader>
 #include <QPixmap>
-#include <KVBox>
+#include <QVBoxLayout>
 
 IRCViewBox::IRCViewBox(QWidget* parent)
-: KVBox(parent)
+: QWidget(parent)
 {
+    QVBoxLayout* mainLayout = new QVBoxLayout(this);
+    mainLayout->setMargin(0);
     m_ircView = new IRCView(this);
+    mainLayout->addWidget(m_ircView);
     m_searchBar = new SearchBar(this);
+    mainLayout->addWidget(m_searchBar);
     m_searchBar->hide();
     m_matchedOnce = false;
 
-    connect(m_searchBar, SIGNAL(signalSearchChanged(QString)),
-        this, SLOT(slotSearchChanged(QString)));
-    connect(m_searchBar, SIGNAL(signalSearchNext()),
-        this, SLOT(slotSearchNext()));
-    connect(m_searchBar, SIGNAL(signalSearchPrevious()),
-            this, SLOT(slotSearchPrevious()));
-    connect(m_ircView, SIGNAL(doSearch()),
-        SLOT(slotSearch()));
-    connect(m_ircView, SIGNAL(doSearchNext()), this, SLOT(slotSearchNext()));
-    connect(m_ircView, SIGNAL(doSearchPrevious()), this, SLOT(slotSearchPrevious()));
-    connect(m_searchBar, SIGNAL(hidden()), m_ircView, SIGNAL(gotFocus()));
+    connect(m_searchBar, &SearchBar::signalSearchChanged, this, &IRCViewBox::slotSearchChanged);
+    connect(m_searchBar, &SearchBar::signalSearchNext, this, &IRCViewBox::slotSearchNext);
+    connect(m_searchBar, &SearchBar::signalSearchPrevious, this, &IRCViewBox::slotSearchPrevious);
+    connect(m_ircView, &IRCView::doSearch, this, &IRCViewBox::slotSearch);
+    connect(m_ircView, &IRCView::doSearchNext, this, &IRCViewBox::slotSearchNext);
+    connect(m_ircView, &IRCView::doSearchPrevious, this, &IRCViewBox::slotSearchPrevious);
+    connect(m_searchBar, &SearchBar::hidden, m_ircView, &IRCView::gotFocus);
 }
 
 IRCViewBox::~IRCViewBox()
@@ -127,4 +127,4 @@ void IRCViewBox::slotSearchChanged(const QString& pattern)
     m_matchedOnce = match;
 }
 
-#include "ircviewbox.moc"
+

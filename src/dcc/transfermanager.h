@@ -22,7 +22,7 @@
 
 #include <QObject>
 
-#include <KUrl>
+#include <QUrl>
 
 namespace Konversation
 {
@@ -47,7 +47,7 @@ namespace Konversation
                 explicit TransferManager(QObject* parent = 0);
                 ~TransferManager();
 
-            signals:
+            Q_SIGNALS:
                 /*
                  * The status of the item is DccTransfer::Configuring when this signal is emitted.
                  */
@@ -83,7 +83,7 @@ namespace Konversation
 
                 void acceptDccGet(int connectionId, const QString& partnerNick, const QString& fileName);
 
-                bool isLocalFileInWritingProcess(const KUrl& localUrl) const;
+                bool isLocalFileInWritingProcess(const QUrl &localUrl) const;
 
                 int generateReverseTokenNumber();
 
@@ -100,7 +100,7 @@ namespace Konversation
                  */
                 void initTransfer(Transfer* transfer);
 
-            private slots:
+            private Q_SLOTS:
                 void slotTransferStatusChanged(Konversation::DCC::Transfer* item, int newStatus, int oldStatus);
                 void removeSendItem(Konversation::DCC::Transfer* item);
                 void removeRecvItem(Konversation::DCC::Transfer* item);
@@ -119,7 +119,7 @@ namespace Konversation
                 UPnP::UPnPRouter *m_upnpRouter;
 
                 int m_nextReverseTokenNumber;
-                KUrl m_defaultIncomingFolder;  // store here to know if this settings is changed
+                QUrl m_defaultIncomingFolder;  // store here to know if this settings is changed
         };
     }
 }

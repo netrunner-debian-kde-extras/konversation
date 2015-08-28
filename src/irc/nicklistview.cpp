@@ -20,9 +20,11 @@
 
 #include <QHeaderView>
 #include <QDropEvent>
+#include <QMimeData>
 #include <QToolTip>
 #include <QStyledItemDelegate>
 
+#include <KUrlMimeData>
 
 class NickItemDelegate : public QStyledItemDelegate
 {
@@ -253,20 +255,22 @@ void NickListView::contextMenuEvent(QContextMenuEvent* ev)
 
 QStringList NickListView::mimeTypes () const
 {
-    return KUrl::List::mimeDataTypes();
+    return  KUrlMimeData::mimeDataTypes();
 }
 
 bool NickListView::canDecodeMime(QDropEvent const *event) const {
+
     // Verify if the URL is not irc://
-    if (KUrl::List::canDecode(event->mimeData()))
+    if (event->mimeData()->hasUrls())
     {
-        const KUrl::List uris = KUrl::List::fromMimeData(event->mimeData());
+        const QList<QUrl> uris = KUrlMimeData::urlsFromMimeData(event->mimeData());
+
         if (!uris.isEmpty())
         {
-            const KUrl first = uris.first();
+            const QUrl first = uris.first();
 
-            if (first.protocol() == QLatin1String("irc") ||
-                first.protocol() == QLatin1String("ircs") ||
+            if (first.scheme() == QLatin1String("irc") ||
+                first.scheme() == QLatin1String("ircs") ||
                 channel->getNickList().containsNick(first.url()))
                 {
                     return false;
@@ -274,6 +278,7 @@ bool NickListView::canDecodeMime(QDropEvent const *event) const {
         }
         return true;
     }
+
     return false;
 }
 
@@ -306,11 +311,11 @@ bool NickListView::dropMimeData(QTreeWidgetItem *parent, int index, const QMimeD
     Q_UNUSED(action);
     Nick* nick = dynamic_cast<Nick*>(parent);
     if (nick) {
-        const KUrl::List uris = KUrl::List::fromMimeData(data);
+        const QList<QUrl> uris = KUrlMimeData::urlsFromMimeData(data);
         channel->getServer()->sendURIs(uris, nick->getChannelNick()->getNickname());
         return true;
     }
     return false;
 }
 
-#include "nicklistview.moc"
+

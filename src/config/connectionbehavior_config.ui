@@ -69,10 +69,7 @@ the Free Software Foundation; either version 2 of the License, or
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="KIntNumInput" name="kcfg_ReconnectDelay">
-        <property name="label">
-         <string/>
-        </property>
+       <widget class="KPluralHandlingSpinBox" name="kcfg_ReconnectDelay">
         <property name="value">
          <number>120</number>
         </property>
@@ -85,7 +82,7 @@ the Free Software Foundation; either version 2 of the License, or
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="KIntNumInput" name="kcfg_ReconnectCount">
+       <widget class="QSpinBox" name="kcfg_ReconnectCount">
         <property name="value">
          <number>100</number>
         </property>
@@ -238,9 +235,15 @@ CBC or Cipher Block Chaining mode is not supported by FiSH but is supported by M
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="KIntNumInput" name="kcfg_ProxyPort">
+       <widget class="QSpinBox" name="kcfg_ProxyPort">
         <property name="enabled">
          <bool>true</bool>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>65535</number>
         </property>
        </widget>
       </item>
@@ -273,9 +276,6 @@ CBC or Cipher Block Chaining mode is not supported by FiSH but is supported by M
         <property name="echoMode">
          <enum>QLineEdit::Password</enum>
         </property>
-        <property name="urlDropsEnabled">
-         <bool>false</bool>
-        </property>
        </widget>
       </item>
      </layout>
@@ -297,7 +297,6 @@ CBC or Cipher Block Chaining mode is not supported by FiSH but is supported by M
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <layoutfunction spacing="KDialog::spacingHint" margin="KDialog::marginHint"/>
  <customwidgets>
   <customwidget>
    <class>KLineEdit</class>
@@ -310,9 +309,9 @@ CBC or Cipher Block Chaining mode is not supported by FiSH but is supported by M
    <header>kcombobox.h</header>
   </customwidget>
   <customwidget>
-   <class>KIntNumInput</class>
-   <extends>QWidget</extends>
-   <header>knuminput.h</header>
+   <class>KPluralHandlingSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>kpluralhandlingspinbox.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -321,12 +320,6 @@ CBC or Cipher Block Chaining mode is not supported by FiSH but is supported by M
   <tabstop>kcfg_ReconnectCount</tabstop>
   <tabstop>kcfg_RawLog</tabstop>
  </tabstops>
- <includes>
-  <include location="local">knuminput.h</include>
-  <include location="local">knuminput.h</include>
-  <include location="local">knuminput.h</include>
-  <include location="local">knuminput.h</include>
- </includes>
  <resources/>
  <connections/>
 </ui>

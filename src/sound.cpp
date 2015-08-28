@@ -18,14 +18,14 @@
 
 #include "sound.h"
 
-#include <KUrl>
+#include <QUrl>
 
 #include <Phonon/AudioOutput>
 
 
 namespace Konversation
 {
-    Sound::Sound(QObject* parent, const char* name)
+    Sound::Sound(QObject* parent, const QString& name)
         : QObject(parent)
     {
         setObjectName(name);
@@ -33,8 +33,7 @@ namespace Konversation
         m_audioOutput = new Phonon::AudioOutput(Phonon::NotificationCategory, this);
         Phonon::createPath(m_mediaObject, m_audioOutput);
 
-        connect(m_mediaObject, SIGNAL(stateChanged(Phonon::State,Phonon::State)),
-                this, SLOT(tryPlayNext(Phonon::State,Phonon::State)));
+        connect(m_mediaObject, &Phonon::MediaObject::stateChanged, this, &Sound::tryPlayNext);
 
         m_played = false;
     }
@@ -42,7 +41,7 @@ namespace Konversation
     Sound::~Sound()
     {}
 
-    void Sound::play(const KUrl& url)
+    void Sound::play(const QUrl &url)
     {
         if(m_played && ((m_mediaObject->state() != Phonon::PausedState && m_mediaObject->state() != Phonon::StoppedState) || !m_playQueue.isEmpty()))
         {
@@ -68,11 +67,11 @@ namespace Konversation
         }
     }
 
-    void Sound::playSound(const KUrl& url)
+    void Sound::playSound(const QUrl &url)
     {
         m_mediaObject->setCurrentSource(Phonon::MediaSource(url));
         m_mediaObject->play();
     }
 }
 
-#include "sound.moc"
+

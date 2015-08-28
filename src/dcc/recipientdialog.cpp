@@ -21,9 +21,14 @@
 #include <QListView>
 #include <QSortFilterProxyModel>
 #include <QVBoxLayout>
+#include <QDialogButtonBox>
+#include <QPushButton>
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <KLineEdit>
+#include <KSharedConfig>
+#include <KWindowConfig>
+#include <KIconLoader>
 
 namespace Konversation
 {
@@ -32,48 +37,50 @@ namespace Konversation
         QString RecipientDialog::selectedNickname;     // static
 
         RecipientDialog::RecipientDialog(QWidget* parent, QAbstractListModel* model) :
-          KDialog(parent)
+          QDialog(parent)
         {
-            // Create the top level widget
-            QWidget* page=new QWidget(this);
-            setMainWidget(page);
-            setButtons( KDialog::Ok | KDialog::Cancel );
-            setDefaultButton( KDialog::Ok );
             setModal( true );
-            setCaption( i18n("Select Recipient") );
+            setWindowTitle( i18n("Select Recipient") );
             // Add the layout to the widget
-            QVBoxLayout* dialogLayout=new QVBoxLayout(page);
-            dialogLayout->setSpacing(spacingHint());
+            QVBoxLayout* dialogLayout = new QVBoxLayout(this);
             // Add the nickname list widget
             QSortFilterProxyModel *sortModel = new QSortFilterProxyModel(this);
             sortModel->setSortCaseSensitivity(Preferences::self()->sortCaseInsensitive() ? Qt::CaseInsensitive : Qt::CaseSensitive);
             sortModel->setSourceModel(model);
             sortModel->sort(0, Qt::AscendingOrder);
-            QListView* nicknameList = new QListView(page);
+            QListView* nicknameList = new QListView(this);
             nicknameList->setUniformItemSizes(true);
             nicknameList->setModel(sortModel);
 
-            nicknameInput=new KLineEdit(page);
+            nicknameInput = new KLineEdit(this);
 
             dialogLayout->addWidget(nicknameList);
             dialogLayout->addWidget(nicknameInput);
 
-            connect(nicknameList, SIGNAL(clicked(QModelIndex)), this, SLOT(newNicknameSelected(QModelIndex)));
-            connect(nicknameList, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(newNicknameSelectedQuit(QModelIndex)));
+            connect(nicknameList, &QListView::clicked, this, &RecipientDialog::newNicknameSelected);
+            connect(nicknameList, &QListView::doubleClicked, this, &RecipientDialog::newNicknameSelectedQuit);
 
-            setButtonGuiItem(KDialog::Ok, KGuiItem(i18n("&OK"), "dialog-ok", i18n("Select nickname and close the window")));
-            setButtonGuiItem(KDialog::Cancel, KGuiItem(i18n("&Cancel"), "dialog-cancel", i18n("Close the window without changes")));
+            QDialogButtonBox* buttonBox = new QDialogButtonBox(this);
+            dialogLayout->addWidget(buttonBox);
+            QPushButton* button = buttonBox->addButton(QDialogButtonBox::Ok);
+            button->setToolTip(i18n("Select nickname and close the window"));
+            button->setIcon(SmallIcon("dialog-ok"));
+            button->setShortcut(Qt::CTRL | Qt::Key_Return);
+            button->setDefault(true);
+            button = buttonBox->addButton(QDialogButtonBox::Cancel);
+            button->setToolTip(i18n("Close the window without changes"));
+            button->setIcon(SmallIcon("dialog-cancel"));
 
-            restoreDialogSize(KConfigGroup(KGlobal::config(), "DCCRecipientDialog"));
+            KWindowConfig::restoreWindowSize(windowHandle(), KConfigGroup(KSharedConfig::openConfig(), "DCCRecipientDialog"));
 
-            connect( this, SIGNAL(okClicked()), this, SLOT(slotOk()) );
-            connect( this, SIGNAL(cancelClicked()), this, SLOT(slotCancel()) );
+            connect(buttonBox, &QDialogButtonBox::accepted, this, &RecipientDialog::slotOk);
+            connect(buttonBox, &QDialogButtonBox::rejected, this, &RecipientDialog::slotCancel);
         }
 
         RecipientDialog::~RecipientDialog()
         {
-            KConfigGroup config(KGlobal::config(), "DCCRecipientDialog");
-            saveDialogSize(config);
+            KConfigGroup config(KSharedConfig::openConfig(), "DCCRecipientDialog");
+            KWindowConfig::saveWindowSize(windowHandle(), config);
         }
 
         QString RecipientDialog::getSelectedNickname()
@@ -91,7 +98,7 @@ namespace Konversation
             newNicknameSelected(index);
             selectedNickname = nicknameInput->text();
 
-            delayedDestruct();
+            deleteLater();
         }
 
         void RecipientDialog::slotCancel()
@@ -119,4 +126,4 @@ namespace Konversation
     }
 }
 
-#include "recipientdialog.moc"
+

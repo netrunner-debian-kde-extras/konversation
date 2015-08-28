@@ -27,7 +27,7 @@ class OSD_Config : public QWidget, public KonviSettingsPage, private Ui::OSD_Con
     Q_OBJECT
 
     public:
-        explicit OSD_Config( QWidget* parent = 0, const char* name = 0, Qt::WFlags fl = 0 );
+        explicit OSD_Config( QWidget* parent = 0, const char* name = 0, Qt::WindowFlags fl = 0 );
         ~OSD_Config();
 
         virtual void restorePageToDefaults();
@@ -36,7 +36,7 @@ class OSD_Config : public QWidget, public KonviSettingsPage, private Ui::OSD_Con
 
         virtual bool hasChanged();  // implement the interface, will not be used here, though
 
-    protected slots:
+    protected Q_SLOTS:
         void slotOSDEnabledChanged(bool on);
         void slotCustomColorsChanged(bool on);
         void slotTextColorChanged(const QColor& color);

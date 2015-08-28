@@ -27,13 +27,13 @@ class AwayManager : public QObject
         ~AwayManager();
 
 
-    public slots:
+    public Q_SLOTS:
         void identitiesChanged();
 
         void identityOnline(int identityId);
         void identityOffline(int identityId);
 
-        void requestAllAway(const QString& reason = "");
+        void requestAllAway(const QString& reason = QString());
         void requestAllUnaway();
 
         /**
@@ -59,7 +59,7 @@ class AwayManager : public QObject
         void updateGlobalAwayAction(bool away);
 
 
-    private slots:
+    private Q_SLOTS:
         /**
           * Called as soon as the user does some input (after he was away).
           * This will also ensure that the next idle timeout is exactly

@@ -1,1 +1,7 @@
-kde4_create_handbook( index.docbook  INSTALL_DESTINATION ${HTML_INSTALL_DIR}/en SUBDIR konversation )
+add_subdirectory(en)
+add_subdirectory(de)
+add_subdirectory(it)
+add_subdirectory(nl)
+add_subdirectory(pt_BR)
+add_subdirectory(sv)
+add_subdirectory(uk)

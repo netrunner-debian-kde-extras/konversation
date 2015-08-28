@@ -18,13 +18,13 @@
 
 #include <QTreeView>
 
-#include <kdeversion.h>
+
 
 #include "transferlistmodel.h"
 
 class QKeyEvent;
 
-class KCategoryDrawerV3;
+class KCategoryDrawer;
 
 namespace Konversation
 {
@@ -56,10 +56,10 @@ namespace Konversation
             void selectRow(int row);
             void selectRows(QList<int> rows);
 
-        signals:
+        Q_SIGNALS:
             void runSelectedTransfers();
 
-        public slots:
+        public Q_SLOTS:
             void clear();
 
             void headerCustomContextMenuRequested(const QPoint &pos);
@@ -87,11 +87,10 @@ namespace Konversation
             virtual void scrollContentsBy(int dx, int dy);
             virtual void keyPressEvent(QKeyEvent *event);
 
-        protected slots:
+        protected Q_SLOTS:
             void rowsAboutToBeRemovedFromModel(const QModelIndex &parent,
                                                int start, int end);
             void rowsRemovedFromModel(int start, int end);
-            void globalSettingsChanged(int category);
 
         private:
             //extra enum needed because ItemDisplayType are not or-able
@@ -113,7 +112,7 @@ namespace Konversation
 
             inline void addItem(Transfer *transfer, TransferItemData::ItemDisplayType type);
 
-            KCategoryDrawerV3 *m_categoryDrawer;
+            KCategoryDrawer *m_categoryDrawer;
 
             TransferListModel *m_dccModel;
             TransferListProxyModel *m_proxyModel;

@@ -20,8 +20,9 @@
 
 #include <QRegExp>
 
+#include <QDebug>
+#include <KLocalizedString>
 #include <KMessageBox>
-#include <solid/networking.h>
 
 
 ConnectionManager::ConnectionManager(QObject* parent)
@@ -31,7 +32,7 @@ ConnectionManager::ConnectionManager(QObject* parent)
 //    if (Solid::Networking::status() != Solid::Networking::Connected)
 //        m_overrideAutoReconnect = true;
 
-    connect(this, SIGNAL(requestReconnect(Server*)), this, SLOT(handleReconnect(Server*)));
+    connect(this, &ConnectionManager::requestReconnect, this, &ConnectionManager::handleReconnect);
 }
 
 ConnectionManager::~ConnectionManager()
@@ -94,13 +95,13 @@ void ConnectionManager::connectTo(Konversation::ConnectionFlag flag, int serverG
     connectTo(flag, settings);
 }
 
-void ConnectionManager::connectTo(Konversation::ConnectionFlag flag, const QList<KUrl>& list)
+void ConnectionManager::connectTo(Konversation::ConnectionFlag flag, const QList<QUrl>& list)
 {
     QMap<QString,Konversation::ChannelList> serverChannels;
     QMap<QString,ConnectionSettings> serverConnections;
 
-    QList<KUrl>::ConstIterator it = list.constBegin();
-    QList<KUrl>::ConstIterator end = list.constEnd();
+    QList<QUrl>::ConstIterator it = list.constBegin();
+    QList<QUrl>::ConstIterator end = list.constEnd();
 
     for (; it != end; ++it)
     {
@@ -108,13 +109,13 @@ void ConnectionManager::connectTo(Konversation::ConnectionFlag flag, const QList
 
         decodeIrcUrl(it->url(), settings);
 
-        kDebug() << settings.name() << " - "
+        qDebug() << settings.name() << " - "
                  << settings.server().host() << settings.server().port()
                  << settings.server().password() << " - "
-                 << (settings.serverGroup()?settings.serverGroup()->name():"");
+                 << (settings.serverGroup()?settings.serverGroup()->name():QString());
 
         QString sname = (settings.serverGroup() ? settings.serverGroup()->name()
-            : (QString(settings.server().host()) + QString(':') + QString(settings.server().port())));
+            : (settings.server().host() + QLatin1Char(':') + QString::number(settings.server().port())));
 
         if (!serverChannels.contains(sname))
             serverConnections[sname] = settings;
@@ -148,19 +149,19 @@ void ConnectionManager::connectTo(Konversation::ConnectionFlag flag, ConnectionS
 
     if (!identity || !validateIdentity(identity)) return;
 
-    Application* konvApp = static_cast<Application *>(kapp);
+    Application* konvApp = Application::instance();
     MainWindow* mainWindow = konvApp->getMainWindow();
 
     Server* server = new Server(this, settings);
 
     enlistConnection(server->connectionId(), server);
 
-    connect(server, SIGNAL(destroyed(int)), this, SLOT(delistConnection(int)));
+    connect(server, &Server::destroyed, this, &ConnectionManager::delistConnection);
 
     connect(server, SIGNAL(connectionStateChanged(Server*,Konversation::ConnectionState)),
             this, SLOT(handleConnectionStateChange(Server*,Konversation::ConnectionState)));
 
-    connect(server, SIGNAL(awayState(bool)), this, SIGNAL(connectionChangedAwayState(bool)));
+    connect(server, &Server::awayState, this, &ConnectionManager::connectionChangedAwayState);
 
     connect(server, SIGNAL(nicksNowOnline(Server*,QStringList,bool)),
         mainWindow, SLOT(setOnlineList(Server*,QStringList,bool)));
@@ -256,8 +257,8 @@ void ConnectionManager::handleReconnect(Server* server)
 
             server->getStatusView()->appendServerMessage(i18n("Info"),
                 i18np(
-                 "Trying to connect to %2 (port <numid>%3</numid>) in 1 second.",
-                 "Trying to connect to %2 (port <numid>%3</numid>) in %1 seconds.",
+                 "Trying to connect to %2 (port %3) in 1 second.",
+                 "Trying to connect to %2 (port %3) in %1 seconds.",
                  Preferences::self()->reconnectDelay(),
                  settings.server().host(),
                  QString::number(settings.server().port())));
@@ -266,8 +267,8 @@ void ConnectionManager::handleReconnect(Server* server)
         {
             server->getStatusView()->appendServerMessage(i18n("Info"),
                 i18np(
-                 "Trying to reconnect to %2 (port <numid>%3</numid>) in 1 second.",
-                 "Trying to reconnect to %2 (port <numid>%3</numid>) in %1 seconds.",
+                 "Trying to reconnect to %2 (port %3) in 1 second.",
+                 "Trying to reconnect to %2 (port %3) in %1 seconds.",
                  Preferences::self()->reconnectDelay(),
                  settings.server().host(),
                  QString::number(settings.server().port())));
@@ -305,24 +306,24 @@ void ConnectionManager::decodeIrcUrl(const QString& url, ConnectionSettings& set
 
     QString mangledUrl = url;
 
-    mangledUrl.remove(QRegExp("^ircs?:/+"));
+    mangledUrl.remove(QRegExp(QStringLiteral("^ircs?:/+")));
 
     if (mangledUrl.isEmpty()) return;
 
     // Parsing address and channel.
     QStringList mangledUrlSegments;
 
-    mangledUrlSegments = mangledUrl.split('/', QString::KeepEmptyParts);
+    mangledUrlSegments = mangledUrl.split(QLatin1Char('/'), QString::KeepEmptyParts);
 
     // Check for ",isserver".
-    if (mangledUrlSegments[0].contains(','))
+    if (mangledUrlSegments[0].contains(QLatin1Char(',')))
     {
         QStringList addressSegments;
         bool checkIfServerGroup = true;
 
-        addressSegments = mangledUrlSegments[0].split(',', QString::KeepEmptyParts);
+        addressSegments = mangledUrlSegments[0].split(QLatin1Char(','), QString::KeepEmptyParts);
 
-        if (addressSegments.filter("isserver").size() > 0)
+        if (addressSegments.filter(QStringLiteral("isserver")).size() > 0)
             checkIfServerGroup = false;
 
         decodeAddress(addressSegments[0], settings, checkIfServerGroup);
@@ -335,13 +336,13 @@ void ConnectionManager::decodeIrcUrl(const QString& url, ConnectionSettings& set
 
     // Grabbing channel from in front of potential ?key=value parameters.
     if (mangledUrlSegments.size() > 1)
-        channel = mangledUrlSegments[1].section('?', 0, 0);
+        channel = mangledUrlSegments[1].section(QLatin1Char('?'), 0, 0);
 
     if (!channel.isEmpty())
     {
         // Add default prefix to channel if necessary.
-        if (!channel.contains(QRegExp("^[#+&]{1}")))
-            channel = '#' + channel;
+        if (!channel.contains(QRegExp(QStringLiteral("^[#+&]{1}"))))
+            channel = QLatin1Char('#') + channel;
 
         channelSettings.setName(channel);
     }
@@ -350,7 +351,7 @@ void ConnectionManager::decodeIrcUrl(const QString& url, ConnectionSettings& set
     QString parameterString;
 
     if (mangledUrlSegments.size() > 1)
-        parameterString = mangledUrlSegments[1].section('?', 1);
+        parameterString = mangledUrlSegments[1].section(QLatin1Char('?'), 1);
 
     if (parameterString.isEmpty() && mangledUrlSegments.size() > 2)
         parameterString = mangledUrlSegments[2];
@@ -359,7 +360,7 @@ void ConnectionManager::decodeIrcUrl(const QString& url, ConnectionSettings& set
     {
         QRegExp parameterCatcher;
 
-        parameterCatcher.setPattern("pass=([^&]+)");
+        parameterCatcher.setPattern(QStringLiteral("pass=([^&]+)"));
 
         if (parameterCatcher.indexIn(parameterString) != -1)
         {
@@ -370,7 +371,7 @@ void ConnectionManager::decodeIrcUrl(const QString& url, ConnectionSettings& set
             settings.setServer(server);
         }
 
-        parameterCatcher.setPattern("key=([^&]+)");
+        parameterCatcher.setPattern(QStringLiteral("key=([^&]+)"));
 
         if (parameterCatcher.indexIn(parameterString) != -1)
             channelSettings.setPassword(parameterCatcher.cap(1));
@@ -400,43 +401,43 @@ void ConnectionManager::decodeAddress(const QString& address, ConnectionSettings
                                       bool checkIfServerGroup)
 {
     QString host;
-    QString port = "6667";
+    QString port = QStringLiteral("6667");
 
     // Full-length IPv6 address with port
     // Example: RFC 2732 notation:     [2001:0DB8:0000:0000:0000:0000:1428:57ab]:6666
     // Example: Non-RFC 2732 notation: 2001:0DB8:0000:0000:0000:0000:1428:57ab:6666
-    if (address.count(':')==8)
+    if (address.count(QLatin1Char(':'))==8)
     {
-        host = address.section(':',0,-2).remove('[').remove(']');
-        port = address.section(':',-1);
+        host = address.section(QLatin1Char(':'),0,-2).remove(QLatin1Char('[')).remove(QLatin1Char(']'));
+        port = address.section(QLatin1Char(':'),-1);
     }
     // Full-length IPv6 address without port or not-full-length IPv6 address with port
     // Example: Without port, RFC 2732 notation:     [2001:0DB8:0000:0000:0000:0000:1428:57ab]
     // Example: Without port, Non-RFC 2732 notation: 2001:0DB8:0000:0000:0000:0000:1428:57ab
     // Example: With port, RFC 2732 notation:        [2001:0DB8::1428:57ab]:6666
-    else if (address.count(':')>=4)
+    else if (address.count(QLatin1Char(':'))>=4)
     {
         // Last segment does not end with ], but the next to last does;
         // Assume not-full-length IPv6 address with port
         // Example: [2001:0DB8::1428:57ab]:6666
-        if (address.section(':',0,-2).endsWith(']') && !address.section(':',-1).endsWith(']'))
+        if (address.section(QLatin1Char(':'),0,-2).endsWith(QLatin1Char(']')) && !address.section(QLatin1Char(':'),-1).endsWith(QLatin1Char(']')))
         {
-            host = address.section(':',0,-2).remove('[').remove(']');
-            port = address.section(':',-1);
+            host = address.section(QLatin1Char(':'),0,-2).remove(QLatin1Char('[')).remove(QLatin1Char(']'));
+            port = address.section(QLatin1Char(':'),-1);
         }
         else
         {
             QString addressCopy = address;
-            host = addressCopy.remove('[').remove(']');
+            host = addressCopy.remove(QLatin1Char('[')).remove(QLatin1Char(']'));
         }
     }
     // IPv4 address or ordinary hostname with port
     // Example: IPv4 address with port: 123.123.123.123:6666
     // Example: Hostname with port:     irc.bla.org:6666
-    else if (address.count(':')==1)
+    else if (address.count(QLatin1Char(':'))==1)
     {
-        host = address.section(':',0,-2);
-        port = address.section(':',-1);
+        host = address.section(QLatin1Char(':'),0,-2);
+        port = address.section(QLatin1Char(':'),-1);
     }
     else
         host = address;
@@ -484,7 +485,7 @@ bool ConnectionManager::reuseExistingConnection(ConnectionSettings& settings, bo
     ConnectionDupe dupeType;
     bool doReuse = true;
 
-    Application* konvApp = static_cast<Application *>(kapp);
+    Application* konvApp = Application::instance();
     MainWindow* mainWindow = konvApp->getMainWindow();
 
     QMap<int, Server*>::ConstIterator it;
@@ -523,7 +524,7 @@ bool ConnectionManager::reuseExistingConnection(ConnectionSettings& settings, bo
             i18n("Already connected to %1", dupe->getDisplayName()),
             KGuiItem(i18n("Create connection")),
             KStandardGuiItem::cancel(),
-            QString("ReuseExistingConnection"));
+            QStringLiteral("ReuseExistingConnection"));
 
         if (result == KMessageBox::Continue) doReuse = false;
     }
@@ -535,16 +536,16 @@ bool ConnectionManager::reuseExistingConnection(ConnectionSettings& settings, bo
         {
             int result = KMessageBox::warningContinueCancel(
                 mainWindow,
-                i18n("You are presently connected to %1 via '%2' (port <numid>%3</numid>). Do you want to switch to '%4' (port <numid>%5</numid>) instead?",
+                i18n("You are presently connected to %1 via '%2' (port %3). Do you want to switch to '%4' (port %5) instead?",
                     dupe->getDisplayName(),
                     dupe->getServerName(),
-                    dupe->getPort(),
+                    QString::number(dupe->getPort()),
                     settings.server().host(),
-                    settings.server().port()),
+                    QString::number(settings.server().port())),
                 i18n("Already connected to %1", dupe->getDisplayName()),
                 KGuiItem(i18n("Switch Server")),
                 KStandardGuiItem::cancel(),
-                "ReconnectWithDifferentServer");
+                QStringLiteral("ReconnectWithDifferentServer"));
 
             if (result == KMessageBox::Continue)
             {
@@ -583,7 +584,7 @@ bool ConnectionManager::reuseExistingConnection(ConnectionSettings& settings, bo
 
 bool ConnectionManager::validateIdentity(IdentityPtr identity, bool interactive)
 {
-    Application* konvApp = static_cast<Application *>(kapp);
+    Application* konvApp = Application::instance();
     MainWindow* mainWindow = konvApp->getMainWindow();
 
     QString errors;
@@ -693,4 +694,16 @@ void ConnectionManager::reconnectInvoluntary()
         it.value()->reconnectInvoluntary();
 }
 
-#include "connectionmanager.moc"
+void ConnectionManager::onOnlineStateChanged(bool isOnline)
+{
+    if (isOnline) {
+
+        reconnectInvoluntary();
+
+    } else {
+
+        involuntaryQuitServers();
+    }
+}
+
+
