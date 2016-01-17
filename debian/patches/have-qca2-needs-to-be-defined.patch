@@ -1,0 +1,25 @@
+Author: Andy Irving <irv@soundforsound.co.uk>
+Description: HAVE_QCA2 needs to be set before the configuration file
+ is created. Andy Irving proposed the fix in the Debian bug,
+ I (Diane Trout) showed it to Eike Hien, checked that it worked,
+ and pushed it upstream.
+Bug-Debian: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=798036
+Reviewed-by: Diane Trout <diane@debian.org>
+Reviewed-by: Eike Hein <hein@kde.org>
+Applied-Upstream: http://commits.kde.org/konversation/edeedffafb282730fa99a53634a3ea6f8ba6a00a
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -52,11 +52,11 @@
+ check_include_file("byteswap.h" HAVE_BYTESWAP_H)
+ check_include_file("sys/endian.h" HAVE_SYS_ENDIAN_H)
+ 
++set(HAVE_QCA2 ${Qca-qt5_FOUND})
++
+ configure_file(config-konversation.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-konversation.h )
+ include_directories(${CMAKE_CURRENT_BINARY_DIR})
+ 
+-set(HAVE_QCA2 ${Qca-qt5_FOUND})
+-
+ add_definitions(
+   -DQT_USE_QSTRINGBUILDER
+   -DQT_NO_CAST_TO_ASCII
